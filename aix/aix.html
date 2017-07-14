@@ -1,0 +1,797 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AIX 교육 정리</title>
+<style type="text/css">
+html,body{font-size:12px;}
+.console{font-family: monospace;  border:2px gray solid; padding:2px; background-color:#000; color:#fff;}
+.pre{white-space:pre}
+textarea.console{ width:90%;}
+strong{background-color:yellow; color:black}
+.red{background-color:red; color:yellow;}
+</style>
+</head>
+
+<body>
+<h1>AIX 교육 정리
+</h1>
+<ul>
+  <li>설명
+    <ul>
+      <li>{???} : 필수값을 나타냄</li>
+      <li>[???] : 옵션값을 나타냄</li>
+    </ul>
+  </li>
+  <li>링크
+    <ul>
+      <li>AIX 5.3 메뉴얼 :   <a href="http://publib.boulder.ibm.com/infocenter/pseries/v5r3/index.jsp?topic=/com.ibm.helpweb.doc/welcome.htm">http://publib.boulder.ibm.com/infocenter/pseries/v5r3/index.jsp?topic=/com.ibm.helpweb.doc/welcome.htm</a></li>
+      <li>AIX 6.1 메뉴얼 :   <a href="http://publib.boulder.ibm.com/infocenter/aix/v6r1/index.jsp?topic=/com.ibm.aix.cmds/doc/aixcmds4/oslevel.htm">http://publib.boulder.ibm.com/infocenter/aix/v6r1/index.jsp?topic=/com.ibm.aix.cmds/doc/aixcmds4/oslevel.htm</a></li>
+      <li>명령어에 대한 자세한건 링크에서 검색해 볼 수 있다.</li>
+    </ul>
+  </li>
+  <li>파일
+    <ul>
+      <li><a href="ppt/AIX_admin기초_v1.0.ppt">AIX_admin기초_v1.0</a></li>
+      <li><a href="ppt/IBM_시스템_교육_자료.pdf">IBM_시스템_교육_자료</a></li>
+    </ul>
+  </li>
+  <li>작성정보
+    <ul>
+      <li>작성일 : 2011-03-18</li>
+      <li>최종수정일 : 2011-03-22</li>
+    </ul>
+  </li>
+</ul>
+<h2>퀵</h2>
+<ul>
+  <li><strong>현재 메모리 사용율은?</strong>
+<ul>
+      <li>topas에서 % COMP 부분 참고</li>
+    </ul>
+  </li>
+  <li><strong>현재 CPU/메모리/IO 사용율</strong>
+<ul>
+      <li>sar 1 100</li>
+      <li>vmstat 1 100</li>
+      <li>iostat 5 100</li>
+    </ul>
+  </li>
+  <li><strong>페이징 스페이스 사용현황은?</strong>
+  <ul>
+    <li>lsps -s </li>
+    </ul>
+  </li>
+  <li><strong>기술지원받을 때 FRU Number, Part Number를 물어볼 때 이 명령어를 사용하라.</strong>
+<ul>
+      <li>lscfg -vl {장치식별자}</li>
+    </ul>
+  </li>
+  <li><strong>현재 디스크 사용율</strong>
+<ul>
+      <li>df -g : %Used가 90%이상이라면 로그를 지우거나 디스크를 증설하라</li>
+    </ul>
+  </li>
+  <li><strong>시스템의  정보</strong>
+    <ul>
+      <li>호스트명 : hostname</li>
+      <li>접속자 id : id</li>
+      <li>시스템 IP : ifconfig -a</li>
+      <li>OS정보 : oslevel -s , uname -a</li>
+    </ul>
+  </li>
+  <li><strong>파일시스템 체크</strong>
+<ul>
+      <li>fsck -y {마운트명} : 잘못된 부팅 후 체크용, 파일시스템이 고쳐질 때 잘못된 파일들은 사라질 수 있다!</li>
+    </ul>
+  </li>
+  <li><strong>시스템 에러 메세지</strong>
+<ul>
+      <li>errpt </li>
+      <li>errpt -aj {에러식별자}</li>
+    </ul>
+  </li>
+  <li><strong>프로세스가 일정 수 이상 생기지 않는다면? </strong>
+<ul>
+      <li>smit chgsys 에서 max process 의 수(Maximum number of PROCESSES allowed per user)를 조정</li>
+    </ul>
+  </li>
+  <li><strong>핫 스왑으로 새로운 장치를 추가했는 데 사용할 수 없다. 목록에서 보이지 않는다.</strong>
+<ul>
+      <li>cfgmgr</li>
+    </ul>
+  </li>
+</ul>
+<p>&nbsp;</p>
+<h2>중요파일</h2>
+<ul>
+  <li>/etc/inittab 파일 : 부팅시 초기화할 프로세스 목록, alog로 메세지를 알려준다.
+    <ul>
+      <li class="console">init:2:initdefault:<br />
+        brc::sysinit:/sbin/rc.boot 3 &gt;/dev/console 2&gt;&amp;1 # Phase 3 of system boot<br />
+        powerfail::powerfail:/etc/rc.powerfail 2&gt;&amp;1 | alog -tboot &gt; /dev/console # Power Failure Detection<br />
+        powermig:2:wait:/etc/rc.powermig transition &gt;/dev/null 2&gt;&amp;1  # powermig startup<br />
+        mkatmpvc:2:once:/usr/sbin/mkatmpvc &gt;/dev/console 2&gt;&amp;1<br />
+        atmsvcd:2:once:/usr/sbin/atmsvcd <strong>&gt;/dev/console 2&gt;&amp;1 <br />
+          {ID}:{runlevel}:{action}:{command}</strong> <br />
+        <strong>{식별자}:{실행레벨}:{조치}:{명령어} </strong> </li>
+      <li>runlevel : 실행레벨
+        <ul>
+          <li>0~9까지 존재</li>
+          <li><strong>2 : 기본, 다중 사용자 모드</strong></li>
+          <li>0 : 단일 사용자모드</li>
+          <li>지정하지 않으면 모든 실행 레벨에서 실행됨</li>
+        </ul>
+      </li>
+      <li>action : 조치
+        <ul>
+          <li>spawn : 프로세스가 시작되지 않았으면 시작</li>
+
+          <li><strong>once : 프로세스를 시작, 중단되면 다시 시작</strong></li>
+          <li>wait : 프로세스를 시작, 이 프로세스가 시작 완료가 되야 다음 프로세스가 시작됨</li>
+          <li>sysinit : 콘솔 사용전에 프로세스를 시작</li>
+        </ul>
+      </li>
+      <li><strong>일반적으로 runlevel은 2에 action은 once 임</strong></li>
+      <li>명령어 &gt; /dev/console 2&gt;&amp;1 : /dev/console 로 기본 출력하고 에러도 /dev/console로 출력하게 함</li>
+    </ul>
+  </li>
+  <li>/etc/filesystems : 마운트 관런 파일 시스템 정보
+    <ul>
+      <li>
+        <div class="console"><strong>/oracle:</strong> <strong>(마운트 위치)</strong><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dev&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;/dev/oralv<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vfs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;jfs2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;/dev/loglv00<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>mount&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;true</strong> <strong>(부팅 시 자동마운트 설정, true 면 자동 마운트 함)</strong><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;options&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;rw<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;account&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;false</div></li>
+    </ul>
+  </li>
+  <li>/etc/hosts : hosts 파일</li>
+  <li>증가하는 파일 관리
+    <ul>
+      <li>/var/adm/wtmp : 로그인, 시스템 관련 정보들
+        <ul>
+          <li>사용법 목록보기 : who /var/adm/wtmp </li>
+        </ul>
+      </li>
+      <li>/var/spool/*/* : 사용자별 메일, 크론탭, 프린트 등의 파일
+        <ul>
+          <li>오래된 파일은 삭제</li>
+        </ul>
+      </li>
+      <li>smit.log , smit.script
+        <ul>
+          <li>너무 크다면 지우거나 줄여준다.</li>
+        </ul>
+      </li>
+      <li>/etc/security/failedlogin : 로그인 실패 기록
+        <ul>
+          <li>삭제 명령어 : cat /dev/null &gt; /etc/security/failedlogin </li>
+        </ul>
+      </li>
+      <li>/var/adm/sulog : su명령어의 목록</li>
+    </ul>
+  </li>
+</ul>
+<h2>모니터링 명령어</h2>
+<ul>
+  <li>df : 디스크의 남은 용량 표시
+    <ul>
+      <li>df -k , df -m , df -g : 킬로,메가,기가 바이트로 표시</li>
+    </ul>
+  </li>
+  <li>에러메세징 툴
+    <ul>
+      <li>errpt | more : 에러메세지를 보여준다.</li>
+      <li>errpt -aj  {식별자} : 에러메세지의 자세한 내용과 대처법을 보여준다.</li>
+    </ul>
+  </li>
+  <li>topas(시스템 모니터링)
+    <ul>
+      <li>
+        <div class="console">Topas&nbsp;Monitor&nbsp;for&nbsp;host:&nbsp;&nbsp;&nbsp;&nbsp;ibm690&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EVENTS/QUEUES&nbsp;&nbsp;&nbsp;&nbsp;FILE/TTY<br />
+          Fri&nbsp;Mar&nbsp;18&nbsp;14:58:39&nbsp;2011&nbsp;&nbsp;&nbsp;Interval:&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cswitch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;231&nbsp;&nbsp;Readch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2558<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Syscall&nbsp;&nbsp;&nbsp;&nbsp;4665&nbsp;&nbsp;Writech&nbsp;&nbsp;&nbsp;23202<br />
+          CPU&nbsp;&nbsp;User%&nbsp;&nbsp;Kern%&nbsp;&nbsp;Wait%&nbsp;&nbsp;Idle%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reads&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;36&nbsp;&nbsp;Rawin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+          ALL&nbsp;&nbsp;&nbsp;&nbsp;0.3&nbsp;&nbsp;&nbsp;&nbsp;0.9&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;98.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Writes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;52&nbsp;&nbsp;Ttyout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;844<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Forks&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;Igets&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+          Network&nbsp;&nbsp;KBPS&nbsp;&nbsp;&nbsp;I-Pack&nbsp;&nbsp;O-Pack&nbsp;&nbsp;&nbsp;KB-In&nbsp;&nbsp;KB-Out&nbsp;&nbsp;Execs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;Namei&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;539<br />
+          en4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.9&nbsp;&nbsp;Runqueue&nbsp;&nbsp;&nbsp;&nbsp;0.5&nbsp;&nbsp;Dirblk&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+          en1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;Waitqueue&nbsp;&nbsp;&nbsp;0.0<br />
+          lo0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PAGING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEMORY<br />
+          Disk&nbsp;&nbsp;&nbsp;&nbsp;Busy%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KBPS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TPS&nbsp;KB-Read&nbsp;KB-Writ&nbsp;&nbsp;Faults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;<strong>Real,MB&nbsp;&nbsp;&nbsp;63744</strong> <strong>(실제 메모리량)</strong><br />
+          power0&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;16.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.0&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;16.0&nbsp;&nbsp;&nbsp;Steals&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;<strong>%&nbsp;Comp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20</strong> <strong>(메모리 사용량)</strong><br />
+          hdisk10&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.0&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.0&nbsp;&nbsp;&nbsp;PgspIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;<strong>%&nbsp;Noncomp&nbsp;&nbsp;79</strong> <strong>(캐쉬된 메모리량)</strong><br />
+          hdisk6&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.0&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.0&nbsp;&nbsp;&nbsp;PgspOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;%&nbsp;Client&nbsp;&nbsp;&nbsp;79<br />
+          hdisk17&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;PageIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+          hdisk16&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;PageOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;PAGING&nbsp;SPACE<br />
+          hdisk15&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;Sios&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;Size,MB&nbsp;&nbsp;&nbsp;53248<br />
+          hdisk4&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>%&nbsp;Used&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</strong> <strong>(페이징 사용량, 높으면 안좋음!)</strong><br />
+          hdisk8&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;NFS&nbsp;(calls/sec)&nbsp;&nbsp;%&nbsp;Free&nbsp;&nbsp;&nbsp;&nbsp;100<br />
+          hdisk7&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;ServerV2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+          hdisk14&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;ClientV2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;Press:<br />
+          hdisk2&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;ServerV3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&quot;h&quot;&nbsp;for&nbsp;help<br />
+          hdisk9&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;ClientV3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&quot;q&quot;&nbsp;to&nbsp;quit<br />
+          power2&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0<br />
+          power3&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0<br />
+          hdisk11&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0<br />
+          hdisk12&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0<br />
+          <br />
+          Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PID&nbsp;&nbsp;CPU%&nbsp;&nbsp;PgSp&nbsp;Owner<br />
+          topas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24072308&nbsp;&nbsp;&nbsp;0.6&nbsp;&nbsp;30.1&nbsp;root&nbsp;&nbsp;<br />
+          zagent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;716934&nbsp;&nbsp;&nbsp;0.5&nbsp;&nbsp;22.8&nbsp;root&nbsp;&nbsp;<br />
+          oracle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;274646&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;8.9&nbsp;oracle<br />
+          gil&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;114744&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;0.1&nbsp;root&nbsp;&nbsp;<br />
+          java&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;479468&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;20.9&nbsp;root&nbsp;&nbsp;<br />
+          oracle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;458770&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;5.7&nbsp;oracle<br />
+          oracle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;499714&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;3.9&nbsp;oracle<br />
+          aioserve&nbsp;&nbsp;&nbsp;&nbsp;8085612&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;0.1&nbsp;root&nbsp;&nbsp;<br />
+          oracle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20381894&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;5.9&nbsp;oracle<br />
+          oracle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;475144&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;6.9&nbsp;oracle<br />
+          resv_min&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;237688&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;0.1&nbsp;root&nbsp;&nbsp;<br />
+          aioserve&nbsp;&nbsp;&nbsp;13459628&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;0.1&nbsp;root<br />
+          aioserve&nbsp;&nbsp;&nbsp;13463726&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;0.1&nbsp;root<br />
+          aioserve&nbsp;&nbsp;&nbsp;&nbsp;1966298&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;0.1&nbsp;root&nbsp;&nbsp;<br />
+          java&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;385250&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;43.2&nbsp;root&nbsp;&nbsp;<br />
+          xntpd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;295118&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;0.4&nbsp;root&nbsp;&nbsp;<br />
+          oracle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;23982306&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;3.7&nbsp;oracle<br />
+          pp2d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;168044&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;0.1&nbsp;root<br />
+          oracle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24064080&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;3.7&nbsp;oracle</div>
+      </li>
+      <li>topas -P : 프로세스 목록을 보여준다(리눅스의 top과 비슷해진다.)</li>
+    </ul>
+  </li>
+  <li>vmstat : 메모리 모니터링
+    <ul>
+      <li>
+        <div class="console">[IBM-P6-550]&nbsp;[ibm690:root:/]#&nbsp;vmstat&nbsp;1&nbsp;10<br />
+          <br />
+          System&nbsp;Configuration:&nbsp;lcpu=16&nbsp;mem=63744MB<br />
+          <br />
+          kthr&nbsp;&nbsp;&nbsp;&nbsp;memory&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;page&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;faults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu&nbsp;&nbsp;&nbsp;&nbsp;<br />
+          -----&nbsp;-----------&nbsp;------------------------&nbsp;------------&nbsp;-----------<br />
+          &nbsp;<strong>r</strong>&nbsp;&nbsp;<strong>b</strong>&nbsp;&nbsp;&nbsp;avm&nbsp;&nbsp;&nbsp;fre&nbsp;&nbsp;re&nbsp;&nbsp;pi&nbsp;&nbsp;po&nbsp;&nbsp;fr&nbsp;&nbsp;&nbsp;sr&nbsp;&nbsp;cy&nbsp;&nbsp;in&nbsp;&nbsp;&nbsp;sy&nbsp;&nbsp;cs&nbsp;us&nbsp;sy&nbsp;<strong>id</strong>&nbsp;<strong>wa</strong><br />
+          &nbsp;0&nbsp;&nbsp;0&nbsp;3263098&nbsp;10606&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;270&nbsp;269&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;99&nbsp;&nbsp;0<br />
+          &nbsp;0&nbsp;&nbsp;0&nbsp;3263099&nbsp;10605&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;6&nbsp;&nbsp;189&nbsp;281&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;99&nbsp;&nbsp;0<br />
+          &nbsp;0&nbsp;&nbsp;0&nbsp;3263098&nbsp;10606&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;249&nbsp;283&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;99&nbsp;&nbsp;0<br />
+          &nbsp;1&nbsp;&nbsp;1&nbsp;3263098&nbsp;10594&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;95&nbsp;2051&nbsp;498&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;99&nbsp;&nbsp;0<br />
+          &nbsp;0&nbsp;&nbsp;0&nbsp;3263098&nbsp;10594&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;4&nbsp;1428&nbsp;342&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;99&nbsp;&nbsp;0<br />
+          &nbsp;0&nbsp;&nbsp;0&nbsp;3263098&nbsp;10585&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;11&nbsp;&nbsp;365&nbsp;292&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;99&nbsp;&nbsp;0<br />
+          &nbsp;0&nbsp;&nbsp;0&nbsp;3263098&nbsp;10585&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;241&nbsp;255&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;99&nbsp;&nbsp;0<br />
+          &nbsp;0&nbsp;&nbsp;0&nbsp;3263098&nbsp;10585&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;4&nbsp;1024&nbsp;269&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;99&nbsp;&nbsp;0<br />
+          &nbsp;1&nbsp;&nbsp;0&nbsp;3264049&nbsp;&nbsp;9616&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;92&nbsp;3934&nbsp;468&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;99&nbsp;&nbsp;0<br />
+          &nbsp;0&nbsp;&nbsp;0&nbsp;3264049&nbsp;&nbsp;9607&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;115&nbsp;1994&nbsp;666&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;99&nbsp;&nbsp;0</div>
+      </li>
+      <li><strong>r과 b가 높으면 시스템이 느린 상태이다.</strong>
+        <ul>
+          <li>r :  Average number of runnable kernel threads over the sampling interval. Runnable refers to threads that are ready but waiting to run and to those threads already running. <br />
+            (동작 준비중인 커널 쓰레드 평균값) </li>
+          <li>b :   Average number of kernel threads placed in the VMM wait queue (awaiting resource, awaiting input/output) over the sampling interval. <br />
+            (리소스/입출력 기다림 때문에 멈춰있는 커널 쓰레드 평균값) </li>
+        </ul>
+      </li>
+      <li>id는 CPU IDLE로 보통 90이상이다.</li>
+      <li>wa : CPU 의 IO사용율</li>
+    </ul>
+  </li>
+  <li>sar : CPU 모니터링
+    <ul>
+      <li>
+        <div class="console">[IBM-P6-550]&nbsp;[ibm690:root:/]#&nbsp;sar&nbsp;1&nbsp;10<br />
+          <br />
+          AIX&nbsp;ibm690&nbsp;3&nbsp;5&nbsp;00C033D54C00&nbsp;&nbsp;&nbsp;&nbsp;03/18/11<br />
+          <br />
+          System&nbsp;configuration:&nbsp;lcpu=16&nbsp;&nbsp;mode=Capped&nbsp;<br />
+          <br />
+          15:14:34&nbsp;&nbsp;&nbsp;&nbsp;%usr&nbsp;&nbsp;&nbsp;&nbsp;%sys&nbsp;&nbsp;&nbsp;&nbsp;%wio&nbsp;&nbsp;&nbsp;%idle&nbsp;&nbsp;&nbsp;physc<br />
+          15:14:35&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;&nbsp;&nbsp;&nbsp;8.00<br />
+          15:14:36&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;&nbsp;&nbsp;&nbsp;7.99<br />
+          15:14:37&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;&nbsp;&nbsp;&nbsp;7.99<br />
+          15:14:38&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;&nbsp;&nbsp;&nbsp;8.03<br />
+          15:14:39&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;99&nbsp;&nbsp;&nbsp;&nbsp;7.97<br />
+          15:14:40&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;&nbsp;&nbsp;&nbsp;8.00<br />
+          15:14:41&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;&nbsp;&nbsp;&nbsp;8.05<br />
+          15:14:42&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;&nbsp;&nbsp;&nbsp;7.95<br />
+          15:14:43&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;&nbsp;&nbsp;&nbsp;8.00<br />
+          15:14:44&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;99&nbsp;&nbsp;&nbsp;&nbsp;8.05<br />
+          <br />
+          Average&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;&nbsp;&nbsp;&nbsp;8.00</div>
+      </li>
+      <li>idle 숫자가 낮다면 체크필요</li>
+      <li>%wio : IO관련 CPU사요율 (높다면 하드/nfs쪽 데이터 사용율이 높다. 캐싱을 쓰도록 프로그래밍 변경해야할까?)</li>
+      <li>physc : 현재 사용중인 프로세서 수</li>
+    </ul>
+  </li>
+  <li>iostat : IO 모니터링
+    <ul>
+      <li>iostat 10 10 : 10초 간격으로 10번 상태를 보여준다.</li>
+      <li>
+        <div class="console">[IBM-P6-550]&nbsp;[ibm690:root:/]#&nbsp;iostat<br />
+          <br />
+          System&nbsp;configuration:&nbsp;lcpu=16&nbsp;drives=23&nbsp;paths=2&nbsp;vdisks=0<br />
+          <br />
+          tty:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tout&nbsp;&nbsp;&nbsp;&nbsp;avg-cpu:&nbsp;%&nbsp;user&nbsp;%&nbsp;sys&nbsp;%&nbsp;idle&nbsp;<strong>%&nbsp;iowait</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.9&nbsp;&nbsp;&nbsp;1.0&nbsp;&nbsp;&nbsp;97.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>0.3</strong><br />
+          <br />
+          Disks:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%&nbsp;tm_act&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kbps&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tps&nbsp;&nbsp;&nbsp;&nbsp;Kb_read&nbsp;&nbsp;&nbsp;Kb_wrtn<br />
+          hdisk14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+          hdisk2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+          hdisk5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;106.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.0&nbsp;&nbsp;&nbsp;462937373&nbsp;&nbsp;459311532<br />
+          hdisk6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;109.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.5&nbsp;&nbsp;&nbsp;462214875&nbsp;&nbsp;489699700<br />
+          hdisk3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;113.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.8&nbsp;&nbsp;&nbsp;458775188&nbsp;&nbsp;528107432<br />
+          hdisk17&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;105.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.0&nbsp;&nbsp;&nbsp;462629721&nbsp;&nbsp;455209064<br />
+          hdisk16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+          hdisk15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;113.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.8&nbsp;&nbsp;&nbsp;458738965&nbsp;&nbsp;523233432<br />
+          hdisk4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+          hdisk8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;110.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.3&nbsp;&nbsp;&nbsp;457516711&nbsp;&nbsp;498477740<br />
+          hdisk7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+          hdisk9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+          hdisk11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+          hdisk12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;109.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.3&nbsp;&nbsp;&nbsp;457442698&nbsp;&nbsp;496537212<br />
+          hdisk13&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+          hdisk10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;109.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.5&nbsp;&nbsp;&nbsp;461400902&nbsp;&nbsp;488037868<br />
+          hdisk0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.7&nbsp;&nbsp;&nbsp;&nbsp;2462014&nbsp;&nbsp;86645556<br />
+          hdisk1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;394226&nbsp;&nbsp;86653492<br />
+          cd0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+          hdiskpower0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;218.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9.1&nbsp;&nbsp;&nbsp;923615777&nbsp;&nbsp;977737568<br />
+          hdiskpower1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;226.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9.6&nbsp;&nbsp;&nbsp;917514153&nbsp;&nbsp;1051340864<br />
+          hdiskpower2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;219.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.7&nbsp;&nbsp;&nbsp;914959409&nbsp;&nbsp;995014952<br />
+          hdiskpower3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;211.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.0&nbsp;&nbsp;&nbsp;925567094&nbsp;&nbsp;914520596</div>
+      </li>
+      <li>% iowait : 높다면 CPU가 IO 관련해서 작업을 많이 하고있는 것이다.(보통 0.3을 안넘어가더라)</li>
+      <li>% tm_act : 디스크 동작 시간 비율(숫자가 높다면 해당 디스크를 계속 적으로 사용 중이다.)</li>
+    </ul>
+  </li>
+  <li>svmon :  Captures and analyzes a snapshot of virtual memory.
+  	<ul>
+  		<li>svnmon -G : 시스템 상태
+			<li>
+			<div class="console">[IBM-P6-550]&nbsp;[ibm690:/oracle]$&nbsp;svmon&nbsp;-G<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inuse&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;virtual<br />
+memory&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16318464&nbsp;&nbsp;&nbsp;&nbsp;16312228&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6236&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1216854&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3282425<br />
+pg&nbsp;space&nbsp;&nbsp;&nbsp;13631488&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;33296<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;work&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clnt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;other<br />
+pin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;671932&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;544922<br />
+in&nbsp;use&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3282425&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;13029803</div>
+			</li>
+ 		</ul>
+  </li>
+  <li>nmon : 시스템 모니터링
+    <ul>
+      <li>nmon 명령어 후 c,m,d 를 누르면 CPU, MEMORY, DISK 관련 정보가 보인다.(NETWORK는 n)</li>
+    </ul>
+  </li>
+</ul>
+<h2>시스템 관리 명령어</h2>
+<ul>
+  <li><strong>SMIT : 시스템 관리 툴</strong>
+<ul>
+      <li>명령어 : smit , smitty</li>
+      <li>AIX의 약 70%의 시스템 제어가 가능</li>
+      <li>특이점
+        <ul>
+          <li>대화형 메뉴</li>
+          <li>ASCII 모드에서는  F1 같은 펑션키는 ESC+1 로 써야함</li>
+          <li>smit date 처럼 빠른패스를 사용할 수 있음</li>
+          <li>로그
+            <ul>
+              <li>$HOME/smit.script : 스미티로 동작한 명령어</li>
+              <li>$HOME/smit.log :스미티 사용 내역</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>사용팁
+        <ul>
+          <li>ESC+0 : 종료</li>
+          <li>ESC+3 : cancel(뒤로가기)</li>
+          <li>ESC+4 : 선택된 필드에서 사용할 수 있는 아이템 목록 </li>
+          <li>ESC+7 : 다중 선택</li>
+          <li>ESC+8 : fast path</li>
+          <li></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>alog : 시스템 시작 메세지 보기 프로그램
+    <ul>
+      <li>부팅 메세지 보기</li>
+      <li class="console">[IBM-P6-550] [ibm690:root:/]# <strong>alog -ot boot | more</strong><br />
+        1<br />
+        Return code = 0<br />
+        ***** stdout *****<br />
+        rmt0 ses0 <br />
+        *** no stderr ****<br />
+        ----------------<br />
+        Time: 1 LEDS: 0x539<br />
+        Number of running methods: 0<br />
+        ----------------<br /> 
+        ... 생략
+        <br />
+      </li>
+    </ul>
+  </li>
+  <li>시스템 자원 관리 명령어
+    <ul>
+      <li>명령어 -s {서브시스템 명}
+        <ul>
+          <li>명령어 -s {서브시스템}</li>
+          <li>명령어 -p {PID}</li>
+        </ul>
+      </li>
+      <li><strong>lssrc -s inetd : 텔렛 데몬 상태 보기</strong></li>
+      <li>stopsrc -s inetd : 텔렛 데몬 정지</li>
+      <li>startsrc -s inetd : 텔렛 데몬 시작</li>
+      <li>refreshsrc -s inetd : 텔렛 데몬 설정을 다시 읽어드림</li>
+    </ul>
+  </li>
+  <li>shutdown
+    <ul>
+      <li>shutdown -F : 시스템 종료(전원까지 꺼짐)</li>
+      <li>shutdown -r : 시스템 재시작</li>
+    </ul>
+  </li>
+  <li>hostname : 호스트명 보기</li>
+  <li>uname -a : OS정보보기
+    <ul>
+      <li>
+        <div class="console">[IBM-P6-550] [ibm690:root:/etc]# uname -a<br />
+      AIX ibm690 3 5 00C033D54C00</div></li>
+    </ul>
+  </li>
+  <li>oslevel -s : OS정보보기
+    <ul>
+      <li class="console">[IBM-P6-550] [ibm690:root:/]# oslevel -s<br />
+        5300-12-01-1016<br />
+        {OS버전}-{tech버전}-{패치버전}-{????}
+      =&gt; 5.3.0.0 버전</li>
+    </ul>
+  </li>
+  <li>시스템 장지 관리 명령어
+    <ul>
+      <li><strong>lsdev -C : 모든 장치 목록을 보여줌</strong>
+<ul>
+          <li><strong>lsdev -Cc adapter : 어댑터 관련 장치 목록</strong></li>
+        </ul>
+      </li>
+      <li>prtconf -v : 장치의 자세한 정보(시리얼까지 보임)</li>
+      <li><strong>lscfg -vl ent1 : 장치의 자세한 정보(시리얼까지 보임)</strong>
+<ul>
+          <li>기술지원받을 때 FRU Number, Part Number를 물어볼 때 이 명령어를 사용하라.</li>
+        </ul>
+      </li>
+      <li>lsattr : 장비 속성을 보여줌
+        <ul>
+          <li>lsattr -El sys0 -a realmem : 사용가능한 물리(실제)메모리를 보여줌
+      </li>
+</ul>
+      </li>
+      <ul>
+        <li class="console">[IBM-P6-550] [ibm690:root:/]# <strong>lsattr -El sys0 -a realmem</strong><br />
+        realmem <strong>65273856</strong> Amount of usable physical memory in Kbytes False</li>
+      </ul>
+      <li><strong>cfgmgr : 추가/설치 된 장치를 사용할 수 있게 해준다.(undefined/defined -&gt; abailable)</strong></li>
+      <li>rmdev -dl {장치명} : 장치 구성 삭제 (시스템에서 사용하지 못하게)한다.(undefined로 변경) <strong class="red">(사용금지)</strong></li>
+      <li>rmdev -l {장치명} : 장치 구성 해제 (시스템에서 사용하지 못하게)한다.(defined로 변경) <strong class="red">(사용금지)</strong></li>
+    </ul>
+  </li>
+  <li>fsck : 파일 시스템 체크
+    <ul>
+      <li>fsck -y {마운트 명}</li>
+    </ul>
+  </li>
+  <li>Paging Space
+    <ul>
+      <li>lsps -a : 현재 페이징 스페이지 정보(위치와 용량등)</li>
+      <li>lsps -s : 사용현황</li>
+      <li>smit pgsp : 페이징 스페이스 관리페이지
+        <ul>
+          <li>페이징 스페이스 크기는 동일한 용량으로 각기 다른 하디디스크에 두는 것이 좋다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>소프트웨어 설치및 유지보수
+    <ul>
+      <li>smit install : 소프트웨어 설치 관리자 페이지</li>
+      <li> lslpp -l bos.* : bos관련 설치된 소프트웨어 목록 나열</li>
+      <li>잘못 설치시 큰 문제가 생기므로, 기술지원 받을 때 목록 찾는 정도로만 사용하라!</li>
+    </ul>
+  </li>
+  <li>백업
+    <ul>
+      <li>mksysb -ip /dev/rmt0 : rootvg 백업하기 (/dev/rmt0 는 태입장치, 마운트가 된 부분만 백업이 된다.)
+        <ul>
+          <li>-p 옵션 : 백업시점에 파일이 수정되더라도 백업시점의 파일로 백업한다.</li>
+        </ul>
+      </li>
+      <li>save vg -if /dev/rmt0 oravg : oravg 백업하기</li>
+      <li>tar -cvf  /dev/rmt0 /oracle/* : 폴더 단위 압축 백업</li>
+      <li>tar -xvf  /dev/rmt0 . : 폴더 단위 압축풀기 복구</li>
+      <li>tar -tvf /dev/rmt0 : 압축 속 파일 목록</li>
+    </ul>
+  </li>
+  <li>그룹추가
+    <ul>
+      <li>smit groups : 그릅 관리자 페이지</li>
+      <li>/etc/group 파일에 내역이 저장됨</li>
+    </ul>
+  </li>
+  <li>사용자 추가
+    <ul>
+      <li>smit users : 사용자 관리자 페이지</li>
+      <li>mkuser {유저명} : 사용자 추가</li>
+      <li>/etc/passwd 파일에 내역이 저장됨</li>
+    </ul>
+  </li>
+  <li>네트워크 관리
+    <ul>
+      <li>smit mktcpip : 초기 세팅용, 처음 한번만 동작시켜야한다!
+        <ul>
+          <li>/etc/hosts 파일에 host name과 설정이 매핑된다.</li>
+        </ul>
+      </li>
+      <li>smit inet : 추가시 Add a Network Interface를 사용해서 추가하라!</li>
+      <li>ifconfig -a : 네트워크 어댑터와 관련 정보(IP등)</li>
+      <li>netstat
+        <ul>
+          <li>netstat -i : 네트워크 어댑터 정보</li>
+          <li>netstat -r : 라우팅 테이블</li>
+        </ul>
+      </li>
+      <li>traceroute {IP} : 라우팅 트레이스</li>
+    </ul>
+  </li>
+  <li>OS 설정 관리
+    <ul>
+      <li>smit system : 시스템 설정 페이지 (Change / Show Characteristics of Operating System  메뉴에서 확인/수정 할 수 있다.)</li>
+      <li>시스템에 맞춰서 max process 수를 조정하라!</li>
+      <li><div class="console">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Change&nbsp;/&nbsp;Show&nbsp;Characteristics&nbsp;of&nbsp;Operating&nbsp;System<br />
+<br />
+Type&nbsp;or&nbsp;select&nbsp;values&nbsp;in&nbsp;entry&nbsp;fields.<br />
+Press&nbsp;Enter&nbsp;AFTER&nbsp;making&nbsp;all&nbsp;desired&nbsp;changes.<br />
+&nbsp;&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Entry&nbsp;Fields]<br />
+&nbsp;&nbsp;System&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0X800000233C900000<br />
+&nbsp;&nbsp;Partition&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0X800000233C900001<br />
+&nbsp;&nbsp;<strong>Maximum&nbsp;number&nbsp;of&nbsp;PROCESSES&nbsp;allowed&nbsp;per&nbsp;user&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[7500]</strong>&nbsp;<strong>(사용 시스템에 맞춰 늘린다.)</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+#<br />
+&nbsp;&nbsp;Maximum&nbsp;number&nbsp;of&nbsp;pages&nbsp;in&nbsp;block&nbsp;I/O&nbsp;BUFFER&nbsp;CACHE&nbsp;&nbsp;[20]&nbsp;<strong class="red">(DON'T TOUCH)</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+#<br />
+&nbsp;&nbsp;Maximum&nbsp;Kbytes&nbsp;of&nbsp;real&nbsp;memory&nbsp;allowed&nbsp;for&nbsp;MBUFS&nbsp;&nbsp;&nbsp;&nbsp;[0]&nbsp;&nbsp;<strong class="red">(DON'T TOUCH)</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+#<br />
+&nbsp;&nbsp;Automatically&nbsp;REBOOT&nbsp;OS&nbsp;after&nbsp;a&nbsp;crash&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;true&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+<br />
+&nbsp;&nbsp;Contin3uously&nbsp;maintain&nbsp;DISK&nbsp;I/O&nbsp;history&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;true&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+<br />
+&nbsp;&nbsp;HIGH&nbsp;water&nbsp;mark&nbsp;for&nbsp;pending&nbsp;write&nbsp;I/Os&nbsp;per&nbsp;file&nbsp;&nbsp;&nbsp;&nbsp;[33]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+#<br />
+&nbsp;&nbsp;LOW&nbsp;water&nbsp;mark&nbsp;for&nbsp;pending&nbsp;write&nbsp;I/Os&nbsp;per&nbsp;file&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[24]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+#<br />
+&nbsp;&nbsp;Amount&nbsp;of&nbsp;usable&nbsp;physical&nbsp;memory&nbsp;in&nbsp;Kbytes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;65273856<br />
+&nbsp;&nbsp;State&nbsp;of&nbsp;system&nbsp;keylock&nbsp;at&nbsp;boot&nbsp;time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;normal<br />
+&nbsp;&nbsp;Enable&nbsp;full&nbsp;CORE&nbsp;dump&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;false&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+<br />
+&nbsp;&nbsp;Use&nbsp;pre-430&nbsp;style&nbsp;CORE&nbsp;dump&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;false&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+<br />
+&nbsp;&nbsp;Pre-520&nbsp;tuning&nbsp;compatibility&nbsp;mode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;disable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+<br />
+&nbsp;&nbsp;Maximum&nbsp;login&nbsp;name&nbsp;length&nbsp;at&nbsp;boot&nbsp;time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[9]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+#<br />
+&nbsp;&nbsp;Stack&nbsp;Execution&nbsp;Disable&nbsp;(SED)&nbsp;Mode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;select&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+<br />
+&nbsp;&nbsp;NFS4&nbsp;ACL&nbsp;Compatibility&nbsp;Mode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;secure&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+<br />
+&nbsp;&nbsp;ARG/ENV&nbsp;list&nbsp;size&nbsp;in&nbsp;4K&nbsp;byte&nbsp;blocks&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[256]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+#<br />
+&nbsp;&nbsp;Enable&nbsp;CPU&nbsp;Guard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+<br />
+&nbsp;&nbsp;Processor&nbsp;capacity&nbsp;increment&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.00<br />
+&nbsp;&nbsp;Partition&nbsp;is&nbsp;capped&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;true<br />
+&nbsp;&nbsp;Partition&nbsp;is&nbsp;dedicated&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;true<br />
+&nbsp;&nbsp;Entitled&nbsp;processor&nbsp;capacity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.00<br />
+&nbsp;&nbsp;Minimum&nbsp;potential&nbsp;processor&nbsp;capacity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.00<br />
+&nbsp;&nbsp;Maximum&nbsp;potential&nbsp;processor&nbsp;capacity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.00<br />
+&nbsp;&nbsp;Variable&nbsp;processor&nbsp;capacity&nbsp;weight&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+</div></li>
+      <li> </li>
+    </ul>
+  </li>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>&nbsp;</h2>
+<h2>&nbsp;</h2>
+<h2>LVM 간단 설명<strong class="red">(사용금지)</strong></h2>
+<ul>
+  <li>LVM (Logical Volume Manager) (실제 사용할 일이 있을까??? 싶다.)<strong class="red">(사용금지)</strong>
+	<ul>
+		<li>실제 사용한다면 chXX, rmXX 관련해서는 꼭 알아보고 사용하라!</li>
+		<li>AIX의 LVM
+			<ul>
+				<li>비연속공간사용, 여러개의 disk로 사용, 용량 추가 수월 등</li>
+				</ul>
+			</li>
+		<li>개념
+			<ul>
+				<li>시스템에 사용할 수 있도록 하는 작업 순서          </li>
+				<ol>
+					<li>VG에 PV(하드디스크)를 추가하여 용량을 지정하여 PP를 만든다.(smit mkvg)</li>
+					<li> 원하는 만큼의 PP를 가지고 
+						LV를 만든다.(smit lv)</li>
+					<li>파일시스템을 설정한다.(이때 마운트 위치도 설정한다) (smit jfs2)</li>
+					<li>mount {마운트 위치}로 시스템에 마운트 시킨다.</li>
+					</ol>
+				<li>VG (Volume Group) : 관련 디스크 집합
+					</li>
+				</ul>
+			<ul>
+				<ul>
+					<li class="console">[IBM-P6-550] [ibm690:root:/]# <strong>lsvg</strong><br />
+						rootvg <strong>//시스템볼륨그룹(시스템 설치시 자동으로 생긴다.)</strong><br />
+						oravg</li>
+					<li >
+						<div class="console"><strong>#rootvg 정보</strong><br />
+							[IBM-P6-550] [ibm690:root:/]# <strong>lsvg rootvg</strong><br/>
+							VOLUME GROUP: &nbsp; &nbsp; &nbsp; rootvg &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; VG IDENTIFIER: &nbsp;00c033d500004c00000001249e32a34c<br/>
+							<strong>VG STATE: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; active</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>PP SIZE: &nbsp; &nbsp; &nbsp; &nbsp;256 megabyte(s)</strong><br/>
+							VG PERMISSION: &nbsp; &nbsp; &nbsp;read/write &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>TOTAL PPs: &nbsp; &nbsp; &nbsp;1092 (279552 megabytes)</strong><br/>
+							MAX LVs: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;256 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FREE PPs: &nbsp; &nbsp; &nbsp; 256 (65536 megabytes)<br/>
+							LVs: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;12 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; USED PPs: &nbsp; &nbsp; &nbsp; 836 (214016 megabytes)<br/>
+							OPEN LVs: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 11 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; QUORUM: &nbsp; &nbsp; &nbsp; &nbsp; 1 (Disabled)<br/>
+							TOTAL PVs: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VG DESCRIPTORS: 3<br/>
+							STALE PVs: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;STALE PPs: &nbsp; &nbsp; &nbsp;0<br/>
+							ACTIVE PVs: &nbsp; &nbsp; &nbsp; &nbsp; 2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;AUTO ON: &nbsp; &nbsp; &nbsp; &nbsp;yes<br/>
+							MAX PPs per VG: &nbsp; &nbsp; 32512 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br/>
+							MAX PPs per PV: &nbsp; &nbsp; 1016 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; MAX PVs: &nbsp; &nbsp; &nbsp; &nbsp;32<br/>
+							LTG size (Dynamic): 1024 kilobyte(s) &nbsp; &nbsp; &nbsp; &nbsp; AUTO SYNC: &nbsp; &nbsp; &nbsp;no<br/>
+							HOT SPARE: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;no &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BB POLICY: &nbsp; &nbsp; &nbsp;relocatable </div>
+						<ul>
+							<li><strong>VG STATE 가 만약 stable이면 볼륨그룹에 문제있다.</strong></li>
+							<li>PP SIZE * TOTAL PPS = 실제용량</li>
+							</ul>
+						</li>
+					<li >
+						<div class="console" ><strong>#rootvg에 포함된 PV들</strong><br />
+							[IBM-P6-550]&nbsp;[ibm690:root:/]#&nbsp;<strong>lsvg&nbsp;-p&nbsp;rootvg</strong><br/>
+							rootvg:<br/>
+							PV_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV&nbsp;STATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TOTAL&nbsp;PPs&nbsp;&nbsp;&nbsp;FREE&nbsp;PPs&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;DISTRIBUTION<br/>
+							hdisk0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;active&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;546&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;120&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00..20..00..00..100<br/>
+						hdisk1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;active&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;546&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;136&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00..20..00..07..109</div></li>
+					<li >
+						<div class="console" ><strong>#rootvg에서 사용중인 LV들</strong><br />
+							[IBM-P6-550]&nbsp;[ibm690:root:/]#&nbsp;<strong>lsvg&nbsp;-l&nbsp;rootvg</strong><br />
+							rootvg:<br />
+							LV&nbsp;NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LPs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PPs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PVs&nbsp;&nbsp;LV&nbsp;STATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOUNT&nbsp;POINT<br />
+							hd5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;boot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;closed/syncd&nbsp;&nbsp;N/A<br />
+							hd6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paging&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;208&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;416&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;open/syncd&nbsp;&nbsp;&nbsp;&nbsp;N/A<br />
+							hd8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jfs2log&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;open/syncd&nbsp;&nbsp;&nbsp;&nbsp;N/A<br />
+							hd4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jfs2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;open/syncd&nbsp;&nbsp;&nbsp;&nbsp;/<br />
+							hd2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jfs2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;open/syncd&nbsp;&nbsp;&nbsp;&nbsp;/usr<br />
+							hd9var&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jfs2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;40&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;open/syncd&nbsp;&nbsp;&nbsp;&nbsp;/var<br />
+							hd3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jfs2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;open/syncd&nbsp;&nbsp;&nbsp;&nbsp;/tmp<br />
+							hd1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jfs2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;open/syncd&nbsp;&nbsp;&nbsp;&nbsp;/home<br />
+							hd10opt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jfs2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;open/syncd&nbsp;&nbsp;&nbsp;&nbsp;/opt<br />
+							fwdump&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jfs2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;open/syncd&nbsp;&nbsp;&nbsp;&nbsp;/var/adm/ras/platform<br />
+							lg_dumplv&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sysdump&nbsp;&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;open/syncd&nbsp;&nbsp;&nbsp;&nbsp;N/A<br />
+							datalv&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jfs2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;120&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;240&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;open/syncd&nbsp;&nbsp;&nbsp;&nbsp;/data</div>
+						<ul>
+							<li>jfs2log 는 무조건 생긴다.(파일 메타정보 로그)</li>
+							</ul>
+						</li>
+					<li >smit mkvg : VG 추가하기(메뉴에서 Add a <strong>Big Volume Group</strong>를 선택)<strong class="red">(사용금지)</strong></li>
+					<li >smit varyongvg/varyoffgvg : VG를 사용 가능하게 활성화/비활성화<strong class="red">(사용금지)</strong></li>
+					<li >smit importvg/exportvg : VG를 시스템에 넣기/빼기<strong class="red">(사용금지)</strong></li>
+					</ul>
+				<li>PV (Physical Volume) : 하드디스크
+					<ul>
+						<li>lspv : 하디디스크 목록</li>
+						<li><div class="console">[IBM-P6-550]&nbsp;[ibm690:root:/]#&nbsp;<strong>lspv&nbsp;hdisk0</strong><br />
+							PHYSICAL&nbsp;VOLUME:&nbsp;&nbsp;&nbsp;&nbsp;hdisk0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VOLUME&nbsp;GROUP:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rootvg<br />
+							PV&nbsp;IDENTIFIER:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00c033d59b1b5838&nbsp;VG&nbsp;IDENTIFIER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00c033d500004c00000001249e32a34c<br />
+							<strong>PV&nbsp;STATE:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;active</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+							<strong>STALE&nbsp;PARTITIONS:&nbsp;&nbsp;&nbsp;0</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALLOCATABLE:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;yes<br />
+							PP&nbsp;SIZE:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;256&nbsp;megabyte(s)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOGICAL&nbsp;VOLUMES:&nbsp;&nbsp;12<br />
+							TOTAL&nbsp;PPs:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;546&nbsp;(139776&nbsp;megabytes)&nbsp;&nbsp;&nbsp;VG&nbsp;DESCRIPTORS:&nbsp;&nbsp;&nbsp;2<br />
+							FREE&nbsp;PPs:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;120&nbsp;(30720&nbsp;megabytes)&nbsp;&nbsp;&nbsp;&nbsp;HOT&nbsp;SPARE:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no<br />
+							USED&nbsp;PPs:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;426&nbsp;(109056&nbsp;megabytes)&nbsp;&nbsp;&nbsp;MAX&nbsp;REQUEST:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;megabyte<br />
+							FREE&nbsp;DISTRIBUTION:&nbsp;&nbsp;00..20..00..00..100&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+							USED&nbsp;DISTRIBUTION:&nbsp;&nbsp;110..89..109..109..09&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+							<ul>
+								<li><strong>PV STATE 가 stale 이면 하드디스크에 문제가 있다.</strong></li>
+								<li><strong>STABLE PARTITIONS 의 수가 0 초과이면 그만큼의 파티션에 문제가 있다.(배드섹터 등)</strong></li>
+								</ul>
+							</li>
+						<li>lspv -l hdisk0 : hdisk0 하드디스크의 LV 필드 목록</li>
+						<li>lspv -p hdisk0 : hdisk0 하드디스크의 PP별 사용 필드 목록</li>
+						<li>PP (Physical Partition) : 물리적 디스크의 최소 할당 단위</li>
+						</ul>
+					</li>
+				<li>LV (Logical Volum) : 논리적 파티션 (PP를 여러개 모와서 LV가 만들어짐)
+					<ul>
+						<li><div class="console">[IBM-P6-550]&nbsp;[ibm690:root:/]#<strong>&nbsp;lslv&nbsp;hd1</strong><br />
+							LOGICAL&nbsp;VOLUME:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hd1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VOLUME&nbsp;GROUP:&nbsp;&nbsp;&nbsp;rootvg<br />
+							LV&nbsp;IDENTIFIER:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00c033d500004c00000001249e32a34c.8&nbsp;PERMISSION:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;read/write<br />
+							VG&nbsp;STATE:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;active/complete&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>LV&nbsp;STATE:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;opened/syncd</strong><br />
+							TYPE:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jfs2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;VERIFY:&nbsp;&nbsp;&nbsp;off<br />
+							MAX&nbsp;LPs:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;512&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PP&nbsp;SIZE:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;256&nbsp;megabyte(s)<br />
+							COPIES:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCHED&nbsp;POLICY:&nbsp;&nbsp;&nbsp;parallel<br />
+							LPs:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PPs:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4<br />
+							STALE&nbsp;PPs:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BB&nbsp;POLICY:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;relocatable<br />
+							INTER-POLICY:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;minimum&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RELOCATABLE:&nbsp;&nbsp;&nbsp;&nbsp;yes<br />
+							INTRA-POLICY:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;center&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UPPER&nbsp;BOUND:&nbsp;&nbsp;&nbsp;&nbsp;32<br />
+							MOUNT&nbsp;POINT:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/home&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LABEL:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/home<br />
+							MIRROR&nbsp;WRITE&nbsp;CONSISTENCY:&nbsp;on/ACTIVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+							EACH&nbsp;LP&nbsp;COPY&nbsp;ON&nbsp;A&nbsp;SEPARATE&nbsp;PV&nbsp;?:&nbsp;yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+							Serialize&nbsp;IO&nbsp;?:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+							<ul>
+								<li>LV STATE가 opened로 되어있어야 시스템에서 사용 가능한 상태이다.</li>
+								</ul>
+							</li>
+						<li>smit lv : LV관리하기 <strong class="red">(사용금지)</strong></li>
+						<li>smit jfs2 : LV에 파일시스템 설정하기(Add an Enhanced Journaled File System on a Previously Defined Logical Volume 메뉴사용)<strong class="red">(사용금지)</strong></li>
+						</ul>
+					</li>
+				<li>mount /testdir : smit jfs2에서 설정한 마운트 위치(/testdir)를 지정해서 시스템에 실제로 마운트 시킨다.</li>
+				<li>미러링(Mirroring), 스트리핑(Striping) 이 가능하다.</li>
+				</ul>
+			</li>
+		</ul>
+ 	</li>
+</ul>
+<p>&nbsp;</p>
+<h2>튜닝 포인트 <strong class="red">(사용금지)</strong></h2>
+<ul>
+	<li>vmo : Manages Virtual Memory Manager tunable parameters.	
+		<ul>
+			<li>ORACLE등의 DB를 사용한다면 설정을 바꿔라
+				<ul>
+					<li># vmo –p –o  maxclient%=20  –o maxperm%=20 –o minperm%=10  –o lru_file_repage=0 (상황에 맞춰 바꾼다.) <strong class="red">(사용금지)</strong></li>
+					<li>Default 값은 maxclient%=80, maxperm%=80, minperm%=20, lru_file_repage=1</li>
+					<li> 이 튜닝은, filesystem cache로 사용되는 메모리의 양을 제한하여, Oracle이 메모리 부족을 겪지 않도록 해주는 작업<br />
+					</li>
+				</ul>
+			</li>
+			<li>현재 IBM690 세팅
+				<div class="console">[IBM-P6-550]&nbsp;[ibm690:root:/]#&nbsp;<strong>vmo&nbsp;-L&nbsp;minperm%&nbsp;-L&nbsp;maxperm%&nbsp;-L&nbsp;maxclient%&nbsp;-L&nbsp;strict_maxperm&nbsp;-L&nbsp;strict_maxclient&nbsp;-L&nbsp;lru_file_repage&nbsp;-L&nbsp;page_steal_method&nbsp;</strong><br />
+NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CUR&nbsp;&nbsp;&nbsp;&nbsp;DEF&nbsp;&nbsp;&nbsp;&nbsp;BOOT&nbsp;&nbsp;&nbsp;MIN&nbsp;&nbsp;&nbsp;&nbsp;MAX&nbsp;&nbsp;&nbsp;&nbsp;UNIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEPENDENCIES<br />
+--------------------------------------------------------------------------------<br />
+lru_file_repage&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>0</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;boolean&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D<br />
+--------------------------------------------------------------------------------<br />
+maxclient%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>90</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;90&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;&nbsp;&nbsp;&nbsp;%&nbsp;memory&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxperm%<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;minperm%<br />
+--------------------------------------------------------------------------------<br />
+maxperm%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>90</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;90&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;&nbsp;&nbsp;&nbsp;%&nbsp;memory&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;minperm%<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxclient%<br />
+--------------------------------------------------------------------------------<br />
+minperm%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>3</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;&nbsp;&nbsp;&nbsp;%&nbsp;memory&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxperm%<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxclient%<br />
+--------------------------------------------------------------------------------<br />
+page_steal_method&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>1</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;boolean&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B<br />
+--------------------------------------------------------------------------------<br />
+strict_maxclient&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>1</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;boolean&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;strict_maxperm<br />
+--------------------------------------------------------------------------------<br />
+strict_maxperm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>0</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;boolean&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;strict_maxclient<br />
+--------------------------------------------------------------------------------</div>
+			</li>
+			<li>AIX 5.2/5.3 기본값<br />
+				– minperm% = 20<br />
+				– maxperm% = 80<br />
+				– maxclient% = 80<br />
+				– strict_maxperm = 0<br />
+				– strict_maxclient = 1<br />
+				– lru_file_repage = 1<br />
+				– page_steal_method = 0<br />
+			</li>
+			<li>AIX 6.1 기본값<br />
+				– minperm% = 3<br />
+				– maxperm% = 90<br />
+				– maxclient% = 90<br />
+				– strict_maxperm = 0<br />
+				– strict_maxclient = 1<br />
+				– lru_file_repage = 0<br />
+				– page_steal_method = 1<br />
+			</li>
+		</ul>
+	</li>
+	<li> </li>
+</ul>
+</body>
+</html>

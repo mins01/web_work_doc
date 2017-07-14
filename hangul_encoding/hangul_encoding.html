@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<title>charMap</title>
+</head>
+
+<body>
+<h1>한글 케릭터 인코딩 구조</h1>
+<ul>
+	<li>EUC-KR
+		(완성형 한글)
+		<ul>
+			<li>범위
+				<ul>
+					<li>[00-7F] : <a href="http://ko.wikipedia.org/wiki/KS_X_1003">KS X1003</a>(로마자 문자집합, ASCII + ISO/IEC646 기반 7비트 문자집합)
+						<ul>
+							<li>ASCII 로 봐도 무방하다!</li>
+						</ul>
+					</li>
+					<li>[A1-FE][A1-FE]: <a href="http://ko.wikipedia.org/wiki/KS_X_1001">KS X 1001</a> (KS C 5601, 특수문자, 한글, 한자 순으로 들어가있다.)
+						<ul>
+							<li>[A1-AF][A1-FE] : 특수문자, 기호, 한글 자모등
+								<ul>
+									<li>[A4][A1-FE] : 한글 (초,중,종성)글자</li>
+									<li>[AA][A1-F3] :히라가나</li>
+									<li>[AB][A1-F6] :카사카나</li>
+								</ul>
+							</li>
+							<li>[B0-C8][A1-FE] : 한글</li>
+							<li>[CA-FD][A1-FE] : CJK 한문</li>
+							<li>중간에 빠진 범위는 사용자 정의 영역</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>CP949 (확장 완성형 한글)
+		<ul>
+			<li>범위
+				<ul>
+					<li>[00-7F] : <a href="http://ko.wikipedia.org/wiki/KS_X_1003">KS X1003</a>(로마자 문자집합, ASCII + ISO/IEC646 기반 7비트 문자집합)
+						<ul>
+							<li>ASCII 로 봐도 무방하다!</li>
+						</ul>
+					</li>
+					<li>[A1-FE][A1-FE]: <a href="http://ko.wikipedia.org/wiki/KS_X_1001">KS X 1001</a> (KS C 5601, 특수문자, 한글, 한자 순으로 들어가있다.)
+						<ul>
+							<li>[A1-AF][A1-FE] : 특수문자, 기호 등
+								<ul>
+									<li>[A4][A1-FE] : 한글 (초,중,종성)글자</li>
+									<li>[AA][A1-F3] :히라가나</li>
+									<li>[AB][A1-F6] :카사카나</li>
+									</ul>
+							</li>
+							<li>[B0-C8][A1-FE] : 한글							</li>
+							<li>[CA-FD][A1-FE] : CJK 한문</li>
+							<li>중간에 빠진 범위는 사용자 정의 영역 등</li>
+						</ul>
+					</li>
+					<li> [81-A0][41-5A,61-7A,81-FE] : 확장 한글</li>
+					<li>[A1-C5][41-5A,61-7A,81-A0] : 확장 한글</li>
+					<li>[C6][41-52] : 확장 한글</li>
+				</ul>
+			</li>
+			<li><a href="http://www.unicode.org/Public/MAPPINGS/VENDORS/MICSFT/WINDOWS/CP949.TXT">MAP</a></li>
+		</ul>
+	</li>
+	<li>정규식으로 한글을 1문자로 처리해서 잘라내기
+		<ul>
+			<li>PHP 소스
+				<textarea cols="60" rows="20" readonly="readonly">
+$str = 'a한bc글	韓a文 
+㉠1';
+echo "===========","\n";
+echo $str,"\n";
+echo "===========","\n";
+$x = array();
+echo "CHAR:HEX","\n"; 
+echo "-----------","\n";
+preg_match_all('/[x00-x7f,\s]|[^x00-x7f]./',$str,$x); 
+foreach($x[0] as $v){
+	echo $v,':';
+	if(strlen($v)==2){
+		echo dechex(ord($v[0])),"+";
+		echo dechex(ord($v[1])),"\n";		
+	}else{
+		echo dechex(ord($v[0])),"\n";
+	}
+}
+echo "===========","\n";
+				</textarea>
+			</li>
+			<li>결과
+				<textarea name="textarea" cols="60" rows="20" readonly="readonly">
+===========
+a한bc글 韓a文
+㉠1
+===========
+CHAR:HEX
+-----------
+a:61
+한:c7+d1
+b:62
+c:63
+글:b1+db
+        :9
+韓:f9+db
+a:61
+文:d9+fe
+ :20
+:d
+
+:a
+㉠:a8+b1
+1:31
+===========
+				</textarea>
+			</li>
+		</ul>
+	</li>
+</ul>
+<p>&nbsp;</p>
+</body>
+
+
+</html>

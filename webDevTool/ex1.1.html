@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>DTD가 지정된문서</title>
+<script src="jsLayerControl/jsLayerControl.js" charset="utf-8"></script>
+<script src="jfMoveLayer/jfMoveLayer.js" charset="utf-8"></script>
+</head>
+
+<body style="margin:0; padding:0;">
+<table border="0" cellpadding="0" cellspacing="0" bgcolor="#00CC99" >
+  <tr>
+  	<td height="200" width="200" align="center">너비 200px의 테이블 : 기준</td>
+    <td width="200" height="200" align="center" bgcolor="#FFFFFF">&nbsp;</td>
+    <td width="200" align="center" bgcolor="#FFFFFF">&nbsp;</td>
+    <td width="200" height="200" align="center" bgcolor="#00FF66">제어 : <br />
+      left = 0 ,top = 0 으로 이동<br>
+      <input type="button" onclick="setLayer('1')" value="DIV 1" /><br>
+      <input type="button" onclick="setLayer('2')" value="DIV 2"  /><br>
+      <input type="button" onclick="setLayer('3')" value="DIV 3"  /><br>
+      <input type="button" onclick="setLayer('4')" value="DIV 4"  /><br>      </td>
+  </tr>
+</table>
+<div id="d1" style="width:200px; height:200px; position:absolute; left:0; top:0; background-color:#CCCCFF; ">
+<strong>DIV 1</strong><br />
+너비200px의 DIV
+  </div>
+  <div id="d2" style="width:200px; height:200px; position:absolute; left:0; top:0; background-color:#CCFFCC; padding:50px;">
+  <strong>DIV 2</strong><br />
+  너비200px의 DIV + padding:50px
+  </div>
+  <div id="d3" style="width:200px; height:200px; position:absolute; left:0; top:0; background-color:#CCFFFF; margin:50px;">
+  <strong>DIV 3</strong><br />
+  너비200px의 DIV + margin:50px
+  </div>    
+  <div id="d4" style="width:200px; height:200px; position:absolute; left:0; top:0; background-color:#FFCCCC; margin:50px; padding:50px;">
+  <strong>DIV 4</strong><br />
+  너비200px의 DIV + padding:50px + margin:50px;
+  </div>      
+<script type="text/javascript">
+//<![CDATA[
+var d1 = document.getElementById('d1');
+var d2 = document.getElementById('d2');
+var d3 = document.getElementById('d3');
+var d4 = document.getElementById('d4');
+
+
+var c1 = {	'left':100	,'top':200	,'opacity':0.8	};
+var c2 = {	'left':200	,'top':200	,'opacity':0.8	};
+var c3 = {	'left':300	,'top':200	,'opacity':0.8	};
+var c4 = {	'left':400	,'top':200	,'opacity':0.8	};
+var config2 = {	'left':0	,'top':0	,'opacity':0.5	};
+var lc1 = new jsLayerControl(d1);
+var lc2 = new jsLayerControl(d2);
+var lc3 = new jsLayerControl(d3);
+var lc4 = new jsLayerControl(d4);
+jfMoveLayer(d1,d1,{'endEvent':function(){alert(d1.style.left+' : '+d1.style.top)}});
+jfMoveLayer(d2,d2,{'endEvent':function(){alert(d2.style.left+' : '+d2.style.top)}});
+jfMoveLayer(d3,d3,{'endEvent':function(){alert(d3.style.left+' : '+d3.style.top)}});
+jfMoveLayer(d4,d4,{'endEvent':function(){alert(d4.style.left+' : '+d4.style.top)}});
+var lcs = {'1':lc1,'2':lc2,'3':lc3,'4':lc4 };
+function resetLayer(){
+	lc1.setLayer(c1);
+	lc2.setLayer(c2);
+	lc3.setLayer(c3);
+	lc4.setLayer(c4);
+}
+function setLayer(n){
+	resetLayer();
+	lcs[n].actLayer(config2);
+}
+resetLayer();
+//]]>
+</script>  
+</body>
+</html>

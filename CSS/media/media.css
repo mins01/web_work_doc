@@ -1,0 +1,20 @@
+/* CSS Document */
+
+input {border:4px solid green; background-color:yellow; padding:3px;}
+
+@media all and (max-width:500px) {
+	#btn_500 {background-color:red;}
+}
+
+@media all and (min-width:800px) {
+	#btn_800 {background-color:red;}
+}
+
+@media all and (orientation:portrait) {
+	#btn_portrait {background-color:red;}
+}
+
+@media all and (orientation:landscape) {
+	#btn_landscape {background-color:red;}
+}
+

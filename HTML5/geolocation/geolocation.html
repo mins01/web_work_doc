@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>geolocation</title>
+</head>
+
+<body>
+<h1>geolocation [<a href="?" target="_blank">new</a>]</h1>
+<p>스펙 :  <a href="http://dev.w3.org/geo/api/spec-source.html"> http://www.w3.org/TR/geolocation-API/ </a></p>
+<p>&nbsp;</p>
+<h2>메소드,애트리뷰트 정리</h2>
+<ul>
+  <li>window
+    <ul>
+      <li>navigator
+        <ul>
+          <li>geolocation
+            <ul>
+              <li>인터페이스 메소드
+                <ul>
+                  <li>void getCurrentPosition(PositionCallback successCallback[,PositionErrorCallback errorCallback[, PositionOptions options]]);
+                    <ul>
+                      <li> <strong>현재 위치</strong>에 대한 정보 호출</li>
+                    </ul>
+                  </li>
+                  <li>long watchPosition(PositionCallback successCallback[,PositionErrorCallback errorCallback[, PositionOptions options]]);
+                    <ul>
+                      <li><strong>위치 정보가 변경 될 때</strong> 마다 호출</li>
+                    </ul>
+                  </li>
+                  <li>void clearWatch(long watchId);
+                    <ul>
+                      <li>watchPosition 동작을 멈춤</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>콜백 함수
+                <ul>
+                  <li><strong> void successCallback(Position position)</strong></li>
+                  <li> void errorCallback(PositionError error)</li>
+                </ul>
+              </li>
+              <li>PositionOptions options
+                    <ul>
+                      <li>boolean enableHighAccuracy // 받아온 데이터가 여러개일 경우 정확도가 높은 순으로<br />
+                      </li>
+                      <li>long timeout<br />
+                      </li>
+                      <li>long maximumAge //지정 시간이 최고했다면 데이터를 다시 가져옴</li>
+                    </ul>
+              </li>
+              <li>Position position
+                <ul>
+                  <li> Coordinates coords //좌표값들
+                    <ul>
+                      <li><strong>double latitude //위도<br />
+                        double longitude //경도</strong><br />
+                        double? altitude //고도(옵션값)<br />
+                        double accuracy //정확도<br />
+                        double? altitudeAccuracy//고도 정확도(옵션값)<br />
+                        double? heading //방향(옵션값)<br />
+                      double? speed //속도(옵션값)</li>
+                    </ul>
+                  </li>
+                  <li> DOMTimeStamp timestamp //응답시간</li>
+                </ul>
+              </li>
+              <li>  PositionError error
+                <ul>
+                  <li>상수                  
+                    <ul>
+                      <li> unsigned short PERMISSION_DENIED = 1 // Geolocation API 권한 문제로 인한 에러<br />
+                        unsigned short POSITION_UNAVAILABLE = 2 //현재 위치를 확인할 수 없는 장소로 인한 에러<br />
+                        unsigned short TIMEOUT = 3 //타임아웃으로 인한 에러</li>
+                    </ul>
+                  </li>
+                  <li><strong>unsigned short code //에러코드</strong></li>
+                  <li><strong> DOMString message //에러메세지</strong></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<h2>예제</h2>
+<ul>
+  <li>
+  	<input type="button" value="현재 위치 알기" onclick="getCurrentPosition();" />
+  </li>
+  <li>
+    <input type="button" value="현재 위치 계속 알기" onclick="watchPosition();" />
+    <input type="button" value="현재 위치 계속 알기 중지" onclick="clearWatch();" />
+  </li>
+  <li>결과출력
+  	<fieldset>
+    	<legend>결과</legend>
+        <div id="divResult"></div>
+    </fieldset>
+  </li>
+</ul>
+<h2>
+  <script type="text/javascript">
+	//<!--
+		function getTreeData(Rs,depth){
+			//alert(NV[x] intanceof Array)	
+			var v = {};
+			if(depth<0){return Rs.toString();}
+			for(var x in Rs){
+				switch(typeof(Rs[x])){
+					case 'number': v[x] = Rs[x].toString();break;
+					case 'string': v[x] = Rs[x];break;
+					case 'boolean': v[x] = Rs[x].toString();break;
+					case 'function': v[x] = Rs[x].toString();break;
+					case 'object': v[x] = arguments.callee(Rs[x],depth-1); break;
+					default:alert(typeof(Rs[x]));
+				}
+			}
+			return v;
+		}
+		function makeTree(Rs){	
+			var v = [];
+			v.push('<ul>');
+			var v2 = null;
+			for(var x in Rs){
+				v.push('<li>');
+				v.push(x);
+				switch(typeof(Rs[x])){
+					case 'string': v2 = ' : '+Rs[x];break;
+					case 'boolean': v2 = ' : '+Rs[x].toString();break;
+					case 'function': v2 = ' : '+Rs[x].toString();break;
+					case 'object': v2 = arguments.callee(Rs[x]); break;
+				}
+				v.push(v2);
+				v.push('</li>');
+			}
+			v.push('</ul>');
+			return v.join('');
+		}
+
+	
+		var geo_successCallback = function(position){
+			var coords = position.coords;
+			var v = getTreeData(position,2);
+			document.getElementById('divResult').innerHTML = makeTree(v);
+		};
+		var geo_errorCallback = function(error){
+			alert("ERROR : ["+error.code+"] "+error.message)
+			var v = getTreeData(error,2);
+			document.getElementById('divResult').innerHTML = makeTree(v);			
+		};
+		//var geo_options	 = {'enableHighAccuracy':true,'timeout':20000,'maximumAge':60000};
+		var geo_options	 = {'enableHighAccuracy':true,'timeout':10000};
+		//var geo_options	 = {};
+		function getCurrentPosition(){
+			if(!navigator.geolocation){
+				alert('geolocation는 지원되지 않는 기능입니다.');
+				return false;
+			}
+			navigator.geolocation.getCurrentPosition(geo_successCallback,geo_errorCallback,geo_options)
+		}
+		function watchPosition(){
+			if(!navigator.geolocation){
+				alert('geolocation는 지원되지 않는 기능입니다.');
+				return false;
+			}
+			if(!watchPosition.watchId){ watchPosition.watchId = null; }
+			else{clearWatch();}
+			watchPosition.watchId = navigator.geolocation.watchPosition(geo_successCallback,geo_errorCallback,geo_options);
+		}
+		function clearWatch(){
+			if(!navigator.geolocation){
+				alert('geolocation는 지원되지 않는 기능입니다.');
+				return false;
+			}
+			navigator.geolocation.clearWatch(watchPosition.watchId);
+		}
+	//-->
+  </script> 
+  참고
+</h2>
+<ul>
+  <li>스마트 폰 웹 브라우저에서 GPS를 on 하였는데, TIME OUT 에러가 발생한다
+    <ul>
+      <li>GPS가 수신되지 않는 지역일 가능서있다.(건물 안이라던지...) 
+        <ul>
+          <li>이 경우 브라우저에서 위치 정보 관련 확인 부분이 보이지 않는다.</li>
+        </ul>
+      </li>
+      <li>위치 관련해서 무선 네트워크 사용이 off 되어있다.
+        <ul>
+          <li>on일 경우 기지국이나 WIFI장치 등에서 위치 정보를 알아온다.(오차가 꽤 있다.)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>PC용 크롬에서의 에러
+    <ul>
+      <li>ERROR : [2] Network location provider at 'https://maps.googleapis.com/maps/api/browserlocation/json?browser=chromium&amp;sensor=true' : Response was malformed.
+        <ul>
+          <li>위와 같은 에러가 보이는데 URL의 내용은<br />
+          {    &quot;status&quot; : &quot;ZERO_RESULTS&quot; }<br />
+          이다.</li>
+          <li>GPS가 없어서 구글map쪽에 문의하는건데 ... 구글쪽에서도 알 수가 없어서 저렇게 나오는것 같다.</li>
+        </ul>
+      </li>
+      <li>PC에 GPS가 있다면 올바르게 나올것이다.(아마다... )</li>
+    </ul>
+  </li>
+</ul>
+</body>
+</html>

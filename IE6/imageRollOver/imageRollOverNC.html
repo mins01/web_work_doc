@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<title>이미지 롤오버 문제(IE6)</title>
+<style type="text/css">
+ul.menu{ padding:0; margin:0; list-style:none }
+ul.menu li{ float:left; padding:0; margin:0;  }
+ul.menu li img{ border-width:0;}
+.clearB{clear:both;}
+
+
+a.t2{background-color:transparent; }
+a.t2 .on{display:none;}
+a.t2 .off{display:inline;}
+a.t2:hover{background-color:transparent; border:0px solid black;}
+a.t2:hover .on{display:inline;}
+a.t2:hover .off{display:none;}
+
+a.menu{ position:relative; display:block; overflow:hidden; z-index:1 }
+a.menu .on{position:absolute; left:0px; top:0px; z-index:-1 }
+a.menu .off{position:relative; left:0px; top:0px; z-index:1 }
+a.menu:hover {background-color:transparent; }
+a.menu:hover .on{position:relative; left:0px; top:0px; z-index:1 }
+a.menu:hover .off{position:absolute; left:0px; top:0px; z-index:-1 }
+</style>
+</head>
+<body>
+<h1>이미지 롤오버 문제(IE6)</h1>
+<h2>이미지 롤오버 메뉴사용시 이미지 변경시마다 다시 요청하는 문제<br />
+특히 IE6에서는 서버에서 SYN_RECV의 비정상 증가 현상이 발생할 수 있다.<br />
+IE7에서도 계속 요청은 하는데 SYN_RECV가 생기지는 않는다.</h2>
+<fieldset>
+	<legend>문제가 있는 경우(SRC 변경)</legend>
+	<div>
+	<ul class="menu">
+		<li><a href="javascript:alert('01');"><img width="100" onmouseover="rollover(this,true)" onmouseout="rollover(this,false)" src="img/m_01.png" alt="m_01" /></a></li>
+		<li><a href="javascript:alert('02');"><img width="100" onmouseover="rollover(this,true)" onmouseout="rollover(this,false)" src="img/m_02.png" alt="m_02" /></a></li>
+		<li><a href="javascript:alert('03');"><img width="100" onmouseover="rollover(this,true)" onmouseout="rollover(this,false)" src="img/m_03.png" alt="m_03" /></a></li>
+		<li><a href="javascript:alert('04');"><img width="100" onmouseover="rollover(this,true)" onmouseout="rollover(this,false)" src="img/m_04.png" alt="m_04" /></a></li>
+	</ul>
+	</div>
+	<script type="text/javascript">
+		function rollover(img,bool){
+			if(bool){
+					img.src = img.src.replace('.png','_on.png');
+			}else{
+					img.src = img.src.replace('_on.png','.png');
+			}
+		}
+	</script>
+	<div class="clearB"></div>
+</fieldset>
+
+<fieldset>
+	<legend>문제가 있는 경우(DISPLAY 변경)</legend>
+	<div>
+	<ul class="menu">
+		<li><a href="javascript:alert('01');" class="t2"><img width="100" src="img/m_01_on.png" alt="m_01" class="on" /><img width="100" src="img/m_01.png" alt="m_01" class="off" /></a></li>
+		<li><a href="javascript:alert('02');" class="t2"><img width="100" src="img/m_02_on.png" alt="m_02" class="on" /><img width="100" src="img/m_02.png" alt="m_02" class="off" /></a></li>
+		<li><a href="javascript:alert('03');" class="t2"><img width="100" src="img/m_03_on.png" alt="m_03" class="on" /><img width="100" src="img/m_03.png" alt="m_03" class="off" /></a></li>
+		<li><a href="javascript:alert('04');" class="t2"><img width="100" src="img/m_04_on.png" alt="m_04" class="on" /><img width="100" src="img/m_04.png" alt="m_04" class="off" /></a></li>
+	</ul>
+	</div>
+	<div class="clearB"></div>
+</fieldset>
+
+<fieldset>
+	<legend>문제가 없게 변경한 경우(CSS사용)</legend>
+	<div>
+	<ul class="menu">
+		<li><a href="javascript:alert('01');" class="menu"><img width="100" src="img/m_01_on.png" alt="m_01" class="on" /><img width="100" src="img/m_01.png" alt="m_01" class="off" /></a></li>
+		<li><a href="javascript:alert('02');" class="menu"><img width="100" src="img/m_02_on.png" alt="m_02" class="on" /><img width="100" src="img/m_02.png" alt="m_02" class="off" /></a></li>
+		<li><a href="javascript:alert('03');" class="menu"><img width="100" src="img/m_03_on.png" alt="m_03" class="on" /><img width="100" src="img/m_03.png" alt="m_03" class="off" /></a></li>
+		<li><a href="javascript:alert('04');" class="menu"><img width="100" src="img/m_04_on.png" alt="m_04" class="on" /><img width="100" src="img/m_04.png" alt="m_04" class="off" /></a></li>
+	</ul>
+	</div>
+</fieldset>
+
+
+</body>
+</html>

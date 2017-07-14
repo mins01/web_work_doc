@@ -1,0 +1,103 @@
+@charset "utf-8";
+
+/**
+ * on,off  (radio, checkboxd용) (IE 9+)
+ * selector '+'' : IE7+
+ * border-radius : IE9+;
+ * box-shadow : IE9+;
+ * transition : IE10+;
+ * transform : IE9+;
+ * .m-with-label : 같이 사용하면 data-label-on,data-label-off 을 사용한다.;
+ */
+.btn.m-onoff{text-align: start;}
+.m-onoff{
+	display: inline-block;
+	white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+	position: relative;
+	vertical-align: middle;
+}
+.m-onoff > input{
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+}
+.m-layout::before{
+	width:1em;height: 1em;
+	border-radius: 50%;
+	background-color:  #999;
+	display: inline-block;
+	box-shadow: 0px 0px 3px rgba(0,0,0,0.5);
+	vertical-align: middle;
+	margin:0 0.2em;
+
+	border:0.4em solid #999;
+
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
+
+	opacity: 0.4;
+	box-sizing: border-box;
+}
+.m-onoff input[type='checkbox'] + .m-layout::before{
+	border-radius: 0px;
+}
+.m-onoff .m-layout{
+	display:inline-block;
+}
+.m-onoff .m-layout::before{
+	content:"";
+	display:inline-block;
+}
+.m-onoff .m-layout::after{
+	display:inline-block;
+}
+.m-onoff.m-with-label .m-layout::after{
+	content: "OFF";
+}
+.m-onoff.m-with-label input:checked + .m-layout::after{
+	content: "ON";
+}
+.m-onoff.m-with-label .m-layout[data-label-off]::after{
+	content: attr(data-label-off);	
+}
+.m-onoff.m-with-label input:checked + .m-layout[data-label-on]::after{
+	content: attr(data-label-on);
+}
+
+.m-onoff input:focus + .m-layout{
+	outline: thin dotted;
+	outline: 3px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
+	border-radius: 10px;
+	
+}
+
+.m-onoff input:checked + .m-layout::before{
+	background-color:  #666;
+	border:0.15em solid #fff;
+	opacity: 1;
+}
+.m-onoff input[type='checkbox']:checked + .m-layout::before{
+	-ms-transform: rotate(45deg); /* IE 9 */
+	-webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+	transform: rotate(360deg);
+}
+
+.m-onoff.m-onoff-primary > input:checked + .m-layout::before{
+	background-color:  #337ab7;
+}
+.m-onoff.m-onoff-success > input:checked + .m-layout::before{
+	background-color:  #3c763d;
+}
+.m-onoff.m-onoff-info > input:checked + .m-layout::before{
+	background-color:  #31708f;
+}
+.m-onoff.m-onoff-warning > input:checked + .m-layout::before{
+	background-color:  #8a6d3b;
+}
+.m-onoff.m-onoff-danger > input:checked + .m-layout::before{
+	background-color:  #a94442;
+}
+

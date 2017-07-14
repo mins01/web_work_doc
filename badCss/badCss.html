@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>나쁜 CSS</title>
+<style type="text/css">
+em{ color:blue;}
+div.ex1 td{ line-height:15px; font-size:20px;}
+div.ex2 form input{border:1px solid black;}
+div.ex2_1 form input.button{ border:1px solid black;} 
+div.ex2_1 form input.textbox{ border:1px solid black;} 
+blockquote{border-left:1px dashed gray; padding-left:1em;}
+</style>
+</head>
+
+<body>
+<h1>bad CSS(나쁜 CSS)[<a href="?" target="_blank">새창</a>]</h1>
+<ul>
+	<li>작성자
+		<ul>
+			<li>공대여자
+				<ul>
+					<li>홈페이지 : <a href="http://www.mins01.com" target="_blank">www.mins01.com</a></li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>알림
+		<ul>
+			<li>개인적 생각을 적은 글입니다.</li>
+			<li>제한사항은 언제나의 그것, 모르겠으면 홈페이지가서 찾아보세요.</li>
+		</ul>
+	</li>
+</ul>
+<blockquote>
+	<p>CSS를 사용하면 효과적인 스타일 관리에 좋지만, 나쁘게 사용하면 <br />
+		<em>&quot;이거..뭐...&quot;</em><br />
+		라는 소리가 나와버리죠.</p>
+</blockquote>
+<p>&nbsp;</p>
+<ul>
+	<li>selector가 너무 단순해.
+		사이트 구조는 복잡하면서!
+		<ul>
+					<li><em>td{ line-height:15px;font-size:20px;}</em>
+						<ul>
+							<li>이럴경우 모든 td에 저 스타일이 적용되는데<br />
+								선언전에 생각할 것이 <br />
+	&quot;모든 td에 저 스타일이 적용해도 되는가?&quot;<br />
+								부터 생각해야한다.</li>
+							<li>사이트를 위 스타일에 올바르게 나오도록 제작완료 후, 다른 곳에 만들어진 기능을 넣을 경우.<br />
+								그 기능에 td가 들어있을 경우 그 기능이 올바르게 보인다고 보장할 수 없다.</li>
+							<li>예
+								<ul>
+									<li>
+									<div class="ex1">
+									<table border="1" cellpadding="0" cellspacing="0">
+									<tr>
+										<td width="200">&nbsp;</td>
+										<td>&nbsp;</td>
+										</tr>
+									<tr>
+										<td>line-height:15px</td>
+										<td>font-size:20px</td>
+										</tr>
+									<tr>
+										<td>&nbsp;</td>
+										<td><table border="1" cellpadding="0" cellspacing="0" style="font-size:11px; ">
+											<tr>
+												<td height="11">예상 font-size:11px</td>
+												</tr>
+											<tr>
+												<td height="11">실제 font-size:20px</td>
+												</tr>
+											<tr>
+												<td height="11">table에서 11px로 지정</td>
+												</tr>
+											<tr>
+												<td height="11">&nbsp;</td>
+												</tr>
+										</table></td>
+										</tr>
+									<tr>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										</tr>
+									</table>
+									</div>
+									</li>
+								</ul>
+							</li>
+							<li>대안
+								<ol>
+									<li><em>td.tdStyle{ line-height:15px;}</em> 
+											<ul>
+												<li>직접적인 class 명을 명시한 경우, 대상 지정면에서 완벽하지만 모든 사용 td에 class를 지정해 줘야한다.</li>
+											</ul>
+									</li>
+									<li><em>table.tableStyle td{ line-height:15px;}</em>
+										<ul>
+											<li>td에서의 필수적으로 생기는 부모 table에 class를 지정. table만 class로 관리하면 되기 때문에 편하지만, 중첩된 table이 생길 경우 난감하다.</li>
+										</ul>
+									</li>
+								</ol>
+							</li>
+						</ul>
+					</li>
+					<li><em>form input{ border:1px solid black;}
+						</em>
+						<ul>
+							<li>위 스타일은 form속의 input에 적용이 된다. textbox와 button 정도라면 상관 없다. 하지만, radiobutton과 checkbox의 경우 외부에 테두리가 생긴다.</li>
+							<li>CSS의 기능중에는 Attribute도 selector에 포함시킬 수 있지만, 그건 현재로는 힘들다.(IE에서 지원 안되므로)</li>
+							<li>예
+								<ul>
+									<li>
+										<div class="ex2">
+											<form>
+												<input type="text" value="1234" />
+												<input type="button" value="1234" />
+												<input type="checkbox" />
+												<input type="radio" />
+												<input type="password" value="1234" />
+												<input type="reset" value="1234" />
+											</form>
+										</div>
+									</li>
+								</ul>
+							</li>
+							<li>대안
+								<ul>
+									<li><em>form input.button{ border:1px solid black;} </em><br />
+										<em>form input.textbox{ border:1px solid black;} </em> 
+										<ul>
+											<li>각 class를 지정하여 type에 따라서 class를 지정하여 사용하도록 한다.</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+<li>예
+								<ul>
+									<li>
+										<div class="ex2_1">
+											<form>
+												<input type="text" class="textbox" value="1234" />
+												<input type="button" class="button" value="1234" />
+												<input type="checkbox" />
+												<input type="radio" />
+												<input type="password" class="textbox" value="1234" />
+												<input type="reset" class="button" value="1234" />
+											</form>
+										</div>
+									</li>
+								</ul>
+							</li>
+						</ul>
+			</li>
+		</ul>
+	</li>
+	<li>전역으로 사용하면, 상태 안 좋아지는 스타일
+		<ul>
+			<li><em>*{line-height:15px;}</em>
+				<ul>
+					<li>모든 태그속에서 15px의 line-height가 설정되는 데 이럴 경우
+						<ul>
+							<li><em>&lt;div style=&quot;font-size:40px;&quot;&gt;푸른&lt;div&gt;하늘&lt;/div&gt;아래&lt;/div&gt; </em><br /> 
+								의 태그는 실제 동작이
+								<br />
+							<em>&lt;div style=&quot;font-size:40px;line-height:15px;&quot;&gt;푸른&lt;div style=&quot;line-height:15px;&quot;&gt;하늘&lt;/div&gt;아래&lt;/div&gt;							</em>
+							<br />
+							처럼 되며,<br />
+							<hr />
+							보여지는 모양은<br />
+							<div style="font-size:40px;line-height:15px;">푸른<div style="line-height:15px;">하늘</div>아래</div><br />
+처럼되어서 글자가 위아래로 겹쳐보이는 경우가 생길 수 있다.
+						<br />
+<hr />
+							예상한 모양(line-height 가 없는 경우)<br />
+							<div style="font-size:40px;">푸른<div >하늘</div>아래</div><br />
+							</ul>
+					</li>
+				</ul>
+			</li>
+			<li><em>line-height</em>나 <em>padding</em>, <em>margin</em> 같은 경우는 전역으로 설정 안 하는 것이 좋다.
+				<ul>
+					<li><em>*{ padding:0, margin:0} </em>같은 경우는 상관이 없다.(대부분에서 기본값이고, 사용할 때 재설정해서 쓰면 되므로)</li>
+				</ul>
+			</li>
+			<ul>
+			</ul>
+		</ul>
+	</li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+	<li>개인적으로 아주 싫어하는 CSS형태
+		<ul>
+			<li><em>td{padding-left:10px;}</em></li>
+			<li><em>div , td{line-height:150%;}</em></li>
+			<li>나하고 싸우자는것 밖에 생각이 안든다.</li>
+		</ul>
+	</li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+	<li>요약
+		<ul>
+			<li>1page문서 만드는 경우라면, 무시해도 된다! 어느곳에 어느 태그가 들어가는지 확신할 수 있으니깐!<br />
+			하지만 요즘 홈페이지, 사이트 들은 구조가 단순하지 않다. 태그속에 어떤 태그가 들어갈지 모른다. 그러니 selector로 다른 곳에 영향을 미치지 않도록 CSS를 구성하는 게 좋다.</li>
+			<li><em>*{line-height:15px}</em> 처럼 하면 때려줄꺼다!</li>
+		</ul>
+	</li>
+</ul>
+</body>
+</html>

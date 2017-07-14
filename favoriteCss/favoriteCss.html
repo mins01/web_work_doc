@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Favorite CSS</title>
+<style type="text/css">
+	html{font-size:12px; font-family:dotum,Arial, Helvetica, sans-serif}
+	fieldset{font-size:inherit; border:1px solid gray; padding:0; margin:0; margin-bottom:1em;}
+	.p5{padding:5px;}
+	.m5{margin:5px;}
+
+/* 플로팅용*/
+	.floatL{float:left; width:350px;}
+	.clearB{clear:both;}
+	
+/* 테이블 */
+	/* 기본구조 */
+	table.table{ border-collapse:collapse; border:1px none gray;	}
+	table.table td{ border:1px solid black; padding:1px;}
+	table.table tr.thead{ background-color:#fff; text-align:center; font-weight:bold;}
+	table.table tr.thead td{ border-bottom-width:2px !important;border-bottom-style:solid !important; }
+	table.table .noPM{padding:0 !important ; margin:0 !important ;} /* padding 과 margin 을 0으로 재설정 */
+	table.table .splitL{border-left:1px solid gray; text-align:inherit; height:1em; padding:0; margin:0; }
+	/* gray */	
+	table.gray{ color:#333;}
+	table.gray , table.gray td , table.gray div.splitL{ border-color:gray}
+	table.gray tr.thead{ background-color:#eee;}
+	/* blue */	
+	table.blue{ color:#036;}
+	table.blue , table.blue td , table.blue div.splitL{ border-color:#069}
+	table.blue tr.thead{ background-color:#abc;}
+	/* green */	
+	table.green{ color:#063;}
+	table.green , table.green td , table.green div.splitL{ border-color:#096}
+	table.green tr.thead{ background-color:#acb;}	
+	/* red */
+	table.red{ color:#603;}
+	table.red , table.red td , table.red div.splitL{ border-color:#906}
+	table.red tr.thead{ background-color:#cab;}
+	
+	/* noSide */
+	table.noSide,table.noSide td{ border-left-width:0; border-right-width:0;}
+
+	/* dottedRow */
+	table.dottedRow{ border-style:solid;}
+	table.dottedRow td{ border-top-style:dotted ;border-bottom-style:dotted;}
+
+
+/* A 태그*/	
+	/* 기본구조 */
+	a.a , a.a:link , a.a:visited { font-style: normal; text-decoration:none;}
+	a.a:hover { font-style: normal; text-decoration:underline;}
+	a.a:active { font-style: normal; text-decoration:none;}
+	/* gray */
+	a.gray , a.gray:link , a.gray:visited { color:#666; }
+	a.gray:hover { color:#333; }
+	a.gray:active { color:#999; }
+	/* blue */
+	a.blue , a.blue:link , a.blue:visited { color:#069; }
+	a.blue:hover { color:#69c; }
+	a.blue:active { color:#abc; }
+	/* green */
+	a.green , a.green:link , a.green:visited { color:#096; }
+	a.green:hover { color:#6c9; }
+	a.green:active { color:#acb; }
+	/* red */
+	a.red , a.red:link , a.red:visited { color:#906; }
+	a.red:hover{ color:#c69; }
+	a.red:active { color:#cab; }	
+	
+/* 버튼*/
+	input.btn , button.btn{ border:1px outset gray; font-size:inherit; padding:0; margin:0; line-height:1.1em; background-color:#fff;}
+/* 텍스트박스,텍스트에어리어*/
+	input.text , textarea.text{ border:1px inset gray; font-size:inherit; padding:0; margin:0; line-height:1.1em;}
+	/* gray */
+	input.gray , button.gray , textarea.gray { color:#666; background-color:#ccc; border-color:#666 }
+	/* blue */
+	input.blue , button.blue , textarea.blue { color:#039; background-color:#abc; border-color:#039 }
+	/* green */
+	input.green , button.green , textarea.green { color:#063; background-color:#acb; border-color:#063 }
+	/* red */
+	input.red , button.red , textarea.red { color:#603; background-color:#cab; border-color:#603 }
+
+	/* dotted */
+	input.dotted , button.dotted , textarea.dotted{ border-style:dotted; }
+	/* noSide */
+	input.noSide , button.noSide , textarea.noSide{ border-style:solid; border-left-width:0; border-right-width:0;}	
+
+	/* noSide */
+	input.noBorder , button.noBorder , textarea.noBorder{ border-style:none;}	
+
+	
+</style>
+</head>
+
+<body>
+<h1>Favorite CSS[<a href="#" target="_blank">새창</a>]</h1>
+<fieldset>
+<legend>테이블</legend>
+	<div class="p5 floatL">
+		<table width="300" border="0" cellpadding="0" cellspacing="0" class="table">
+			<colgroup>
+			<col width="100" />
+			<col width="100" />
+			<col width="100" />
+			</colgroup>
+			<tr class="thead">
+				<td width="100">구조</td>
+				<td width="100">색</td>
+				<td width="100">스타일</td>
+			</tr>
+			<tr class="table red">
+				<td>table</td>
+				<td class="noPM">&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="noPM">noPM<br />
+실험용</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</div>
+	<div class="p5 floatL">
+		<table width="300" border="0" cellpadding="0" cellspacing="0" class="table gray noSide">
+			<colgroup>
+			<col width="100" />
+			<col width="100" class="sp" />
+			<col width="100" />
+			</colgroup>
+			<tr class="thead">
+				<td height="30">구조</td>
+				<td><div class="splitL">색</div></td>
+				<td><div class="splitL">스타일</div></td>
+			</tr>
+			<tr class="table red">
+				<td>table</td>
+				<td class="noPM"><div class="splitL">gray</div></td>
+				<td><div class="splitL">noSide</div></td>
+			</tr>
+			<tr>
+				<td width="100">&nbsp;</td>
+				<td width="100" class="noPM">noPM<br />
+실험용</td>
+				<td width="100">&nbsp;</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+</div>
+	<div class="p5 floatL">
+		<table width="300" border="0" cellpadding="0" cellspacing="0" class="table blue dottedRow">
+			<colgroup>
+			<col width="100" />
+			<col width="100" />
+			<col width="100" />
+			</colgroup>
+			<tr class="thead">
+				<td width="100" height="30">구조</td>
+				<td width="100">색</td>
+				<td width="100">스타일</td>
+			</tr>
+			<tr class="table red">
+				<td>table</td>
+				<td class="noPM">blue</td>
+				<td>dottedRow</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="noPM">noPM<br />
+					실험용</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+</div>
+	<div class="p5 floatL">
+		<table width="300" border="0" cellpadding="0" cellspacing="0" class="table green dottedRow noSide">
+			<colgroup>
+			<col width="100" />
+			<col width="100" />
+			<col width="100" />
+			</colgroup>
+			<tr class="thead">
+				<td>구조</td>
+				<td>색</td>
+				<td>스타일</td>
+			</tr>
+			<tr class="table red">
+				<td>table</td>
+				<td class="noPM">green</td>
+				<td>noSide+dottedRow</td>
+			</tr>
+			<tr>
+				<td width="100">&nbsp;</td>
+				<td width="100" class="noPM">noPM<br />
+실험용</td>
+				<td width="100">&nbsp;</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+</div>
+	<div class="p5 floatL">
+		<table width="300" border="0" cellpadding="0" cellspacing="0" class="table red">
+			<colgroup>
+			<col width="100" />
+			<col width="100" />
+			<col width="100" />
+			</colgroup>
+			<tr class="thead">
+				<td width="100">구조</td>
+				<td width="100"> 색</td>
+				<td width="100">스타일</td>
+			</tr>
+			<tr>
+				<td>table</td>
+				<td class="noPM">red</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="noPM">noPM<br />
+실험용</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+</div>
+	<div class="clearB"></div>
+</fieldset>
+<fieldset>
+<legend>A 태그</legend>
+	<div class="p5 floatL">
+		<a class="a" href="#">[a] a</a>
+	</div>
+	<div class="p5 floatL">
+		<a class="a gray" href="#">[a] a gray</a>
+	</div>
+	<div class="p5 floatL">
+		<a class="a blue" href="#">[a] a blue</a>
+	</div>
+	<div class="p5 floatL">
+		<a class="a green" href="#">[a] a green</a>
+	</div>
+	<div class="p5 floatL">
+		<a class="a red" href="#">[a] a red</a>
+	</div>
+	<div class="clearB"></div>
+</fieldset>
+<fieldset>
+<legend>버튼</legend>
+	<div class="p5 floatL">
+		<input type="button" class="btn" value="[input] btn" />
+		&nbsp;<button class="btn">[button] btn</button>
+	</div>
+	<div class="p5 floatL">
+		<input type="button" class="btn gray dotted" value="[input] btn gray dotted" />
+		&nbsp;<button class="btn gray">[button] btn gray</button>
+	</div>
+	<div class="p5 floatL">
+		<input type="button" class="btn blue noSide" value="[input] btn blue noSide" />
+		&nbsp;<button class="btn blue">[button] btn blue</button>
+	</div>
+	<div class="p5 floatL">
+		<input type="button" class="btn green" value="[input] btn green" />
+		&nbsp;<button class="btn green noBorder">[button] btn green noBorder</button>
+	</div>
+	<div class="p5 floatL">
+		<input type="button" class="btn red" value="[input] btn red" />
+		&nbsp;<button class="btn red">[button] btn red</button>
+
+	</div>
+	<div class="clearB"></div>
+</fieldset>
+<fieldset>
+<legend>텍스트박스,텍스트에어리어</legend>
+	<div class="p5 floatL">
+		<input type="text" class="text" value="[input] text" />
+		&nbsp;<textarea cols="20" rows="2" class="text">[textarea] text</textarea>
+	</div>
+	<div class="p5 floatL">
+		<input type="text" class="text gray" value="[input] text gray" />
+		&nbsp;<textarea cols="20" rows="2" class="text gray dotted">[textarea] text gray dotted</textarea>
+	</div>
+	<div class="p5 floatL">
+		<input type="text" class="text blue " value="[input] text blue" />
+		&nbsp;<textarea cols="20" rows="2" class="text blue noSide">[textarea] text blue noSide</textarea>
+	</div>
+	<div class="p5 floatL">
+		<input type="text" class="text green" value="[input] text green" />
+		&nbsp;<textarea cols="20" rows="2" class="text green noBorder">[textarea] text green noBorder</textarea>
+	</div>
+	<div class="p5 floatL">
+		<input type="text" class="text red" value="[input] text red" />
+		&nbsp;<textarea cols="20" rows="2" class="text red">[textarea] text red</textarea>
+	</div>
+	<div class="clearB"></div>
+</fieldset>
+</body>
+</html>

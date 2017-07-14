@@ -1,0 +1,70 @@
+<?
+
+echo $str;
+function prout($outcharset){
+	$str = '한글 , 커피숖 1234 뷁입니다.';
+	echo htmlspecialchars(iconv('utf-8',$outcharset,$str));
+}
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>For Test</title>
+</head>
+
+<body>
+<ul>
+	
+	<li>EUC-KR
+		<ul>
+				<li><?=prout('EUC-KR')?></li>
+		</ul>
+	</li>
+	<li>x-windows-949
+		<ul>
+			<li><?=prout('x-windows-949')?></li>
+		</ul>
+	</li>
+	<li>cp949
+		<ul>
+			<li><?=prout('cp949')?></li>
+		</ul>
+	</li>
+	<li> UTF-8
+		<ul>
+			<li><?=prout('utf-8')?></li>
+		</ul>
+	</li>
+	<li>UTF-16
+		<ul>
+			<li><?=prout('utf-16')?></li>
+		</ul>
+	</li>
+	<li>ISO-2022-KR
+		<ul>
+			<li><?=prout('ISO-2022-KR')?></li>
+		</ul>
+	</li>
+	<li>x-johab(johab)
+		<ul>
+			<li><?=prout('johab')?></li>
+			</ul>
+	</li>
+	<li>x-IBM933(IBM933)
+		<ul>
+			<li><?=prout('IBM933')?></li>
+		</ul>
+	</li>
+	<li>x-IBM949(IBM949)
+		<ul>
+			<li><?=prout('IBM949')?></li>
+		</ul>
+	</li>
+	<li>x-IBM970(IBM970)
+		<ul>
+			<li><?=prout('IBM970')?></li>
+		</ul>
+	</li>
+</ul>
+</body>
+</html>

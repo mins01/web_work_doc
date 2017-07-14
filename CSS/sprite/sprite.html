@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<title>css sprite</title>
+<style type="text/css">
+html{font-size:12px;}
+.menuImg{ position:absolute; background-image:url("sprite.png"); background-repeat:no-repeat;display:block; display:block;width:100px; height:300px; }
+.menuImg:hover{left:-50px;}
+.menu01{top:0px;}
+.menu02{top:-50px;}
+.menu03{top:-100px;}
+.menu04{top:-150px;}
+.menu05{top:-200px;}
+.menu06{top:-250px;}
+
+ul.menu{ padding:0; margin:0;}
+ul.menu li{ padding:0; margin:0; list-style-type:none; float:left; width:50px; height:50px; overflow:hidden; position:relative;}
+
+</style>
+</head>
+<body>
+<h1>css sprite[<a href="?">new</a>]</h1>
+<h2>작성자</h2>
+<ul>
+	<li>공대여자</li>
+	<li>2010년 7월 12일 작성</li>
+	<li><a href="http://mins01.com">http://mins01.com</a></li>
+</ul>
+<h2>간단한 sprite 예제</h2>
+<ul class="menu">
+	<li><a href="http://mins01.com" class="menuImg menu01 "></a></li>
+	<li><a href="javascript:void(alert('menu02'))" class="menuImg menu02 "></a></li>
+	<li><a href="javascript:void(alert('menu03'))" class="menuImg menu03 "></a></li>
+	<li><a href="javascript:void(alert('menu04'))" class="menuImg menu04 "></a></li>
+	<li><a href="javascript:void(alert('menu05'))" class="menuImg menu05 "></a></li>
+	<li><a href="javascript:void(alert('menu06'))" class="menuImg menu06 "></a></li>
+</ul>
+<div style="clear:both"></div>
+<ul>
+	<li>배경 원본이미지
+		<ul>
+			<li><img src="sprite.png" alt="sprite.png" /><br />
+sprite.png</li>
+			<li>너비 100px , 높이 300px</li>
+			<li>각 너비 50px, 높이 50px씩 이미지가 들어가있음</li>
+			<li>마지막 왕관 부분은 높이가 잘못되어서 5,6번째 메뉴는 모양이 다르게 보임.</li>
+		</ul>
+	</li>
+</ul>
+<h2>설명</h2>
+<ul>
+	<li>메뉴별 같은 이미지를 레이어로 만든다.(감싸는 li는 overflow:hidden에 postion:relative)</li>
+	<li>메뉴별 top값을 조정해서 원하는 이미지가 나오도록 한다.</li>
+	<li>:hover로 left값을 -50px로 바꾼다.</li>
+	<li>끝</li>
+</ul>
+<h2>장점/단점</h2>
+<ul>
+	<li>장점
+		<ul>
+			<li>HTTP로 이미지 전송이 1번만 발생한다.</li>
+			<li>마우스 오버일 때에도 이미지 전송을 하지 않는다.(304, abort 등일 발생하지 않는다.)</li>
+		</ul>
+	</li>
+	<li>단점
+		<ul>
+			<li>이미지의 크기와 오버시 위치등을 미리 알고있어야한다.
+				<ul>
+					<li>디자이너와 코더의 협의가 필요.</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+<h2>테스트 된  브라우저</h2>
+<ul>
+	<li>IE 5.5 , 6 , 7 , 8 (7 빼고는 IETESTER로 테스트됨)</li>
+	<li>FF 3.6.6</li>
+	<li>Crome 4.1.249.1064 (45376)</li>
+	<li>Opera 10.52</li>
+	<li>Safari 4.0 (530.17)</li>
+</ul>
+<h2>PS</h2>
+<ul>
+	<li>이미지를 세로로 길게 했는 데, 가로로 길게해도 상관없다. 솔찍히 가로가 더 편할 것 같다.</li>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>
+

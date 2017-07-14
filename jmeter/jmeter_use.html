@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<h1>Jmeter 사용문서</h1>
+<ul>
+  <li>참고 링크 
+    <ul>
+      <li>HTTP Request 를 사용하여 테스트하는 문서
+        <ul>
+          <li><strong id="aeaoofnhgocdbnbeljkmbjdmhbcokfdb-mousedown"><a href="http://www.hanb.co.kr/network/view.html?bi_id=1520">Jmeter를 사용한 Stress Test(1)</a></strong></li>
+          <li><strong id="aeaoofnhgocdbnbeljkmbjdmhbcokfdb-mousedown2"><a href="http://www.hanb.co.kr/network/view.html?bi_id=1521">Jmeter를 사용한 Stress Test(2)</a></strong></li>
+          <li><strong><a href="http://www.hanb.co.kr/network/view.html?bi_id=1522">Jmeter를 사용한 Stress Test(3)</a></strong></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<hr />
+<ul>
+  <li>팁
+    <ul>
+      <li>원격 테스트 구성시 설정 팁
+        <ul>
+          <li>jmeter.properties 
+            <ul>
+              <li>mode=Statistical 
+를 설정하여 테스트 하는것이 좋다.
+      <ul>
+        <li>장점 : 통계자료만 Slave에서 Master로 보내진다.(그만큼의 전송 부하를 절약)</li>
+        <li>단점 : 자세한 에러내용과 본문 내용을 알 수 없다.</li>
+        <li>테스트한 본문과 에러내용을 봐야한다면? : mode=Standard</li>
+        </ul>
+              </li>
+              <li>num_sample_threshold=100 : 100번의 테스트마다 Master에게 정보를 보낸다.<br />
+                time_threshold=10000 : 10초마다 내용을 Master에게 정보를 보낸다.
+                <ul>
+                  <li>너무 길면 테스트 결과 보기가 어렵고, Slave쪽에서 에러날 수 있다.</li>
+                  <li>너무 짧으면 그만큼 전송 빈도가 높아진다.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>jmeter-remote가 정상 동작을 안한다면?
+            <ul>
+              <li>[-----@dev bin]$ sh jmeter-server<br />
+                Created remote object: UnicastServerRef [liveRef: [endpoint:[127.0.0.1:35486](local),objID:[6528fd9b:1365c22e123:-7fff, 2089384130146737831]]]<br />
+                Server failed to start: java.rmi.RemoteException: Cannot start. dev is a loopback address.<br />
+              An error occurred: Cannot start. dev is a loopback address. 
+              <ul>
+                <li>dev(hostname)로 설정된 IP가 127.0.0.1여서 생기는 문제이다.(본래는 외부 IP로 열려야함)</li>
+                </ul>
+              </li>
+              <li>jmeter -server를<br />
+                <ul>
+                  <li>(불필요 주석 삭제)<br />
+                    #!/bin/sh<br />
+                    DIRNAME=`dirname $0`<br />
+                    RMI_HOST_DEF=-Djava.rmi.server.hostname=xxx.xxx.xxx.xxx &lt;----이부분 주석풀고 외부로 IP입력(강제로 IP가 설정됨)<br />
+                    ${DIRNAME}/jmeter ${RMI_HOST_DEF} -Dserver_port=${SERVER_PORT:-1099} -s -j jmeter-server.log &quot;$@&quot;</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>JDBC를 위한 준비
+        <ul>
+          <li>관련 DB의 .jar파일을 {Jmeter 설치폴더}/lib 속에 넣어둔다.
+            <ul>
+              <li>따로 Jmeter에서 classpath를 설정할 수도 있다.</li>
+            </ul>
+          </li>
+          <li>각 DB에 맞는 database URL과 JDBC Drive class를 지정한다.
+            <ul>
+              <li>ORACLE의 경우
+                <ul>
+                  <li>database URL
+                    <ul>
+                      <li>MST(shared)로 접속 : jdbc:oracle:thin:@//<strong>{DB SERVER IP}</strong>:1521/<strong>{SID}</strong></li>
+                      <li>DEDI로 접속 : jdbc:oracle:thin:@(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = <strong>{DB SERVER IP}</strong>)(PORT = 1521)) (CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = <strong>{SID}</strong>)))</li>
+                    </ul>
+                  </li>
+                  <li>JDBC Drive class : oracle.jdbc.OracleDriver 
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Jmeter-plugin
+        <ul>
+          <li> <a href="http://code.google.com/p/jmeter-plugins/">http://code.google.com/p/jmeter-plugins/</a></li>
+          <li> <a href="http://code.google.com/p/jmeter-plugins/wiki/PerfMon">http://code.google.com/p/jmeter-plugins/wiki/PerfMon</a></li>
+          <li>꽤 많은 플러그인이 지원된다.
+            <ul>
+              <li>대상 서버의 상태(CPU,Memory,Network)를 모니터링 할 수 도 있다.
+                <ul>
+                  <li>따로 에이전트를 설치해야함  <a href="http://code.google.com/p/jmeter-plugins/wiki/PerfMonAgent">http://code.google.com/p/jmeter-plugins/wiki/PerfMonAgent</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>설치법
+            <ul>
+              <li> <a href="http://code.google.com/p/jmeter-plugins/wiki/PluginInstall">http://code.google.com/p/jmeter-plugins/wiki/PluginInstall</a></li>
+              <li>다운로드 받은 후 {Jmeter 설치폴더}/lib/ext 에 압축을 풀어놓으면 된다.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<p>&nbsp;</p>
+</body>
+</html>

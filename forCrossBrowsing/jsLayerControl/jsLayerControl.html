@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jsLayerControl</title>
+<script type="text/javascript" src="jsLayerControl.js"></script>
+</head>
+
+<body>
+<div style="background-color:#00CCFF; position:absolute; overflow:hidden; width:80px; left: 354px; top: 80px; border:1px solid #cccccc; " id="t">
+  <table width="100%" border="1">
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td align="center"><a href="javascript:layerControl.actLayer(config);">시작</a></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+</div>
+<table width="100%" border="1">
+  <tr>
+    <td width="150" align="center">응용예제</td>
+    <td>
+	<div style="position:relative; ">
+	<input type="button" name="Button" value="스르르보이는" style="width:100px; height:100px; " onclick="demo();" />
+   <div id="testDiv" style=" white-space:nowrap; overflow:hidden;position:absolute;color:white; background-color:black; left:0px; top:100px; width:200px; height:200px; text-align:center ">실험용입니다.<br />
+     <a href="http://mins01.com" target="_blank">http://mins01.com</a><br />
+<UL><li>공대여자는?<li>이뻐!</li></li></UL></div>
+   </div>
+<script type="text/javascript">
+//<![CDATA[
+	var b = false;
+	var demoControl = new jsLayerControl(document.getElementById('testDiv'));
+	var demoConfig1 = {'width':0,'height':0,'left':0,'top':0,'opacity':0,'endEvent':function(){demoControl.layer.style.display='none';},'startEvent':null };	
+	var demoConfig2 = {'width':200,'height':200,'left':0,'top':100,'opacity':1,'startEvent':function(){demoControl.layer.style.display='';},'endEvent':null };		
+	function demo(){
+		if(b){
+			demoControl.actLayer(demoConfig1);
+			b = !b;
+		}else{
+			demoControl.actLayer(demoConfig2);
+			b = !b;		
+		}
+	}
+	demoControl.setLayer(demoConfig1);
+//]]>
+</script>	
+   
+   </td>
+   
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<script type="text/javascript">
+//<![CDATA[
+var config = {'width':Math.random()*500,'height':Math.random()*500,'left':Math.random()*500,'top':Math.random()*500,'endEvent':function(){ if(confirm("완료1,계속하시겠습니까?")) layerControl.actLayer(config1);} };
+var config1 = {'width':Math.random()*500,'height':Math.random()*500,'left':Math.random()*500,'top':Math.random()*500,'endEvent':function(){if(confirm("완료21,계속하시겠습니까?"))layerControl.actLayer(config2);} };
+var config2 = {'width':Math.random()*500,'height':Math.random()*500,'left':Math.random()*500,'top':Math.random()*500,'frame':10,'delay':200,'endEvent':function(){if(confirm("완료3,계속하시겠습니까?"))layerControl.actLayer(config3);} };
+var config3 = {'width':Math.random()*500,'height':Math.random()*500,'left':Math.random()*500,'top':Math.random()*500,'frame':100,'delay':1,'endEvent':function(){if(confirm("완료4,계속하시겠습니까?"))layerControl.actLayer(config);} };
+//var config = {'width':500,'height':500,'left':500,'top':500 };
+var layerControl = new jsLayerControl(document.getElementById('t'));
+//layerControl.setLayer();
+//layerControl.actLayer(config);
+function setTest(){
+	var form0 = document.form0;
+	var config = {
+					'left':form0.txtLeft.value
+					,'top':form0.txtTop.value
+					,'width':form0.txtWidth.value
+					,'height':form0.txtHeight.value
+					,'opacity':form0.opacity.value
+					,'endEvent':null
+					};
+	layerControl.setLayer(config);
+}
+function actTest(){
+	var form0 = document.form0;
+	var config = {
+					'frame':form0.txtFrame.value
+					,'delay':form0.txtDelay.value
+					,'left':form0.txtLeft.value
+					,'top':form0.txtTop.value
+					,'width':form0.txtWidth.value
+					,'height':form0.txtHeight.value
+					,'opacity':form0.opacity.value
+					,'endEvent':null
+					};
+	layerControl.actLayer(config);
+}
+function actRandom(){
+	var form0 = document.form0;
+	//form0.txtFrame.value = Math.random()*100;
+	//form0.txtDelay.value = Math.random()*500+10;
+	form0.txtLeft.value = Math.random()*500;
+	form0.txtTop.value = Math.random()*500;
+	form0.txtWidth.value = Math.random()*500;
+	form0.txtHeight.value = Math.random()*500;
+	form0.opacity.value = Math.random().toFixed(2);
+	actTest()
+}
+function setRandom(){
+	var form0 = document.form0;
+	//form0.txtFrame.value = Math.random()*100;
+	//form0.txtDelay.value = Math.random()*500+10;
+	form0.txtLeft.value = Math.random()*500;
+	form0.txtTop.value = Math.random()*500;
+	form0.txtWidth.value = Math.random()*500;
+	form0.txtHeight.value = Math.random()*500;
+	form0.opacity.value = Math.random().toFixed(2);
+	setTest()
+}
+function actPause(){
+	layerControl.actPause(config);
+}
+function actResume(){
+	layerControl.actResume(config);
+}
+function actStop(){
+	layerControl.actStop();
+}
+//]]>
+</script>
+<form action="?" name="form0" onsubmit="return false;" style="margin:0; ">
+<table width="100%" border="1" style="table-layout:fixed; ">
+  <tr>
+    <td width="100" align="center">프레임,딜레이</td>
+    <td>Frame :
+        <input name="txtFrame" type="text"  value="100" size="5" maxlength="5" />
+&nbsp;&nbsp;,&nbsp;&nbsp;Delay :
+  <input name="txtDelay" type="text"  value="10" size="5" maxlength="5" /></td>
+  </tr>
+  <tr>
+    <td width="100" align="center">위치</td>
+    <td>Left : 
+      <input name="txtLeft" type="text"  value="100" size="5" maxlength="5" /> 
+      &nbsp;&nbsp;,&nbsp;&nbsp;Top :
+      <input name="txtTop" type="text"  value="200" size="5" maxlength="5" /></td>
+  </tr>
+  <tr>
+    <td align="center">크기</td>
+    <td>Width :
+      <input name="txtWidth" type="text"  value="100" size="5" maxlength="5" />
+&nbsp;&nbsp;,&nbsp;&nbsp;Height :
+<input name="txtHeight" type="text"  value="50" size="5" maxlength="5" /></td>
+  </tr>
+  <tr>
+    <td align="center">투명도</td>
+    <td>Opacity : 
+      <input name="opacity" type="text"  value="1" size="5" maxlength="5" />
+      (0~1)</td>
+  </tr>
+  <tr>
+    <td align="center">적용</td>
+    <td><input type="button" name="Button" value="적용" onclick="setTest()" />
+      <input type="button" name="Button" value="애니메이션적용" onclick="actTest()"  /></td>
+  </tr>
+  <tr>
+    <td align="center">랜덤적용</td>
+    <td><input type="button" name="Button" value="적용" onclick="setRandom()" />
+      <input type="button" name="Button" value="애니메이션적용" onclick="actRandom()" /></td>
+  </tr>
+  <tr>
+    <td align="center">&nbsp;</td>
+    <td><input type="button" name="Button" value="애니메이션일시정지" onclick="actPause()" />
+      <input type="button" name="Button" value="애니메이션계속" onclick="actResume()" />
+      <input type="button" name="Button" value="애니메이션멈춤" onclick="actStop()" /></td>
+  </tr>
+  <tr>
+    <td align="center">다운로드</td>
+    <td>[<a href="jsLayerControl.html" title="다른이름으로 저장해요!">HTML</a>] [<a href="jsLayerControl.js" title="다른이름으로 저장해요!">JS</a>] </td>
+  </tr>
+</table>
+</form>
+</body>
+</html>

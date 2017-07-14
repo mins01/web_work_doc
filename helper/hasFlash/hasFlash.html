@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>플래시 사용 가능 여부 체크</title>
+ 
+  
+  <script type="text/javascript">
+	//depth 는 제한 단계
+		function getTreeData(Rs,depth){
+		alert(depth);
+//		alert(NV[x] intanceof Array)	
+			var v = {};
+			if(depth<0){return Rs.toString();}
+			alert(typeof(Rs));
+			for(var x in Rs){
+
+				switch(typeof(Rs[x])){
+					case 'number': v[x] = Rs[x].toString();break;
+					case 'string': v[x] = Rs[x];break;
+					case 'boolean': v[x] = Rs[x].toString();break;
+					case 'function': v[x] = Rs[x].toString();break;
+					//case 'object': v[x] = arguments.callee(Rs[x],depth-1); break;
+					case 'object': v[x] = getTreeData(Rs[x],depth-1); break;
+					default:alert(typeof(Rs[x]));
+				}
+			}
+			return v;
+		}
+	</script>
+  
+  <script type="text/javascript">
+		function makeTree(Rs){
+			var v = [];
+			v.push('<ul>');
+			var v2 = null;
+			for(var x in Rs){
+				v.push('<li>');
+				v.push(x);
+				switch(typeof(Rs[x])){
+					case 'string': v2 = ' : '+Rs[x];break;
+					case 'boolean': v2 = ' : '+Rs[x].toString();break;
+					case 'function': v2 = ' : '+Rs[x].toString();break;
+					//case 'object': v2 = arguments.callee(Rs[x]); break;
+					case 'object': v2 = makeTree(Rs[x]); break;
+				}
+				v.push(v2);
+				v.push('</li>');
+			}
+			v.push('</ul>');
+			return v.join('');
+		}
+		function checkBodyBound(){
+			alert(document.body.offsetWidth+"px , "+document.body.offsetHeight+"px");
+		}
+	</script>
+<script type="text/javascript">
+function hasFlash(){
+	if(navigator.mimeTypes && navigator.mimeTypes.length>0 && navigator.mimeTypes["application/x-shockwave-flash"] != undefined
+	&& navigator.plugins && navigator.plugins.length>0 && navigator.plugins["Shockwave Flash"]  != undefined
+	){
+		return true;
+	}else if(window.ActiveXObject){
+		if(window.ActiveXObject){
+			if(new ActiveXObject("ShockwaveFlash.ShockwaveFlash")){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+</script>
+</head><body>
+<h1>플래시 사용 가능 여부 체크 [<a href="?" target="_blank">NEW</a>]</h1>
+
+<ul>
+
+  <li>공대여자</li>
+  <li>2013-01-08<br>
+  </li>
+</ul>
+
+실제로는 플래시 플러그인이 설치되어있는지 확인한다.<br>
+<br>
+<input type="button" value="플래시지원여부확인" onclick="alert(hasFlash()?'플래시 지원 브라우저':'플래시 미지원 브라우저')">
+<br>
+
+<ul>
+
+  <li>확인 변수</li>
+  <ul>
+    <li>지원타입 확인<br>
+    </li>
+    <ul>
+      <li>navigator.mimeTypes["application/x-shockwave-flash"]</li>
+      <li>navigator.mimeTypes["application/futuresplash"]</li>
+    </ul>
+    <li>플러그인 설치 확인</li>
+    <ul>
+      <li>navigator.plugins["Shockwave Flash"] <br>
+      </li>
+    </ul>
+  </ul>
+</ul>
+
+<br>
+
+-------=------------<br>
+
+플러그인 설치 확인에서<br>
+
+length 가 2인 이유는 MimeType 이 배열 인자로 붙어있음.<br>
+
+<ul>
+
+  <li>description "FutureSplash movie"<br>
+enabledPlugin Plugin<br>
+suffixes "spl"<br>
+type "application/futuresplash"</li>
+  <li>description "Adobe Flash movie"<br>
+enabledPlugin Plugin<br>
+suffixes "swf,swt"<br>
+type "application/x-shockwave-flash"<br>
+  </li>
+</ul>
+
+<br>
+
+-----=---------<br>
+
+크롬&nbsp; : 23.0.1271.97 m<br>
+
+<ul>
+
+  <li>navigator.plugins["Shockwave Flash"]</li>
+  <ul>
+    <li>description: "Shockwave Flash 11.5 r31"<br>
+filename: "pepflashplayer.dll"<br>
+length: 2 <br>
+name: "Shockwave Flash"<br>
+    </li>
+  </ul>
+</ul>
+
+<br>
+
+-----=-<br>
+
+FF : 14.0.1<br>
+
+<ul>
+
+  <li>navigator.plugins["Shockwave Flash"]</li>
+  <ul>
+    <li>description &nbsp;&nbsp;&nbsp; "Shockwave Flash 11.4 r402"<br>
+filename &nbsp;&nbsp;&nbsp; "NPSWF32_11_4_402_265.dll"<br>
+length &nbsp;&nbsp;&nbsp; 2 <br>
+name &nbsp;&nbsp;&nbsp; "Shockwave Flash"<br>
+version &nbsp;&nbsp;&nbsp; "11.4.402.265"</li>
+  </ul>
+</ul>
+
+----=-----<br>
+
+Safari&nbsp; : 5.1.7(7534.57.2)<br>
+
+<ul>
+
+  <li>navigator.plugins["Shockwave Flash"]</li>
+  <ul>
+    <li>constructor: PluginConstructor<br>
+description: "Shockwave Flash 11.4 r402"<br>
+filename: "NPSWF32_11_4_402_265.dll"<br>
+length: 2<br>
+name: "Shockwave Flash"</li>
+  </ul>
+</ul>
+
+------=----------<br>
+
+Opera : 12.12<br>
+
+<ul>
+
+  <li>navigator.plugins["Shockwave Flash"]</li>
+  <ul>
+    <li>description "Shockwave Flash 11.4 r402"<br>
+filename "NPSWF32_11_4_402_265.dll"<br>
+length 2<br>
+name "Shockwave Flash"</li>
+  </ul>
+</ul>
+
+------=--------<br>
+
+현재 브라우저 navigator.plugins 정보<br>
+
+---<br>
+
+
+
+<script type="text/javascript">
+//디버깅용
+//var Ps = navigator.plugins;
+//document.write(makeTree(getTreeData(Ps,2)));
+//var Ps = navigator.mimeTypes;
+//document.write(makeTree(getTreeData(Ps,2)));
+//alert(navigator.mimeTypes["application/x-shockwave-flash"] );
+//alert(navigator.plugins.length);
+//var x = new ActiveXObject("ShockwaveFlash.ShockwaveFlash");
+//document.write(makeTree(getTreeData(x,2)));
+//alert(x.GetVariable("$version") );
+</script>
+</body></html>

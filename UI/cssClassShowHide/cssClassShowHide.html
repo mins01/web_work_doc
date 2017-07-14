@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<title>CSS(CLASS)를 사용한 SHOW , HIDE 방법</title>
+<style type="text/css">
+	html{font-size:12px;}
+	.red{ background-color:red;color:yellow;}
+	.on .dOff{ display:block;}
+	.off .dOff{ display:none;}
+</style>
+</head>
+
+<body>
+<h1>CSS(CLASS)를 사용한 SHOW , HIDE 방법 [<a href="?" target="_blank">NEW</a>]</h1>
+<h2>작성자</h2>
+<ul>
+	<li>공대여자</li>
+	<li>2010년 7월 12일 작성</li>
+	<li><a href="http://mins01.com">http://mins01.com</a></li>
+</ul>
+<h2></h2>
+<h2>예제모양</h2>
+<p>
+div ID : div_1<br />
+li ID : li_hide_11 , li_hide_12</p>
+<div id="div_1" style="border:2px solid gray; padding:5px; margin:5px; background-color:#FFFF00;">
+	<ul>
+		<li>이것은 좋은것이다.</li>
+		<li>공대여자는?
+			<input type="button" value="보기" />
+				<ul>
+					<li id="li_hide_11" class="red dOff">&quot;공대여자가 이쁘다.&quot;는건 진리이다.</li>
+				</ul>
+		</li>
+		<li>공대여자 홈페이지는
+			<ul>
+				<li id="li_hide_12" class="red dOff"><a href="http://mins01.com">mins01.com</a> 이다.</li>
+			</ul>
+		</li>
+	</ul>
+	</ul>
+</div>
+<h2>JS로만 처리할 경우</h2>
+<p> div ID : div_2<br />
+li ID : li_hide_21 , li_hide_22</p>
+<div id="div_2" style="border:2px solid gray; padding:5px; margin:5px; background-color:#FFFF00;">
+	<ul>
+		<li>이것은 좋은것이다.</li>
+		<li>공대여자는?
+			<input type="button" value="보기" onclick="toggleDiv('2')" />
+				<ul>
+					<li id="li_hide_21" class="red dOff">&quot;공대여자가 이쁘다.&quot;는건 진리이다.</li>
+				</ul>
+		</li>
+		<li>공대여자 홈페이지는
+			<ul>
+				<li id="li_hide_22" class="red dOff"><a href="http://mins01.com">mins01.com</a> 이다.</li>
+			</ul>
+		</li>
+	</ul>
+	</ul>
+</div>
+스크립트
+<textarea style="width:500px; " cols="1" rows="15" readonly="readonly">
+<script type="text/javascript">
+function toggleDiv(num){
+	var id = "li_hide_"+num
+	var ta1 = document.getElementById(id+1);
+	var ta2 = document.getElementById(id+2);
+	if(ta1.style.display=='none'){
+		ta1.style.display='';
+	}else{
+		ta1.style.display='none';
+	}
+	ta2.style.display=ta1.style.display;
+}
+</script>
+</textarea>
+<script type="text/javascript">
+function toggleDiv(num){
+	var id = "li_hide_"+num
+	var ta1 = document.getElementById(id+1);
+	var ta2 = document.getElementById(id+2);
+	if(ta1.style.display=='none'){
+		ta1.style.display='';
+	}else{
+		ta1.style.display='none';
+	}
+	ta2.style.display=ta1.style.display;
+}
+</script>
+<h2>	CSS의 class를 추가해서 처리할 경우</h2>
+<p>div ID : div_3<br />
+li ID : li_hide_31 , li_hide_32</p>
+<div id="div_3" style="border:2px solid gray; padding:5px; margin:5px; background-color:#FFFF00;">
+	<ul>
+		<li>이것은 좋은것이다.</li>
+		<li>공대여자는?
+			<input type="button" value="보기" onclick="chanceClassDiv('3')" />
+				<ul>
+					<li id="li_hide_31" class="red dOff">&quot;공대여자가 이쁘다.&quot;는건 진리이다.</li>
+				</ul>
+		</li>
+		<li>공대여자 홈페이지는
+			<ul>
+				<li id="li_hide_32" class="red dOff"><a href="http://mins01.com">mins01.com</a> 이다.</li>
+			</ul>
+		</li>
+	</ul>
+	</ul>
+</div>
+<p>스크립트
+<textarea style="width:500px;" cols="1" rows="10" readonly="readonly">
+<script type="text/javascript">
+function chanceClassDiv(num){
+	var id = "div_"+num
+	var ta = document.getElementById(id);
+	ta.className = ta.className=='off'?'on':'off';
+	
+}
+</script>
+	</textarea>
+	<br />
+CSS
+<textarea style="width:500px;" cols="1" rows="8" readonly="readonly">
+<style type="text/css">
+	html{font-size:12px;}
+	.red{ background-color:red;color:yellow;}
+	.on .dOff{ display:block;}
+	.off .dOff{ display:none;}
+</style>
+</textarea>
+
+</p>
+<p>&nbsp;</p>
+
+	<script type="text/javascript">
+function chanceClassDiv(num){
+	var id = "div_"+num
+	var ta = document.getElementById(id);
+	ta.className = ta.className=='off'?'on':'off';
+	
+}
+	</script>
+<h2>설명</h2>
+<ol>
+	<li>JS로만 할 경우
+		<ol>
+			<li> 숨길태그를 모두 알고있어야된다.(ID를 알거나 DOM으로 찾아가거서)</li>
+			<li>그후 <strong>숨길태그 하나마다</strong>의 style.display를 none이나 block으로 변경</li>
+		</ol>
+	</li>
+	<li>CSS의 class를 추가해서 할 경우
+		<ol>
+			<li>미리 설정
+				<ol>
+					<li>class를 미리 정의해둔다.</li>
+					<li>숨길태그는 dOff 등으로 class를 지정해둔다.</li>
+					<li>부모태그는 on(숨길태그 보임) , off(숨길태그 안보임) 중 하나로 class를 지정(안해도.. 뭐뭐..)</li>
+				</ol>
+			</li>
+			<li>숨길태그들을 포함하는 부모태그(ID나 form등으로)를 알고있어야한다.</li>
+			<li><strong>부모태그</strong>의 class를 on이나, off로 변경</li>
+		</ol>
+	</li>
+</ol>
+<h2>결론?</h2>
+<ul>
+	<li>같은 구조의 디자인이 반복될 때 CLASS 사용하면 좋다.</li>
+</ul>
+<h2>잡담</h2>
+<ul>
+	<li>대상을 지정하는 법은 document.getElementById	같이 id로 접근하는 법이 있지만<br />
+	form을 사용해서 &lt;input type=&quot;button&quot;&gt; 에서 onclick 시 fn(this.form) 처럼 form을 지정해버리는 방법도 있고<br />
+	this.parentNode 처럼 상위노드를 찾아가는 방법도 있다.
+		<ul>
+			<li>즉, 여러 방법이 있으니... 하나의 방법을 고집할 필요는 없다.<br />
+			개인적으로 form으로 감싸는 방법을 추천.</li>
+		</ul>
+	</li>
+</ul>
+</body>
+</html>

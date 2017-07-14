@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+body{font-size:20px;}
+h1{font-size:2em;}
+h2{font-size:1.6em;}
+h3{font-size:1em;}
+h4{font-size:0.8em;}
+h5{font-size:0.4em;}
+h6{font-size:0.2em;}
+.border{
+	border:1px solid #aabbcc; background-color:#cceeff;
+	padding:0.5em 0.5em 0.5em 2em;
+	margin-top:5px; margin-bottom:5px;
+}
+</style>
+<title>SVN 현업 실제 시현</title>
+</head>
+
+<body>
+<h1>SVN 협업 실제 시현</h1>
+<ul>
+	<li>
+		<h2>개요</h2>
+		<ol>
+			<li><a href="#M1">로컬 개발환경 설정</a></li>
+			<li><a href="#M2">SVN 로컬 설정</a></li>
+			<li><a href="#M3">실제 협업 시현</a></li>
+		</ol>
+	</li>
+</ul>
+<p>&nbsp;</p>
+<ol>
+	<li>
+		
+		<h2><a name="M1"></a>로컬 개발환경 설정</h2>
+		<ul>
+			<li>로컬 개발환경이 필요한 이유
+				<ul>
+					<li>SVN 협업 시스템을 구출 할 경우, 프로젝트의 작업순서
+						<ol class="border">
+							<li>로컬 개발 &amp; 테스트</li>
+							<li>로컬 SVN commit -&gt; SVN 서버로 업로드 (서브버전 관리)</li>
+							<li>개발서버 SVN update -&gt; SVN 서버의 내용과 동기화</li>
+							<li>개발서버 테스트 후 Rsync -&gt; 실서버 반영</li>
+						</ol>
+					</li>
+					<li>협업화 할 경우 다른 사람과의 개발충돌을 최소화하기 위해서 SVN을 사용하고<br />
+					그로인해서 개인별 개발과 테스트를 위해서 로컬 개발환경이 필요하게 됩니다.<br />
+					작접 순서 1번으로 개인별 개발이 가능하게되고 작업순서 2번, 3번으로 협업이 가능하게 됩니다.</li>
+				</ul>
+			</li>
+			<li>로컬 개발환경을 위한 준비물
+				<ul>
+					<li>APM : Apache + PHP + Mysql(옵션)
+						<ul>
+							<li>APM을 각각 설처하고 관리하는 것을 힘든 일이기 때문에 APM을 한나로 묶어서 배포하는 프로그램을 사용하길 추천합니다.</li>
+							<li>프로그램
+								<ul>
+									<li><a href="http://www.apmsetup.com/download.php" target="_blank">APMSetup6</a> : 추천</li>
+									<li><a href="http://www.autoset.org/v2007/orga/download.php" target="_blank">AutoSet</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li>오라클 클라이언트 : 오라클을 기본 DBMS로 사용
+						<ul>
+							<li>Ocracle Client : <a href="http://www.oracle.com/technology/global/kr/software/tech/oci/instantclient/index.html" target="_blank">Oracle Instant Client 11</a> 사용 </li>
+							<li>tnsnames.ora : 사내 오라클 서버 정의파일 </li>
+							<li>오라클 언어설정 파일 : <a href="file/NLS_LANG.reg" target="_blank">NLS_LANG.reg</a> </li>
+							<li>참고 : <a href="http://blog.tinyfall.net/135" target="_blank">링크</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li>프로젝트 관련 기본 정보
+				<ul>
+					<li>도메인
+						<ul>
+							<li>실서버 : uhak.uway.com</li>
+							<li>개발서버 : uhakdev.uway.com</li>
+							<li>로컬서버 : uhakdevl.uway.com (host 파일 수정 필요)</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li>설치&amp;환경설정
+				<ul>
+					<li>APM설치</li>
+					<li>APM 환경설정
+						<ul>
+							<li>php.ini 수정
+								<ul>
+									<li>APMsetup6 : C:\APM_Setup\php.ini</li>
+									<li>AutoSet : C:\AutoSet\Server\php5\pnp.ini</li>
+									<li class="border"><div>
+										 
+											<strong>;extension=php_oci8.dll</strong> 부분을 찾아서 <strong>extension=php_oci8.dll</strong> 로 변경(주석표시 제거)
+										 
+										</div></li>
+								</ul>
+							</li>
+							<li>vhost.conf(아파치 버추얼 호스트 설정 파일) 수정
+								<ul>
+									<li>APMsetup6 : C:\APM_Setup\Server\Apache\conf\extra\httpd-vhosts.conf</li>
+									<li>AutoSet : C:\AutoSet\Server\Apache2\conf\vhost.conf</li>
+									<li class="border">아래 내용 추가<br />
+										<div>&lt;VirtualHost <strong>uhakdevl.uway.com</strong>:80&gt;<br />
+										<strong>ServerName uhakdevl.uway.com</strong><br />
+ServerAdmin admin@uway.com<br />
+<strong> DocumentRoot &quot;C:\work\uway\uhak\www&quot;</strong> #작업폴더 위치를 참고해서 설정<br />
+ErrorLog logs/uhakdevl.localhost-error_log<br />
+CustomLog logs/uhakdevl.localhost-access_log common<br />
+#php_admin_value open_basedir &quot;C:\work\uway\uhak\www&quot;<br />
+&lt;Directory &quot;C:\work\uway\uhak\www&quot; &gt;<br />
+Options Indexes FollowSymLinks<br />
+AllowOverride None<br />
+Order allow,deny <br />
+Allow from all<br />
+&lt;/Directory&gt;<br />
+&lt;/VirtualHost&gt;</div>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li>host 파일 수정
+						<ul>
+							<li><a href="C:\WINDOWS\system32\drivers\etc\hosts" target="_blank">C:\WINDOWS\system32\drivers\etc\hosts</a>
+													<ul>
+														<li>
+															<input readonly="readOnly" maxlength="100" size="50" value="127.0.0.1    uhakdevl.uway.com    #uhak dev At Local" />
+															추가 </li>
+													</ul>
+							</li>
+						</ul>
+					</li>
+					<li>오라클 클라이언트 설치
+						<ul>
+							<li>APM이 AutoSet인 경우
+								<ul>
+									<li>압축풀 경로 : C:\AutoSet\Server\instantclient_11_1</li>
+									<li>tnsnames.ora : C:\AutoSet\Server\instantclient_11_1\network\admin 에 복사</li>
+									<li>레지스트리 수정 : <a href="file/NLS_LANG.reg" target="_blank">NLS_LANG.reg</a> 실행 </li>
+									<li>Path 설정
+										<ul class="border">
+											<li>제어판] -&gt; [시스템] -&gt; [고급] -&gt; [환경변수] -&gt; [시스템 변수]에서 [PATH] 선택 후 [편집] </li>
+											<li>[PATH]의 [변수 값] 맨 앞에 <strong>C:\AutoSet\Server\instantclient_11_1;</strong> 를   추가(&quot; 제외) </li>
+											<li>확인
+												<ul>
+													<li class="border">[시작] -&gt; [실행] -&gt; [cmd] -&gt; [path] 실행
+														<ul>
+															<li>나온 문자열에 <strong>C:\AutoSet\Server\instantclient_11_1; </strong>가 맨 앞에 있다면   PATH 추가 완료 </li>
+														</ul>
+													</li>
+													<li class="border">[시작] -&gt; [실행] -&gt; [cmd] -&gt; [oci.dll] 실행
+														<ul>
+															<li>윈도우에서 [주의] 경고창이 뜨면 확인 완료 </li>
+														</ul>
+													</li>
+													<li class="border">[시작] -&gt; [실행] -&gt; [cmd] -&gt; [<strong>C:\AutoSet\Server\php5\php -m</strong>] 실행
+														<ul>
+															<li>에러없이 목록에서 <strong>oci8</strong>이 있으면 확인 완료</li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li>APM이 APMsetup6일 경우
+								<ul>
+									<li>압축풀 경로 : C:\APM_Setup\Server\instantclient_11_1 </li>
+									<li>tnsnames.ora : C:\APM_Setup\Server\instantclient_11_1\network\admin 에 복사</li>
+									<li>레지스트리 수정 : <a href="file/NLS_LANG.reg" target="_blank">NLS_LANG.reg</a> 실행 </li>
+									<li>Path 설정
+										<ul class="border">
+											<li>제어판] -&gt; [시스템] -&gt; [고급] -&gt; [환경변수] -&gt; [시스템 변수]에서 [PATH] 선택 후 [편집] </li>
+											<li>[PATH]의 [변수 값] 맨 앞에 <strong>C:\APM_Setup\Server\instantclient_11_1;</strong> 를   추가(&quot; 제외) </li>
+											<li>확인
+												<ul>
+													<li class="border">[시작] -&gt; [실행] -&gt; [cmd] -&gt; [path] 실행
+														<ul>
+															<li>나온 문자열에 <strong>C:\APM_Setup\Server\instantclient_11_1; </strong>가 맨 앞에 있다면   PATH 추가 확인 완료 </li>
+														</ul>
+													</li>
+													<li class="border">[시작] -&gt; [실행] -&gt; [cmd] -&gt; [oci.dll] 실행
+														<ul>
+															<li>윈도우에서 [주의] 경고창이 뜨면 확인 완료 </li>
+														</ul>
+													</li>
+													<li class="border">[시작] -&gt; [실행] -&gt; [cmd] -&gt; [<strong>C:\APM_Setup\Server\php5\php -m</strong>] 실행
+														<ul>
+															<li>에러없이 목록에서 <strong>oci8</strong>이 있으면 확인 완료</li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>
+		<h2><a name="M2"></a>SVN 로컬 설정 </h2>
+		<ul>
+			<li>SVN을 위한 준비
+				<ul>
+					<li>SVN 클라이언트
+						<ul>
+						  	<li>SVN 클라이언트 : TortoiseSVN </li>
+							  <li>다운로드 :<a href="로컬서버관련프로그램/TortoiseSVN-1.5.5.14361-win32-svn-1.5.4.msi"> </a> <a href="http://tortoisesvn.net/downloads" target="_blank">http://tortoisesvn.net/downloads</a> </li>
+							  <li>버전 : TortoiseSVN 1.5.5, Build 14361 - 32 Bit , 2008/10/24 18:06:34 </li>
+					    </ul>
+					</li>
+					<li>기본설정
+						<ul>
+							<li>클라이언트 설치 후 탐색기의 왼쪽 팝업메뉴에서 SVN 관련 명령어가 추가됩니다. </li>
+							<li>원하는 작업폴더(<strong>C:\work\uway\uhak\www</strong>)를 선택해서 [SVN Checkout]를 실행, URL of repository는 밑의 SVN trunk 경로를 사용 </li>
+							<li>SVN trunk 경로 : <strong>svn://svn.uway.com/uhak/trunk</strong></li>
+							<li>참고 : <a href="http://ilovephp.springnote.com/pages/2285040?edit=true" target="_blank">http://ilovephp.springnote.com/pages/2285040?edit=true</a></li>
+							<li>Global Ignore Pattern : [작업폴더]-&gt;[팝업메뉴]-&gt;[TortoiseSVN]-&gt;[Setting]-&gt;[Subversion 의 Globals ignor pattern에 <div class="border">img imgs images  image .db .bak</div>
+							입력	합니다.						<br />
+							이미지폴더(img imgs images  image), 윈도우 이미지 캐시파일(.db), 임시파일(.bak)이 SVN서버로 전송되지 않도록 설정<br />
+							<ul>
+								<li>기타 IDE를 사용할 경우 그에 맞는 관리 파일과 폴더를 추가해주세요.
+									<ul>
+										<li>드림위버 : _notes</li>
+									</ul>
+								</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li>접속
+						<ul>
+							<li>작업폴더(uhak 소스가 들어있는 폴더)에서 팝업메뉴 중 [SVN checkout] 선택 </li>
+							<li>URL of reposity : <strong>svn://svn.uway.com/uhak/trunk</strong></li>
+							<li>Checkout directory : <strong>작업폴더</strong> (<strong>C:\work\uway\uhak\www</strong>)</li>
+							<li>OK를 누른 후 처음의 경우 ID와 PASS를 물어봄, 받은 ID와 PASS를 사용</li>
+						</ul>
+					</li>
+					<li>서버 설정하기
+						<ul>
+							<li>참고 : <a href="http://blog.naver.com/jjang9like/10033710632" target="_blank">링크</a></li>
+						</ul>
+					</li>
+					<li>문서
+						<ul>
+							<li>위키 : <a href="http://wiki.kldp.org/wiki.php/SubversionTips" target="_blank">http://wiki.kldp.org/wiki.php/SubversionTips</a> </li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>
+		<h2><a name="M3"></a>협업 시연 </h2>
+		<ul>
+			<li>시나리오
+				<ol>
+					<li>작업폴더 생성 <strong>: C:\work\uway\uhak\www2</strong></li>
+					<li>작업폴더를 SVN 서버와 접속 [<strong>SVN Checkout</strong>]
+						<ol>
+							<li>SVN 경로</li>
+							<li>계정입력</li>
+						</ol>
+					</li>
+					<li>개발 시연 
+							: C:\work\uway\uhak\www2\test\user\ex
+							<ol>
+								<li>ex.php 작성</li>
+								<li>ex.php commit 하는 법</li>
+								<li>ex.php 를 다른 사람이 수정 할 경우</li>
+								<li>tag 생성법</li>
+						</ol>
+					</li>
+				</ol>
+			</li>
+		</ul>
+	</li>
+</ol>
+<p>&nbsp;</p>
+</body>
+</html>

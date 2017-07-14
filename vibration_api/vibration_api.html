@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<title>Vibration API</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="공대여자" />
+	<meta name="keywords" content="공대여자,웹,프로그래밍,DB,PHP,MySQL,ORACLE" />
+	<meta name="classification" content="웹 프로그래밍" />
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<!-- meta og -->
+
+	<meta property="og:title" content="공대여자 홈페이지">
+	<!-- <meta property="og:description" content="공대여자 개인 홈페이지"> -->
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="Vibration API" />
+	<meta property="og:type" content="website">
+
+	<!-- //meta og -->
+
+	</head>
+<body>
+<h1>Vibration API</h1>
+<a href="https://developer.mozilla.org/ko/docs/Web/Guide/API/Vibration/Vibration" target="_blank">링크(모질라쪽)</a>
+<hr>
+<button type="button" onclick="window.navigator.vibrate(500)">1회 진동(0.5초간)</button>
+<button type="button" onclick="window.navigator.vibrate(5000)">1회 진동(5초간)</button>
+<button type="button" onclick="window.navigator.vibrate([500,500,500])">2회 진동</button>
+<button type="button" onclick="window.navigator.vibrate(0)">진동 중지</button>
+
+<button type="button" onclick="window.navigator.vibrate([
+250,50,
+250,50,
+250,50,
+250,50,
+250,50,
+250,50,
+500,50,
+250,50,
+250,50,
+250,50,
+250,50,
+500,175,
+250,50,
+250,50,
+250,50,
+250,50,
+250,50,
+250,50,
+500,50,
+250,50,
+250,50,
+250,50,
+250,50,
+500,175,
+
+
+])">학교종</button>
+</body>
+</html>

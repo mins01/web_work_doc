@@ -1,0 +1,333 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<title>Database normalization</title>
+<style type="text/css">
+html{font-size:12px;}
+table{border:1px solid gray; border-collapse:collapse;}
+table td,table th{border:1px solid gray; padding:2px;}
+table th{background-color:#FFFF00}
+fieldset{padding:5px;}
+</style>
+</head>
+
+<body>
+<h1>Database normalization (데이터베이스 정규화)</h1>
+<h2>참고링크</h2>
+<ul>
+	<li>http://support.microsoft.com/kb/283878/ko
+		<ul>
+			<li>데이터베이스 정규화에 대한 기본 사항<br />
+		  MS쪽, 한글</li>
+		</ul>
+	</li>
+	<li>http://en.wikipedia.org/wiki/Database_normalization
+		<ul>
+			<li>위키피디아<br />
+			영어(한글쪽은 내용이 부족함)</li>
+		</ul>
+	</li>
+</ul>
+<h2>이 문서는?</h2>
+<p>위 링크의 내용을 정리해놓은 것 뿐이다.</p>
+<h2>정규화개요</h2>
+<ul>
+	<li>제 1 정규화
+		<ul>
+			<li>First normal form (1NF) </li>
+		</ul>
+	</li>
+	<li>제 2 정규화
+		<ul>
+			<li>Second normal form (2NF)</li>
+		</ul>
+	</li>
+	<li>제 3 정규화
+		<ul>
+			<li>Third normal form (3NF) </li>
+		</ul>
+	</li>
+	<li>BC 정규화
+		<ul>
+			<li>Boyce-Codd normal form (BCNF) </li>
+		</ul>
+	</li>
+	<li>제 4 정규화
+		<ul>
+			<li>Fourth normal form (4NF)</li>
+		</ul>
+	</li>
+	<li>제 5 정규화
+		<ul>
+			<li>Fifth normal form (5NF) </li>
+		</ul>
+	</li>
+	<li>DK 정규화
+		<ul>
+			<li>Domain/key normal form (DKNF) </li>
+		</ul>
+	</li>
+	<li>제 6 정규화
+		<ul>
+			<li>Sixth normal form (6NF)</li>
+		</ul>
+	</li>
+</ul>
+<h2>제 1 정규화</h2>
+<ul>
+  <li>개별 테이블에서 반복되는 그룹을 제거합니다. 
+  	<ul>
+  		<li>그룹 : 반복되는 성격의 필드들</li>
+ 		</ul>
+  </li>
+	  <li>관련 데이터의 각 집합에 대해 별도의 테이블을 만듭니다. 
+	  	<ul>
+	  		<li>그룹의 하나가 하나의 row에 존재하도록 변경</li>
+  		</ul>
+	  </li>
+	  <li>기본 키를 사용하여 관련 데이터의 각 집합을 식별합니다.
+			<ul>
+				<li>기본적으로 그룹의 값 빼고는 기본키가 된다.</li>
+			</ul>
+	  </li>
+</ul>
+<h2>제 2 정규화</h2>
+<ul>
+	<li>여러 레코드에 적용되는 값 집합에 대해 별도의 테이블을 만듭니다. 
+		<ul>
+			<li>중복되는 데이터를 하나로 만든다.</li>
+		</ul>
+	</li>
+	<li>이러한 테이블을 연결할 때는 외래 키를 사용합니다. </li>
+</ul>
+<h2>제 3 정규화</h2>
+<ul>
+	<li>키에 종속되지 않는 필드를 제거합니다.
+<ul>
+				<li>따로 테이블로 때너냅니다</li>
+		</ul>
+	</li>
+</ul>
+<p>&nbsp;</p>
+<h2>예제</h2>
+<fieldset>
+<legend>원본데이터</legend>
+<table border="1" cellpadding="0" cellspacing="0">
+<caption>
+복권구매내역
+</caption>
+	<tr>
+		<th width="80">구매자</th>
+		<th width="80">구매처</th>
+		<th width="80">구매연락번호</th>
+		<th width="80" bgcolor="#00FFFF">복권1번호</th>
+		<th width="80" bgcolor="#00FFFF">복권2번호</th>
+		<th width="80" bgcolor="#00FFFF">복권3번호</th>
+	</tr>
+	<tr>
+		<td>아무개</td>
+		<td>역앞편의점</td>
+		<td>000-1111-2222</td>
+		<td bgcolor="#00FFFF">1111111</td>
+		<td bgcolor="#00FFFF">1111112</td>
+		<td bgcolor="#00FFFF">1111113</td>
+	</tr>
+	
+	
+	<tr>
+		<td>홍길동</td>
+		<td>XX복권방</td>
+		<td>111-2222-3333</td>
+		<td bgcolor="#00FFFF">2222221</td>
+		<td bgcolor="#00FFFF">2222222</td>
+		<td bgcolor="#00FFFF">2222223</td>
+	</tr>
+</table>
+</fieldset>
+<p>&nbsp;</p>
+<fieldset>
+<legend>제 1차 정규화</legend>
+<table border="1" cellpadding="0" cellspacing="0">
+<caption>
+복권구매내역
+</caption>
+	<tr>
+		<th width="80">구매자</th>
+		<th width="80">구매처</th>
+		<th width="80">구매연락번호</th>
+		<th width="80" bgcolor="#00FFFF">복권번호</th>
+	</tr>
+	<tr>
+		<td>아무개</td>
+		<td>역앞편의점</td>
+		<td>000-1111-2222</td>
+		<td bgcolor="#00FFFF">1111111</td>
+	</tr>
+	<tr>
+		<td>아무개</td>
+		<td>역앞편의점</td>
+		<td>000-1111-2222</td>
+		<td bgcolor="#00FFFF">1111112</td>
+	</tr>
+	<tr>
+		<td>아무개</td>
+		<td>역앞편의점</td>
+		<td>000-1111-2222</td>
+		<td bgcolor="#00FFFF">1111113</td>
+	</tr>
+	<tr>
+		<td>홍길동</td>
+		<td>XX복권방</td>
+		<td>111-2222-3333</td>
+		<td bgcolor="#00FFFF">2222221</td>
+	</tr>
+	<tr>
+		<td>홍길동</td>
+		<td>XX복권방</td>
+		<td>111-2222-3333</td>
+		<td bgcolor="#00FFFF">2222222</td>
+	</tr>
+	<tr>
+		<td>홍길동</td>
+		<td>XX복권방</td>
+		<td>111-2222-3333</td>
+		<td bgcolor="#00FFFF">2222223</td>
+	</tr>
+</table>
+</fieldset>
+<p>&nbsp;</p>
+<fieldset>
+<legend>제 2차 정규화</legend>
+<table border="1" cellpadding="0" cellspacing="0">
+	<caption>
+		복권번호내역
+	</caption>
+	<tr>
+		<th width="80">구매자</th>
+		<th width="80" bgcolor="#00FFFF">복권번호</th>
+	</tr>
+	<tr>
+		<td>아무개</td>
+		<td bgcolor="#00FFFF">1111111</td>
+	</tr>
+	<tr>
+		<td>아무개</td>
+		<td bgcolor="#00FFFF">1111112</td>
+	</tr>
+	<tr>
+		<td>아무개</td>
+		<td bgcolor="#00FFFF">1111113</td>
+	</tr>
+	<tr>
+		<td>홍길동</td>
+		<td bgcolor="#00FFFF">2222221</td>
+	</tr>
+	<tr>
+		<td>홍길동</td>
+		<td bgcolor="#00FFFF">2222222</td>
+	</tr>
+	<tr>
+		<td>홍길동</td>
+		<td bgcolor="#00FFFF">2222223</td>
+	</tr>
+</table>
+<table border="1" cellpadding="0" cellspacing="0">
+	<caption>
+		복권처내역
+	</caption>
+	<tr>
+		<th width="80">구매자</th>
+		<th width="80">구매처</th>
+		<th width="80">구매연락번호</th>
+		</tr>
+	<tr>
+		<td>아무개</td>
+		<td>역앞편의점</td>
+		<td>000-1111-2222</td>
+		</tr>
+	
+	<tr>
+		<td>홍길동</td>
+		<td>XX복권방</td>
+		<td>111-2222-3333</td>
+		</tr>
+</table>
+<p>&nbsp;</p>
+</fieldset>
+<p>&nbsp;</p>
+<fieldset>
+	<legend>제 3차 정규화</legend>
+	<table border="1" cellpadding="0" cellspacing="0">
+	<caption>
+			복권구매
+		</caption>
+		<tr>
+			<th width="80">구매자</th>
+			<th width="80">구매처</th>
+		</tr>
+		<tr>
+			<td>아무개</td>
+			<td bgcolor="#33CC33">역앞편의점</td>
+		</tr>
+		<tr>
+			<td>홍길동</td>
+			<td bgcolor="#33CC33">XX복권방</td>
+		</tr>
+	</table>
+	<table border="1" cellpadding="0" cellspacing="0">
+		<caption>
+			복권번호
+		</caption>
+		<tr>
+			<th width="80">구매자</th>
+			<th width="80" bgcolor="#00FFFF">복권번호</th>
+		</tr>
+		<tr>
+			<td>아무개</td>
+			<td bgcolor="#00FFFF">1111111</td>
+		</tr>
+		<tr>
+			<td>아무개</td>
+			<td bgcolor="#00FFFF">1111112</td>
+		</tr>
+		<tr>
+			<td>아무개</td>
+			<td bgcolor="#00FFFF">1111113</td>
+		</tr>
+		<tr>
+			<td>홍길동</td>
+			<td bgcolor="#00FFFF">2222221</td>
+		</tr>
+		<tr>
+			<td>홍길동</td>
+			<td bgcolor="#00FFFF">2222222</td>
+		</tr>
+		<tr>
+			<td>홍길동</td>
+			<td bgcolor="#00FFFF">2222223</td>
+		</tr>
+	</table>
+	<table border="1" cellpadding="0" cellspacing="0">
+		<caption>
+			구매처정보
+		</caption>
+		<tr>
+			<th width="80" bgcolor="#33CC33">구매처</th>
+			<th width="80">구매연락번호</th>
+		</tr>
+		<tr>
+			<td bgcolor="#33CC33">역앞편의점</td>
+			<td>000-1111-2222</td>
+		</tr>
+		<tr>
+			<td bgcolor="#33CC33">XX복권방</td>
+			<td>111-2222-3333</td>
+		</tr>
+	</table>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+</fieldset>
+<p>&nbsp;</p>
+</body>
+</html>

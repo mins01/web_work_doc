@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Media Queries</title>
+<link rel="stylesheet" type="text/css" href="media.css"/>
+</head>
+
+<body>
+<h1>CSS의 Media Queries [<a href="?">NEW</a>]</h1>
+<ul>
+  <li>링크
+    <ul>
+      <li> <a href="http://www.w3.org/TR/css3-mediaqueries">http://www.w3.org/TR/css3-mediaqueries</a></li>
+    </ul>
+  </li>
+  <li>특징
+    <ul>
+      <li>CSS 2 부터 지원됨.</li>
+    </ul>
+  </li>
+  <li>테스트한 브라우저
+    <ul>
+      <li>크롬 : 18.0.1025.162</li>
+      <li>파이어폭스 : 10.0</li>
+      <li>IE
+        <ul>
+          <li>IE7 : 지원안됨</li>
+          <li>IE8 : 지원안됨</li>
+          <li>IE9 : 지원됨</li>
+        </ul>
+      </li>
+      <li>사파리 : 5.0.2</li>
+      <li>모든 걸 테스트한건 아닙니다.
+        <ul>
+          <li>max-width, min-width , orientation:portrait , orientation:landscape만 예제로 테스트하였음.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>CSS파일
+    <ul>
+      <li><a href="media.css">media.css</a></li>
+    </ul>
+  </li>
+  <ul>
+  </ul>
+</ul>
+<fieldset style="text-align:center">
+<legend>예제</legend>
+	<input type="button" value="######### 기본 #########" />
+    <br />
+    <input type="button" value="width&lt;=500 이면 RED로 배경색 변경" id="btn_500" />
+    <br />
+    <input type="button" value="width&gt;=800 이면 RED로 배경색 변경" id="btn_800" />
+    <br />
+	<input type="button" value="세로이면 RED로 배경색 변경" id="btn_portrait" />
+    <br />
+	<input type="button" value="가로이면 RED로 배경색 변경" id="btn_landscape" />
+</fieldset>
+<h2>요약</h2>
+<ul>
+  <li>@media 미디어타입 and (조건) [,미디어타입 and (조건)] { ... }
+    <ul>
+      <li>미디어타입
+<ul>
+          <li>all : 모든 화면에 대해서</li>
+          <li> screen : 일반적 화면</li>
+          <li> projection : 프로젝터</li>
+          <li>tv : 텔레비전</li>
+          <li>ETC : 그외 장치에서 지원이 된다면...</li>
+        </ul>
+      </li>
+      <li>조건
+        <ul>
+          <li>width :  min와 max 가능</li>
+          <li> height :  min와 max 가능</li>
+          <li> device-width : 장치 너비, min와 max 가능</li>
+          <li> device-height : 장치 높이, min와 max 가능</li>
+          <li> orientation : portrait(세로),landscape(가로) (너비와 높이의 비율로 계산됨)</li>
+          <li> aspect-ratio : 비율 (width/height),  min와 max 가능</li>
+          <li> device-aspect-ratio : 장치 비율 (width/height),  min와 max 가능</li>
+          <li> color : 컬러 비트수, min와 max 가능
+            <ul>
+              <li>color 라고 나타내면 모든 컬러 장비에 대한 것</li>
+            </ul>
+          </li>
+          <li> color-index : 컬러 수, min와 max 가능
+            <ul>
+              <li>color-index 라고 나타내면 모든 컬러 장비에 대한 것</li>
+              <li>비트가 아니라 수이므로 <br />
+                min-color-index:
+              256 로 최소 256색 지원장비표현할 수 있다.</li>
+            </ul>
+          </li>
+          <li> monochrome : 흑백 지원 비트수
+            <ul>
+              <li>흑백장비가 아니라면 0</li>
+              <li>프린터 등에서 사용<br />
+              @media print and (monochrome)              </li>
+            </ul>
+          </li>
+          <li> resolution :dpi, dpcm 등에 대한것
+            <ul>
+              <li>프린터의 dpi 설정에 적용</li>
+            </ul>
+          </li>
+          <li> scan :  progressive,  interlace 
+            <ul>
+              <li>TV 출력 방식 제한</li>
+            </ul>
+          </li>
+          <li> grid : 고정 폰트 기반 출력 방식(tty 터미털, 고정 폰트 장비 등)          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<h2>팁</h2>
+<ul>
+  <li>IE8 이하에서는 지원안되니깐 대체 수단으로
+    <ul>
+      <li>css expression을 사용해서 비슷하게 만들 수 있다.</li>
+    </ul>
+  </li>
+</ul>
+</body>
+</html>

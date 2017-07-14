@@ -1,0 +1,298 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>webSitePage</title>
+<style type="text/css">
+html{font-family:"돋움", Tahoma, Arial}
+.page { font-size:12px;}
+.page ul{ padding:0; margin:0;margin-left:1em; list-style-position:inside;}
+.page li{ padding:0; margin:0;}
+.page .box{ padding:2px;margin:2px; border:1px solid gray;}
+</style>
+</head>
+
+<body>
+<h1>Web Site : Page[<a href="page.html" target="_blank">new</a>]</h1>
+<h2>웹 사이트 : 페이지 구분(기능,기술 등)</h2>
+<div class="page">
+<ul>
+	<li>페이지(page)
+		<ul>
+			<li>정적(static)
+				페이지
+				<ul>
+					<li>설명 : HTML 로만 이루어진 페이지</li>
+					<li>구분
+						<ul>
+							<li class="box"><strong>빈(blank) 페이지</strong>
+									<ul>
+										<li>설명 : 말 그대로 빈 페이지, 아무런 내용이 없다.</li>
+									</ul>
+							</li>
+							<li class="box"><strong>컨텐츠(contents) 페이지
+								</strong>
+									<ul>
+										<li>설명 : 변화하지 않는 내용을 보여줄때 사용</li>
+										<li>동작 : view</li>
+										<li>내부구성 : 텍스트 , 이미지 , 동영상(swf)</li>
+									</ul>
+							</li>
+						</ul>
+					</li>
+					</ul>
+			</li>
+			<li>동적(dynamic) 페이지
+				<ul>
+					<li>설명 : 쿼리스트링이나 기타 조건에 따라서 페이지가 변경되어 보여진다. 웹언어로 제작되어진 것(PHP , ASP , JSP , CGI)</li>
+					<li>구분
+						<ul>
+							<li class="box"><strong>게시판(board)</strong>
+								<ul>
+									<li class="box">동작 : list , view , write(edit,answer) , delete
+										
+										<ul>
+											<li>권한에 따라서 사용하지 못하는 동작이 있을 수 있다.</li>
+											<li>보통 DB를 사용한다.</li>
+											<li>list 동작시 search와 paging 기능이 추가적으로 사용된다.</li>
+										</ul>
+									</li>
+									<li class="box">DB스키마
+										<ul>
+											<li>내용 : 글번호 , 게시판 아이디 , 작성자 , 아이디 , 비밀번호 , 제목 , 본문 </li>
+											<li>제어용 : 공지사항 , 비밀글 , HTML설정 , 삭제여부</li>
+											<li>추가 내용 : 링크 , 조회수 , 첨부파일 , 리플 , 작성일, 수정일 , IP , 카테고리 , ETC필드</li>
+										</ul>
+									</li>
+									<li class="box">스킨별
+										<ul>
+											<li>게시판(일반형)
+												<ul>
+													<li>단순하게 LIST , VIEW , WRITE 로 이루어진 스킨</li>
+												</ul>
+											</li>
+												<li>겔러리
+													<ul>
+														<li>특이점 : answer 기능이 필요없다, list에 첨부된 이미지가 보인다. 썸네일 기능이 필요</li>
+													</ul>
+												</li>
+												<li>방명록
+													<ul>
+														<li>특이점 : answer기능보다 reply 기능으로 답변하는 형식이 많다. 개인 아이콘등을 보여주는 경우가 많다.</li>
+													</ul>
+												</li>
+												<li>일정(달력)
+													<ul>
+														<li>특이점 : 날짜에 대하여 보통 1달 단위로 보여준다. ETC 필드등을 사용</li>
+													</ul>
+												</li>
+												<li>특수 스킨
+													<ul>
+														<li>요청에 따라서 추가적인 내용을 받거나 검색 조건에 제한하여 보여준다.</li>
+													</ul>
+												</li>
+											</ul>
+									</li>
+									<li class="box">서브 기능
+										<ul>
+												<li><strong>리플
+													(reply)
+													</strong>
+													<ul>
+															<li>동작 : list , view , write(edit,answer) , delete</li>
+															<li>DB스키마
+																<ul>
+																	<li>내용 : 글 번호 , 게시판 아이디 , 작성자 , 아이디 , 비밀번호 , 본문 </li>
+																	<li>제어용 : HTML설정 , 삭제여부</li>
+																	<li>추가 내용 : 작성일, 수정일 , IP , 카테고리</li>
+																</ul>
+															</li>
+													</ul>
+												</li>
+											<li><strong>첨부파일(attach file)</strong>
+												<ul>
+															<li>동작 : 게시판의 write(edit,answer) , delete에 연계하여 file upload</li>
+															<li>DB스키마 
+																<ul>
+																	<li>내용 : 글 번호 , 첨부파일 명 , 첨부파일 위치</li>
+																	<li>제어 : 삭제여부</li>
+																	<li>추가 내용 : 이미지여부, 파일크기</li>
+																</ul>
+															</li>
+													</ul>
+											</li>
+											<li><strong>웹에디터(wysiwyg editer)
+												</strong>
+												<ul>
+													<li>용도 : 게시판의 write(edit,answer)에서 HTML을 실제 페이지로 보이면서 작성할 수 있도록 해준다.</li>
+													<li>동작 : HTML 태그입력 , 이미지 업로드</li>
+												</ul>
+											</li>
+											</ul>
+									</li>
+									</ul>
+							</li>
+							<li class="box">특수 프로그램
+								<ul>
+									<li class="box"><strong>CMS : 컨텐츠 매니저먼트 시스템
+										</strong>
+										<ul>
+											<li>컨텐츠(contents) 페이지를 DB에 입력해놓고 조건에 따라서 해당 페이지가 컨텐츠 페이지 처럼 보이도록 해준다.</li>
+											<li>게시판의 응용편<br />
+											</li>
+										</ul>
+									</li>
+									<li class="box"><strong>MENU : 메뉴관리
+										</strong>
+										<ul>
+											<li>동작 :  로그인별 , 메뉴 권한별,구분하여 메뉴를 보여주거나 안보여준다.</li>
+											<li>DB등으로 제어할 수도 있지만, 개인적으로 file를 ini형식으로 만들어 사용하는 걸 추천(메뉴등이 그렇게 자주 바뀌는게 아니므로)</li>
+											</ul>
+									</li>
+									<li class="box"><strong>MEMBER : 회원관리 </strong>
+										<ul>
+											<li>로그인 , 회원가입(수정,탈퇴) 등의 기능을 한다.</li>
+											<li>게시판의 권한 제어에도 사용된다.</li>
+											</ul>
+									</li>
+									</ul>
+							</li>
+							</ul>
+					</li>
+					</ul>
+			</li>
+			</ul>
+	</li>
+	<li>기술
+		<ul>
+			<li class="box">Client 측
+				<ul>
+					<li><strong>javascript</strong> : 브라우저에서 보이는 HTML페이지를 제어하는데 사용된다.</li>
+					<li><strong>AJAX</strong> : 백단으로 데이터 통신을 위해서 사용된다.(javascript의 일부분)</li>
+					<li><strong>flash</strong> : 동적 컨텐츠용 , 메뉴와 네비게이션 부분에서 많이 사용된다.</li>
+					</ul>
+			</li>
+			<li class="box">Server 측
+				<ul>
+					<li><strong>Web Server</strong> : Apache , IIS , Tomcat 등 (특정 포트(보통 80)의 HTTP프로토콜을 통한 요청에 응답을 하도록 한다.)</li>
+					<li><strong>Web Language</strong> : PHP , ASP , JSP 등 (웹서버에선 지정된 확장자의 파일은 웹 언어로 처리하도록 하고 결과값을 받아서 출력한다)</li>
+					<li><strong>DataBase</strong> : 데이터 관리에 사용</li>
+					<li><strong>File Cache</strong> : 동적 페이지의 작성 리소스를 줄여준다.</li>
+					<li><strong>FileSystem</strong> : NAS , NIS</li>
+					</ul>
+			</li>
+			</ul>
+	</li>
+	<li>구조
+		<ul>
+			<li class="box" style="background-color:green;">HEADER
+				<ul>
+					<li>로고
+						<ul>
+							<li st>내용 : 사이트 로고 이미지, 보통 클릭 가능하며 클릭하면 사이트 메인페이지로 이동된다.</li>
+						</ul>
+					</li>
+					<li>메뉴
+						<ul>
+							<li>TOP : TOP레벨의 메뉴가 보여진다. FLASH나 이미지로 처리하는 경우가 많다.</li>
+							</ul>
+					</li>
+				</ul>
+			</li>
+			<li class="box" style="background-color:#abc">LEFT
+				<ul>
+					<li>메뉴 
+						<ul>
+							<li>LEFT : 선택된 TOP 레벨의 메뉴의 서브 메뉴가 나타난다. FLASH나 이미지로 처리하는 경우가 많다.</li>
+						</ul>
+					</li>
+					</ul>
+			</li>
+			<li class="box" style=" background-color:#aaf;">BODY(CONTENT)
+				<ul>
+					<li>메뉴
+						<ul>
+							<li>NAVIGATION : 현재 페이지가 어느 메뉴인지 보여준다.</li>
+						</ul>
+					</li>
+					<li>컨텐츠
+						<ul>
+							<li>정적(static)
+								페이지나 동적(dynamic) 페이지를 보여주는 부분</li>
+							</ul>
+					</li>
+					</ul>
+			</li>
+			<li class="box" style="background-color:pink">RIGHT
+				<ul>
+					<li>메뉴 
+						<ul>
+							<li>QUICK LINK : floating 레이어로 구성되는 경우가 많다. 바로가기 메뉴</li>
+						</ul>
+					</li>
+					</ul>
+			</li>
+			<li class="box" style="#cc9">FOOTER
+				<ul>
+					<li>BOTTOM : 회사소개, contact, 약관 , site map 등의 링크가 있다.</li>
+					</ul>
+			</li>
+			<li class="box">레이아웃 예제
+				<ul>
+					<li>RIGHT가 없는 경우도 많다. 경우에 따라서 LEFT와 FOOTER가 없을 수도 있다.</li>
+					<li>
+						<div style="width:400px">
+							<div style="height:50px; background-color:green;">HEADER
+								<div class="box">메뉴 : TOP									</div>
+								</div>
+								<div>
+									<div style="width:100px; height:200px; float:left; background-color:#abc">LEFT<div class="box">메뉴 : LEFT</div></div>
+								<div style="width:200px; height:200px; float:left; background-color:#aaf">BODY
+									<div class="box">메뉴 : NAVIGATION</div>
+									<div class="box">컨텐츠 : 동적 , 정적</div>
+								</div>
+								<div style="width:100px; height:200px; float:left; background-color:pink">RIGHT
+									<div class="box">메뉴 : QUICK LINK</div>
+								</div>
+								<div style="clear:both;"></div>
+								</div>
+								<div style="height:50px; background-color:#cc9;">FOOTER
+									<div class="box">메뉴 : BOTTOM</div>
+								</div>
+						</div>
+					</li>
+				</ul>
+			</li>
+			</ul>
+	</li>
+	</ul>
+</div>
+<p>
+</p>
+<div class="page">
+	<ul>
+		<li class="box">작성자정보
+			<ul>
+				<li>작성자 : 공대여자</li>
+				<li>홈페이지 : <a href="http://mins01.com" target="_blank">http://mins01.com</a></li>
+				<li>제한사항 : 공대여자는 이쁘다는 걸 알고 있어야합니다.</li>
+				<li>작성일 : 2010-03-21 10:37</li>
+				<li>수정일 : 2010-03-22</li>
+			</ul>
+		</li>
+		<li class="box">주의 : 본 문서는 언제든지 수정 될 수 있습니다.
+			<ul>
+				<li>과거 버전은 보관되지 않습니다.</li>
+				<li>본 문서 사용으로 인한 피해에 대해서는 책임지지 않습니다.</li>
+			</ul>
+		</li>
+		<li class="box">문서를 만든 목적
+			<ul>
+				<li> 요구사항을 좀 더 구체적이고 , 명확하게 하기 위해서!</li>
+				<li>기획자가 엉성하거나 대충해 줄 때 구체적으로 명확하게 하지 않으면 개발자 피 본다!</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+</body>
+</html>

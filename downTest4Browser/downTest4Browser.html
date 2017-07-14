@@ -1,0 +1,423 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>브라우저별 파일명 처리방식 테스트</title>
+<style type="text/css">
+	.table{font-size:12px; table-layout:fixed; border-collapse:collapse;}
+	.table td{ border:1px solid gray;}	
+</style>
+</head>
+<body>
+<h1>브라우저별 파일명 인코딩 처리방식 테스트 [<a href="downTest4Browser.html" target="_blank">NEW</a>]</h1>
+<ul>
+	<li>테스트 환경
+		<ul>
+			<li>APACHE2.x + PHP5.x</li>
+			<li>file.php라는 다운로더로 다운로드</li>
+			<li>받을 때 파일 이름이 지정된 언어셋으로 받아지도록 한다.</li>
+			<li>브라우저는 전부 기본이 한글</li>
+			<li>OS는 한글 윈도우XP + SP3 </li>
+			<li>Content-type: application/octet-stream; 으로 설정</li>
+			<li>iconv($enc,'euc-kr//IGNORE',$t); //IGNORE를 추가해서 알수 없는 글자는 자동으로 사라진다.</li>
+		</ul>
+	</li>
+</ul>
+<h2>테스트 결과</h2>
+<p><a href="/web_work/doc/downTest4Browser/file.php/한뷁글.txt">/web_work/doc/downTest4Browser/file.php/한뷁글.txt</a></p>
+<p><a href="/web_work/doc/downTest4Browser/file.php/test.txt">/web_work/doc/downTest4Browser/file.php/test.txt</a></p>
+<table border="1" cellpadding="2" cellspacing="0" class="table">
+	<tr>
+		<td width="100">&nbsp;</td>
+		<td width="100">파일명</td>
+		<td width="100" align="center">IE<br />
+		7.0.5730.13</td>
+		<td width="100" align="center">FF<br />
+		3.6.3</td>
+		<td width="100" align="center">CROME<br />
+		4.0.249.78(36714)</td>
+		<td width="100" align="center">SFARI<br />
+			4.0(530.17)</td>
+		<td width="100" align="center">OPERA<br />
+			10.52</td>
+		<td width="200" align="center">비고</td>
+	</tr>
+	<tr>
+		<td><strong>EUC-KR</strong></td>
+		<td><a href="file.php?type=0&amp;mode=0">한韓Ab.txt</a></td>
+		<td>한韓Ab.txt</td>
+		<td>한韓Ab.txt</td>
+		<td>한韓Ab.txt</td>
+		<td>한韓Ab.txt</td>
+		<td>한韓Ab.txt</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>+urlencode()</td>
+		<td><a href="file.php?type=0&amp;mode=1">한韓Ab.txt</a></td>
+		<td>%C7%D1%F9%DBAb.txt</td>
+		<td>%C7%D1%F9%DBAb.txt</td>
+		<td>file.php</td>
+		<td>%C7%D1%F9%DBAb.txt</td>
+		<td>%C7%D1%F9%DBAb.txt</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>+iconv(to EUC-KR)</td>
+		<td><a href="file.php?type=0&amp;mode=2">한韓Ab.txt</a></td>
+		<td>한韓Ab.txt</td>
+		<td>한韓Ab.txt</td>
+		<td>한韓Ab.txt</td>
+		<td>한韓Ab.txt</td>
+		<td>한韓Ab.txt</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td><strong>CP949</strong></td>
+		<td><a href="file.php?type=1&amp;mode=0">한韓샾Ab.txt</a></td>
+		<td>한샾韓Ab.txt</td>
+		<td>한샾韓Ab.txt</td>
+		<td>한샾韓Ab.txt</td>
+		<td>ÇÑÞùÛAb.txt</td>
+		<td>한샾韓Ab.txt</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>+urlencode()</td>
+		<td><a href="file.php?type=1&amp;mode=1">한韓샾Ab.txt</a></td>
+		<td>%C7ј%DE%F9%DBAb.txt</td>
+		<td>%C7%D1%98%DE%F9%DBAb.txt</td>
+		<td>file.php</td>
+		<td>%C7%D1%98%DE%F9%DBAb.txt</td>
+		<td>%C7%D1%98%DE%F9%DBAb.txt</td>
+		<td>(IE) urlencode는 %C7%D1%98%DE%F9%DBAb.txt 로 변환하지만 IE에서 잘못 보여주는 것 같다.</td>
+	</tr>
+	<tr>
+		<td>+iconv(to EUC-KR)</td>
+		<td><a href="file.php?type=1&amp;mode=2">한韓샾Ab.txt</a></td>
+		<td>한韓Ab.txt</td>
+		<td>한韓Ab.txt</td>
+		<td>한韓Ab.txt</td>
+		<td>한韓Ab.txt</td>
+		<td>한韓Ab.txt</td>
+		<td>강제 EUC-KR변환으로 '샾'은 무시된다.(euc-kr에 포함 안됨)</td>
+	</tr>
+	<tr>
+		<td><strong>GB2312</strong></td>
+		<td><a href="file.php?type=2&amp;mode=0">地图国Ab.txt</a></td>
+		<td>뒈暠벌Ab.txt</td>
+		<td>뒈暠벌Ab.txt</td>
+		<td>뒈暠벌Ab.txt</td>
+		<td>뒈暠벌Ab.txt</td>
+		<td>뒈暠벌Ab.txt</td>
+		<td>중국어 간체(한글미지원)</td>
+	</tr>
+	<tr>
+		<td>+urlencode()</td>
+		<td><a href="file.php?type=2&amp;mode=1">地图国Ab.txt</a></td>
+		<td>%B5%D8ͼ%B9%FAAb.txt</td>
+		<td>%B5%D8%CD%BC%B9%FAAb.txt</td>
+		<td>file.php</td>
+		<td>%B5%D8%CD%BC%B9%FAAb.txt</td>
+		<td>%B5%D8%CD%BC%B9%FAAb.txt</td>
+		<td>(IE) urlencode는 %B5%D8%CD%BC%B9%FAAb.txt 로 변환하지만 IE에서 잘못 보여주는 것 같다.</td>
+	</tr>
+	<tr>
+		<td>+iconv(to EUC-KR)</td>
+		<td><a href="file.php?type=2&amp;mode=2">地图国Ab.txt</a></td>
+		<td>地Ab.txt</td>
+		<td>地Ab.txt</td>
+		<td>地Ab.txt</td>
+		<td>地Ab.txt</td>
+		<td>地Ab.txt</td>
+		<td>강제 EUC-KR변환으로 '图国'은 무시된다.(euc-kr에 포함 안됨)</td>
+	</tr>
+	<tr>
+		<td><strong>UTF-8</strong></td>
+		<td><a href="file.php?type=3&amp;mode=0">한샾韓国Ab.txt</a></td>
+		<td>다운로드시 에러</td>
+		<td>한샾韓国Ab.txt</td>
+		<td>한샾韓国Ab.txt</td>
+		<td>한샾韓国Ab.txt</td>
+		<td>한샾韓国Ab.txt</td>
+		<td>(IE) 열기는 가능, 다운로드시 파일 이름이 표시 안되고, file_php?type=3<u>m</u>ode=0 으로보여지고 저장은 안된다.</td>
+	</tr>
+	<tr>
+		<td>+urlencode()</td>
+		<td><a href="file.php?type=3&amp;mode=1">한샾韓国Ab.txt</a></td>
+		<td>한샾韓国Ab.txt</td>
+		<td>%ED%95%9C%EC%83%BE%E9%9F%93%E5%9B%BDAb.txt</td>
+		<td>한샾韓国Ab.txt</td>
+		<td>%ED%95%9C%EC%83%BE%E9%9F%93%E5%9B%BDAb.txt</td>
+		<td>%ED%95%9C%EC%83%BE%E9%9F%93%E5%9B%BDAb.txt</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>+iconv(to EUC-KR)</td>
+		<td><a href="file.php?type=3&amp;mode=2">한샾韓国Ab.txt</a></td>
+		<td>한韓Ab.txt</td>
+		<td><p>한韓Ab.txt</p>
+		</td>
+		<td>한韓Ab.txt</td>
+		<td>한韓Ab.txt</td>
+		<td>한韓Ab.txt</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>비고</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>참고</td>
+		<td colspan="7">&nbsp;</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+<table border="1" cellpadding="2" cellspacing="0" class="table">
+<caption>확장자가 없는 파일일 경우</caption>
+	<tr>
+		<td width="100">&nbsp;</td>
+		<td width="100">파일명</td>
+		<td width="100" align="center">IE<br />
+			7.0.5730.13</td>
+		<td width="100" align="center">FF<br />
+			3.6.3</td>
+		<td width="100" align="center">CROME<br />
+			4.0.249.78(36714)</td>
+		<td width="100" align="center">SFARI<br />
+			4.0(530.17)</td>
+		<td width="100" align="center">OPERA<br />
+			10.52</td>
+		<td width="200" align="center">비고</td>
+	</tr>
+	<tr>
+		<td><strong>EUC-KR</strong></td>
+		<td><a href="file.php?type=0&amp;mode=0&amp;disexp=1">한韓Ab</a></td>
+		<td>한韓Ab</td>
+		<td>한韓Ab</td>
+		<td>한韓Ab</td>
+		<td>한韓Ab</td>
+		<td>한韓Ab.txt</td>
+		<td>(OPERA) 확장자가 붙는건 버그같음</td>
+	</tr>
+	<tr>
+		<td>+urlencode()</td>
+		<td><a href="file.php?type=0&amp;mode=1&amp;disexp=1">한韓Ab</a></td>
+		<td>%C7%D1%F9%DBAb</td>
+		<td>%C7%D1%F9%DBAb</td>
+		<td>file.php</td>
+		<td>%C7%D1%F9%DBAb</td>
+		<td>%C7%D1%F9%DBAb.txt</td>
+		<td>(OPERA) 확장자가 붙는건 버그같음</td>
+	</tr>
+	<tr>
+		<td>+iconv(to EUC-KR)</td>
+		<td><a href="file.php?type=0&amp;mode=2&amp;disexp=1">한韓Ab</a></td>
+		<td>한韓Ab</td>
+		<td>한韓Ab</td>
+		<td>한韓Ab</td>
+		<td>한韓Ab</td>
+		<td>한韓Ab.txt</td>
+		<td>(OPERA) 확장자가 붙는건 버그같음</td>
+	</tr>
+	<tr>
+		<td><strong>CP949</strong></td>
+		<td><a href="file.php?type=1&amp;mode=0&amp;disexp=1">한韓샾Ab</a></td>
+		<td>한샾韓Ab</td>
+		<td>한샾韓Ab</td>
+		<td>한샾韓Ab</td>
+		<td>ÇÑÞùÛAb</td>
+		<td>한샾韓Ab</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>+urlencode()</td>
+		<td><a href="file.php?type=1&amp;mode=1&amp;disexp=1">한韓샾Ab</a></td>
+		<td>%C7%D1%98%DE%F9%DBAb</td>
+		<td>%C7%D1%98%DE%F9%DBAb</td>
+		<td>file.php</td>
+		<td>%C7%D1%98%DE%F9%DBAb</td>
+		<td>%C7%D1%98%DE%F9%DBAb</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>+iconv(to EUC-KR)</td>
+		<td><a href="file.php?type=1&amp;mode=2&amp;disexp=1">한韓샾Ab</a></td>
+		<td>한韓Ab</td>
+		<td>한韓Ab</td>
+		<td>한韓Ab</td>
+		<td>한韓Ab</td>
+		<td>한韓Ab</td>
+		<td>강제 EUC-KR변환으로 '샾'은 무시된다.(euc-kr에 포함 안됨)</td>
+	</tr>
+	<tr>
+		<td><strong>GB2312</strong></td>
+		<td><a href="file.php?type=2&amp;mode=0&amp;disexp=1">地图国Ab</a></td>
+		<td>뒈暠벌Ab</td>
+		<td>뒈暠벌Ab</td>
+		<td>뒈暠벌Ab</td>
+		<td>뒈暠벌Ab</td>
+		<td>뒈暠벌Ab.txt</td>
+		<td>중국어 간체(한글미지원)</td>
+	</tr>
+	<tr>
+		<td>+urlencode()</td>
+		<td><a href="file.php?type=2&amp;mode=1&amp;disexp=1">地图国Ab</a></td>
+		<td>%B5%D8%CD%BC%B9%FAAb</td>
+		<td>%B5%D8%CD%BC%B9%FAAb</td>
+		<td>file.php</td>
+		<td>%B5%D8%CD%BC%B9%FAAb</td>
+		<td>%B5%D8%CD%BC%B9%FAAb.txt</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>+iconv(to EUC-KR)</td>
+		<td><a href="file.php?type=2&amp;mode=2&amp;disexp=1">地图国Ab</a></td>
+		<td>地Ab</td>
+		<td>地Ab</td>
+		<td>地Ab</td>
+		<td>地Ab</td>
+		<td>地Ab.txt</td>
+		<td>강제 EUC-KR변환으로 '图国'은 무시된다.(euc-kr에 포함 안됨)</td>
+	</tr>
+	<tr>
+		<td><strong>UTF-8</strong></td>
+		<td><a href="file.php?type=3&amp;mode=0&amp;disexp=1">한샾韓国Ab</a></td>
+		<td>다운로드시 에러</td>
+		<td>한샾韓国Ab</td>
+		<td>한샾韓国Ab</td>
+		<td>한샾韓国Ab</td>
+		<td>한샾韓国Ab</td>
+		<td>(IE) 열기는 가능, 다운로드시 파일 이름이 표시 안되고, file_php?type=3mode=0<u>d</u>isexp=1 으로보여지고 저장은 안된다.</td>
+	</tr>
+	<tr>
+		<td>+urlencode()</td>
+		<td><a href="file.php?type=3&amp;mode=1&amp;disexp=1">한샾韓国Ab</a></td>
+		<td>%ED%95%9C%EC%83%BE%E9%9F%93%E5%9B%BDAb</td>
+		<td>%ED%95%9C%EC%83%BE%E9%9F%93%E5%9B%BDAb</td>
+		<td>한샾韓国Ab</td>
+		<td>%ED%95%9C%EC%83%BE%E9%9F%93%E5%9B%BDAb</td>
+		<td>%ED%95%9C%EC%83%BE%E9%9F%93%E5%9B%BDAb</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>+iconv(to EUC-KR)</td>
+		<td><a href="file.php?type=3&amp;mode=2&amp;disexp=1">한샾韓国Ab</a></td>
+		<td>한韓Ab</td>
+		<td>한韓Ab</td>
+		<td>한韓Ab</td>
+		<td>한韓Ab</td>
+		<td>한韓Ab</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>비고</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>참고</td>
+		<td colspan="7">&nbsp;</td>
+	</tr>
+</table>
+<h2>결론</h2>
+<h3>브라우저 별 결론</h3>
+<ul>
+	<li>IE
+		<ul>
+			<li>UTF-8 일 때 urlencode를 사용하라!
+				<ul>
+					<li>버그 : 확장자가 없으면 제대로 동작하지 않는다.</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>FF
+		<ul>
+			<li>중국어 간체 외에는 변환없이 바로 사용하면 된다.</li>
+		</ul>
+	</li>
+	<li>Crome
+		<ul>
+			<li>중국어 간체 외에는 변환없이 바로 사용하면 된다.</li>
+			<li>특이하게 UTF-8일 때 urlencode를 사용해도 처리된다.</li>
+		</ul>
+	</li>
+	<li>Sfari
+		<ul>
+			<li>CP949에서 제대로 처리되지 않는다.<br />
+			중국어 간체 외에는 변환없이 바로 사용하면 된다.</li>
+		</ul>
+	</li>
+	<li>OPERA
+		<ul>
+			<li>중국어 간체 외에는 변환없이 바로 사용하면 된다.</li>
+			<li>버그 : EUC-KR에 확장자가 없울 경우 .txt가 붙는 버그가 있음</li>
+		</ul>
+	</li>
+</ul>
+<h3>처리방법 별 결론</h3>
+<ul>
+	<li>Native(변환없음)
+		<ul>
+			<li>IE+UTF-8	과 Safari+CP494 외에는 정상작동 됨</li>
+		</ul>
+	</li>
+	<li>urlencode
+		<ul>
+			<li>IE+UTF-8 과 Crome+UTF-8 에서만 정상작동 됨
+				<ul>
+					<li>버드 : IE+UTF-8에서 파일명 확장자가 없으면 제대로 동작 안된다.</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>iconv
+		<ul>
+			<li>가장 안정적으로 동작한다.</li>
+			<li>문제점 : 강제로 EUC-KR로 변환했기 때문에 지원안되는 글자는 사라지게 된다.</li>
+		</ul>
+	</li>
+</ul>
+<h3>언어셋(인코딩셋) 별 결론</h3>
+<ul>
+	<li>EUC-KR
+		<ul>
+			<li>한국어 브라우저를 사용중이라면 별다른 문제없이 사용가능</li>
+		</ul>
+	</li>
+	<li>CP949 
+		<ul>
+			<li>사파리를 제외한 브라우저에서는 문제없음</li>
+		</ul>
+	</li>
+	<li>GB2312
+		<ul>
+			<li>한국어 브라우저에서 사용할려면 iconv로 euc-kr로 변환해서 사용하는 걸 추천</li>
+		</ul>
+	</li>
+	<li>utf-8
+		<ul>
+			<li>IE외에는 문제없음
+				<ul>
+					<li>IE는 확장가가 있다면 urlencode<br />
+					확장자가 없다면 iconv</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+<p>&nbsp;</p>
+</body>
+</html>

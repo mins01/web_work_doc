@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<title>텍스트와 이미지들 우훗</title>
+<style type="text/css">
+	.bdr{ border:1px solid black;}
+	.td{text-decoration: line-through underline overline;  }
+	.tr{background-color:#abc;}
+	img{border:1px solid red;}
+</style>
+</head>
+
+<body>
+
+<h1>텍스트와 이미지 수직정렬문제[<a href="?" target="_blank">새창</a>]</h1>
+<ul>
+	<li>작성자 : 공대여자</li>
+	<li>작성일 : 2009-10-29</li>
+</ul>
+<table border="1" cellpadding="2" cellspacing="0">
+		<tr class="tr">
+			<td>&nbsp;</td>
+			<td width="180">default</td>
+			<td width="200">&nbsp;</td>
+			<td>&nbsp;</td>
+			<td width="180">&nbsp;</td>
+		</tr>
+		<tr>
+			<td>기본</td>
+			<td class="td">aB가나<img alt="이미지" src="bg/20br.png" />다라Cd</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr class="tr">
+			<td>&nbsp;</td>
+			<td>baseline</td>
+			<td width="200">absbottom</td>
+			<td width="200">absmiddle</td>
+			<td>texttop</td>
+		</tr>
+		<tr>
+			<td>Attribute <br />
+				align 사용<br />
+				(비표준:수직)</td>
+			<td class="td">aB가나<img alt="이미지" align="baseline" src="bg/20br.png" />다라Cd</td>
+			<td class="td">aB가나<img alt="이미지" align="absbottom" src="bg/20br.png" />다라Cd</td>
+			<td class="td">aB가나<img alt="이미지" align="absmiddle" src="bg/20br.png" />다라Cd</td>
+			<td class="td">aB가나<img alt="이미지" align="texttop" src="bg/20br.png" />다라Cd</td>
+		</tr>
+		<tr class="tr">
+			<td>&nbsp;</td>
+			<td>bottom</td>
+			<td>&nbsp;</td>
+			<td>middle</td>
+			<td>top</td>
+		</tr>
+		<tr>
+			<td>Attribute <br />
+				align 사용<br />
+				(표준:수직)</td>
+			<td class="td">aB가나<img alt="이미지" align="bottom" src="bg/20br.png" />다라Cd</td>
+			<td class="td">&nbsp;</td>
+			<td class="td">aB가나<img alt="이미지" align="middle" src="bg/20br.png" />다라Cd</td>
+			<td class="td">aB가나<img alt="이미지" align="top" src="bg/20br.png" />다라Cd</td>
+		</tr>
+		<tr class="tr">
+			<td>&nbsp;</td>
+			<td colspan="2">left</td>
+			<td colspan="2">right</td>
+		</tr>
+		<tr>
+			<td>Attribute <br />
+				align 사용<br />
+				(표준:수평)</td>
+			<td colspan="2" class="td">aB가나<img alt="이미지" align="left" src="bg/20br.png" />다라Cd </td>
+			<td colspan="2" class="td">aB가나<img alt="이미지" align="right" src="bg/20br.png" />다라Cd</td>
+		</tr>
+		<tr class="tr">
+			<td>&nbsp;</td>
+			<td>baseline</td>
+			<td>bottom</td>
+			<td>middle</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td >style <br />
+				vertical-align 사용<br />
+				(수직)</td>
+			<td class="td" >aB가나<img alt="이미지" style="vertical-align:baseline" src="bg/20br.png" />다라Cd</td>
+			<td class="td" >aB가나<img alt="이미지" style="vertical-align:bottom" src="bg/20br.png" />다라Cd</td>
+			<td class="td" >aB가나<img alt="이미지" style="vertical-align:middle" src="bg/20br.png" />다라Cd</td>
+			<td >&nbsp;</td>
+		</tr>
+		<tr class="tr">
+			<td>&nbsp;</td>
+			<td>text-bottom</td>
+			<td>text-top</td>
+			<td>sub</td>
+			<td>super</td>
+		</tr>
+		<tr>
+			<td >style <br />
+				vertical-align 사용<br />
+			(수직)</td>
+			<td class="td" >aB가나<img alt="이미지" style="vertical-align:text-bottom" src="bg/20br.png" />다라Cd</td>
+			<td class="td" >aB가나<img alt="이미지" style="vertical-align:text-top" src="bg/20br.png" />다라Cd</td>
+			<td class="td" >aB가나<img alt="이미지" style="vertical-align:sub" src="bg/20br.png" />다라Cd</td>
+			<td class="td" >aB가나<img alt="이미지" style="vertical-align:super" src="bg/20br.png" />다라Cd</td>
+		</tr>
+		<tr class="tr">
+			<td>&nbsp;</td>
+			<td colspan="2">left</td>
+			<td colspan="2">right</td>
+		</tr>
+		<tr>
+			<td >style <br />
+			float 사용<br />
+			(수평)</td>
+			<td colspan="2" class="td">aB가나<img alt="이미지" style="float:left" src="bg/20br.png" />다라Cd </td>
+			<td colspan="2" class="td">aB가나<img alt="이미지" style="float:right;" src="bg/20br.png" />다라Cd</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+</table>
+	<ul>
+		<li>비표준
+			<ul>
+				<li>baseline,absbottom,absmiddle,texttop</li>
+			</ul>
+		</li>
+		<li>absmiddle과 middle 는 조금 다르게 위치한다.(브라우저에 똑같이 보이기도한다. =&gt; Opera)
+			<ul>
+				<li>absmiddle와 stule의 middle은 같다.(브라우저에 따른 차이 가능)(IE,FF,Opera,Sfari,crome 에서 확인 =&gt; 똑같이 보인다.)</li>
+			</ul>
+		</li>
+		<li>absbottom = style의 bottom</li>
+		<li>baseline = style의 baseline</li>
+		<li>bottom과 asbbtoom은 조금 차이가 있고 baseline 과는 같다.(IE에서, 브라우저별 차이가 있다.)</li>
+		<li>left와 right는 브라우저마다 표현이 다르게된다.(IE만 다르게 표현됨)</li>
+		<li>수직 중앙에 이미지가 오는 추천 방법
+			<ul>
+				<li>&lt;style&gt;<br />
+				img{vertical-align:middle}<br />
+				&lt;/style&gt;</li>
+				<li>&lt;img alt=&quot;이미지&quot; style=&quot;vertical-align:middle&quot; src=&quot;bg/20br.png&quot; /&gt;</li>
+			</ul>
+		</li>
+	</ul>
+
+</body>
+</html>

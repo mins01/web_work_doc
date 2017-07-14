@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>실제 이미지를 사용하지 않고 이미지를 표현하기</title>
+<link type="text/css" href="dataUri.1.css" rel="stylesheet" />
+<link type="text/css" href="dataUri.2.css" rel="stylesheet" />
+</head>
+
+<body>
+<h1>DATA URI, MHTML 실제 이미지를 사용하지 않고 이미지를 표현하기</h1>
+<p>[<a href="?" target="_blank">새창</a>]</p>
+<ul>
+	<li>제약사항
+		<ul>
+			<li>공대여자는 이쁘다는 걸 알고있어여 이 글을 읽을 수 있습니다.</li>
+		</ul>
+	</li>
+	<li>DATA URI 사용
+		<ul>
+			<li>예제<br />
+				<div class="bg1"></div>
+			</li>
+			<li>지원여부
+				<ul>
+					<li>IE
+						<ul>
+							<li>5 : ?</li>
+							<li>5.5 : X</li>
+							<li>6 : X</li>
+							<li>7 : X</li>
+							<li>8 : O</li>
+							</ul>
+					</li>
+					<li>FF
+						<ul>
+							<li>2</li>
+							<li>3 : O(3.57)</li>
+						</ul>
+					</li>
+					<li>Crome
+						<ul>
+							<li>2</li>
+							<li>3</li>
+							<li>4 : O</li>
+						</ul>
+					</li>
+					<li>Oepra
+						<ul>
+							<li>8</li>
+							<li>9</li>
+							<li>10 : O</li>
+						</ul>
+					</li>
+					<li>Safari
+						<ul>
+							<li>3 : O</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>MHTML 사용
+		<ul><li>예제<br />
+
+				<div class="bg2"></div>
+		</li>
+			<li>지원여부
+				<ul>
+					<li>IE
+						<ul>
+							<li>5 : ? (이 버전부터 지원한다고 함)</li>
+							<li>5.5 : O</li>
+							<li>6 : O</li>
+							<li>7 : O</li>
+							<li>8 : O</li>
+						</ul>
+					</li>
+					<li>FF
+						<ul>
+							<li>2</li>
+							<li>3 : X</li>
+						</ul>
+					</li>
+					<li>Crome
+						<ul>
+							<li>2</li>
+							<li>3</li>
+							<li>4 : X</li>
+						</ul>
+					</li>
+					<li>Oepra
+						<ul>
+							<li>8</li>
+							<li>9</li>
+							<li>10 : X</li>
+						</ul>
+					</li>
+					<li>Safari
+						<ul>
+							<li>3 : X</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>적용 스타일
+		<ul>
+			<li>DATA URI
+				<ul>
+					<li>CSS(실 데이터도 포함됨)
+						<ul>
+							<li>.bg1{<br />
+								width:190px;<br />
+								height:70px;<br />
+								border:1px solid black;<br />
+								background-image:url(&quot;<strong>data:image/gif;charset=utf-8;base64,</strong>R0lGODlhvgBGAP...생략...cAAAkFBwIAAgszQYIkEBAA7&quot;);<br />
+								}</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li>MHTML
+				<ul>
+					<li>실 데이터
+						(꼭 CSS와 같은 파일에 있을 필요는 없음)
+							<ul>
+							<li>/*<br />
+								Content-Type: multipart/related; boundary=&quot;898ecb45ab157a83ddd2bffb09e9604c&quot;<br />
+								<br />
+								--898ecb45ab157a83ddd2bffb09e9604c<br />
+								<strong>Content-Location: logo.gif<br />
+								Content-Type: image/gif<br />
+								Content-Transfer-Encoding: base64<br />
+								</strong><br />
+								R0lGODlhvgBGAPcAAAkFBwIAFBwwKD...생략...xBL8ARiRICQBpRszQYIkEBAA7<br />
+								*/<br />
+								</li>
+						</ul>
+					</li>
+					<li>CSS
+						<ul>
+							<li>								.bg2{<br />
+								width:190px;<br />
+								height:70px;<br />
+								border:1px solid black;<br />
+								background-image:url(<strong>mhtml:http://www.mins01.com/web_work/doc/dataUri/dataUri.2.css?!logo.gif</strong>);<br />
+								}</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>문제점
+		<ul>
+			<li>브라우저 마다 지원되는게 다름</li>
+			<li>바이너리 이미지보다 30% 용량이 증가됨</li>
+			<li>이미지 변경이 어려움</li>
+		</ul>
+	</li>
+	<li>장점
+		<ul>
+			<li>따로 이미지가 존재하지 않아도 됨</li>
+			<li>하나의 파일에서 관리가능</li>
+		</ul>
+	</li>
+	<li>둘다 지원되는 버전
+		<ul>
+			<li>IE 8</li>
+		</ul>
+	</li>
+	<li>참고 링크
+		<ul>
+			<li>http://en.wikipedia.org/wiki/Data:_URI_scheme</li>
+			<li>http://en.wikipedia.org/wiki/MHTML</li>
+			<li>http://www.phpied.com/data-uris-mhtml-ie7-win7-vista-blues</li>
+		</ul>
+	</li>
+	<li>이글을 읽었다면 이미 공대여자가 이쁘다는 걸 알고 있는겁니다.</li>
+</ul>
+</body>
+</html>

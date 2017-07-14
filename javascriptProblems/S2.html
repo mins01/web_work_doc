@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>문제2</title>
+<script type="text/javascript">
+	function sol(form,n){
+		var arr = new Array();
+		for(var i=0,m=n;i<m;i++){
+			var arr1=new Array();
+			for(var i1=0,m1=i+1;i1<m1;i1++){
+				arr1.push('*');
+			}
+			arr.push(arr1.join(''));
+		}
+		form.output.value = arr.join("\n");
+	}
+</script>
+</head>
+
+<body>
+<ul>
+	<li>출제정보
+		<ul>
+			<li>작성자 : 공대여자</li>
+			<li>작성일 : 2008-11-21</li>
+			<li>수정일 : </li>
+			<li>HOME : <a href="http://www.mins01.com">http://www.mins01.com</a></li>
+			<li>연락처 : mins01(at)lycos.co.kr (Mail,MSN,NateOn)</li>
+			<li>목적
+				<ul>
+					<li>루프문의 기본 사용법을 아는지 테스트</li>
+				</ul>
+			</li>
+			<li>제한사항
+				<ul>
+					<li>작성자 정보 수정 불가</li>
+					<li>수정 후 재배포 가능</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>문제
+		<ul>
+			<li>n*n의 크기로 *로 이루어진 직각 삼각형의 문자열을 만드시오</li>
+			<li>소스속의 sol() 함수를 구성하시오</li>
+		</ul>
+	</li>
+	<li>ex
+		<ul>
+			<li>n = 4<br />
+				*<br />
+			**<br />
+			***<br />
+			****</li>
+		</ul>
+	</li>
+	<li>결과
+		<ul>
+			<li>
+				<form id="form1" name="form1" action="javascript:void(0);" style="margin:0 ; padding:0;" onsubmit="sol(this,this.n.value);return false;">
+					<label>
+					<input name="n" type="text" id="textfield" size="5" maxlength="2" />
+					</label>
+					<label>
+					<input type="submit" name="button" id="button" value="확인" />
+					</label>
+					<br />
+					<textarea name="output" readonly="readonly" cols="100" rows="20" id="output" style="font-size:8px;"></textarea>
+					<label> <br />
+					</label>
+				</form>
+			</li>
+		</ul>
+	</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>designDiv</title>
+<script type="text/javascript">
+//<![CDATA[
+	function alertWH(thisC){
+		var x = 'WIDTH : '+thisC.offsetWidth+' , '+'HEIGHT : '+thisC.offsetHeight;
+		thisC.innerHTML = x;
+		alert(x);
+	}
+//]]>
+</script>
+<style type="text/css">
+	ul{margin-left:0em; padding-left:0em; list-style-position:inside;}
+	li{padding-left:1em;}
+</style>
+</head>
+
+<body>
+<h1>Design DIV [<a href="designDiv.html" target="_blank">새창</a>]</h1>
+<h2>디자인에서의 DIV</h2>
+<ul>
+	<li>문서정보
+		<ul>
+			<li>작성자
+				<ul>
+					<li>공대여자</li>
+				</ul>
+			</li>
+			<li>작성일
+				<ul>
+					<li>20090801</li>
+				</ul>
+			</li>
+			<li>제한사항
+				<ul>
+					<li>이용할 때 &quot;공대여자는 이쁘다.&quot;는 걸 알고 있어야합니다.</li>
+					<li>무단 수정 금지</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>디자인에서의 DIV
+		<ul>
+			<li>이 문서는 HTML을 만들 때 DIV로 좀 더 간편하게 HTML문서를 디자인(제작)하는 것에 대한 짜리몽땅한 글이다.</li>
+		</ul>
+	</li>
+	<li>DIV 사용이유
+		<ul>
+			<li>소스의 간결성과 브라우저 렌더링 효율 증대 정도?</li>
+			</ul>
+	</li>
+	<li>DIV의 TABLE 대체?
+		<ul>
+			<li>적재적소라는 말이 있듯이 무조건 TABLE을 DIV로 바꾸는건 바보짓이다!</li>
+			<li>간단한 모양이라면 DIV</li>
+			<li>GRID 형의 데이터 출력이라면 TABLE</li>
+		</ul>
+	</li>
+	<li>브라우저와 DTD에 따른 padding, margin , border 등의 처리 방법 차이
+		<ul>
+			<li>HTML 문서 디자인에서 padding, margin, border 는 엄청나게 중요하다.<br />
+			여기서 문제가 되는건 국내에서 점유율 90%(과장이 심하지만...)에 육박하는 IE가 문제이다.</li>
+			<li>IE(인터넷 익스플로러)가 왜 문제인가?
+				<ul>
+					<li>DTD를 사용하지 않을 경우 IE에서는 자체 DTD를 적용해서 padding과 margin 을 다른 브라우저와 다르게 처리한다.</li>
+					<li>DTD가 지정되지 않은 IE는
+						<ul>
+							<li>width에 border-width와 padding가 width속에 포함된다. 다른 브라우저는 포함되지 않는다.</li>
+						</ul>
+					</li>
+					<li>즉, DIV를 디자인으로 사용하기 위해서는 이 문제를 해결 후 사용해야한다.
+						<ul>
+							<li>간단하게 HTML 4.01이나 XHTML 1.0 등의 DTD를 선언해주면 된다.</li>
+						</ul>
+					</li>
+					<li>참고 : <a href="../webDevTool/index.html">웹개발툴</a></li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>디자인으로 DIV 사용
+		<ul>
+			<li>DIV너비
+				<ul>
+					<li>1DIv
+						<ul>
+							<li>width:100px; border:5px solid black; </li>
+							<li><div style="width:100px; border:5px solid black;" onclick="alertWH(this)">실제 크기알기 : 클릭</div></li>
+							<li>border가 실제 width에 영향을 미친다.</li>
+						</ul>
+					</li>
+					<li>2DIV
+						<ul>
+							<li>width:100px;</li>
+							<li>border:5px solid black;</li>
+							<li> <div style="width:100px;"  ><div style="border:5px solid black;" onclick="alertWH(this)">실제 크기알기 : 클릭</div></div> </li>
+							<li>실제 width도 고정된다.</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li>가운데 위치하기
+				<ul>
+					<li>width:100px;border:5px solid black; margin:0 auto;</li>
+					<li>
+						<div style="width:600px; border:1px solid green; padding:5px;"  >
+							<div style="width:100px;border:5px solid black; margin:0 auto;">왼쪽정렬 DIV는 가운데</div>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li>Floating 사용하기
+				<ul>
+					<li>다음흐름으로 = clear:both;</li>
+					<li>왼쪽흐름 = width:100px;border:5px solid black; margin:5px; float:left</li>
+					<li>오른쪽흐름 = width:100px;border:5px solid black; margin:5px; float:right</li>
+					<li>파란색div = float:right</li>
+					<li>
+						<div style="width:600px; border:1px solid green; padding:5px;"  >
+							<div style="width:100px;border:5px solid black; margin:5px; float:left">왼쪽흐름1</div>
+							<div style="width:100px;border:5px solid black; margin:5px; float:left">왼쪽흐름2</div>
+							<div style="width:100px;border:5px solid black; margin:5px; float:left">왼쪽흐름3</div>
+							<div style="width:100px;border:5px solid black; margin:5px; float:left">왼쪽흐름4</div>
+							<div style="clear:both;">다음흐름으로</div>
+							<div style="width:100px;border:5px solid black; margin:5px; float:right">오른쪽흐름1</div>
+							<div style="width:100px;border:5px solid black; margin:5px; float:right">오른쪽흐름2</div>
+							<div style="width:100px;border:5px solid black; margin:5px; float:right">오른쪽흐름3</div>
+							<div style="clear:both;">다음흐름으로</div>
+							<div style="float:right; border:1px solid blue; padding:5px;">
+								<div style="width:100px;border:5px solid black; margin:5px; float:left">왼쪽흐름1</div>
+								<div style="width:100px;border:5px solid black; margin:5px; float:left">왼쪽흐름2</div>
+								<div style="width:100px;border:5px solid black; margin:5px; float:left">왼쪽흐름3</div>
+							</div>
+							<div style="clear:both;">다음흐름으로</div>
+							<div style="width:100px;border:5px solid black; margin:5px; float:right">오른쪽흐름1</div>
+							<div style="clear:both;">다음흐름으로</div>
+							<div style="width:100px;border:5px solid black; margin:5px; float:right">오른쪽흐름1</div>
+							<div style="width:100px;border:5px solid black; margin:5px; float:left">왼쪽흐름2</div>
+							<div style="clear:both;">다음흐름으로</div>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li>간단한 레이아웃
+				<ul>
+					<li>
+						<div style="width:500px; border:1px dashed black;">
+							<input  type="button" onclick="this.parentNode.style.width='300px';" value="너비300 px;" />
+							<input  type="button" onclick="this.parentNode.style.width='500px';" value="너비500 px;" />
+							<input  type="button" onclick="this.parentNode.style.width='700px';" value="너비700 px;" />
+							<div style="border:1px solid green; height:100px;">상단</div>
+							<div style="width:100px; float:left; margin-right:-100px">
+								<div style="border:1px solid green; ">왼쪽adadasdasd
+									<div style="border:5px solid black; margin:5px; padding:5px;">AAA</div>
+								</div>
+							</div>
+							<div style="float:left; width:100%;">
+								<div style="border:1px solid green; height:300px; margin:0 100px; ">중간
+									<div style="border:5px solid black; margin:5px; padding:5px;">XXX</div>
+									<div style="border:5px solid black; margin:5px; padding:5px; text-align:center">YYY</div>
+									<div style="border:5px solid black; margin:5px; padding:5px; text-align:right">ZZZ</div>
+								</div>
+							</div>
+							<div style="width:100px;  float:right;margin-left:-100px;">
+								<div style="border:1px solid green; ">오른쪽
+									<div style="border:5px solid black; margin:5px; padding:5px;">XXX</div>
+									<div style="border:5px solid black; margin:5px; padding:5px; text-align:center">YYY</div>
+									<div style="border:5px solid black; margin:5px; padding:5px; text-align:right">ZZZ</div>
+								</div>
+							</div>
+							<div style="clear:both;"></div>
+							<div style="border:1px solid green; height:100px;">하단</div>
+						</div>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+</body>
+</html>

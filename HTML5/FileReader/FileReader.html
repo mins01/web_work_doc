@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<title>FileReader</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style>
+		#preview img{max-height:500px;max-width:500px}
+	</style>
+	<script>
+		function oncahngeUpload(event){
+			if(event.target.files.length > 0){ //파일 업로드가 있을 경우만
+				var preview = document.querySelector('#preview');
+				preview.innerHTML = '';
+				
+				for(var i=0,m=event.target.files.length;i<m;i++){ //다중 셀렉트 가능.
+					var file = event.target.files[i];
+					if(file.type.indexOf('image')===-1){ alert("이미지가 아닌 파일이 포함되어있습니다. 다시 선택해주시기 바랍니다.");
+					event.target.value="";
+					preview.innerHTML = '';
+					return false;
+					}
+					(function(file){
+						var fileReader = new FileReader();
+						fileReader.onload = function (event) {
+							var img = new Image();
+							img.src = event.target.result;
+							preview.appendChild(img);
+						};
+						fileReader.readAsDataURL(file);
+					})(event.target.files[i])
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+<form name="formX" enctype="multipart/form-data"  action="target.php" method="post" >
+	<ul>
+		<li>이미지 업로드(accept="image/*")(다중 선택 가능) : <input type="file" name="uploads[]" onchange="oncahngeUpload(event)" multiple  accept="image/*"> <input type="submit" value="전송"></li>
+
+		<li id="preview">
+			No Image
+		</li>
+
+	</ul>
+</form>
+
+<ul>
+	<li>설명 링크 : <a href="https://developer.mozilla.org/en-US/docs/Web/API/FileReader" target="_blank">https://developer.mozilla.org/en-US/docs/Web/API/FileReader</a></li>
+	<li>W3C 링크(드래프트 단계인듯) : <a href="http://www.w3.org/TR/FileAPI/#FileReader-interface" target="_blank">http://www.w3.org/TR/FileAPI/#FileReader-interface</a></li>
+	<li>FileReader FileReader();
+		<ul>
+			<li>File, Blob를 메모리로 읽어드릴 수 있다. 비동기 동작 API</li>
+			<li>유사한 걸로 URL.createObjectURL()가 있다.</li>
+			<li>간단히 말해서, 로컬 이미지 미리보기를 할 수 있다.</li>
+		</ul>
+	</li>
+	<li>지원 브라우저 : 
+		<ul>
+			<li>chome : 7</li>
+			<li>IE : 10</li>
+			<li>FF : 3.6</li>
+			<li>SAFARI : 6.0.2</li>
+			<li>OPERA : 12.02</li>
+		</ul>
+	</li>
+		<li>참고 input file쪽에 multiple 를 설정하였음.(다중 선택 가능)
+			<a href="http://www.w3schools.com/tags/att_input_multiple.asp" target="_blank">http://www.w3schools.com/tags/att_input_multiple.asp</a>
+			<br>
+			지원 브라우저 : 
+			<ul>
+				<li>chome : 6</li>
+				<li>IE : 10</li>
+				<li>FF : 3.6</li>
+				<li>SAFARI : 5</li>
+				<li>OPERA : 11.0</li>
+			</ul>
+		</li>
+</ul>
+
+</body>
+</html>

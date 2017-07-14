@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>웹 표준과 크로스 브라우징을 위한 TIP과 툴 소개</title>
+<base target="_blank" />
+<style type="text/css">
+body{font-size:14px; }
+ol{font-size:x-large; font-weight:bold; color:#333399;}
+ul{font-size:large; font-weight:bold; margin-bottom:20px;color:#CC3300; }
+ul ul{margin-bottom:10px; }
+ul ul li{font-size:medium; font-weight:normal;color:#000000;line-height:120%; }
+</style>
+</head>
+
+<body>
+<h1 style="text-align:center">웹 표준과 크로스 브라우징을 위한  툴과 팁 소개</h1>
+
+<h3 style="width:300px;  margin: 0 0 0 auto; padding:20px;"><strong>
+발표자 : 이민수 (기술지원팀)<br />
+발표일 : 2008-09-23</strong><br />
+작성일 : 2008-09-22<br />
+수정일 : 2008-09-23</h3>
+
+<ol>
+  <li>웹사이트 문서란?
+    그리고 그것에 포함되는 기술 들
+    <ul>
+      <li>일반 적으로 웹 사이트를 나타내는 문서는 HTML입니다.
+        <ul>
+          <li>HTML : Hypertext Markup Language</li>
+          <li>HTML 의 역활 : 웹 브라우저에 웹페이지 내의 글자, 이미지 등을 나태내고 그것을 어떻게 보여줄 것인가를 정의합니다.</li>
+          <li>HTML 의 특징 : '&lt;'로 시작하고 '&gt;'로 끝나는 태그로 구조화 된 문서구조를 가집니다.</li>
+          <li>버전
+            <ul>
+              <li><a href="http://www.w3.org/TR/html401">HTML 4.01</a> : 일반적인 HTML의 최신버전</li>
+              <li><a href="http://www.w3.org/TR/xhtml1" target="_blank">XHTML 1.0</a> : HTML 4.0을 XML 1.0으로 재구성 한 것</li>
+              <li>Transitional : HTML 4.01 Transitional , XHTML 1.0 Transitional 등으로 나타내며, 과거의 구조와 문법을 계속 사용할 수 있습니다.</li>
+              <li>Strict : HTML 4.01 Strict , XHTML 1.0 Strict 등으로 나타내며, 아주 엄격하게 구조,문법을 제한합니다. 과거에 사용된 구조와 문법에서 더 이상 사용 못하는(변경된) 구조와 문법이 있을 수 있습니다.</li>
+              <li>HTML 5 : 현재 멀티미디어 강화 등의 목적으로 새로이 등장하였지만, 현재 지원하는 브라우저는 없습니다. 현재 계속 개발중입니다.</li>
+              <li>XHTML 1.1 : 모듈기반을 XHTML입니다. XHTML 1.0 Strict에 루비요소화 가상모듈 기능들이 추가되었습니다.</li>
+              <li>현재 가장 많이 쓰이는 버전은 HTML 4.01 Transitional와 XHTML 1.0 Transitional입니다.
+                <ul>
+                  <li><a href="http://www.naver.com/">네이버</a>의 메인 페이지는XHTML 1.0 Transitional를 기준으로 만들어져있습니다.</li>
+                  <li><a href="http://www.nate.com/">네이트</a>는 HTML 4.01 Transitional을 기준으로 만들어져있습니다.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>DTD
+          : 각 HTML 버전별로 DTD 문서가있습니다.
+            (클릭하시면 DTD문서로 연결됩니다.)
+            <ul>
+              <li><a href="http://www.w3.org/TR/html4/loose.dtd">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;</a></li>
+              <li><a href="http://www.w3.org/TR/html4/strict.dtd">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot; &quot;http://www.w3.org/TR/html4/strict.dtd&quot;&gt;</a></li>
+              <li><a href="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;</a></li>
+              <li><a href="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;</a></li>
+              <li><a href="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot; &quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>웹페이지용 스타일 시트
+        <ul>
+          <li>CSS : Cascading Style Sheet</li>
+          <li>CSS의 역활 : 웹페이지(HTML)의 내용에 스타일를 정의합니다. </li>
+          <li>버전 
+            <ul>
+              <li><a href="http://www.w3.org/TR/REC-CSS1" target="_blank">CSS1</a> : 대부분의 브라우저에서 지원하는 버전입니다. (몇몇 스타일은 아직도 지원 안되는 것들이 있습니다.)</li>
+              <li><a href="http://www.w3.org/TR/REC-CSS2" target="_blank">CSS2</a> : CSS1에서 확장되어 만들어졌습니다. 브라우저별로 지원되는 스타일에 차이가 있을 수 있습니다.( 현재 CSS 2.1이 최신버전입니다.)</li>
+              <li><a href="http://www.w3.org/TR/css3-layout/">CSS3</a> : 현재 개발중으로 몇몇 브라우저에서는 CSS3의 일부분을 지원하고 있습니다.</li>
+            </ul>
+          </li>
+          <li>브라우저별 지원
+            <ul>
+              <li>Opera 9.5: CSS 2 + CSS 3(일부분)</li>
+              <li>FF 3 : CSS 2 + CSS 3(일부분)</li>
+              <li>IE 7 : CSS 2 + CSS 3(일부분)</li>
+              <li>CSS 3 셀렉터 테스트 : <a href="http://www.css3.info/">LINK</a></li>
+            </ul>
+          </li>
+          <li>링크
+            <ul>
+              <li>CSS 개발현황 : <a href="http://www.w3.org/Style/CSS/current-work#CSS3">LINK</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>웹페이지 제어를 위한 JAVASCRIPT(JSCRIPT)
+        <ul>
+          <li>JAVASCRIPT : 네스케이프에서 만든 인터프리터 형 프로그래밍, 스크립트 언어</li>
+          <li>JSCRIPT : JAVASCRIPT와 호환되는 Microsoft에서 만든 스크립트 언어</li>
+          <li>JAVASCRIPT는 브라우저별로 차이가 있다
+            <ul>
+              <li>IE6 : JAVASCRIPT 1.5기반</li>
+              <li>IE7 : JSCRIPT 5.6(JAVASCRIPT 1.5 기반)</li>
+              <li>FF1.5 l JAVASCRIPT 1.6</li>
+              <li>FF2 ; JAVASCRIPT 1.7</li>
+              <li>FF3 : JAVASCRIPT 1.8</li>
+              <li>최대한의 크로스 브라우징을 지워하기 위해서는 JAVASCRIPT 1.5 표준(비 IE 기준)을 기반으로 제작을 해야합니다.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>웹 사이트가 브라우저별로 차이가 생기는 이유
+    <ul>
+      <li>브라우저별 기본 DTD (Document Type Definition)의 차이
+        <ul>
+          <li>DTD란? : SGML 규칙을 따르는 문서에 대한 정의입니다. HTML도 DTD를 가지고있으며 그 DTD를 사용해서 어떻게 처리되고 보여져야할지 정해진 대로 처리하고 보여줍니다.</li>
+          <li>보이는 것이 차이가 생기는 이유
+            <ul>
+              <li>DTD파일을 선언 안한 경우 : 브라우저별로 각각의 기본 DTD를 사용하게됩니다. 브라우저 별 DTD는 약간씩 다르기 때문에 보이는 것에 차이가 생깁니다.</li>
+            </ul>
+          </li>
+          <li>보이는 것의 차이를 줄이는 방법
+            <ul>
+              <li>DTD를 선언합니다.
+                <ul>
+                  <li>HTML 문서의 맨 앞에 <br />
+                  &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt; <br />
+                  라고 적으면 그 HTML문서는 xHTML 1.0 transitional의 규칙에 따라 보여지게됩니다.<br />
+                  브라우저는 지정된 DTD의 규칙을 준수해서 보여주게 됩니다</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>주의점
+            <ul>
+              <li>DTD에 따라서 표현방식이 다를 수 있고, 구조, 문법에 제한이 될 수도 있습니다.<br />
+              EX&gt; HTML에서는 &lt;IMG&gt;가 허용이 되지만, XHTML은  &lt;img /&gt;처럼(소문자에 단일태그) 태그를 사용해야한다.<br />
+              EX&gt; HTML에서는 링크에 &amp;를 적을 수 있지만, XHTML에서는 &amp;amp; 처럼 나타내야한다.</li>
+            </ul>
+          </li>
+          <li>한계
+            <ul>
+              <li>아무리 DTD가 문서를 정의한다고 해도 브라우저 별로  어느정도의 차이는 있을 수 있습니다.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>브라우저 별 지원 CSS의 차이
+        <ul>
+          <li>브라우저 별로 CSS의 지원에 차이가 조금씩 있으며, 지원을 안하거나 다른 방법으로 지원하는 경우도 있습니다.</li>
+          <li>ex &gt; 비 IE에서는 opacity=0.4 를 지원하지만 IE에서는 filter:Alpha(opacity=40) 처럼 사용해야합니다.<br />
+          opacity는 CSS3 부터 지원되기 시작하였습니다. IE에서는 CSS3의 지원이 다른 브라우저보다도 더 불완전합니다. 하지만 IE전용인 filter 를 지원해서 사용할 수 있는 방법을 제시하고있습니다. <a href="http://www.mins01.com/20070305/m_board/tech.php?b_id=tech&amp;type=read&amp;b_idx=271&amp;page=1&amp;sh1_ta=b_title&amp;sh1_str=op&amp;period=1095">LINK</a></li>
+          <li>ex &gt; IE는 zoom 을 사용하여 화면의 확대, 축소를 할 수 있습니다. 하지만 다른 브라우저에서는 지원되지 않는 IE 전용입니다.(CSS에서도 정의되어있지 않습니다.) (<a href="javascript:void(0);" target="_self" onclick="document.body.style.zoom=1.5">TEST1</a> , <a href="javascript:void(0);" target="_self" onclick="document.body.style.zoom=1">TEST2</a>)</li>
+          <li>ex &gt; DTD가 지정되지 않은 IE는 border와 margin을 width 안에 포함합니다. 표준에 따르면 border와 margin은 width와 상관없이 너비를 가져야합니다. (참고 : <a href="#ex1" target="_self">DTD를 지정 안했을 경우의 div크기의 차이</a>)</li>
+        </ul>
+      </li>
+      <li>JAVASCRIPT와 JSCRIPT의 차이
+        (IE브라우저와 비 IE브라우저 차이)
+        <ul>
+          <li>차이가 생기는 이유
+            <ul>
+              <li>Microsoft에서는 JAVASCRIPT와 호환되는 JSCRIPT를 개발해여 자체에서 제작한 인터넷익스플로어(IE)에서 사용하고 있습니다.</li>
+              <li>국내 80%이상의 사용자는 IE를 사용하고있으며, 국내 웹사이트 개발쪽의 많은 곳이 IE전용으로 개발되고 있습니다.</li>
+              <li>IE는 JAVASCRIPT의 준수사항에 벗어나는 여러기능을 지원하고있습니다. 그래서 이 기능을 사용할 경우 IE외의 브라우저는 정상작동하지 안습니다..<br />
+              </li>
+            </ul>
+          </li>
+          <li>예
+            <ul>
+              <li> alert(document.all.test.value) <br />
+              IE에서는 test라는 id나 name를 가진 대상을 찾아서 그 대상의 value를 경고창에 나타나게하지만 비 IE의 경우 document.all 이라는 것이 존재하지 않으므로 에러가 발생하게 됩니다.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>웹 사이트의 문법오류와 스크립트 오류를 쉽게 찾고, 고치게 도와주는 툴(확장기능)
+    <ul>
+      <li>문법오류를 쉽게 찾을 수 있도록 도와주는 툴(확장기능) 
+        <ul>
+          <li>
+            HTML Validator
+          : HTML문서가 DTD에 맞는 규칙으로 작성되었는지 확인,체크하여 잘못된 곳을 알려줍니다.</li>
+          <li>DOM explorer : HTML문서는 브라우저에서 내부적으로 DOM 으로 처리가됩니다. 그 DOM구조를 보여주고 지정된 부분의 태그를 보여주는 등의 기능을합니다.</li>
+          <li>Script Debugger : 스크립트(JAVASCRIPT,JSCRIPT)의 동작을 디버깅 할 수 있게 해줍니다.</li>
+        </ul>
+      </li>
+      <li>브라우저별 툴(확장기능)
+        <ul>
+          <li>Fire Fox
+            <ul>
+              <li>Fire Bug
+                <ul>
+                    <li>기능 : DOM explorer , Script Debugger</li>
+                  <li>링크 : <a href="https://addons.mozilla.org/ko/firefox/addon/1843">https://addons.mozilla.org/ko/firefox/addon/1843</a></li>
+                </ul>
+              </li>
+              <li>HTML Validator
+                <ul>
+                    <li>기능 : HTML Validator</li>
+                  <li>링크 : <a href="https://addons.mozilla.org/ko/firefox/addon/249">https://addons.mozilla.org/ko/firefox/addon/249</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>IE
+            <ul>
+              <li> IE Developer Toolbar 
+                <ul>
+                  <li>기능 : DOM explorer</li>
+                  <li>링크 : <a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=e59c3964-672d-4511-bb3e-2d5e1db91038&amp;displaylang=en" target="_blank">http://www.Microsoft.com/downloads/details.aspx?FamilyID=e59c3964-672d-4511-bb3e-2d5e1db91038&amp;displaylang=en</a></li>
+                  <li>스크린샷 : <a href="img/iedeveloper.gif">LINK</a></li>
+                </ul>
+              </li>
+              <li>개발자도구 (IE 8 부터 지원)
+                <ul>
+                  <li>기능 : DOM explorer , Script Debugger</li>
+                  <li>링크 : 자체지원</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>w3.org
+            (w3 사이트)
+            <ul>
+              <li><a href="http://validator.w3.org">http://validator.w3.org</a> : HTML 규칙 확인 웹서비스 </li>
+              <li><a href="http://jigsaw.w3.org/css-validator/">http://jigsaw.w3.org/css-validator/</a> : CSS 규칙 확인 웹서비스</li>
+            </ul>
+          </li>
+          <li>크롬
+            <ul>
+              <li>요소검사
+                <ul>
+                  <li>기능 : DOM explorer</li>
+                  <li>링크 : 브라우저 자체지원</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>Opera(9.5)
+            <ul>
+              <li>개발자도구
+                <ul>
+                  <li>기능 : DOM explorer , Script Debug</li>
+                  <li>링크 : 브라우저 자체지원(도구 -&gt; 고급설정 부분에 메뉴가 위치</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>Safari
+            <ul>
+              <li>WebKit Nightly Builds
+                <ul>
+                  <li>기능 : </li>
+                  <li>링크 : <a href="http://nightly.webkit.org">http://nightly.webkit.org</a></li>
+                  <li>설치사용방법 : <a href="http://alfresco.pe.kr/blog/101">http://alfresco.pe.kr/blog/101</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>Mutiple IE
+            <ul>
+              <li>기능 : IE 3 ~ IE 6 등 하위버전의 IE를 사용할 수 있도록 해줍니다.</li>
+               <li>링크 : <a href="http://tredosoft.com/Multiple_IE">http://tredosoft.com/Multiple_IE</a></li>
+            </ul>
+          </li>
+          </ul>
+      </li>
+    </ul>
+  </li>
+  <li>예제
+    <ul>
+      <li><a name="ex1" id="ex1"></a>DTD를 지정 안했을 경우의 div크기의 차이
+        <ul>
+          <li>DTD가 지정안된 경우 : <a href="ex1.0.html">LINK</a></li>
+          <li>DTD가 지정된 경우 : <a href="ex1.1.html">LINK</a></li>
+          <li>이미지 비교 : <a href="ex1.2.html">LINK</a></li>
+        </ul>
+      </li>
+      <li>문법에 어긋나는 태그들
+        (XHTML - Transitional기준)      
+        <ul>
+          <li><a href="ex2.0.html">LINK</a></li>
+          <li>DOM explorer , HTML Validator 사용예</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol> 
+<div style="text-align:right;">
+    <a href="http://validator.w3.org/check?uri=referer"><img
+        src="http://www.w3.org/Icons/valid-xhtml10"
+        alt="Valid XHTML 1.0 Transitional" width="88" height="31" border="0" /></a></div>
+
+</body>
+
+</html>

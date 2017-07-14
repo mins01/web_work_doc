@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<title>WebAPI-CAMERA</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<form action="http://www.naver.com" onsubmit="alert('submit동작 (실제동작하지는 않음)');return false;">
+	<ul>
+		<li>image/* : <input type="file" name="fu" accept="image/*"></li>
+		<li>.png : <input type="file" name="fu" accept=".png"></li>
+		<li>15043_1.png : <input type="file" name="fu" accept="15043_1.png">(잘못된 설정으로 모든파일로 보임))</li>
+		<li>.jpg,*.gif : <input type="file" name="fu" accept=".jpg,*.gif"></li>
+		<li>audio/* : <input type="file" name="fu" accept="audio/*"></li>
+		<li>video/* : <input type="file" name="fu" accept="video/*"></li>
+		<li>image/*,video/* : <input type="file" name="fu" accept="image/*,video/*"></li>
+		<li><input type="submit"></li>
+	</ul>
+</form>
+
+<ul>
+	<li>설명 링크 : <a href="http://www.w3schools.com/tags/att_input_accept.asp" target="_blank">http://www.w3schools.com/tags/att_input_accept.asp</a></li>
+	<li>input type=file accept 애트리뷰트
+		<ul>
+			<li>파일확장자, MIME-type, audio/*, video/*, image/* 등을 지원하며, ','를 구분자로 여러값을 사용할 수 있다.</li>
+			<li>대소문자 체크하지 않는다.</li>
+			<li>잘못된 설정이면, 모든 파일로 형식이 처리된다.(모든 파일이 목록에 보임)</li>
+			<li>audio/* 등으로 설정해서 자신이 원하는 확장자의 파일이 안보인다면? OS와 브라우저에서 지원되는지 체크해보자.(추측임)</li>
+			<li>스마트폰 같은 모바일 디바이스일 경우 image/* 로 할 경우 카메라로 찍을 수 있다.(아직 테스트 안해봤다.)</li>
+		</ul>
+	</li>
+	<li>지원 브라우저 : 
+		<ul>
+			<li>chome : 8</li>
+			<li>IE : 10</li>
+			<li>FF : 4</li>
+			<li>SAFARI : 6</li>
+			<li>OPERA : 15</li>
+		</ul>
+	</li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<title>이벤트 버블</title>
+<style type="text/css">
+div{ border:30px solid black; background-color:#FFFFFF}
+</style>
+<script type="text/javascript">
+function p(thisC,str){
+document.getElementById('tra').value += thisC.id+" : "+str+"\n"
+}
+function p2(event,thisC,str){
+	if(event){
+		var evt = event;
+	}else{
+		var evt = window.event;
+	}
+
+	document.getElementById('tra').value += thisC.id+" : "+str+"\n";
+	evt.cancelBubble = true;
+}
+</script>
+</head>
+
+<body >
+<h1>이벤트 버블[<a href="?" target="_blank">NEW</a>]</h1>
+<table>
+	<tr>
+		<td style="padding:100px;">	
+		<div id="DIV1" style=" border-top-color:blue; maring-left:100px; maring-top:100px; overflow:visible;width:300px; height:300px;" onmouseout="p(this,'onmouseout')" onmouseover="p(this,'onmouseover')">
+	DIV1
+		<div id="DIV1_1" style="width:500px; height:100px;  margin:20px;margin-left:-80px; border-right-color:red" onmouseout="p(this,'onmouseout');" onmouseover="p(this,'onmouseover ')">
+		DIV1_1		</div>
+		<div id="DIV1_2" style="width:500px; height:100px;  margin:20px;margin-left:-80px; border-right-color:green" onmouseout="p2(event,this,'onmouseout');" onmouseover="p2(event,this,'onmouseover ')">
+		DIV1_2		</div>
+	</div></td>
+		<td ><textarea style="width:200px; height:400px;" id="tra"></textarea></td>
+	</tr>
+</table>
+<hr />
+<ul>
+	<li>이벤트 번짐(bubble) 관계
+		<ul>
+			<li>DIV1의 파란색 부분에서 마우스를 넣었다가 뺄 경우
+				<ul>
+					<li>DIV2는아무런 이벤트의 영향을 받지 않는다.</li>
+					<li>이벤트 결과<br />
+						DIV1 : onmouseover<br />
+						DIV1 : onmouseout</li>
+				</ul>
+			</li>
+			<li>DIV1_1의 빨간색 부분에서 마우스를 넣었다가 뺄 경우
+				<ul>
+						<li>DIV2에서만 마우스커서가 위치했기 때문에 DIV2에서만 이벤트가 발생할 것으로 생각할 수 있지만,<br />
+							결과를 보면 DIV2에서 이벤트가 발생하면 DIV1에서도 무조건 같은 이벤트가 발생한다.</li>
+						<li><strong> 자식 노드에서 이벤트가 발생되면 부모노드로 이벤트가 전파된다.(이벤트 버블)</strong></li>
+						<li>이벤트 결과<br />
+							DIV1_1 : onmouseover <br />
+							DIV1 : onmouseover<br />
+							DIV1_1 : onmouseout<br />
+						DIV1 : onmouseout</li>
+					</ul>
+			</li>
+			<li>DIV1_2의 초록색 부분에서 마우스를 넣었다가 뺄 경우
+				<ul>
+		<li>DIV1_2의 이벤트는 DIV1으로 번지지 않는다.</li>
+		<li><strong> 스크립트의 함수중<br />
+		EVENT.cancelBubble = true;<br />
+		부분에서 이벤트 버블이 부모 노드로 번지지 않도록 한다.<br />
+		</strong></li>
+		<li>이벤트 결과<br />
+			DIV1_2 : onmouseover <br />
+			DIV1_2 : onmouseout</li>
+		</ul>
+			</li>
+			<li>DIV1 에서 DIV1_1로 마우스를 이동시킬경우
+				<ul>
+					<li>이벤트 결과<br />
+						DIV1 : onmouseover<br />
+						<strong>DIV1 : onmouseout<br />
+						DIV1_1 : onmouseover </strong><br />
+						DIV1 : onmouseover<br />
+						DIV1_1 : onmouseout<br />
+					DIV1 : onmouseout</li>
+					<li>DIV1_1 : onmouseover 할 때 DIV1_1 : onmouseout 이벤트가 발생한다.<br />
+					<strong>onmouseout는 자신의 자식노드로 onmouseover가 될 때도 발생한다.</strong></li>
+					<li>onmouseout 로 레이어가 사라지게 하는 경우<br />
+					자신 노드에 onmouseover 등을 할 경우 문제가 될 수 있다.
+						<ul>
+							<li>자식노드의 onmouseover 에서 다시 레이어를 보이게 하던가<br />
+								onmouseout 이벤트를 빼고 document.onclick 을 사용해서 레이어가 사라지도록 한다던지...<br />
+								하는 등으로 변경하는 평이 좋을 것 같다.<br />
+								<br />
+										</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+</body>
+</html>
+

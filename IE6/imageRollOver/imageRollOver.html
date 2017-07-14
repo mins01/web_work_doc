@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<title>이미지 롤오버 문제(IE6)</title>
+<style type="text/css">
+ul.menu{ padding:0; margin:0; list-style:none }
+ul.menu li{ float:left; padding:0; margin:0;  }
+ul.menu li img{ border-width:0;}
+.clearB{clear:both;}
+
+
+a.t2{background-color:transparent; }
+a.t2 .on{display:none;}
+a.t2 .off{display:inline;}
+a.t2:hover{background-color:transparent; border:0px solid black;}
+a.t2:hover .on{display:inline;}
+a.t2:hover .off{display:none;}
+
+a.menu{ position:relative; display:block; overflow:hidden; z-index:1 }
+a.menu .on{position:absolute; left:0px; top:0px; z-index:-1 }
+a.menu .off{position:relative; left:0px; top:0px; z-index:1 }
+a.menu:hover {background-color:transparent; }
+a.menu:hover .on{position:relative; left:0px; top:0px; z-index:1 }
+a.menu:hover .off{position:absolute; left:0px; top:0px; z-index:-1 }
+</style>
+</head>
+<body>
+<h1>이미지 롤오버 문제(IE6)</h1>
+<h2>이미지 롤오버 메뉴사용시 이미지 변경시마다 다시 요청하는 문제<br />
+특히 IE6에서는 서버에서 SYN_RECV의 비정상 증가 현상이 발생할 수 있다.<br />
+IE7에서도 계속 요청은 하는데 SYN_RECV가 생기지는 않는다.</h2>
+<fieldset>
+	<legend>문제가 있는 경우(SRC 변경, SYN_RECV 강제발생)</legend>
+	<div>
+		1(캐시처리 안함)<img width="100" src="img/m_01.png" alt="m_01" onclick="forceSynSent(this)" />[<a href="imageRollOverNC.html">테스트 링크</a>]<br />
+		2(캐시처리 함(10분))<img width="100" src="down.php?file=img/m_01.png" alt="m_01" onclick="forceSynSent(this)" />
+	[<a href="imageRollOverC.html">테스트 링크</a>]</div>
+	<script type="text/javascript">
+		function forceSynSent(img){
+			var bool = true;
+			var i = 99
+			while(i>0){
+				i--;
+				if(bool){
+						img.src = img.src.replace('m_01.png','m_01_on.png');
+				}else{
+						img.src = img.src.replace('m_01_on.png','m_01.png');
+				}
+				bool = !bool
+			}
+			alert('100번 변경완료');
+		}
+	</script>
+
+</fieldset>
+<img id="img_c" width="100" src="down.php?file=img/m_01.png" alt="m_01" onclick="forceSynSent(this)" />
+<script type="text/javascript">
+forceSynSent(document.getElementById('img_c'));
+</script>
+<fieldset>
+	<legend>결론</legend>
+	<div>
+		<ul>
+			<li>
+			IE6
+				<ul>
+					<li>캐시처리 안 할 경우 SYN_RECV 가 생길 수 있다.</li>
+					<li>캐시처리하면 문제없음</li>
+				</ul>
+			</li>
+			<li>IE7
+				<ul>
+					<li>캐시처리 안 할 경우 SYN_RECV 가 거의 발생하지 않는다.
+						<ul>
+							<li>abort 상태가 나오지만, 서버에서는 SYN_RECV가 생기지 않는다.(거의)</li>
+						</ul>
+					</li>
+					<li>캐시처리하면 문제없음</li>
+					</ul>
+			</li>
+		</ul>
+	</div>
+</fieldset>
+</body>
+</html>

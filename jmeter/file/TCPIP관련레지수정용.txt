@@ -1,0 +1,9 @@
+Windows XP 용
+그외 OS에서는 테스트되지 않았습니다.
+
+
+"MaxUserPort"=dword:0000ea60 => 60000
+"TcpTimedWaitDelay"=dword:0000001e => 30
+"MaxFreeTcbs"=dword:000007d0 => 2000
+"MaxHashTableSize"=dword:00000800 => 2048
+"KeepAliveTime"=dword:001b7740 => 1800000

@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>XHTML의 틀린 문법 예제</title>
+<script>
+var a = 1;
+</script>
+<style type="text/css">
+.scrollbar{
+	scrollbar-highlight-color:white;  
+	scrollbar-3dlight-color:#00BEF7;  
+	scrollbar-face-color:#E6FAFF;  
+	scrollbar-shadow-color:#00BEF7;  
+	scrollbar-darkshadow-color:white;  
+	scrollbar-track-color:white;  
+	scrollbar-arrow-color:#00BEF7;  
+}
+</style>
+</head>
+<body>
+<style type="text/css">
+body{font-size:12px;}
+</style>
+<table border="1" cellpadding="2" cellspacing="2">
+<tr>
+  <td width="200" align="center">잘못된 FORM 위치</td>
+</tr>
+<form action="?" onsubmit="alert('잘못된 form위치\n태그\n'+this.parentNode.innerHTML); return false;">
+<tr>
+  <td align="center">
+    <input type="submit" name="button" id="button" value="전송실험" />
+  </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+</tr>
+</form>
+<tr>
+  <td>&nbsp;</td>
+</tr>
+<tr><td align="center"><input type="submit" id="test" value="스크립트 데스트 : IE전용" onclick="alert(document.all.test.value)" /></td>
+</tr>
+<tr>
+  <td align="center"><input type="submit" id="test2" value="스크립트 데스트 : 표준" onclick="alert(document.getElementById('test2').value)" /></td>
+</tr>
+</table>
+<hr title="잘못된 hr 태그" >
+<div class="scrollbar" style=" height:100px; width:100px; overflow:scroll;">
+<div style=" height:200px;">IE전용의 스크롤바 스타일</div>
+</div>
+<hr title="올바른 hr 태그" />
+<p><br />
+  올바른 img 태그
+  <img src="img/ex1.0.gif" alt="올바른 img 태그" width="50" height="50" /><br />
+  잘못된 IMG태그
+  <img src="img/ex1.0.gif" width="50" height="50"  ></p>
+<hr title="올바른 hr 태그" />
+<br />
+올바른  a 태그<br />
+<a href="http://www.mins01.com/20070305/m_board/tech.php?b_id=tech&amp;type=read&amp;b_idx=480&amp;page=1&amp;period=365">링크</a><br />
+잘못된 a 태그 <br />
+<a href="http://www.mins01.com/20070305/m_board/tech.php?b_id=tech&type=read&b_idx=480&page=1&period=365">링크</a>
+<hr title="올바른 hr 태그" />
+<table>
+  <tr>
+    <td height="30" bgcolor="#00CC99">&nbsp;</td>
+    <td bgcolor="#00CC99">&nbsp;</td>
+    <td bgcolor="#FF6633">&nbsp;</td>
+    <td bgcolor="#FF6633">&nbsp;</td>
+    <td bgcolor="#FF6633">&nbsp;</td>
+    <td bgcolor="#0033CC">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="30" bgcolor="#00CC99">&nbsp;</td>
+    <td bgcolor="#6666CC">&nbsp;</td>
+    <td bgcolor="#6666CC">&nbsp;</td>
+    <td bgcolor="#6666CC">&nbsp;</td>
+    <td bgcolor="#6666CC">&nbsp;</td>
+    <td bgcolor="#0033CC">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="30" bgcolor="#00CC99">&nbsp;</td>
+    <td bgcolor="#6666CC">&nbsp;</td>
+    <td bgcolor="#330033">&nbsp;</td>
+
+    <td bgcolor="#0033CC">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="30" bgcolor="#00CC99">&nbsp;</td>
+    <td bgcolor="#6666CC">&nbsp;</td>
+    <td bgcolor="#330033">&nbsp;</td>
+    <td bgcolor="#330033">&nbsp;</td>
+    <td bgcolor="#330033">&nbsp;</td>
+    <td bgcolor="#0033CC">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="30" bgcolor="#00CC99">&nbsp;</td>
+    <td bgcolor="#6666CC">&nbsp;</td>
+    <td bgcolor="#999999">&nbsp;</td>
+    <td bgcolor="#999999">&nbsp;</td>
+    <td bgcolor="#6666CC">&nbsp;</td>
+    <td bgcolor="#6666CC">&nbsp;</td>
+  </tr>
+  <tr>
+  <td width="30" height="30" bgcolor="#00CC99">&nbsp;</td>
+  <td width="30" bgcolor="#00CC99">&nbsp;</td>
+  <td width="30" bgcolor="#999999">&nbsp;</td>
+  <td width="30" bgcolor="#000000">&nbsp;</td>
+  <td width="30" bgcolor="#000000">&nbsp;</td>
+  <td width="30" bgcolor="#000000">&nbsp;</td>
+</tr></table>
+<br />
+갯수가 맞지 않은 td의 구조 알아보기(DOM explorer)
+<p>&nbsp;</p>
+</body>
+</html>
+<script type="text/javascript">
+//<![CDATA[
+var b = 2;
+//]]>
+</script>

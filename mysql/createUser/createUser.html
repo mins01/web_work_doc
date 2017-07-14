@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>MySQL 사용자 계정 만들기(DB도 같이)</title>
+</head>
+
+<body>
+
+<fieldset>
+<legend>MySQL 계정 생성 쿼리 만들기 [<a href="" target="_blank">NEW</a>]</legend>
+<form action="javascript:void(alert('잘못된 접근'));" onsubmit="return submitForm(this)">
+<script>
+//<!--
+function submitForm(f){
+	var DB = f.DB.value;
+	var USER = f.USER.value;
+	var PW = f.PW.value;
+	var dSQL = document.getElementById('dSQL').innerHTML;
+	var oSQL = dSQL.replace(/\{\{DB\}\}/g,DB).replace(/\{\{USER\}\}/g,USER).replace(/\{\{PW\}\}/g,PW);
+	document.getElementById('oSQL').innerHTML = oSQL
+	return false;
+}
+//-->
+</script>
+<ul>
+  <li>{{DB}} : <input name="DB" type="text"></li>
+	<li>{{USER}} : <input name="USER" type="text"></li>
+	<li>{{PW}} : <input name="PW" type="text"></li>
+	<li><input name="" value="생성" type="submit"></li>
+	<li id="dSQL">/* DB생성 */<br>CREATE DATABASE `{{DB}}`;<br>/* USER생성 */<br>INSERT INTO mysql.user ( HOST, USER, 
+  PASSWORD, select_priv, insert_priv, update_priv, delete_priv,&nbsp; 
+  create_priv, drop_priv, reload_priv, shutdown_priv,&nbsp; process_priv,&nbsp; 
+  file_priv, grant_priv, references_priv, index_priv, alter_priv, show_db_priv, 
+  super_priv, create_tmp_table_priv, lock_tables_priv, execute_priv, 
+  repl_slave_priv, repl_client_priv, create_view_priv, show_view_priv, 
+  create_routine_priv, alter_routine_priv, create_user_priv ) VALUES ( '%', 
+  '{{USER}}', PASSWORD('{{PW}}'), 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 
+  'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 
+  'N', 'N' ); <br>FLUSH PRIVILEGES; <br>/* USER에 DB권한부여 */<br>INSERT INTO mysql.db(HOST, db, USER, 
+  Select_priv, Insert_priv, Update_priv, Delete_priv, Create_priv, Drop_priv, 
+  Grant_priv, References_priv, Index_priv, Alter_priv, create_tmp_table_priv, 
+  lock_tables_priv, Create_view_priv, Show_view_priv, Create_routine_priv, 
+  Alter_routine_priv, Execute_priv) VALUES('%', '{{DB}}', '{{USER}}','Y','Y', 
+  'Y', 'Y', 'Y', 'Y', 'N', 'N', 'Y', 'Y', 'N', 'N', 'N', 'N', 'N', 'N', 'N'); 
+  <br>FLUSH PRIVILEGES;<br></li>
+	<li id="oSQL">생성된 쿼리가<br>보이는 위치</li>
+	</ul>
+</form>
+</fieldset>
+<fieldset>
+<legend>주의</legend>
+<ul>
+	<li>다른 방법으로 USER를 추가할 수도 있다.</li>
+	<li>이 방법은 MySQL 5.x에서만 테스트 되었다.(그 외 버전에서는 동작 안 할 것이다. 필드차이로 인해서 에러날 듯)</li>
+</ul>
+</fieldset>
+
+</body>
+
+</html>
