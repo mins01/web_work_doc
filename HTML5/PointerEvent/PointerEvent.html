@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<title>PointerEvent</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+	<pre>
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent" target="_blank">https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent</a>
+
+PointerEvent.pressure Read only
+The normalized pressure of the pointer input in the range 0 to 1, where 0 and 1 represent the minimum and maximum pressure the hardware is capable of detecting, respectively.
+	</pre>
+	<textarea id="textarea_test2" style="display:block;margin:0 auto;border:1px solid black; width:500px; height:2em"></textarea>
+	<textarea id="textarea_test" style="display:block;margin:0 auto;border:1px solid black; width:500px; height:500px;"></textarea>
+
+<script>
+var div_test = document.getElementById('textarea_test');
+var cbfn = function(evt){
+	var fields = ["type",
+	"height",
+	"isPrimary",
+	"pointerId",
+	"pointerType",
+	"pressure",
+	"tiltX",
+	"tiltY",
+	"width"];
+	var msgs = [];
+	for(var i=0,m=fields.length;i<m;i++){
+		msgs.push("evt."+fields[i]+"="+evt[fields[i]]);		
+	}
+	document.getElementById('textarea_test').value = msgs.join("\n");
+	document.getElementById('textarea_test2').value +="=>"+evt.type+" ";
+}
+var stopEvent = function(evt){
+	evt.preventDefault();
+	evt.stopPropagation();
+}
+
+div_test.addEventListener("pointerover", cbfn, false);
+div_test.addEventListener("pointerenter", cbfn, false);
+div_test.addEventListener("pointerdown", cbfn, false);
+div_test.addEventListener("pointermove", cbfn, false);
+div_test.addEventListener("pointerup", cbfn, false);
+div_test.addEventListener("pointercancel", cbfn, false);
+div_test.addEventListener("pointerout", cbfn, false);
+div_test.addEventListener("pointerleave", cbfn, false);
+div_test.addEventListener("gotpointercapture", cbfn, false);
+div_test.addEventListener("lostpointercapture", cbfn, false);
+
+div_test.addEventListener("scroll", stopEvent, false);
+div_test.addEventListener("touchmove", stopEvent, false);
+div_test.addEventListener("mousewheel", stopEvent, false);
+
+</script>
+
+
+</body>
+</html>
