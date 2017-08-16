@@ -5,17 +5,21 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body>
+	<div id="xxx" style="width:100%;height:500px;background-color:#ccc;">
 	<pre>
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent" target="_blank">https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent</a>
 
 PointerEvent.pressure Read only
 The normalized pressure of the pointer input in the range 0 to 1, where 0 and 1 represent the minimum and maximum pressure the hardware is capable of detecting, respectively.
 	</pre>
-	<textarea id="textarea_test2" style="display:block;margin:0 auto;border:1px solid black; width:500px; height:2em"></textarea>
-	<textarea id="textarea_test" style="display:block;margin:0 auto;border:1px solid black; width:500px; height:500px;"></textarea>
-
+	<div id="textarea_test2" style="display:block;margin:0 auto;border:1px solid black; width:500px; height:2em"></div>
+	<div id="textarea_test" style="display:block;margin:0 auto;border:1px solid black; width:500px; height:500px;"></div>
+</div>
 <script>
-var div_test = document.getElementById('textarea_test');
+// var div_test = document.getElementById('textarea_test');
+var div_test = document.getElementById('xxx');
+var evtTypes = [];
+var icnt =0;
 var cbfn = function(evt){
 	var fields = ["type",
 	"height",
@@ -25,13 +29,20 @@ var cbfn = function(evt){
 	"pressure",
 	"tiltX",
 	"tiltY",
-	"width"];
+	"width","x","y"];
 	var msgs = [];
 	for(var i=0,m=fields.length;i<m;i++){
-		msgs.push("evt."+fields[i]+"="+evt[fields[i]]);		
+		msgs.push("evt."+fields[i]+"="+evt[fields[i]]);
 	}
-	document.getElementById('textarea_test').value = msgs.join("\n");
-	document.getElementById('textarea_test2').value +="=>"+evt.type+" ";
+	msgs.push(icnt++);
+	document.getElementById('textarea_test').innerHTML = msgs.join("<br>");
+
+	evtTypes.unshift(evt.type);
+	if(evtTypes>5){
+		evtTypes.pop();
+	}
+
+	document.getElementById('textarea_test2').innerHTML =evtTypes.join("=>");
 }
 var stopEvent = function(evt){
 	evt.preventDefault();
