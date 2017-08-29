@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<title>WebRTC</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!-- Jquery : not support < IE9-->
+	<script
+	src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	
+	<!-- 부가적인 테마 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	
+	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
+	
+</head>
+<body>
+	<video id="video0" width="1920" height="1080" style="width:700px;height:480px" autoplay controls></video>
+	<hr />
+	<a href="" onclick="this.href=this.querySelector('img').src" download="캡쳐이미지.png"><img src="" id="img0" width="300" style="width:400px;height:300px;border:1px solid black;" /></a>
+	<button type="button" onclick="capture_img()">캡쳐</button>
+	<script>
+	function capture_img(){
+		var video0 = document.getElementById('video0');
+		var img0 = document.getElementById('img0');
+		var canvas = document.createElement('canvas');
+		canvas.width = video0.videoWidth;
+		canvas.height = video0.videoHeight;
+		var context2D = canvas.getContext('2d')
+		context2D.drawImage(video0,0,0,canvas.width,canvas.height);
+		img0.src = canvas.toDataURL();
+		
+	}
+	</script>
+	
+	<script>
+	// Older browsers might not implement mediaDevices at all, so we set an empty object first
+	if (navigator.mediaDevices === undefined) {
+		navigator.mediaDevices = {};
+	}
+	
+	// Some browsers partially implement mediaDevices. We can't just assign an object
+	// with getUserMedia as it would overwrite existing properties.
+	// Here, we will just add the getUserMedia property if it's missing.
+	if (navigator.mediaDevices.getUserMedia === undefined) {
+		navigator.mediaDevices.getUserMedia = function(constraints) {
+			
+			// First get ahold of the legacy getUserMedia, if present
+			var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+			
+			// Some browsers just don't implement it - return a rejected promise with an error
+			// to keep a consistent interface
+			if (!getUserMedia) {
+				return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+			}
+			
+			// Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
+			return new Promise(function(resolve, reject) {
+				getUserMedia.call(navigator, constraints, resolve, reject);
+			});
+		}
+	}
+	
+	navigator.mediaDevices.getUserMedia({ audio: true, video: { width: 720, height: 480 } })
+	.then(function(stream) {
+		var video = document.querySelector('video');
+		// Older browsers may not have srcObject
+		if ("srcObject" in video) {
+			video.srcObject = stream;
+		} else {
+			// Avoid using this in new browsers, as it is going away.
+			video.src = window.URL.createObjectURL(stream);
+		}
+		video.onloadedmetadata = function(e) {
+			video.play();
+		};
+	})
+	.catch(function(err) {
+		console.log(err.name + ": " + err.message);
+		alert(err.name + ": " + err.message)
+	});
+	
+	
+	</script>
+</body>
+</html>
