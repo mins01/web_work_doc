@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<title>CSS3 column</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!-- Jquery : not support < IE9-->
+	<script
+	src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	
+	<!-- 부가적인 테마 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	
+	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script>
+	function syncForm(f){
+		var $col = $("#col");
+		
+		for(var i=0,m=f.elements.length;i<m;i++){
+			var el = f.elements[i];
+			if(!el.name){ continue; }
+			$col.css(el.name,el.value)
+			console.log(el.name,el.value)
+		}
+	}
+	</script>
+	
+</head>
+<body>
+	<div class="container-fluid " spellcheck="false" >
+		<fieldset>
+			<legend>
+				제어
+			</legend>
+			<div>
+				<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-count" target="_blank" class="btn btn-link">https://developer.mozilla.org/en-US/docs/Web/CSS/column-count</a>
+			</div>
+			<div>
+				특징, max-height 등으로 높이를 제한하면 내용이 넘어갈 경우 옆으로 내용이 표시된다.<br />
+				column-count:1; 로 설정할 경우 Y스크롤 없이 X스크롤만 된다.<br />
+				textarea , span 등에서는 동작 안한다.<br />
+			</div>
+			<hr />
+			<form  class="form-inline" action="" onchange="syncForm(this)" onsubmit="this.onchange(); return false;" >
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon">column-count</span>
+					<select name="columnCount" class="form-control" >
+						<option value="inherit">inherit</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+					</select>
+				</div>
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon">column-width</span>
+					<select name="columnWidth" class="form-control" >
+						<option value="inherit">inherit</option>
+						<option value="50px">50px</option>
+						<option value="100px">100px</option>
+						<option value="200px">200px</option>
+						<option value="300px">300px</option>
+						<option value="400px">400px</option>
+						<option value="500px">500px</option>
+					</select>
+				</div>
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon">column-gap</span>
+					<select name="columnGap" class="form-control" >
+						<option value="inherit">inherit</option>
+						<option value="1em">1em</option>
+						<option value="2em">2em</option>
+						<option value="3em">3em</option>
+						<option value="4em">4em</option>
+						<option value="5em">5em</option>
+					</select>
+				</div>
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon">column-fill</span>
+					<select name="columnFill" class="form-control" >
+						<option value="inherit">inherit</option>
+						<option value="initial">initial</option>
+						<option value="unset">unset</option>
+						<option value="auto">auto</option>
+						<option value="balance">balance</option>
+					</select>
+				</div>
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon">column-rule</span>
+					<select name="columnRule" class="form-control" >
+						<option value="inherit">inherit</option>
+						<option value="initial">initial</option>
+						<option value="unset">unset</option>
+						<option value="dotted">dotted</option>
+						<option value="solid blue">solid blue</option>
+						<option value="solid 8px">solid 8px</option>
+						<option value="thick inset blue">thick inset blue</option>
+						<option value="3px double #abc">3px double #abc</option>
+						<option value="1px solid #eee">1px solid #eee</option>
+					</select>
+				</div>
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon">column-span</span>
+					<select name="columnSpan" class="form-control" >
+						<option value="inherit">inherit</option>
+						<option value="initial">initial</option>
+						<option value="unset">unset</option>
+						<option value="none">none</option>
+						<option value="all">all</option>
+					</select>
+				</div>
+				<button class="btn btn-sm btn-primary">확인</button>
+			</form>
+		</fieldset>
+		<hr />
+		<div class="">
+			<div id="col" style="max-height:500px; overflow:scroll" contentEditable="true">
+				1절<br />
+				동해 물과 백두산이 마르고 닳도록
+				하느님이 보우하사 우리나라 만세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				2절<br /> 
+				남산 위에 저 소나무 철갑을 두른 듯
+				바람서리 불변함은 우리 기상일세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				3절<br />
+				가을 하늘 공활한데 높고 구름 없이
+				밝은 달은 우리 가슴 일편단심일세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				4절<br />
+				이 기상과 이 맘으로 충성을 다하여
+				괴로우나 즐거우나 나라 사랑하세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				1절<br />
+				동해 물과 백두산이 마르고 닳도록
+				하느님이 보우하사 우리나라 만세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				2절<br /> 
+				남산 위에 저 소나무 철갑을 두른 듯
+				바람서리 불변함은 우리 기상일세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				3절<br />
+				가을 하늘 공활한데 높고 구름 없이
+				밝은 달은 우리 가슴 일편단심일세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				4절<br />
+				이 기상과 이 맘으로 충성을 다하여
+				괴로우나 즐거우나 나라 사랑하세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				1절<br />
+				동해 물과 백두산이 마르고 닳도록
+				하느님이 보우하사 우리나라 만세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				2절<br /> 
+				남산 위에 저 소나무 철갑을 두른 듯
+				바람서리 불변함은 우리 기상일세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				3절<br />
+				가을 하늘 공활한데 높고 구름 없이
+				밝은 달은 우리 가슴 일편단심일세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				4절<br />
+				이 기상과 이 맘으로 충성을 다하여
+				괴로우나 즐거우나 나라 사랑하세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				1절<br />
+				동해 물과 백두산이 마르고 닳도록
+				하느님이 보우하사 우리나라 만세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				2절<br /> 
+				남산 위에 저 소나무 철갑을 두른 듯
+				바람서리 불변함은 우리 기상일세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				3절<br />
+				가을 하늘 공활한데 높고 구름 없이
+				밝은 달은 우리 가슴 일편단심일세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				4절<br />
+				이 기상과 이 맘으로 충성을 다하여
+				괴로우나 즐거우나 나라 사랑하세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				1절<br />
+				동해 물과 백두산이 마르고 닳도록
+				하느님이 보우하사 우리나라 만세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				2절<br /> 
+				남산 위에 저 소나무 철갑을 두른 듯
+				바람서리 불변함은 우리 기상일세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				3절<br />
+				가을 하늘 공활한데 높고 구름 없이
+				밝은 달은 우리 가슴 일편단심일세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				4절<br />
+				이 기상과 이 맘으로 충성을 다하여
+				괴로우나 즐거우나 나라 사랑하세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				1절<br />
+				동해 물과 백두산이 마르고 닳도록
+				하느님이 보우하사 우리나라 만세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				2절<br /> 
+				남산 위에 저 소나무 철갑을 두른 듯
+				바람서리 불변함은 우리 기상일세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세<br />
+				
+				3절<br />
+				가을 하늘 공활한데 높고 구름 없이
+				밝은 달은 우리 가슴 일편단심일세
+				무궁화 삼천리 화려강산
+				대한사람 대한으로 길이 보전하세
+				
+	
+				
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>
