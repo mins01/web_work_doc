@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<title>postMessage</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- 부가적인 테마 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+	<!-- Jquery : not support < IE9-->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<!-- meta og -->
+
+	<meta property="og:title" content="postMessage">
+		<meta property="og:description" content="postMessage">
+		<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+		<meta property="og:image:width" content="190">
+		<meta property="og:image:height" content="70" />
+		<meta property="og:site_name" content="공대여자 홈" />
+		<meta property="og:type" content="website">
+	
+	<!-- //meta og -->	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<script>
+	function receiveMessage(event)
+	{
+		console.log(event);
+		$("#msg").text(event.origin+" : "+event.data);
+		alert(event.origin+' : '+event.data);
+	}
+	
+	window.addEventListener("message", receiveMessage, false);
+	var new_pop = null;
+	</script>
+
+	</head>
+<body>
+	<div class="container">
+		<h1>window.postMessage</h1>
+		<ul>
+			<li>
+				<a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage" target="_blank">https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage</a>
+			</li>
+			<li>IE8부터 지원</li>
+			<li>브라우저의 도메인 상관 없이 데이터를 전송할 수 있다.</li>
+			<li>전송 가능한 데이터는 string 뿐이다. 즉, 태그 node 등을 바로 전달 할 수 없다.</li>
+			<li>보통 JSON 문자열 전송해서 디코딩 해서 쓴다.</li>
+			<li>기타 : 구글 광고가 붙어있다면 iframe의 부모창으로 postMessage를 2번 전송한다.</li>
+			<li>file:// 을 프로토콜로 사용할 경우 보내는건 되지만, 받는건 안된다. (event.orign 값이 null 이라서)</li>
+			<li>받은 데이터 처리시 event.origin 를 체크 안하면 스크립트 공격을 당할 수 있다. (아무곳에서 들어온 값을 처리하니간)</li>
+			
+		</ul>
+		
+		<hr />
+		<div id="msg">
+			메세지
+		</div>
+		<hr />
+		<h2>local iframe</h2>
+		<iframe width="100%" height="200" src="frame.html" id="iframe_local"></iframe>
+		<button type="button" class="btn btn-default" onclick="document.getElementById('iframe_local').contentWindow.postMessage('iframe 으로 메세지 전송 : '+(new Date).toString(),'*')">postMessage 전송</button>
+		<hr />
+		<h2>local popup</h2>
+		<a class="btn btn-default" href="popup.html" onclick="new_pop = window.open(this.href,'_pop','width=400,height=500'); return false;">새창 띄우기</a>
+		<button type="button" class="btn btn-default" onclick="new_pop.postMessage('팝업으로 메세지 전송 : '+(new Date).toString(),'*')">postMessage 전송</button>
+		<hr />
+		<h2>www.mins01.com iframe</h2>
+		<iframe width="100%" height="200" src="http://www.mins01.com/web_work/doc/js/window/postMessage/frame.html" id="iframe_www"></iframe>
+		<button type="button" class="btn btn-default" onclick="document.getElementById('iframe_www').contentWindow.postMessage('iframe 으로 메세지 전송 : '+(new Date).toString(),'*')">postMessage 전송</button>
+		<hr />
+		<h2>www.mins01.com popup</h2>
+		<a class="btn btn-default" href="http://www.mins01.com/web_work/doc/js/window/postMessage/popup.html" onclick="new_pop = window.open(this.href,'_pop','width=400,height=500'); return false;">새창 띄우기</a>
+		<button type="button" class="btn btn-default" onclick="new_pop.postMessage('팝업으로 메세지 전송 : '+(new Date).toString(),'*')">postMessage 전송</button>
+		<hr />
+		
+		<h2>mins01.com iframe</h2>
+		<iframe width="100%" height="200" src="http://mins01.com/web_work/doc/js/window/postMessage/frame.html" id="iframe_empty"></iframe>
+		<button type="button" class="btn btn-default" onclick="document.getElementById('iframe_empty').contentWindow.postMessage('iframe 으로 메세지 전송 : '+(new Date).toString(),'*')">postMessage 전송</button>
+		<hr />
+		<h2>mins01.com popup</h2>
+		<a class="btn btn-default" href="http://mins01.com/web_work/doc/js/window/postMessage/popup.html" onclick="new_pop = window.open(this.href,'_pop','width=400,height=500'); return false;">새창 띄우기</a>
+		<button type="button" class="btn btn-default" onclick="new_pop.postMessage('팝업으로 메세지 전송 : '+(new Date).toString(),'*')">postMessage 전송</button>
+		<hr />
+
+	</div>
+</body>
+</html>
