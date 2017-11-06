@@ -50,7 +50,14 @@
 		body::before{content: attr(data-x) " , " attr(data-y); position: absolute;left:0;right:0;z-index: 9999}
 		.layer-out{position: absolute; left:0;top:0;right:0;bottom:0;z-index:10}
 		.layer-in{top:50%;left:50%; position: absolute; width:1px;height:1px; border: 0px solid #ccc; transition: all 0.5s ease-out; overflow: visible; }
-		.layer-in figure{width:100px;height:100px;margin-left: -50px;margin-top:-50px; background-color: #999; border-radius: 50%; box-shadow: 2px 2px 5px #000; }
+		.layer-in figure{width:100px;height:100px;margin-left: -50px;margin-top:-50px;  border-radius: 50%; box-shadow: 2px 2px 5px #000; 
+			/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d4e4ef+0,86aecc+100;Grey+Gloss */
+			background: rgb(212,228,239); /* Old browsers */
+			background: -moz-radial-gradient(center, ellipse cover, rgba(212,228,239,1) 0%, rgba(134,174,204,1) 100%); /* FF3.6-15 */
+			background: -webkit-radial-gradient(center, ellipse cover, rgba(212,228,239,1) 0%,rgba(134,174,204,1) 100%); /* Chrome10-25,Safari5.1-6 */
+			background: radial-gradient(ellipse at center, rgba(212,228,239,1) 0%,rgba(134,174,204,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4e4ef', endColorstr='#86aecc',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+		}
 		body[data-x="0" ] .layer-in{left: 50%; }
 		body[data-x="1" ] .layer-in{left: 45%; }
 		body[data-x="2" ] .layer-in{left: 40%; }
