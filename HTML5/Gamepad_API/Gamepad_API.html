@@ -47,7 +47,7 @@
 		<form name="form_gamepad_0">
 			<ul class="list-group">
 				<li class="list-group-item active">
-					gamepad #0
+					gamepad #0  ( <label><input type="checkbox" onclick="startInterval(this.checked)" />: check gamepad action</label> )
 				</li>
 				<li class="list-group-item">
 					<div class="input-group"><span class="input-group-addon">id</span><input type="text" class="form-control" name="id"></div>
@@ -100,7 +100,7 @@
 		function sync_gamepads(){
 			var gps = navigator.getGamepads();
 			var gp = gps[0];
-			console.log(gp);
+			// console.log(gp);
 			if(gp){
 				var f = document.form_gamepad_0;
 				var els = f.elements;
@@ -121,9 +121,16 @@
 				els.index.value = gp.index
 			}
 		}
-		$(function(){
-			var tm = setInterval(sync_gamepads,500)
-		})
+		var tm = null;
+		function startInterval(b){
+			if(tm){
+				clearInterval(tm);
+			}
+			if(b){
+				tm = setInterval(sync_gamepads,100)
+			}
+
+		}
 
 		window.addEventListener('gamepadconnected', function(event) {
 			$("#event").val(event.type)
