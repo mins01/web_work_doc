@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <title>css flex</title>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- 합쳐지고 최소화된 최신 CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- 부가적인 테마 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+  <!-- Jquery : not support < IE9-->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+  <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <meta property="og:title" content="css flex">
+  <meta property="og:description" content="css flex">
+  <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+  <meta property="og:image:width" content="190">
+  <meta property="og:image:height" content="70" />
+  <meta property="og:site_name" content="공대여자 홈" />
+  <meta property="og:type" content="website">
+
+  <!-- //meta og -->
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+</head>
+<body>
+  <div class="container">
+    <h1>css flex</h1>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">css flex 설명</div>
+      <div class="panel-body">
+        <ul>
+          <li>css flex : 레이아웃 구조를 잡기위해 사용</li>
+          <li><a href="https://www.w3schools.com/cssref/css3_pr_flex.asp" target="_blank">링크</a></li>
+          <li>아직 브라우저 호환성에 문제가 있음<br />
+            -webkit-flex: 1; /* Safari 6.1+ */<br />
+            -ms-flex: 1; /* IE 10 */ <br />
+            flex: 1;<br />
+          </li>
+
+          <li>css flex : 레이아웃 구조를 잡기위해 사용</li>
+          <li>flex: flex-grow flex-shrink flex-basis|auto|initial|inherit;
+            <ul>
+              <li>flex-grow : flex의 다른 item과의 상태적 너비 늘리기 배수 </li>
+              <li>flex-shrink : flex의 다른 item과의 상태적 너비 줄이기 배수</li>
+              <li>flex-basis : 기본너비, %,px 등 사용가능.</li>
+            </ul>
+          </li>
+          <li>flex-flow: flex-direction flex-wrap|initial|inherit;<br />flex item의 방향과 줄바꿈 정의<br />IE는 11부터 지원
+            <ul>
+              <li>flex-direction: row|row-reverse|column|column-reverse|initial|inherit;<br />
+                flex item의 정렬 방향 정의 (가로,세로,역방향)
+              </li>
+              <li>flex-wrap: nowrap|wrap|wrap-reverse|initial|inherit;<br />
+                flex iteml 의 줄바꿈 정의 (nowrap인 경우 수평으로 계속 레이아웃이 유지된다. width가 무시됨 )
+              </li>
+            </ul>
+
+          </li>
+          <li>기타 관련
+            <ul>
+              <li>
+                justify-content : ustify-content: flex-start|flex-end|center|space-between|space-around|initial|inherit;<br>
+                flex item의 좌우 정렬
+              </li>
+              <li>align-items : align-items: stretch|center|flex-start|flex-end|baseline|initial|inherit;<br />
+                flex item의 상하 정렬<br />
+                태그 자체의 값을 바꾸고 싶다면 align-self를 사용하라
+              </li>
+              <li>
+                align-content: stretch|center|flex-start|flex-end|space-between|space-around|initial|inherit;<br />
+                flex-wrap에 영향을 미치는 정렬(정렬시의 빈 공간 등)
+              </li>
+              <li>
+                justify-content: center;align-items: center;<br />
+                를 사용해서 box의 정중앙에 위치시킬 수 있다. (height가 선언되어있어야함)
+              </li>
+            </ul>
+
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">css flex 예제</div>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <div style="display: flex;">
+            <div style="flex: 99 1 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용
+            </div>
+            <div style="flex:1;white-space: nowrap;">
+              <span class="label label-danger">참고</span>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div style="display: flex;">
+            <div style="flex: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              내용 내용 내용
+            </div>
+            <div style="flex:1;white-space: nowrap;">
+              <span class="label label-danger">참고</span>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item">Morbi leo risus</li>
+        <li class="list-group-item">Porta ac consectetur ac</li>
+        <li class="list-group-item">Vestibulum at eros</li>
+      </ul>
+    </div>
+
+
+  </div>
+</body>
+</html>
