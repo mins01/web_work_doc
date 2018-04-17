@@ -44,15 +44,15 @@
 		<h1>shadow DOM , 쉐도우 돔</h1>
 		<ul class="list-group mb-1">
 			<li class="list-group-item list-group-item-success ">설명</li>
-			<li class="list-group-item ">쉐오우 돔의 가장 큰 특징은 캡슐화. 그로인해 다른 요소들과 충돌하지 않는다!</li>
+			<li class="list-group-item ">쉐도우 돔의 가장 큰 특징은 캡슐화. 캡슐화로 인해 다른 요소들과 충돌하지 않는다!</li>
 			<li class="list-group-item ">LINK : <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM" target="_blank">shadow DOM</a></li>
 		</ul>
 		
 		<ul class="list-group">
-			<li class="list-group-item list-group-item-success ">주요 메소드</li>
+			<li class="list-group-item list-group-item-success ">주요 메소드/프로퍼티</li>
 			<li class="list-group-item ">var shadowRootObj = Element.attachShadow([shadowRootInit]) : Element 에 쉐도우 루트 노드를 붙인다. <br />
 				shadowRootInit = {mode: 'open'} , {mode: 'closed'} <br />
-				open 인경우 Element.shadowRoot 에서 shadowRoot 객체를 반환, 아니면 null.<br />
+				open 인경우 Element.shadowRoot 에서 shadowRoot 객체를 반환, 아니면 null을 반환하여 Element에서 접근할 수 없게 한다.<br />
 				결과 모양 : &lt;Element&gt;#shadow-root (open)&lt;/Element&gt;<br />
 				Element 의 text 요소는 안보이게 된다.
 				대신 shadow-root 속의 내용이 보인다.
@@ -64,14 +64,13 @@
 				options = {composed:false} 가 기본이며, false일 경우 shadowRoot를, true 인 경우 shadowRoot를 넘어선 루트 노드를 가져온다.<br />
 				shadowRoot 가 없다면 document 를 반환한다.
 			</li>
-			<li class="list-group-item list-group-item-success ">주요 메소드</li>
-			<li class="list-group-item ">element.shadowRoot : 엘레멘트의 쉐도우루트<br />
+			<li class="list-group-item ">var shadowRootObj =element.shadowRoot : 엘레멘트의 쉐도우루트<br />
 				쉐도우 루트의 하위 요소가 아니면 null 을 반환. {mode: 'closed'} 인 경우도 null을 반환.
 			</li>
-			<li class="list-group-item ">Event.composed : 쉐도우 돔 속 이벤트가 쉐도우 돔을 벗어나서 밖으로 나갈 수 있는지에 대한 표시. <span class="badge badge-info">read-only</span> <br />
+			<li class="list-group-item ">var b = Event.composed : 쉐도우 돔 속 이벤트가 쉐도우 돔을 벗어나서 밖으로 나갈 수 있는지에 대한 표시. <span class="badge badge-info">read-only</span> <br />
 				bubbles 를 false로 설정하면 무조건 false가 된다.
 			</li>
-			<li class="list-group-item ">nodeObjectInstance.isConnected : 노드 document객체(or ShadowRoot객체)에 붙어 있는지를 나타낸다.<br />
+			<li class="list-group-item ">var b = nodeObjectInstance.isConnected : 노드 document객체(or ShadowRoot객체)에 붙어 있는지를 나타낸다.<br />
 				var node_div = document.createElement('div'); 노드 생성 직후는 false, document.body.appendChild(node_div) 처럼 어딘가에 붙으면 true
 			</li>
 			
