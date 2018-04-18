@@ -33,12 +33,40 @@
 	
 	<!-- //meta og -->
 	<script>
+	
+	Object.defineProperty(Date.prototype, 'YYYYMMDDHHMMSS', {
+    value: function() {
+        function pad2(n) {  // always returns a string
+            return (n < 10 ? '0' : '') + n;
+        }
+
+        return this.getFullYear() +
+               pad2(this.getMonth() + 1) + 
+               pad2(this.getDate()) +
+               pad2(this.getHours()) +
+               pad2(this.getMinutes()) +
+               pad2(this.getSeconds());
+    }
+});
+	
 	jQuery(function(){
 		transitionNumber.init();
 		var fn = function(){
 			var D = new Date();
-			var t = Math.floor(D.getTime()/1000)%10
-			$('.animationNumber').attr('data-number',t);
+			var t = Math.floor(D.getTime()/1000)%100
+			
+			var t0 = t<10?0:Math.floor(t/10);
+			var t1 = t%10;
+			
+			$('.test-sec-10').attr('data-number',t0);
+			$('.test-sec-1').attr('data-number',t1);
+			$('.test-rand').attr('data-number',Math.floor(Math.random()*10));
+			
+			var arr = D.YYYYMMDDHHMMSS().split('');
+			var ts = $('#yymmdd .animationNumber');
+			for(var i=0,m=ts.length;i<m;i++){
+				$(ts[i]).attr('data-number',arr[i]);
+			}
 		}
 		setInterval(fn,500)
 	
@@ -53,9 +81,14 @@
 		<br />
 		<br />
 		<br />
-		<span>숫자</span><div class="animationNumber" ></div>숫자
+		<span>현재</span> : <div class="animationNumber test-sec-10" ></div><div class="animationNumber test-sec-1" ></div>초
 <hr />
-		<h1><span>숫자</span><div class="animationNumber" ></div>12숫자</h1>
+		<h1><span>랜덤</span> : <div class="animationNumber test-rand" ></div>숫자</h1>
+		<h2 id="yymmdd">날짜 : 
+			<div class="animationNumber" ></div><div class="animationNumber" ></div><div class="animationNumber" ></div><div class="animationNumber" ></div>-<div class="animationNumber" ></div><div class="animationNumber" ></div>-<div class="animationNumber" ></div><div class="animationNumber" ></div>
+			
+			<div class="animationNumber" ></div><div class="animationNumber" ></div>:<div class="animationNumber" ></div><div class="animationNumber" ></div>:<div class="animationNumber" ></div><div class="animationNumber" ></div>
+		</h2>
 		
 	</div>
 </body>

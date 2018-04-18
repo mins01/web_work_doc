@@ -1,8 +1,10 @@
 @charset "UTF-8";
-.animationNumber{ line-height:1em; font-size: 1em; min-width:0.5em;
+.animationNumber{ line-height:1em; font-size: 1em; min-width:0.5em; max-width: 1em;
 	display: inline-block; font-size: inherit; padding: 0; margin: 0; 
 	position: relative;
 	overflow: hidden;
+
+  /* vertical-align: middle; */
 }
 .animationNumber-numbers{
 	line-height: 1em;font-size: 1em;

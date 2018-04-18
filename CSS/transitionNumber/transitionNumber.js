@@ -21,20 +21,19 @@ var transitionNumber = {
 			tas[i].className +=' animationNumber-rendered';
 			
 			
-			tas[i].innerHTML = '<div class="animationNumber-numbers" > \
-				<div class="animationNumber-number animationNumber-number-0"></div> \
-				<div class="animationNumber-number animationNumber-number-1"></div> \
-				<div class="animationNumber-number animationNumber-number-2"></div> \
-				<div class="animationNumber-number animationNumber-number-3"></div> \
-				<div class="animationNumber-number animationNumber-number-4"></div> \
-				<div class="animationNumber-number animationNumber-number-5"></div> \
-				<div class="animationNumber-number animationNumber-number-6"></div> \
-				<div class="animationNumber-number animationNumber-number-7"></div> \
-				<div class="animationNumber-number animationNumber-number-8"></div> \
-				<div class="animationNumber-number animationNumber-number-9"></div> \
-				<div class="animationNumber-number animationNumber-number-Q"></div> \
-					</div>\
-				<span class="animationNumber-hiddenText" >?</span>';
+			tas[i].innerHTML = '<div class="animationNumber-numbers" >'+
+				'<div class="animationNumber-number animationNumber-number-0"></div>'+
+				'<div class="animationNumber-number animationNumber-number-1"></div>'+
+				'<div class="animationNumber-number animationNumber-number-2"></div>'+
+				'<div class="animationNumber-number animationNumber-number-3"></div>'+
+				'<div class="animationNumber-number animationNumber-number-4"></div>'+
+				'<div class="animationNumber-number animationNumber-number-5"></div>'+
+				'<div class="animationNumber-number animationNumber-number-6"></div>'+
+				'<div class="animationNumber-number animationNumber-number-7"></div>'+
+				'<div class="animationNumber-number animationNumber-number-8"></div>'+
+				'<div class="animationNumber-number animationNumber-number-9"></div>'+
+				'<div class="animationNumber-number animationNumber-number-Q"></div>'+
+				'</div><span class="animationNumber-hiddenText" >?</span>';
 		
 		}
 	}
