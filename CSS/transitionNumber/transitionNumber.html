@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>transition number</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+	
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+	
+	<link rel="stylesheet" href="transitionNumber.css" >
+	<script src="transitionNumber.js" ></script>
+	
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="transition number">
+	<meta property="og:description" content="transition number">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="transition number" />
+	<meta property="og:type" content="website">
+	
+	<!-- //meta og -->
+	<script>
+	jQuery(function(){
+		transitionNumber.init();
+		var fn = function(){
+			var D = new Date();
+			var t = Math.floor(D.getTime()/1000)%10
+			$('.animationNumber').attr('data-number',t);
+		}
+		setInterval(fn,500)
+	
+	})
+	</script>
+	
+</head>
+<body>
+	<div class="container">
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<span>숫자</span><div class="animationNumber" ></div>숫자
+<hr />
+		<h1><span>숫자</span><div class="animationNumber" ></div>12숫자</h1>
+		
+	</div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+@charset "UTF-8";
+.animationNumber{ line-height:1em; font-size: 1em; min-width:0.5em;
+	display: inline-block; font-size: inherit; padding: 0; margin: 0; 
+	position: relative;
+	overflow: hidden;
+}
+.animationNumber-numbers{
+	line-height: 1em;font-size: 1em;
+	height:1em;margin: 0;padding: 0; text-align: center;
+	overflow: visible;
+	position: absolute;
+	right:0;left:0;
+	bottom:0;
+	z-index: 0;
+}
+.animationNumber-numbers{ 
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
+}
+
+.animationNumber-hiddenText{	
+
+	z-index: 1;
+	opacity: 0
+}
+
+.animationNumber-rendered.animationNumber[data-number="0"] .animationNumber-numbers{top:0%;}
+.animationNumber-rendered.animationNumber[data-number="1"] .animationNumber-numbers{top:-1em;}
+.animationNumber-rendered.animationNumber[data-number="2"] .animationNumber-numbers{top:-2em;}
+.animationNumber-rendered.animationNumber[data-number="3"] .animationNumber-numbers{top:-3em;}
+.animationNumber-rendered.animationNumber[data-number="4"] .animationNumber-numbers{top:-4em;}
+.animationNumber-rendered.animationNumber[data-number="5"] .animationNumber-numbers{top:-5em;}
+.animationNumber-rendered.animationNumber[data-number="6"] .animationNumber-numbers{top:-6em;}
+.animationNumber-rendered.animationNumber[data-number="7"] .animationNumber-numbers{top:-7em;}
+.animationNumber-rendered.animationNumber[data-number="8"] .animationNumber-numbers{top:-8em;}
+.animationNumber-rendered.animationNumber[data-number="9"] .animationNumber-numbers{top:-9em;}
+.animationNumber-rendered.animationNumber[data-number="?"] .animationNumber-numbers
+, .animationNumber .animationNumber-numbers{top:-10em;}
+
+.animationNumber-number{display: block; height: 2em;}
+.animationNumber-number-0::before{content: "0";}
+.animationNumber-number-1::before{content: "1";}
+.animationNumber-number-2::before{content: "2";}
+.animationNumber-number-3::before{content: "3";}
+.animationNumber-number-4::before{content: "4";}
+.animationNumber-number-5::before{content: "5";}
+.animationNumber-number-6::before{content: "6";}
+.animationNumber-number-7::before{content: "7";}
+.animationNumber-number-8::before{content: "8";}
+.animationNumber-number-9::before{content: "9";}
+.animationNumber-number-Q::before{content: "?";}
+
+
+.animationNumber-number{
+	height:100%;margin: 0;padding: 0; text-align: center;
+}
+
+
+
+
