@@ -3,9 +3,20 @@
 	display: inline-block; font-size: inherit; padding: 0; margin: 0; 
 	position: relative;
 	overflow: hidden;
-
   /* vertical-align: middle; */
 }
+
+
+.animationNumber-box{
+    /* line-height: 1em; */
+    overflow: hidden;
+    height: 1em;
+    position:  absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
 .animationNumber-numbers{
 	line-height: 1em;font-size: 1em;
 	height:1em;margin: 0;padding: 0; text-align: center;

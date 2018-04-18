@@ -21,7 +21,9 @@ var transitionNumber = {
 			tas[i].className +=' animationNumber-rendered';
 			
 			
-			tas[i].innerHTML = '<div class="animationNumber-numbers" >'+
+			tas[i].innerHTML = 
+				'<div class="animationNumber-box" >'+
+				'<div class="animationNumber-numbers" >'+
 				'<div class="animationNumber-number animationNumber-number-0"></div>'+
 				'<div class="animationNumber-number animationNumber-number-1"></div>'+
 				'<div class="animationNumber-number animationNumber-number-2"></div>'+
@@ -33,6 +35,7 @@ var transitionNumber = {
 				'<div class="animationNumber-number animationNumber-number-8"></div>'+
 				'<div class="animationNumber-number animationNumber-number-9"></div>'+
 				'<div class="animationNumber-number animationNumber-number-Q"></div>'+
+				'</div>'+
 				'</div><span class="animationNumber-hiddenText" >?</span>';
 		
 		}
