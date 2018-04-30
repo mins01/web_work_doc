@@ -37,10 +37,10 @@ bs4_pagination.prototype = {
 		}
 		var max_page = Math.ceil(this._cfg.total_rows/this._cfg.per_page);
 		var pre_links = {
-			'first':['first','<span aria-hidden="true">&#8676;</span><span class="sr-only">First</span>',max_page>0?this._cfg.base_url.replace('{{page}}',1):false],
-			'last':['last','<span aria-hidden="true">&#8677;</span><span class="sr-only">Last</span>',max_page>0?this._cfg.base_url.replace('{{page}}',max_page):false],
-			'previous':['previous','<span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span>',(this._cfg.page-1)>0 && (this._cfg.page-1)<=max_page ?this._cfg.base_url.replace('{{page}}',this._cfg.page-1):false],
-			'next':['next','<span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span>',(this._cfg.page+1)<=max_page && (this._cfg.page+1)>0 ?this._cfg.base_url.replace('{{page}}',this._cfg.page+1):false],
+			'first':[1,'<span aria-hidden="true">&#8676;</span><span class="sr-only">First</span>',max_page>0?this._cfg.base_url.replace('{{page}}',1):false,false],
+			'last':[max_page,'<span aria-hidden="true">&#8677;</span><span class="sr-only">Last</span>',max_page>0?this._cfg.base_url.replace('{{page}}',max_page):false,false],
+			'previous':[this._cfg.page-1,'<span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span>',(this._cfg.page-1)>0 && (this._cfg.page-1)<=max_page ?this._cfg.base_url.replace('{{page}}',this._cfg.page-1):false,false],
+			'next':[this._cfg.page+1,'<span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span>',(this._cfg.page+1)<=max_page && (this._cfg.page+1)>0 ?this._cfg.base_url.replace('{{page}}',this._cfg.page+1):false,false],
 		}
 		var links = [];
 		
@@ -50,7 +50,7 @@ bs4_pagination.prototype = {
 			for(var i=this._cfg.page-this._cfg.num_links,m=this._cfg.page+this._cfg.num_links;i<=m;i++){
 				if(i<1){ continue; }
 				if(i>max_page){ continue; }
-				links.push([i.toString(),i.toString(),this._cfg.base_url.replace('{{page}}',i)]);
+				links.push([i.toString(),i.toString(),this._cfg.base_url.replace('{{page}}',i),this._cfg.page == i]);
 			}
 		}
 		if(links.length==0){
@@ -65,7 +65,7 @@ bs4_pagination.prototype = {
 		var htmls = [];
 		for(var i=0,m=links.length;i<m;i++){
 			var link = links[i]
-			var active = this._cfg.page == link[0]?'active':'';
+			var active =  link[3]?'active':'';
 			var disabled = link[2]===false?'disabled':'';
 			var disabledTabindex = link[2]===false?'tabindex="-1"':'';
 			var url = link[2]===false?'#':link[2];
