@@ -48,7 +48,7 @@
 			<li class="list-group-item"><a target="_blank" href="http://www.weather.go.kr/weather/lifenindustry/sevice_rss.jsp">기상청 RSS 소개 페이지(데이터 출처)</a></li>
 		  <li class="list-group-item"><a target="_blank" href="http://www.weather.go.kr/images/weather/lifenindustry/dongnaeforecast_rss.pdf">동네예보 RSS 설명</a></li>
 		  <li class="list-group-item">동네예보 API URL : http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone={dongCode}</li>
-		  <li class="list-group-item">서울 강남구 도곡1동 : <a target="_blank" href="http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone=1159068000">http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone=1159068000</a></li>
+		  <li class="list-group-item">서울 강남구 도곡1동 : <a target="_blank" href="http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone=1168065500">http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone=1168065500</a></li>
 		</ul>
 		<div id="app-box" v-bind:lang="rss.channel.language" class="mb-3">
 			<ul class="list-group">
@@ -59,7 +59,16 @@
 				
 				<li class="list-group-item"  >
 					<ul class="list-group m-1">
-						<li class="list-group-item"  v-for="(row, key) in rss.channel.item.description.body.data"><span>{{ row.hour<10 ? '0'+row.hour : row.hour }}</span> 시</li>
+						<li class="list-group-item"  v-for="(row, key) in rss.channel.item.description.body.data">
+							<span class="badge badge-pill badge-primary">{{ code.day[row.day] }} {{ row.hour<10 ? '0'+row.hour : row.hour }} 시</span> 
+							
+							<span class="badge badge-pill badge-primary">하늘 : {{ code.sky[row.sky] }}</span> 
+							<span class="badge badge-pill badge-primary">강수 : {{ code.pty[row.pty] }}</span> 
+							<span class="badge badge-pill badge-primary">바람 : {{ row.wdKor}}</span> 
+							<span class="badge badge-pill badge-primary">날씨 : {{ row.wfKor}}</span> 
+							<span class="badge badge-pill badge-primary">기온 : {{ row.temp}} °C</span> 
+							<span class="badge badge-pill badge-primary">바람 : {{ row.wdKor}}</span> 
+						</li>
 					</ul>
 				</li>
 			  
@@ -68,7 +77,7 @@
 	</div>
 	<script>
 	$(function(){
-		appBox.load(1159068000)
+		appBox.load(1168065500)
 	})
 	</script>
 </body>
