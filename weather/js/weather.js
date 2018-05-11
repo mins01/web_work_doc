@@ -47,6 +47,7 @@ $(function(){
 			type: 'get', //GET
 			dataType: 'json', //xml, json, script, jsonp, or html
 			// data: post_data,
+			// cache: false,
 		})
 		.done(function(rData) { //통신 성공 시 호출
 			appBox.rss = rData.rss
