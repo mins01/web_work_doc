@@ -4,22 +4,31 @@
 
 .weather-box{
 	box-sizing:content-box;
-	width:300px;
+	/* width:300px; */
 	margin: 0 auto;
 	padding:5px 0;
-	border:2px solid black;
+	border:0px solid black;
 }
+
+.weather-box .text-hidden{
+	font-size: 10px;opacity: 0; z-index: -1;
+}
+
 .weather-box .clearB{
 	clear: both;
 }
-☀🌤⛅🌥🌦☁🌧⛈🌩⚡🌨
 .weather-day_hour{
 	text-align: center;
 	font-size: 10px;
 }
 .weather-box-content{
-	float: left;
-	width:150px;
+	/* float: left; */
+	display: inline-block;
+	width:148px;
+	border-radius: 3px;
+	border:1px solid #abc;
+	margin:2px;
+	box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
 }
 .weather-box-content-col{
 	width:33.33%;
@@ -30,7 +39,7 @@
 	width:40px; height:40px;
 	margin:0 auto;
 	border-radius: 50%;
-	border: 1px solid black;
+	border: 0px solid black;
 	text-align: center;
 	line-height: 40px;
 	font-size:30px;
@@ -61,13 +70,42 @@
 .weather-icon-wf[data-pty="4"] .icon::before{	content: "❄";}
 /* v-bibd:data-sky="row.sky" v-bibd:data-pty="row.pty" */
 
+.weather-icon-temp{
+	font-size:20px;
+}
+/*
+① 동(E)
+② 북(N)
+③ 북동(NE)
+④ 북서(NW)
+⑤ 남(S)
+⑥ 남동(SE)
+⑦ 남서(SW)
+⑧ 서(W)
+SW 풍향영어
+① E(동)
+ */
+.weather-icon-wd[data-wd="1"] .icon::before{	content: "⬅️";} /*동풍*/
+.weather-icon-wd[data-wd="2"] .icon::before{	content: "⬇";} /*북풍*/
+.weather-icon-wd[data-wd="3"] .icon::before{	content: "↙";} /*북동풍*/
+.weather-icon-wd[data-wd="4"] .icon::before{	content: "↘";} /*북서풍*/
+.weather-icon-wd[data-wd="5"] .icon::before{	content: "⬆";} /*남풍*/
+.weather-icon-wd[data-wd="6"] .icon::before{	content: "↖";} /*남동풍*/
+.weather-icon-wd[data-wd="7"] .icon::before{	content: "↗";} /*남서풍*/
+.weather-icon-wd[data-wd="8"] .icon::before{	content: "➡";} /*서풍*/
+
+
 .weather-label{
 	text-align: center;
-	font-size:12px;
+	font-size:10px;
 	line-height: 1.5em;
 }
 .weather-label-wf{
 	font-size: 10px;
 	overflow: hidden;
 	white-space: nowrap;
+}
+
+.weather-label-temp::after{
+	content: ""
 }

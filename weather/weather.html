@@ -51,49 +51,54 @@
 		  <li class="list-group-item">동네예보 API URL : http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone={dongCode}</li>
 		  <li class="list-group-item">서울 강남구 도곡1동 : <a target="_blank" href="http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone=1168065500">http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone=1168065500</a></li>
 		</ul>
-		<div class="weather-box" id="app-box" v-bind:lang="rss.channel.language" class="mb-3">
-			<div class="weather-box-content" v-for="(row, key) in rss.channel.item.description.body.data"
-			v-bind:data-hour="row.hour" v-bind:data-day="row.day" v-bind:data-temp="row.temp" v-bind:data-tmx="row.tmx" v-bind:data-tmn="row.tmn" 
-			v-bind:data-sky="row.sky" v-bind:data-pty="row.pty" v-bind:data-wfKor="row.wfKor" v-bind:data-wfEn="row.wfEn" v-bind:data-pop="row.pop" 
-			v-bind:data-r12="row.r12" v-bind:data-s12="row.s12" v-bind:data-ws="row.ws" v-bind:data-wd="row.wd" v-bind:data-wdKor="row.wdKor" 
-			v-bind:data-wdEn="row.wdEn" v-bind:data-reh="row.reh" v-bind:data-r06="row.r06" v-bind:data-s06="row.s06" 
-			>
-				<div class="weather-day_hour">
-					{{ code.day[row.day] }} {{ row.hour<10 ? '0'+row.hour : row.hour }} 시
-				</div>
-				<div class="weather-box-content-col">
-					<div class="weather-icon weather-icon-wf" v-bind:data-sky="row.sky" v-bind:data-pty="row.pty" v-bind:aria-label="row.wfKo"><div class="icon"></div></div>
-					<div class="weather-label weather-label-wf">
-						{{ row.wfKor }} 
-					</div>
-				</div>
-				<div class="weather-box-content-col">
-					<div class="weather-icon weather-icon-temp">
-						2
-					</div>
-					<div class="weather-label weather-label-temp">
-						22
-					</div>
-				</div>
-				<div class="weather-box-content-col">
-					<div class="weather-icon weather-icon-wd">
-						3
-					</div>
-					<div class="weather-label weather-label-wd">
-						33
-					</div>
-				</div>
-			</div>
-			<div class="clearB"></div>
-		</div>
 		
-		<div id="app-boxx" v-bind:lang="rss.channel.language" class="mb-3">
+		
+		<div id="app-box" v-bind:lang="rss.channel.language" class="mb-3">
 			<ul class="list-group">
 				<li class="list-group-item">제목 : {{ rss.channel.title }}</li>
 				<li class="list-group-item">측정날짜 : {{ rss.channel.pubDate }}</li>
 				<li class="list-group-item">위치 : {{ rss.channel.item.category }}</li>
 				<li class="list-group-item">링크 : <a target="_blank" v-bind:href="rss.channel.item.link">LINK</a></li>
-				
+				<li class="list-group-item">
+					<div class="weather-box"  v-bind:lang="rss.channel.language" class="mb-3">
+						<div class="weather-box-content" v-for="(row, key) in rss.channel.item.description.body.data"
+						v-bind:data-hour="row.hour" v-bind:data-day="row.day" v-bind:data-temp="row.temp" v-bind:data-tmx="row.tmx" v-bind:data-tmn="row.tmn" 
+						v-bind:data-sky="row.sky" v-bind:data-pty="row.pty" v-bind:data-wfKor="row.wfKor" v-bind:data-wfEn="row.wfEn" v-bind:data-pop="row.pop" 
+						v-bind:data-r12="row.r12" v-bind:data-s12="row.s12" v-bind:data-ws="row.ws" v-bind:data-wd="row.wd" v-bind:data-wdKor="row.wdKor" 
+						v-bind:data-wdEn="row.wdEn" v-bind:data-reh="row.reh" v-bind:data-r06="row.r06" v-bind:data-s06="row.s06" 
+						>
+							<div class="weather-day_hour">
+								{{ code.day[row.day] }} {{ row.hour<10 ? '0'+row.hour : row.hour }} 시
+							</div>
+							<div class="weather-box-content-col">
+								<div class="weather-icon weather-icon-wf" v-bind:data-sky="row.sky" v-bind:data-pty="row.pty" v-bind:aria-label="row.wfKo"><div class="icon"></div></div>
+								<div class="weather-label weather-label-wf">
+									{{ row.wfKor }} 
+								</div>
+							</div>
+							<div class="weather-box-content-col">
+								<div class="weather-icon weather-icon-temp">
+									<div class="icon">
+										{{ row.temp }}
+									</div>
+								</div>
+								<div class="weather-label weather-label-temp">
+									{{ row.temp }}℃
+								</div>
+							</div>
+							<div class="weather-box-content-col">
+								<div class="weather-icon weather-icon-wd" v-bind:aria-label="row.wdKor" v-bind:data-wd="row.wd" >
+									<div class="icon"><div class="text-hidden">{{ row.wdKor }}풍</div></div>
+									
+								</div>
+								<div class="weather-label weather-label-wd" >
+									{{ Number(row.ws).toFixed(1) }}㎧
+								</div>
+							</div>
+						</div>
+						<div class="clearB"></div>
+					</div>
+				</li>
 				<li class="list-group-item"  >
 					<ul class="list-group m-1">
 						<li class="list-group-item"  v-for="(row, key) in rss.channel.item.description.body.data">
@@ -104,7 +109,7 @@
 							<span class="badge badge-pill badge-primary">바람 : {{ row.wdKor}}</span> 
 							<span class="badge badge-pill badge-primary">날씨 : {{ row.wfKor}}</span> 
 							<span class="badge badge-pill badge-primary">기온 : {{ row.temp}} °C</span> 
-							<span class="badge badge-pill badge-primary">바람 : {{ row.wdKor}}</span> 
+							<span class="badge badge-pill badge-primary">풍속 : {{ Number(row.ws).toFixed(1) }}㎧</span> 
 						</li>
 					</ul>
 				</li>
