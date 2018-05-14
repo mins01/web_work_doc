@@ -113,14 +113,18 @@
 SW 풍향영어
 ① E(동)
  */
-.weather-icon-wd[data-wd="0"] .icon::before{	content: "⬅";} /*동풍*/
-.weather-icon-wd[data-wd="1"] .icon::before{	content: "⬇";} /*북풍*/
-.weather-icon-wd[data-wd="2"] .icon::before{	content: "⬋";} /*북동풍*/
-.weather-icon-wd[data-wd="3"] .icon::before{	content: "⬊";} /*북서풍*/
-.weather-icon-wd[data-wd="4"] .icon::before{	content: "⬆";} /*남풍*/
-.weather-icon-wd[data-wd="5"] .icon::before{	content: "⬉";} /*남동풍*/
-.weather-icon-wd[data-wd="6"] .icon::before{	content: "⬈";} /*남서풍*/
-.weather-icon-wd[data-wd="7"] .icon::before{	content: "➡";} /*서풍*/
+/*
+→ ← ← ↑ ↓ ↔ 〓
+◁ ◀ ▷ ▶ ♤ ♠ ♡ ♥ ♧ ♣ ⊙ ◈ ▣ ◐ ◑ ▒ ▤ ▥ ▨ ▧ ▦ ▩ ♨ ☏ ☎ ☜ ☞ ¶ † ‡ ↕ ↗ ↙ ↖ ↘ ♭ ♩ ♪ ♬ ㉿ ㈜
+ */
+.weather-icon-wd[data-wd="0"] .icon::before{	content: "←";} /*동풍*/
+.weather-icon-wd[data-wd="1"] .icon::before{	content: "↓";} /*북풍*/
+.weather-icon-wd[data-wd="2"] .icon::before{	content: "↙";} /*북동풍*/
+.weather-icon-wd[data-wd="3"] .icon::before{	content: "↘";} /*북서풍*/
+.weather-icon-wd[data-wd="4"] .icon::before{	content: "↑";} /*남풍*/
+.weather-icon-wd[data-wd="5"] .icon::before{	content: "↖";} /*남동풍*/
+.weather-icon-wd[data-wd="6"] .icon::before{	content: "↗";} /*남서풍*/
+.weather-icon-wd[data-wd="7"] .icon::before{	content: "→";} /*서풍*/
 
 .weather-icon-temp 
 , .weather-icon-reh
