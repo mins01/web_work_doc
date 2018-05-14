@@ -1,0 +1,73 @@
+@charset "UTF-8";
+@import "https://afeld.github.io/emoji-css/emoji.css";
+
+
+.weather-box{
+	box-sizing:content-box;
+	width:300px;
+	margin: 0 auto;
+	padding:5px 0;
+	border:2px solid black;
+}
+.weather-box .clearB{
+	clear: both;
+}
+☀🌤⛅🌥🌦☁🌧⛈🌩⚡🌨
+.weather-day_hour{
+	text-align: center;
+	font-size: 10px;
+}
+.weather-box-content{
+	float: left;
+	width:150px;
+}
+.weather-box-content-col{
+	width:33.33%;
+	float: left;
+}
+
+.weather-icon{
+	width:40px; height:40px;
+	margin:0 auto;
+	border-radius: 50%;
+	border: 1px solid black;
+	text-align: center;
+	line-height: 40px;
+	font-size:30px;
+	white-space: nowrap;
+
+}
+.weather-icon-wf .icon{position: relative;	white-space: nowrap;}
+/*
+① 맑음 ☀
+② 구름 조금 ☁
+③ 구름 많음 ☁☁
+④ 흐림 ⛅
+⑤ 비 ☔
+⑥ 눈/비 ❄ / ☔
+⑦ 눈 ❄
+ */
+.weather-icon-wf .icon::before{display: inline-block;position: relative;}
+.weather-icon-wf[data-sky="1"] .icon::before{	content: "☀";}
+.weather-icon-wf[data-sky="2"] .icon::before{	content: "☁";font-size:20px; }
+.weather-icon-wf[data-sky="3"] .icon::before{	content: "☁"; font-size:40px;}
+/* .weather-icon-wf[data-sky="3"] .icon::after{	content: "☁";margin-left:-1em;} */
+.weather-icon-wf[data-sky="4"] .icon::before{	content: "⛅";}
+.weather-icon-wf[data-pty="1"] .icon::before{	content: "☔";}
+.weather-icon-wf[data-pty="2"] .icon::before{	content: "☔"; z-index: 2}
+.weather-icon-wf[data-pty="2"] .icon::after{	content: "❄"; z-index: 1; margin-left:-0.5em}
+.weather-icon-wf[data-pty="3"] .icon::before{	content: "❄";z-index: 2}
+.weather-icon-wf[data-pty="3"] .icon::after{	content: "☔"; z-index: 1; margin-left:-0.5em}
+.weather-icon-wf[data-pty="4"] .icon::before{	content: "❄";}
+/* v-bibd:data-sky="row.sky" v-bibd:data-pty="row.pty" */
+
+.weather-label{
+	text-align: center;
+	font-size:12px;
+	line-height: 1.5em;
+}
+.weather-label-wf{
+	font-size: 10px;
+	overflow: hidden;
+	white-space: nowrap;
+}
