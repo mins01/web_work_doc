@@ -58,7 +58,7 @@
 					<div class="input-group-prepend">
 				    <label class="input-group-text">시/도</label>
 				  </div>
-					<select class="custom-select"  name="region1" onchange="appBoxRegion.searchRegion2(this.value)">
+					<select class="custom-select"  name="region1" onchange="this.form.region2.value='';appBoxRegion.searchRegion2(this.value)">
 						<option  value="">시/도 ({{ region1.length }})</option>
 						<option  v-for="(row, key) in region1" v-bind:value="row.code">{{ row.name }}</option>
 					</select>
@@ -67,7 +67,7 @@
 					<div class="input-group-prepend">
 				    <label class="input-group-text">구/군</label>
 				  </div>
-					<select class="custom-select"   name="region2"  onchange="appBoxRegion.searchRegion3(this.form.region1.value,this.value)">
+					<select class="custom-select"   name="region2"  onchange="this.form.region3.value='';appBoxRegion.searchRegion3(this.form.region1.value,this.value)">
 						<option  value="">구/군 ({{ region2.length }})</option>
 						<option  v-for="(row, key) in region2" v-bind:value="row.code">{{ row.name }}</option>
 					</select>
