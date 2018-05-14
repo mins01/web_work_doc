@@ -52,8 +52,8 @@
 			<li class="list-group-item">동네예보 API URL : http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone={dongCode}</li>
 			<li class="list-group-item">서울 강남구 도곡1동 : <a target="_blank" href="http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone=1168065500">http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone=1168065500</a></li>
 		</ul>
-		<div id="app-box-region" class="mb-3">
-			<form onsubmit="return false;" action="?" class="form-inline">
+		<div id="app-box-region" class="mb-3 ">
+			<form onsubmit="return false;" action="?" class="form-inline justify-content-center">
 				<div class="input-group m-1">
 					<div class="input-group-prepend">
 				    <label class="input-group-text">시/도</label>
@@ -80,6 +80,9 @@
 						<option  value="">읍/면/동 ({{ region3.length }})</option>
 						<option  v-for="(row, key) in region3" v-bind:value="row.code">{{ row.name }}</option>
 					</select>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary" type="button" onclick="appBoxRegion.saveRegion(this.form.region3.value)">지역저장</button>
+					</div>
 				</div>
 			</form>
 		</div>
@@ -178,7 +181,9 @@
 		</div>
 		<script>
 		$(function(){
-			appBox.load(1168065500)
+			var region3 = appBoxRegion.getRegion();
+			if(!region3) region3 = 1168065500;
+			appBox.load(region3);
 		})
 		</script>
 	</body>

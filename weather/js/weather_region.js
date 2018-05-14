@@ -75,6 +75,14 @@ $(
 			.always(function() { //성공/실패 후 호출.
 				console.log("complete");
 			});
+		},
+		
+		appBoxRegion.saveRegion = function(region3){
+			console.log("Save",region3);
+			window.localStorage.setItem('weather_region3',region3);
+		},
+		appBoxRegion.getRegion = function(){
+			return window.localStorage.getItem('weather_region3');
 		}
 	}
 )
