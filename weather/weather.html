@@ -48,7 +48,11 @@
 		<h1>wheather 기상청 동네예보 RSS <a class="btn btn-link" target="_blank" href="">new</a></h1>
 		<ul class="list-group mb-3">
 			<li class="list-group-item"><a target="_blank" href="http://www.weather.go.kr/weather/lifenindustry/sevice_rss.jsp">기상청 RSS 소개 페이지(데이터 출처)</a></li>
-			<li class="list-group-item"><a target="_blank" href="http://www.weather.go.kr/images/weather/lifenindustry/dongnaeforecast_rss.pdf">동네예보 RSS 설명</a></li>
+			<li class="list-group-item">
+				<a target="_blank" href="http://www.kma.go.kr/images/weather/lifenindustry/timeseries_XML.pdf">동네예보 RSS 설명</a>
+				<a target="_blank" href="http://www.weather.go.kr/images/weather/lifenindustry/dongnaeforecast_rss.pdf">동네예보 RSS 설명(이건 설명이 부실함)</a>
+				
+			</li>
 			<li class="list-group-item">동네예보 API URL : http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone={dongCode}</li>
 			<li class="list-group-item">서울 강남구 도곡1동 : <a target="_blank" href="http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone=1168065500">http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone=1168065500</a></li>
 		</ul>
@@ -113,14 +117,16 @@
 								</div>
 							</div>
 							<div class="weather-box-content-col weather-box-content-col-short">
-								<div class="weather-icon weather-icon-r06" title="시간당 예상 강수량">
+								<div class="weather-icon weather-icon-r06" title="6시간 예상강수량">
 									<div class="icon">
-										<span class="sr-only">시간당 예상 강수량</span> {{ Number(row.r06/6).toFixed(1) }}<span class="very-small">㎜/h</span>
+										<span class="sr-only">6시간 예상강수량</span> 
+										<span class="sr-only">시간당 예상 강수량</span> {{ Number(row.r06).toFixed(1) }}<span class="very-small">㎜/h</span>
 									</div>
 								</div>
-								<div class="weather-icon weather-icon-s06" title="시간당 예상 적설량">
+								<div class="weather-icon weather-icon-s06" title="6시간 예상적설량">
 									<div class="icon">
-										{{ Number(row.s06/6).toFixed(1) }}<span class="very-small">㎜/h</span>
+										<span class="sr-only">6시간 예상적설량</span> 
+										{{ Number(row.s06).toFixed(1) }}<span class="very-small">㎜/h</span>
 									</div>
 								</div>
 							</div>
@@ -150,7 +156,7 @@
 							</div>
 							<div class="weather-box-content-col">
 								<div class="weather-icon weather-icon-wd" v-bind:aria-label="row.wdKor" v-bind:data-wd="row.wd" title="풍향" >
-									<div class="icon"><span class="sr-only">풍향</span> <div class="sr-only">{{ row.wdKor }}풍</div></div>
+									<div class="icon"><span class="sr-only">풍향 {{ row.wdKor }}풍</span></div>
 									
 								</div>
 								<div class="weather-label weather-label-wd" title="풍속" >
