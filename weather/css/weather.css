@@ -1,6 +1,4 @@
 @charset "UTF-8";
-@import "https://afeld.github.io/emoji-css/emoji.css";
-
 
 .weather-box{
 	box-sizing:content-box;
@@ -80,7 +78,7 @@
 }
 .weather-icon .icon{position: relative;	white-space: nowrap;}
 .weather-icon .emoji{
-	font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+	font-family: "Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 
 /*
@@ -100,10 +98,10 @@
 .weather-icon-wf[data-sky="4"] .icon::before{	content: "⛅";}
 .weather-icon-wf[data-pty="1"] .icon::before{	content: "☔";}
 .weather-icon-wf[data-pty="2"] .icon::before{	content: "☔"; z-index: 2}
-.weather-icon-wf[data-pty="2"] .icon::after{	content: "❄"; z-index: 1; margin-left:-0.5em}
-.weather-icon-wf[data-pty="3"] .icon::before{	content: "❄";z-index: 2}
+.weather-icon-wf[data-pty="2"] .icon::after{	content: "☃️"; z-index: 1; margin-left:-0.5em}
+.weather-icon-wf[data-pty="3"] .icon::before{	content: "☃️";z-index: 2}
 .weather-icon-wf[data-pty="3"] .icon::after{	content: "☔"; z-index: 1; margin-left:-0.5em}
-.weather-icon-wf[data-pty="4"] .icon::before{	content: "❄";}
+.weather-icon-wf[data-pty="4"] .icon::before{	content: "☃️";}
 /* v-bibd:data-sky="row.sky" v-bibd:data-pty="row.pty" */
 
 .weather-icon-temp{
