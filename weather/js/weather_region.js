@@ -78,6 +78,11 @@ $(
 		},
 		
 		appBoxRegion.saveRegion = function(region3){
+			if(region3=='' || dongCode.length<1){
+				console.log("ERROR : dongCode was too short.");
+				alert("ERROR : dongCode was too short.");
+				return false;
+			}
 			console.log("Save",region3);
 			window.localStorage.setItem('weather_region3',region3);
 		},

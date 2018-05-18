@@ -46,16 +46,7 @@
 <body>
 	<div class="container">
 		<h1>wheather 기상청 동네예보 RSS <a class="btn btn-link" target="_blank" href="">new</a></h1>
-		<ul class="list-group mb-3">
-			<li class="list-group-item"><a target="_blank" href="http://www.weather.go.kr/weather/lifenindustry/sevice_rss.jsp">기상청 RSS 소개 페이지(데이터 출처)</a></li>
-			<li class="list-group-item">
-				<a target="_blank" href="http://www.kma.go.kr/images/weather/lifenindustry/timeseries_XML.pdf">동네예보 RSS 설명</a>
-				<a target="_blank" href="http://www.weather.go.kr/images/weather/lifenindustry/dongnaeforecast_rss.pdf">동네예보 RSS 설명(이건 설명이 부실함)</a>
-				
-			</li>
-			<li class="list-group-item">동네예보 API URL : http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone={dongCode}</li>
-			<li class="list-group-item">서울 강남구 도곡1동 : <a target="_blank" href="http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone=1168065500">http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone=1168065500</a></li>
-		</ul>
+
 		<div id="app-box-region" class="mb-3 ">
 			<form onsubmit="return false;" action="?" class="form-inline justify-content-center">
 				<div class="input-group m-1">
@@ -84,18 +75,19 @@
 						<option  value="">읍/면/동 ({{ region3.length }})</option>
 						<option  v-for="(row, key) in region3" v-bind:value="row.code">{{ row.name }}</option>
 					</select>
-					<div class="input-group-append">
-						<button class="btn btn-outline-secondary" type="button" onclick="appBoxRegion.saveRegion(this.form.region3.value)">지역저장</button>
-					</div>
+				</div>
+				<div class="btn-group" role="group" aria-label="Basic example">
+					<button class="btn btn-outline-secondary" type="button" onclick="appBoxRegion.saveRegion(this.form.region3.value)">지역저장</button>
+					<button class="btn btn-outline-primary" type="button" onclick="appBox.load(this.form.region3.value)">지역변경</button>
+
 				</div>
 			</form>
 		</div>
 		<div id="app-box" v-bind:lang="rss.channel.language" class="mb-3">
 			<ul class="list-group">
-				<li class="list-group-item">제목 : {{ rss.channel.title }}</li>
-				<li class="list-group-item">측정날짜 : {{ rss.channel.pubDate }}</li>
+				
 				<li class="list-group-item"><b>위치 : {{ rss.channel.item.category }}</b></li>
-				<li class="list-group-item">링크 : <a target="_blank" v-bind:href="rss.channel.item.link">LINK</a></li>
+				<!-- <li class="list-group-item">링크 : <a target="_blank" v-bind:href="rss.channel.item.link">LINK</a></li> -->
 				<li class="list-group-item text-center p-0">
 					<div class="weather-box"  v-bind:lang="rss.channel.language" class="mb-3">
 						<div class="weather-box-content" v-for="(row, key) in rss.channel.item.description.body.data"
@@ -155,7 +147,7 @@
 								</div>
 							</div>
 							<div class="weather-box-content-col">
-								<div class="weather-icon weather-icon-wd" v-bind:aria-label="row.wdKor" v-bind:data-wd="row.wd" title="풍향" >
+								<div class="weather-icon weather-icon-wd" v-bind:aria-label="row.wdKor" v-bind:data-wd="row.wd" v-bind:title="'풍향 '+row.wdKor+'풍'" >
 									<div class="icon emoji"><span class="sr-only">풍향 {{ row.wdKor }}풍</span></div>
 									
 								</div>
@@ -167,6 +159,8 @@
 						<div class="clearB"></div>
 					</div>
 				</li>
+				<li class="list-group-item">제목 : {{ rss.channel.title }}</li>
+				<li class="list-group-item">측정날짜 : {{ rss.channel.pubDate }}</li>
 				<!-- <li class="list-group-item"  >
 					<ul class="list-group m-1">
 						<li class="list-group-item"  v-for="(row, key) in rss.channel.item.description.body.data">
@@ -184,6 +178,16 @@
 					
 				</ul>
 			</div>
+			<ul class="list-group mb-3" style="word-break:break-all;">
+				<li class="list-group-item"><a target="_blank" href="http://www.weather.go.kr/weather/lifenindustry/sevice_rss.jsp">기상청 RSS 소개 페이지(데이터 출처)</a></li>
+				<li class="list-group-item">
+					<a target="_blank" href="http://www.kma.go.kr/images/weather/lifenindustry/timeseries_XML.pdf">동네예보 RSS 설명</a>
+					<a target="_blank" href="http://www.weather.go.kr/images/weather/lifenindustry/dongnaeforecast_rss.pdf">동네예보 RSS 설명(이건 설명이 부실함)</a>
+					
+				</li>
+				<li class="list-group-item">동네예보 API URL : http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone={dongCode}</li>
+				<li class="list-group-item">서울 강남구 도곡1동 : <a target="_blank" href="http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone=1168065500">http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone=1168065500</a></li>
+			</ul>
 		</div>
 		<script>
 		$(function(){
@@ -192,5 +196,8 @@
 			appBox.load(region3);
 		})
 		</script>
+		
+		
+	
 	</body>
 	</html>

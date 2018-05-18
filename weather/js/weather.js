@@ -62,6 +62,11 @@ $(function(){
 		return './proxy.php?zone='+encodeURIComponent(dongCode)
 	}
 	appBox.load = function(dongCode){
+		if(dongCode=='' || dongCode.length<1){
+			console.log("ERROR : dongCode was too short.");
+			alert("ERROR : dongCode was too short.");
+			return false;
+		}
 		var url = this.createURL(dongCode);
 		$.ajax({
 			url: url,
