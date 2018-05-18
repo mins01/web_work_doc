@@ -36,6 +36,7 @@
 
 
 
+
 .weather-box-content{
 	/* float: left; */
 	display: inline-block;
@@ -75,6 +76,10 @@
 	background-color: rgba(255,255,255,0.6);
 }
 .weather-icon .icon{position: relative;	white-space: nowrap;}
+.weather-icon .emoji{
+	font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+
 /*
 ① 맑음 ☀
 ② 구름 조금 ☁
@@ -116,15 +121,18 @@ SW 풍향영어
 /*
 → ← ← ↑ ↓ ↔ 〓
 ◁ ◀ ▷ ▶ ♤ ♠ ♡ ♥ ♧ ♣ ⊙ ◈ ▣ ◐ ◑ ▒ ▤ ▥ ▨ ▧ ▦ ▩ ♨ ☏ ☎ ☜ ☞ ¶ † ‡ ↕ ↗ ↙ ↖ ↘ ♭ ♩ ♪ ♬ ㉿ ㈜
+➡️
+⬆️↗️➡️↘️⬇️↙️⬅️↖️
+↙️
  */
-.weather-icon-wd[data-wd="0"] .icon::before{	content: "←";} /*동풍*/
-.weather-icon-wd[data-wd="1"] .icon::before{	content: "↓";} /*북풍*/
-.weather-icon-wd[data-wd="2"] .icon::before{	content: "↙";} /*북동풍*/
-.weather-icon-wd[data-wd="3"] .icon::before{	content: "↘";} /*북서풍*/
-.weather-icon-wd[data-wd="4"] .icon::before{	content: "↑";} /*남풍*/
-.weather-icon-wd[data-wd="5"] .icon::before{	content: "↖";} /*남동풍*/
-.weather-icon-wd[data-wd="6"] .icon::before{	content: "↗";} /*남서풍*/
-.weather-icon-wd[data-wd="7"] .icon::before{	content: "→";} /*서풍*/
+.weather-icon-wd[data-wd="0"] .icon::before{	content: "⬅️";} /*동풍*/
+.weather-icon-wd[data-wd="1"] .icon::before{	content: "⬇️";} /*북풍*/
+.weather-icon-wd[data-wd="2"] .icon::before{	content: "↙️";} /*북동풍*/
+.weather-icon-wd[data-wd="3"] .icon::before{	content: "↘️";} /*북서풍*/
+.weather-icon-wd[data-wd="4"] .icon::before{	content: "⬆️";} /*남풍*/
+.weather-icon-wd[data-wd="5"] .icon::before{	content: "↖️";} /*남동풍*/
+.weather-icon-wd[data-wd="6"] .icon::before{	content: "↗️";} /*남서풍*/
+.weather-icon-wd[data-wd="7"] .icon::before{	content: "➡️";} /*서풍*/
 
 .weather-icon-temp 
 , .weather-icon-reh

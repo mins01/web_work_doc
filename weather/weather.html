@@ -40,7 +40,7 @@
 	
 	<script src="js/weather.js"></script>
 	<script src="js/weather_region.js"></script>
-	<link rel="stylesheet" href="css/weather.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/weather.css?20180518" crossorigin="anonymous">
 	
 </head>
 <body>
@@ -110,7 +110,7 @@
 							<div class="weather-box-content-col">
 								<div class="weather-icon weather-icon-wf" v-bind:data-sky="row.sky" v-bind:data-pty="row.pty" v-bind:aria-label="row.wfKo">
 									<div class="very-small floating-top-right" v-if="parseInt(row.pop)>=20" title="강수확률"><span class="sr-only">강수확률</span> {{ row.pop }}%</div>
-									<div class="icon"></div>
+									<div class="icon emoji"></div>
 								</div>
 								<div class="weather-label weather-label-wf">
 									<span class="sr-only">날씨</span> {{ row.wfKor }}
@@ -156,7 +156,7 @@
 							</div>
 							<div class="weather-box-content-col">
 								<div class="weather-icon weather-icon-wd" v-bind:aria-label="row.wdKor" v-bind:data-wd="row.wd" title="풍향" >
-									<div class="icon"><span class="sr-only">풍향 {{ row.wdKor }}풍</span></div>
+									<div class="icon emoji"><span class="sr-only">풍향 {{ row.wdKor }}풍</span></div>
 									
 								</div>
 								<div class="weather-label weather-label-wd" title="풍속" >
