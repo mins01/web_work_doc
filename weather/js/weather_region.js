@@ -22,16 +22,16 @@ $(
 					{code:"4500000000",name:"전라북도"},
 					{code:"5000000000",name:"제주특별자치도"},
 					{code:"4400000000",name:"충청남도"},
-					{code:"4300000000",name:"충청북도"},	
+					{code:"4300000000",name:"충청북도"},
 				],
 				region2:[
 				],
 				region3:[
 				],
-				
+
 			}
-		})	
-		
+		})
+
 		appBoxRegion.searchRegion2 = function(region1){
 			if(region1.length<1){return false;}
 			var url = 'main-dfs-dong-json.php?type=CITY&wideCode='+region1+'&cityCode=';
@@ -45,7 +45,7 @@ $(
 			.done(function(rData) { //통신 성공 시 호출
 				// console.log(rData);
 				appBoxRegion.region2 = rData;
-				console.log("done");		
+				console.log("done");
 			})
 			.fail(function() { //통신 실패 시 호출
 				console.log("error");
@@ -67,7 +67,7 @@ $(
 			.done(function(rData) { //통신 성공 시 호출
 				// console.log(rData);
 				appBoxRegion.region3 = rData;
-				console.log("done");		
+				console.log("done");
 			})
 			.fail(function() { //통신 실패 시 호출
 				console.log("error");
@@ -76,9 +76,9 @@ $(
 				console.log("complete");
 			});
 		},
-		
+
 		appBoxRegion.saveRegion = function(region3){
-			if(region3=='' || dongCode.length<1){
+			if(region3=='' || region3.length<1){
 				console.log("ERROR : dongCode was too short.");
 				alert("ERROR : dongCode was too short.");
 				return false;
