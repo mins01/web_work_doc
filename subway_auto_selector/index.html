@@ -83,13 +83,13 @@
 		<div id="app-subway-box">
 			<div class="el-group">
 				<h2>sandwichList</h2>
-				<hr><div v-bind:class="[ row[1] , 'el-box']" :data-cal="parseInt(row[4])" v-for="(row, key) in sandwichList">
+				<div v-bind:class="[ row[1] , 'el-box']" :data-cal="parseInt(row[4])" v-for="(row, key) in sandwichList">
 					<img class="row-img" :src="row[6]">
 					<div class="row-tit">{{row[2]}}</div>
 					<div class="row-eng">{{row[3]}}</div>
 					<div class="row-cal">{{row[4]}}</div>
 					<div class="row-summary">{{row[5]}}</div>
-				</div><hr>
+				</div>
 				<h2>saladList</h2>
 				<div v-bind:class="[ row[1] , 'el-box']" v-for="(row, key) in saladList">
 					<img class="row-img" :src="row[6]">
