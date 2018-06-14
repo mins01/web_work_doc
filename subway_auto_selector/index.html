@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>subway auto selector</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+	
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="subway auto selector">
+	<meta property="og:description" content="subway auto selector">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="subway auto selector" />
+	<meta property="og:type" content="website">
+	
+	<script src="lists.js"></script>
+	<!-- //meta og -->
+	<script>
+		var appBox = null;
+		$(function(){
+			try{
+				appBox = new Vue({
+					el: '#app-subway-box',
+					data: {
+						"sandwichList":[],
+						"saladList":[],
+						"toppingList":[],
+						"sideDrink":[],
+						"catering":[],
+						"freshInfo":[]
+					}
+				})
+				for(var i=0,m=lists.length;i<m;i++){
+					appBox[lists[i][0]].push(lists[i]);
+				}
+			}catch(e){
+				
+			}
+
+		})
+
+	</script>
+	
+</head>
+<body>
+	<div class="container">
+		<div id="app-subway-box" >
+			<div class="group sandwichList">
+				<div class="el-box" v-for="(row, key) in sandwichList">
+					<span>{{row[1]}}</span>
+					<span>{{row[2]}}</span>
+					<span>{{row[3]}}</span>
+					<span>{{row[4]}}</span>
+					<span>{{row[5]}}</span>
+					<span>{{row[6]}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
