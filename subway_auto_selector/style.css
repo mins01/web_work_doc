@@ -1,0 +1,46 @@
+.el-group{
+	text-align: center;
+}
+
+.el-box{
+	border: 2px solid black;
+	display: inline-block;
+	width:280px;
+	height: 150px;
+	margin: 5px;
+	padding:2px;
+	vertical-align: top;
+
+}
+.row-img {
+	float: right;
+	max-width: 100px;
+}
+.row-tit{
+	text-align: left;
+	font-weight: bold;
+	white-space: nowrap;
+}
+.row-eng{
+	text-align: left;
+	font-size: 0.8em;
+}
+.row-eng::before{
+	content: "("
+}
+.row-eng::after{
+	content: ")"
+}
+
+.row-cal{
+	text-align: left;
+	font-size: 0.8em;
+	color:chocolate;
+	
+}
+.row-summary{
+	text-align: left;
+    font-size: 0.8em;
+    clear: both;
+
+}

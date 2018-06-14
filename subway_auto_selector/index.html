@@ -37,8 +37,11 @@
 	<meta property="og:site_name" content="subway auto selector" />
 	<meta property="og:type" content="website">
 
-	<script src="lists.js"></script>
+
 	<!-- //meta og -->
+	<script src="lists.js"></script>
+	<link rel="stylesheet" href="style.css">
+
 	<script>
 		var appBox = null;
 		$(function () {
@@ -72,11 +75,7 @@
 		})
 
 	</script>
-	<style>
-		.th-img {
-			max-width: 100px;
-		}
-	</style>
+
 </head>
 
 <body>
@@ -84,63 +83,57 @@
 		<div id="app-subway-box">
 			<div class="el-group">
 				<h2>sandwichList</h2>
-				<div v-bind:class="[ row[1] , 'el-box']" v-for="(row, key) in sandwichList">
-					<img class="th-img" :src="row[6]">
-					<span></span>
-					<span>{{row[2]}}</span>
-					<span>{{row[3]}}</span>
-					<span>{{row[4]}}</span>
-					<span>{{row[5]}}</span>
-				</div>
+				<hr><div v-bind:class="[ row[1] , 'el-box']" :data-cal="parseInt(row[4])" v-for="(row, key) in sandwichList">
+					<img class="row-img" :src="row[6]">
+					<div class="row-tit">{{row[2]}}</div>
+					<div class="row-eng">{{row[3]}}</div>
+					<div class="row-cal">{{row[4]}}</div>
+					<div class="row-summary">{{row[5]}}</div>
+				</div><hr>
 				<h2>saladList</h2>
 				<div v-bind:class="[ row[1] , 'el-box']" v-for="(row, key) in saladList">
-					<img class="th-img" :src="row[6]">
-					<span></span>
-					<span>{{row[2]}}</span>
-					<span>{{row[3]}}</span>
-					<span>{{row[4]}}</span>
-					<span>{{row[5]}}</span>
+					<img class="row-img" :src="row[6]">
+					<div class="row-tit">{{row[2]}}</div>
+					<div class="row-eng">{{row[3]}}</div>
+					<div class="row-cal">{{row[4]}}</div>
+					<div class="row-summary">{{row[5]}}</div>
 				</div>
 			</div>
 			<div class="el-group">
 				<h2>toppingList</h2>
 				<div v-bind:class="[ row[1] , 'el-box']" v-for="(row, key) in toppingList">
-					<img class="th-img" :src="row[6]">
-					<span></span>
-					<span>{{row[2]}}</span>
-					<span>{{row[3]}}</span>
-					<span>{{row[4]}}</span>
-					<span>{{row[5]}}</span>
+					<img class="row-img" :src="row[6]">
+					<div class="row-tit">{{row[2]}}</div>
+					<div class="row-eng">{{row[3]}}</div>
+					<div class="row-cal">{{row[4]}}</div>
+					<div class="row-summary">{{row[5]}}</div>
 				</div>
 				<h2>sideDrink</h2>
 				<div v-bind:class="[ row[1] , 'el-box']" v-for="(row, key) in sideDrink">
-					<img class="th-img" :src="row[6]">
-					<span></span>
-					<span>{{row[2]}}</span>
-					<span>{{row[3]}}</span>
-					<span>{{row[4]}}</span>
-					<span>{{row[5]}}</span>
+					<img class="row-img" :src="row[6]">
+					<div class="row-tit">{{row[2]}}</div>
+					<div class="row-eng">{{row[3]}}</div>
+					<div class="row-cal">{{row[4]}}</div>
+					<div class="row-summary">{{row[5]}}</div>
 				</div>
 				<h2>freshInfo</h2>
 				<div v-bind:class="[ row[1] , 'el-box']" v-for="(row, key) in freshInfo">
-					<img class="th-img" :src="row[6]">
-					<span></span>
-					<span>{{row[2]}}</span>
-					<span>{{row[3]}}</span>
-					<span>{{row[4]}}</span>
-					<span>{{row[5]}}</span>
+					<img class="row-img" :src="row[6]">
+					<div class="row-tit">{{row[2]}}</div>
+					<div class="row-eng">{{row[3]}}</div>
+					<div class="row-cal">{{row[4]}}</div>
+					<div class="row-summary">{{row[5]}}</div>
 				</div>
 			</div>
 			<div class="el-group">
 				<h2>catering</h2>
 
 				<div v-bind:class="[ row[1] , 'el-box']" v-for="(row, key) in catering">
-					<img class="th-img" :src="row[6]">
-					<span></span>
-					<span>{{row[2]}}</span>
-					<span>{{row[3]}}</span>
-					<span>{{row[4]}}</span>
-					<span>{{row[5]}}</span>
+					<img class="row-img" :src="row[6]">
+					<div class="row-tit">{{row[2]}}</div>
+					<div class="row-eng">{{row[3]}}</div>
+					<div class="row-cal">{{row[4]}}</div>
+					<div class="row-summary">{{row[5]}}</div>
 				</div>
 			</div>
 		</div>
