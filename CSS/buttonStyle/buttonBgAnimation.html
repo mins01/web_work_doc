@@ -2,7 +2,7 @@
 <html lang="ko">
 
 <head>
-	<title>buttonAnimation</title>
+	<title>buttonBgAnimation</title>
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Script-Type" content="text/javascript">
 	<meta http-equiv="Content-Style-Type" content="text/css">
@@ -28,12 +28,12 @@
 
 	<!-- meta og -->
 
-	<meta property="og:title" content="buttonAnimation">
-	<meta property="og:description" content="buttonAnimation">
+	<meta property="og:title" content="buttonBgAnimation">
+	<meta property="og:description" content="buttonBgAnimation">
 	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
 	<meta property="og:image:width" content="190">
 	<meta property="og:image:height" content="70" />
-	<meta property="og:site_name" content="buttonAnimation" />
+	<meta property="og:site_name" content="buttonBgAnimation" />
 	<meta property="og:type" content="website">
 
 	<!-- //meta og -->
@@ -150,7 +150,39 @@
 			top:000%;
 		}
 
-		
+		.btn-bg-bothside{
+			position: relative;
+			background-color: transparent;
+			border-width: 0;
+			box-sizing: content-box;
+			overflow: hidden;
+			border:1px solid #ccc;
+		}
+		.btn-bg-bothside::before ,
+		.btn-bg-bothside::after{
+			position:absolute;
+			content: '';
+			top:0;left:0;right:0;bottom: 0;
+			background-color:rgba(0,0,0,0.2);
+			z-index: -2;
+			transform: rotate(-90deg) scale(2,2);
+			transform-origin:0 100%;
+			transition: all 1s ease-out;
+		}
+		.btn-bg-bothside::after{
+			transform: rotate(-90deg) scale(2,2);
+			transform-origin:100% 0%;
+
+		}
+		.btn-bg-bothside:active::before ,
+		.btn-bg-bothside:active::after ,
+		.btn-bg-bothside:focus::before ,
+		.btn-bg-bothside:focus::after ,
+		.btn-bg-bothside:hover::before ,
+		.btn-bg-bothside:hover::after {
+			transform: rotate(0deg);
+
+		}
 	</style>
 
 </head>
@@ -174,6 +206,10 @@
 				<button class="btn-bg-bubbles btn" style="width:200px; height: 100px;">버튼</button>
 				<button class="btn-bg-bubbles btn"  >버튼</button>
 			</li>
+			<li>
+					<button class="btn-bg-bothside btn" style="width:200px; height: 100px;">버튼</button>
+					<button class="btn-bg-bothside btn " >버튼</button>
+				</li>
 		</ul>
 
 	</div>
