@@ -21,7 +21,7 @@ $rowss['플레이특가'] = $pw->url2rows('http://promotion.wemakeprice.com/prom
 $rowss['게릴라특가'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/guerrilla'); // 게릴라특가
 $rowss['명예의전당'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/hall_of_fame'); // 명예의전당
 $rowss['위클리브랜드'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/todaybrand'); // 위클리븐랜드
-$rowss['모닝특가'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/timesale'); // 모닝특가
+$rowss['모닝심야특가'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/timesale'); // 모닝특가
 ?>
 <!doctype html>
 <html lang="ko" >
@@ -32,26 +32,26 @@ $rowss['모닝특가'] = $pw->url2rows('http://promotion.wemakeprice.com/promoti
 	<meta http-equiv="Content-Style-Type" content="text/css">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	
+
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
+
 	<!-- jquery 관련 -->
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
-	
+
 	<!-- 부트스트랩 4 : IE8지원안됨! -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"  crossorigin="anonymous"></script>
 	<!-- vue.js -->
 	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-	
+
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
-	
+
 	<!-- meta og -->
-	
+
 	<meta property="og:title" content="특가모음">
 	<meta property="og:description" content="특가무음">
 	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
@@ -59,16 +59,16 @@ $rowss['모닝특가'] = $pw->url2rows('http://promotion.wemakeprice.com/promoti
 	<meta property="og:image:height" content="70" />
 	<meta property="og:site_name" content="특가무음" />
 	<meta property="og:type" content="website">
-	
+
 	<!-- //meta og -->
-	
+
 	<script>
 	var defClass = 'a.r-link';
 	function filter(f){
 		var w = f.w.value.toLowerCase().replace(/"/g,'\\"');
-		
+
 		var defClass2 = '';
-		
+
 		// console.log(defClass);
 		$(defClass).each(function(idx,el){
 			$(el).removeClass('d-none');
@@ -121,8 +121,8 @@ $rowss['모닝특가'] = $pw->url2rows('http://promotion.wemakeprice.com/promoti
 		<ul>
 			<li>
 				<div><?=htmlspecialchars($k)?></div>
-				
-				
+
+
 				<div class="list-group">
 					<? foreach($rows as $k2 => $r): ?>
 					<a data-freeShipping="<?=$r['freeShipping']?>" data-label="<?=htmlspecialchars(strtolower($r['label']))?>" class="list-group-item r-link" target="_blank" href="<?=htmlspecialchars($r['link'])?>">
@@ -132,14 +132,14 @@ $rowss['모닝특가'] = $pw->url2rows('http://promotion.wemakeprice.com/promoti
 				</div>
 			</li>
 		</ul>
-		<? 
-		endforeach; 
+		<?
+		endforeach;
 		?>
 		<div class="text-right">
 		(<?=$pw->isCached?'cached':'new'?>)
 		</div>
 	</div>
-	
-	
+
+
 </body>
 </html>

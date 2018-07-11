@@ -16,8 +16,8 @@ class ParseWemakeprice
 
 		$options = array(
 			// 'cacheDir' => dirname(__FILE__).'/data/',
-			'cacheDir' => '/tmp/',
-			'lifeTime' => 60*60,
+			'cacheDir' => '/tmp/1_',
+			'lifeTime' => 60*10,
 			'pearErrorMode'=> 0,
 			'masterFile'=> dirname(__FILE__).'/data.ignore/MASTER',
 		);
