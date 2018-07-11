@@ -14,14 +14,36 @@ header('Cache-Control:public, max-age = '.$t);
 $mp = new Mproxy();
 $pw = new ParseWemakeprice($mp);
 $rowss = array();
-$rowss['슈퍼투데이특가'] =$pw->url2rows('http://promotion.wemakeprice.com/promotion/g/supertoday'); //슈퍼투데이 특가
-$rowss['투데이특가'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/todaysale'); // 투데이 특가
-$rowss['요일특가'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/montosun'); // 요일특가
-$rowss['플레이특가'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/playday'); // 플레이특가
-$rowss['게릴라특가'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/guerrilla'); // 게릴라특가
-$rowss['명예의전당'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/hall_of_fame'); // 명예의전당
-$rowss['위클리브랜드'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/todaybrand'); // 위클리븐랜드
-$rowss['모닝심야특가'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/timesale'); // 모닝특가
+// $rowss['슈퍼투데이특가'] =$pw->url2rows('http://promotion.wemakeprice.com/promotion/g/supertoday'); //슈퍼투데이 특가
+// $rowss['투데이특가'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/todaysale'); // 투데이 특가
+// $rowss['요일특가'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/montosun'); // 요일특가
+// $rowss['플레이특가'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/playday'); // 플레이특가
+// $rowss['게릴라특가'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/guerrilla'); // 게릴라특가
+// $rowss['명예의전당'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/hall_of_fame'); // 명예의전당
+// $rowss['위클리브랜드'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/todaybrand'); // 위클리븐랜드
+// $rowss['모닝심야특가'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/timesale'); // 모닝특가
+$rows = array();
+$t_rows = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/supertoday'); //슈퍼투데이 특가
+$rows = array_merge($rows,$t_rows);
+$t_rows = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/todaysale'); // 투데이 특가
+$rows = array_merge($rows,$t_rows);
+$t_rows = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/montosun'); // 요일특가
+$rows = array_merge($rows,$t_rows);
+$t_rows = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/playday'); // 플레이특가
+$rows = array_merge($rows,$t_rows);
+$t_rows = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/guerrilla'); // 게릴라특가
+$rows = array_merge($rows,$t_rows);
+$t_rows = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/hall_of_fame'); // 명예의전당
+$rows = array_merge($rows,$t_rows);
+$t_rows = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/todaybrand'); // 위클리븐랜드
+$rows = array_merge($rows,$t_rows);
+$t_rows = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/timesale'); // 모닝특가
+$rows = array_merge($rows,$t_rows);
+
+function cmp_function($a,$b){
+	return (int)$a['price_number']>(int)$b['price_number'];
+}
+usort ( $rows , 'cmp_function' ); //낮은 가격순 소팅
 ?>
 <!doctype html>
 <html lang="ko" >
@@ -61,6 +83,11 @@ $rowss['모닝심야특가'] = $pw->url2rows('http://promotion.wemakeprice.com/p
 	<meta property="og:type" content="website">
 
 	<!-- //meta og -->
+	<style>
+	.d-none {
+	    display: none!important;
+	}
+	</style>
 
 	<script>
 	var defClass = 'a.r-link';
@@ -115,26 +142,22 @@ $rowss['모닝심야특가'] = $pw->url2rows('http://promotion.wemakeprice.com/p
 				</li>
 			</ul>
 		</form>
-		<?
-		foreach($rowss as $k => $rows):
-		?>
-		<ul>
-			<li>
-				<div><?=htmlspecialchars($k)?></div>
+
 
 
 				<div class="list-group">
 					<? foreach($rows as $k2 => $r): ?>
-					<a data-freeShipping="<?=$r['freeShipping']?>" data-label="<?=htmlspecialchars(strtolower($r['label']))?>" class="list-group-item r-link" target="_blank" href="<?=htmlspecialchars($r['link'])?>">
-					[<?=htmlspecialchars($r['price_number'])?>][<?=htmlspecialchars($r['price'])?>]<?=htmlspecialchars($r['freeShipping'])?'[무배]':''?> <?=htmlspecialchars($r['label'])?>
+					<a class="list-group-item r-link d-flex justify-content-between align-items-center"
+						target="_blank" href="<?=htmlspecialchars($r['link'])?>"
+						data-freeShipping="<?=$r['freeShipping']?>" data-label="<?=htmlspecialchars(strtolower($r['label']))?>"
+						 data-price_number="<?=htmlspecialchars($r['price_number'])?>">
+						<?=htmlspecialchars($r['label'])?>
+						<span class="badge <?=htmlspecialchars($r['freeShipping'])?' badge-info':' badge-danger'?> m-0 "><?=htmlspecialchars($r['price'])?> <?=htmlspecialchars($r['freeShipping'])?' / [무배]':''?> </span>
+
 					</a >
 					<? endforeach; ?>
 				</div>
-			</li>
-		</ul>
-		<?
-		endforeach;
-		?>
+
 		<div class="text-right">
 		(<?=$pw->isCached?'cached':'new'?>)
 		</div>
