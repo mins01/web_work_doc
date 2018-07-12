@@ -1,9 +1,14 @@
 <?
+if(strtolower(ini_get('zlib output compression'))=='off'){
+	ob_start("ob_gzhandler"); //압축전송
+}
+
+
 require('Mproxy.php');
 require('Selector.php');
 require('ParseWemakeprice.php');
 
-require('Cache/Lite/File.php');
+
 
 $t = 60*60*1;
 header("Expires: ".gmdate("D, d M Y H:i:s", time()+$t)." GMT");
@@ -145,24 +150,35 @@ usort ( $rows , 'cmp_function' ); //낮은 가격순 소팅
 
 
 
-				<div class="list-group">
-					<? foreach($rows as $k2 => $r): ?>
-					<a class="list-group-item r-link d-flex justify-content-between align-items-center"
-						target="_blank" href="<?=htmlspecialchars($r['link'])?>"
-						data-freeShipping="<?=$r['freeShipping']?>" data-label="<?=htmlspecialchars(strtolower($r['label']))?>"
-						 data-price_number="<?=htmlspecialchars($r['price_number'])?>">
-						<?=htmlspecialchars($r['label'])?>
-						<span class="badge <?=htmlspecialchars($r['freeShipping'])?' badge-info':' badge-danger'?> m-0 "><?=htmlspecialchars($r['price'])?> <?=htmlspecialchars($r['freeShipping'])?' / [무배]':''?> </span>
+		<div class="list-group">
+			<? foreach($rows as $k2 => $r): ?>
+			<a class="list-group-item r-link d-flex justify-content-between align-items-center"
+				target="_blank" href="<?=htmlspecialchars($r['link'])?>"
+				data-freeShipping="<?=$r['freeShipping']?>" data-label="<?=htmlspecialchars(strtolower($r['label']))?>"
+					data-price_number="<?=htmlspecialchars($r['price_number'])?>">
+				<?=htmlspecialchars($r['label'])?>
+				<span class="badge <?=htmlspecialchars($r['freeShipping'])?' badge-info':' badge-danger'?> m-0 "><?=htmlspecialchars($r['price'])?> <?=htmlspecialchars($r['freeShipping'])?' / [무배]':''?> </span>
 
-					</a >
-					<? endforeach; ?>
-				</div>
-
-		<div class="text-right">
-		(<?=$pw->isCached?'cached':'new'?>)
+			</a >
+			<? endforeach; ?>
 		</div>
 	</div>
-
+	<ul>
+		<li>
+			Lib License
+		</li>
+		<li>
+		Selector : MIT https://github.com/tj/php-selector 
+		</li>
+	</ul>
+	<div class="text-right">
+		cached : <?=$pw->isCached?>,not cached : <?=$pw->isNotCached?>
+	</div>
 
 </body>
 </html>
+<?
+if(strtolower(ini_get('zlib output compression'))=='off'){
+	ob_end_flush();
+}
+?>
