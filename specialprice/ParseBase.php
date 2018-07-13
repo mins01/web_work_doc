@@ -8,8 +8,8 @@ class ParseBase
 {
 	private $mproxy;
 	private $cache_lite;
-	public $isCached = 0;
-	public $isNotCached = 0;
+	public static $isCached = 0;
+	public static $isNotCached = 0;
 	public $site = '-';
 	function __construct($mproxy,$cache_lite)
 	{
@@ -28,13 +28,13 @@ class ParseBase
 		$id = md5($url);
 
 		if($body = $clf->get($id) ){
-			$this->isCached++;
+			ParseBase::$isCached++;
 		}else{
 			$mp = & $this->mproxy;
 			$html = $mp->getContent($url);
 			$body = $html['body'];
 			$clf->save($body);
-			$this->isNotCached++;
+			ParseBase::$isNotCached++;
 		}
 		return $body;
 	}

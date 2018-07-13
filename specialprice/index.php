@@ -194,7 +194,7 @@ usort ( $rows , 'cmp_function' ); //낮은 가격순 소팅
 		</li>
 	</ul>
 	<div class="text-right">
-		cached : <?=$pw->isCached?>,not cached : <?=$pw->isNotCached?>
+		cached : <?=ParseBase::$isCached++?>,not cached : <?=ParseBase::$isNotCached?>
 	</div>
 
 </body>
