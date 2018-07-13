@@ -56,9 +56,13 @@ $t_rows = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/todaybrand
 $rows = array_merge($rows,$t_rows);
 $t_rows = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/timesale'); // 모닝특가
 $rows = array_merge($rows,$t_rows);
-$t_rows = $pa->url2rows('http://deal.11st.co.kr/browsing/DealAction.tmall?method=getDealBest','[베스트특가] '); //11번가 쇼킹딜, 베스트
-$rows = array_merge($rows,$t_rows);
+// $t_rows = $pa->url2rows('http://deal.11st.co.kr/browsing/DealAction.tmall?method=getDealBest','[베스트특가] '); //11번가 쇼킹딜, 베스트
+// $rows = array_merge($rows,$t_rows);
 $t_rows = $pa->url2rows('http://deal.11st.co.kr/browsing/DealAction.tmall?method=getDepartmentDeal','[백화점&몰] '); //11번가 쇼킹딜, 베스트
+$rows = array_merge($rows,$t_rows);
+$t_rows = $pa->url2rows('http://deal.11st.co.kr/browsing/DealAction.tmall?method=getDealBest&dispCtgrNo=947168&slidePageNo=2','[베스트특가-디지털] '); //11번가 쇼킹딜, 베스트
+$rows = array_merge($rows,$t_rows);
+$t_rows = $pa->url2rows('http://deal.11st.co.kr/browsing/DealAction.tmall?method=getDealBest&dispCtgrNo=947164&slidePageNo=1','[베스트특가-가구/홈데코] '); //11번가 쇼킹딜, 베스트
 $rows = array_merge($rows,$t_rows);
 
 
