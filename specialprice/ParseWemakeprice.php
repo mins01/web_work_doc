@@ -1,45 +1,25 @@
 <?
 require_once('Selector.php');
-require('Cache/Lite.php');
+require_once('ParseBase.php');
 
-class ParseWemakeprice
+/**
+ * 위메이크프라이스용
+ */
+class ParseWemakeprice extends ParseBase
 {
-	private $mproxy;
-	public $isCached = 0;
-	public $isNotCached = 0;
-	function __construct($mproxy)
+	// private $mproxy;
+	// public $isCached = 0;
+	// public $isNotCached = 0;
+	// public $cache_lite = null;
+	public $site = '위메프';
+	function __construct($mproxy,$cache_lite)
 	{
-		$this->mproxy = $mproxy;
+		parent::__construct($mproxy,$cache_lite);
 	}
 
-	function url2rows($url)
+	function url2rows($url,$prefix='')
 	{
-		// $mp = new Mproxy();
-
-		$options = array(
-			// 'cacheDir' => dirname(__FILE__).'/data/',
-			'cacheDir' => dirname(__FILE__).'/data.ignore/0_',
-			'lifeTime' => 60*10,
-			'pearErrorMode'=> 0,
-			// 'masterFile'=> dirname(__FILE__).'/data.ignore/MASTER',
-			'cacheFileMode'=>0777,
-			'caching'=>true,
-		);
-
-		// $clf = new Cache_Lite_File($options);
-		$clf = new Cache_Lite($options);
-		$id = md5($url);
-
-		if($body = $clf->get($id) ){
-			$this->isCached++;
-		}else{
-			$mp = & $this->mproxy;
-			$html = $mp->getContent($url);
-			$body = $html['body'];
-			$clf->save($body);
-			$this->isNotCached++;
-		}
-
+		$body = $this->getUrl($url);
 		$dom = new SelectorDOM($body);
 		$tit_descs = $dom->select('.tit_desc');
 		$sales = $dom->select('.sale');
@@ -56,7 +36,7 @@ class ParseWemakeprice
 			$r5 = $freeShips[$k];
 			$row = array();
 			$row['site'] = '위메프';
-			$row['label'] = '('.$row['site'].') '.$r['text'];
+			$row['label'] = '('.$row['site'].') '.$prefix.$r['text'];
 			$row['price'] = $r2['text'];
 			$row['price_number'] = preg_replace('/[^0-9]/','',$row['price']);
 			$row['img'] = $r3['children'][0]['attributes']['original'];

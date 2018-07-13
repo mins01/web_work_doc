@@ -6,8 +6,9 @@ if(strtolower(ini_get('zlib output compression'))=='off'){
 
 require('Mproxy.php');
 require('Selector.php');
+require('Cache/Lite.php');
 require('ParseWemakeprice.php');
-
+require('Parse11st.php');
 
 
 $t = 60*60*1;
@@ -17,7 +18,18 @@ header('Cache-Control:public, max-age = '.$t);
 
 
 $mp = new Mproxy();
-$pw = new ParseWemakeprice($mp);
+$options = array(
+	// 'cacheDir' => dirname(__FILE__).'/data/',
+	'cacheDir' => dirname(__FILE__).'/data.ignore/0_',
+	'lifeTime' => 60*10,
+	'pearErrorMode'=> 0,
+	// 'masterFile'=> dirname(__FILE__).'/data.ignore/MASTER',
+	'cacheFileMode'=>0777,
+	'caching'=>true,
+);
+$cl = new Cache_Lite($options);
+$pw = new ParseWemakeprice($mp,$cl);
+$pa = new Parse11st($mp,$cl);
 $rowss = array();
 // $rowss['슈퍼투데이특가'] =$pw->url2rows('http://promotion.wemakeprice.com/promotion/g/supertoday'); //슈퍼투데이 특가
 // $rowss['투데이특가'] = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/todaysale'); // 투데이 특가
@@ -44,6 +56,12 @@ $t_rows = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/todaybrand
 $rows = array_merge($rows,$t_rows);
 $t_rows = $pw->url2rows('http://promotion.wemakeprice.com/promotion/g/timesale'); // 모닝특가
 $rows = array_merge($rows,$t_rows);
+$t_rows = $pa->url2rows('http://deal.11st.co.kr/browsing/DealAction.tmall?method=getDealBest','[베스트특가] '); //11번가 쇼킹딜, 베스트
+$rows = array_merge($rows,$t_rows);
+$t_rows = $pa->url2rows('http://deal.11st.co.kr/browsing/DealAction.tmall?method=getDepartmentDeal','[백화점&몰] '); //11번가 쇼킹딜, 베스트
+$rows = array_merge($rows,$t_rows);
+
+
 
 function cmp_function($a,$b){
 	return (int)$a['price_number']>(int)$b['price_number'];
@@ -129,8 +147,8 @@ usort ( $rows , 'cmp_function' ); //낮은 가격순 소팅
 <body>
 	<div class="container">
 		<h1>특가모음 </h1>
-		<h3>위메프 (<span id="r-num">##</span>)</h3>
-		<form action="#" onsubmit="filter(this);return false;" onkeyup="this.onsubmit()"  onchange="this.onsubmit()">
+		<h3>위메프 + 11번가 (<span id="r-num">##</span>)</h3>
+		<form action="#" onsubmit="filter(this);return false;" onchange="this.onsubmit()">
 			<ul class="list-group mb-1">
 				<li class="list-group-item">
 					<div class="input-group mb-1">
