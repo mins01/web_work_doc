@@ -114,6 +114,9 @@ usort ( $rows , 'cmp_function' ); //낮은 가격순 소팅
 	.d-none {
 	    display: none!important;
 	}
+	a.blank[target="_blank"]::after{
+		content: "🔗";
+	}
 	</style>
 
 	<script>
@@ -150,7 +153,7 @@ usort ( $rows , 'cmp_function' ); //낮은 가격순 소팅
 </head>
 <body>
 	<div class="container">
-		<h1>특가모음 </h1>
+		<h1><a href="" class="blank" target="_blank">특가모음</a></h1>
 		<h3>위메프 + 11번가 (<span id="r-num">##</span>)</h3>
 		<form action="#" onsubmit="filter(this);return false;" onchange="this.onsubmit()">
 			<ul class="list-group mb-1">
@@ -190,7 +193,7 @@ usort ( $rows , 'cmp_function' ); //낮은 가격순 소팅
 			Lib License
 		</li>
 		<li>
-		Selector : MIT https://github.com/tj/php-selector 
+		Selector : MIT https://github.com/tj/php-selector
 		</li>
 	</ul>
 	<div class="text-right">
