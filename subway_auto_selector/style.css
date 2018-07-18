@@ -1,3 +1,8 @@
+
+.emoji{
+	font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+
 h2{
 	margin-top:1em;
 	border-bottom: 1px #eee solid
@@ -6,6 +11,7 @@ h2{
 	text-align: center;
 }
 
+.el-group ul{margin: 0;padding:0}
 .el-box{
 	border: 0px solid black;
 	display: inline-block;
@@ -58,4 +64,34 @@ h2{
 	clear: both;
 
 
+}
+
+
+
+
+#nva-quick{
+	position: fixed;
+	bottom:0.5em;right:0.5em;
+	font-size:20px;
+	text-align: right;
+	z-index: 10;
+	background-color: rgba(255,255,255,0.5);
+}
+#nva-quick a.sandwichList::before{
+	content: "🍞&🍅&🌿";
+}
+#nva-quick a.saladList::before{
+	content: "🌿&🍅&🌿";
+}
+#nva-quick a.toppingList::before{
+	content: "x2,+🌿";
+}
+#nva-quick a.freshInfo::before{
+	content: "🍞,🍅,🌿";
+}
+#nva-quick a.sideDrink::before{
+	content: "🍹,🍪";
+}
+#nva-quick a.catering::before{
+	content: "🎉";
 }
