@@ -8,18 +8,19 @@ if($charset=='EUC-KR'){
 }else{
 	$hp_charset  = $charset;
 }
-ini_set( 'default_charset', $hp_charset);
+// ini_set( 'default_charset', $hp_charset);
+ini_set( 'default_charset', 'utf-8');
 
 
 $str = isset($_REQUEST['str'][0])?$_REQUEST['str']:'';
 if (get_magic_quotes_gpc()) {
-    $str = stripslashes($str);
+	$str = stripslashes($str);
 }
 
 
 function html_escape($str){
 	global $hp_charset;
-	$r = htmlspecialchars($str,0);
+	$r = htmlspecialchars($str);
 	return $r;
 }
 
@@ -74,24 +75,25 @@ function html_escape($str){
 	
 	<script>
 	//<!--
-	var str = "<?=($str)?>";
-	-->
+	// var str = "<?=str_replace('"','\\"',$str)?>";
+	//-->
+	var str = <?=json_encode($str)?>;
 	</script>
-
+	
 </head>
 <body>
 	<div class="container">
 		<h1>ENCODE/DECODE</h1>
 		
 		<ul class="list-group">
-
-		  <li class="list-group-item">
+			
+			<li class="list-group-item">
 				<form action="" method="get">
 					<div class="input-group">
-					  <input type="text" name="str" value="<?=html_escape($str)?>" maxlength="200" class="form-control" placeholder="String" aria-label="String">
+						<input type="text" name="str" value="<?=html_escape($str)?>" maxlength="200" class="form-control" placeholder="String" aria-label="String">
 						<div class="input-group-append">
 							<select name="charset" class="custom-select">
-						    <option >charset</option>
+								<option >charset</option>
 								<option value="">#NONE#</option>
 								<option value="UTF-8" <?=$charset=='UTF-8'?'selected':''?> >UTF-8</option>
 								<option value="ISO-8859-1" <?=$charset=='ISO-8859-1'?'selected':''?> >ISO-8859-1</option>
@@ -110,11 +112,11 @@ function html_escape($str){
 								<option value="EUC-KR" <?=$charset=='EUC-KR'?'selected':''?> >EUC-KR</option>
 								<option value="EUC-KR" <?=$charset=='EUCKR'?'selected':''?> >EUCKR</option>
 								<option value="" <?=$charset==''?'selected':''?> >default_charset</option>
-						  </select>
+							</select>
 						</div>
-					  <div class="input-group-append">
-					    <button class="btn btn-outline-secondary" type="submit">Submit</button>
-					  </div>
+						<div class="input-group-append">
+							<button class="btn btn-outline-secondary" type="submit">Submit</button>
+						</div>
 					</div>	
 				</form>
 				
@@ -133,7 +135,7 @@ function html_escape($str){
 			<li class="list-group-item list-group-item-info">
 				URL
 			</li>
-		  <li class="list-group-item">
+			<li class="list-group-item">
 				<div class="row mb-1  type-enc">
 					<div class="col-lg-3 text-info function-str">
 						[php] urlencode
@@ -202,7 +204,7 @@ function html_escape($str){
 			<li class="list-group-item list-group-item-info">
 				ESCAPE
 			</li>
-		  <li class="list-group-item">
+			<li class="list-group-item">
 				<div class="row  mb-1  type-enc">
 					<div class="col-lg-3 text-info function-str">
 						[JS] escape
@@ -221,9 +223,46 @@ function html_escape($str){
 				</div>
 			</li>
 			<li class="list-group-item list-group-item-info">
+				JSON
+			</li>
+			<li class="list-group-item">
+				<div class="row  mb-1  type-enc">
+					<div class="col-lg-3 text-info function-str">
+						[PHP] json_encode
+					</div>
+					<div class="col-lg-9  bg-light result-str">
+						<?=html_escape(json_encode($str))?>
+					</div>
+				</div>
+				<div class="row  mb-1  type-enc">
+					<div class="col-lg-3 text-info function-str">
+						[PHP] json_decode
+					</div>
+					<div class="col-lg-9  bg-light result-str">
+						<?=var_dump(json_decode($str))?>
+					</div>
+				</div>
+				<div class="row  mb-1  type-dec">
+					<div class="col-lg-3 text-info function-str">
+						[JS] JSON.stringify
+					</div>
+					<div class="col-lg-9  bg-light result-str">
+						<script> document.write(JSON.stringify(str))</script>
+					</div>
+				</div>
+				<div class="row  mb-1  type-dec">
+					<div class="col-lg-3 text-info function-str">
+						[JS] JSON.parse
+					</div>
+					<div class="col-lg-9  bg-light result-str">
+						<script> document.write(JSON.parse(str))</script>
+					</div>
+				</div>
+			</li>
+			<li class="list-group-item list-group-item-info">
 				HTML
 			</li>
-		  <li class="list-group-item">
+			<li class="list-group-item">
 				<div class="row  mb-1  type-enc">
 					<div class="col-lg-3 text-info function-str">
 						[PHP] html_escape
@@ -253,7 +292,7 @@ function html_escape($str){
 			<li class="list-group-item list-group-item-info">
 				BASE64	
 			</li>
-		  <li class="list-group-item">
+			<li class="list-group-item">
 				<div class="row  mb-1  type-enc">
 					<div class="col-lg-3 text-info function-str">
 						[PHP] base64_encode
@@ -274,7 +313,7 @@ function html_escape($str){
 			<li class="list-group-item list-group-item-info">
 				HASH	
 			</li>
-		  <li class="list-group-item">
+			<li class="list-group-item">
 				<div class="row  mb-1  type-hash">
 					<div class="col-lg-3 text-info function-str">
 						[PHP] md5
@@ -295,16 +334,16 @@ function html_escape($str){
 					$r = hash($v, $str, false); 
 					// printf("%-12s %3d %s\n", $v, strlen($r), $r); 
 					
-				?>
-				<div class="row  mb-1 type-hash">
-					<div class="col-lg-3 text-info function-str">
-						[PHP] hash(<?=$v?>,~~)
+					?>
+					<div class="row  mb-1 type-hash">
+						<div class="col-lg-3 text-info function-str">
+							[PHP] hash(<?=$v?>,~~)
+						</div>
+						<div class="col-lg-9  bg-light result-str">
+							<?=html_escape($r)?>
+						</div>
 					</div>
-					<div class="col-lg-9  bg-light result-str">
-						<?=html_escape($r)?>
-					</div>
-				</div>
-			<? endforeach;?>
+				<? endforeach;?>
 			</li>
 		</ul>
 	</div>
