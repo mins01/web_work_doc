@@ -75,9 +75,9 @@ function html_escape($str){
 	
 	<script>
 	//<!--
-	// var str = "<?=str_replace('"','\\"',$str)?>";
-	//-->
 	var str = <?=json_encode($str)?>;
+	//-->
+	
 	</script>
 	
 </head>
