@@ -69,7 +69,7 @@ $rows = array_merge($rows,$t_rows);
 foreach($rows as $r){
 	$wc->add($r['label']);
 }
-$wcrs = $wc->getResult(40);
+$wcrs = $wc->getResult(100);
 
 // arsort($wc->rs,SORT_NUMERIC);
 // print_r($wc->rs);
@@ -99,7 +99,7 @@ usort ( $rows , 'cmp_function' ); //낮은 가격순 소팅
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"  crossorigin="anonymous"></script>
 	<!-- vue.js -->
-	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -129,26 +129,34 @@ usort ( $rows , 'cmp_function' ); //낮은 가격순 소팅
 
 	<script>
 	var defClass = 'a.r-link';
-	function filter(f){
-		var w = f.w.value.toLowerCase().replace(/"/g,'\\"');
-
+	function filter(f,event){
+		var w = f.w.value.toLowerCase().replace(/"/g,'\\"').trim();
+		var ws = w.split(/\s+/);
 		var defClass2 = '';
 
 		// console.log(defClass);
 		$(defClass).each(function(idx,el){
 			$(el).removeClass('d-none');
 		})
+		var shClass = defClass;
 		if(w.length>0){
-			$(defClass+':not([data-label*="'+w+'"])').each(function(idx,el){
-				$(el).addClass('d-none');
-			})
+			var ts = [];
+			for(var i=0,m=ws.length;i<m;i++){
+				ts.push('[data-label*="'+ws[i]+'"]');
+			}
+			shClass += ':not('+ts.join('')+')';
+			
+			
 		}
 		if(f.freeShipping.checked){
-			defClass2 ='[data-freeShipping="1"]'
-			$(defClass+':not('+defClass2+')').each(function(idx,el){
-				$(el).addClass('d-none');
-			})
+			
+			shClass += ':not[data-freeShipping="1"]'
+			
 		}
+		console.log(shClass);			
+		$(shClass).each(function(idx,el){
+			$(el).addClass('d-none');
+		})
 		sync_num();
 	}
 	function sync_num(){
@@ -163,7 +171,7 @@ usort ( $rows , 'cmp_function' ); //낮은 가격순 소팅
 	<div class="container">
 		<h1><a href="" class="blank" target="_blank">특가모음</a></h1>
 		<h3>위메프 + 11번가 (<span id="r-num">##</span>)</h3>
-		<form action="#" onsubmit="filter(this);return false;" onchange="this.onsubmit()">
+		<form action="#" onsubmit="filter(this,event);return false;">
 			<ul class="list-group mb-1">
 				<li class="list-group-item">
 					<div class="input-group mb-1">
@@ -178,16 +186,19 @@ usort ( $rows , 'cmp_function' ); //낮은 가격순 소팅
 						</div>
 					</div>
 				</li>
+				<li class="list-group-item">
+					<div>
+						<?
+						foreach($wcrs as $k=>$c):
+							?>
+							<button type="button" class="btn btn-sm btn-info mb-1" onclick="this.form.w.value=$(this).attr('data-text');this.form.onsubmit()" data-text="<?=htmlspecialchars($k)?>"><?=htmlspecialchars($k)?>[<?=$c?>]</button>
+							<?
+						endforeach;
+						?>
+					</div>
+				</li>
 			</ul>
-			<div>
-				<?
-				foreach($wcrs as $k=>$c):
-					?>
-					<button type="button" class="btn btn-info mb-1" onclick="this.form.w.value=$(this).attr('data-text');this.form.onsubmit()" data-text="<?=htmlspecialchars($k)?>"><?=htmlspecialchars($k)?>[<?=$c?>]</button>
-					<?
-				endforeach;
-				?>
-			</div>
+			
 		</form>
 
 
