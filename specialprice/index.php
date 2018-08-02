@@ -9,6 +9,7 @@ require('Selector.php');
 require('Cache/Lite.php');
 require('ParseWemakeprice.php');
 require('Parse11st.php');
+require('WordCounter.php');
 
 
 $t = 60*60*1;
@@ -16,7 +17,7 @@ header("Expires: ".gmdate("D, d M Y H:i:s", time()+$t)." GMT");
 header('Cache-Control:public, max-age = '.$t);
 
 
-
+$wc = new WordCounter();
 $mp = new Mproxy();
 $options = array(
 	// 'cacheDir' => dirname(__FILE__).'/data/',
@@ -65,7 +66,14 @@ $rows = array_merge($rows,$t_rows);
 $t_rows = $pa->url2rows('http://deal.11st.co.kr/browsing/DealAction.tmall?method=getDealBest&dispCtgrNo=947164&slidePageNo=1','[베스트특가-가구/홈데코] '); //11번가 쇼킹딜, 베스트
 $rows = array_merge($rows,$t_rows);
 
+foreach($rows as $r){
+	$wc->add($r['label']);
+}
+$wcrs = $wc->getResult(40);
 
+// arsort($wc->rs,SORT_NUMERIC);
+// print_r($wc->rs);
+// exit;
 
 function cmp_function($a,$b){
 	return (int)$a['price_number']>(int)$b['price_number'];
@@ -171,6 +179,15 @@ usort ( $rows , 'cmp_function' ); //낮은 가격순 소팅
 					</div>
 				</li>
 			</ul>
+			<div>
+				<?
+				foreach($wcrs as $k=>$c):
+					?>
+					<button type="button" class="btn btn-info mb-1" onclick="this.form.w.value=$(this).attr('data-text');this.form.onsubmit()" data-text="<?=htmlspecialchars($k)?>"><?=htmlspecialchars($k)?>[<?=$c?>]</button>
+					<?
+				endforeach;
+				?>
+			</div>
 		</form>
 
 
