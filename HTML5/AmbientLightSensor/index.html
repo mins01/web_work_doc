@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>AmbientLightSensor</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+	
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="AmbientLightSensor">
+	<meta property="og:description" content="AmbientLightSensor">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="AmbientLightSensor" />
+	<meta property="og:type" content="website">
+	
+	<!-- //meta og -->
+	<script>
+	$(function(){
+		try{
+			if ( 'AmbientLightSensor' in window ) {
+				const sensor = new AmbientLightSensor();
+				sensor.onreading = () => {
+					console.log('Current light level:', sensor.illuminance);
+					$("#text_out").val('Current light level:', sensor.illuminance)
+				};
+				sensor.onerror = (event) => {
+					console.log(event.error.name, event.error.message);
+					$("#text_out").val(event.error.name+":"+event.error.message)
+				};
+				sensor.start();
+			}else{
+				console.log("not supported")
+				$("#text_out").val("AmbientLightSensor not supported")
+			}
+		}catch(e){
+			$("#text_out").val(e)
+			
+			
+		}
+	})
+	</script>
+	
+</head>
+<body>
+	<div class="container">
+		<h1>AmbientLightSensor <a href="" target="_blank">🔗</a></h1>
+		
+		<ul class="list-group">
+			<li class="list-group-item list-group-item-info">AmbientLightSensor 
+				<a href="https://developer.mozilla.org/en-US/docs/Web/API/AmbientLightSensor" target="_blank">🔗</a>
+				<a href="https://w3c.github.io/ambient-light/" target="_blank">🔗</a>
+				<a href="https://www.chromestatus.com/feature/5298357018820608" target="_blank">🔗</a>
+				
+			</li>
+			<li class="list-group-item">기기에서 밝기 등을 체크하는 센서의 값을 알아올 수 있다.</li>
+			<li class="list-group-item">현재 Working Draft 상태이고, Chrome 54+ 만 지원중 </li>
+			<li class="list-group-item"><input type="text" id="text_out" class="form-control text-center" disabled /></li>
+		</ul>
+	</div>
+</body>
+</html>
