@@ -50,6 +50,11 @@
 					gamepad #0  ( <label><input type="checkbox" onclick="startInterval(this.checked)" />: check gamepad action</label> )
 				</li>
 				<li class="list-group-item">
+					<img src="XBOX_Controller-CB2/XBOX_Controller-CB2.svg" alt="XBOX_Controller" height="300">
+
+				</li>
+
+				<li class="list-group-item">
 					<div class="input-group"><span class="input-group-addon">id</span><input type="text" class="form-control" name="id"></div>
 				</li>
 				<li class="list-group-item">
@@ -123,6 +128,9 @@
 					els.axes[i].value=gp.axes[i];
 				}
 				els.index.value = gp.index
+				els.id.value = gp.id
+				els.mapping.value = gp.mapping
+				els.connected.value = gp.connected
 			}
 		}
 		var tm = null;
