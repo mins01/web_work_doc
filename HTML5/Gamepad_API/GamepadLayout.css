@@ -6,8 +6,7 @@
 .gamepad.xbox{
   width:640px;
   height:430px;
-  background-image: url('XBOX_Controller-CB2/XBOX_Controller-CB2-Preview.png');
-
+  background-image: url('XBOX_Controller-CB2/XBOX_Controller-CB2-Preview.png');  /* https://craftsbytwo.com/xbox-controller-svg/ */
 }
 
 .gamepad .infobox{
