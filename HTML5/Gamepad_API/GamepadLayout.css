@@ -1,0 +1,121 @@
+@charset "UTF-8";
+
+.gamepad{
+  position: relative;
+}
+.gamepad.xbox{
+  width:640px;
+  height:430px;
+  background-image: url('XBOX_Controller-CB2/XBOX_Controller-CB2-Preview.png');
+
+}
+
+.gamepad .infobox{
+  position: absolute;top:0;left:0;
+  background-color: rgba(200,200,200,0.8);
+  padding:5px;
+  line-height:1em;
+}
+.gamepad .button{
+  border-radius: 50%;
+  text-align: center;
+  width:40px;
+  height:40px;
+  display: flex ;
+  justify-content: center;  /* 가로 중앙 */
+  align-items: center; /* 세로 중앙 */
+}
+.gamepad .before-label::before{
+  content: attr(data-label);
+}
+.gamepad .after-label::after{
+  content: attr(data-value);
+}
+.gamepad .button::after{
+  position: absolute;
+  font-size:8px;
+  left:0%;top: auto;right:0;bottom:-0.5em;
+  background-color: rgba(255, 0, 0, 0.8);
+  border-radius: 5px; padding:2px;
+  line-height: 1em;
+}
+.gamepad .button[data-pressed="1"]{
+  border: 3px solid yellow;
+}
+.gamepad .button[data-pressed="1"]::after{
+  background-color: rgba(0, 200, 0, 0.8);
+}
+
+
+.gamepad.xbox .button-0{top: 153px;left: 465px;}
+.gamepad.xbox .button-1{top: 110px;left: 511px;}
+.gamepad.xbox .button-2{top: 111px;left: 421px;}
+.gamepad.xbox .button-3{top: 69px;left: 465px;}
+.gamepad.xbox .button-4{top:0;left: 171px;}
+.gamepad.xbox .button-5{top:0;left: 428px;}
+.gamepad.xbox .button-6{top:0;left: 114px;}
+.gamepad.xbox .button-7{top:0;left: 483px;}
+.gamepad.xbox .button-8{top: 111px;left: 251px;}
+.gamepad.xbox .button-9{top: 111px;left: 346px;}
+.gamepad.xbox .button-10{top: 110px;left: 137px;}
+
+.gamepad.xbox .button-11{top: 207px;left: 384px;}
+.gamepad.xbox .button-12{top: 173px;left: 218px;}
+.gamepad.xbox .button-13{top: 249px;left: 217px;}
+.gamepad.xbox .button-14{top: 210px;left: 180px;}
+.gamepad.xbox .button-15{top: 211px;left: 255px;}
+.gamepad.xbox .button-16{top: 39px;left: 299px;}
+
+.gamepad .axes{
+  display: block ;
+  border-radius: 5px;
+  width: auto;
+  height: auto;
+}
+.gamepad .axes::before{
+  display: block;width:60px;
+}
+.gamepad .axes::after{
+  position: absolute;
+  font-size:8px;
+  left:0%;top: auto;right:0;bottom:-0.5em;
+  background-color: rgba(255, 0, 0, 0.8);
+  border-radius: 5px; padding:2px;
+  line-height: 1em;
+
+  right:0%;top:0;
+  left:auto;bottom:auto;
+}
+
+.gamepad .axes input{
+  width: 60px;
+}
+.gamepad.xbox .axes-0{top: 164px;left: 122px;}
+.gamepad.xbox .axes-1{top: 108px;left: 172px;transform: rotate(90deg);}
+
+.gamepad.xbox .axes-2{top: 262px;left: 370px;}
+.gamepad.xbox .axes-3{top: 207px;left: 418px;transform: rotate(90deg);}
+
+
+.gamepad .info{
+  display: block ;
+  border-radius: 5px;
+  width: auto;
+  height: auto;
+}
+.gamepad .info::before{
+  content: attr(data-label)' : '
+}
+.gamepad .info::after{
+  content: none;
+}
+.gamepad.xbox .info{
+  position: static;
+  font-size:12px;
+}
+.gamepad.xbox .infoboxes{
+  background-color: rgba(255,255,255,0.8);
+  padding:5px;
+  position: absolute;
+  bottom:0;left:0;right:0;
+}
