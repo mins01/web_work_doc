@@ -10,14 +10,20 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<!-- 합쳐지고 최소화된 최신 CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<!-- 부가적인 테마 -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-	<!-- Jquery : not support < IE9-->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
-	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
 
 	<meta property="og:title" content="GamepadLayout">
 	<meta property="og:description" content="GamepadLayout">
@@ -43,20 +49,17 @@
 
 </head>
 <body>
-	<div class="container">
+	<div class="container" style="min-width:720px">
 		<h1><a href="?" target="_blank">GamepadLayout</a></h1>
 
 		<form name="form_gamepad_0">
 			<input type="hidden" name="index" value="0" />
-			<ul class="list-group">
+			<ul class="list-group gamepads" >
 				<li class="list-group-item active">
-					gamepad #0
+					gamepad
 				</li>
 				<li class="list-group-item">
-
-				</li>
-				<li class="list-group-item text-center">
-					<div class="gamepad xbox gamepad-0" style="margin:0 auto;">
+					<div class="gamepad gamepad-0" data-type="xbox" style="margin:0 auto;">
 						<div class="before-label after-label infobox button button-0" data-label="btn #0"></div>
 						<div class="before-label after-label infobox button button-1" data-label="btn #1"></div>
 						<div class="before-label after-label infobox button button-2" data-label="btn #2"></div>
@@ -88,10 +91,14 @@
 						</div>
 
 
-
+						<button type="button" name="button" class="btn btn-sm btn-info" onclick="GamepadLayout.testRumble($(this.parentNode).attr('data-index'))">test Rumble</button>
 					</div>
-					<button type="button" name="button" class="btn btn-lg btn-info" onclick="GamepadLayout.testRumble(this.form.index.value)">test Rumble</button>
+
 				</li>
+				<li class="list-group-item text-center">
+					<div class="gamepad gamepad-0" data-type="xbox" style="margin:0 auto;"></div>
+				</li>
+
 			</ul>
 		</form>
 		<div class="list-group">
