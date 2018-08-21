@@ -7,6 +7,7 @@ var GamepadLayout = {
   "init":function(){
     window.addEventListener("gamepadconnected", this.connect);
     window.addEventListener("gamepaddisconnected", this.disconnect);
+    window.addEventListener("load", this.drawLayout);
   },
   "boxes":function(idx,div){
 
