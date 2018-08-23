@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>echo</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+	
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	
+	<link rel="stylesheet" href="echo.css?3" >
+	<script src="G_echo.js?3"></script>
+	<script>
+	$(function(){
+		G_echo.init();
+	})
+	</script>
+	
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="echo">
+	<meta property="og:description" content="echo">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="echo" />
+	<meta property="og:type" content="website">
+	
+	<!-- //meta og -->
+	
+	
+</head>
+<body>
+	<div class="container">
+		<header>
+			<h1><a href="" class="blank" target="_blank">ECHO 🔗</a></h1>
+		</header>
+		<article>
+			<div class="div-box">
+				<div>
+					<button type="button" class="input-button input-button-out" disabled onpointerup="this.blur()" ontouchup="this.blur()" onclick="G_echo.stop()"></button>	
+					<div id="message-box"> </div>
+					<button type="button" class="input-button input-button-in"  ></button>
+					
+				</div>
+				
+			</div>
+		</article>
+		<footer>
+			
+		</footer>
+	</div>
+</body>
+</html>

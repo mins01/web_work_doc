@@ -1,0 +1,70 @@
+@charset "UTF-8";
+header {
+	position: fixed;
+	top:0;left:0;right:0;z-index: 10;
+	background-color: #000;
+	padding:0;
+}
+header h1{
+	font-size:20px;
+	text-align: center;
+	color: #fff;
+	padding:0;
+	margin:0;
+}
+
+#message-box{
+	font-size:12px; line-height: 2em;height:2em;
+	text-align: center;
+	border:1px solid #eee ;border-width:1px 0;
+}
+.div-box{
+	position: fixed;top:0;left:0;right:0;bottom:0;
+	display: flex ;
+justify-content: center;  /* 가로 중앙 */
+align-items: center; /* 세로 중앙 */
+}
+
+.input-button{
+	
+	display: block;
+	width:200px; height:200px;
+	border-radius: 50%;
+	font-size:0; line-height: 0;
+	padding:0;
+	border-width: 0;
+	/* border:50px solid rgba(255,255,255,0.5); */
+	margin: 20px auto;
+	transition: color .5s ease-in-out,background-color .5s ease-in-out,border-color .5s ease-in-out,box-shadow .5s;
+}
+.input-button:focus{
+	outline: 0;
+}
+.input-button-in{
+	box-shadow: 0px 0px 20px 10px RGBa(23,162,184,0.5);
+	background-color: #76A6C8;
+	border:1px solid #fff;
+	cursor: pointer;
+}
+.input-button-in[data-focus="1"]{
+	box-shadow: 0px 0px 0px 0px RGBa(23,162,184,0.5);;
+}
+
+.input-button-in:disabled{
+	box-shadow: 0px 0px 20px 10px RGBa(0,0,0,0.5);
+	background-color: #ccc;
+	border:1px solid #eee;
+	cursor:not-allowed;
+	
+}
+.input-button-out{
+	box-shadow: 0px 0px 0px 0px RGBA(255,178,125,0.5);;
+	cursor: not-allowed;
+	border:1px solid #fff;
+}
+.input-button-out:focus ,
+.input-button-out[data-focus="1"]{
+	box-shadow: 0px 0px 20px 10px RGBA(255,178,125,0.5);
+	background-color: #C88376;
+	
+}
