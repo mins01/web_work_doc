@@ -21,14 +21,18 @@ class ParseWemakeprice extends ParseBase
 	{
 		$body = $this->getUrl($url);
 		$dom = new SelectorDOM($body);
-		$tit_descs = $dom->select('.tit_desc');
+		$tit_descs = $dom->select('strong.tit_desc');
 		$sales = $dom->select('.sale');
 		$imgs = $dom->select('.box_thumb');
 		$as = $dom->select('.link > a');
 		$freeShips = $dom->select('.card_option');
 		// print_r($freeShips);
 		// exit;
+		// print_r($sales);
+		// exit;
 		$rows = array();
+		// echo count($tit_descs),'/',count($sales);
+		
 		foreach ($tit_descs as $k => $r) {
 			$r2 = $sales[$k];
 			$r3 = $imgs[$k];
