@@ -5,6 +5,8 @@ $ls = file('emoji-test.txt'); //https://unicode.org/Public/emoji/11.0/emoji-test
 
 $group = '';
 $subgroup = '';
+$rows = array();
+$emojiGroup = array();
 for($i=0,$m=count($ls);$i<$m;$i++){
 	$line = trim($ls[$i]);
 	// echo $line ,"[$i]\n";
@@ -33,20 +35,43 @@ for($i=0,$m=count($ls);$i<$m;$i++){
 			'desc'=>$ret[3],
 			'group'=>$group,
 			'subgroup'=>$subgroup,
+			'emojiGroup'=>$group.'/'.$subgroup,
 		);
-		if(count($row['hexString'])>9){
-			continue;
+		if(!isset($emojiGroup[$row['emojiGroup']])){
+			$emojiGroup[$row['emojiGroup']] = 0;
 		}
+		$emojiGroup[$row['emojiGroup']]++;
+		// if(count($row['hexString'])>9){
+		// 	continue;
+		// }
 		// $ret[0]=
 		$ts = explode(' ',$row['hexString']);
+		// $bins = $ts;
 		for($i2=0,$m2=count($ts);$i2<$m2;$i2++){
 			$ts[$i2] = '&#'.hexdec($ts[$i2]).';';
+			//
+			// $bins[$i2] = pack("H*" , (count($bins[$i2])%2==1?'0':'').$bins[$i2] );
+			// echo ord($bins[$i2]);
 		}
 		$row['htmlEntity']=implode($ts);
-		$row['text'] = html_entity_decode($row['htmlEntity']);
+		// $row['text'] = implode($bins);
+		// $row['text'] = html_entity_decode($row['htmlEntity'],null,'UTF-8');
+		// $row['text'] = mb_convert_encoding($row['htmlEntity'], 'UTF-8', 'HTML-ENTITIES');
+		$row['text'] = preg_replace('/ .*$/','',$row['desc']);
 		// $row['bin']=hex2bin(str_replace(' ','',$row['hexString']));
-		print_r($row);
+		// print_r($row);
+		$rows[] = $row;
 	}
-	
-	
 }
+header('Content-Type: application/javascript; charset=utf-8');
+echo 'var emojiList = '.json_encode($rows).';';
+echo 'var emojiGroup = '.json_encode($emojiGroup).';';
+echo $x = <<<EOFX
+var emojiGroups = {};
+for(var i=0,m=emojiList.length;i<m;i++){
+	var row = emojiList[i];
+	if(!emojiGroups[row['emojiGroup']]) emojiGroups[row['emojiGroup']] = [];
+	emojiGroups[row['emojiGroup']].push(row);
+}
+EOFX;
+
