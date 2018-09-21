@@ -23,7 +23,7 @@ for($i=0,$m=count($ls);$i<$m;$i++){
 	}else{
 		$ret = array();
 		// 1F600                                      ; fully-qualified     # 😀 grinning face
-		preg_match('/([0-9A-Fa-f]{2,6}(?: [0-9A-Fa-f]{2,6})?)\s*; (fully-qualified|non-fully-qualified)\s*# (.*)$/',$line,$ret);
+		preg_match('/([0-9A-Fa-f]{2,6}(?: [0-9A-Fa-f]{2,6})*)\s*; (fully-qualified|non-fully-qualified)\s*# (.*)$/',$line,$ret);
 		if(count($ret)<3){
 			continue;
 		}
