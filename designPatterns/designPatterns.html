@@ -1,625 +1,640 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html lang="ko">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>디자인 패턴</title>
-<style type="text/css">
-table.table{
-	font-size:small;
-	border-collapse:collapse;
-	border:0px solid #cccccc;
-}
-table.table td{
-	border:1px solid #cccccc;
-}
-table.table td.title{
-	font-weight:bold;
-	background-color:#AABBCC;
-}
-table.table td.none{
-	border:0px solid #cccccc;
-}
-td.border{border:1px solid #cccccc;  }
-li.border{border:1px solid #cccccc; margin:0 5px 5px 5px; padding:5px;}
-li.border li.border{background-color:#f2f2f2;}
-.classification{color:#0066CC;}
-em.em{background-color:#FFFFcc;  margin:20px;}
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>디자인 패턴</title>
+	
+	<meta property="og:title" content="디자인 패턴">
+	<meta property="og:description" content="디자인 패턴">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="디자인 패턴" />
+	<meta property="og:type" content="document">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<style type="text/css">
+	table.table{
+		font-size:small;
+		border-collapse:collapse;
+		border:0px solid #cccccc;
+	}
+	table.table td{
+		border:1px solid #cccccc;
+	}
+	table.table td.title{
+		font-weight:bold;
+		background-color:#AABBCC;
+	}
+	table.table td.none{
+		border:0px solid #cccccc;
+	}
+	td.border{border:1px solid #cccccc;  }
+	li.border{border:1px solid #cccccc; margin:0 5px 5px 5px; padding:5px;}
+	li.border li.border{background-color:#f2f2f2;}
+	.classification{color:#0066CC;}
+	em.em{background-color:#FFFFcc;  margin:20px;}
 </style>
 </head>
 
 <body>
-<h1>디자인 패턴</h1>
-<ul>
-  <li class="border">작성 정보
-    <ul>
-      <li>작성자 : 공대여자</li>
-      <li>작성일 : 2008-11-18</li>
-      <li>수정일 : 2008-11-20</li>
-      <li>HOME : <a href="http://www.mins01.com">http://www.mins01.com</a></li>
-      <li>연락처 : mins01(at)lycos.co.kr (Mail,MSN,NateOn)</li>
-      <li>목적
-        <ul>
-          <li>좀 더 간결하게 디자인 패턴을 공부해보자.</li>
-        </ul>
-      </li>
-      <li>제한사항
-        <ul>
-          <li>작성자 정보 수정 불가</li>
-          <li>수정 후 재배포 불가</li>
-          <li>&quot;공대여자는 이쁘다.&quot;를 나타내셔야 쓸 수 있습니다.</li>
-        </ul>
-      </li>
-      <li>원서(원문) : GoF의 디자인 패턴
-        <ul>
-          <li>저자 : Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides 공저</li>
-          <li>역자 : 김정아</li>
-          <li>출판사 : 피어슨 에듀케이션 코리아</li>
-          <li>4쇄 : 2003-03-10</li>
-        </ul>
-      </li>
-      <li>참고 URL
-        <ul>
-            <li><a href="http://ko.wikipedia.org/wiki/%EB%94%94%EC%9E%90%EC%9D%B8_%ED%8C%A8%ED%84%B4_(%EC%B1%85)" target="_blank">위키백과</a>(한글 , 내용이 빠져있음)</li>
-          <li><a href="http://en.wikipedia.org/wiki/Design_Patterns">위키피디아</a>(영문)</li>
-        </ul>
-      </li>
-      <li>참고
-        <ul>
-          <li>공대여자 왈 : 공대여자가 의미하는 걸 이해하기 쉽다고 생각하는 글로 다시쓴 것(책이나 인터넷에서의 예제, 또는 머리속에서 생각나는 예제 들)</li>
-          <li>Blade II 왈 : php스쿨에서 Blade II님의 코멘트입니다.</li>
-          <li>송효진 왈 :  php스쿨에서 송효진님의 코멘트입니다.</li>
-        </ul>
-      </li>
-      <li>주의
-        <ul>
-          <li> 잘못된 내용이 있을 수도 있습니다.(연락바람)</li>
-        </ul>
-      </li>
-      <li>알림
-        <ul>
-          <li>첨부하고 싶은 내용이나 잘못된 내용을 알려주시면 문서에 반영이 됩니다.</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  </ul>
-<h2>디지인 패턴 카탈로그</h2>
-<ul>
-  <li class="border">디자인 패턴
-    <ul>
-      <li>GOF의 책에서는 <em class="em">&quot;특정한 상황에서 일반적인 설계 문제를 해결하기 위해 상호 교류하는 수정 가능한 객체와 클래스들에 대한 설명&quot;</em>
-      이라고 되어있다.</li>
-      <li>위키피디아에서는 <em class="em">&quot;<strong>디자인 패턴</strong>(Design pattern)은 컴퓨터 프로그램 개발에서 자주 나타나는 과제를 해결하는 방법이다. 이것은 알고리즘과 같이 프로그램   코드로 바로 변환될 수 있는 형태는 아니지만, 특정한 상황에서 구조적인 문제를 해결하는 방식을 설명해 준다.&quot;</em> 
-      라고 적혀있다.</li>
-      <li>공대여자 왈
-        <ul>
-          <li>OOP(객체지향프로그래밍)에서 좀 더 체계적으로 프로그램밍을 하기위해서 OOP의 특징을 사용하여 패턴을 정의한 것.(책이 OOP를 기준으로 설명해서 그런거지, 꼭 OOP에서만 쓸 수 있는 것은 아니다.)</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li class="border">23개의 패턴이 정의 되어있다.
-    <ul>
-      <li class="border"><a name="Abstract_Factory" id="Abstract_Factory" ></a>Abstract Factory
-        (추상적인 공장)
-        <ul>
-          <li class="classification">구분 : 객체/생성</li>
-          <li>구체적인 클래스를 지정하지 않고 관련성을 갖는 객체들의 집합을 생성하거나 서로 독립적인 객체들의 집합을 생성할 수 있는 인터페이스를 제공한다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>A는 B에서 사용 될 수도 있고 C에서 사용될 수도 있다. 하지만 B와 C는 구현 방식이 다르다. 일관성을 위해서 A에서는 상세한 것을 정의하지 않고 인터페이스만 정의함으로 B와 C는 각각 독립적으로 만들어질 수 있게한다.</li>
-              <li>JAVA의 GUI인 AWT/Swing은 OS에 따라 다르게 구현되어 보이지만, 기본 인터페이스는 모두 같다.</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Adapter" id="Adapter" ></a>Adapter
-        (어댑터, 연결용 보조기구)
-        <ul>
-          <li class="classification">구분 : 객체/구조 , 클래스/구조</li>
-          <li>클래스의 인터페이스를 클라이언트가 기대하는 다른 인터페이스로 변환한다. </li>
-          <li>Adapter 패턴은 호환성이 없는 인터페이스 때문에 함께 사용할 수 없는 클래스를 개조하여 함께 작동하도록 해준다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>A라는 프로그램을 전혀 상관없는 B라는 프로그램에서 사용할 수 있도록 A'를 만들거나하여 B에서 A의 기능을 쓸 수 있게 만든다.</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Bridge" id="Bridge" ></a>Bridge
-        (다리, 중개)
-        <ul>
-          <li class="classification">구분 : 객체/구조</li>
-          <li>추상화와 구현을 분리하여 각각을 독립적으로 변형할 수 있게 한다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>A에서 추상화(인터페이스)를 만들고 A를 상속받은 B가 A의 추상화를 구현한다.</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Builder" id="Builder" ></a>Builder
-        (건축업자, 건설자)
-        <ul>
-          <li class="classification">구분 : 객체/구조</li>
-          <li>복합 객체의 생성 과정과 표현 방법을 분리함으로써 동일한 생성 공정이 서로 다른 표현을 만들 수 있게 한다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>위키피디아의 JAVA예제를 보면 피자라는 클래스가 있고 피자빌더라는 추상클래스가 있다. 피자빌더의 내용은 피자라는 객체를 만들어서 도우,소스,토핑을 설정하는 추상화 메소드가 있다. 여기서 하와이피자빌더, 스파이시피자빌더는 각각 실행하면 하와이피자에 맞는 도우,소스, 토핑을 선택하여 하와이피자를 만들고, 스파이시피자에 맞는 도우, 소스, 토핑을 선택하여 스파이시 피자를 만든다. 만드는 과정은 동일 해도 빌더에 따라서 재료선택이 달라지기 때문에 결과물은 하와이,스파이시 피자로 나뉘게된다.</li>
-            <li>
-            	<table border="1" cellpadding="2" cellspacing="2" class="table" style="border-collapse:separate">
-					<tr>
-						<td align="center" class="title">추상클래스</td>
-						<td align="center" class="title">내부동작정의</td>
-						<td align="center" class="none">&nbsp;</td>
-						<td align="center" bgcolor="#CCCCCC"><strong>빌더</strong></td>
-						<td align="center" bgcolor="#CCCCCC"><strong>내부동작정의</strong></td>
-						<td align="center" class="none">&nbsp;</td>
-						<td align="center" class="title">결과물</td>
-					</tr>
-					<tr>
-						<td align="center" class="title">피자</td>
-						<td align="center" class="title">도우+소스+토핑</td>
-						<td align="center" class="none"><strong>┳&gt;</strong></td>
-						<td align="center" bgcolor="#CCCCCC">하와이피자<strong>빌더</strong></td>
-						<td align="center" bgcolor="#CCCCCC">비싼도우+하와이맛소스+좋은토핑</td>
-						<td align="center" class="none"><strong>=&gt;</strong></td>
-						<td align="center" class="title">하와이피자</td>
-					</tr>
-					<tr>
-						<td align="center" class="none">&nbsp;</td>
-						<td align="center" class="none">&nbsp;</td>
-						<td align="center" class="none"><strong>┗&gt;</strong></td>
-						<td align="center" bgcolor="#CCCCCC">스파이시피자<strong>빌더</strong></td>
-						<td align="center" bgcolor="#CCCCCC">싼도우+스파이시맛소스+나쁜토핑</td>
-						<td align="center" class="none"><strong>=&gt;</strong></td>
-						<td align="center" class="title">스파이시피자</td>
-					</tr>
-				</table>
-            </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Chain_of_Responsibility" id="Chain_of_Responsibility" ></a>Chain of Responsibility
-        (책임의 쇠사슬)
-        <ul>
-          <li class="classification">구분 : 객체/행위</li>
-          <li>요청을 처리할 수 있는 기회를 하나 이상의 객체에게 부여함으로써 요청하는 객체와 처리하는 객체 사이의 결합도를 없애려는 것이다. </li>
-          <li>요청을 해결할 객체를 만날 때 까지 객체 고리를 따라서 요청을 전달한다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>A1,A2,A3,A4라는 객체가 있고 A1[A2[A3[A4]]] 처럼 포함관계에서 A4에 HELP라는 요청을 할 때 A4는 HELP라는 요청을 수행 할 수 없을 경우 그 요청은 A3네 넘어가고 A3에서 요청을 수행 못하면 A2,A1 순으로 계속 요청이 넘어간다. A1는 마지막 부분이기 때문에 그 요청이 A1에서 수행되던지, 요청이 끝나던지 해야한다.</li>
-              <li>간단히 말하면 회사에서 휴가를 냈는데 팀장님에게 요청했지만 팀장님 권한으로 결정할 수 없다. 그러면 이사님에게 요청이 되지만 결정할 수 없다면, 상무님, 사장님 등등으로 올라가서 사장님 단에서 휴가요청이 취소되거나 허가 될 것이다.(물론 일련의 예일 뿐이지 실제 회사에서 이렇다는 게 아니다.)</li>
-            <li>
-            	<table border="1" cellpadding="2" cellspacing="2" class="table" style="border-collapse:separate">
-					<tr>
-						<td align="center" class="title"><span class="title">휴가가도되요</span>?</td>
-						<td align="center" valign="middle">-&gt;</td>
-						<td align="center"><table border="1" cellpadding="2" cellspacing="2" class="table" style="border-collapse:separate">
-							<tr>
-								<td colspan="2" align="center" class="title">팀장님</td>
-							</tr>
-							<tr>
-								<td align="center">휴가OK</td>
-								<td align="center"><table border="1" cellpadding="2" cellspacing="2" class="table" style="border-collapse:separate">
-										<tr>
-											<td colspan="2" align="center" class="title">이사님</td>
-										</tr>
-										<tr>
-											<td align="center">휴가OK</td>
-											<td align="center"><table border="1" cellpadding="2" cellspacing="2" class="table" style="border-collapse:separate">
-													<tr>
-														<td colspan="2" align="center" class="title">상무님</td>
-													</tr>
-													<tr>
-														<td align="center">휴가OK</td>
-														<td align="center"><table border="1" cellpadding="2" cellspacing="2" class="table" style="border-collapse:separate">
+	<h1>디자인 패턴</h1>
+	<ul>
+		<li class="border">작성 정보
+			<ul>
+				<li>작성자 : 공대여자</li>
+				<li>작성일 : 2008-11-18</li>
+				<li>수정일 : 2008-11-20</li>
+				<li>HOME : <a href="http://www.mins01.com">http://www.mins01.com</a></li>
+				<li>연락처 : mins01(at)lycos.co.kr (Mail,MSN,NateOn)</li>
+				<li>목적
+					<ul>
+						<li>좀 더 간결하게 디자인 패턴을 공부해보자.</li>
+					</ul>
+				</li>
+				<li>제한사항
+					<ul>
+						<li>작성자 정보 수정 불가</li>
+						<li>수정 후 재배포 불가</li>
+						<li>&quot;공대여자는 이쁘다.&quot;를 나타내셔야 쓸 수 있습니다.</li>
+					</ul>
+				</li>
+				<li>원서(원문) : GoF의 디자인 패턴
+					<ul>
+						<li>저자 : Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides 공저</li>
+						<li>역자 : 김정아</li>
+						<li>출판사 : 피어슨 에듀케이션 코리아</li>
+						<li>4쇄 : 2003-03-10</li>
+					</ul>
+				</li>
+				<li>참고 URL
+					<ul>
+						<li><a href="http://ko.wikipedia.org/wiki/%EB%94%94%EC%9E%90%EC%9D%B8_%ED%8C%A8%ED%84%B4_(%EC%B1%85)" target="_blank">위키백과</a>(한글 , 내용이 빠져있음)</li>
+						<li><a href="http://en.wikipedia.org/wiki/Design_Patterns">위키피디아</a>(영문)</li>
+					</ul>
+				</li>
+				<li>참고
+					<ul>
+						<li>공대여자 왈 : 공대여자가 의미하는 걸 이해하기 쉽다고 생각하는 글로 다시쓴 것(책이나 인터넷에서의 예제, 또는 머리속에서 생각나는 예제 들)</li>
+						<li>Blade II 왈 : php스쿨에서 Blade II님의 코멘트입니다.</li>
+						<li>송효진 왈 :  php스쿨에서 송효진님의 코멘트입니다.</li>
+					</ul>
+				</li>
+				<li>주의
+					<ul>
+						<li> 잘못된 내용이 있을 수도 있습니다.(연락바람)</li>
+					</ul>
+				</li>
+				<li>알림
+					<ul>
+						<li>첨부하고 싶은 내용이나 잘못된 내용을 알려주시면 문서에 반영이 됩니다.</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+	<h2>디지인 패턴 카탈로그</h2>
+	<ul>
+		<li class="border">디자인 패턴
+			<ul>
+				<li>GOF의 책에서는 <em class="em">&quot;특정한 상황에서 일반적인 설계 문제를 해결하기 위해 상호 교류하는 수정 가능한 객체와 클래스들에 대한 설명&quot;</em>
+					이라고 되어있다.</li>
+					<li>위키피디아에서는 <em class="em">&quot;<strong>디자인 패턴</strong>(Design pattern)은 컴퓨터 프로그램 개발에서 자주 나타나는 과제를 해결하는 방법이다. 이것은 알고리즘과 같이 프로그램   코드로 바로 변환될 수 있는 형태는 아니지만, 특정한 상황에서 구조적인 문제를 해결하는 방식을 설명해 준다.&quot;</em> 
+						라고 적혀있다.</li>
+						<li>공대여자 왈
+							<ul>
+								<li>OOP(객체지향프로그래밍)에서 좀 더 체계적으로 프로그램밍을 하기위해서 OOP의 특징을 사용하여 패턴을 정의한 것.(책이 OOP를 기준으로 설명해서 그런거지, 꼭 OOP에서만 쓸 수 있는 것은 아니다.)</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="border">23개의 패턴이 정의 되어있다.
+					<ul>
+						<li class="border"><a name="Abstract_Factory" id="Abstract_Factory" ></a>Abstract Factory
+							(추상적인 공장)
+							<ul>
+								<li class="classification">구분 : 객체/생성</li>
+								<li>구체적인 클래스를 지정하지 않고 관련성을 갖는 객체들의 집합을 생성하거나 서로 독립적인 객체들의 집합을 생성할 수 있는 인터페이스를 제공한다.</li>
+								<li>공대여자 왈
+									<ul>
+										<li>A는 B에서 사용 될 수도 있고 C에서 사용될 수도 있다. 하지만 B와 C는 구현 방식이 다르다. 일관성을 위해서 A에서는 상세한 것을 정의하지 않고 인터페이스만 정의함으로 B와 C는 각각 독립적으로 만들어질 수 있게한다.</li>
+										<li>JAVA의 GUI인 AWT/Swing은 OS에 따라 다르게 구현되어 보이지만, 기본 인터페이스는 모두 같다.</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="border"><a name="Adapter" id="Adapter" ></a>Adapter
+							(어댑터, 연결용 보조기구)
+							<ul>
+								<li class="classification">구분 : 객체/구조 , 클래스/구조</li>
+								<li>클래스의 인터페이스를 클라이언트가 기대하는 다른 인터페이스로 변환한다. </li>
+								<li>Adapter 패턴은 호환성이 없는 인터페이스 때문에 함께 사용할 수 없는 클래스를 개조하여 함께 작동하도록 해준다.</li>
+								<li>공대여자 왈
+									<ul>
+										<li>A라는 프로그램을 전혀 상관없는 B라는 프로그램에서 사용할 수 있도록 A'를 만들거나하여 B에서 A의 기능을 쓸 수 있게 만든다.</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="border"><a name="Bridge" id="Bridge" ></a>Bridge
+							(다리, 중개)
+							<ul>
+								<li class="classification">구분 : 객체/구조</li>
+								<li>추상화와 구현을 분리하여 각각을 독립적으로 변형할 수 있게 한다.</li>
+								<li>공대여자 왈
+									<ul>
+										<li>A에서 추상화(인터페이스)를 만들고 A를 상속받은 B가 A의 추상화를 구현한다.</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="border"><a name="Builder" id="Builder" ></a>Builder
+							(건축업자, 건설자)
+							<ul>
+								<li class="classification">구분 : 객체/구조</li>
+								<li>복합 객체의 생성 과정과 표현 방법을 분리함으로써 동일한 생성 공정이 서로 다른 표현을 만들 수 있게 한다.</li>
+								<li>공대여자 왈
+									<ul>
+										<li>위키피디아의 JAVA예제를 보면 피자라는 클래스가 있고 피자빌더라는 추상클래스가 있다. 피자빌더의 내용은 피자라는 객체를 만들어서 도우,소스,토핑을 설정하는 추상화 메소드가 있다. 여기서 하와이피자빌더, 스파이시피자빌더는 각각 실행하면 하와이피자에 맞는 도우,소스, 토핑을 선택하여 하와이피자를 만들고, 스파이시피자에 맞는 도우, 소스, 토핑을 선택하여 스파이시 피자를 만든다. 만드는 과정은 동일 해도 빌더에 따라서 재료선택이 달라지기 때문에 결과물은 하와이,스파이시 피자로 나뉘게된다.</li>
+										<li>
+											<table border="1" cellpadding="2" cellspacing="2" class="table" style="border-collapse:separate">
+												<tr>
+													<td align="center" class="title">추상클래스</td>
+													<td align="center" class="title">내부동작정의</td>
+													<td align="center" class="none">&nbsp;</td>
+													<td align="center" bgcolor="#CCCCCC"><strong>빌더</strong></td>
+													<td align="center" bgcolor="#CCCCCC"><strong>내부동작정의</strong></td>
+													<td align="center" class="none">&nbsp;</td>
+													<td align="center" class="title">결과물</td>
+												</tr>
+												<tr>
+													<td align="center" class="title">피자</td>
+													<td align="center" class="title">도우+소스+토핑</td>
+													<td align="center" class="none"><strong>┳&gt;</strong></td>
+													<td align="center" bgcolor="#CCCCCC">하와이피자<strong>빌더</strong></td>
+													<td align="center" bgcolor="#CCCCCC">비싼도우+하와이맛소스+좋은토핑</td>
+													<td align="center" class="none"><strong>=&gt;</strong></td>
+													<td align="center" class="title">하와이피자</td>
+												</tr>
+												<tr>
+													<td align="center" class="none">&nbsp;</td>
+													<td align="center" class="none">&nbsp;</td>
+													<td align="center" class="none"><strong>┗&gt;</strong></td>
+													<td align="center" bgcolor="#CCCCCC">스파이시피자<strong>빌더</strong></td>
+													<td align="center" bgcolor="#CCCCCC">싼도우+스파이시맛소스+나쁜토핑</td>
+													<td align="center" class="none"><strong>=&gt;</strong></td>
+													<td align="center" class="title">스파이시피자</td>
+												</tr>
+											</table>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="border"><a name="Chain_of_Responsibility" id="Chain_of_Responsibility" ></a>Chain of Responsibility
+							(책임의 쇠사슬)
+							<ul>
+								<li class="classification">구분 : 객체/행위</li>
+								<li>요청을 처리할 수 있는 기회를 하나 이상의 객체에게 부여함으로써 요청하는 객체와 처리하는 객체 사이의 결합도를 없애려는 것이다. </li>
+								<li>요청을 해결할 객체를 만날 때 까지 객체 고리를 따라서 요청을 전달한다.</li>
+								<li>공대여자 왈
+									<ul>
+										<li>A1,A2,A3,A4라는 객체가 있고 A1[A2[A3[A4]]] 처럼 포함관계에서 A4에 HELP라는 요청을 할 때 A4는 HELP라는 요청을 수행 할 수 없을 경우 그 요청은 A3네 넘어가고 A3에서 요청을 수행 못하면 A2,A1 순으로 계속 요청이 넘어간다. A1는 마지막 부분이기 때문에 그 요청이 A1에서 수행되던지, 요청이 끝나던지 해야한다.</li>
+										<li>간단히 말하면 회사에서 휴가를 냈는데 팀장님에게 요청했지만 팀장님 권한으로 결정할 수 없다. 그러면 이사님에게 요청이 되지만 결정할 수 없다면, 상무님, 사장님 등등으로 올라가서 사장님 단에서 휴가요청이 취소되거나 허가 될 것이다.(물론 일련의 예일 뿐이지 실제 회사에서 이렇다는 게 아니다.)</li>
+										<li>
+											<table border="1" cellpadding="2" cellspacing="2" class="table" style="border-collapse:separate">
+												<tr>
+													<td align="center" class="title"><span class="title">휴가가도되요</span>?</td>
+													<td align="center" valign="middle">-&gt;</td>
+													<td align="center"><table border="1" cellpadding="2" cellspacing="2" class="table" style="border-collapse:separate">
+														<tr>
+															<td colspan="2" align="center" class="title">팀장님</td>
+														</tr>
+														<tr>
+															<td align="center">휴가OK</td>
+															<td align="center"><table border="1" cellpadding="2" cellspacing="2" class="table" style="border-collapse:separate">
 																<tr>
-																	<td colspan="2" align="center" class="title">사장님</td>
+																	<td colspan="2" align="center" class="title">이사님</td>
 																</tr>
 																<tr>
 																	<td align="center">휴가OK</td>
-																	<td align="center"><strong>휴가가지마</strong>!</td>
+																	<td align="center"><table border="1" cellpadding="2" cellspacing="2" class="table" style="border-collapse:separate">
+																		<tr>
+																			<td colspan="2" align="center" class="title">상무님</td>
+																		</tr>
+																		<tr>
+																			<td align="center">휴가OK</td>
+																			<td align="center"><table border="1" cellpadding="2" cellspacing="2" class="table" style="border-collapse:separate">
+																				<tr>
+																					<td colspan="2" align="center" class="title">사장님</td>
+																				</tr>
+																				<tr>
+																					<td align="center">휴가OK</td>
+																					<td align="center"><strong>휴가가지마</strong>!</td>
+																				</tr>
+																			</table></td>
+																		</tr>
+																	</table></td>
 																</tr>
-														</table></td>
+															</table></td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</table>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li class="border"><a name="Command" id="Command" ></a> Command
+						(명령하다, 지위하다)
+						<ul>
+							<li class="classification">구분 : 객체/행위</li>
+							<li>요청을 객체로 캡슐호화함으로써 서로 다른 요청으로 클라이언트를 파라미터화하고, 요청을 저장하거나 기록을 남겨서 오퍼레이션의 취소도 가능하게 한다.</li>
+							<li>공대여자 왈
+								<ul>
+									<li>요청의 자세한 정보를 알 필요 없이 대상은 정해진 명령을 실행하도록 할 뿐이다.</li>
+									<li>명령의 구조가 각각 달라도 명령자체가 객체화 되어있어서 문제가 되지않는다.</li>
+									<li>솔찍히 뭔소리인지 모르겠다. </li>
+								</ul>
+							</li>
+							<li>송효진 왈
+								<ul>
+									<li>Command() 는 undo, redo 생각하면 됩니다. <br />
+										MS워드에서 이루어지는 모든 명령은 Command() 를 통해서 이루어지고, <br />
+										예) Word.Editor.Command('입력', '가나다'); <br />
+										Word.Editor.Command('선택',   '마지막3글자'); <br />
+										Word.Editor.Command('볼드', '선택된글자'); <br />
+										<strong>Command() 의 내부에서 알아서 해당   명령을 수행하며, 이 명령 자체를 기억해둡니다.</strong> <br />
+										그러면 명령을 거꾸로 수행하는게 가능해지고 undo 가 되는거죠. </li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="border"><a name="Composite" id="Composite" ></a>Composite
+							(혼성의,합성의)
+							<ul>
+								<li class="classification">구분 : 객체/구조</li>
+								<li>부분-전체 계층을 나타내기 위해 복합 객체를 트리구조로 만든다. </li>
+								<li>Composite 패턴은 클라이언트가 단일 객체와 복합객체 모두를 동일하게 다루도록한다.</li>
+								<li>공대여자 왈
+									<ul>
+										<li>클래스 A에서 만들어진 객체 a의 자식으로 클래스 A로 만들어진 객체 a'를 가질 수 있다.<br />
+											<table border="1" cellspacing="3" class="table" style="border-collapse:separate">
+												<tr>
+													<td width="50" class="none">&nbsp;</td>
+													<td width="50" align="center" class="title">a</td>
+													<td width="50" class="none">&nbsp;</td>
+												</tr>
+												<tr>
+													<td align="center">b</td>
+													<td align="center" class="border">c</td>
+													<td align="center" class="title">a'</td>
+												</tr>
+												<tr>
+													<td class="none">&nbsp;</td>
+													<td class="none">&nbsp;</td>
+													<td class="none"><table width="100%" border="1" cellpadding="0" cellspacing="2" class="table" style="border-collapse:separate">
+														<tr>
+															<td>d</td>
+															<td>e</td>
+														</tr>
+													</table></td>
+												</tr>
+											</table>
+										</li>
+										<li>HTML에서 &lt;table&gt;의 &lt;td&gt; 속에 &lt;table&gt;이 존재할 수 있다.</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="border"><a name="Decorator" id="Decorator" ></a>Decorator
+							(장식자, 실내 장식용의)
+							<ul>
+								<li class="classification">구분 : 객체/구조</li>
+								<li>객체에 동적으로 책임(서비스)을 추가할 수 있게 한다. </li>
+								<li>Decorator 패턴은 기능의 유연한 확장을 위해 상속 대신 사용할 수 있는 방법이다.</li>
+								<li>공대여자 왈
+									<ul>
+										<li>TextView에 Scroll과 Border를 추가할 경우, 
+											<table width="200" border="0" cellpadding="2" cellspacing="2" class="table">
+												<tr>
+													<td class="title">TextView</td>
+													<td class="none">&nbsp;</td>
+												</tr>
+												<tr>
+													<td align="right" class="none">┣</td>
+													<td bgcolor="#CCCCCC">BorderDecorator</td>
+												</tr>
+												<tr>
+													<td align="right" class="none">┗</td>
+													<td bgcolor="#CCCCCC">ScrollDescorator</td>
+												</tr>
+											</table>
+											처럼 구성되며 TextView의 ScrollDecorator의 값을 수정하는 것으로 다른 서비스를 제공할 수 있다.  </li>
+											<li>본체 객체에 꾸밈객체를 추가하여 다른 객체에 영향을 주지않고 서비스가 추가될 수 있다.</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li class="border"><a name="Facade" id="Facade" ></a>Facade
+								(전면, 겉보기, 외관, 허울)
+								<ul>
+									<li class="classification">구분 : 객체/구조</li>
+									<li>서브시스템에 있는 인터페이스 집합에 대해서 하나의 통합된 인터페이스를 제공한다. </li>
+									<li>Facade 패턴은 서비시스템을 좀더 사용하기 편하게 하기 위해서 높은 수준의 인터페이스를 정의한다.</li>
+									<li>공대여자 왈
+										<ul>
+											<li>A,B,C라는 패키지를 X라는 시스템에 포함시켜서 사용자는 X라는 클래스에 포함된 DO메소드를 사용하면 A,B,C의 패키지를 지정된 동작으로 실행해준다.<br />
+												<table width="200" border="0" cellpadding="2" cellspacing="2" class="table">
+													<tr>
+														<td class="title"> X</td>
 													</tr>
-											</table></td>
-										</tr>
-								</table></td>
-							</tr>
-						</table>
-							</td>
-					</tr>
-				</table>
-            	</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Command" id="Command" ></a> Command
-        (명령하다, 지위하다)
-        <ul>
-          <li class="classification">구분 : 객체/행위</li>
-          <li>요청을 객체로 캡슐호화함으로써 서로 다른 요청으로 클라이언트를 파라미터화하고, 요청을 저장하거나 기록을 남겨서 오퍼레이션의 취소도 가능하게 한다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>요청의 자세한 정보를 알 필요 없이 대상은 정해진 명령을 실행하도록 할 뿐이다.</li>
-              <li>명령의 구조가 각각 달라도 명령자체가 객체화 되어있어서 문제가 되지않는다.</li>
-              <li>솔찍히 뭔소리인지 모르겠다. </li>
-            </ul>
-          </li>
-          <li>송효진 왈
-            <ul>
-              <li>Command() 는 undo, redo 생각하면 됩니다. <br />
-                MS워드에서 이루어지는 모든 명령은 Command() 를 통해서 이루어지고, <br />
-                예) Word.Editor.Command('입력', '가나다'); <br />
-                Word.Editor.Command('선택',   '마지막3글자'); <br />
-                Word.Editor.Command('볼드', '선택된글자'); <br />
-                <strong>Command() 의 내부에서 알아서 해당   명령을 수행하며, 이 명령 자체를 기억해둡니다.</strong> <br />
-              그러면 명령을 거꾸로 수행하는게 가능해지고 undo 가 되는거죠. </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Composite" id="Composite" ></a>Composite
-        (혼성의,합성의)
-        <ul>
-          <li class="classification">구분 : 객체/구조</li>
-          <li>부분-전체 계층을 나타내기 위해 복합 객체를 트리구조로 만든다. </li>
-          <li>Composite 패턴은 클라이언트가 단일 객체와 복합객체 모두를 동일하게 다루도록한다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>클래스 A에서 만들어진 객체 a의 자식으로 클래스 A로 만들어진 객체 a'를 가질 수 있다.<br />
-                <table border="1" cellspacing="3" class="table" style="border-collapse:separate">
-                  <tr>
-                    <td width="50" class="none">&nbsp;</td>
-                    <td width="50" align="center" class="title">a</td>
-                    <td width="50" class="none">&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td align="center">b</td>
-                    <td align="center" class="border">c</td>
-                    <td align="center" class="title">a'</td>
-                  </tr>
-                  <tr>
-                    <td class="none">&nbsp;</td>
-                    <td class="none">&nbsp;</td>
-                    <td class="none"><table width="100%" border="1" cellpadding="0" cellspacing="2" class="table" style="border-collapse:separate">
-                      <tr>
-                        <td>d</td>
-                        <td>e</td>
-                      </tr>
-                    </table></td>
-                  </tr>
-                </table>
-              </li>
-              <li>HTML에서 &lt;table&gt;의 &lt;td&gt; 속에 &lt;table&gt;이 존재할 수 있다.</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Decorator" id="Decorator" ></a>Decorator
-        (장식자, 실내 장식용의)
-        <ul>
-          <li class="classification">구분 : 객체/구조</li>
-          <li>객체에 동적으로 책임(서비스)을 추가할 수 있게 한다. </li>
-          <li>Decorator 패턴은 기능의 유연한 확장을 위해 상속 대신 사용할 수 있는 방법이다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>TextView에 Scroll과 Border를 추가할 경우, 
-                <table width="200" border="0" cellpadding="2" cellspacing="2" class="table">
-                  <tr>
-                    <td class="title">TextView</td>
-                    <td class="none">&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td align="right" class="none">┣</td>
-                    <td bgcolor="#CCCCCC">BorderDecorator</td>
-                  </tr>
-                  <tr>
-                    <td align="right" class="none">┗</td>
-                    <td bgcolor="#CCCCCC">ScrollDescorator</td>
-                  </tr>
-                </table>
-               처럼 구성되며 TextView의 ScrollDecorator의 값을 수정하는 것으로 다른 서비스를 제공할 수 있다.  </li>
-              <li>본체 객체에 꾸밈객체를 추가하여 다른 객체에 영향을 주지않고 서비스가 추가될 수 있다.</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Facade" id="Facade" ></a>Facade
-        (전면, 겉보기, 외관, 허울)
-        <ul>
-          <li class="classification">구분 : 객체/구조</li>
-          <li>서브시스템에 있는 인터페이스 집합에 대해서 하나의 통합된 인터페이스를 제공한다. </li>
-          <li>Facade 패턴은 서비시스템을 좀더 사용하기 편하게 하기 위해서 높은 수준의 인터페이스를 정의한다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>A,B,C라는 패키지를 X라는 시스템에 포함시켜서 사용자는 X라는 클래스에 포함된 DO메소드를 사용하면 A,B,C의 패키지를 지정된 동작으로 실행해준다.<br />
-                <table width="200" border="0" cellpadding="2" cellspacing="2" class="table">
-                  <tr>
-                    <td class="title"> X</td>
-                  </tr>
-                  <tr>
-                    <td align="left"><p>DO(){<br />
-                      &nbsp;&nbsp;var t = C.do();//전파수신장치<br />
-  &nbsp;&nbsp;A.do( t ); //화상장치<br />
-                      &nbsp;&nbsp;B.do( t ); //오디오장치<br />
-                      }</p>                    </td>
-                  </tr>
-                </table>
-              </li>
-              <li>TV는 화상장치(A패키지), 오디오장치(B패키지), 전파수신장치(C패키지) 등의 장치들을 포함하고 TV에서 체널을 바꾸면(DO메소드) 전파수신주파수를 바꿔서 수신하고 그 전파의 내용을 화상장치와 오디오 장치에 보내서 화상과 오디오를 출력한다.</li>
-              <li>API를 가지고 다른 서비스를 만든다.</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Factory_Method" id="Factory_Method" ></a>Factory Method
-        (공장 방법)
-        <ul>
-          <li class="classification">구분 : 클래스/생성</li>
-          <li>객체를 생성하는 인터페이스를 정의하지만, 인스턴스를 만들 클래스의 결정은 서브클래스가 한다.</li>
-          <li> Factory Method 패턴에서는 클래스의 인스턴스를 만드는 시점을 서브클래스로 미룬다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>추상클래스(or 인터페이스)에서 정의만 하고 실질적인 구현은 서브클래스에서 처리하도록 한다.</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Flyweight" id="Flyweight" ></a>Flyweight
-        (권투,역도에서의 플라이급 선수)
-        <ul>
-          <li class="classification">구분 : 객체/행위</li>
-          <li>작은 크기의 객체들이 여러 개 있는 경우, 객체를 효과적으로 사용하는 방법으로 객체를 공유하게 한다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>책의 예제로는 위지위그 에디터에서 글자 하나마다를 객체로 보지 않고 주위 글자를 묶어서 TextNode 정도로 생각해서 그것을 하나의 객체로 처리하는 방법을 설명하고있다.</li>
-              <li>간단하게 말하면, 하나 하나 전부 객체로 처리하면 좋겠지만, 그렇게나 제어되는 것이 아니기 때문에 리소스를 아끼고 포퍼먼스를 높이기 위해서 묶어서 사용한다.</li>
-              <li>Jquery 에서는 계속적인 반복으로 불리고 불릴 때마다 조작되는 객체를 처음 불릴 때 미리 캐시쪽에 연결해서 사용하도록 하는 형식으로 사용한다고 되어있다.(이게 정확한 Flyweight 인지는 모르겠다.)</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Interpreter" id="Interpreter" ></a>Interpreter
-        (해석자, 해설자, 통역자)
-        <ul>
-          <li class="classification">구분 : 클래스/행위</li>
-          <li>언어에 따라서 문법에 대한 표현을 정의한다.</li>
-          <li>또한 언어의 문장을 해석하기 위한 정의한 표현에 기반해여 분석기를 정의한다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>가장 유명한 예제는 SQL이다. SQL쿼리 단순한 문자열이지만 실행이 되면 DBMS에서 문법을 해석해서 DB를 사용한다.</li>
-              <li>&quot;1+2-3&quot; 이라는걸 분석해서 처리하도록 하는 것이 Interpreter이다.</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Iterator" id="Iterator" ></a>Iterator
-        (되풀이하다, 반복하다)
-        <ul>
-          <li class="classification">구분 : 객체/행위</li>
-          <li>내부 표현 방법을 노출하지않고 복합객체의 원소를 순차적으로 접근 할 수 있는 방법을 제공한다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>오라클(DB)에서의 CURSOR</li>
-              <li>DOM의 FirstNode(),NextNode(), CurrentNode() 형식의 제어</li>
-              <li>순차 루프</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Mediator" id="Mediator" ></a>Mediator
-        (중개인, 중재인, 조정자)
-        <ul>
-          <li class="classification">구분 : 객체/행위</li>
-          <li>객체들 간의 상호작용을 객체로 캡슐화한다.</li>
-          <li>Mediator 패턴은 객체들간의 참조 관게를 객체에서 분리함으로써 상호작용만을 독립적으로 다양하게 확대할 수 있다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>A,B,C 객체를 X라는 객체에 포함시켜 사용자는 X만 제어하면 되도록한다. 이때 X가 Mediator가 된다.<br />
-              사용자가 X를 제어하면 그에 따라서 X는  자동적으로 A,B,C객체를 제어한다.</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Memento" id="Memento" ></a>Memento
-        (기억, 추억, 유물, 기념(품))
-        <ul>
-          <li class="classification">구분 : 객체/행위</li>
-          <li>캡슐화를 위배하지 않고 객체 내부 상태를 객체화하여, 나중에에 객체가 이 상태로 복구 가능하게 한다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>객체의 변화를 저장하는 방법. 객체의 &quot;상태&quot;를 저장하는 방법으로 복구했을 때의 오차를 줄인다.</li>
-              <li>편집기 등의 UNDO에 사용되는 디자인 패턴이다.</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Observer" id="Observer" ></a>Observer
-        (방관자, 참관인)
-        <ul>
-          <li class="classification">구분 : 객체/행위</li>
-          <li>객체 사이에 일 대 다의 종속성을 정의하고 한 객체의 상태가 변하면 종속된 다른 객체에 통보되고 자동으로 수정이 일어나게 한다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>D라는 데이터에 A,B,C라는 그래프가 연결되어있다. D의 값이 바뀔 경우 A,B,C도 실시간으로 변경이 반영되야한다.<br />
-              이를 체크하는 것이 Observer</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Prototype" id="Prototype" ></a>Prototype
-        (원형, 견본)
-        <ul>
-          <li class="classification">구분 : 객체/생성</li>
-          <li>프로토타입의 인스턴스를 이용해서 생성할 객체의 종류를 명세하고 이 프로토타입을 복사해서 새로운 객체를 생성한다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>A객체를 복사해서 A'를 만들고 A'라는 새로운 객체를 만드는 것, A와 A'는 서로관에 연관성이 없느 독립된 객체들이다.</li>
-              <li>버튼을 만들 때 O버튼을 만들고 그걸 복사해서 변수만 바꿔서 X라는 버튼을 만드는 것</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Proxy" id="Proxy" ></a>Proxy
-        (대리권, 위임장)
-        <ul>
-          <li class="classification">구분 : 객체/구조</li>
-          <li>다른 객체로의 접근을 통제하기 위해서 다른 객체의 대리자 도는 다른 객체로의 정보 보유자를 제공한다. </li>
-          <li>공대여자 왈
-            <ul>
-              <li>문서에서 이미지를 디스크에서 매번 불러오는 동작은 시간이 많이 걸린다. 그 시간을 줄이기 위해서 한번 부른 이미지는 메모리에서 관리하도록 하여 이미지를 초기화와 생성에서의 비용과 시간을 아낀다.</li>
-              <li>웹에서의 프록시 서버도 같은 개념</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Singleton" id="Singleton" ></a>Singleton
-        (하나씩 일어나는 일, 독자)
-        <ul>
-          <li class="classification">구분 : 객체/생성</li>
-          <li>클래스의 인스턴스는 오직 하나임을 보장하며 이 인스턴스에 접근할 수 있는 방법을 제공한다. </li>
-          <li>공대여자 왈
-            <ul>
-              <li>하나의 클래스에서는 하나의 객체만 생성해서 사용하는 방법.</li>
-              <li>프린터 스풀의 경우 프린터마다 1개만 있어야한다.</li>
-              <li>static으로 선언하여 여러번 불리더라도 똑같은 객체가 사용되도록 한다.</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="State" id="State" ></a>State
-        (상태)
-        <ul>
-          <li class="classification">구분 : 객체/행위</li>
-          <li>객체의 내부 상태에 따라 행위를 변경할 수 있게 한다.</li>
-          <li>이렇게하면 객체는 마치 클래스를 바꾸는 것 처럼 보인다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>상태에 따라서 동작이 달라지는 것을 의미한다.</li>
-              <li>책의 예제는 TCP Connection은 3가지의 상태를 가지며 같은 메소드 구조를 가지지만, 각 상태에 따른 메소드는 각각 다르게 동작한다고 적혀있다.</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Strategy" id="Strategy" ></a>Strategy
-        (전략, 전술)
-        <ul>
-          <li class="classification">구분 : 객체/행위</li>
-          <li>알고리즘군이 존재할 경우 각각의 알고리즘을 별도의 클래스로 캡슐화하고 이를 상호 교환 가능한 것으로 정의한다.</li>
-          <li>Strategy 패턴은 클라이언트에 영향을 주지 않고 독립적으로 알고리즘을 다양하게 변 할 수 있게 한다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>여러 행위 중 중복된 행위가 많다면 그 행위를 기준 클래스로 만들고 그 클래스를 상속받아 다시 각각의 클래스로 만든다.</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Template_Method" id="Template_Method" ></a>Template Method
-        (형판 방법)
-        <ul>
-          <li class="classification">구분 : 클래스/생성</li>
-          <li>오퍼레이션에는 알고리즘의 처리과정만을 정의하고 각 단계에 수행할 구체적 처리는 서브클래스에 정의한다.</li>
-          <li>Template Method 패턴은 알고리즘의 처리과정은 변경하지 않고 알고리즘 각 단계의 처리를 서브클래스에서 재정의 할 수 있게 한다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>구조는 추상 클래스로 만들어 놓고 구현은 서브클래스에서 한다.</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="border"><a name="Visitor" id="Visitor" ></a>Visitor
-        (방문객, 손님)
-        <ul>
-          <li class="classification">구분 : 객체/행위</li>
-          <li>객체 구조의 요소들에 수행할 오퍼레이션을 표현한 패턴이다.</li>
-          <li>Visitor 패턴은 오퍼레이션이 처리할 요소의 클래스를 변경하지 않고도 새로운 오퍼레이션을 정의할 수 있게 한다.</li>
-          <li>공대여자 왈
-            <ul>
-              <li>동적으로 수행할 동작을 재정의한다. 재컴파일 할 필요 없이 객체마다의 동작을 다르게 할 수 있다?</li>
-              <li>솔찍히 뭔말인지 모르겠다.</li>
-            </ul>
-          </li>
-          <li>Blade II 왈
-            <ul>
-              <li>OO의 특성인 (당연한 얘기지만ㅡ_ㅡ;) Abstract과 Polymorphism 그리고 method overloading 을 <br />
-                활용한   팬턴이죠. 
-                <br />
-                여러 객체들을 이용해서 수행 해야할 Operation의 Signature를 Interface에 정의하고 
-                <br />
-                이것을 implement 하는 concrete class를 여러개 만들어서, 
-                <br />
-                parameter로 전달되는 객체 안의   여러 맴버 객체들을 각각 concrete class의 object 별로
-                <br />
-                method overloading을 통해서 다르게 실행   하게 하는건데, 
-                <br />
-              이게 concrete class별로 그리고 method별로 달라지게 되는거죠... </li>
-              <li>그러니까 각 객체 별로 operation을 내용을 정하는게 아니라 파라메터로 들어온 visitor object에 따라 <br />
-                그 visitor   object 안에 있는 operation을 실행하는건데,
-                <br />
-                이 <strong>operation의 파라메터에는 다시 visitor의 method를   호출하는 <br />
-                각 객체를 넣어서 visitor object이 객체에 맞는 <br />
-                method를 실행하게 하는거죠</strong> (<strong>method   overloading</strong>). <br />
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li class="border">디자인 패턴 영역별 구분
-    <ul>
-      <li>
-        <table border="0" cellpadding="2" cellspacing="0" class="table">
-          <tr>
-            <td colspan="2" rowspan="2" align="center" class="none">&nbsp;</td>
-            <td colspan="3" align="center" class="title">목적</td>
-          </tr>
-          <tr>
-            <td width="150" align="center" class="title">생성</td>
-            <td width="150" align="center" class="title">구조</td>
-            <td width="150" align="center" class="title">행위</td>
-          </tr>
-          <tr>
-            <td width="60" rowspan="2" align="center" class="title">범위</td>
-            <td width="80" align="center" class="title">클래스</td>
-            <td valign="top"><a href="#Factory_Method">Factory Method</a></td>
-            <td align="left" valign="top"><a href="#Adapter">Adapter</a></td>
-            <td align="left" valign="top"><a href="#Interpreter">Interpreter</a><br />
-            <a href="#Template_Method">Template Mehtod</a></td>
-          </tr>
-          <tr>
-            <td align="center" class="title">객체</td>
-            <td align="left" valign="top"><a href="#Abstract_Factory">Abstract Factory</a><br />
-              <a href="#Builder">Builder</a><br />
-              <a href="#Prototype">Prototype</a><br />
-              <a href="#Singleton">Singleton</a></td>
-            <td align="left" valign="top"><a href="#Adapter">Adapter</a><br />
-              <a href="#Bridge">Bridge</a><br />
-              <a href="#Composite">Composite</a><br />
-              <a href="#Decorator">Decorator</a><br />
-              <a href="#Facade">Facade</a><br />
-              <a href="#Proxy">Proxy</a></td>
-            <td align="left" valign="top"><a href="#Chain_of_Responsibility">Chain of Responsibility</a><br />
-              <a href="#Command">Command</a><br />
-              <a href="#Iterator">Iterator</a><br />
-              <a href="#Mediator">Mediator</a><br />
-              <a href="#Memento">Memento</a><br />
-              <a href="#Flyweight">Flyweight</a><br />
-              <a href="#Observer">Observer</a><br />
-              <a href="#State">State</a><br />
-              <a href="#Strategy">Strategy</a><br />
-              <a href="#Visitor">Visitor</a></td>
-          </tr>
-        </table>
-      </li>
-    </ul>
-  </li>
-</ul>
-<p>&nbsp;</p>
-<p>&nbsp;	</p>
-</body>
-</html>
+													<tr>
+														<td align="left"><p>DO(){<br />
+															&nbsp;&nbsp;var t = C.do();//전파수신장치<br />
+															&nbsp;&nbsp;A.do( t ); //화상장치<br />
+															&nbsp;&nbsp;B.do( t ); //오디오장치<br />
+														}</p>                    </td>
+													</tr>
+												</table>
+											</li>
+											<li>TV는 화상장치(A패키지), 오디오장치(B패키지), 전파수신장치(C패키지) 등의 장치들을 포함하고 TV에서 체널을 바꾸면(DO메소드) 전파수신주파수를 바꿔서 수신하고 그 전파의 내용을 화상장치와 오디오 장치에 보내서 화상과 오디오를 출력한다.</li>
+											<li>API를 가지고 다른 서비스를 만든다.</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li class="border"><a name="Factory_Method" id="Factory_Method" ></a>Factory Method
+								(공장 방법)
+								<ul>
+									<li class="classification">구분 : 클래스/생성</li>
+									<li>객체를 생성하는 인터페이스를 정의하지만, 인스턴스를 만들 클래스의 결정은 서브클래스가 한다.</li>
+									<li> Factory Method 패턴에서는 클래스의 인스턴스를 만드는 시점을 서브클래스로 미룬다.</li>
+									<li>공대여자 왈
+										<ul>
+											<li>추상클래스(or 인터페이스)에서 정의만 하고 실질적인 구현은 서브클래스에서 처리하도록 한다.</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li class="border"><a name="Flyweight" id="Flyweight" ></a>Flyweight
+								(권투,역도에서의 플라이급 선수)
+								<ul>
+									<li class="classification">구분 : 객체/행위</li>
+									<li>작은 크기의 객체들이 여러 개 있는 경우, 객체를 효과적으로 사용하는 방법으로 객체를 공유하게 한다.</li>
+									<li>공대여자 왈
+										<ul>
+											<li>책의 예제로는 위지위그 에디터에서 글자 하나마다를 객체로 보지 않고 주위 글자를 묶어서 TextNode 정도로 생각해서 그것을 하나의 객체로 처리하는 방법을 설명하고있다.</li>
+											<li>간단하게 말하면, 하나 하나 전부 객체로 처리하면 좋겠지만, 그렇게나 제어되는 것이 아니기 때문에 리소스를 아끼고 포퍼먼스를 높이기 위해서 묶어서 사용한다.</li>
+											<li>Jquery 에서는 계속적인 반복으로 불리고 불릴 때마다 조작되는 객체를 처음 불릴 때 미리 캐시쪽에 연결해서 사용하도록 하는 형식으로 사용한다고 되어있다.(이게 정확한 Flyweight 인지는 모르겠다.)</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li class="border"><a name="Interpreter" id="Interpreter" ></a>Interpreter
+								(해석자, 해설자, 통역자)
+								<ul>
+									<li class="classification">구분 : 클래스/행위</li>
+									<li>언어에 따라서 문법에 대한 표현을 정의한다.</li>
+									<li>또한 언어의 문장을 해석하기 위한 정의한 표현에 기반해여 분석기를 정의한다.</li>
+									<li>공대여자 왈
+										<ul>
+											<li>가장 유명한 예제는 SQL이다. SQL쿼리 단순한 문자열이지만 실행이 되면 DBMS에서 문법을 해석해서 DB를 사용한다.</li>
+											<li>&quot;1+2-3&quot; 이라는걸 분석해서 처리하도록 하는 것이 Interpreter이다.</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li class="border"><a name="Iterator" id="Iterator" ></a>Iterator
+								(되풀이하다, 반복하다)
+								<ul>
+									<li class="classification">구분 : 객체/행위</li>
+									<li>내부 표현 방법을 노출하지않고 복합객체의 원소를 순차적으로 접근 할 수 있는 방법을 제공한다.</li>
+									<li>공대여자 왈
+										<ul>
+											<li>오라클(DB)에서의 CURSOR</li>
+											<li>DOM의 FirstNode(),NextNode(), CurrentNode() 형식의 제어</li>
+											<li>순차 루프</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li class="border"><a name="Mediator" id="Mediator" ></a>Mediator
+								(중개인, 중재인, 조정자)
+								<ul>
+									<li class="classification">구분 : 객체/행위</li>
+									<li>객체들 간의 상호작용을 객체로 캡슐화한다.</li>
+									<li>Mediator 패턴은 객체들간의 참조 관게를 객체에서 분리함으로써 상호작용만을 독립적으로 다양하게 확대할 수 있다.</li>
+									<li>공대여자 왈
+										<ul>
+											<li>A,B,C 객체를 X라는 객체에 포함시켜 사용자는 X만 제어하면 되도록한다. 이때 X가 Mediator가 된다.<br />
+												사용자가 X를 제어하면 그에 따라서 X는  자동적으로 A,B,C객체를 제어한다.</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li class="border"><a name="Memento" id="Memento" ></a>Memento
+									(기억, 추억, 유물, 기념(품))
+									<ul>
+										<li class="classification">구분 : 객체/행위</li>
+										<li>캡슐화를 위배하지 않고 객체 내부 상태를 객체화하여, 나중에에 객체가 이 상태로 복구 가능하게 한다.</li>
+										<li>공대여자 왈
+											<ul>
+												<li>객체의 변화를 저장하는 방법. 객체의 &quot;상태&quot;를 저장하는 방법으로 복구했을 때의 오차를 줄인다.</li>
+												<li>편집기 등의 UNDO에 사용되는 디자인 패턴이다.</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li class="border"><a name="Observer" id="Observer" ></a>Observer
+									(방관자, 참관인)
+									<ul>
+										<li class="classification">구분 : 객체/행위</li>
+										<li>객체 사이에 일 대 다의 종속성을 정의하고 한 객체의 상태가 변하면 종속된 다른 객체에 통보되고 자동으로 수정이 일어나게 한다.</li>
+										<li>공대여자 왈
+											<ul>
+												<li>D라는 데이터에 A,B,C라는 그래프가 연결되어있다. D의 값이 바뀔 경우 A,B,C도 실시간으로 변경이 반영되야한다.<br />
+													이를 체크하는 것이 Observer</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									<li class="border"><a name="Prototype" id="Prototype" ></a>Prototype
+										(원형, 견본)
+										<ul>
+											<li class="classification">구분 : 객체/생성</li>
+											<li>프로토타입의 인스턴스를 이용해서 생성할 객체의 종류를 명세하고 이 프로토타입을 복사해서 새로운 객체를 생성한다.</li>
+											<li>공대여자 왈
+												<ul>
+													<li>A객체를 복사해서 A'를 만들고 A'라는 새로운 객체를 만드는 것, A와 A'는 서로관에 연관성이 없느 독립된 객체들이다.</li>
+													<li>버튼을 만들 때 O버튼을 만들고 그걸 복사해서 변수만 바꿔서 X라는 버튼을 만드는 것</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									<li class="border"><a name="Proxy" id="Proxy" ></a>Proxy
+										(대리권, 위임장)
+										<ul>
+											<li class="classification">구분 : 객체/구조</li>
+											<li>다른 객체로의 접근을 통제하기 위해서 다른 객체의 대리자 도는 다른 객체로의 정보 보유자를 제공한다. </li>
+											<li>공대여자 왈
+												<ul>
+													<li>문서에서 이미지를 디스크에서 매번 불러오는 동작은 시간이 많이 걸린다. 그 시간을 줄이기 위해서 한번 부른 이미지는 메모리에서 관리하도록 하여 이미지를 초기화와 생성에서의 비용과 시간을 아낀다.</li>
+													<li>웹에서의 프록시 서버도 같은 개념</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									<li class="border"><a name="Singleton" id="Singleton" ></a>Singleton
+										(하나씩 일어나는 일, 독자)
+										<ul>
+											<li class="classification">구분 : 객체/생성</li>
+											<li>클래스의 인스턴스는 오직 하나임을 보장하며 이 인스턴스에 접근할 수 있는 방법을 제공한다. </li>
+											<li>공대여자 왈
+												<ul>
+													<li>하나의 클래스에서는 하나의 객체만 생성해서 사용하는 방법.</li>
+													<li>프린터 스풀의 경우 프린터마다 1개만 있어야한다.</li>
+													<li>static으로 선언하여 여러번 불리더라도 똑같은 객체가 사용되도록 한다.</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									<li class="border"><a name="State" id="State" ></a>State
+										(상태)
+										<ul>
+											<li class="classification">구분 : 객체/행위</li>
+											<li>객체의 내부 상태에 따라 행위를 변경할 수 있게 한다.</li>
+											<li>이렇게하면 객체는 마치 클래스를 바꾸는 것 처럼 보인다.</li>
+											<li>공대여자 왈
+												<ul>
+													<li>상태에 따라서 동작이 달라지는 것을 의미한다.</li>
+													<li>책의 예제는 TCP Connection은 3가지의 상태를 가지며 같은 메소드 구조를 가지지만, 각 상태에 따른 메소드는 각각 다르게 동작한다고 적혀있다.</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									<li class="border"><a name="Strategy" id="Strategy" ></a>Strategy
+										(전략, 전술)
+										<ul>
+											<li class="classification">구분 : 객체/행위</li>
+											<li>알고리즘군이 존재할 경우 각각의 알고리즘을 별도의 클래스로 캡슐화하고 이를 상호 교환 가능한 것으로 정의한다.</li>
+											<li>Strategy 패턴은 클라이언트에 영향을 주지 않고 독립적으로 알고리즘을 다양하게 변 할 수 있게 한다.</li>
+											<li>공대여자 왈
+												<ul>
+													<li>여러 행위 중 중복된 행위가 많다면 그 행위를 기준 클래스로 만들고 그 클래스를 상속받아 다시 각각의 클래스로 만든다.</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									<li class="border"><a name="Template_Method" id="Template_Method" ></a>Template Method
+										(형판 방법)
+										<ul>
+											<li class="classification">구분 : 클래스/생성</li>
+											<li>오퍼레이션에는 알고리즘의 처리과정만을 정의하고 각 단계에 수행할 구체적 처리는 서브클래스에 정의한다.</li>
+											<li>Template Method 패턴은 알고리즘의 처리과정은 변경하지 않고 알고리즘 각 단계의 처리를 서브클래스에서 재정의 할 수 있게 한다.</li>
+											<li>공대여자 왈
+												<ul>
+													<li>구조는 추상 클래스로 만들어 놓고 구현은 서브클래스에서 한다.</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									<li class="border"><a name="Visitor" id="Visitor" ></a>Visitor
+										(방문객, 손님)
+										<ul>
+											<li class="classification">구분 : 객체/행위</li>
+											<li>객체 구조의 요소들에 수행할 오퍼레이션을 표현한 패턴이다.</li>
+											<li>Visitor 패턴은 오퍼레이션이 처리할 요소의 클래스를 변경하지 않고도 새로운 오퍼레이션을 정의할 수 있게 한다.</li>
+											<li>공대여자 왈
+												<ul>
+													<li>동적으로 수행할 동작을 재정의한다. 재컴파일 할 필요 없이 객체마다의 동작을 다르게 할 수 있다?</li>
+													<li>솔찍히 뭔말인지 모르겠다.</li>
+												</ul>
+											</li>
+											<li>Blade II 왈
+												<ul>
+													<li>OO의 특성인 (당연한 얘기지만ㅡ_ㅡ;) Abstract과 Polymorphism 그리고 method overloading 을 <br />
+														활용한   팬턴이죠. 
+														<br />
+														여러 객체들을 이용해서 수행 해야할 Operation의 Signature를 Interface에 정의하고 
+														<br />
+														이것을 implement 하는 concrete class를 여러개 만들어서, 
+														<br />
+														parameter로 전달되는 객체 안의   여러 맴버 객체들을 각각 concrete class의 object 별로
+														<br />
+														method overloading을 통해서 다르게 실행   하게 하는건데, 
+														<br />
+														이게 concrete class별로 그리고 method별로 달라지게 되는거죠... </li>
+														<li>그러니까 각 객체 별로 operation을 내용을 정하는게 아니라 파라메터로 들어온 visitor object에 따라 <br />
+															그 visitor   object 안에 있는 operation을 실행하는건데,
+															<br />
+															이 <strong>operation의 파라메터에는 다시 visitor의 method를   호출하는 <br />
+																각 객체를 넣어서 visitor object이 객체에 맞는 <br />
+																method를 실행하게 하는거죠</strong> (<strong>method   overloading</strong>). <br />
+															</li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									<li class="border">디자인 패턴 영역별 구분
+										<ul>
+											<li>
+												<table border="0" cellpadding="2" cellspacing="0" class="table">
+													<tr>
+														<td colspan="2" rowspan="2" align="center" class="none">&nbsp;</td>
+														<td colspan="3" align="center" class="title">목적</td>
+													</tr>
+													<tr>
+														<td width="150" align="center" class="title">생성</td>
+														<td width="150" align="center" class="title">구조</td>
+														<td width="150" align="center" class="title">행위</td>
+													</tr>
+													<tr>
+														<td width="60" rowspan="2" align="center" class="title">범위</td>
+														<td width="80" align="center" class="title">클래스</td>
+														<td valign="top"><a href="#Factory_Method">Factory Method</a></td>
+														<td align="left" valign="top"><a href="#Adapter">Adapter</a></td>
+														<td align="left" valign="top"><a href="#Interpreter">Interpreter</a><br />
+															<a href="#Template_Method">Template Mehtod</a></td>
+														</tr>
+														<tr>
+															<td align="center" class="title">객체</td>
+															<td align="left" valign="top"><a href="#Abstract_Factory">Abstract Factory</a><br />
+																<a href="#Builder">Builder</a><br />
+																<a href="#Prototype">Prototype</a><br />
+																<a href="#Singleton">Singleton</a></td>
+																<td align="left" valign="top"><a href="#Adapter">Adapter</a><br />
+																	<a href="#Bridge">Bridge</a><br />
+																	<a href="#Composite">Composite</a><br />
+																	<a href="#Decorator">Decorator</a><br />
+																	<a href="#Facade">Facade</a><br />
+																	<a href="#Proxy">Proxy</a></td>
+																	<td align="left" valign="top"><a href="#Chain_of_Responsibility">Chain of Responsibility</a><br />
+																		<a href="#Command">Command</a><br />
+																		<a href="#Iterator">Iterator</a><br />
+																		<a href="#Mediator">Mediator</a><br />
+																		<a href="#Memento">Memento</a><br />
+																		<a href="#Flyweight">Flyweight</a><br />
+																		<a href="#Observer">Observer</a><br />
+																		<a href="#State">State</a><br />
+																		<a href="#Strategy">Strategy</a><br />
+																		<a href="#Visitor">Visitor</a></td>
+																	</tr>
+																</table>
+															</li>
+														</ul>
+													</li>
+												</ul>
+												<p>&nbsp;</p>
+												<p>&nbsp;	</p>
+											</body>
+											</html>
