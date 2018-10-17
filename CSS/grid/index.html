@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>CSS grid</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>  
+	
+	
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script> 
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="CSS grid">
+	<meta property="og:description" content="CSS grid">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="CSS grid" />
+	<meta property="og:type" content="website">
+	
+	<!-- //meta og -->
+	<style>
+	.wrapper{
+		margin:5px;
+		width:300px;
+		display: grid;
+		/* 가로의 설정(+너비) : 100px 로 3개의 column 이 되도록 함 */
+		grid-template-columns: 100px 100px 100px;
+		/* 세로의 설정(+높이) : 100px 로 3개의 row가 되도록 함 */ 
+		grid-template-rows: 100px 100px 100px ;
+	}
+	.item{
+		display: flex ;
+		justify-content: center;  /* 가로 중앙 */
+		align-items: center; /* 세로 중앙 */
+		border: 1px solid black;
+		position: relative;
+	}
+	.grid-line-col{
+		display: flex ;
+		justify-content: center;  /* 가로 중앙 */
+		align-items: center; /* 세로 중앙 */
+		border-radius: 50%;
+		width:20px;height: 20px;
+		position: absolute;top:-20px;left:-10px;
+		background-color: #abc;
+		white-space: nowrap;
+		z-index: 10;
+	}
+	.grid-line-row{
+		display: flex ;
+		justify-content: center;  /* 가로 중앙 */
+		align-items: center; /* 세로 중앙 */
+		border-radius: 50%;
+		width:20px;height: 20px;
+		position: absolute;top:-10px;left:-20px;
+		background-color: #cba;
+		white-space: nowrap;
+		z-index: 10;
+	}
+	
+	</style>
+	
+</head>
+<body>
+	<div class="container">
+		<h1>CSS grid</h1>
+		<ul class="list-group">
+			<li class="list-group-item">
+				링크 : <a href="https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Grid_Layout" target="_blank">MDN</a> , 
+				<a href="https://www.vobour.com/-%EB%94%94%EC%9E%90%EC%9D%B8-5%EB%B6%84-%EC%95%88%EC%97%90-css-grid-%EB%B0%B0%EC%9A%B0%EA%B8%B0" target="_blank">[디자인] 5분 안에 CSS Grid 배우기</a>
+			</li>
+			<li class="list-group-item">CSS에서 2차열 구조를 기준으로 레이아웃을 만들 수 있도록 해준다.</li>
+			<li class="list-group-item">주요 프로퍼티<br />display: grid;<br />grid-template-columns: 60px 60px;</li>
+		</ul>
+		<hr />
+		<ul class="list-group">
+			<li class="list-group-item list-group-item-primary">
+				주요 설명 (wrapper 부분에서)
+			</li>
+			<li class="list-group-item">
+				display:grid;  //바로 자식노드는 grid로 동작하게 된다.
+			</li>
+			<li class="list-group-item">
+				/* 가로의 설정(+너비) : 100px 로 3개의 column 이 되도록 함 */<br />
+				grid-template-columns: 100px 100px 100px; //자식 노드가 늘어나도 세로의 갯수는 변하지 않고 3개로 고정된다.<br />
+				/* 세로의 설정(+높이) : 100px 로 3개의 row가 되도록 함 */ <br />
+				grid-template-rows: 100px 100px 100px ; //지정된 3개가 초과되면 밑으로 계속 위치하게 되지만, 높이는 설정값 없이 동작한다.<br />
+			</li>
+		</ul>
+		<div class="wrapper float-left">
+			<div class="item bg-primary">1</div>
+			<div class="item bg-secondary">2</div>
+			<div class="item bg-success">3</div>
+			<div class="item bg-danger">4</div>
+			<div class="item bg-warning">5</div>
+			<div class="item bg-info">6</div>
+			<div class="item bg-warning">7</div>
+			<div class="item bg-info">8</div>
+			<div class="item bg-secondary">9</div>
+		</div>
+		<div class="wrapper float-left">
+			<div class="item bg-primary">1</div>
+			<div class="item bg-secondary">2</div>
+			<div class="item bg-success">3</div>
+			<div class="item bg-danger">4</div>
+			<div class="item bg-warning">5</div>
+			<div class="item bg-info">6</div>
+			<div class="item bg-warning">7</div>
+			<div class="item bg-info">8</div>
+			<div class="item bg-secondary">9</div>
+			<div class="item bg-success">10</div>
+			<div class="item bg-danger">11</div>
+		</div>		
+		<div class="clearfix"></div>
+		<hr />
+		<ul class="list-group">
+			<li class="list-group-item list-group-item-primary">
+				주요 설명 (자식노드(item) 부분에서)
+			</li>
+			<li class="list-group-item">
+				그리드 내에서의 절대위치<br />
+				grid-column: 1 / 3; //그리드 라인은 1부터 시작하며 3개의 columns일 경우 grid-line 기준으로 1,2,3,4 까지 지정 할 수 있다.columns 과 grid lines은 개념이 다르다.<br />
+				grid-column-start: 1;grid-column-end: 3; //이와 같이 풀어 쓸 수 있다.<br /><br />
+				grid-row: 1 / 2; //row의 gird lines 기준 1~3까지의 영약을 차지한다.<br />
+				grid-row-start: 1;grid-row-end: 2; //이와 같이 풀어 쓸 수 있다.<br />
+				//grid-lines는 선을 그었을 때 그 선의 순서이다. 3개의 columns인 경우 4개의 grid-line이 생긴다.<br />
+				1/2는 1과 같고 2/3은 2와 같다.<br />
+				1/-1 과 같이 표현할 수 있다. -다 붙으면 반대쪽 grid lines에서 순서를 센다.
+				
+			</li>
+		</ul>
+		
+		<div class="wrapper float-left">
+			<div class="item bg-primary"><div class="grid-line-col">grid line :1</div><div class="grid-line-row">grid line :1</div>1</div>
+			<div class="item bg-secondary"><div class="grid-line-col">grid line:2</div>2</div>
+			<div class="item bg-success"><div class="grid-line-col">grid line:3</div><div class="grid-line-col" style="left:auto;right:-10px;">grid line:4</div>3</div>
+			<div class="item bg-danger"><div class="grid-line-row">grid line :2</div><div class="grid-line-row"  style="top:auto;bottom:-10px;">grid line :3</div>4</div>
+			<div class="item bg-warning">5</div>
+			<div class="item bg-info">6</div>			
+		</div>
+		
+		<div class="wrapper float-left">
+			<div class="item bg-primary" style="grid-column: 1 / 3;grid-row: 1/3;">grid-column: 1 / 3;<br />grid-row: 1/3;</div>
+			<div class="item bg-secondary" >2</div>
+			<div class="item bg-success">3</div>
+			<div class="item bg-danger" style="grid-column:3;grid-row: 2/4;">grid-column:3;<br />grid-row: 2/4;</div>
+			<div class="item bg-warning">5</div>
+			<div class="item bg-info">6</div>
+			<div class="item bg-warning">7</div>
+			<div class="item bg-info">8</div>
+			<div class="item bg-secondary">9</div>
+		</div>
+		<div class="clearfix"></div>
+		<ul class="list-group">
+			<li class="list-group-item list-group-item-primary">
+				주요 설명
+			</li>
+			<li class="list-group-item">
+				grid-area: string; //자식노드에서 지정하면 그리드 Style에서 해당 string을 사용할 수 있다.<br />
+				grid-template-areas: "head head head" //grid area의 값으로 좀 더 직관적으로 레이아웃을 잡을 수 있다. <br /> 
+												"nav  main main"<br />
+												"nav  foot foot";<br />
+			</li>
+		</ul>
+		<style>
+		.wrapper-grid-template-areas{
+			grid-template-areas: "head head head"
+											"nav  main main"
+											"nav  foot foot";
+		}
+		</style>
+		<div class="wrapper wrapper-grid-template-areas float-left">
+			<div class="item bg-primary" style="grid-area:head">head</div>
+			<div class="item bg-secondary" style="grid-area:main">main</div>
+			<div class="item bg-success" style="grid-area:foot">foot</div>
+			<div class="item bg-danger" style="grid-area:nav">nav</div>
+			<div class="item bg-warning">5</div>
+			<div class="item bg-info">6</div>
+			<div class="item bg-warning">7</div>
+			<div class="item bg-info">8</div>
+			<div class="item bg-secondary">9</div>
+		</div>
+		<div class="clearfix"></div>
+		<ul class="list-group">
+			<li class="list-group-item list-group-item-primary">
+				주요 설명
+			</li>
+			<li class="list-group-item">
+				//grid의 채워지는 방향을 지정한다. <br />
+				// dense를 붙일 경우 최대한 빈 칸 없이 채우기를 한다.
+				grid-auto-flow: row;<br />
+				grid-auto-flow: column;<br />
+				grid-auto-flow: dense;<br />
+				grid-auto-flow: row dense;<br />
+				grid-auto-flow: column dense;<br />
+			</li>
+		</ul>
+		<div class="wrapper float-left"   title="dense 미적용" >
+			<div class="item bg-primary" style="grid-column: 1 / 3;">grid-column: 1 / 3;</div>
+			<div class="item bg-secondary" style="grid-column: 2;" >2</div>
+			<div class="item bg-success">3</div>
+			<div class="item bg-danger" style="grid-column:3;grid-row: 2/4;">grid-column:3;<br />grid-row: 2/4;</div>
+			<div class="item bg-warning">5</div>
+			<div class="item bg-info">6</div>
+			<div class="item bg-warning">7</div>
+			<div class="item bg-info">8</div>
+			<div class="item bg-secondary">9</div>
+		</div>
+
+		<div class="wrapper float-left" style="grid-auto-flow:dense"  title="dense 적용">
+			<div class="item bg-primary" style="grid-column: 1 / 3;">grid-column: 1 / 3;</div>
+			<div class="item bg-secondary" style="grid-column: 2;" >2</div>
+			<div class="item bg-success">3</div>
+			<div class="item bg-danger" style="grid-column:3;grid-row: 2/4;">grid-column:3;<br />grid-row: 2/4;</div>
+			<div class="item bg-warning">5</div>
+			<div class="item bg-info">6</div>
+			<div class="item bg-warning">7</div>
+			<div class="item bg-info">8</div>
+			<div class="item bg-secondary">9</div>
+		</div>
+	</div>
+</body>
+</html>
