@@ -51,26 +51,31 @@
 		padding:0;margin:0;line-height: 1em;
 	}
 	.rangeInputBox button{
-		flex: 1 1 auto;
+		flex: 0 0 auto;
 		padding:0;margin:0;
 		width:1em;height: 1em;line-height: 1em;
 		align-items: center;
 		border-width:0;
-		border-radius: 50%;
+		border-radius: 0.5em;
 		position: relative;;
+	}
+	.rangeInputBox button::before{
+		position: absolute;top:0;bottom: 0;left: 0;right:0;
+		font-size: 0.5em;
+		content: "➕";
+		align-items: center;
 	}
 	.rangeInputBox button.btn-m::before{
 		content: "➖";
 	}
-	.rangeInputBox button::before{
-		content: "➕";
-	}
+	
 	
 	.rangeInputBox input{
 		flex: 1 1 100%;
 		padding:0;margin:0;
-		width:1em;height: 1em;line-height: 1em;
+		height: 1em;line-height: 1em;
 		align-items: center;
+		overflow: visible;
 	}
 	
 	
@@ -196,13 +201,19 @@
 	<div class="container">
 		<h1>rangeInputBox</h1>
 		<input type="button" value="버튼" />
-		<div class="rangeInputBox" data-value="20" data-prefix="prefix" data-suffix="suffix">
+		<div class="rangeInputBox" data-value="" data-prefix="prefixprefix-" data-suffix="-suffixsuffix">
 			<button class="btn-m"></button>
 			<input type="range" value="1" min="-1000" max="1000"  />
 			<button  class="btn-p"></button>
 		</div>
 		<input type="text" value="텍스트" />
-		<div class="rangeInputBox" data-value="20" data-prefix="" data-suffix="px" style="width:300px;font-size:8px;">
+		<div class="rangeInputBox" data-value="" data-prefix="" data-suffix="px" style="width:300px;font-size:8px;">
+			<button class="btn-m"></button>
+			<input type="range" value="1" min="-1000" max="1000" step="0.1"  />
+			<button  class="btn-p"></button>
+		</div>
+		<hr />
+		<div class="rangeInputBox" data-value="" data-prefix="" data-suffix="px" style="width:300px;font-size:40px;">
 			<button class="btn-m"></button>
 			<input type="range" value="1" min="-1000" max="1000" step="0.1"  />
 			<button  class="btn-p"></button>
