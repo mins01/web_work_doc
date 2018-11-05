@@ -63,7 +63,9 @@ var InputRangeBox={
 		descriptor.set = function(val) {
 			Object.defineProperty(this, "value", {set:inputSetter});
 			this.value = val;
-			this.IRB.setAttribute("data-value",val);
+      var toFixed = this.IRB.getAttribute('data-toFixed');
+			toFixed = (toFixed==null)?0:parseInt(toFixed);
+			this.IRB.setAttribute("data-value",parseFloat(this.value).toFixed(toFixed));
 			this.setAttribute("value",val);
 			Object.defineProperty(this, "value", descriptor);
 		}
@@ -129,9 +131,10 @@ var InputRangeBox={
 		}
 		
 		
-		//-- 갑 초기화
+		//--값 초기화
 		var toFixed = IRB.getAttribute('data-toFixed');
 		toFixed = (toFixed==null)?0:parseInt(toFixed);
+    console.log(IRB.input.name,parseFloat(IRB.input.value).toFixed(toFixed))
 		IRB.setAttribute("data-value",parseFloat(IRB.input.value).toFixed(toFixed));
 		//-- 완료 표시
 		IRB.rib_on = true;
