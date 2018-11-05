@@ -104,6 +104,9 @@ input[type=range]::-ms-thumb {
 	border-radius: 0;
 
 }
+.inputRangeBox.inputRangeBox-design-1 button{
+	background-color: #ccc;
+}
 .inputRangeBox.inputRangeBox-design-1 button.btn-m{
 	border-radius: 50% 0 0 50%;
 }
