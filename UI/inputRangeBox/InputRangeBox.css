@@ -11,6 +11,7 @@
 	/* min-width:6em; */
 	position: relative;
 	box-sizing: content-box;
+	vertical-align: middle;
 }
 .inputRangeBox::before{
 	z-index: 1;
