@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ko" >
 <head>
-	<title>rangeInputBox</title>
+	<title>inputRangeBox</title>
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Script-Type" content="text/javascript">
 	<meta http-equiv="Content-Style-Type" content="text/css">
@@ -11,11 +11,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<!-- jquery 관련 -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>  
+	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>   -->
 	
 	
 	<!-- 부트스트랩 4 : IE8지원안됨! -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
+	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">  -->
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>  -->
 	<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script> -->
 	<!-- vue.js -->
@@ -23,177 +23,19 @@
 	
 	<!-- meta og -->
 	
-	<meta property="og:title" content="rangeInputBox">
-	<meta property="og:description" content="rangeInputBox">
+	<meta property="og:title" content="inputRangeBox">
+	<meta property="og:description" content="inputRangeBox">
 	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
 	<meta property="og:image:width" content="190">
 	<meta property="og:image:height" content="70" />
-	<meta property="og:site_name" content="rangeInputBox" />
+	<meta property="og:site_name" content="inputRangeBox" />
 	<meta property="og:type" content="website">
 	
 	<!-- //meta og -->
-	<style>
-	.rangeInputBox{
-		display: inline-flex;
-		align-items: center; /* 세로 중앙 */
-		min-width:6em;
-		position: relative;
-		box-sizing: content-box;
-	}
-	.rangeInputBox::before{
-		z-index: 1;
-		position: absolute;
-		left:0; right:0;
-		pointer-events: none;
-		text-align: center;
-		content: attr(data-prefix)attr(data-value)attr(data-suffix);
-		align-items: center;
-		padding:0;margin:0;line-height: 1em;
-	}
-	.rangeInputBox button{
-		flex: 0 0 auto;
-		padding:0;margin:0;
-		width:1em;height: 1em;line-height: 1em;
-		align-items: center;
-		border-width:0;
-		border-radius: 0.5em;
-		position: relative;;
-	}
-	.rangeInputBox button::before{
-		position: absolute;top:0;bottom: 0;left: 0;right:0;
-		font-size: 0.5em;
-		content: "➕";
-		align-items: center;
-	}
-	.rangeInputBox button.btn-m::before{
-		content: "➖";
-	}
-	
-	
-	.rangeInputBox input{
-		flex: 1 1 100%;
-		padding:0;margin:0;
-		height: 1em;line-height: 1em;
-		align-items: center;
-		overflow: visible;
-	}
-	
-	
-	</style>
+	<link rel="stylesheet" href="InputRangeBox.css"> 
+	<script src="InputRangeBox.js"></script>
 	<script>
-	var rangeInputBox={
-		"init":function(el){
-			var rangeInputBox = el;
-			if(rangeInputBox.rib_on){
-				return false;
-			}
-			
-			rangeInputBox.input = rangeInputBox.querySelector('input');
-			if(!rangeInputBox.input){
-				console.error("not exists input in rangeInputBox ");
-				return false;
-			}
-			rangeInputBox.innerHTML = '';
-			var btn_m = document.createElement('button');
-			btn_m.className = "btn-m";
-			rangeInputBox.appendChild(btn_m)
-			rangeInputBox.appendChild(rangeInputBox.input)
-			var btn_p = document.createElement('button');
-			btn_p.className = "btn-p";
-			rangeInputBox.appendChild(btn_p)
-			//-- 기본값 처리
-			if(!rangeInputBox.input.step){
-				rangeInputBox.input.step = 1;
-			}
-			// 노드간에 연결
-			btn_m.input = rangeInputBox.input;
-			rangeInputBox.btn_m = btn_m;
-			btn_p.input = rangeInputBox.input;
-			rangeInputBox.btn_p = btn_p;
-			rangeInputBox.input.rangeInputBox = rangeInputBox;
-			//-- .value 변경에 따른 후처리
-			rangeInputBox.input._value = rangeInputBox.input.value;
-			var descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
-			var inputSetter = descriptor.set;
-			descriptor.set = function(val) {
-				Object.defineProperty(this, "value", {set:inputSetter});
-				this.value = val;
-				this.rangeInputBox.setAttribute("data-value",val);
-				this.setAttribute("value",val);
-				Object.defineProperty(this, "value", descriptor);
-			}
-			Object.defineProperty(rangeInputBox.input, "value", descriptor);
-			rangeInputBox.input.addEventListener('input',function(){
-				this.rangeInputBox.setAttribute("data-value",this.value);
-			})
-			//-- 버튼 이벤트
-			rangeInputBox.btn_m.actFn = function(el){
-				return function(){
-					el.stepDown();
-					var input_event = new CustomEvent('input',{detail: {}});
-					el.dispatchEvent(input_event);	
-				}
-			}(rangeInputBox.input)
-			rangeInputBox.btn_p.actFn = function(el){
-				return function(){
-					el.stepUp();
-					var input_event = new CustomEvent('input',{detail: {}});
-					el.dispatchEvent(input_event);	
-				}
-			}(rangeInputBox.input)
-			var evtFn = function(el){
-				return function(evt){
-					console.log(evt.type)
-					if(el.tm){clearInterval(el.tm) }
-					this.actFn();
-					el.tm = setInterval(this.actFn,100)
-					return false;
-				}
-			}(el)
-			var clearFn = function(el){
-				return function(evt){
-					if(el.tm){ clearInterval(el.tm) }
-					var input_event = new CustomEvent('input',{detail: {}});
-					this.dispatchEvent(input_event);
-					return false
-				}
-			}(el)
-			rangeInputBox.btn_m.addEventListener('keypress',rangeInputBox.btn_m.actFn);
-			rangeInputBox.btn_p.addEventListener('keypress',rangeInputBox.btn_p.actFn);
-			// rangeInputBox.btn_p.addEventListener('click',rangeInputBox.btn_p.actFn);
-			if(PointerEvent){
-				
-				rangeInputBox.btn_m.addEventListener('pointerdown',evtFn);
-				rangeInputBox.btn_m.addEventListener('pointerup',clearFn);
-				rangeInputBox.btn_m.addEventListener('pointerout',clearFn);
-				rangeInputBox.btn_p.addEventListener('pointerdown',evtFn);	
-				rangeInputBox.btn_p.addEventListener('pointerup',clearFn);
-				rangeInputBox.btn_p.addEventListener('pointerout',clearFn);
-			}else{
-				rangeInputBox.btn_m.addEventListener('mousedown',evtFn);
-				rangeInputBox.btn_m.addEventListener('mouseup',clearFn);				
-				rangeInputBox.btn_m.addEventListener('mouseout',clearFn);	
-				rangeInputBox.btn_p.addEventListener('mousedown',evtFn);
-				rangeInputBox.btn_p.addEventListener('mouseup',clearFn);				
-				rangeInputBox.btn_p.addEventListener('mouseout',clearFn);	
-			}
-			
-			
-			//-- 갑 초기화
-			rangeInputBox.setAttribute('data-value',rangeInputBox.input.value);
-			//-- 완료 표시
-			rangeInputBox.rib_on = true;
-			rangeInputBox.setAttribute("rib_on","1");
-			
-		}
-	}
-	window.onload=function(){
-		var els = document.querySelectorAll('.rangeInputBox')
-		for(var i=0,m=els.length;i<m;i++){
-			rangeInputBox.init(els[i])	
-		}
-		
-	}
+	window.onload = InputRangeBox.onload;
 	</script>
 	
 </head>
@@ -201,23 +43,78 @@
 	<div class="container">
 		<h1>rangeInputBox</h1>
 		<input type="button" value="버튼" />
-		<div class="rangeInputBox" data-value="" data-prefix="prefixprefix-" data-suffix="-suffixsuffix">
+		<div class="inputRangeBox" data-value="" data-prefix="prefixprefix-" data-suffix="-suffixsuffix" data-toFixed="0">
 			<button class="btn-m"></button>
 			<input type="range" value="1" min="-1000" max="1000"  />
 			<button  class="btn-p"></button>
 		</div>
 		<input type="text" value="텍스트" />
-		<div class="rangeInputBox" data-value="" data-prefix="" data-suffix="px" style="width:300px;font-size:8px;">
-			<button class="btn-m"></button>
+		<div class="inputRangeBox" data-value="" data-prefix="" data-suffix="px" style="width:300px;font-size:8px;"  data-toFixed="1">
 			<input type="range" value="1" min="-1000" max="1000" step="0.1"  />
-			<button  class="btn-p"></button>
 		</div>
 		<hr />
-		<div class="rangeInputBox" data-value="" data-prefix="" data-suffix="px" style="width:300px;font-size:40px;">
-			<button class="btn-m"></button>
-			<input type="range" value="1" min="-1000" max="1000" step="0.1"  />
-			<button  class="btn-p"></button>
+		<ul>
+			<li>ie11 : 정상 동작 안함.</li>
+			<li>chrome 버전 70.0.3538.77(공식 빌드) (64비트) : 동작 확인</li>
+			<li>firefox 62.0.3 (64비트) : 동작 확인</li>
+			
+		</ul>
+		
+
+		<hr />
+			<h3>일반 Range</h3>
+			<input type="range" value="1" min="0" max="100" step="1"  />
+			
+			
+			<h3>버튼 모양</h3>
+			<div class="inputRangeBox" data-suffix="%">
+				<input type="range" value="1" min="0" max="100" step="1"  />
+			</div>
+			<div class="inputRangeBox" data-suffix="%">
+				<input type="range" value="1" min="0" max="100" step="1"  />
+				<button class="btn-m" data-text="x"></button>
+				<button class="btn-p" data-text="Y"></button>
+			</div>
+			<div class="inputRangeBox" data-suffix="%">
+				<input type="range" value="1" min="0" max="100" step="1"  />
+				<button class="btn-m" data-text="🔻"></button>
+				<button class="btn-p" data-text="🔺"></button>
+			</div>
+			<div class="inputRangeBox" data-suffix="%">
+				<input type="range" value="1" min="0" max="100" step="1"  />
+				<button class="btn-m" data-text="DOWN"></button>
+				<button class="btn-p" data-text="UP"></button>
+			</div>
+			
+			<h3>디자인-1 적용:</h3>
+			<div class="inputRangeBox inputRangeBox-design-1 " data-suffix="%" style="line-height:inherit">
+				<input type="range" value="1" min="0" max="100" step="1"  />
+			</div>
+			<div class="inputRangeBox inputRangeBox-design-1 " data-suffix="%" style="font-size:40px; width:600px;">
+				<input type="range" value="1" min="0" max="100" step="1"  />
+			</div>
+			<div class="inputRangeBox inputRangeBox-design-1 " data-suffix="%">
+				<input type="range" value="1" min="0" max="100" step="1" style="background-color:#abc"  />
+				<button class="btn-m"  style="background-color:blue;color:#fff;"></button>
+				<button class="btn-p"  style="background-color:red;color:#fff;"></button>
+			</div>
+			<h3>기타</h3>
+			<div class="inputRangeBox" data-value="" data-prefix="" data-suffix="px" style="width:300px; font-size:30px "  data-toFixed="2">
+				<input type="range" value="1" min="-1000" max="1000" step="0.01"  />
+			</div>		
+			<div class="inputRangeBox" data-value="" data-prefix="" data-suffix="y">
+				<input type="range" value="2018" min="1900" max="3000" step="1"  />
+			</div>
+			<div class="inputRangeBox" data-value="" data-prefix="" data-suffix="m">
+				<input type="range" value="1" min="1" max="12" step="1"  />
+			</div>
+			<div class="inputRangeBox" data-value="" data-prefix="" data-suffix="d">
+				<input type="range" value="1" min="1" max="31" step="1"  />
+			</div>
+			<div class="inputRangeBox" data-value="" data-prefix="d -" data-suffix="day">
+				<input type="range" value="1" min="1" max="31" step="1"  />
+			</div>
+			
 		</div>
-	</div>
-</body>
+	</body>
 </html>
