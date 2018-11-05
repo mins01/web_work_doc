@@ -3,7 +3,7 @@
 .inputRangeBox{
 	display: inline-flex;
 	align-items: center; /* 세로 중앙 */
-	min-width:6em;
+	/* min-width:6em; */
 	position: relative;
 	box-sizing: content-box;
 }
@@ -38,7 +38,8 @@
 }
 
 .inputRangeBox input{
-	font-size: inherit;
+	min-width: 1em;
+	font-size: 1em;
 	flex: 1 1 100%;
 	padding:0;margin:0;
 	height: 1em;line-height: 1em;

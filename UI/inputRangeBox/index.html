@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ko" >
 <head>
-	<title>inputRangeBox</title>
+	<title>InputRangeBox</title>
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Script-Type" content="text/javascript">
 	<meta http-equiv="Content-Style-Type" content="text/css">
@@ -41,7 +41,11 @@
 </head>
 <body>
 	<div class="container">
-		<h1>rangeInputBox</h1>
+		<h1>InputRangeBox</h1>
+		<p>
+			input range에 up/down 버튼 추가, 현재 값 표시.
+		</p>
+		<hr />
 		<input type="button" value="버튼" />
 		<div class="inputRangeBox" data-value="" data-prefix="prefixprefix-" data-suffix="-suffixsuffix" data-toFixed="0">
 			<button class="btn-m"></button>
@@ -65,8 +69,28 @@
 			<h3>일반 Range</h3>
 			<input type="range" value="1" min="0" max="100" step="1"  />
 			
+			<h3>스타일 조작</h3>
+			폰트크기 : 
+			<div class="inputRangeBox" data-suffix="px" >
+				<input type="range" value="12" min="0" max="300" step="1" oninput="document.querySelector('#inputRangeBox-fontSize').style.fontSize=this.value+'px';document.querySelector('#inputRangeBox-fontSize-input').value=this.value"  />
+			</div>
+			너비 : 
+			<div class="inputRangeBox" data-suffix="px" >
+				<input type="range" value="100" min="30" max="900" step="1" oninput="document.querySelector('#inputRangeBox-fontSize').style.width=this.value+'px';"  />
+			</div>
+			<br />=><br />
+			대상
+			<div class="inputRangeBox" data-suffix="px" style="font-size:12px;width:100px" id="inputRangeBox-fontSize">
+				<input type="range" value="12" min="0" max="300" step="1" id="inputRangeBox-fontSize-input" />
+			</div>
+			<h3>이벤트</h3>
+			<div class="inputRangeBox" data-suffix="px" style="font-size:12px;width:100px" >
+				<input type="range" value="12" min="0" max="300" step="1" onchange="alert(this.value)" >
+				<button class="btn-m" onclick="alert('down : '+this.input.value)"></button>
+				<button class="btn-p"  onclick="alert('up : '+ this.input.value)"></button>
+			</div>			
 			
-			<h3>버튼 모양</h3>
+			<h3>버튼</h3>
 			<div class="inputRangeBox" data-suffix="%">
 				<input type="range" value="1" min="0" max="100" step="1"  />
 			</div>
@@ -99,9 +123,10 @@
 				<button class="btn-p"  style="background-color:red;color:#fff;"></button>
 			</div>
 			<h3>기타</h3>
-			<div class="inputRangeBox" data-value="" data-prefix="" data-suffix="px" style="width:300px; font-size:30px "  data-toFixed="2">
+			소수점 자리 고정 <div class="inputRangeBox" data-value="" data-prefix="" data-suffix="px" style="width:300px; font-size:30px "  data-toFixed="2">
 				<input type="range" value="1" min="-1000" max="1000" step="0.01"  />
-			</div>		
+			</div> / 
+			달력
 			<div class="inputRangeBox" data-value="" data-prefix="" data-suffix="y">
 				<input type="range" value="2018" min="1900" max="3000" step="1"  />
 			</div>
@@ -111,8 +136,9 @@
 			<div class="inputRangeBox" data-value="" data-prefix="" data-suffix="d">
 				<input type="range" value="1" min="1" max="31" step="1"  />
 			</div>
-			<div class="inputRangeBox" data-value="" data-prefix="d -" data-suffix="day">
-				<input type="range" value="1" min="1" max="31" step="1"  />
+			/
+			접두사, 접미사 <div class="inputRangeBox" data-value="" data-prefix="d " data-suffix="day">
+				<input type="range" value="-100" min="-100" max="0" step="1"  />
 			</div>
 			
 		</div>
