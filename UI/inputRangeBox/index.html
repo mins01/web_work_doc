@@ -72,11 +72,11 @@
 			<h3>스타일 조작</h3>
 			폰트크기 : 
 			<div class="inputRangeBox" data-suffix="px" >
-				<input type="range" value="12" min="0" max="300" step="1" oninput="document.querySelector('#inputRangeBox-fontSize').style.fontSize=this.value+'px';document.querySelector('#inputRangeBox-fontSize-input').value=this.value"  />
+				<input type="range" value="12" min="0" max="300" step="1" onchange="this.oninput();" oninput="document.querySelector('#inputRangeBox-fontSize').style.fontSize=this.value+'px';document.querySelector('#inputRangeBox-fontSize-input').value=this.value"  />
 			</div>
 			너비 : 
 			<div class="inputRangeBox" data-suffix="px" >
-				<input type="range" value="100" min="30" max="900" step="1" oninput="document.querySelector('#inputRangeBox-fontSize').style.width=this.value+'px';"  />
+				<input type="range" value="100" min="30" max="900" step="1"  onchange="this.oninput()" oninput="document.querySelector('#inputRangeBox-fontSize').style.width=this.value+'px';"  />
 			</div>
 			<br />=><br />
 			대상
