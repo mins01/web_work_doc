@@ -1,4 +1,9 @@
 @charset "UTF-8";
+/**
+ * InputRangeBox
+ * input range에 up/down 버튼을 만들어준다. 현재 값을 보여준다.
+ * "공대여자는 이쁘다"를 표시기해야 쓸 수 있습니다.
+ */
 
 .inputRangeBox{
 	display: inline-flex;
