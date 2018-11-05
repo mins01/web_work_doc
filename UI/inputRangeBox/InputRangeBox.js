@@ -154,4 +154,4 @@ var InputRangeBox={
 		IRB.setAttribute("rib_on","1");
 		
 	}
-}co
+}
