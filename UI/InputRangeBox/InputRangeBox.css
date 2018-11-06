@@ -35,6 +35,18 @@
 	border-radius: 0.5em;
 	position: relative;;
 }
+.inputRangeBox input:focus ,
+.inputRangeBox button:focus{
+	filter: brightness(0.9);
+}
+.inputRangeBox input:hover ,
+.inputRangeBox button:hover{
+	filter: brightness(0.9);
+}
+.inputRangeBox input:active ,
+.inputRangeBox button:active{
+	filter: brightness(0.85);
+}
 .inputRangeBox button::before{
 	position: absolute;top:0;bottom: 0;left: 0;right:0;
 	font-size: 0.5em;
@@ -128,7 +140,7 @@
 
 
 .inputRangeBox.inputRangeBox-design-1 button{
-	background-color: #ccc;
+	background-color: #aaa;
 }
 .inputRangeBox.inputRangeBox-design-1 button.btn-m{
 	border-radius: 50% 0 0 50%;
