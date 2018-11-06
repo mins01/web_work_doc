@@ -151,7 +151,7 @@ var InputRangeBox={
 		IRB.setAttribute("data-value",parseFloat(IRB.input.value).toFixed(toFixed));
 		//-- 완료 표시
 		IRB.rib_on = true;
-		IRB.setAttribute("rib_on","1");
+		IRB.setAttribute("data-rib-on","1");
 		
 	}
 }
