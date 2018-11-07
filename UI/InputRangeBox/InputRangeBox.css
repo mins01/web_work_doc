@@ -110,21 +110,21 @@
 	-webkit-appearance: none;
 	height:1em;
 	width:0.2em;
-	background-color: rgba(0,0,0,0.4);
+	background-color: rgba(0,0,0,0.6);
 	border-radius: 0;
 	border-width: 0;
 }
 .inputRangeBox-design-1 input[type="range"]::-moz-range-thumb{
 	height:1em;
 	width:0.2em;
-	background-color: rgba(0,0,0,0.4);
+	background-color: rgba(0,0,0,0.6);
 	border-radius: 0;
 	border-width: 0;
 }
 .inputRangeBox-design-1 input[type="range"]::-ms-thumb {
 	height:1em;
 	width:0.2em;
-	background-color: rgba(0,0,0,0.4);
+	background-color: rgba(0,0,0,0.6);
 	border-radius: 0;
 	border-width: 0;
 	
