@@ -14,6 +14,7 @@
 	box-sizing: content-box;
 	vertical-align: middle;
 }
+
 .inputRangeBox::before{
 	z-index: 1;
 	position: absolute;
@@ -25,6 +26,7 @@
 	padding:0;margin:0;line-height: 1em;
 	vertical-align: middle;
 }
+
 .inputRangeBox button{
 	font-size: inherit;
 	flex: 0 0 auto;
@@ -67,6 +69,7 @@
 	overflow: visible;
 }
 
+
 .inputRangeBox button[data-text]::before{
 	content: attr(data-text);
 }
@@ -76,10 +79,11 @@
 * design-1
 * @type {[type]}
 */
-.inputRangeBox-design-1 input[type="range"]{
+.inputRangeBox-design-1 input{
 	-webkit-appearance: none;
 	background-color: #eee;
 	height:1em;
+	border-width: 0;
 }
 .inputRangeBox-design-1 input[type="range"]::-webkit-slider-runnable-track
 {
@@ -147,4 +151,28 @@
 }
 .inputRangeBox.inputRangeBox-design-1 button.btn-p{
 	border-radius: 0 50% 50% 0;
+}
+
+/* */
+
+.inputNumberBox{
+	width: 8em;
+	position: static;
+}
+.inputNumberBox::before{
+	position: static;
+	content: attr(data-prefix)
+}
+.inputNumberBox::after{
+	position: static;
+	content: attr(data-suffix)
+}
+.inputNumberBox input{
+	-moz-appearance:textfield;
+	text-align: right;
+}
+.inputNumberBox input[type="number"]::-webkit-outer-spin-button,
+.inputNumberBox input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

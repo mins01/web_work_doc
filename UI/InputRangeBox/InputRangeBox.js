@@ -62,12 +62,13 @@ var InputRangeBox={
 		IRB.input._value = IRB.input.value;
 		var descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
 		var inputSetter = descriptor.set;
-		descriptor.set = function(val) {
+		descriptor.set = function(val) {    
 			Object.defineProperty(this, "value", {set:inputSetter});
-			this.value = val;
       var toFixed = this.IRB.getAttribute('data-toFixed');
-			toFixed = (toFixed==null)?0:parseInt(toFixed);
-			this.IRB.setAttribute("data-value",parseFloat(this.value).toFixed(toFixed));
+			toFixed = (toFixed==null)?0:parseInt(toFixed);      
+      val = parseFloat(val).toFixed(toFixed)
+			this.value = val;
+			this.IRB.setAttribute("data-value",parseFloat(val).toFixed(toFixed));
 			this.setAttribute("value",val);
 			Object.defineProperty(this, "value", descriptor);
 		}
@@ -83,14 +84,29 @@ var InputRangeBox={
 		//-- 버튼 이벤트
 		IRB.btn_m.actFn = function(el){
 			return function(){
-				try{el.stepDown();}catch(e){console.log(e)}
+				try{
+          el.stepDown();
+        }catch(e){          
+          console.log(e)
+          var toFixed = el.IRB.getAttribute('data-toFixed');
+    			toFixed = (toFixed==null)?0:parseInt(toFixed);
+          el.value = (parseFloat(el.value)-parseFloat(el.step?el.step:1)).toFixed(toFixed);
+        }
 				var input_event = new CustomEvent('input',{bubbles: true, cancelable: true, detail: {}});
 				el.dispatchEvent(input_event);
 			}
 		}(IRB.input)
 		IRB.btn_p.actFn = function(el){
 			return function(){
-				try{el.stepUp();}catch(e){console.log(e)}
+        
+				try{
+          el.stepUp();
+        }catch(e){
+          console.log(e)
+          var toFixed = el.IRB.getAttribute('data-toFixed');
+    			toFixed = (toFixed==null)?0:parseInt(toFixed);
+          el.value = (parseFloat(el.value)+parseFloat(el.step?el.step:1)).toFixed(toFixed);
+        }
 				var input_event = new CustomEvent('input',{bubbles: true, cancelable: true, detail: {}});
 				el.dispatchEvent(input_event);
 			}
@@ -114,13 +130,13 @@ var InputRangeBox={
 			}
 		}(el)
 		IRB.btn_m.addEventListener('keypress',function(evt){
-			if(evt.keyCode==32){
+			if(evt.keyCode==32 || evt.which == 32){
         this.actFn();
         clearFn();
       }	
 		});
 		IRB.btn_p.addEventListener('keypress',function(evt){
-      if(evt.keyCode==32){
+      if(evt.keyCode==32 || evt.which == 32){
         this.actFn();
         clearFn();
       }	
@@ -148,6 +164,7 @@ var InputRangeBox={
 		var toFixed = IRB.getAttribute('data-toFixed');
 		toFixed = (toFixed==null)?0:parseInt(toFixed);
     // console.log(IRB.input.name,parseFloat(IRB.input.value).toFixed(toFixed))
+    IRB.input.value = parseFloat(IRB.input.value).toFixed(toFixed)
 		IRB.setAttribute("data-value",parseFloat(IRB.input.value).toFixed(toFixed));
 		//-- 완료 표시
 		IRB.rib_on = true;

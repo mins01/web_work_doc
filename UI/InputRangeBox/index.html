@@ -133,7 +133,36 @@
 		접두사, 접미사 <div class="inputRangeBox" data-value="" data-prefix="d " data-suffix="day">
 			<input type="range" value="-100" min="-100" max="0" step="1"  />
 		</div>
+		<hr />
+		<h3>일반 Number</h3>
+		<input type="number" value="1" min="0" max="100" step="3"  />
+		<h3>기본형</h3>
+		<div class="inputRangeBox inputNumberBox" data-value="" data-prefix="d " data-suffix="day" >
+			<input type="number" value="-100" min="-100" max="0" step="3"  />
+		</div>
+		<div class="inputRangeBox inputNumberBox inputRangeBox-design-1" data-value=""  data-suffix="px" data-toFixed="3">
+			<input type="number" value="-100" min="-100" max="0" step="0.1"  />
+		</div>
+		<div class="inputRangeBox inputNumberBox inputRangeBox-design-1" data-value=""  data-suffix="px" data-toFixed="1">
+			<input type="number" value="-100" min="-100" max="0" step="0.1"  />
+		</div>
+		<div class="inputRangeBox inputNumberBox inputRangeBox-design-1" data-value="" data-prefix="D " data-suffix="day" style="font-size:40px;">
+			<input type="number" value="-50" min="-100" max="0" step="2"  />
+		</div>
+		<div class="inputRangeBox inputNumberBox inputRangeBox-design-1 " data-suffix="%" style="width:20em">
+			<input type="number" value="1" min="0" max="100000" step="1000" style="background-color:#abc"  />
+			<button class="btn-m"  style="background-color:blue;color:#fff;"></button>
+			<button class="btn-p"  style="background-color:red;color:#fff;"></button>
+		</div>
 		
+		<h3>이벤트</h3>
+		<form onchange="console.log('form.onchange')"  oninput="console.log('form.oninput')">
+		이벤트 테스트	<div class="inputRangeBox inputNumberBox" data-suffix="px" style="font-size:12px;width:100px" >
+				<input type="number" value="12" min="0" max="300" step="1" onchange="alert(this.value)" >
+				<button class="btn-m" onclick="alert('down : '+this.input.value)"></button>
+				<button class="btn-p"  onclick="alert('up : '+ this.input.value)"></button>
+			</div>				
+		</form>
 	</div>
 </body>
 </html>
