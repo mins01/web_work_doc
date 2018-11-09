@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>SelectArea</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!-- jquery 관련 -->
+	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>   -->
+	
+	
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">  -->
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>  -->
+	<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script> -->
+	<!-- vue.js -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="SelectArea">
+	<meta property="og:description" content="SelectArea">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="SelectArea" />
+	<meta property="og:type" content="document">
+	
+	<!-- //meta og -->
+	<style>
+	.selectArea{
+		font-size:10px; line-height: 1em;padding:0;margin:0;
+		display: grid;
+		grid-template-columns: 50% 50%;
+		grid-template-rows: 50% 50%;
+		width:400px; height: 300px;
+		position: relative;
+		box-sizing: content-box;
+	}
+	.selectArea-pointer{
+		font-size: 2em;
+		box-sizing: border-box;
+
+		position:absolute;z-index: 10;
+		width:1em;height:1em;
+		border:2px solid rgba(0,0,0,0.5);
+		background-color: rgba(0,0,0,0.2);
+	}
+	.selectArea-pointer::before{
+		position: absolute;
+		top:0;left:0;right:0;bottom: 0;
+		content: attr(data-index);
+		justify-content: center;  /* 가로 중앙 */
+		align-items: center; /* 세로 중앙 */
+		display: flex;
+	}
+	/*news*/
+	.selectArea-pointer[data-index="0"]{
+		top:-0.5em;left:-0.5em;cursor: nw-resize;
+		
+	}
+	.selectArea-pointer[data-index="1"]{
+		top:-0.5em;left:calc(50% - 0.5em);cursor: n-resize;
+	}
+	.selectArea-pointer[data-index="2"]{
+		top:-0.5em;right:-0.5em;cursor: ne-resize;
+	}
+	.selectArea-pointer[data-index="3"]{
+		top:calc(50% - 0.5em);right:-0.5em;cursor: e-resize;
+	}
+	.selectArea-pointer[data-index="4"]{
+		bottom:-0.5em;right:-0.5em;cursor: nw-resize;
+	}
+	.selectArea-pointer[data-index="5"]{
+		bottom:-0.5em;right:calc(50% - 0.5em);cursor: n-resize;
+	}
+	.selectArea-pointer[data-index="6"]{
+		bottom:-0.5em;left:-1em;cursor: ne-resize;
+	}
+	.selectArea-pointer[data-index="7"]{
+		top:calc(50% - 0.5em);left:-0.5em;cursor: e-resize;
+	}
+	.area0{
+		background-color: #ccc;
+	}
+	.area1{
+		background-color: #abc;
+	}
+	.area2{
+		background-color: #cba;
+	}
+	.area3{
+		background-color: #aaa;
+	}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>SelectArea</h1>
+		<div class="selectArea">
+			<div class="selectArea-pointer" data-index="0"></div>
+			<div class="selectArea-pointer" data-index="1"></div>
+			<div class="selectArea-pointer" data-index="2"></div>
+			<div class="selectArea-pointer" data-index="3"></div>
+			<div class="selectArea-pointer" data-index="4"></div>
+			<div class="selectArea-pointer" data-index="5"></div>
+			<div class="selectArea-pointer" data-index="6"></div>
+			<div class="selectArea-pointer" data-index="7"></div>
+			<div class="area0">
+				0
+			</div>
+			<div class="area1">
+				1
+			</div>
+			<div class="area2">
+				2
+			</div>
+			<div class="area3">
+				3
+			</div>
+		</div>
+		
+		
+		
+	</div>
+</body>
+</html>
