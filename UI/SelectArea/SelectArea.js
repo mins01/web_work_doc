@@ -7,6 +7,9 @@ var SelectArea = {
 	"init":function(){
 		
 	},
+	"getBoundingClientRect":function(){
+		return this.box.layout.getBoundingClientRect();
+	},
 	"_create":function(){
 		if(this.sa != null){return this.sa;}
 		this.sa = document.createElement('div');
@@ -58,13 +61,16 @@ var SelectArea = {
 		return this.sa
 	},
 	"show":function(parent,x,y,w,h,cb){
-		if(x==null){x=0;}
-		if(y==null){y=0;}
-		if(w==null){w=100;}
-		if(h==null){h=100;}
 		this._create();
 		document.body.appendChild(this.sa);
 		this.parent = parent;
+		var p_bcr = this.parent.getBoundingClientRect();
+		this.w = p_bcr.width;
+		this.h = p_bcr.height;
+		if(x==undefined){x=0;}
+		if(y==undefined){y=0;}
+		if(w==undefined){w=p_bcr.width;}
+		if(h==undefined){h=p_bcr.height;}
 		this._syncPos(x,y,w,h);
 		window.addEventListener('resize',function(thisC){return function(evt){thisC._onresize(evt);} }(this),false)
 		window.addEventListener('scroll',function(thisC){return function(evt){thisC._onresize(evt);} }(this),false)
