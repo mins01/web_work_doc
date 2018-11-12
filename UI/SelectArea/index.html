@@ -34,16 +34,25 @@
 	<!-- //meta og -->
 	
 	<link rel="stylesheet" href="SelectArea.css" >
-	
+	<script src="SelectArea.js"></script>
+	<script>
+	window.onload = function(){
+		SelectArea.show(document.querySelector("#text-box"),400,400)
+	}
+	</script>
 	
 </head>
 <body>
 	<div class="container">
+		<button onclick="SelectArea.show(document.body)">보이기</button>
 		<h1>SelectArea</h1>
 		<h1>SelectArea</h1>
 		<h1>SelectArea</h1>
 		<h1>SelectArea</h1>
-		<div class="selectArea">
+		<div style="background-color:#abc; width:600px; height:900px; margin: 0 auto" id="text-box" >
+			
+		</div>
+		<!-- <div class="selectArea selectArea-box">
 			<div class="selectArea-pointer" data-index="0"></div>
 			<div class="selectArea-pointer" data-index="1"></div>
 			<div class="selectArea-pointer" data-index="2"></div>
@@ -56,7 +65,7 @@
 			</div>
 			<div class="selectArea-bg">
 			</div>
-		</div>
+		</div> -->
 		
 		
 		
