@@ -1,5 +1,5 @@
 var SelectArea = {
-	"div":null,
+	"sa":null,
 	"box":null,
 	"bg":null,
 	"parent":null,
@@ -8,6 +8,9 @@ var SelectArea = {
 		
 	},
 	"getBoundingClientRect":function(){
+		if(!this.sa.parentNode){
+			return null;
+		}
 		return this.box.layout.getBoundingClientRect();
 	},
 	"_create":function(){
@@ -31,42 +34,75 @@ var SelectArea = {
 		this.bg=this.sa.querySelector('.selectArea-bg');
 		this.box.pointers=this.box.querySelectorAll('.selectArea-pointer');
 		this.box.layout=this.box.querySelector('.selectArea-layout');
-		this.toDragable.addListener(this.box.layout,function(thisC){return function(gapX,gapY){
+		this.box.layout.ondblclick = this._ondblclick();
+		this.toDragable.addListener(this.box.layout,function(thisC){return function(evt,gapX,gapY){
 			thisC.syncPosBy(gapX,gapY,0,0);
-		}}(this));
-		this.toDragable.addListener(this.box.pointers[0],function(thisC){return function(gapX,gapY){
+		}}(this),this._onchange());
+		this.toDragable.addListener(this.box.pointers[0],function(thisC){return function(evt,gapX,gapY){
 			thisC.syncPosBy(gapX,gapY,-1*gapX,-1*gapY);
-		}}(this));
-		this.toDragable.addListener(this.box.pointers[1],function(thisC){return function(gapX,gapY){
+		}}(this),this._onchange());
+		this.toDragable.addListener(this.box.pointers[1],function(thisC){return function(evt,gapX,gapY){
 			thisC.syncPosBy(0,gapY,0,-1*gapY);
-		}}(this));
-		this.toDragable.addListener(this.box.pointers[2],function(thisC){return function(gapX,gapY){
+		}}(this),this._onchange());
+		this.toDragable.addListener(this.box.pointers[2],function(thisC){return function(evt,gapX,gapY){
 			thisC.syncPosBy(0,gapY,gapX,-1*gapY);
-		}}(this));
-		this.toDragable.addListener(this.box.pointers[3],function(thisC){return function(gapX,gapY){
+		}}(this),this._onchange());
+		this.toDragable.addListener(this.box.pointers[3],function(thisC){return function(evt,gapX,gapY){
 			thisC.syncPosBy(0,0,gapX,0);
-		}}(this));
-		this.toDragable.addListener(this.box.pointers[4],function(thisC){return function(gapX,gapY){
+		}}(this),this._onchange());
+		this.toDragable.addListener(this.box.pointers[4],function(thisC){return function(evt,gapX,gapY){
 			thisC.syncPosBy(0,0,gapX,gapY);
-		}}(this));
-		this.toDragable.addListener(this.box.pointers[5],function(thisC){return function(gapX,gapY){
+		}}(this),this._onchange());
+		this.toDragable.addListener(this.box.pointers[5],function(thisC){return function(evt,gapX,gapY){
 			thisC.syncPosBy(0,0,0,gapY);
-		}}(this));
-		this.toDragable.addListener(this.box.pointers[6],function(thisC){return function(gapX,gapY){
+		}}(this),this._onchange());
+		this.toDragable.addListener(this.box.pointers[6],function(thisC){return function(evt,gapX,gapY){
 			thisC.syncPosBy(gapX,0,-1*gapX,gapY);
-		}}(this));
+		}}(this),this._onchange());
 		this.toDragable.addListener(this.box.pointers[7],function(thisC){return function(gapX,gapY){
 			thisC.syncPosBy(gapX,0,-1*gapX,0);
-		}}(this));
+		}}(this),this._onchange());
 		return this.sa
 	},
-	"show":function(parent,x,y,w,h,cb){
+	"__onchange":null,
+	"_onchange":function(){
+		var thisC = this
+		return function(evt){
+			if(thisC.__onchange){
+				thisC.__onchange(evt);
+			}
+		}
+	},
+	"__ondblclick":null,
+	"_ondblclick":function(){
+		var thisC = this
+		return function(evt){
+			if(thisC.__ondblclick){
+				thisC.__ondblclick(evt);
+			}
+		}
+	},
+	"hide":function(){
+		if(this.sa.parentNode){
+			this.sa.parentNode.removeChild(this.sa);
+		}
+	},
+	"show":function(parent,opt){
 		this._create();
 		document.body.appendChild(this.sa);
 		this.parent = parent;
 		var p_bcr = this.parent.getBoundingClientRect();
 		this.w = p_bcr.width;
 		this.h = p_bcr.height;
+		var x,y,w,h;
+		if(opt){
+			x = opt.x;
+			y = opt.y;
+			w = opt.w;
+			h = opt.h;
+		}
+		this.__onchange = opt&&opt.onchange?opt.onchange:null;
+		this.__ondblclick = opt&&opt.ondblclick?opt.ondblclick:null;
 		if(x==undefined){x=0;}
 		if(y==undefined){y=0;}
 		if(w==undefined){w=p_bcr.width;}
@@ -74,28 +110,51 @@ var SelectArea = {
 		this._syncPos(x,y,w,h);
 		window.addEventListener('resize',function(thisC){return function(evt){thisC._onresize(evt);} }(this),false)
 		window.addEventListener('scroll',function(thisC){return function(evt){thisC._onresize(evt);} }(this),false)
+		
 	},
 	"_onresize":function(evt){
 		this._syncPos(this.x,this.y,this.w,this.h);
 		evt.preventDefault(), evt.stopPropagation()
-		// console.log(evt.type)
+		if(this.__onchange) this.__onchange()
 	},
 	"syncPosBy":function(x,y,w,h){
+		
 		if(this.w==0){x=0;}
 		if(this.h==0){y=0;}
+		if(x!=0 && this.x+x<0){
+			x=0;
+			if(w!=0) w = 0;
+		}
+		if(y!=0 && this.y+y<0){
+			y=0;
+			if(h!=0) h = 0;
+		}
 		this._syncPos(this.x+x,this.y+y,this.w+w,this.h+h);
 	},
+	"syncPosTo":function(x,y,w,h){
+		if(x==null) x = this.x;
+		if(y==null) y = this.y;
+		if(w==null) w = this.w;
+		if(h==null) h = this.h;
+		this._syncPos(x,y,w,h);
+	},	
 	"_syncPos":function(x,y,w,h){
 		var t ;
 		var scrollX = (((t = document.documentElement) || (t = document.body.parentNode)) && typeof t.scrollLeft == 'number' ? t : document.body).scrollLeft;
 		var scrollY = (((t = document.documentElement) || (t = document.body.parentNode))  && typeof t.scrollTop == 'number' ? t : document.body).scrollTop
 		var p_bcr = this.parent.getBoundingClientRect();
 		
-		x = Math.min(Math.max(0,x),p_bcr.width-this.w);
-		y = Math.min(Math.max(0,y),p_bcr.height-this.h);
-		w = Math.max(0,Math.min(w,p_bcr.width-this.x));
-		h = Math.max(0,Math.min(h,p_bcr.height-this.y));
-		// h = Math.min(Math.max(0,h),p_bcr.height-y-h);
+		x = Math.min(Math.max(0,x),p_bcr.width-w);
+		y = Math.min(Math.max(0,y),p_bcr.height-h);
+		w = Math.min(Math.max(0,w),p_bcr.width-x);
+		h = Math.min(Math.max(0,h),p_bcr.height-y);
+		x = Math.min(Math.max(0,x),p_bcr.width-w);
+		y = Math.min(Math.max(0,y),p_bcr.height-h);
+		x = Math.max(0,x);
+		y = Math.max(0,y);
+		w = Math.min(w,p_bcr.width);
+		h = Math.min(h,p_bcr.height);
+
 		this.x = x;
 		this.y = y;
 		this.w = w;
@@ -119,11 +178,12 @@ var SelectArea = {
 		this.bg.style.borderBottomWidth =  (p_bcr.height-y-h)+"px";
 	}
 	,"toDragable":{
-		"addListener":function(target,cb_onpointerMove){
+		"addListener":function(target,cb_onpointerMove,cb_onpointerUp){
 			target.ing = false;
 			target.x0 = 0;
 			target.y0 = 0;
 			target.cb_onpointerMove = cb_onpointerMove;
+			target.cb_onpointerUp = cb_onpointerUp;
 			target._getXY = this._getXY;
 			target.addEventListener('pointerdown',this._onpointerdown(target) );
 			document.addEventListener('pointermove',this._onpointermove(target) );
@@ -167,7 +227,7 @@ var SelectArea = {
 				target.x0 = xy[0];
 				target.y0 = xy[1];
 				if(target.cb_onpointerMove){
-					target.cb_onpointerMove(gapX,gapY); 	
+					target.cb_onpointerMove(evt,gapX,gapY); 	
 				}
 				evt.preventDefault(), evt.stopPropagation()	
 			}
@@ -177,6 +237,9 @@ var SelectArea = {
 			return function(evt){
 				// var target = evt.target;
 				target.ing = false;
+				if(target.cb_onpointerUp){
+					target.cb_onpointerUp(evt); 	
+				}
 				evt.preventDefault(), evt.stopPropagation()	
 			}
 			
