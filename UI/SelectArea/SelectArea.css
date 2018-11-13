@@ -29,7 +29,7 @@
 	100% {border-color: rgba(0,0,0,0.5);}
 }
 .selectArea-layout::before{
-	content: "";
+	/* content: ""; */
 	position: absolute;
 	top:0;left:0;right:0;bottom: 0;
 	/* background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMElEQVQ4T2P8////fwY84OzZs/ikGRhHDRgWYXDmzBm86cDY2Bh/Ohg1gIFx6IcBAAFRUwl1MM3lAAAAAElFTkSuQmCC");
