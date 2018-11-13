@@ -159,10 +159,10 @@ var SelectArea = {
 		this.y = y;
 		this.w = w;
 		this.h = h;
-		this.box.pointers[0].setAttribute('data-x',x);
-		this.box.pointers[0].setAttribute('data-y',y);
-		this.box.pointers[4].setAttribute('data-w',w);
-		this.box.pointers[4].setAttribute('data-h',h);
+		this.box.pointers[0].setAttribute('data-x',x.toFixed(0));
+		this.box.pointers[0].setAttribute('data-y',y.toFixed(0));
+		this.box.pointers[4].setAttribute('data-w',w.toFixed(0));
+		this.box.pointers[4].setAttribute('data-h',h.toFixed(0));
 		
 		this.box.style.top = y+"px";
 		this.box.style.left = x+"px";
@@ -185,9 +185,10 @@ var SelectArea = {
 			target.cb_onpointerMove = cb_onpointerMove;
 			target.cb_onpointerUp = cb_onpointerUp;
 			target._getXY = this._getXY;
-			target.addEventListener('pointerdown',this._onpointerdown(target) );
-			document.addEventListener('pointermove',this._onpointermove(target) );
-			document.addEventListener('pointerup',this._onpointerup(target) );
+
+			target.addEventListener('pointerdown',this._onpointerdown(target));
+			document.addEventListener('pointermove',this._onpointermove(target));
+			document.addEventListener('pointerup',this._onpointerup(target));
 		},
 		"_getXY":function(evt){
 			var x = evt.clientX;
@@ -214,6 +215,7 @@ var SelectArea = {
 				target.y0 = xy[1];
 				// console.log(evt.type)
 				evt.preventDefault(), evt.stopPropagation()	
+				return false;
 			}			
 		},
 		"_onpointermove":function(target){
@@ -230,6 +232,7 @@ var SelectArea = {
 					target.cb_onpointerMove(evt,gapX,gapY); 	
 				}
 				evt.preventDefault(), evt.stopPropagation()	
+				return false;
 			}
 		}
 		,
