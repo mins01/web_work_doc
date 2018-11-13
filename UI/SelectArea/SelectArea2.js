@@ -130,6 +130,9 @@ var SelectArea = (function(){
 			if(y == undefined) y = 0;
 			if(x1 == undefined) x1 = p_bcr.width + x;
 			if(y1 == undefined) y1 = p_bcr.height + y;
+			var t = 0;
+			if(x > x1){t = x;x = x1;x1 = t;}
+			if(y > y1){t = y;y = y1;y1 = t;}
 			this.x = x;
 			this.y = y;
 			this.x1 = x1;
@@ -137,7 +140,7 @@ var SelectArea = (function(){
 			this.syncPosCoordinate(x,y,x1,y1);
 		}
 		sa.hide = function(){
-			this.parentNode.removeChild(this);
+			if(this.parentNode) this.parentNode.removeChild(this);
 		}
 		sa.destroy = function(){
 			this.parentNode.removeChild(this);
@@ -147,19 +150,28 @@ var SelectArea = (function(){
 			_syncPosCoordinate(this,x,y,x1,y1);
 		}
 		sa.syncPos = function(x,y,w,h){
+			var p_bcr = sa.saTarget.getBoundingClientRect();
+			if(x+w>p_bcr.width){
+				x=p_bcr.width-this.w;
+			}
+			if(y+h>p_bcr.height){
+				y=p_bcr.height-this.h;
+			}
 			this.syncPosCoordinate(x,y,x+w,y+h);
 		}
 		sa.syncPosBy = function(x,y,w,h){
 			if(this.w==0){x=0;}
 			if(this.h==0){y=0;}
-			if(x!=0 && this.x+x<0){
+			var p_bcr = sa.saTarget.getBoundingClientRect();
+			if(x!=0 && (this.x1+x>p_bcr.width || this.x+x<0)){
 				x=0;
-				if(w!=0) w = 0;
+				w=0;
 			}
-			if(y!=0 && this.y+y<0){
+			if(y!=0 && (this.y1+y>p_bcr.height || this.y+y<0)){
 				y=0;
-				if(h!=0) h = 0;
+				h=0;
 			}
+
 			this.syncPos(this.x+x,this.y+y,this.w+w,this.h+h);
 		}
 		sa.syncPosCoordinateBy = function(x,y,x1,y1){
@@ -181,6 +193,7 @@ var SelectArea = (function(){
 		}
 		sa.toDragable_onpointerup = function(thisC){
 			return function(evt){
+				var t = 0;
 				if(thisC.x > thisC.x1){t = thisC.x;thisC.x = thisC.x1;thisC.x1 = t;}
 				if(thisC.y > thisC.y1){t = thisC.y;thisC.y = thisC.y1;thisC.y1 = t;}
 				thisC.syncPosCoordinate(thisC.x,thisC.y,thisC.x1,thisC.y1);
@@ -192,47 +205,39 @@ var SelectArea = (function(){
 	var _initEvent = function(sa){
 		toDragable.addListener(sa.box.layout,function(thisC){return function(evt,gapX,gapY){
 			thisC.syncPosBy(gapX,gapY,0,0);
-			thisC.dispatchEvent((new CustomEvent("change", {}) ));
+			thisC.dispatchEvent((new CustomEvent("move", {}) ));
 		}}(sa),sa.toDragable_onpointerup);
 		toDragable.addListener(sa.box.pointers[0],function(thisC){return function(evt,gapX,gapY){
-			// thisC.syncPosBy(gapX,gapY,-1*gapX,-1*gapY);
 			thisC.syncPosCoordinateBy(gapX,gapY,0,0)
-			thisC.dispatchEvent((new CustomEvent("change", {})));
+			thisC.dispatchEvent((new CustomEvent("move", {})));
 		}}(sa),sa.toDragable_onpointerup);
 		toDragable.addListener(sa.box.pointers[1],function(thisC){return function(evt,gapX,gapY){
-			// thisC.syncPosBy(0,gapY,0,-1*gapY);
 			thisC.syncPosCoordinateBy(0,gapY,0,0)
-			thisC.dispatchEvent((new CustomEvent("change", {})));
+			thisC.dispatchEvent((new CustomEvent("move", {})));
 		}}(sa),sa.toDragable_onpointerup);
 		toDragable.addListener(sa.box.pointers[2],function(thisC){return function(evt,gapX,gapY){
-			// thisC.syncPosBy(0,gapY,gapX,-1*gapY);
 			thisC.syncPosCoordinateBy(0,gapY,gapX,0)
-			thisC.dispatchEvent((new CustomEvent("change", {})));
+			thisC.dispatchEvent((new CustomEvent("move", {})));
 		}}(sa),sa.toDragable_onpointerup);
 		toDragable.addListener(sa.box.pointers[3],function(thisC){return function(evt,gapX,gapY){
-			// thisC.syncPosBy(0,0,gapX,0);
 			thisC.syncPosCoordinateBy(0,0,gapX,0)
-			thisC.dispatchEvent((new CustomEvent("change", {})));
+			thisC.dispatchEvent((new CustomEvent("move", {})));
 		}}(sa),sa.toDragable_onpointerup);
 		toDragable.addListener(sa.box.pointers[4],function(thisC){return function(evt,gapX,gapY){
-			// thisC.syncPosBy(0,0,gapX,gapY);
 			thisC.syncPosCoordinateBy(0,0,gapX,gapY)
-			thisC.dispatchEvent((new CustomEvent("change", {})));
+			thisC.dispatchEvent((new CustomEvent("move", {})));
 		}}(sa),sa.toDragable_onpointerup);
 		toDragable.addListener(sa.box.pointers[5],function(thisC){return function(evt,gapX,gapY){
-			// thisC.syncPosBy(0,0,0,gapY);
 			thisC.syncPosCoordinateBy(0,0,0,gapY)
-			thisC.dispatchEvent((new CustomEvent("change", {})));
+			thisC.dispatchEvent((new CustomEvent("move", {})));
 		}}(sa),sa.toDragable_onpointerup);
 		toDragable.addListener(sa.box.pointers[6],function(thisC){return function(evt,gapX,gapY){
-			// thisC.syncPosBy(gapX,0,-1*gapX,gapY);
 			thisC.syncPosCoordinateBy(gapX,0,0,gapY)
-			thisC.dispatchEvent((new CustomEvent("change", {})));
+			thisC.dispatchEvent((new CustomEvent("move", {})));
 		}}(sa),sa.toDragable_onpointerup);
 		toDragable.addListener(sa.box.pointers[7],function(thisC){return function(evt,gapX,gapY){
-			// thisC.syncPosBy(gapX,0,-1*gapX,0);
 			thisC.syncPosCoordinateBy(gapX,0,0,0)
-			thisC.dispatchEvent((new CustomEvent("change", {})));
+			thisC.dispatchEvent((new CustomEvent("move", {})));
 		}}(sa),sa.toDragable_onpointerup);
 	}
 	var __onresize = function(evt){
@@ -246,41 +251,12 @@ var SelectArea = (function(){
 		var scrollY = (((t = document.documentElement) || (t = document.body.parentNode))  && typeof t.scrollTop == 'number' ? t : document.body).scrollTop
 		var p_bcr = sa.saTarget.getBoundingClientRect();
 
-		
-		// if(x>x1){ t=x1;x1=x;x=t;}
-		// if(y>y1){ t=y1;y1=y;y=t;}		
-		// var x_e = Math.max(Math.min(x,p_bcr.width),0);
-		// var x1_e = Math.max(Math.min(x1,p_bcr.width),0);
-		// var y_e = Math.max(Math.min(y,p_bcr.height),0);
-		// var y1_e = Math.max(Math.min(y1,p_bcr.height),0);
-		if(x1>=p_bcr.width){
-			var x_e = sa.x;	
-		}else{
-			var x_e = Math.max(x,0);
-		}
+		var x_e = Math.max(x,0);
 		var x1_e = Math.min(x1,p_bcr.width);
-		
-		if(y1>=p_bcr.height){
-			var y_e = sa.y;	
-		}else{
-			var y_e = Math.max(y,0);
-		}
+		var y_e = Math.max(y,0);
 		var y1_e = Math.min(y1,p_bcr.height);
 		
 
-		// console.log(x,y,w,h,x1,y1);
-		// x = Math.min(Math.max(0,x),p_bcr.width-w);
-		// y = Math.min(Math.max(0,y),p_bcr.height-h);
-		// w = Math.min(Math.max(0,w),p_bcr.width-x);
-		// h = Math.min(Math.max(0,h),p_bcr.height-y);
-		// x = Math.min(Math.max(0,x),p_bcr.width-w);
-		// y = Math.min(Math.max(0,y),p_bcr.height-h);
-		// x = Math.max(0,x);
-		// y = Math.max(0,y);
-		// w = Math.min(w,p_bcr.width);
-		// h = Math.min(h,p_bcr.height);
-		
-		
 		var x_min = Math.max(Math.min(x_e,x1_e),0);
 		var y_min = Math.max(Math.min(y_e,y1_e),0);
 		var x_max = Math.min(Math.max(x_e,x1_e),p_bcr.width);
