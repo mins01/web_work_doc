@@ -114,7 +114,7 @@ var SelectArea = {
 	},
 	"_onresize":function(evt){
 		this._syncPos(this.x,this.y,this.w,this.h);
-		evt.preventDefault(), evt.stopPropagation()
+		evt.preventDefault();evt.stopPropagation();
 		if(this.__onchange) this.__onchange()
 	},
 	"syncPosBy":function(x,y,w,h){
@@ -187,6 +187,7 @@ var SelectArea = {
 			target._getXY = this._getXY;
 
 			target.addEventListener('pointerdown',this._onpointerdown(target));
+			target.addEventListener('touchmove',function(evt){ evt.preventDefault();evt.stopPropagation()	;return false;});
 			document.addEventListener('pointermove',this._onpointermove(target));
 			document.addEventListener('pointerup',this._onpointerup(target));
 		},
@@ -214,7 +215,7 @@ var SelectArea = {
 				target.x0 = xy[0];
 				target.y0 = xy[1];
 				// console.log(evt.type)
-				evt.preventDefault(), evt.stopPropagation()	
+				evt.preventDefault();evt.stopPropagation()	;
 				return false;
 			}			
 		},
@@ -231,7 +232,7 @@ var SelectArea = {
 				if(target.cb_onpointerMove){
 					target.cb_onpointerMove(evt,gapX,gapY); 	
 				}
-				evt.preventDefault(), evt.stopPropagation()	
+				evt.preventDefault();evt.stopPropagation()	;
 				return false;
 			}
 		}
@@ -243,7 +244,7 @@ var SelectArea = {
 				if(target.cb_onpointerUp){
 					target.cb_onpointerUp(evt); 	
 				}
-				evt.preventDefault(), evt.stopPropagation()	
+				evt.preventDefault();evt.stopPropagation()	;
 			}
 			
 		}
