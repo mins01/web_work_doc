@@ -36,10 +36,12 @@
 	<link rel="stylesheet" href="SelectArea.css" >
 	<script src="SelectArea.js"></script>
 	<script>
+	var sa0,sa1,sa2;
 	window.onload = function(){
 		sa0 = new SelectArea(document.querySelector("#test-box0"));
 		sa0.addEventListener('move',function(evt){ // 커스텀 이벤트
-			console.log(JSON.stringify(this.box.layout.getBoundingClientRect()));
+			console.log(JSON.stringify(this.selectedArea.getBoundingClientRect()));
+			document.querySelector('#test-out0').value=JSON.stringify(this.selectedArea.getBoundingClientRect())
 		})
 		sa0.addEventListener('click',function(evt){
 			console.log("sa0",evt.type);
@@ -55,7 +57,11 @@
 		})
 		sa0.show(10,10,30,40);
 		sa1 = new SelectArea(document.querySelector("#test-box1"));
+		sa1.selectedArea.innerHTML = '<img src="http://www.mins01.com/img/logo.gif" />'
 		sa1.show();
+		sa2 = new SelectArea(document.querySelector("#test-box2"));
+		sa2.selectedArea.innerHTML = '<span style="text-align:center;display:flex;justify-content: center;align-items: center;">test text</span>'
+		sa2.show();
 	}
 	</script>
 	
@@ -74,7 +80,9 @@
 			</div>
 			<button type="button" onclick="sa0.show()">영역지정 보이기(기본 전체 크기)</button>
 			<button type="button" onclick="sa0.show(30,30,10,10)">영역지정 보이기(위치, 크기 지정)</button>
+			<button type="button" onclick="sa0.show(30,30,1000,1000)">영역지정 보이기(위치, 크기 지정(아주크게))</button>
 			<button type="button" onclick="sa0.hide()">영역지정 숨기기</button><br />
+			<button type="button" onclick="sa0.destroy()">영역지정 제거</button><br />
 			<button type="button" onclick="sa0.syncPosBy(-1,0,0,0)" >x+=-</button><button type="button" onclick="sa0.syncPosBy(1,0,0,0)" >x+=1</button>
 			<button type="button" onclick="sa0.syncPosBy(0,-1,0,0)" >y+=-</button><button type="button" onclick="sa0.syncPosBy(0,1,0,0)" >y+=1</button>
 			<button type="button" onclick="sa0.syncPosBy(0,0,-1,0)" >w+=-</button><button type="button" onclick="sa0.syncPosBy(0,0,1,0)" >w+=1</button>
@@ -86,13 +94,22 @@
 			w:<input name="v_w" type="range" oninput="sa0.syncPos(parseInt(this.form.v_x.value),parseInt(this.form.v_y.value),parseInt(this.form.v_w.value),parseInt(this.form.v_h.value))" value="10" min="0" max="300"  />/
 			h:<input name="v_h" type="range" oninput="sa0.syncPos(parseInt(this.form.v_x.value),parseInt(this.form.v_y.value),parseInt(this.form.v_w.value),parseInt(this.form.v_h.value))" value="10"  min="0" max="300"  />/
 			<br />
-			<button type="button" onclick="document.querySelector('#test-out0').value=JSON.stringify(sa0.getBoundingClientRect())">결과</button>
+			font-size:<input type="number" oninput="sa0.style.fontSize=this.value+'px'" value="10"  min="1" max="50"  />px
+			<br />
+			<button type="button" onclick="document.querySelector('#test-out0').value=JSON.stringify(sa0.selectedArea.getBoundingClientRect())">결과</button>
 			<input type="text" id="test-out0" placeholder="결과" style="width:90%" />
 		</form>
 		
 		<hr />
-		<div style="background-color:#abc; width:300px; height:300px; margin: 0 auto" id="test-box1" >
-			test-box0
+		<h2>이미지 크기 조정</h2>
+		<button type="button" onclick="var img = sa1.selectedArea.querySelector('img'); sa1.syncPos(0,0,img.naturalWidth,img.naturalHeight)">이미지 기본크기로</button>
+		<div style="background-color:#cba; width:300px; height:300px; margin: 0 auto" id="test-box1" >
+			test-box1
+		</div>
+		<hr />
+		<h2>텍스트</h2>
+		<div style="background-color:#bca; width:300px; height:300px; margin: 0 auto" id="test-box2" >
+			test-box2
 		</div>
 		
 	</div>
