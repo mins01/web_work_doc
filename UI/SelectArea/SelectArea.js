@@ -1,4 +1,4 @@
-var SelectArea = {
+r SelectArea = {
 	"sa":null,
 	"box":null,
 	"bg":null,

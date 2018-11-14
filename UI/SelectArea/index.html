@@ -37,7 +37,25 @@
 	<script src="SelectArea.js"></script>
 	<script>
 	window.onload = function(){
-		SelectArea.show(document.querySelector("#test-box0"),{x:30,y:40,w:100,h:120})
+		sa0 = new SelectArea(document.querySelector("#test-box0"));
+		sa0.addEventListener('move',function(evt){ // 커스텀 이벤트
+			console.log(JSON.stringify(this.box.layout.getBoundingClientRect()));
+		})
+		sa0.addEventListener('click',function(evt){
+			console.log("sa0",evt.type);
+		})
+		sa0.box.layout.addEventListener('click',function(evt){
+			console.log("sa0.box.layout",evt.type);
+		})
+		sa0.box.layout.addEventListener('dblclick',function(evt){
+			console.log("sa0.box.layout",evt.type);
+		})
+		sa0.bg.addEventListener('click',function(evt){
+			console.log("sa0.bg",evt.type);
+		})
+		sa0.show(10,10,30,40);
+		sa1 = new SelectArea(document.querySelector("#test-box1"));
+		sa1.show();
 	}
 	</script>
 	
@@ -50,65 +68,32 @@
 			영역 지정 UI
 		</p>
 		<hr />
-		<div style="background-color:#abc; width:200px; height:200px; margin: 0 auto" id="test-box0" >
+		<form>
+			<div style="background-color:#abc; width:200px; height:200px; margin: 0 auto" id="test-box0" >
+				test-box0
+			</div>
+			<button type="button" onclick="sa0.show()">영역지정 보이기(기본 전체 크기)</button>
+			<button type="button" onclick="sa0.show(30,30,10,10)">영역지정 보이기(위치, 크기 지정)</button>
+			<button type="button" onclick="sa0.hide()">영역지정 숨기기</button><br />
+			<button type="button" onclick="sa0.syncPosBy(-1,0,0,0)" >x+=-</button><button type="button" onclick="sa0.syncPosBy(1,0,0,0)" >x+=1</button>
+			<button type="button" onclick="sa0.syncPosBy(0,-1,0,0)" >y+=-</button><button type="button" onclick="sa0.syncPosBy(0,1,0,0)" >y+=1</button>
+			<button type="button" onclick="sa0.syncPosBy(0,0,-1,0)" >w+=-</button><button type="button" onclick="sa0.syncPosBy(0,0,1,0)" >w+=1</button>
+			<button type="button" onclick="sa0.syncPosBy(0,0,0,-1)" >h+=-</button><button type="button" onclick="sa0.syncPosBy(0,0,0,1)" >h+=1</button>
+			<br />
+			x:<input name="v_x" type="range" oninput="sa0.syncPos(parseInt(this.form.v_x.value),parseInt(this.form.v_y.value),parseInt(this.form.v_w.value),parseInt(this.form.v_h.value))" value="10" min="0" max="300"  />/
+			y:<input name="v_y" type="range" oninput="sa0.syncPos(parseInt(this.form.v_x.value),parseInt(this.form.v_y.value),parseInt(this.form.v_w.value),parseInt(this.form.v_h.value))" value="10"  min="0" max="300"  />/
 			
+			w:<input name="v_w" type="range" oninput="sa0.syncPos(parseInt(this.form.v_x.value),parseInt(this.form.v_y.value),parseInt(this.form.v_w.value),parseInt(this.form.v_h.value))" value="10" min="0" max="300"  />/
+			h:<input name="v_h" type="range" oninput="sa0.syncPos(parseInt(this.form.v_x.value),parseInt(this.form.v_y.value),parseInt(this.form.v_w.value),parseInt(this.form.v_h.value))" value="10"  min="0" max="300"  />/
+			<br />
+			<button type="button" onclick="document.querySelector('#test-out0').value=JSON.stringify(sa0.getBoundingClientRect())">결과</button>
+			<input type="text" id="test-out0" placeholder="결과" style="width:90%" />
+		</form>
+		
+		<hr />
+		<div style="background-color:#abc; width:300px; height:300px; margin: 0 auto" id="test-box1" >
 			test-box0
 		</div>
-		<button type="button" onclick="SelectArea.show(document.querySelector('#test-box0'))">영역지정 보이기(전체 기준)</button>
-		<button type="button" onclick="SelectArea.show(document.querySelector('#test-box0'),{x:30,y:40,w:100,h:120})">영역지정 보이기(위치, 크기 지정)</button>
-		<button type="button" onclick="SelectArea.show(document.querySelector('#test-box0'),{x:30,y:40})">영역지정 보이기(위치 지정)</button>
-		<button type="button" onclick="SelectArea.show(document.querySelector('#test-box0'),{w:100,h:120})">영역지정 보이기(크기 지정)</button><br />
-		<button type="button" onclick="SelectArea.show(document.querySelector('#test-box0'),
-		{x:30,y:40,w:100,h:120,onchange:function(){
-			document.querySelector('#test-out0').value=JSON.stringify(this.getBoundingClientRect())
-		}})">영역지정 보이기(onchange 이벤트 지정)</button>
-		<button type="button" onclick="SelectArea.show(document.querySelector('#test-box0'),
-		{x:30,y:40,w:100,h:120,ondblclick:function(){
-			alert('ondblclick')
-		}})">영역지정 보이기(ondblclick 이벤트 지정)</button>
-		
-		<button type="button" onclick="SelectArea.hide()">영역지정 숨기기</button><br />
-		<button type="button" onclick="SelectArea.syncPosBy(-1,0,0,0)" >x+=-</button><button type="button" onclick="SelectArea.syncPosBy(1,0,0,0)" >x+=1</button>
-		<button type="button" onclick="SelectArea.syncPosBy(0,-1,0,0)" >y+=-</button><button type="button" onclick="SelectArea.syncPosBy(0,1,0,0)" >y+=1</button>
-		<button type="button" onclick="SelectArea.syncPosBy(0,0,-1,0)" >w+=-</button><button type="button" onclick="SelectArea.syncPosBy(0,0,1,0)" >w+=1</button>
-		<button type="button" onclick="SelectArea.syncPosBy(0,0,0,-1)" >h+=-</button><button type="button" onclick="SelectArea.syncPosBy(0,0,0,1)" >h+=1</button>
-		<br />
-		x:<input type="range" oninput="SelectArea.syncPosTo(this.value,null,null,null)" min="0" max="300"  />/
-		y:<input type="range" oninput="SelectArea.syncPosTo(null,this.value,null,null)" min="0" max="300"  />/
-		
-		w:<input type="range" oninput="SelectArea.syncPosTo(null,null,this.value,null)" min="0" max="300"  />/
-		h:<input type="range" oninput="SelectArea.syncPosTo(null,null,null,this.value)" min="0" max="300"  />/
-		<input type="range" />
-		<br />
-		<button type="button" onclick="document.querySelector('#test-out0').value=JSON.stringify(SelectArea.getBoundingClientRect())">결과</button>
-		<input type="text" id="test-out0" placeholder="결과" style="width:90%" />
-		
-		
-		<h1>SelectArea</h1>
-		<h1>SelectArea</h1>
-		<h1>SelectArea</h1>
-
-		<button type="button" onclick="SelectArea.hide()">숨기기</button>
-		
-		<div style="background-color:#abc; width:50%; height:600px; margin: 0 auto" id="test-box1" >
-			<button type="button" onclick="SelectArea.show(this.parentNode,100,100,150,150)">영역 선택하기</button>
-		</div>
-		<!-- <div class="selectArea selectArea-box">
-			<div class="selectArea-pointer" data-index="0"></div>
-			<div class="selectArea-pointer" data-index="1"></div>
-			<div class="selectArea-pointer" data-index="2"></div>
-			<div class="selectArea-pointer" data-index="3"></div>
-			<div class="selectArea-pointer" data-index="4"></div>
-			<div class="selectArea-pointer" data-index="5"></div>
-			<div class="selectArea-pointer" data-index="6"></div>
-			<div class="selectArea-pointer" data-index="7"></div>
-			<div class="selectArea-layout">
-			</div>
-			<div class="selectArea-bg">
-			</div>
-		</div> -->
-		
-		
 		
 	</div>
 </body>
