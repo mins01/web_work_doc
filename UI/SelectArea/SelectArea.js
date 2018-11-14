@@ -1,307 +1,325 @@
 (function () {
-
+  
   if ( typeof window.CustomEvent === "function" ) return false;
-
+  
   function CustomEvent ( event, params ) {
     params = params || { bubbles: false, cancelable: false, detail: undefined };
     var evt = document.createEvent( 'CustomEvent' );
     evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
     return evt;
-   }
-
+  }
+  
   CustomEvent.prototype = window.Event.prototype;
-
+  
   window.CustomEvent = CustomEvent;
 })();
 
 var SelectArea = (function(){
-	
-	var toDragable = {
-		"addListener":function(target,cb_onpointerMove,cb_onpointerUp){
-			target.ing = false;
-			target.x0 = 0;
-			target.y0 = 0;
-			target.cb_onpointerMove = cb_onpointerMove;
-			target.cb_onpointerUp = cb_onpointerUp;
-			target._getXY = this._getXY;
-			
-			target.addEventListener('pointerdown',this._onpointerdown(target));
-			target.addEventListener('touchmove',function(evt){ evt.preventDefault();evt.stopPropagation()	;return false;});
-			document.addEventListener('pointermove',this._onpointermove(target));
-			document.addEventListener('pointerup',this._onpointerup(target));
-		},
-		"_getXY":function(evt){
-			var x = evt.clientX;
-			var y = evt.clientY;
-			if(evt.isPrimary ){
-				var x = evt.clientX;
-				var y = evt.clientY;
-			}else if(evt.touches && evt.touches[0]){
-				var touch = evt.touches[0];
-				var x = touch.X;
-				var y = touch.Y;
-			}else{
-				var x = evt.x;
-				var y = evt.y;
-			}
-			return [x,y];
-		},
-		"_onpointerdown":function(target){
-			// var target = evt.target;
-			return function(evt){
-				target.ing = true;
-				var xy = target._getXY(evt);
-				target.x0 = xy[0];
-				target.y0 = xy[1];
-				// console.log(evt.type)
-				evt.preventDefault();evt.stopPropagation()	;
-				return false;
-			}			
-		},
-		"_onpointermove":function(target){
-			// var target = evt.target;
-			return function(evt){
-				// console.log(target);
-				if(!target.ing){return;}
-				var xy = target._getXY(evt);
-				var gapX = xy[0]-target.x0;
-				var gapY = xy[1]-target.y0;
-				target.x0 = xy[0];
-				target.y0 = xy[1];
-				if(target.cb_onpointerMove){
-					target.cb_onpointerMove(evt,gapX,gapY);
-				}
-				evt.preventDefault();evt.stopPropagation()	;
-				return false;
-			}
-		},
-		"_onpointerup":function(target){
-			return function(evt){
-				// var target = evt.target;
-				if(target.ing && target.cb_onpointerUp){
-					target.cb_onpointerUp(evt);
-				}
-				target.ing = false;
-				evt.preventDefault();evt.stopPropagation()	;
-			}
-			
-		}
-	}
-	
-	
-	var _create = function(target){
-		var sa = document.createElement('div');
-		sa.className="selectArea";
-		sa.innerHTML =
-		'<div class="selectArea-box">'+
-		'<div class="selectArea-pointer" data-index="0" data-x="0" data-y="0"></div>'+
-		'<div class="selectArea-pointer" data-index="1"></div>'+
-		'<div class="selectArea-pointer" data-index="2"></div>'+
-		'<div class="selectArea-pointer" data-index="3"></div>'+
-		'<div class="selectArea-pointer" data-index="4" data-w="0" data-h="0"></div>'+
-		'<div class="selectArea-pointer" data-index="5"></div>'+
-		'<div class="selectArea-pointer" data-index="6"></div>'+
-		'<div class="selectArea-pointer" data-index="7"></div>'+
-		'<div class="selectArea-layout"></div>'+
-		'</div>'+
-		'<div class="selectArea-bg"></div>';
-		sa.box=sa.querySelector('.selectArea-box');
-		sa.bg=sa.querySelector('.selectArea-bg');
-		sa.box.pointers=sa.querySelectorAll('.selectArea-pointer');
-		sa.box.layout=sa.querySelector('.selectArea-layout');
+  
+  var toDragable = {
+    "addListener":function(target,cb_onpointerMove,cb_onpointerUp){
+      target.ing = false;
+      target.x0 = 0;
+      target.y0 = 0;
+      target.cb_onpointerMove = cb_onpointerMove;
+      target.cb_onpointerUp = cb_onpointerUp;
+      target._getXY = this._getXY;
+      
+      target.addEventListener('pointerdown',this._onpointerdown(target));
+      target.addEventListener('touchmove',function(evt){ evt.preventDefault();evt.stopPropagation()	;return false;});
+      document.addEventListener('pointermove',this._onpointermove(target));
+      document.addEventListener('pointerup',this._onpointerup(target));
+    },
+    "_getXY":function(evt){
+      var x = evt.clientX;
+      var y = evt.clientY;
+      if(evt.isPrimary ){
+        var x = evt.clientX;
+        var y = evt.clientY;
+      }else if(evt.touches && evt.touches[0]){
+        var touch = evt.touches[0];
+        var x = touch.X;
+        var y = touch.Y;
+      }else{
+        var x = evt.x;
+        var y = evt.y;
+      }
+      return [x,y];
+    },
+    "_onpointerdown":function(target){
+      // var target = evt.target;
+      return function(evt){
+        target.ing = true;
+        var xy = target._getXY(evt);
+        target.x0 = xy[0];
+        target.y0 = xy[1];
+        // console.log(evt.type)
+        evt.preventDefault();evt.stopPropagation()	;
+        return false;
+      }			
+    },
+    "_onpointermove":function(target){
+      // var target = evt.target;
+      return function(evt){
+        // console.log(target);
+        if(!target.ing){return;}
+        var xy = target._getXY(evt);
+        var gapX = xy[0]-target.x0;
+        var gapY = xy[1]-target.y0;
+        target.x0 = xy[0];
+        target.y0 = xy[1];
+        if(target.cb_onpointerMove){
+          target.cb_onpointerMove(evt,gapX,gapY);
+        }
+        evt.preventDefault();evt.stopPropagation()	;
+        return false;
+      }
+    },
+    "_onpointerup":function(target){
+      return function(evt){
+        // var target = evt.target;
+        if(target.ing && target.cb_onpointerUp){
+          target.cb_onpointerUp(evt);
+        }
+        target.ing = false;
+        evt.preventDefault();evt.stopPropagation()	;
+        return false;
+      }
+      
+    }
+  }
+  
+  
+  var _create = function(target){
+    var sa = document.createElement('div');
+    sa.className="selectArea";
+    sa.innerHTML =
+    '<div class="selectArea-box">'+
+    '<button type="button" class="selectArea-pointer" data-index="0" data-x="0" data-y="0"></button>'+
+    '<button type="button" class="selectArea-pointer" data-index="1"></button>'+
+    '<button type="button" class="selectArea-pointer" data-index="2"></button>'+
+    '<button type="button" class="selectArea-pointer" data-index="3"></button>'+
+    '<button type="button" class="selectArea-pointer" data-index="4" data-w="0" data-h="0"></button>'+
+    '<button type="button" class="selectArea-pointer" data-index="5"></button>'+
+    '<button type="button" class="selectArea-pointer" data-index="6"></button>'+
+    '<button type="button" class="selectArea-pointer" data-index="7"></button>'+
+    '<div class="selectArea-layout"></div>'+
+    '</div>'+
+    '<div class="selectArea-bg"></div>';
+    sa.box=sa.querySelector('.selectArea-box');
+    sa.bg=sa.querySelector('.selectArea-bg');
+    sa.box.pointers=sa.querySelectorAll('.selectArea-pointer');
+    sa.box.layout=sa.querySelector('.selectArea-layout');
     sa.selectedArea = sa.box.layout;
-		sa.target = target
-		sa.target.sa = sa;
-		var p_bcr = sa.target.getBoundingClientRect();
-
-		sa.x = 0;
-		sa.y = 0;
-		sa.w = p_bcr.width;
-		sa.h = p_bcr.height;
-		sa.x1 = sa.x+sa.w;
-		sa.y1 = sa.y+sa.h;
-		return sa;
-	}
-	var _initMethod = function(sa){
-		sa.show = function(x,y,x1,y1){
-			document.body.appendChild(this);
-			var p_bcr = this.target.getBoundingClientRect();
-			// console.log(p_bcr)
-			if(x == undefined) x = 0;
-			if(y == undefined) y = 0;
-			if(x1 == undefined) x1 = p_bcr.width + x;
-			if(y1 == undefined) y1 = p_bcr.height + y;
-			var t = 0;
-			if(x > x1){t = x;x = x1;x1 = t;}
-			if(y > y1){t = y;y = y1;y1 = t;}
-			this.x = x;
-			this.y = y;
-			this.x1 = x1;
-			this.y1 = y1
-			this.syncPosCoordinate(x,y,x1,y1);
-		}
-		sa.hide = function(){
-			if(this.parentNode) this.parentNode.removeChild(this);
-		}
-		sa.destroy = function(){
+    sa.target = target
+    sa.target.sa = sa;
+    var p_bcr = sa.target.getBoundingClientRect();
+    
+    sa.x = 0;
+    sa.y = 0;
+    sa.w = p_bcr.width;
+    sa.h = p_bcr.height;
+    sa.x1 = sa.x+sa.w;
+    sa.y1 = sa.y+sa.h;
+    
+    sa.rangeoutable = false;
+    return sa;
+  }
+  var _initMethod = function(sa){
+    sa.show = function(x,y,x1,y1){
+      document.body.appendChild(this);
+      var p_bcr = this.target.getBoundingClientRect();
+      // console.log(p_bcr)
+      if(x == undefined) x = 0;
+      if(y == undefined) y = 0;
+      if(x1 == undefined) x1 = p_bcr.width + x;
+      if(y1 == undefined) y1 = p_bcr.height + y;
+      var t = 0;
+      if(x > x1){t = x;x = x1;x1 = t;}
+      if(y > y1){t = y;y = y1;y1 = t;}
+      this.x = x;
+      this.y = y;
+      this.x1 = x1;
+      this.y1 = y1
+      this.syncPosCoordinate(x,y,x1,y1);
+    }
+    sa.hide = function(){
+      if(this.parentNode) this.parentNode.removeChild(this);
+    }
+    sa.destroy = function(){
       window.removeEventListener('resize',this._window_onresize);
       window.removeEventListener('scroll',this._window_onresize);
-			this.parentNode.removeChild(this);
+      this.parentNode.removeChild(this);
       this.show = null;
-			delete this.target.sa;
-		}
-		sa.syncPosCoordinate = function(x,y,x1,y1){
-			_syncPosCoordinate(this,x,y,x1,y1);
-		}
-		sa.syncPos = function(x,y,w,h){
-			var p_bcr = sa.target.getBoundingClientRect();
-			if(x+w>p_bcr.width){
-				x=p_bcr.width-this.w;
-			}
-			if(y+h>p_bcr.height){
-				y=p_bcr.height-this.h;
-			}
-			this.syncPosCoordinate(x,y,x+w,y+h);
-		}
-		sa.syncPosBy = function(x,y,w,h){
-			if(this.w==0){x=0;}
-			if(this.h==0){y=0;}
-			var p_bcr = sa.target.getBoundingClientRect();
-			if(x!=0 && (this.x1+x>p_bcr.width || this.x+x<0)){
-				x=0;
-				w=0;
-			}
-			if(y!=0 && (this.y1+y>p_bcr.height || this.y+y<0)){
-				y=0;
-				h=0;
-			}
-
-			this.syncPos(this.x+x,this.y+y,this.w+w,this.h+h);
-		}
+      delete this.target.sa;
+    }
+    sa.syncPosCoordinate = function(x,y,x1,y1){
+      _syncPosCoordinate(this,x,y,x1,y1);
+    }
+    sa.syncPos = function(x,y,w,h){
+      if(!this.rangeoutable){
+        var p_bcr = sa.target.getBoundingClientRect();
+        if(x+w>p_bcr.width){
+          x=p_bcr.width-this.w;
+        }
+        if(y+h>p_bcr.height){
+          y=p_bcr.height-this.h;
+        }
+      }
+      this.syncPosCoordinate(x,y,x+w,y+h);
+    }
+    sa.syncPosBy = function(x,y,w,h){
+      if(!this.rangeoutable){
+        if(this.w==0){x=0;}
+        if(this.h==0){y=0;}
+        var p_bcr = sa.target.getBoundingClientRect();
+        if(x!=0 && (this.x1+x>p_bcr.width || this.x+x<0)){
+          x=0;
+          w=0;
+        }
+        if(y!=0 && (this.y1+y>p_bcr.height || this.y+y<0)){
+          y=0;
+          h=0;
+        }  
+      }
+      
+      
+      this.syncPos(this.x+x,this.y+y,this.w+w,this.h+h);
+    }
     sa.resync = function(){
       this.syncPosCoordinate(this.x,this.y,this.x1,this.y1);
     }
-		sa.syncPosCoordinateBy = function(x,y,x1,y1){
-			var t = 0;
-			// var p_bcr = sa.target.getBoundingClientRect();
-
-			var x_e = this.x+x;
-			var y_e = this.y+y;
-			var x1_e = this.x1+x1;
-			var y1_e = this.y1+y1;
-			var w = x1_e-x_e;
-			var h = y1_e-y_e;
-			// console.log(x,y,w,h,x1,y1)
-			this.syncPosCoordinate(x_e,y_e,x1_e,y1_e);
-		}
-		sa._window_onresize = function(thisC){
+    sa.syncPosCoordinateBy = function(x,y,x1,y1){
+      var t = 0;
+      // var p_bcr = sa.target.getBoundingClientRect();
+      
+      var x_e = this.x+x;
+      var y_e = this.y+y;
+      var x1_e = this.x1+x1;
+      var y1_e = this.y1+y1;
+      var w = x1_e-x_e;
+      var h = y1_e-y_e;
+      // console.log(x,y,w,h,x1,y1)
+      this.syncPosCoordinate(x_e,y_e,x1_e,y1_e);
+    }
+    sa._window_onresize = function(thisC){
       return function(evt){
-  			thisC.resync();
-  			evt.preventDefault();evt.stopPropagation();
+        thisC.resync();
+        evt.preventDefault();evt.stopPropagation();
       }
-		}(sa)
-		sa.toDragable_onpointerup = function(thisC){
-			return function(evt){
-				var t = 0;
-				if(thisC.x > thisC.x1){t = thisC.x;thisC.x = thisC.x1;thisC.x1 = t;}
-				if(thisC.y > thisC.y1){t = thisC.y;thisC.y = thisC.y1;thisC.y1 = t;}
-				thisC.syncPosCoordinate(thisC.x,thisC.y,thisC.x1,thisC.y1);
-			}
-		}(sa)
-		
-		
-	}
-	var _initEvent = function(sa){
-		toDragable.addListener(sa.box.layout,function(thisC){return function(evt,gapX,gapY){
-			thisC.syncPosBy(gapX,gapY,0,0);
-			thisC.dispatchEvent((new CustomEvent("move", {}) ));
-		}}(sa),sa.toDragable_onpointerup);
-		toDragable.addListener(sa.box.pointers[0],function(thisC){return function(evt,gapX,gapY){
-			thisC.syncPosCoordinateBy(gapX,gapY,0,0)
-			thisC.dispatchEvent((new CustomEvent("move", {})));
-		}}(sa),sa.toDragable_onpointerup);
-		toDragable.addListener(sa.box.pointers[1],function(thisC){return function(evt,gapX,gapY){
-			thisC.syncPosCoordinateBy(0,gapY,0,0)
-			thisC.dispatchEvent((new CustomEvent("move", {})));
-		}}(sa),sa.toDragable_onpointerup);
-		toDragable.addListener(sa.box.pointers[2],function(thisC){return function(evt,gapX,gapY){
-			thisC.syncPosCoordinateBy(0,gapY,gapX,0)
-			thisC.dispatchEvent((new CustomEvent("move", {})));
-		}}(sa),sa.toDragable_onpointerup);
-		toDragable.addListener(sa.box.pointers[3],function(thisC){return function(evt,gapX,gapY){
-			thisC.syncPosCoordinateBy(0,0,gapX,0)
-			thisC.dispatchEvent((new CustomEvent("move", {})));
-		}}(sa),sa.toDragable_onpointerup);
-		toDragable.addListener(sa.box.pointers[4],function(thisC){return function(evt,gapX,gapY){
-			thisC.syncPosCoordinateBy(0,0,gapX,gapY)
-			thisC.dispatchEvent((new CustomEvent("move", {})));
-		}}(sa),sa.toDragable_onpointerup);
-		toDragable.addListener(sa.box.pointers[5],function(thisC){return function(evt,gapX,gapY){
-			thisC.syncPosCoordinateBy(0,0,0,gapY)
-			thisC.dispatchEvent((new CustomEvent("move", {})));
-		}}(sa),sa.toDragable_onpointerup);
-		toDragable.addListener(sa.box.pointers[6],function(thisC){return function(evt,gapX,gapY){
-			thisC.syncPosCoordinateBy(gapX,0,0,gapY)
-			thisC.dispatchEvent((new CustomEvent("move", {})));
-		}}(sa),sa.toDragable_onpointerup);
-		toDragable.addListener(sa.box.pointers[7],function(thisC){return function(evt,gapX,gapY){
-			thisC.syncPosCoordinateBy(gapX,0,0,0)
-			thisC.dispatchEvent((new CustomEvent("move", {})));
-		}}(sa),sa.toDragable_onpointerup);
+    }(sa)
+    sa.toDragable_onpointerup = function(thisC){
+      return function(evt){
+        var t = 0;
+        if(thisC.x > thisC.x1){t = thisC.x;thisC.x = thisC.x1;thisC.x1 = t;}
+        if(thisC.y > thisC.y1){t = thisC.y;thisC.y = thisC.y1;thisC.y1 = t;}
+        thisC.syncPosCoordinate(thisC.x,thisC.y,thisC.x1,thisC.y1);
+      }
+    }(sa)
+    
+    
+  }
+  var _initEvent = function(sa){
+    toDragable.addListener(sa.box.layout,function(thisC){return function(evt,gapX,gapY){
+      thisC.syncPosBy(gapX,gapY,0,0);
+      thisC.dispatchEvent((new CustomEvent("change", {}) ));
+    }}(sa),sa.toDragable_onpointerup);
+    toDragable.addListener(sa.box.pointers[0],function(thisC){return function(evt,gapX,gapY){
+      thisC.syncPosCoordinateBy(gapX,gapY,0,0)
+      thisC.dispatchEvent((new CustomEvent("change", {})));
+    }}(sa),sa.toDragable_onpointerup);
+    toDragable.addListener(sa.box.pointers[1],function(thisC){return function(evt,gapX,gapY){
+      thisC.syncPosCoordinateBy(0,gapY,0,0)
+      thisC.dispatchEvent((new CustomEvent("change", {})));
+    }}(sa),sa.toDragable_onpointerup);
+    toDragable.addListener(sa.box.pointers[2],function(thisC){return function(evt,gapX,gapY){
+      thisC.syncPosCoordinateBy(0,gapY,gapX,0)
+      thisC.dispatchEvent((new CustomEvent("change", {})));
+    }}(sa),sa.toDragable_onpointerup);
+    toDragable.addListener(sa.box.pointers[3],function(thisC){return function(evt,gapX,gapY){
+      thisC.syncPosCoordinateBy(0,0,gapX,0)
+      thisC.dispatchEvent((new CustomEvent("change", {})));
+    }}(sa),sa.toDragable_onpointerup);
+    toDragable.addListener(sa.box.pointers[4],function(thisC){return function(evt,gapX,gapY){
+      thisC.syncPosCoordinateBy(0,0,gapX,gapY)
+      thisC.dispatchEvent((new CustomEvent("change", {})));
+    }}(sa),sa.toDragable_onpointerup);
+    toDragable.addListener(sa.box.pointers[5],function(thisC){return function(evt,gapX,gapY){
+      thisC.syncPosCoordinateBy(0,0,0,gapY)
+      thisC.dispatchEvent((new CustomEvent("change", {})));
+    }}(sa),sa.toDragable_onpointerup);
+    toDragable.addListener(sa.box.pointers[6],function(thisC){return function(evt,gapX,gapY){
+      thisC.syncPosCoordinateBy(gapX,0,0,gapY)
+      thisC.dispatchEvent((new CustomEvent("change", {})));
+    }}(sa),sa.toDragable_onpointerup);
+    toDragable.addListener(sa.box.pointers[7],function(thisC){return function(evt,gapX,gapY){
+      thisC.syncPosCoordinateBy(gapX,0,0,0)
+      thisC.dispatchEvent((new CustomEvent("change", {})));
+    }}(sa),sa.toDragable_onpointerup);
     
     window.addEventListener('resize',sa._window_onresize,false)
     window.addEventListener('scroll',sa._window_onresize,false)
-	}
-
-	var _syncPosCoordinate = function(sa,x,y,x1,y1){
-		var t ;
-		var scrollX = (((t = document.documentElement) || (t = document.body.parentNode)) && typeof t.scrollLeft == 'number' ? t : document.body).scrollLeft;
-		var scrollY = (((t = document.documentElement) || (t = document.body.parentNode))  && typeof t.scrollTop == 'number' ? t : document.body).scrollTop
-		var p_bcr = sa.target.getBoundingClientRect();
-
-		var x_e = Math.max(x,0);
-		var x1_e = Math.min(x1,p_bcr.width);
-		var y_e = Math.max(y,0);
-		var y1_e = Math.min(y1,p_bcr.height);
-		
-
-		var x_min = Math.max(Math.min(x_e,x1_e),0);
-		var y_min = Math.max(Math.min(y_e,y1_e),0);
-		var x_max = Math.min(Math.max(x_e,x1_e),p_bcr.width);
-		var y_max = Math.min(Math.max(y_e,y1_e),p_bcr.width);
-		var w = Math.abs(x_max-x_min);
-		var h = Math.abs(y_max-y_min);
-		sa.x = x_e;
-		sa.y = y_e;
-		sa.w = w;
-		sa.h = h;
-		sa.x1 = x1_e;
-		sa.y1 = y1_e;
-
-		sa.box.pointers[0].setAttribute('data-x',x_min.toFixed(0));
-		sa.box.pointers[0].setAttribute('data-y',y_min.toFixed(0));
-		sa.box.pointers[4].setAttribute('data-w',w.toFixed(0));
-		sa.box.pointers[4].setAttribute('data-h',h.toFixed(0));
-		
-		sa.box.style.top = y_min+"px";
-		sa.box.style.left = x_min+"px";
-		sa.box.style.width = w+"px";
-		sa.box.style.height = h+"px";
-		sa.style.top = p_bcr.top+scrollY+"px";
-		sa.style.left = p_bcr.left+scrollX+"px";
-		sa.style.width = p_bcr.width+"px";
-		sa.style.height = p_bcr.height+"px";
-		sa.bg.style.borderTopWidth = y_min+"px";
-		sa.bg.style.borderLeftWidth = x_min+"px";
-		sa.bg.style.borderRightWidth = (p_bcr.width-x_min-w)+"px";
-		sa.bg.style.borderBottomWidth =  (p_bcr.height-y_min-h)+"px";
-	}
-	
-	return function(target){
-		var sa = _create(target);
-		_initMethod(sa);
-		_initEvent(sa)
-		return sa;
-		
-	}
+  }
+  
+  var _syncPosCoordinate = function(sa,x,y,x1,y1){
+    var t ;
+    var scrollX = (((t = document.documentElement) || (t = document.body.parentNode)) && typeof t.scrollLeft == 'number' ? t : document.body).scrollLeft;
+    var scrollY = (((t = document.documentElement) || (t = document.body.parentNode))  && typeof t.scrollTop == 'number' ? t : document.body).scrollTop
+    var p_bcr = sa.target.getBoundingClientRect();
+    
+    if(!sa.rangeoutable){
+      var x_e = Math.max(x,0);
+      var x1_e = Math.min(x1,p_bcr.width);
+      var y_e = Math.max(y,0);
+      var y1_e = Math.min(y1,p_bcr.height);
+      var x_min = Math.max(Math.min(x_e,x1_e),0);
+      var y_min = Math.max(Math.min(y_e,y1_e),0);
+      var x_max = Math.min(Math.max(x_e,x1_e),p_bcr.width);
+      var y_max = Math.min(Math.max(y_e,y1_e),p_bcr.width);
+    }else{
+      var x_e = x
+      var x1_e = x1
+      var y_e = y
+      var y1_e = y1
+      var x_min = Math.min(x_e,x1_e)
+      var y_min = Math.min(y_e,y1_e)
+      var x_max = Math.max(x_e,x1_e)
+      var y_max = Math.max(y_e,y1_e)
+    }
+    
+    var w = Math.abs(x_max-x_min);
+    var h = Math.abs(y_max-y_min);
+    sa.x = x_e;
+    sa.y = y_e;
+    sa.w = w;
+    sa.h = h;
+    sa.x1 = x1_e;
+    sa.y1 = y1_e;
+    
+    sa.box.pointers[0].setAttribute('data-x',x_min.toFixed(0));
+    sa.box.pointers[0].setAttribute('data-y',y_min.toFixed(0));
+    sa.box.pointers[4].setAttribute('data-w',w.toFixed(0));
+    sa.box.pointers[4].setAttribute('data-h',h.toFixed(0));
+    
+    sa.box.style.top = y_min+"px";
+    sa.box.style.left = x_min+"px";
+    sa.box.style.width = w+"px";
+    sa.box.style.height = h+"px";
+    sa.style.top = p_bcr.top+scrollY+"px";
+    sa.style.left = p_bcr.left+scrollX+"px";
+    sa.style.width = p_bcr.width+"px";
+    sa.style.height = p_bcr.height+"px";
+    sa.bg.style.borderTopWidth = Math.max(0,Math.min(p_bcr.height,y_min))+"px";
+    sa.bg.style.borderLeftWidth = Math.max(0,Math.min(p_bcr.width,x_min))+"px";
+    sa.bg.style.borderRightWidth = Math.max(0,Math.min(p_bcr.width,(p_bcr.width-x_min-w)))+"px";
+    sa.bg.style.borderBottomWidth =  Math.max(0,Math.min(p_bcr.height,(p_bcr.height-y_min-h)))+"px";
+  }
+  
+  return function(target){
+    var sa = _create(target);
+    _initMethod(sa);
+    _initEvent(sa)
+    return sa;
+    
+  }
 })()

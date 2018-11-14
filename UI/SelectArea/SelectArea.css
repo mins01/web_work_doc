@@ -47,6 +47,9 @@
 	border-right-width:calc(800px - 100px - 403px);
 	border-bottom-width:calc(600px - 100px - 300px);
 }
+.selectArea-no-bg > .selectArea-bg{
+	display: none;
+}
 .selectArea-pointer{
 	font-size: 1em;
 	box-sizing: border-box;
@@ -57,6 +60,9 @@
 }
 .selectArea-pointer:hover{
 	background-color: #ccc;
+}
+.selectArea-pointer:focus{
+	outline-width: 0;
 }
 .selectArea-pointer::before{
 	position: absolute;

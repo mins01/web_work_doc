@@ -36,11 +36,11 @@
 	<link rel="stylesheet" href="SelectArea.css" >
 	<script src="SelectArea.js"></script>
 	<script>
-	var sa0,sa1,sa2;
+	var sa0,sa1,sa2,sa3,sa4,sa5,sa6;
 	window.onload = function(){
 		sa0 = new SelectArea(document.querySelector("#test-box0"));
-		sa0.addEventListener('move',function(evt){ // 커스텀 이벤트
-			console.log(JSON.stringify(this.selectedArea.getBoundingClientRect()));
+		sa0.addEventListener('change',function(evt){ // 커스텀 이벤트
+			console.log("sa0",evt.type,JSON.stringify(this.selectedArea.getBoundingClientRect()));
 			document.querySelector('#test-out0').value=JSON.stringify(this.selectedArea.getBoundingClientRect())
 		})
 		sa0.addEventListener('click',function(evt){
@@ -62,6 +62,12 @@
 		sa2 = new SelectArea(document.querySelector("#test-box2"));
 		sa2.selectedArea.innerHTML = '<span style="text-align:center;display:flex;justify-content: center;align-items: center;">test text</span>'
 		sa2.show();
+		sa3 = new SelectArea(document.querySelector("#test-box3"));
+		sa3.className = sa3.className +' selectArea-no-bg';
+		sa3.show(50,50,100,100);
+		sa4 = new SelectArea(document.querySelector("#test-box4"));
+		sa4.rangeoutable=true;
+		sa4.show(50,50,100,100);
 	}
 	</script>
 	
@@ -69,7 +75,7 @@
 <body>
 	<div class="container">
 		
-		<h1>SelectArea</h1>
+		<h1>SelectArea <button type="button" onclick="window.location.reload(true)">다시 읽기</button></h1>
 		<p>
 			영역 지정 UI
 		</p>
@@ -103,15 +109,24 @@
 		<hr />
 		<h2>이미지 크기 조정</h2>
 		<button type="button" onclick="var img = sa1.selectedArea.querySelector('img'); sa1.syncPos(0,0,img.naturalWidth,img.naturalHeight)">이미지 기본크기로</button>
-		<div style="background-color:#cba; width:300px; height:300px; margin: 0 auto" id="test-box1" >
+		<div style="background-color:#cba; width:300px; height:300px; margin: 0 auto;background-image:url('http://www.mins01.com/img/logo.gif')" id="test-box1" >
 			test-box1
 		</div>
 		<hr />
 		<h2>텍스트</h2>
-		<div style="background-color:#bca; width:300px; height:300px; margin: 0 auto" id="test-box2" >
+		<div style="background-color:#bca; width:300px; height:300px; margin: 0 auto; " id="test-box2" >
 			test-box2
 		</div>
-		
+		<hr />
+		<h2>no bg</h2>
+		<div style="background-color:#9c6; width:300px; height:300px; margin: 0 auto" id="test-box3" >
+			test-box3
+		</div>
+		<hr />
+		<h2>rangeoutable = true</h2>
+		<div style="background-color:#9c6; width:300px; height:300px; margin: 0 auto" id="test-box4" >
+			test-box4
+		</div>
 	</div>
 </body>
 </html>
