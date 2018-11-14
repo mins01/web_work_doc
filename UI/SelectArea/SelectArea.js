@@ -1,3 +1,11 @@
+/**
+ * SelectArea
+ * @description : HTML 에서 영역을 선택하는 툴
+ * @제한 : "공대여자는 예쁘다"를 나태낼 수 있어야만 사용할 수 있습니다.
+ * @author : 공대여자
+ * @site : www.mins01.com
+ * @date :2018-11-12~
+ */
 (function () {
   
   if ( typeof window.CustomEvent === "function" ) return false;
@@ -122,7 +130,7 @@ var SelectArea = (function(){
     sa.x1 = sa.x+sa.w;
     sa.y1 = sa.y+sa.h;
     
-    sa.rangeoutable = false;
+    sa.outOfRange = false;
     return sa;
   }
   var _initMethod = function(sa){
@@ -147,6 +155,7 @@ var SelectArea = (function(){
       this.x1 = x1;
       this.y1 = y1
       this.syncPosCoordinate(x,y,x1,y1);
+      
     }
     sa.hide = function(){
       if(this.parentNode) this.parentNode.removeChild(this);
@@ -160,36 +169,64 @@ var SelectArea = (function(){
     }
     sa.syncPosCoordinate = function(x,y,x1,y1){
       _syncPosCoordinate(this,x,y,x1,y1);
+      this.dispatchEvent((new CustomEvent("change", {}) ));
     }
-    sa.syncPos = function(x,y,w,h){
-      if(!this.rangeoutable){
+    sa.getAreaRect=function(){
+      var x = Math.min(this.x,this.x1);
+      var y = Math.min(this.y,this.y1);
+      if(DOMRect){
+          return new DOMRect(x,y,this.w,this.h);
+      }else{
+        
+        return {"x":x,"y":y,"width":this.w,"height":this.h,"left":x,"top":y,"right":x+this.w,"bottom":y+this.h};
+      }
+      
+    }
+    sa.moveAndSize = function(x,y,w,h){
+      if(!this.outOfRange){
         var p_bcr = sa.target.getBoundingClientRect();
+        x = Math.max(Math.min(p_bcr.width,x),0)
+        y = Math.max(Math.min(p_bcr.height,y),0)
+        w = Math.max(Math.min(p_bcr.width,w),0)
+        h = Math.max(Math.min(p_bcr.height,h),0)
         if(x+w>p_bcr.width){
-          x=p_bcr.width-this.w;
+          x = p_bcr.width-w
         }
         if(y+h>p_bcr.height){
-          y=p_bcr.height-this.h;
+          y = p_bcr.height-h
         }
       }
+      // console.log(x,y,x+w,y+h);
       this.syncPosCoordinate(x,y,x+w,y+h);
     }
-    sa.syncPosBy = function(x,y,w,h){
-      if(!this.rangeoutable){
-        if(this.w==0){x=0;}
-        if(this.h==0){y=0;}
+    sa.moveBy = function(x,y){
+      if(!this.outOfRange){
         var p_bcr = sa.target.getBoundingClientRect();
-        if(x!=0 && (this.x1+x>p_bcr.width || this.x+x<0)){
-          x=0;
-          w=0;
+        if(this.x+x>p_bcr.width){
+          x = p_bcr.width-this.x;
         }
-        if(y!=0 && (this.y1+y>p_bcr.height || this.y+y<0)){
-          y=0;
-          h=0;
-        }  
+        if(this.x+x<0){
+          x = -1*this.x;
+        }
+        if(this.y+y>p_bcr.width){
+          y = p_bcr.width-this.y;
+        }
+        if(this.y+y<0){
+          y = -1*this.y;
+        }
       }
-      
-      
-      this.syncPos(this.x+x,this.y+y,this.w+w,this.h+h);
+      // console.log(x,y,this.x+x,this.y+y,this.w,this.h)
+      this.moveAndSize(this.x+x,this.y+y,this.w,this.h);
+    }
+    sa.sizeBy = function(w,h){
+      if(!this.outOfRange){
+        var p_bcr = sa.target.getBoundingClientRect();
+        if(this.x+w>p_bcr.width){
+          w = p_bcr.width-this.x;
+        }
+      }
+      // console.log(x,y,this.x+x,this.y+y,this.w,this.h)
+      this.moveAndSize(this.x,this.y,this.w+w,this.h+h);
     }
     sa.resync = function(){
       this.syncPosCoordinate(this.x,this.y,this.x1,this.y1);
@@ -226,7 +263,7 @@ var SelectArea = (function(){
   }
   var _initEvent = function(sa){
     toDragable.addListener(sa.box.layout,function(thisC){return function(evt,gapX,gapY){
-      thisC.syncPosBy(gapX,gapY,0,0);
+      thisC.moveBy(gapX,gapY);
       thisC.dispatchEvent((new CustomEvent("change", {}) ));
     }}(sa),sa.toDragable_onpointerup);
     toDragable.addListener(sa.box.pointers[0],function(thisC){return function(evt,gapX,gapY){
@@ -272,7 +309,7 @@ var SelectArea = (function(){
     var scrollY = (((t = document.documentElement) || (t = document.body.parentNode))  && typeof t.scrollTop == 'number' ? t : document.body).scrollTop
     var p_bcr = sa.target.getBoundingClientRect();
     
-    if(!sa.rangeoutable){
+    if(!sa.outOfRange){  
       var x_e = Math.max(x,0);
       var x1_e = Math.min(x1,p_bcr.width);
       var y_e = Math.max(y,0);
@@ -280,7 +317,9 @@ var SelectArea = (function(){
       var x_min = Math.max(Math.min(x_e,x1_e),0);
       var y_min = Math.max(Math.min(y_e,y1_e),0);
       var x_max = Math.min(Math.max(x_e,x1_e),p_bcr.width);
-      var y_max = Math.min(Math.max(y_e,y1_e),p_bcr.width);
+      var y_max = Math.min(Math.max(y_e,y1_e),p_bcr.height);
+
+      
     }else{
       var x_e = x
       var x1_e = x1

@@ -1,4 +1,12 @@
 @charset "UTF-8";
+/**
+ * SelectArea
+ * @description : HTML 에서 영역을 선택하는 툴
+ * @제한 : "공대여자는 예쁘다"를 나태낼 수 있어야만 사용할 수 있습니다.
+ * @author : 공대여자
+ * @site : www.mins01.com
+ * @date :2018-11-12~
+ */
 .selectArea{
 	line-height: 1em;padding:0;margin:0;
 	width:403px; height: 300px;
@@ -9,18 +17,22 @@
 .selectArea-box{
 	padding:0;margin:0;
 	width:403px; height: 300px;
-	box-sizing: content-box;
+	box-sizing: border-box;
 	position: absolute; z-index: 20;
 	left: 100px; top:100px;
 }
+.selectArea-layout::before{
+	content: "";
+	position: absolute;z-index: 10;
+	top:0px;left:0px;right:0px;bottom:0px;
+	border:1px dashed rgba(0,0,0,0.5);
+	pointer-events: none;
+
+}
 .selectArea-layout{
 	position: absolute;z-index: 10;
-	top:0;left:0;right:0;bottom: 0;
-	border:1px dashed rgba(0,0,0,0.5);
-	/* filter: invert(0.2); */
-	/* animation-name: border-animation;
-	animation-duration: 1s;
-	animation-iteration-count: infinite; */
+	top:0px;left:0px;right:0px;bottom:0px;
+
 	cursor: move;
 }
 @keyframes border-animation {
@@ -28,9 +40,10 @@
 	50% {border-color: rgba(255,255,255,0.5);}
 	100% {border-color: rgba(0,0,0,0.5);}
 }
-.selectArea-layout > *{
+.selectArea-layout > img{
 	position: absolute;
-	top:0;left:0;right:0;bottom: 0;
+	top:0px;left:0px;right:0px;bottom:0px;
+	box-sizing: content-box;
 	width: 100%;
   height: 100%;
 }
@@ -79,7 +92,7 @@
 .selectArea-pointer[data-index="4"]::after{
 	position: absolute;
 	top:1em;left:1em;
-	content: "pos: " attr(data-x) "x" attr(data-y);
+	content: "xy: " attr(data-x) "x" attr(data-y);
 	white-space: nowrap;;
 	pointer-events: none;
 	background-color: rgba(0,0,0,0.5);color:#fff;
