@@ -126,6 +126,11 @@ var SelectArea = (function(){
     return sa;
   }
   var _initMethod = function(sa){
+    sa.setTarget = function(target){
+      this.hide();
+      this.target = target;
+      this.target.sa = this;
+    }
     sa.show = function(x,y,x1,y1){
       document.body.appendChild(this);
       var p_bcr = this.target.getBoundingClientRect();

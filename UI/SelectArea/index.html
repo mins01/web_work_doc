@@ -55,7 +55,7 @@
 		sa0.bg.addEventListener('click',function(evt){
 			console.log("sa0.bg",evt.type);
 		})
-		sa0.show(10,10,30,40);
+		sa0.show(10,10,100,50);
 		sa1 = new SelectArea(document.querySelector("#test-box1"));
 		sa1.selectedArea.innerHTML = '<img src="http://www.mins01.com/img/logo.gif" />'
 		sa1.show();
@@ -68,6 +68,9 @@
 		sa4 = new SelectArea(document.querySelector("#test-box4"));
 		sa4.rangeoutable=true;
 		sa4.show(50,50,100,100);
+		sa5 = new SelectArea(document.querySelector("#test-box5"));
+		sa5.selectedArea.innerHTML = '<span style="text-align:center;display:flex;justify-content: center;align-items: center;">Hello</span>'
+		sa5.show();
 	}
 	</script>
 	
@@ -124,9 +127,22 @@
 		</div>
 		<hr />
 		<h2>rangeoutable = true</h2>
-		<div style="background-color:#9c6; width:300px; height:300px; margin: 0 auto" id="test-box4" >
+		<div style="background-color:#acc; width:300px; height:300px; margin: 0 auto" id="test-box4" >
 			test-box4
 		</div>
+		<hr />
+		<h2>setTarget</h2>
+		<div style="text-align:center">
+			<div style="display: inline-block;background-color:#cbb; width:300px; height:300px; margin: 0 auto" id="test-box5" >
+				test-box5<br />
+				<button type="button" onclick="sa5.setTarget(document.querySelector('#test-box5'));sa5.show()">여기에 보이기</button>
+			</div>
+			<div style="display: inline-block;background-color:#bbc; width:300px; height:300px; margin: 0 auto" id="test-box6" >
+				test-box6<br />
+				<button type="button" onclick="sa5.setTarget(document.querySelector('#test-box6'));sa5.show()">여기에 보이기</button>				
+			</div>	
+		</div>
+		
 	</div>
 </body>
 </html>
