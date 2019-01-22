@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>test_svg</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>  
+
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script> 
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="test_svg">
+	<meta property="og:description" content="test_svg">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="test_svg" />
+	<meta property="og:type" content="website">
+	
+	<!-- //meta og -->
+	
+	
+</head>
+<body style="background-color:#eee">
+	<div class="container">
+		<h1>Test for SVG</h1>
+		<ul>
+			<li>
+				svg를 canvas에 바로 drawImage 할 수 없다. <br />
+				img 로 부른 다음에 canvas에 drawImage 해야한다. (이거 테스트 한다고 만든 문서다.)
+			</li>
+			<li>
+				svg에서 선이 1px 미만일 이거나 그려질 때 1px 이만이 되는 경우 canvas와 img 와 svg 의 그려지는 이미지 모양이 다를 수 있다.<br />
+				svg와 img는 거의 같은데 canvas가 선이 옅은 색으로 그려진다.
+			</li>
+			<li>
+				svg 속에서 <code>&lt;use xlink:href="circle.svg#svg8"&gt;&lt;/use&gt;</code> 처럼 외부 파일 불러 사용할 경우 그라데이션이 동작 안한다. 왜그런지는 모르겠다.
+			</li>
+		</ul>
+		img<br />
+		<img src="circle.svg"  id="img0" />
+		<hr />
+		img dataurl<br />
+		<img src="data:image/svg+xml,%3Csvg xmlns:dc='http://purl.org/dc/elements/1.1/' xmlns:cc='http://creativecommons.org/ns%23' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns%23' xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:sodipodi='http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd' xmlns:inkscape='http://www.inkscape.org/namespaces/inkscape' width='100' height='100' viewBox='0 0 26.458333 26.458333' version='1.1' id='svg8' inkscape:version='0.92.2 (5c3e80d, 2017-08-06)' sodipodi:docname='circle.svg'%3E%3Cdefs id='defs2'%3E%3ClinearGradient inkscape:collect='always' id='linearGradient2340'%3E%3Cstop style='stop-color:%239aa0aa;stop-opacity:1;' offset='0' id='stop2336' /%3E%3Cstop style='stop-color:%239aa0aa;stop-opacity:0;' offset='1' id='stop2338' /%3E%3C/linearGradient%3E%3CradialGradient inkscape:collect='always' xlink:href='%23linearGradient2340' id='radialGradient2342' cx='82.051743' cy='217.35367' fx='82.051743' fy='217.35367' r='61.604279' gradientTransform='matrix(0.21475951,0,0,0.21472952,-4.3922291,237.09856)' gradientUnits='userSpaceOnUse' /%3E%3C/defs%3E%3Csodipodi:namedview id='base' pagecolor='%23ffffff' bordercolor='%23666666' borderopacity='1.0' inkscape:pageopacity='0.0' inkscape:pageshadow='2' inkscape:zoom='0.98994949' inkscape:cx='276.50477' inkscape:cy='299.58942' inkscape:document-units='mm' inkscape:current-layer='layer1' showgrid='false' units='px' inkscape:window-width='1920' inkscape:window-height='1017' inkscape:window-x='-8' inkscape:window-y='-8' inkscape:window-maximized='1' /%3E%3Cmetadata id='metadata5'%3E%3Crdf:RDF%3E%3Ccc:Work rdf:about=''%3E%3Cdc:format%3Eimage/svg+xml%3C/dc:format%3E%3Cdc:type rdf:resource='http://purl.org/dc/dcmitype/StillImage' /%3E%3Cdc:title%3E%3C/dc:title%3E%3C/cc:Work%3E%3C/rdf:RDF%3E%3C/metadata%3E%3Cg inkscape:label='Layer 1' inkscape:groupmode='layer' id='layer1' transform='translate(0,-270.54165)'%3E%3Ccircle style='opacity:1;fill:url(%23radialGradient2342);fill-opacity:1;fill-rule:evenodd;stroke:%23000000;stroke-width:0.26458333;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal' id='path815' cx='13.229163' cy='283.77081' r='13.201695' /%3E%3C/g%3E%3C/svg%3E%0A" />
+		<hr />
+		object<br />
+		
+		<object type="image/svg+xml" data="circle.svg" >
+		</object>
+		<hr />
+		svg<br />
+		<svg
+		   xmlns:dc="http://purl.org/dc/elements/1.1/"
+		   xmlns:cc="http://creativecommons.org/ns#"
+		   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		   xmlns:svg="http://www.w3.org/2000/svg"
+		   xmlns="http://www.w3.org/2000/svg"
+		   xmlns:xlink="http://www.w3.org/1999/xlink"
+		   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+		   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+		   width="100"
+		   height="100"
+		   viewBox="0 0 26.458333 26.458333"
+		   version="1.1"
+		   id="svg8"
+		   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+		   sodipodi:docname="circle.svg">
+		  <defs
+		     id="defs2">
+		    <linearGradient
+		       inkscape:collect="always"
+		       id="linearGradient2340">
+		      <stop
+		         style="stop-color:#9aa0aa;stop-opacity:1;"
+		         offset="0"
+		         id="stop2336" />
+		      <stop
+		         style="stop-color:#9aa0aa;stop-opacity:0;"
+		         offset="1"
+		         id="stop2338" />
+		    </linearGradient>
+		    <radialGradient
+		       inkscape:collect="always"
+		       xlink:href="#linearGradient2340"
+		       id="radialGradient2342"
+		       cx="82.051743"
+		       cy="217.35367"
+		       fx="82.051743"
+		       fy="217.35367"
+		       r="61.604279"
+		       gradientTransform="matrix(0.21475951,0,0,0.21472952,-4.3922291,237.09856)"
+		       gradientUnits="userSpaceOnUse" />
+		  </defs>
+		  <sodipodi:namedview
+		     id="base"
+		     pagecolor="#ffffff"
+		     bordercolor="#666666"
+		     borderopacity="1.0"
+		     inkscape:pageopacity="0.0"
+		     inkscape:pageshadow="2"
+		     inkscape:zoom="0.98994949"
+		     inkscape:cx="276.50477"
+		     inkscape:cy="299.58942"
+		     inkscape:document-units="mm"
+		     inkscape:current-layer="layer1"
+		     showgrid="false"
+		     units="px"
+		     inkscape:window-width="1920"
+		     inkscape:window-height="1017"
+		     inkscape:window-x="-8"
+		     inkscape:window-y="-8"
+		     inkscape:window-maximized="1" />
+		  <metadata
+		     id="metadata5">
+		    <rdf:RDF>
+		      <cc:Work
+		         rdf:about="">
+		        <dc:format>image/svg+xml</dc:format>
+		        <dc:type
+		           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+		        <dc:title></dc:title>
+		      </cc:Work>
+		    </rdf:RDF>
+		  </metadata>
+		  <g
+		     inkscape:label="Layer 1"
+		     inkscape:groupmode="layer"
+		     id="layer1"
+		     transform="translate(0,-270.54165)">
+		    <circle
+		       style="opacity:1;fill:url(#radialGradient2342);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.26458333;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+		       id="path815"
+		       cx="13.229163"
+		       cy="283.77081"
+		       r="13.201695" />
+		  </g>
+		</svg>
+
+		<hr />
+		svg use <br />
+		<svg width="100" height="100" >
+			<use xlink:href="#svg8"></use>
+		</svg>
+		<hr />
+		svg use external  <br />
+		<svg  width="100" height="100">
+			<use xlink:href="circle.svg#svg8"></use>
+		</svg>
+		<hr />
+		svg for script<br />
+		<div id="div_svg">
+			
+		</div>
+		<script>
+		var  url = 'circle.svg';
+			$.ajax({
+				url: url,
+				type: 'get', //GET
+				dataType: 'xml', //xml, json, script, jsonp, or html
+				// data: post_data,
+			})
+			.done(function(rData) { //통신 성공 시 호출
+				console.log(rData);
+				$('#div_svg').append(rData.querySelector('svg'))
+				console.log("success");
+			})
+			.fail(function() { //통신 실패 시 호출
+				
+				console.log("error");
+			})
+			.always(function() { //성공/실패 후 호출.
+				console.log("complete");
+			});
+		</script>
+		<hr />
+		canvas<br />
+		<canvas width="100" height="100" id="cv0"></canvas>
+
+		<canvas width="100" height="100" id="cv1"></canvas>
+		<script>
+		function drawImage0(){
+			var image = document.querySelector('#img0');
+			var cv = document.querySelector('#cv0');
+			var ctx = cv.getContext('2d');
+			ctx.imageSmoothingEnabled =false
+			ctx.drawImage(image, 0, 0,100,100);	
+		}
+		// function drawImage1(){
+		// 	var image = document.querySelector('#img0');
+		// 	var cv = document.querySelector('#cv1');
+		// 	var ctx = cv.getContext('2d');
+		// 	ctx.imageSmoothingEnabled =true
+		// 	ctx.drawImage(image, 0, 0);	
+		// }
+		$(function(){
+			drawImage0()
+			// drawImage1()
+		})
+		
+		</script>
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+	</div>
+</body>
+</html>
