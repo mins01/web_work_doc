@@ -1,0 +1,60 @@
+@charset "UTF-8";
+/**
+ * grid lyout - float
+ */
+.glft{
+	display: block !important;
+	font-size: 0px;
+}
+.glft::before
+, .glft::after{
+	content: "END";
+	clear: both;
+	display: block;
+}
+.glft .gl-item{
+	float: left;
+}
+.glft .gl-item[data-w="1"]{
+	width:100px;
+}
+.glft .gl-item[data-w="2"]{
+	width:200px;
+}
+.glft .gl-item[data-w="3"]{
+	width:300px;
+}
+.glft .gl-item[data-w="4"]{
+	width:400px;
+}
+.glft .gl-item[data-w="5"]{
+	width:500px;
+}
+
+.glft .gl-item[data-h="1"]{
+	height:100px;
+}
+.glft .gl-item[data-h="2"]{
+	height:200px;
+}
+.glft .gl-item[data-h="3"]{
+	height:300px;
+}
+.glft .gl-item[data-h="4"]{
+	height:400px;
+}
+.glft .gl-item[data-h="5"]{
+	height:500px;
+}
+/*
+data-min-w="~" 
+data-max-w="~"
+data-w="only"
+data-w="auto"
+data-h="only"
+data-h="auto"
+
+not support. 
+
+use grlf instead of grlft.
+*/

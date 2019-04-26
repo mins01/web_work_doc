@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ko" >
 <head>
-	<title>ui grl</title>
+	<title>ui gl</title>
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Script-Type" content="text/javascript">
 	<meta http-equiv="Content-Style-Type" content="text/css">
@@ -23,150 +23,171 @@
 	
 	<!-- meta og -->
 	
-	<meta property="og:title" content="ui grl">
-	<meta property="og:description" content="ui grl">
+	<meta property="og:title" content="ui gl">
+	<meta property="og:description" content="ui gl">
 	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
 	<meta property="og:image:width" content="190">
 	<meta property="og:image:height" content="70" />
-	<meta property="og:site_name" content="ui grl" />
+	<meta property="og:site_name" content="ui gl" />
 	<meta property="og:type" content="website">
 	
-	<link rel="stylesheet" href="grlf.css"> 
-	
+	<link rel="stylesheet" href="gl.css">
+	<link rel="stylesheet" href="glfx.css">
+	<link rel="stylesheet" href="glg.css"> 
+	<link rel="stylesheet" href="glft.css"> 
+	<script>
+		function setgl(c){
+			$("#gl").removeClass('glfx').removeClass('glft').removeClass('glg').removeClass('glg-dense').addClass(c);
+		}
+
+	</script>
 </head>
 <body>
 	<div class="container">
-		<h1>grlf : grid layout flex</h1>
-		<div class="grlf grlf-items  debug-bg" style="max-width:1000px;">
-			<div class="grlf-item debug-bg">
-				<a href="#" class="grlf-item-content debug-bg" data-header ="header" data-footer="footer">default</a>
+		<h1>gl : grid layout</h1>
+		<button type="button" class="btn btn-info" onclick="setgl('glfx')">glfx</button>
+		<button type="button" class="btn btn-info" onclick="setgl('glg')">glg</button>
+		<button type="button" class="btn btn-info" onclick="setgl('glg glg-dense')">glg with dense</button>
+		<button type="button" class="btn btn-info" onclick="setgl('glft')">glft</button>
+		<hr />
+		<div id="gl" class="gl glfx " style="max-width:1000px; overflow:hidden; background-color:#abc;">
+			<div class="gl-item">
+				<a href="#" class="gl-box gl-box-default" data-header ="default" data-footer="default">default</a>
 			</div>
-			<hr class="grlf-item" data-w="only" data-h="auto"/>
+
 			<!-- data-w -->
-			<div class="grlf-item debug-bg" data-h="1" data-w="1">
-				<a href="#" class="grlf-item-content debug-bg" data-header ="header" data-footer="footer">data-w="1"</a>
+			<div class="gl-item" data-h="1" data-w="1">
+				<a href="#" class="gl-box gl-box-default" data-header ="a[data-w=~]" data-footer="footer">data-w="1"</a>
 			</div>
-			<div class="grlf-item debug-bg" data-h="1" data-w="2">
-				<a href="#" class="grlf-item-content debug-bg" data-header ="header" data-footer="footer">data-w="2"</a>
+			<div class="gl-item" data-h="1" data-w="2">
+				<a href="#" class="gl-box gl-box-default" data-header ="a[data-w=~]" data-footer="footer">data-w="2"</a>
 			</div>
-			<div class="grlf-item debug-bg" data-h="1" data-w="3">
-				<a href="#" class="grlf-item-content debug-bg" data-header ="header" data-footer="footer">data-w="3"</a>
+			<div class="gl-item" data-h="1" data-w="3">
+				<a href="#" class="gl-box gl-box-default" data-header ="a[data-w=~]" data-footer="footer">data-w="3"</a>
 			</div>
-			<div class="grlf-item debug-bg" data-h="1" data-w="4">
-				<a href="#" class="grlf-item-content debug-bg" data-header ="header" data-footer="footer">data-w="4"</a>
+			<div class="gl-item" data-h="1" data-w="only">
+				<a href="#" class="gl-box gl-box-default" data-header ="a[data-w=~]" data-footer="footer">data-w="only" (for glfx)</a>
 			</div>
-			<div class="grlf-item debug-bg" data-h="1" data-w="5">
-				<a href="#" class="grlf-item-content debug-bg" data-header ="header" data-footer="footer">data-w="5"</a>
+			<div class="gl-item" data-h="1" data-w="1">
+				<button href="#" class="gl-box gl-box-default" data-header ="button[data-w=~]" data-footer="footer">data-w="1"</button>
 			</div>
-			<div class="grlf-item debug-bg" data-h="1" data-w="only">
-				<a href="#" class="grlf-item-content debug-bg" data-header ="header" data-footer="footer">data-w="only"</a>
+			<div class="gl-item" data-h="1" data-w="2">
+				<button href="#" class="gl-box gl-box-default" data-header ="button[data-w=~]" data-footer="footer">data-w="2"</button>
 			</div>
-			<hr class="grlf-item" data-w="only" data-h="auto"/>
-			<!-- data-h -->
-			<div class="grlf-align-center grlf-justify-center grlf-item " data-w="only" data-h="auto">
-				<div>
-					grlf-align-center grlf-justify-center grlf-item
-				</div>
-				<div class="grlf-item debug-bg" data-h="1" data-w="1">
-					<a href="#" class="grlf-item-content debug-bg" data-header ="header" data-footer="footer">data-h="1"</a>
-				</div>
-				<div class="grlf-item debug-bg" data-h="2" data-w="1">
-					<a href="#" class="grlf-item-content debug-bg" data-header ="header" data-footer="footer">data-h="2"</a>
-				</div>
-				<div class="grlf-item debug-bg" data-h="3" data-w="1">
-					<a href="#" class="grlf-item-content debug-bg" data-header ="header" data-footer="footer">data-h="3"</a>
-				</div>
-				<div class="grlf-item debug-bg" data-h="4" data-w="1">
-					<a href="#" class="grlf-item-content debug-bg" data-header ="header" data-footer="footer">data-h="4"</a>
-				</div>
-				<div class="grlf-item debug-bg" data-h="5" data-w="1">
-					<a href="#" class="grlf-item-content debug-bg" data-header ="header" data-footer="footer">data-h="5"</a>
-				</div>
+			<div class="gl-item" data-h="1" data-w="3">
+				<button href="#" class="gl-box gl-box-default" data-header ="button[data-w=~]" data-footer="footer">data-w="3"</button>
+			</div>
+			<div class="gl-item" data-h="1" data-w="only">
+				<button href="#" class="gl-box gl-box-default" data-header ="button[data-w=~]" data-footer="footer">data-w="only" (for glfx)</button>
 			</div>
 			
-			<hr class="grlf-item" data-w="only" data-h="auto"/>
+			<!-- data-h -->
+			<div class="gl-item" data-h="1" data-w="1">
+				<a href="#" class="gl-box gl-box-default" data-header ="a[data-h=~]" data-footer="footer">data-h="1"</a>
+			</div>
+			<div class="gl-item" data-h="2" data-w="1">
+				<a href="#" class="gl-box gl-box-default" data-header ="a[data-h=~]" data-footer="footer">data-h="2"</a>
+			</div>
+			<div class="gl-item" data-h="3" data-w="1">
+				<a href="#" class="gl-box gl-box-default" data-header ="a[data-h=~]" data-footer="footer">data-h="3"</a>
+			</div>
+			
+			
 			<!-- data-min-w -->
-			<div class="grlf-item debug-bg" data-h="1" data-w="3" data-min-w="2">
-				<a href="#" class="grlf-item-content debug-bg" data-header ="header" data-footer="footer"> data-w="3" data-min-w="2"</a>
+			<div class="gl-item" data-h="1" data-w="3" data-min-w="2">
+				<a href="#" class="gl-box gl-box-default" data-header ="header" data-footer="footer"> data-w="3" data-min-w="2"</a>
 			</div>
 			<!-- data-max-w -->
-			<div class="grlf-item debug-bg" data-h="1" data-w="3" data-max-w="5">
-				<a href="#" class="grlf-item-content debug-bg" data-header ="header" data-footer="footer"> data-w="3" data-max-w="5"</a>
-			</div>
-			<hr class="grlf-item" data-w="only" data-h="auto"/>
-			
-			<div class="grlf-item debug-bg" data-h="2" data-w="2">
-				<a href="#" class="grlf-item-content debug-bg" data-header ="header" data-footer="footer"> data-h="2" data-w="2"</a>
-			</div>
-			<div class="grlf-item debug-bg" data-h="3" data-w="3">
-				<a href="#" class="grlf-item-content debug-bg" data-header ="header" data-footer="footer"> data-h="3" data-w="3"</a>
-			</div>
-			<div class="grlf-item debug-bg" data-h="4" data-w="4">
-				<a href="#" class="grlf-item-content debug-bg" data-header ="header" data-footer="footer"> data-h="4" data-w="4"</a>
-			</div>
-			<div class="grlf-item debug-bg" data-h="5" data-w="5">
-				<a href="#" class="grlf-item-content debug-bg" data-header ="header" data-footer="footer"> data-h="5" data-w="5"</a>
-			</div>
-			<hr class="grlf-item" data-w="only" data-h="auto"/>
-			<div class="grlf-item">
-				<a href="#" class=" btn btn-primary grlf-item-content" data-header ="header" data-footer="footer">.btn-primary</a>
-			</div>
-			<div class="grlf-item">
-				<a href="#" class=" btn btn-secondary grlf-item-content" data-header ="header" data-footer="footer">.btn-secondary</a>
-			</div>
-			<div class="grlf-item">
-				<a href="#" class=" btn btn-success grlf-item-content" data-header ="header" data-footer="footer">.btn-success</a>
-			</div>
-			<div class="grlf-item">
-				<a href="#" class=" btn btn-danger grlf-item-content" data-header ="header" data-footer="footer">.btn-danger</a>
-			</div>
-			<div class="grlf-item">
-				<a href="#" class=" btn btn-warning grlf-item-content" data-header ="header" data-footer="footer">.btn-warning</a>
-			</div>
-			<div class="grlf-item">
-				<a href="#" class=" btn btn-info grlf-item-content" data-header ="header" data-footer="footer">.btn-info</a>
-			</div>
-			<div class="grlf-item">
-				<a href="#" class=" btn btn-light grlf-item-content" data-header ="header" data-footer="footer">.btn-light</a>
-			</div>
-			<div class="grlf-item">
-				<a href="#" class=" btn btn-dark grlf-item-content" data-header ="header" data-footer="footer">.btn-dark</a>
-			</div>
-			<div class="grlf-item">
-				<a href="#" class=" btn btn-link grlf-item-content" data-header ="header" data-footer="footer">.btn-link</a>
-			</div>
-			<hr class="grlf-item" data-w="only" data-h="auto"/>
-			<div class="grlf-item">
-				<button class=" btn btn-primary grlf-item-content" data-header ="header" data-footer="footer">.btn-primary</button>
+			<div class="gl-item" data-h="1" data-w="3" data-max-w="5">
+				<a href="#" class="gl-box gl-box-default" data-header ="header" data-footer="footer"> data-w="3" data-max-w="5"</a>
 			</div>
 			
-			<div class="grlf-items" data-w="auto" data-max-w="">
-				<div class="grlf-item" data-w="2"  data-h="2">
-					<button class=" btn btn-secondary grlf-item-content" data-header ="header" data-footer="footer">.btn-secondary</button>
-				</div>
-				<div class="grlf-item">
-					<button class=" btn btn-success grlf-item-content" data-header ="header" data-footer="footer">.btn-success</button>
-				</div>
-				<div class="grlf-item">
-					<button class=" btn btn-danger grlf-item-content" data-header ="header" data-footer="footer">.btn-danger</button>
-				</div>
-				<div class="grlf-item">
-					<button class=" btn btn-warning grlf-item-content" data-header ="header" data-footer="footer">.btn-warning</button>
-				</div>
-				<div class="grlf-item">
-					<button class=" btn btn-info grlf-item-content" data-header ="header" data-footer="footer">.btn-info</button>
-				</div>
-				<div class="grlf-item">
-					<button class=" btn btn-light grlf-item-content" data-header ="header" data-footer="footer">.btn-light</button>
-				</div>
-				<div class="grlf-item">
-					<button class=" btn btn-dark grlf-item-content" data-header ="header" data-footer="footer">.btn-dark</button>
-				</div>
-				<div class="grlf-item">
-					<button class=" btn btn-link grlf-item-content" data-header ="header" data-footer="footerfooterfooterfooterfooterfooter">.btn-link</button>
-				</div>
+			
+			<div class="gl-item" data-h="2" data-w="2">
+				<a href="#" class="gl-box gl-box-default" data-header ="header" data-footer="footer"> data-h="2" data-w="2"</a>
+			</div>
+			<div class="gl-item" data-h="3" data-w="3">
+				<a href="#" class="gl-box gl-box-default" data-header ="header" data-footer="footer"> data-h="3" data-w="3"</a>
+			</div>
+			<div class="gl-item" data-h="3" data-w="3">
+				<a href="#" class="gl-box gl-box-default" data-header ="header" data-footer="footer"> data-h="3" data-w="3"</a>
 			</div>
 			
+			<div class="gl-item">
+				<a href="#" class="gl-box gl-box-default" data-header ="header header header header" data-footer="footer footer footer footer"><span class="gl-text-truncated">gl-text-truncated gl-text-truncated gl-text-truncated gl-text-truncated gl-text-truncated</span></a>
+			</div>
+			
+			<!-- color -->
+			<div class="gl-item" >
+				<a href="#" class="gl-box gl-box-default" data-header ="color" data-footer="footer">gl-box-default</a>
+			</div>
+			<div class="gl-item" >
+				<a href="#" class="gl-box gl-box-white" data-header ="color" data-footer="footer">gl-box-white</a>
+			</div>
+			<div class="gl-item" >
+				<a href="#" class="gl-box gl-box-black" data-header ="color" data-footer="footer">gl-box-black</a>
+			</div>			
+			
+			<div class="gl-item">
+				<a href="#" class=" btn btn-primary gl-box" data-header =".btn" data-footer="with bootstrap">.btn-primary</a>
+			</div>
+			<div class="gl-item">
+				<a href="#" class=" btn btn-secondary gl-box" data-header =".btn" data-footer="with bootstrap">.btn-secondary</a>
+			</div>
+			<div class="gl-item">
+				<a href="#" class=" btn btn-success gl-box" data-header =".btn" data-footer="with bootstrap">.btn-success</a>
+			</div>
+			<div class="gl-item">
+				<a href="#" class=" btn btn-danger gl-box" data-header =".btn" data-footer="with bootstrap">.btn-danger</a>
+			</div>
+			<div class="gl-item">
+				<a href="#" class=" btn btn-warning gl-box" data-header =".btn" data-footer="with bootstrap">.btn-warning</a>
+			</div>
+			<div class="gl-item">
+				<a href="#" class=" btn btn-info gl-box" data-header =".btn" data-footer="with bootstrap">.btn-info</a>
+			</div>
+			<div class="gl-item">
+				<a href="#" class=" btn btn-light gl-box" data-header =".btn" data-footer="with bootstrap">.btn-light</a>
+			</div>
+			<div class="gl-item">
+				<a href="#" class=" btn btn-dark gl-box" data-header =".btn" data-footer="with bootstrap">.btn-dark</a>
+			</div>
+			<div class="gl-item">
+				<a href="#" class=" btn btn-link gl-box" data-header =".btn" data-footer="with bootstrap">.btn-link</a>
+			</div>
+			
+			<div class="gl-item">
+				<button class=" btn btn-primary gl-box" data-header =".btn" data-footer="with bootstrap">.btn-primary</button>
+			</div>
+			
+			<div class="gl-item" data-w="2"  data-h="2">
+				<button class=" btn btn-secondary gl-box" data-header =".btn" data-footer="with bootstrap">.btn-secondary</button>
+			</div>
+			<div class="gl-item">
+				<button class=" btn btn-success gl-box" data-header =".btn" data-footer="with bootstrap">.btn-success</button>
+			</div>
+			<div class="gl-item">
+				<button class=" btn btn-danger gl-box" data-header =".btn" data-footer="with bootstrap">.btn-danger</button>
+			</div>
+			<div class="gl-item">
+				<button class=" btn btn-warning gl-box" data-header =".btn" data-footer="with bootstrap">.btn-warning</button>
+			</div>
+			<div class="gl-item">
+				<button class=" btn btn-info gl-box" data-header =".btn" data-footer="with bootstrap">.btn-info</button>
+			</div>
+			<div class="gl-item">
+				<button class=" btn btn-light gl-box" data-header =".btn" data-footer="with bootstrap">.btn-light</button>
+			</div>
+			<div class="gl-item">
+				<button class=" btn btn-dark gl-box" data-header =".btn" data-footer="with bootstrap">.btn-dark</button>
+			</div>
+			<div class="gl-item">
+				<button class=" btn btn-link gl-box" data-header =".btn" data-footer="with bootstrap">.btn-link</button>
+			</div>
+			
+		</div>
+		<div>
+			end
 		</div>
 	</div>
 </body>
