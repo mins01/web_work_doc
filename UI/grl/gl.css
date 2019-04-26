@@ -19,9 +19,13 @@
 	align-items: center;
 	border-radius: 10px;
 	white-space: normal;
-	padding:0 5px;margin:0;
+	padding:0;margin:0;
 	box-sizing: border-box;
 	border-width: 0px;
+	text-align: center;
+	overflow: hidden;
+	background-size: cover;
+	background-position: center center;
 }
 
 button.gl-box{
@@ -34,7 +38,7 @@ button.gl-box{
 	content: attr(data-header);
 	text-align: center;
 	font-size: 0.8em; line-height: 1.2em;
-	background-color: rgba(0,0,0,0.3);
+	background-color: rgba(0,0,0,0.4);
 	border-radius: 10px 10px 0 0;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -47,7 +51,7 @@ button.gl-box{
 	bottom:0;left:0;right:0;
 	text-align: center;
 	font-size: 0.8em; line-height: 1.2em;
-	background-color: rgba(0,0,0,0.3);
+	background-color: rgba(0,0,0,0.4);
 	border-radius: 0 0 10px 10px;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -55,9 +59,9 @@ button.gl-box{
 	padding: 0 5px;
 }
 
-.gl-box-default{
-	background-color: #ccc;
-	color:#000;
+.gl-box-gray{
+	background-color: gray;
+	color:#FFA;
 	cursor: pointer;
 }
 
@@ -72,15 +76,15 @@ button.gl-box{
 	cursor: pointer;
 }
 
-  a.gl-box-default:hover
-, a.gl-box-default:active
-, a.gl-box-default:visited{
-	color:#333;
+  a.gl-box-gray:hover
+, a.gl-box-gray:active
+, a.gl-box-gray:visited{
+	color:#FFA;
 }
   a.gl-box-white:hover
 , a.gl-box-white:active
 , a.gl-box-white:visited{
-	color:#333;
+	color:#000;
 }
   a.gl-box-black:hover
 , a.gl-box-black:active
@@ -97,4 +101,8 @@ button.gl-box{
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+}
+
+.gl-box > img{
+	width:100%; height:100%;
 }
