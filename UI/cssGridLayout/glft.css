@@ -30,6 +30,9 @@
 .glft .gl-item[data-w="5"]{
 	width:500px;
 }
+.glft .gl-item[data-w="only"]{
+	width:100%;
+}
 
 .glft .gl-item[data-h="1"]{
 	height:100px;
