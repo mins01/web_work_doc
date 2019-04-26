@@ -17,7 +17,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border-radius: 10px;
+	border-radius: 15px;
 	white-space: normal;
 	padding:0;margin:0;
 	box-sizing: border-box;
@@ -39,11 +39,11 @@ button.gl-box{
 	text-align: center;
 	font-size: 0.9em; line-height: 1.2em;
 	background-color: rgba(0,0,0,0.4);
-	border-radius: 10px 10px 0 0;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	padding: 0 5px;
+	z-index: 10;
 }
 .gl-box[data-footer]::after{
 	content: attr(data-footer);
@@ -52,45 +52,60 @@ button.gl-box{
 	text-align: center;
 	font-size: 0.9em; line-height: 1.2em;
 	background-color: rgba(0,0,0,0.4);
-	border-radius: 0 0 10px 10px;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	padding: 0 5px;
+	z-index: 10;
 }
+a.gl-box[target="_blank"]:not([data-footer])::after
+, a.gl-box[target="_blank"]:not([data-header])::before{
+	position: absolute;
+	top:0;bottom:5px;right:5px;
+	content: " 🚀";
+}
+a.gl-box[target="_blank"][data-header][data-footer]::before{
+	content: attr(data-header) " 🚀";
+}
+/* a.gl-box[target="_blank"]:not([data-header]):not([data-footer])::after{
+	content: " 🚀";
+} */
 
 .gl-box-gray{
 	background-color: gray;
 	color:#FFA;
 	cursor: pointer;
+	transition: filter .15s ease-in-out
 }
 
 .gl-box-white{
 	background-color: #fff;
 	color:#000;
 	cursor: pointer;
+	transition: filter .15s ease-in-out
 }
 .gl-box-black{
 	background-color: #000;
 	color:#eee;
 	cursor: pointer;
+	transition: filter .15s ease-in-out
 }
 
-  a.gl-box-gray:hover
-, a.gl-box-gray:active
-, a.gl-box-gray:visited{
+a.gl-box-gray:hover , a.gl-box-gray:active , a.gl-box-gray:visited{
 	color:#FFA;
 }
-  a.gl-box-white:hover
-, a.gl-box-white:active
-, a.gl-box-white:visited{
+a.gl-box-white:hover , a.gl-box-white:active , a.gl-box-white:visited{
 	color:#000;
 }
-  a.gl-box-black:hover
-, a.gl-box-black:active
-, a.gl-box-black:visited{
+a.gl-box-black:hover , a.gl-box-black:active , a.gl-box-black:visited{
 	color:#fff;
 }
+.gl-box-gray:hover , .gl-box-gray:active 
+, .gl-box-white:hover , .gl-box-white:active
+, .gl-box-black:hover , .gl-box-black:active{
+		filter: brightness(1.1);
+}
+
 .gl-box-black[data-header]::before
 , .gl-box-black[data-header]::after{
 	background-color: rgba(255,255,255,0.3);
@@ -105,4 +120,9 @@ button.gl-box{
 
 .gl-box > img{
 	width:100%; height:100%;
+	transition: transform .15s ease-in-out
+}
+.gl-box:hover > img
+, .gl-box:active > img{
+	transform: scale(1.1);
 }
