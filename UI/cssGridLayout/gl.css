@@ -37,7 +37,7 @@ button.gl-box{
 	top:0;left:0;right:0;
 	content: attr(data-header);
 	text-align: center;
-	font-size: 0.8em; line-height: 1.2em;
+	font-size: 0.9em; line-height: 1.2em;
 	background-color: rgba(0,0,0,0.4);
 	border-radius: 10px 10px 0 0;
 	white-space: nowrap;
@@ -50,7 +50,7 @@ button.gl-box{
 	position: absolute;
 	bottom:0;left:0;right:0;
 	text-align: center;
-	font-size: 0.8em; line-height: 1.2em;
+	font-size: 0.9em; line-height: 1.2em;
 	background-color: rgba(0,0,0,0.4);
 	border-radius: 0 0 10px 10px;
 	white-space: nowrap;
