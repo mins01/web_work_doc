@@ -121,9 +121,11 @@ a.gl-box-black:hover , a.gl-box-black:active , a.gl-box-black:visited{
 
 .gl-box > img{
 	width:100%; height:100%;
+}
+.gl-box > .gl-hover-scaleup{
 	transition: transform .15s ease-in-out
 }
-.gl-box:hover > img
-, .gl-box:active > img{
+.gl-box:hover > .gl-hover-scaleup
+, .gl-box:active > .gl-hover-scaleup{
 	transform: scale(1.1);
 }
