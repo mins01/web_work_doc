@@ -62,49 +62,59 @@ button.gl-box{
 a.gl-box[target="_blank"]:not([data-footer])::after
 , a.gl-box[target="_blank"]:not([data-header])::before{
 	position: absolute;
-	top:0;bottom:5px;right:5px;
+	bottom:5px;right:5px;
 	content: " 🚀";
+	z-index: 11;
 }
-a.gl-box[target="_blank"][data-header][data-footer]::before{
-	content: attr(data-header) " 🚀";
+a.gl-box[target="_blank"][data-header][data-footer]::after{
+	content: attr(data-footer) " 🚀";
 }
 /* a.gl-box[target="_blank"]:not([data-header]):not([data-footer])::after{
 	content: " 🚀";
 } */
 
 .gl-box-gray{
-	background-color: gray;
-	color:#FFA;
+	background-color: #aaa;
+	color:#000;
 	cursor: pointer;
-	transition: filter .15s ease-in-out
+	transition: filter .15s ease-in-out;
+	text-decoration: none;
+}
+.gl-box-gray::after,.gl-box-gray::before{
+	color: #fff;
 }
 
 .gl-box-white{
-	background-color: #fff;
+	background-color: #eee;
 	color:#000;
 	cursor: pointer;
-	transition: filter .15s ease-in-out
+	transition: filter .15s ease-in-out;
+	text-decoration: none;
 }
 .gl-box-black{
 	background-color: #000;
 	color:#eee;
 	cursor: pointer;
-	transition: filter .15s ease-in-out
+	transition: filter .15s ease-in-out;
+	text-decoration: none;
 }
 
 a.gl-box-gray:hover , a.gl-box-gray:active , a.gl-box-gray:visited{
-	color:#FFA;
+	color:#000;
+	text-decoration: none;
 }
 a.gl-box-white:hover , a.gl-box-white:active , a.gl-box-white:visited{
 	color:#000;
+	text-decoration: none;
 }
 a.gl-box-black:hover , a.gl-box-black:active , a.gl-box-black:visited{
 	color:#fff;
+	text-decoration: none;
 }
 .gl-box-gray:hover , .gl-box-gray:active 
 , .gl-box-white:hover , .gl-box-white:active
 , .gl-box-black:hover , .gl-box-black:active{
-		filter: brightness(1.1);
+		filter: brightness(1.2);
 }
 
 .gl-box-black[data-header]::before
@@ -118,14 +128,21 @@ a.gl-box-black:hover , a.gl-box-black:active , a.gl-box-black:visited{
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
+.gl-stech{
+	width:100%;height:100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
 .gl-box > img{
 	width:100%; height:100%;
 }
-.gl-box > .gl-hover-scaleup{
+.gl-box > .gl-hover-scale{
+	background-position: center center;
 	transition: transform .15s ease-in-out
 }
-.gl-box:hover > .gl-hover-scaleup
-, .gl-box:active > .gl-hover-scaleup{
-	transform: scale(1.1);
+.gl-box:hover > .gl-hover-scale
+, .gl-box:active > .gl-hover-scale{
+	transform: scale(1.5);
 }
