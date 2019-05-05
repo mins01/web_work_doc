@@ -1,9 +1,11 @@
 let GamepadHandler = (function(){
+  var version = "2019050511";
   var log = console.log;
 
 
 
   var timer ={
+    "version":version,
     "tm":null,
     "interval":100,
     "start":function(){
@@ -151,12 +153,19 @@ let GamepadHandler = (function(){
         return false;
       }
       gp.vibrationActuator.playEffect(gp.vibrationActuator.type, {
-          startDelay: 100,
-          duration: 2000,
-          weakMagnitude: 0.5,
-          strongMagnitude: 1
+          startDelay: startDelay,
+          duration: duration,
+          weakMagnitude: weakMagnitude,
+          strongMagnitude: strongMagnitude
       });
       console.log('GamepadHandler.rumble('+Array.prototype.slice.call(arguments).join(',')+')')
+    },
+    "weekRumble":function(idx,duration){
+      this.rumble(idx,0,duration,0.5,0.5);
+    }
+    ,
+    "strongRumble":function(idx,duration){
+      this.rumble(idx,0,duration,1,1);
     }
   }
   return GamepadHandler;

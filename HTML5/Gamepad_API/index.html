@@ -75,7 +75,9 @@
 	        <div class="before-label after-label info info-connected" data-label="connected"></div>\
 	        <div class="before-label after-label info info-timestamp" data-label="timestamp"></div>\
 					<div class="before-label after-label info info-time" data-label="time"></div>\
-	        <button type="button" name="button" class="btn btn-sm btn-info testRumble"  onclick="GamepadHandler.rumble($(this.parentNode.parentNode).attr(\'data-index\'),0,1000,0,1)">test Rumble</button>\
+	        <button type="button" name="button" class="btn btn-sm btn-info testRumble"  onclick="GamepadHandler.rumble($(this.parentNode.parentNode).attr(\'data-index\'),0,2000,0,1)">test Rumble</button>\
+					<button type="button" name="button" class="btn btn-sm btn-info testRumble"  onclick="GamepadHandler.weekRumble($(this.parentNode.parentNode).attr(\'data-index\'),500)">Week Rumble</button>\
+					<button type="button" name="button" class="btn btn-sm btn-info testRumble"  onclick="GamepadHandler.strongRumble($(this.parentNode.parentNode).attr(\'data-index\'),500)">Strong Rumble</button>\
 	        </div>'
 
 	      );
