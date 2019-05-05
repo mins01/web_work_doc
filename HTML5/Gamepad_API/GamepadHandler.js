@@ -1,5 +1,5 @@
 let GamepadHandler = (function(){
-  var version = "2019050512";
+  var version = "2019050513";
   var log = console.log;
 
 
@@ -149,7 +149,6 @@ let GamepadHandler = (function(){
       var gp = gps[idx];
       if(!gp.vibrationActuator){
         console.error('fail : gp.vibrationActuator ','GamepadHandler.rumble('+Array.prototype.slice.call(arguments).join(',')+')');
-        alert('fail : gp.vibrationActuator '+idx)
         return false;
       }
       gp.vibrationActuator.playEffect(gp.vibrationActuator.type, {
@@ -166,6 +165,18 @@ let GamepadHandler = (function(){
     ,
     "strongRumble":function(idx,duration){
       this.rumble(idx,0,duration,1,1);
+    },
+    //  haptic는 현재 지원안됨. IE,FF . FF는 베타버전에 설정 변경으로 된다고 함
+    "haptic":function(idx,duration,value){
+      var gps = navigator.getGamepads();;
+
+      if(!gps[idx]){
+        console.error('fail : rumble ','GamepadHandler.rumble('+Array.prototype.slice.call(arguments).join(',')+')')
+        return false;
+      }
+      var gp = gps[idx];
+      var ha = gp.hapticActuators;
+      ha.pulse(value, duration).then(function(result) { console.log(result) });
     }
   }
   return GamepadHandler;
