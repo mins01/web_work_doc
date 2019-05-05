@@ -1,5 +1,5 @@
 let GamepadHandler = (function(){
-  var version = "2019050511";
+  var version = "2019050512";
   var log = console.log;
 
 
@@ -7,7 +7,7 @@ let GamepadHandler = (function(){
   var timer ={
     "version":version,
     "tm":null,
-    "interval":100,
+    "interval":10,
     "start":function(){
       this.stop();
       this.tm = setInterval(function(){
@@ -21,7 +21,7 @@ let GamepadHandler = (function(){
   }
   var afihis = {}; //pressed 를 위한 히스토리용
   var GamepadHandler = {
-    "buttonRepeatInterval":100,
+    "buttonRepeatInterval":200, //이 시간이 너무 짧으면 키가 반복 입력되는 경우가 많아진다.
     "axesThreshold":0.5,
     "setup":function(on){
       if(on){
