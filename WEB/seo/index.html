@@ -37,9 +37,12 @@
 </head>
 <body>
 	<div class="container">
+		<h1>SEO 설명</h1>
 	</div>
-	참고 : https://github.com/mmistakes/minimal-mistakes/blob/master/_includes/seo.html
+	
 	<xmp>
+		참고 : https://github.com/mmistakes/minimal-mistakes/blob/master/_includes/seo.html
+		
 		페이스북에서 사용하는 OpenGraph protocol 
 		다른 곳에서도 많이 사용한다.
 		OpenGraph protocol 설명 사이트(영문) : http://ogp.me/
@@ -73,8 +76,8 @@
 		<meta name="twitter:creator" content="@트위터아이디"> 컨텐츠 제작자의 @username
 		og tag와 같이 섞어 쓰이기도 한다.
 		
-
-
+		
+		
 		https://support.google.com/webmasters/answer/139066?hl=ko
 		<link rel="canonical" href="http://~~~~/this.page"> 표준 페이지 설정. 검색엔진에서 현재 페이지의 URL을 알려둔다. 같은 페이지이지만, 여러 URL이 있는 경우 설정하면, 표준 페이지의 URL로 검색엔진이 보여준다.
 		SEO를 신경쓴다면 꼭 설정하자.
@@ -83,22 +86,22 @@
 		구글의 검색엔진에서 해당 페이지에 대한 이전/다음 페이지에 대한 정보를 같이 보여주도록 유도한다.
 		<link rel="prev" href="http://~~~~/prev.page">
 		<link rel="next" href="http://~~~~/next.page">
-
+		
 		
 		https://json-ld.org/spec/latest/json-ld/
 		https://ko.wikipedia.org/wiki/JSON-LD
 		현재 페이지에 대한 정보를 JSON 형식으로 표현함
 		<script type="application/ld+json">
-	    {
-				"@context": "https://schema.org",
-	      "@type": "Person",
-	      "name": "제작자",
-	      "url": "http://~~~~/this.page",
-	      "logo": "http://~~~~/image.png"
-	    }
-	  </script>		
+		{
+			"@context": "https://schema.org",
+			"@type": "Person",
+			"name": "제작자",
+			"url": "http://~~~~/this.page",
+			"logo": "http://~~~~/image.png"
+		}
+		</script>		
 		
-
+		
 		이 밑은 해당 웹 서버스와의 연동에 대한 정보
 		<meta property="fb:app_id" content="{{ site.facebook.app_id }}"> 페이스북 앱 연결용 정보
 		
@@ -108,10 +111,9 @@
 		<meta name="yandex-verification" content="{{ site.yandex_site_verification }}"> Yandex 웹마스터 도구
 		<meta name="naver-site-verification" content="{{ site.naver_site_verification }}"> 네이버 인증
 		<meta name="p:domain_verify" content="{{ site.naver_site_verification }}">  Pintrest 인증 
-
-
+		
+		
 	</xmp>
-	
 	<script src="/js/ForGoogle.js"></script>
 	<!-- google analytics -->
 	<script>ForGoogle.analytics()</script>
