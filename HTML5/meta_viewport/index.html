@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>META VIEWPORT</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>ForGoogle.analytics()</script>
+	
+	
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>  
+	
+	
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script> 
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="META VIEWPORT">
+	<meta property="og:description" content="META VIEWPORT">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="META VIEWPORT" />
+	<meta property="og:type" content="website">
+	
+	<!-- //meta og -->
+	<style>
+		.box{border:1px solid #000; box-sizing:content-box}
+	</style>
+	<script>
+		function setVeiwport(w,i_c,m_c){
+			// <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			var meta = document.createElement('meta');
+			meta.name = 'viewport';
+			var contents = [];
+			if(w != null) contents.push("width="+w);
+			if(i_c != null) contents.push("initial-scale="+i_c);
+			if(m_c != null) contents.push("maximum-scale="+m_c);
+			contents.push("user-scalable=no");
+			var content = contents.join(', ');
+			meta.setAttribute('content',content);
+			var head = document.querySelector('head')
+			head.append(meta);
+		}
+		
+		$(function(evt){
+			window.document.body.onresize = function(evt){
+				document.getElementById('page-width').value = document.body.offsetWidth; 
+			}
+			window.document.body.onresize(evt);
+		})
+	</script>
+</head>
+<body>
+	<div class="box">
+		<h1>meta viewport</h1>
+		<div class="p-1">
+			<input class="form-control " id="page-width" type="text" name="" value="">
+		</div>
+		<hr />
+		<h3>change viewport width</h3>
+		<div>
+			<small class="text-danger">only for chrome</small>
+		</div>
+		<div>
+			<button type="button" name="button" class="btn btn-info m-1" onclick="setVeiwport('device-width',null,null)">width : device-width;</button>
+			<button type="button" name="button" class="btn btn-info m-1" onclick="setVeiwport(300,null,null)">width : 300px;</button>
+			<button type="button" name="button" class="btn btn-info m-1" onclick="setVeiwport(400,null,null)">width : 400px;</button>
+			<button type="button" name="button" class="btn btn-info m-1" onclick="setVeiwport(500,null,null)">width : 500px;</button>
+			<button type="button" name="button" class="btn btn-info m-1" onclick="setVeiwport(600,null,null)">width : 600px;</button>	
+		</div>
+		
+	</div>
+</body>
+</html>
