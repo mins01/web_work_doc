@@ -41,18 +41,21 @@
 		.box{border:1px solid #000; box-sizing:content-box}
 	</style>
 	<script>
-		function setVeiwport(w,i_c,m_c){
+		function setVeiwport(w,i_s,m_s){
 			// <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			var meta = document.createElement('meta');
 			meta.name = 'viewport';
 			var contents = [];
 			if(w != null) contents.push("width="+w);
-			if(i_c != null) contents.push("initial-scale="+i_c);
-			if(m_c != null) contents.push("maximum-scale="+m_c);
+			if(i_s != null) contents.push("initial-scale="+i_s);
+			if(m_s != null) contents.push("maximum-scale="+m_s);
 			contents.push("user-scalable=no");
 			var content = contents.join(', ');
 			meta.setAttribute('content',content);
 			var head = document.querySelector('head')
+			// 이전 메타 삭제
+			var meta_old = document.querySelector('meta[name="viewport"]')
+			meta_old.remove();
 			head.append(meta);
 		}
 		
