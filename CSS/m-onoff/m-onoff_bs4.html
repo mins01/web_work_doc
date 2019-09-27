@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<title>m-onoff</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
+	<link rel="stylesheet" href="m-onoff.css">
+</head>
+<body>
+<div class="container-fluid">
+
+<fieldset>
+	<legend>이거 뭔가?</legend>
+	부트스트랩 4 적용
+	css 로만 만들어본 라디오,체크박스 모양 꾸미기.<br>
+	IE8에서 테스트 해봤는데, 정상 동작 안한다.<br>
+	부트스트랩을 안 써도 모양은 적용된다. <br>
+	btn 과 btn-group 적용이 가능 가능하도록 되어있음<br>
+	.m-with-label 을 같이 적용하면 data-label-on , data-label-off 값을 사용함.<br>
+
+</fieldset>
+
+<fieldset>
+	<legend>onoff 스위치 예</legend>
+	<form >
+		<div class="btn-group btn-group-xs" data-toggle="buttons">
+			<label class="m-onoff m-onoff-success  m-with-label btn btn-default btn-success   ">
+				<input name="test_tag" type="radio" value="1" checked>
+				<div class="m-layout" data-label-on="ON" data-label-off="">
+				</div>
+			</label>
+			
+			<label class="m-onoff m-onoff-warning  m-with-label  btn btn-warning">
+				<input name="test_tag" type="radio" value="0">
+				<div class="m-layout" data-label-on="OFF" data-label-off="">
+				</div>
+			</label>
+			
+		</div>
+		<div class="btn-group btn-group-xs" data-toggle="buttons">
+		<button type="button" class="btn btn-default" onclick="this.form.test_tag[0].focus()">첫번째에 포커스</button>
+		<button type="button" class="btn btn-default" onclick="this.form.test_tag[0].checked=true">첫번째에 선택</button>
+		<button type="button" class="btn btn-default" onclick="this.form.test_tag[1].checked=true">두번째에 선택</button>
+		</div>
+	</form>
+	<hr />
+	<form >
+		
+		<div class="btn-group btn-group-xs" data-toggle="buttons">
+			<label class="m-onoff m-onoff-success m-with-label btn btn-default btn-success  ">
+				<input name="test_tag" type="checkbox" value="1" checked>
+				<div class="m-layout" data-label-on="ON" data-label-off="OFF">
+				</div>
+			</label>		
+		</div>
+	</form>
+</fieldset>
+
+<fieldset>
+	<legend>checkbox</legend>
+	<form>
+	with ".m-with-label" : 
+		<label class="m-onoff m-onoff-primary m-with-label  ">
+			<input name="test_tag" type="checkbox" value="1">
+			<div class="m-layout" data-label-on="첫번째" data-label-off="primary">
+			
+			</div>
+		</label>
+		<label class="m-onoff m-onoff-success m-with-label  ">
+			<input name="test_tag" type="checkbox" value="1">
+			<div class="m-layout" data-label-on="두번째" data-label-off="success">
+			</div>
+		</label>
+		<label class="m-onoff m-onoff-info m-with-label  ">
+			<input name="test_tag"  type="checkbox" value="1">
+			<div class="m-layout" data-label-on="세번째" data-label-off="info">
+			</div>
+		</label>
+		<label class="m-onoff m-onoff-warning m-with-label  ">
+			<input name="test_tag"  type="checkbox" value="1">
+			<div class="m-layout" data-label-on="네번째" data-label-off="warning">
+			</div>
+		</label>
+		test
+		<label class="m-onoff m-onoff-danger m-with-label ">
+			<input name="test_tag" checked type="checkbox" value="1">
+			<div class="m-layout" data-label-on="다섯번째" data-label-off="danger">
+
+			</div>
+		</label>
+		<label class="m-onoff m-onoff-default  m-with-label ">
+			<input name="test_tag" type="checkbox" value="1">
+			<div class="m-layout">
+
+			</div>
+		</label>
+		<button type="button" class="btn btn-default btn-xs" onclick="this.form.test_tag[0].focus()">첫번째에 포커스</button>
+	</form>
+		<hr />
+	<form>
+		without ".m-with-label" : 
+		<label class="m-onoff m-onoff-primary  ">
+			<input name="test_tag" type="checkbox" value="1">
+			<div class="m-layout">
+				첫번재
+			</div>
+		</label>
+		<label class="m-onoff m-onoff-success  ">
+			<input name="test_tag" type="checkbox" value="1">
+			<div class="m-layout">
+			두번째
+			</div>
+		</label>
+		<label class="m-onoff m-onoff-info  ">
+			<input name="test_tag"  type="checkbox" value="1">
+			<div class="m-layout">
+			세번째
+			</div>
+		</label>
+		<label class="m-onoff m-onoff-warning  ">
+			<input name="test_tag"  type="checkbox" value="1">
+			<div class="m-layout">
+			네번째
+			</div>
+		</label>
+		test
+		<label class="m-onoff m-onoff-danger ">
+			<input name="test_tag" checked type="checkbox" value="1">
+			<div class="m-layout">
+			다섯번째
+			</div>
+		</label>
+		<label class="m-onoff m-onoff-default  ">
+			<input name="test_tag" type="checkbox" value="1">
+			<div class="m-layout">
+			ON
+			</div>
+		</label>
+		<button type="button" class="btn btn-default btn-xs" onclick="this.form.test_tag[0].focus()">첫번째에 포커스</button>
+	</form>
+</fieldset>
+
+<fieldset>
+	<legend>radio</legend>
+	<form>
+	with ".m-with-label" : 
+		<label class="m-onoff m-onoff-primary m-with-label ">
+			<input name="test_tag" type="radio" value="1">
+			<div class="m-layout" data-label-on="첫번째" data-label-off="primary">
+			
+			</div>
+		</label>
+		<label class="m-onoff m-onoff-success m-with-label ">
+			<input name="test_tag" type="radio" value="1">
+			<div class="m-layout" data-label-on="두번째" data-label-off="success">
+			</div>
+		</label>
+		<label class="m-onoff m-onoff-info m-with-label ">
+			<input name="test_tag"  type="radio" value="1">
+			<div class="m-layout" data-label-on="세번째" data-label-off="info">
+			</div>
+		</label>
+		<label class="m-onoff m-onoff-warning m-with-label ">
+			<input name="test_tag"  type="radio" value="1">
+			<div class="m-layout" data-label-on="네번째" data-label-off="warning">
+			</div>
+		</label>
+		test
+		<label class="m-onoff m-onoff-danger m-with-label">
+			<input name="test_tag" checked type="radio" value="1">
+			<div class="m-layout" data-label-on="다섯번째" data-label-off="danger">
+
+			</div>
+		</label>
+		<label class="m-onoff m-onoff-default m-with-label ">
+			<input name="test_tag" type="radio" value="1">
+			<div class="m-layout">
+
+			</div>
+		</label>
+		<button type="button" class="btn btn-default btn-xs" onclick="this.form.test_tag[0].focus()">첫번째에 포커스</button>
+	</form>
+		<hr />
+	<form>
+		without ".m-with-label" : 
+		<label class="m-onoff m-onoff-primary ">
+			<input name="test_tag" type="radio" value="1">
+			<div class="m-layout">
+				첫번재
+			</div>
+		</label>
+		<label class="m-onoff m-onoff-success ">
+			<input name="test_tag" type="radio" value="1">
+			<div class="m-layout">
+			두번째
+			</div>
+		</label>
+		<label class="m-onoff m-onoff-info ">
+			<input name="test_tag"  type="radio" value="1">
+			<div class="m-layout">
+			세번째
+			</div>
+		</label>
+		<label class="m-onoff m-onoff-warning ">
+			<input name="test_tag"  type="radio" value="1">
+			<div class="m-layout">
+			네번째
+			</div>
+		</label>
+		test
+		<label class="m-onoff m-onoff-danger">
+			<input name="test_tag" checked type="radio" value="1">
+			<div class="m-layout">
+			다섯번째
+			</div>
+		</label>
+		<label class="m-onoff m-onoff-default ">
+			<input name="test_tag" type="radio" value="1">
+			<div class="m-layout">
+			ON
+			</div>
+		</label>
+		<button type="button" class="btn btn-default btn-xs" onclick="this.form.test_tag[0].focus()">첫번째에 포커스</button>
+	</form>
+</fieldset>
+
+
+<fieldset>
+	<legend>checkbox &amp; btn-group</legend>
+	<form >
+		
+		<div class="btn-group" data-toggle="buttons">
+			<label class="m-onoff m-onoff-primary m-with-label btn btn-primary">
+				<input name="test_tag" type="checkbox" value="1">
+				<div class="m-layout" data-label-on="첫번째" data-label-off="primary">
+				
+				</div>
+			</label>
+			<label class="m-onoff m-onoff-success m-with-label btn btn-success">
+				<input name="test_tag" type="checkbox" value="1">
+				<div class="m-layout" data-label-on="두번째" data-label-off="success">
+				</div>
+			</label>
+			<label class="m-onoff m-onoff-info m-with-label btn btn-info">
+				<input name="test_tag"  type="checkbox" value="1">
+				<div class="m-layout" data-label-on="세번째" data-label-off="info">
+				</div>
+			</label>
+			<label class="m-onoff m-onoff-warning m-with-label btn btn-warning">
+				<input name="test_tag"  type="checkbox" value="1">
+				<div class="m-layout" data-label-on="네번째" data-label-off="warning">
+				</div>
+			</label>
+			<label class="m-onoff m-onoff-danger m-with-label btn btn-danger">
+				<input name="test_tag" checked type="checkbox" value="1">
+				<div class="m-layout" data-label-on="다섯번째" data-label-off="danger">
+
+				</div>
+			</label>
+			<label class="m-onoff m-onoff-default m-with-label btn btn-default">
+				<input name="test_tag" type="checkbox" value="1">
+				<div class="m-layout">
+
+				</div>
+			</label>
+			<button type="button" class="btn btn-default" onclick="this.form.test_tag[0].focus()">첫번째에 포커스</button>
+		</div>
+	</form>
+	<hr /> 
+	<form >
+		
+		<div class="btn-group" data-toggle="buttons">
+			<label class="m-onoff m-onoff-primary m-with-label btn btn-primary">
+				<input name="test_tag" type="radio" value="1">
+				<div class="m-layout" data-label-on="첫번째" data-label-off="primary">
+				
+				</div>
+			</label>
+			<label class="m-onoff m-onoff-success m-with-label btn btn-success">
+				<input name="test_tag" type="radio" value="1">
+				<div class="m-layout" data-label-on="두번째" data-label-off="success">
+				</div>
+			</label>
+			<label class="m-onoff m-onoff-info m-with-label btn btn-info">
+				<input name="test_tag"  type="radio" value="1">
+				<div class="m-layout" data-label-on="세번째" data-label-off="info">
+				</div>
+			</label>
+			<label class="m-onoff m-onoff-warning m-with-label btn btn-warning">
+				<input name="test_tag"  type="radio" value="1">
+				<div class="m-layout" data-label-on="네번째" data-label-off="warning">
+				</div>
+			</label>
+			<label class="m-onoff m-onoff-danger m-with-label btn btn-danger">
+				<input name="test_tag" checked type="radio" value="1">
+				<div class="m-layout" data-label-on="다섯번째" data-label-off="danger">
+
+				</div>
+			</label>
+			<label class="m-onoff m-onoff-default m-with-label btn btn-default">
+				<input name="test_tag" type="radio" value="1">
+				<div class="m-layout">
+
+				</div>
+			</label>
+			<button type="button" class="btn btn-default" onclick="this.form.test_tag[0].focus()">첫번째에 포커스</button>
+		</div>
+	</form>
+</fieldset>
+
+<fieldset>
+	<legend>etc</legend>
+	
+	<form >
+		<div class="btn-group btn-group-xs" data-toggle="buttons">
+			<label class="m-onoff btn btn-default btn-primary ">
+				<input name="test_tag" type="checkbox" value="1">
+				<div class="m-layout">
+				1
+				</div>
+			</label>
+			
+			<label class="m-onoff  btn btn-success ">
+				<input name="test_tag" type="checkbox" value="1">
+				<div class="m-layout">
+				2
+				</div>
+			</label>
+			<label class="m-onoff  btn btn-info ">
+				<input name="test_tag"  type="checkbox" value="1">
+				<div class="m-layout">
+				3
+				</div>
+			</label>
+			<label class="m-onoff  btn btn-warning ">
+				<input name="test_tag"  type="checkbox" value="1">
+				<div class="m-layout">
+				4
+				</div>
+			</label>
+			<label class="m-onoff  btn btn-danger ">
+				<input name="test_tag" checked type="checkbox" value="1">
+				<div class="m-layout">
+				5
+				</div>
+			</label>
+			<label class="m-onoff btn btn-default">
+				<input name="test_tag" type="checkbox" value="1">
+				<div class="m-layout">
+				6
+				</div>
+			</label>
+		</div>
+	</form>
+	<hr />
+	<form >
+		<div  >
+			<label class="m-onoff btn btn-default btn-primary ">
+				<input name="test_tag" type="checkbox" value="1">
+				<div class="m-layout">
+				1
+				</div>
+			</label>
+			
+			<label class="m-onoff  btn btn-success ">
+				<input name="test_tag" type="checkbox" value="1">
+				<div class="m-layout">
+				2
+				</div>
+			</label>
+			<label class="m-onoff  btn btn-info ">
+				<input name="test_tag"  type="checkbox" value="1">
+				<div class="m-layout">
+				3
+				</div>
+			</label>
+			<label class="m-onoff  btn btn-warning ">
+				<input name="test_tag"  type="checkbox" value="1">
+				<div class="m-layout">
+				4
+				</div>
+			</label>
+			<label class="m-onoff  btn btn-danger ">
+				<input name="test_tag" checked type="checkbox" value="1">
+				<div class="m-layout">
+				5
+				</div>
+			</label>
+			<label class="m-onoff btn btn-default">
+				<input name="test_tag" type="checkbox" value="1">
+				<div class="m-layout">
+				6
+				</div>
+			</label>
+		</div>
+	</form>
+	<hr/>
+	<form >
+		<div class="btn-group btn-group-xs" data-toggle="buttons">
+			<label class="m-onoff btn btn-default btn-primary ">
+				<input name="test_tag" type="radio" value="1">
+				<div class="m-layout">
+				1
+				</div>
+			</label>
+			
+			<label class="m-onoff  btn btn-success ">
+				<input name="test_tag" type="radio" value="1">
+				<div class="m-layout">
+				2
+				</div>
+			</label>
+			<label class="m-onoff  btn btn-info ">
+				<input name="test_tag"  type="radio" value="1">
+				<div class="m-layout">
+				3
+				</div>
+			</label>
+			<label class="m-onoff  btn btn-warning ">
+				<input name="test_tag"  type="radio" value="1">
+				<div class="m-layout">
+				4
+				</div>
+			</label>
+			<label class="m-onoff  btn btn-danger ">
+				<input name="test_tag" checked type="radio" value="1">
+				<div class="m-layout">
+				5
+				</div>
+			</label>
+			<label class="m-onoff btn btn-default">
+				<input name="test_tag" type="radio" value="1">
+				<div class="m-layout">
+				6
+				</div>
+			</label>
+		</div>
+	</form>
+	<hr/>
+	<form >
+		<div >
+			<label class="m-onoff btn btn-default btn-primary ">
+				<input name="test_tag" type="radio" value="1">
+				<div class="m-layout">
+				1
+				</div>
+			</label>
+			
+			<label class="m-onoff  btn btn-success ">
+				<input name="test_tag" type="radio" value="1">
+				<div class="m-layout">
+				2
+				</div>
+			</label>
+			<label class="m-onoff  btn btn-info ">
+				<input name="test_tag"  type="radio" value="1">
+				<div class="m-layout">
+				3
+				</div>
+			</label>
+			<label class="m-onoff  btn btn-warning ">
+				<input name="test_tag"  type="radio" value="1">
+				<div class="m-layout">
+				4
+				</div>
+			</label>
+			<label class="m-onoff  btn btn-danger ">
+				<input name="test_tag" checked type="radio" value="1">
+				<div class="m-layout">
+				5
+				</div>
+			</label>
+			<label class="m-onoff btn btn-default">
+				<input name="test_tag" type="radio" value="1">
+				<div class="m-layout">
+				6
+				</div>
+			</label>
+		</div>
+	</form>
+	<hr/>
+	<form >
+		
+			<label class="m-onoff btn btn-default btn-primary  btn-lg">
+				<input name="test_tag" type="radio" value="1">
+				<div class="m-layout">
+				1
+				</div>
+			</label>
+			
+			<label class="m-onoff  btn btn-success btn-md">
+				<input name="test_tag" type="radio" value="1">
+				<div class="m-layout">
+				2
+				</div>
+			</label>
+			<label class="m-onoff  btn btn-info  btn-sm">
+				<input name="test_tag"  type="radio" value="1">
+				<div class="m-layout">
+				3
+				</div>
+			</label>
+			<label class="m-onoff  btn btn-warning  btn-xs">
+				<input name="test_tag"  type="radio" value="1">
+				<div class="m-layout">
+				4
+				</div>
+			</label>
+			<label class="m-onoff  btn btn-danger  ">
+				<input name="test_tag" checked type="radio" value="1">
+				<div class="m-layout">
+				5
+				</div>
+			</label>
+
+	</form>
+	<hr/>
+		<label class="m-onoff btn btn-default" style="direction:rtl" >
+			<input name="test_tag" type="radio" value="1">
+			<div class="m-layout">
+			direction:rtl
+			</div>
+		</label>
+		<label class="m-onoff btn btn-default" style="direction:ltr">
+			<input name="test_tag" type="radio" value="1">
+			<div class="m-layout">
+			direction:ltr
+			</div>
+		</label>
+	<hr/>
+	<form >
+		<h1>
+			<label class="m-onoff  ">
+				<input name="test_tag" type="checkbox" value="1">
+				<div class="m-layout">
+				1
+				</div>
+			</label>
+			h1
+		</h1>
+		<h2>
+			<label class="m-onoff ">
+				<input name="test_tag" type="checkbox" value="1">
+				<div class="m-layout">
+				2
+				</div>
+			</label>
+			h2
+		</h2>
+		<h3>
+			<label class="m-onoff"  >
+				<input name="test_tag"  type="radio" value="1">
+				<div class="m-layout">
+				3
+				</div>
+			</label>
+			h3
+		</h3>
+		<h4>
+			<label class="m-onoff   ">
+				<input name="test_tag"  type="radio" value="1">
+				<div class="m-layout">
+				4
+				</div>
+			</label>
+			h4
+		</h4>
+		<h5>
+			<label class="m-onoff  ">
+				<input name="test_tag" checked type="radio" value="1">
+				<div class="m-layout">
+				5
+				</div>
+			</label>
+			h5
+		</h5>
+		<h6>
+			<label class="m-onoff  ">
+				<input name="test_tag" type="radio" value="1">
+				<div class="m-layout">
+				6
+				</div>
+			</label>
+			h6
+		</h6>
+	</form>
+</fieldset>
+
+
+
+</div>
+</body>
+</html>
