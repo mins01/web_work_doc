@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+.hoverZoom{
+	
+}
+
+.hoverZoom-box{
+	overflow: hidden;
+}
+.hoverZoom-target{
+	transition: transform 0.5s ease-out;
+}
+
+.hoverZoom-center-center{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.hoverZoom-box:hover .hoverZoom-target , .hoverZoom-box:focus .hoverZoom-target{
+	transform: scale(2);
+}
