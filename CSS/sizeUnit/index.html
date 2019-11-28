@@ -99,6 +99,11 @@ SOFTWARE.
 	</style>
 	<script>
 		var resize = function(evt){
+			var vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+			var vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+			$('#v_vw').text(vw+'px');
+			$('#v_vh').text(vh+'px');
+			
 			var tbs = $('.t-box').each(function(idx,el){
 				console.log(idx,el)
 				let rs = el.getBoundingClientRect();
@@ -144,9 +149,9 @@ SOFTWARE.
 		</ul>
 		<hr />
 		<h2>테스트</h2>
+		<h3>css 환경</h3>
 		<ul>
 			<li>
-				css 환경<br />
 				<code>html {font-size:16px;}</code><br />
 				<code>		.p-box {
 							vertical-align: top;
@@ -161,6 +166,9 @@ SOFTWARE.
 							align-items: center;
 						}</code>
 				</li>
+				<li>
+					vw : <span id="v_vw">00</span> , vw : <span id="v_vh">00</span>
+					</li>
 			</ul>
 			<h3>상대 단위 </h3>
 			<h4>부모 font-size:30px;</h4>
@@ -184,10 +192,10 @@ SOFTWARE.
 				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1.5ch;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
 				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1rem;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
 				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1.5rem;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1vw;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1vh;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1vmin;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1vmax;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10vw;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10vh;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10vmin;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10vmax;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
 				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:100%;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
 				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:150%;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
 			</div>
