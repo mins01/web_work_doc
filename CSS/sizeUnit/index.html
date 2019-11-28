@@ -1,0 +1,196 @@
+<!doctype html>
+<!-- 
+MIT License
+
+Copyright (c) 2019 공대여자
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
++ "공대여자는 예쁘다"를 나타낼 수 있어야합니다.
+-->
+<html lang="ko" >
+<head>
+	<title>사이즈 단위</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>ForGoogle.analytics()</script>
+	
+	
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>  
+	
+	
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script> 
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="사이즈 단위">
+	<meta property="og:description" content="사이즈 단위">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="사이즈 단위" />
+	<meta property="og:type" content="website">
+	
+	<!-- //meta og -->
+	<style id="d-style">
+		html {
+			font-size:16px;
+		}
+		.p-box {
+			vertical-align: top;
+			margin:3px;
+			font-size:30px;
+			overflow: hidden;
+			background-color: #abc;
+			width:300px;height:300px;
+			display:inline-block;
+			display: inline-flex ;
+			justify-content: center;
+			align-items: center;
+		}
+		.l-box{
+			flex: 1 1 auto;
+		}
+		.t-box{
+			white-space: nowrap;
+			line-height:1em;padding:0;margin:0;
+			background-color: #cba;
+			text-align:center;
+		}
+		.v-cssText{
+			text-align:center;
+			font-size:12px;
+			font-weight:bold;
+		}
+		.v-size{
+			text-align:center;
+			font-size:8px;
+		}
+	</style>
+	<script>
+		var resize = function(evt){
+			var tbs = $('.t-box').each(function(idx,el){
+				console.log(idx,el)
+				let rs = el.getBoundingClientRect();
+				$(el).parents('.p-box').find('.v-cssText').text(el.style.cssText);
+				$(el).parents('.p-box').find('.v-size').text('height = '+rs.height+'px')
+			})
+			
+		}
+		window.onresize = resize;
+		window.onload = resize;
+
+	</script>
+</head>
+<body>
+	<div class="container">
+		<h1>사이즈 단위</h1>
+		<h2>참고 링크</h2>
+		<ul>
+			<li>
+				<a href="https://www.w3schools.com/cssref/css_units.asp" target="_blank">https://www.w3schools.com/cssref/css_units.asp</a>
+			</li>
+		</ul>
+		<h2>절대 단위</h2>
+		<ul>
+			<li>px : 픽셀. pixels. 보이는 기기에 따라 실제 보이는 너비가 다를 수 있다. (1px = 1/96th of 1in)	</li>
+			<li>pt : 포인트. points. 1pt = 1/72 of 1in</li>
+			<li>pc : 피카. picas. 1pc = 12 pt</li>
+			<li>cm : 센치미터. centimeters</li>
+			<li>mm : 미리미터. millimeters</li>
+			<li>in : 인치. inches. 1in = 96px = 2.54cm</li>
+		</ul>
+		<h2>상태 단위</h2>
+		<ul>
+			<li>em : font-size 기준</li>
+			<li>ex : 현재 보이는 글꼴의 'x'의 높이 기준 (보통 0.5em)</li>
+			<li>ch : 현재 보이는 글꼴의 '0'의 너비 기준 </li>
+			<li>rem : root element(&lg;html&gt;)에 지정된 font-size기준</li>
+			<li>vw : viewport(보이는화면)의 너비 기준 (1=1%)</li>
+			<li>vh : viewport(보이는화면)의 높이 기준 (1=1%)</li>
+			<li>vmin : vw와 vh중 작은 값 기준 (1=1%)</li>
+			<li>vmax : vw와 vh중 큰 값 기준 (1=1%)</li>
+			<li>% : 부모요소 기준 </li>
+		</ul>
+		<hr />
+		<h2>테스트</h2>
+		<ul>
+			<li>
+				css 환경<br />
+				<code>html {font-size:30px;}</code><br />
+				<code>		.p-box {
+							vertical-align: top;
+							margin:3px;
+							font-size:30px;
+							overflow: hidden;
+							background-color: #abc;
+							width:300px;height:300px;
+							display:inline-block;
+							display: inline-flex ;
+							justify-content: center;
+							align-items: center;
+						}</code>
+				</li>
+			</ul>
+			<h3>상대 단위 </h3>
+			<h4>부모 font-size:30px;</h4>
+			<div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10px;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:25px;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10pt;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1pc;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1cm;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10mm;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1in;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			</div>
+			<h3>상대 단위 </h3>
+			<h4>부모 font-size:30px;</h4>
+			<div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1em;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1.5em;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1ex;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1.5ex;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1ch;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1.5ch;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1rem;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1.5rem;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1vw;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1vh;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1vmin;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1vmax;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:100%;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:150%;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			</div>
+		</div>
+	</body>
+	</html>
