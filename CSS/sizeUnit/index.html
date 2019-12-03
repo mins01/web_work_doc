@@ -63,58 +63,58 @@ SOFTWARE.
 	
 	<!-- //meta og -->
 	<style id="d-style">
-		html {
-			font-size:16px;
-		}
-		.p-box {
-			vertical-align: top;
-			margin:3px;
-			font-size:30px;
-			overflow: hidden;
-			background-color: #abc;
-			width:300px;height:300px;
-			display:inline-block;
-			display: inline-flex ;
-			justify-content: center;
-			align-items: center;
-		}
-		.l-box{
-			flex: 1 1 auto;
-		}
-		.t-box{
-			white-space: nowrap;
-			line-height:1em;padding:0;margin:0;
-			background-color: #cba;
-			text-align:center;
-		}
-		.v-cssText{
-			text-align:center;
-			font-size:12px;
-			font-weight:bold;
-		}
-		.v-size{
-			text-align:center;
-			font-size:8px;
-		}
+	html {
+		font-size:16px;
+	}
+	.p-box {
+		vertical-align: top;
+		margin:3px;
+		font-size:30px;
+		overflow: hidden;
+		background-color: #abc;
+		width:300px;height:300px;
+		display:inline-block;
+		display: inline-flex ;
+		justify-content: center;
+		align-items: center;
+	}
+	.l-box{
+		flex: 1 1 auto;
+	}
+	.t-box{
+		white-space: nowrap;
+		line-height:1em;padding:0;margin:0;
+		background-color: #cba;
+		text-align:center;
+	}
+	.v-cssText{
+		text-align:center;
+		font-size:12px;
+		font-weight:bold;
+	}
+	.v-size{
+		text-align:center;
+		font-size:8px;
+	}
 	</style>
 	<script>
-		var resize = function(evt){
-			var vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-			var vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-			$('#v_vw').text(vw+'px');
-			$('#v_vh').text(vh+'px');
-			
-			var tbs = $('.t-box').each(function(idx,el){
-				console.log(idx,el)
-				let rs = el.getBoundingClientRect();
-				$(el).parents('.p-box').find('.v-cssText').text(el.style.cssText);
-				$(el).parents('.p-box').find('.v-size').text('height = '+rs.height+'px')
-			})
-			
-		}
-		window.onresize = resize;
-		window.onload = resize;
-
+	var resize = function(evt){
+		var vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+		var vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+		$('#v_vw').text(vw+'px');
+		$('#v_vh').text(vh+'px');
+		
+		var tbs = $('.t-box').each(function(idx,el){
+			console.log(idx,el)
+			let rs = el.getBoundingClientRect();
+			$(el).parents('.p-box').find('.v-cssText').text(el.style.cssText);
+			$(el).parents('.p-box').find('.v-size').text('height = '+rs.height+'px')
+		})
+		
+	}
+	window.onresize = resize;
+	window.onload = resize;
+	
 	</script>
 </head>
 <body>
@@ -148,57 +148,160 @@ SOFTWARE.
 			<li>% : 부모요소 기준 </li>
 		</ul>
 		<hr />
+		<h2>사이즈 단위 비교표</h2>
+		<div class="table-responsive">
+			<table cellpadding="0" cellspacing="0" class="text-right table table-striped table-bordered table-sm">
+				<caption>사이즈 단위 비교표</caption>
+				<colgroup>
+					<col class="table-primary" />
+					<col class="table-primary" />
+					<col />
+					<col />
+					<col />
+					<col />
+					<col />
+					<col />
+				</colgroup>
+				<thead class="table-primary">
+					<tr>
+						<td style="width:8ch;">비율</td>
+						<td style="width:8ch;">　</td>
+						<td style="width:8ch;">1</td>
+						<td style="width:8ch;">0.75</td>
+						<td style="width:8ch;">16</td>
+						<td style="width:8ch;">37</td>
+						<td style="width:8ch;">370</td>
+						<td style="width:8ch;">96</td>
+					</tr>
+					<tr>
+						<td>　</td>
+						<td>단위</td>
+						<td>px</td>
+						<td>pt</td>
+						<td>pc</td>
+						<td>cm</td>
+						<td>mm</td>
+						<td>in</td>
+					</tr>
+				</thead>
+				<tbody>
+					
+					<tr>
+						<td>1</td>
+						<td>px</td>
+						<td>1</td>
+						<td>0.75</td>
+						<td>16</td>
+						<td>37</td>
+						<td>370</td>
+						<td>96</td>
+					</tr>
+					<tr>
+						<td>0.75</td>
+						<td>pt</td>
+						<td>1.333333</td>
+						<td>1</td>
+						<td>21.33333</td>
+						<td>49.33333</td>
+						<td>493.3333</td>
+						<td>128</td>
+					</tr>
+					<tr>
+						<td>16</td>
+						<td>pc</td>
+						<td>0.0625</td>
+						<td>0.046875</td>
+						<td>1</td>
+						<td>2.3125</td>
+						<td>23.125</td>
+						<td>6</td>
+					</tr>
+					<tr>
+						<td>37</td>
+						<td>cm</td>
+						<td>0.027027</td>
+						<td>0.02027</td>
+						<td>0.432432</td>
+						<td>1</td>
+						<td>10</td>
+						<td>2.594595</td>
+					</tr>
+					<tr>
+						<td>370</td>
+						<td>mm</td>
+						<td>0.002703</td>
+						<td>0.002027</td>
+						<td>0.043243</td>
+						<td>0.1</td>
+						<td>1</td>
+						<td>0.259459</td>
+					</tr>
+					<tr>
+						<td>96</td>
+						<td>in</td>
+						<td>0.010417</td>
+						<td>0.007813</td>
+						<td>0.166667</td>
+						<td>0.385417</td>
+						<td>3.854167</td>
+						<td>1</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<hr />
 		<h2>테스트</h2>
 		<h3>css 환경</h3>
 		<ul>
 			<li>
 				<code>html {font-size:16px;}</code><br />
 				<code>		.p-box {
-							vertical-align: top;
-							margin:3px;
-							font-size:30px;
-							overflow: hidden;
-							background-color: #abc;
-							width:300px;height:300px;
-							display:inline-block;
-							display: inline-flex ;
-							justify-content: center;
-							align-items: center;
-						}</code>
-				</li>
-				<li>
-					vw : <span id="v_vw">00</span> , vw : <span id="v_vh">00</span>
-					</li>
-			</ul>
-			<h3>상대 단위 </h3>
-			<h4>부모 font-size:30px;</h4>
-			<div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10px;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:25px;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10pt;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1pc;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1cm;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10mm;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1in;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-			</div>
-			<h3>상대 단위 </h3>
-			<h4>부모 font-size:30px;</h4>
-			<div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1em;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1.5em;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1ex;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1.5ex;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1ch;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1.5ch;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1rem;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1.5rem;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10vw;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10vh;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10vmin;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10vmax;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:100%;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-				<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:150%;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
-			</div>
+					vertical-align: top;
+					margin:3px;
+					font-size:30px;
+					overflow: hidden;
+					background-color: #abc;
+					width:300px;height:300px;
+					display:inline-block;
+					display: inline-flex ;
+					justify-content: center;
+					align-items: center;
+				}</code>
+			</li>
+			<li>
+				vw : <span id="v_vw">00</span> , vw : <span id="v_vh">00</span>
+			</li>
+		</ul>
+		<h3>상대 단위 </h3>
+		<h4>부모 font-size:30px;</h4>
+		<div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10px;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:25px;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10pt;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1pc;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1cm;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10mm;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1in;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
 		</div>
-	</body>
-	</html>
+		<h3>상대 단위 </h3>
+		<h4>부모 font-size:30px;</h4>
+		<div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1em;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1.5em;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1ex;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1.5ex;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1ch;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1.5ch;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1rem;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:1.5rem;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10vw;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10vh;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10vmin;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:10vmax;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:100%;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+			<div class="p-box"><div class="l-box"><div class="t-box" style="font-size:150%;">0xm</div><div class="v-cssText">00</div><div class="v-size">00</div></div></div>
+		</div>
+		
+	</div>
+</body>
+</html>
