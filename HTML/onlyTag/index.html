@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>onlyTag</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>ForGoogle.analytics()</script>
+	
+	
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>  
+	
+	
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script> 
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="onlyTag">
+	<meta property="og:description" content="onlyTag">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="onlyTag" />
+	<meta property="og:type" content="website">
+	
+	<!-- //meta og -->
+	<script src="onlyTag.js"></script>
+	
+</head>
+<body>
+	<div class="container">
+		<h1>onlyTag</h1>
+		<div class="row mb-1">
+			<div class="col-lg">
+				<div>
+					in HTML
+				</div>
+				<textarea id="inTextarea" class="form-control" name="name" rows="8" cols="80">
+&lt;div class=&quot;row mb-1&quot;&gt;
+	&lt;div class=&quot;col-lg&quot;&gt;
+		&lt;div&gt;
+			in HTML
+		&lt;/div&gt;
+		&lt;textarea class=&quot;form-control&quot; name=&quot;name&quot; rows=&quot;8&quot; cols=&quot;80&quot;&gt;
+		테스트 글자
+		&lt;/textarea&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</textarea>	
+			</div>
+			<div class="col-lg">
+				<div>
+					out HTML
+				</div>
+				<textarea  id="outTextarea" class="form-control" name="name" rows="8" cols="80"></textarea>	
+			</div>
+		</div>
+		<div class="text-center">
+			<button class="btn btn-info" type="button" onclick="$('#outTextarea').val(onlyTag.stripAttributes($('#inTextarea').val()))">불필요 애트리뷰트 삭제</button>
+			</div>
+	</div>
+</body>
+</html>
