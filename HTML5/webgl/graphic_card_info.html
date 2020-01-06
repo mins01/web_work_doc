@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>그래픽 카드 정보</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>ForGoogle.analytics()</script>
+
+
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+
+	<!-- meta og -->
+
+	<meta property="og:title" content="그래픽 카드 정보">
+	<meta property="og:description" content="그래픽 카드 정보">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="그래픽 카드 정보" />
+	<meta property="og:type" content="website">
+
+	<!-- //meta og -->
+
+  <script>
+  //<!--
+    function get_grapic_card_info(){
+      var canvas = document.createElement('canvas');
+      var gl = canvas.getContext('webgl');
+
+      var debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+      var renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+      var vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
+      return [renderer,vendor];
+    }
+    $(function(){
+      var info = get_grapic_card_info();
+      $("#txt_renderer").text(info[0]);
+    })
+  //-->
+  </script>
+</head>
+<body>
+	<div class="container">
+    <h1>grapic card info</h1>
+    <ul class="list-group">
+      <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getExtension" target="_blank">WebGLRenderingContext.getExtension()</a></li>
+      <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/WEBGL_debug_renderer_info" target="_blank">WEBGL_debug_renderer_info</a></li>
+    </ul>
+    <h3 class="text-center">YOUR GRAPIC CARD IS <br><b id="txt_renderer"></b></h3>
+	</div>
+
+</body>
+</html>
