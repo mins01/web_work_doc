@@ -1,0 +1,78 @@
+@charset "UTF-8";
+.menubar{
+  /* height:3em; */
+  background-color: #abc;
+  padding:5px;
+}
+.menubar ul ,
+.menubar li{
+  list-style: none;
+}
+
+.menubar .menu-item{
+  align-self: center;
+  text-align: center;
+}
+
+.menubar-horizon{
+
+}
+
+.menu-top{
+
+}
+.menubar-horizon .menu-top{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.menubar-horizon .menu-top > .menu-item{
+  flex:1 1 100px;
+  padding:5px 10px;
+  background-color: #cce;
+  max-width:300px; /* 너비에 맞춰 수정해야함 */
+}
+
+.menu-sub{
+  position: relative;
+  display: none;
+}
+.menu-sub.on{
+  display: block;
+}
+.menu-top > .menu-item > .menu-sub > .menu-box{
+  position: absolute;
+}
+
+
+.menu-box{
+  padding:0;margin:0;
+
+  background-color: #abc;
+}
+
+.menu-box .menu{
+  padding:0;margin:0;
+}
+
+.menu-sub {
+  font-size: 0.8em;
+}
+
+
+/* 모양 */
+.menu-top > .menu-item > .menu-sub > .menu-box{
+  box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.2);
+
+}
+
+.menu-sub > .menu-box{
+  background-color: #eee;
+  width:100%;
+  border:2px solid #999;
+}
+
+.menu-sub > .menu-box > .menu-item{
+  padding: 0.4em 1em;
+}
