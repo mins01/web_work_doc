@@ -12,6 +12,12 @@ var menubar = (function(){
         item.classList.remove('on')
       });
     },
+    "hideToChildren":function(menu_item){
+      var els = menu_item.querySelectorAll('.menu-sub.on');
+      els.forEach((item, i) => {
+        item.classList.remove('on')
+      });
+    },
     "showToClosest":function(menu_item){
       var menu_sub = menu_item.querySelector('.menu-sub')
       if(menu_sub){
@@ -28,6 +34,7 @@ var menubar = (function(){
     },
     "toggle_sub":function(ta){
       var els = null
+
       if(!ta.closest('.menubar')){
         this.hideAll();
         return;
@@ -41,7 +48,7 @@ var menubar = (function(){
       }
       var menu_sub = menu_item.querySelector('.menu-sub.on');
       if(menu_sub){
-        menu_sub.classList.remove('on');
+        this.hideToChildren(menu_item);
         return;
       }
       this.hideAll();

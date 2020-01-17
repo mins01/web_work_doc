@@ -1,8 +1,11 @@
 @charset "UTF-8";
 .menubar{
   /* height:3em; */
-  background-color: #abc;
-  padding:5px;
+  /* background-color: #abc; */
+  /* padding:5px; */
+}
+.menubar *{
+  box-sizing: border-box;
 }
 .menubar ul ,
 .menubar li{
@@ -29,8 +32,6 @@
 
 .menubar-horizon .menu-top > .menu-item{
   flex:1 1 100px;
-  padding:5px 10px;
-  background-color: #cce;
   max-width:300px; /* 너비에 맞춰 수정해야함 */
 }
 
@@ -62,6 +63,26 @@
 
 
 /* 모양 */
+.menu-top{
+  /* border:1px solid #aaa; */
+  /* background-color: #aaa; */
+}
+.menu-box{
+  border:1px solid #aaa;
+  background-color: #ccc;
+}
+.menu-item{
+  background-color: #eee;
+  
+}
+.menu-label{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
+  display: block;
+  margin: 5px 10px;
+}
+
 .menu-top > .menu-item > .menu-sub > .menu-box{
   box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.2);
 
@@ -70,9 +91,12 @@
 .menu-sub > .menu-box{
   background-color: #eee;
   width:100%;
-  border:2px solid #999;
 }
 
 .menu-sub > .menu-box > .menu-item{
-  padding: 0.4em 1em;
+  padding: 0.4em 0em;
+}
+
+.menu-has-sub{
+
 }
