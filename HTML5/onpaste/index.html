@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+  <title>onpaste 설명</title>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script src="/js/ForGoogle.js"></script>
+  <!-- google analytics -->
+  <script>ForGoogle.analytics()</script>
+
+
+  <!-- jquery 관련 -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+
+
+  <!-- 부트스트랩 4 : IE8지원안됨! -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+  <!-- vue.js -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+
+  <!-- meta og -->
+
+  <meta property="og:title" content="onpaste 설명">
+  <meta property="og:description" content="onpaste 설명">
+  <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+  <meta property="og:image:width" content="190">
+  <meta property="og:image:height" content="70" />
+  <meta property="og:site_name" content="onpaste 설명" />
+  <meta property="og:type" content="website">
+
+  <!-- //meta og -->
+  <script type="text/javascript">
+    function handler_paste(evt){
+      var target = evt.target;
+      var items = event.clipboardData.items;
+      if(items.length ==0 ){
+        return;
+      }
+      var msgs = [];
+      target.value = '';
+      for (let i = 0; i < items.length; i ++) {
+        let item = items[i];
+        let kind = item.kind;
+        let type = item.type;
+        console.log(i,item)
+         if ((kind == 'string') && (type.match('^text/plain'))) {
+           // This item is the target node
+
+           item.getAsString(function (s){
+             target.value += i+":"+kind+":"+type+":"+s+"\n"+"\n";
+           });
+         } else if ((kind == 'string') && (type.match('^text/html'))) {
+           item.getAsString(function (s){
+             target.value += i+":"+kind+":"+type+":"+s+"\n"+"\n";
+           });
+         } else if ((kind == 'string') && (type.match('^text/uri-list'))) {
+           item.getAsString(function (s){
+             target.value += i+":"+kind+":"+type+":"+s+"\n"+"\n";
+           });
+         } else if ((kind == 'file') && (type.match('^image/'))) {
+           // Drag data item is an image file
+           var f = item.getAsFile();
+           console.log(f);
+           var url = URL.createObjectURL(f);
+           var img = new Image();
+           img.src = url;
+           target.parentNode.appendChild(img);
+           target.value += i+":"+kind+":"+type+":"+url+"\n"+"\n";
+         } else{
+           item.getAsString(function (s){
+             target.value += i+":"+kind+":"+type+":"+s+"\n"+"\n";
+           });
+         }
+       }
+       return false;
+    }
+  </script>
+
+</head>
+<body>
+  <div class="container">
+    <ul class="list-group">
+      <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/onpaste" target="_blank">onpaste</a></li>
+      <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/DataTransferItem/getAsString" target="_blank">getAsString</a></li>
+      <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/DataTransferItem/getAsFile" target="_blank">getAsFile</a></li>
+      <li class="list-group-item">
+        1. 순수 텍스트인 경우 items는 1개이고, 값은 순수 텍스트(text/plain)이다.<br>
+        2. HTML에서 복사한 내용인 경우 items는 2개이고, 첫번째는 순수 텍스트(text/plain), 두번째는 HTML(text/html)로 된 텍스트이다.<br>
+        3. 순수하게 image만 복사해서 붙여넣는 경우 items는 2개이고, 첫번째는 이미지가 들어있는 html(text/html)의 tag, 두번째는 이미지(image/png 등)의 File 객체이다.<br>
+        4. item이 HTML(text/html)인 경우 복사될 당시의 style이 같이 붙어있다. (브라우저마다 다를 수 있어 보임)
+        5. item이 HTML(text/html)인 &lt;html&gt;&lt;body&gt; 가 포함되어있으며, &lt;!--StartFragment--&gt; 와 &lt;!--EndFragment--&gt; 로 중요 부분이 감싸여있다.
+      </li>
+
+      <li class="list-group-item">
+        테스트 <img src="http://www.mins01.com/img/logo.gif" /> END
+      </li>
+      <li class="list-group-item">
+        <textarea rows="20" name="name" rows="8" cols="80" onpaste="return handler_paste(event);" placeholder="여기에 붙여 넣으세요" class="form-control"></textarea>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>
