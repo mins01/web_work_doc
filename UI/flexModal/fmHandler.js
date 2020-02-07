@@ -75,9 +75,6 @@ var fmHandler = (function(){
       });
       box.classList.add('fm-inited')
     },
-    "hideModal":function(ta,b){
-      fns.hideModal(ta,b);
-    },
     "hide":function(ta){
       fns.hideModal(ta,true);
     },
