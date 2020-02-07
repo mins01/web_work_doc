@@ -50,11 +50,6 @@ var fmHandler = (function(){
   }
 
   var fmHandler = {
-    "init":function(){
-      window.addEventListener('load',function(){
-        fmHandler.initEvent();
-      })
-    },
     "initEvent":function(){
       let modals = document.querySelectorAll('.fm-modal:not(.fm-inited)');
       modals.forEach((item, i) => {
