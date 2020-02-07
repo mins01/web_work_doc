@@ -47,13 +47,36 @@
 </head>
 <body>
   <div class="container" style="background-image:url('http://www.mins01.com/img/logo.gif');min-height:80vh;">
-    <div class="fm-box-box">
+    <div style="position:fixed;z-index:999999">
+      <div style="display:inline-block">
+        <button class="btn btn-info btn-sm m-1" onclick="fmHandler.show(document.querySelectorAll('.fm-modal')[0])">모달-1 보이기</button>
+        <button class="btn btn-info btn-sm m-1" onclick="fmHandler.show(document.querySelectorAll('.fm-modal')[1])">모달-2 보이기</button>
+        <button class="btn btn-info btn-sm m-1" onclick="fmHandler.show(document.querySelectorAll('.fm-modal')[2])">모달-3 보이기</button>
+        <button class="btn btn-info btn-sm m-1" onclick="fmHandler.show(document.querySelectorAll('.fm-modal')[3])">모달-4 보이기</button>
+      </div> /
+      <div style="display:inline-block">
+        <button class="btn btn-info btn-sm m-1" onclick="fmHandler.hide(document.querySelectorAll('.fm-modal')[0])">모달-1 숨기기</button>
+        <button class="btn btn-info btn-sm m-1" onclick="fmHandler.hide(document.querySelectorAll('.fm-modal')[1])">모달-2 숨기기</button>
+        <button class="btn btn-info btn-sm m-1" onclick="fmHandler.hide(document.querySelectorAll('.fm-modal')[2])">모달-3 숨기기</button>
+        <button class="btn btn-info btn-sm m-1" onclick="fmHandler.hide(document.querySelectorAll('.fm-modal')[3])">모달-4 숨기기</button>
+      </div> /
+      <div style="display:inline-block">
+        <button class="btn btn-info btn-sm m-1" onclick="fmHandler.toggle(document.querySelectorAll('.fm-modal')[0])">모달-1 토글</button>
+        <button class="btn btn-info btn-sm m-1" onclick="fmHandler.toggle(document.querySelectorAll('.fm-modal')[1])">모달-2 토글</button>
+        <button class="btn btn-info btn-sm m-1" onclick="fmHandler.toggle(document.querySelectorAll('.fm-modal')[2])">모달-3 토글</button>
+        <button class="btn btn-info btn-sm m-1" onclick="fmHandler.toggle(document.querySelectorAll('.fm-modal')[3])">모달-4 토글</button>
+      </div>
+    </div>
+
+
+    <div>
       <div class="fm-box on">
         <div class="fm-modal on" id="fm_banner_100">
           <div class="fm-modal-header">
-            해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더
+            모달-1 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더
           </div>
           <div class="fm-modal-content">
+            모달-1<br>
             하늘<br>
             <img src="http://www.mins01.com/img/logo.gif">
             하늘<br>
@@ -84,9 +107,10 @@
         </div>
         <div class="fm-modal on" id="fm_banner_101">
           <div class="fm-modal-header off">
-            해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더
+            모달-2 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더
           </div>
           <div class="fm-modal-content">
+            모달-2 <br>
             하늘<br>
             <img src="http://www.mins01.com/img/logo.gif">
             하늘<br>
@@ -105,9 +129,10 @@
         </div>
         <div class="fm-modal  on" id="fm_banner_102">
           <div class="fm-modal-header">
-            해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더
+            모달-3 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더
           </div>
           <div class="fm-modal-content">
+            모달-3 <br>
             하늘<br>
             <img src="http://www.mins01.com/img/logo.gif">
             하늘<br>
@@ -126,19 +151,11 @@
         </div>
         <div class="fm-modal  off" id="fm_banner_103">
           <div class="fm-modal-header">
-            해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더
+            모달-4 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더 해더
           </div>
           <div class="fm-modal-content">
-            하늘<br>
-            <img src="http://www.mins01.com/img/logo.gif">
-            하늘<br>
-            하늘<br>
-            하늘<br>
-            하늘<br>
-            하늘<br>
-            하늘<br>
-            하늘<br>
-            하늘<br>
+            <div style="font-size:40px;">모달-4</div>
+
           </div>
           <div class="fm-modal-footer">
             <button type="button" class="fm-close fm-close-24">하루동안 안보기</button>

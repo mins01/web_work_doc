@@ -1,8 +1,5 @@
 @charset "UTF-8";
 
-.fm-box-box{
-
-}
 .fm-box.off , .fm-box .off , .fm-box .hidden{
   display: none;
 }
