@@ -1,12 +1,12 @@
 @charset "UTF-8";
 
-.fm-box.off , .fm-box .off , .fm-box .hidden{
+.fm-container.off , .fm-container .off , .fm-container .hidden{
   display: none;
 }
-.fm-box.on{
+.fm-container.on{
   display: flex;
 }
-.fm-box{
+.fm-container{
   position: fixed;
   left: 0;right:0;top:0;bottom: 0;
   background-color: rgba(0,0,0,0.8);
@@ -16,25 +16,27 @@
   align-items: center; /* 세로 중앙 */
   overflow-y: auto;
 }
-.fm-box .fm-modal{
-  width: 300px;
+.fm-modal{
+  min-width: 300px;
   background-color: #fff;
   border:0.2em solid #fff;
   border-radius: 0.5em;
   overflow: hidden;
   margin:5px;
 
+  flex-direction: column;
 }
 .fm-modal.off{
   display: none;
 }
 .fm-modal.on{
-  display: block;
+  display: flex;
 }
 .fm-modal-content{
   background-color: #fff;
   padding:0.2em 0.5em;
   border-radius: 0.5em;
+  flex: 1 0 auto;
 }
 .fm-modal-header{
   background-color: #666;

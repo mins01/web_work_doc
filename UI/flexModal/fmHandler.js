@@ -4,27 +4,27 @@ var fmHandler = (function(){
     "hide":function(ta,b){
       ta.classList.replace(b?'on':'off',!b?'on':'off');
     },
-    "hideBox":function(evtTarget,b){
-      let box = null;
-      if(evtTarget.classList.contains('fm-box')){
-        box = evtTarget
+    "hideContainer":function(evtTarget,b){
+      let container = null;
+      if(evtTarget.classList.contains('fm-container')){
+        container = evtTarget
       }else{
-        box = evtTarget.closest('.fm-box');
+        container = evtTarget.closest('.fm-container');
       }
-      if(box){
+      if(container){
         if(b){ //hide
-          console.log('box-hide');
-          if(box.querySelectorAll('.fm-modal.on .fm-close').length > 0){
+          // console.log('container-hide');
+          if(container.querySelectorAll('.fm-modal.on .fm-close').length > 0){
             return;
           }else{
-            fns.hide(box,true);
-            box.querySelectorAll('.fm-modal.on').forEach((item, i) => {
+            fns.hide(container,true);
+            container.querySelectorAll('.fm-modal.on').forEach((item, i) => {
               fns.hide(item,true);
             });
           }
         }else{ //show
-          if(box.querySelectorAll('.fm-modal.on').length > 0){
-            fns.hide(box,false);
+          if(container.querySelectorAll('.fm-modal.on').length > 0){
+            fns.hide(container,false);
           }
         }
 
@@ -32,7 +32,15 @@ var fmHandler = (function(){
     },
     "hideModal":function(modal,b){
       fns.hide(modal,b);
-      fns.hideBox(modal,b);
+      fns.hideContainer(modal,b);
+    },
+    "hideAll":function(ta){
+      // console.log('hideAll');
+      var container = ta.closest('.fm-container');
+      if(!container){return;}
+      container.querySelectorAll('.fm-modal.on').forEach((item, i) => {
+        fns.hideModal(item,true);
+      });
     },
     "onclickFbClose":function(btn){
       let modal = btn.closest('.fm-modal');
@@ -52,9 +60,9 @@ var fmHandler = (function(){
       modals.forEach((item, i) => {
         fmHandler.addModalEvent(item);
       });
-      let boxs = document.querySelectorAll('.fm-box:not(.fm-inited)');
-      boxs.forEach((item, i) => {
-        fmHandler.addBoxEvent(item);
+      let containers = document.querySelectorAll('.fm-container:not(.fm-inited)');
+      containers.forEach((item, i) => {
+        fmHandler.addContainerEvent(item);
       });
       return true;
     },
@@ -63,20 +71,26 @@ var fmHandler = (function(){
       closes.forEach((item, i) => {
         item.addEventListener('click',function(evt){
           fns.onclickFbClose(this);
+          evt.stopPropagation();
+          // evt.preventDefault();
           return false;
         });
       });
       modal.classList.add('fm-inited')
     },
-    "addBoxEvent":function(box){
-      box.addEventListener('click',function(evt){
-        fns.hideBox(this,true);
+    "addContainerEvent":function(container){
+      container.addEventListener('click',function(evt){
+        // fns.hideContainer(this,true);
+        fns.hideAll(this);
         return false;
       });
-      box.classList.add('fm-inited')
+      container.classList.add('fm-inited')
     },
     "hide":function(ta){
       fns.hideModal(ta,true);
+    },
+    "hideAll":function(ta){
+      fns.hideAll(ta);
     },
     "show":function(ta){
       fns.hideModal(ta,false);
