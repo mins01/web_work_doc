@@ -7,31 +7,33 @@
 	<meta http-equiv="Content-Style-Type" content="text/css">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">	
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
+
 	<script src="/js/ForGoogle.js"></script>
 	<!-- google analytics -->
 	<script>ForGoogle.analytics()</script>
-	
-	
+
+
 	<!-- jquery 관련 -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>  
-	
-	
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+
+
 	<!-- 부트스트랩 4 : IE8지원안됨! -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
 	<!-- vue.js -->
 	<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
-	
-	<link rel="stylesheet" href="hoverZoom.css"> 
-	
-	
-	
+
+	<link rel="stylesheet" href="hoverZoom.css">
+
+	<style>
+		.wh_43{width:400px;height:300px;}
+	</style>
+
 	<!-- meta og -->
-	
+
 	<meta property="og:title" content="hover zoom">
 	<meta property="og:description" content="hover zoom">
 	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
@@ -39,10 +41,10 @@
 	<meta property="og:image:height" content="70" />
 	<meta property="og:site_name" content="hover zoom" />
 	<meta property="og:type" content="website">
-	
+
 	<!-- //meta og -->
-	
-	
+
+
 </head>
 <body>
 	<div class="container">
@@ -50,26 +52,26 @@
 		<h3>hover나 focus일 때 안의 내용을 zoom 해서 강조해서 보여지도록 한다.</h3>
 		<input placeholder="test tap" />
 		<div style="display:inline-block" class="m-1">
-			
-			<a href="#" class="hoverZoom-box hoverZoom-center-center" style="width:300px;height:300px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
-				<div class="hoverZoom-target hoverZoom-center-center" style="width:200px;height:200px; background-color:#abc;font-size:50px">
+
+			<a href="#" class="hz-box hz-center-center" style="width:300px;height:300px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
+				<div class="hz-target hz-center-center" style="width:200px;height:200px; background-color:#abc;font-size:50px">
 					1
 				</div>
 			</a>
 		</div>
 		<br />
 		<div style="display:block" class="m-1">
-			
-			<div href="#" class="hoverZoom-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
-				<div class="hoverZoom-target hoverZoom-center-center" style="width:100%;height:100%; background-color:#abc;font-size:50px">
+
+			<div href="#" class="hz-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
+				<div class="hz-target hz-center-center" style="width:100%;height:100%; background-color:#abc;font-size:50px">
 					1
 				</div>
 			</div>
 		</div>
 		<div style="display:block" class="m-1">
-			
-			<div href="#" class="hoverZoom-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
-				<div class="hoverZoom-target hoverZoom-center-center" style="width:100%;height:100%; background-color:#abc;font-size:50px">
+
+			<div href="#" class="hz-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
+				<div class="hz-target hz-center-center" style="width:100%;height:100%; background-color:#abc;font-size:50px">
 					2
 				</div>
 			</div>
@@ -77,74 +79,105 @@
 		<hr />
 		<div>
 			<div style="display:inline-block" class="m-1">
-				<a href="#" class="hoverZoom-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
-					<div class="hoverZoom-target hoverZoom-center-center" data-transition-duration="0.2s"  style="width:100%;height:100%; background-color:#abc;font-size:20px">
+				<a href="#" class="hz-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
+					<div class="hz-target hz-center-center" data-transition-duration="0.2s"  style="width:100%;height:100%; background-color:#abc;font-size:20px">
 						duration:0.2s
 					</div>
-				</a>	
+				</a>
 			</div>
 			<div style="display:inline-block" class="m-1">
-				<a href="#" class="hoverZoom-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
-					<div class="hoverZoom-target hoverZoom-center-center" data-transition-duration="0.3s"  style="width:100%;height:100%; background-color:#abc;font-size:20px">
+				<a href="#" class="hz-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
+					<div class="hz-target hz-center-center" data-transition-duration="0.3s"  style="width:100%;height:100%; background-color:#abc;font-size:20px">
 						duration:0.3s
 					</div>
-				</a>	
+				</a>
 			</div>
 			<div style="display:inline-block" class="m-1">
-				<a href="#" class="hoverZoom-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
-					<div class="hoverZoom-target hoverZoom-center-center" data-transition-duration="0.5s"  style="width:100%;height:100%; background-color:#abc;font-size:20px">
+				<a href="#" class="hz-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
+					<div class="hz-target hz-center-center" data-transition-duration="0.5s"  style="width:100%;height:100%; background-color:#abc;font-size:20px">
 						duration:0.5s<br />default
 					</div>
-				</a>	
+				</a>
 			</div>
 			<div style="display:inline-block" class="m-1">
-				<a href="#" class="hoverZoom-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
-					<div class="hoverZoom-target hoverZoom-center-center" data-transition-duration="1s"  style="width:100%;height:100%; background-color:#abc;font-size:20px">
+				<a href="#" class="hz-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
+					<div class="hz-target hz-center-center" data-transition-duration="1s"  style="width:100%;height:100%; background-color:#abc;font-size:20px">
 						duration:1s
 					</div>
-				</a>	
+				</a>
 			</div>
 			<div style="display:inline-block" class="m-1">
-				<a href="#" class="hoverZoom-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
-					<div class="hoverZoom-target hoverZoom-center-center" data-transition-duration="2s"  style="width:100%;height:100%; background-color:#abc;font-size:20px">
+				<a href="#" class="hz-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
+					<div class="hz-target hz-center-center" data-transition-duration="2s"  style="width:100%;height:100%; background-color:#abc;font-size:20px">
 						duration:2s
 					</div>
-				</a>	
-			</div>	
+				</a>
+			</div>
 		</div>
-		
+
 		<hr />
 		<div style="display:inline-block" class="m-1">
-			<a href="#" class="hoverZoom-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
-				<div class="hoverZoom-target hoverZoom-center-center" data-transform-scale="1.5"  style="width:100%;height:100%; background-color:#abc;font-size:20px">
+			<a href="#" class="hz-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
+				<div class="hz-target hz-center-center" data-transform-scale="1.5"  style="width:100%;height:100%; background-color:#abc;font-size:20px">
 					scale:1.5
 				</div>
-			</a>	
+			</a>
 		</div>
 		<div style="display:inline-block" class="m-1">
-			<a href="#" class="hoverZoom-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
-				<div class="hoverZoom-target hoverZoom-center-center" data-transform-scale="2"  style="width:100%;height:100%; background-color:#abc;font-size:20px">
+			<a href="#" class="hz-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
+				<div class="hz-target hz-center-center" data-transform-scale="2"  style="width:100%;height:100%; background-color:#abc;font-size:20px">
 					scale:2
 				</div>
-			</a>	
+			</a>
 		</div>
 		<div style="display:inline-block" class="m-1">
-			<a href="#" class="hoverZoom-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
-				<div class="hoverZoom-target hoverZoom-center-center" data-transform-scale="3"  style="width:100%;height:100%; background-color:#abc;font-size:20px">
+			<a href="#" class="hz-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
+				<div class="hz-target hz-center-center" data-transform-scale="3"  style="width:100%;height:100%; background-color:#abc;font-size:20px">
 					scale:3
 				</div>
-			</a>	
+			</a>
 		</div>
 		<div style="display:inline-block" class="m-1">
-			<a href="#" class="hoverZoom-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
-				<div class="hoverZoom-target hoverZoom-center-center" data-transform-scale="4"  style="width:100%;height:100%; background-color:#abc;font-size:20px">
+			<a href="#" class="hz-box" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
+				<div class="hz-target hz-center-center" data-transform-scale="4"  style="width:100%;height:100%; background-color:#abc;font-size:20px">
 					scale:4
 				</div>
-			</a>	
+			</a>
 		</div>
-		
-		
-		
+		<hr />
+		<div style="display:inline-block" class="m-1">
+			<a href="#" class="hz-box hz-center-center" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
+				<img class="hz-target" src="https://mins01.github.io/web_work_doc/logo.gif">
+			</a>
+		</div>
+		<div style="display:inline-block" class="m-1">
+			<a href="#" class="hz-box hz-center-center" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
+				<img class="hz-target hz-img" src="https://mins01.github.io/web_work_doc/logo.gif">
+			</a>
+		</div>
+		<div style="display:inline-block" class="m-1">
+			<a href="#" class="hz-box hz-center-center" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
+				<img class="hz-target hz-img hz-img-contain" src="https://mins01.github.io/web_work_doc/logo.gif">
+			</a>
+		</div>
+		<div style="display:inline-block" class="m-1">
+			<a href="#" class="hz-box hz-center-center" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
+				<img class="hz-target hz-img hz-img-cover" src="https://mins01.github.io/web_work_doc/logo.gif">
+			</a>
+		</div>
+		<div style="display:inline-block" class="m-1">
+			<a href="#" class="hz-box hz-center-center" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
+				<img class="hz-target hz-img hz-img-fill" src="https://mins01.github.io/web_work_doc/logo.gif">
+			</a>
+		</div>
+		<div style="display:inline-block" class="m-1">
+			<a href="#" class="hz-box hz-center-center" style="width:150px;height:100px;border-radius: 10px; background-color:#fff; border:1px solid #000;box-sizing: content-box;">
+				<img class="hz-target hz-img hz-img-scaleDown" src="https://mins01.github.io/web_work_doc/logo.gif">
+			</a>
+		</div>
+
+
+
 	</div>
 </body>
 </html>
