@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<title>CSS3 break-inside</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>ForGoogle.analytics()</script>
+
+
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+	<!-- meta og -->
+
+	<style>
+	.box{}
+	.box-bi-auto{break-inside:auto;}
+	.box-bi-avoid{break-inside:avoid;}
+	.box-1{background-color: #abc; height:50px}
+	.box-2{background-color: #bca; height:100px}
+	.box-3{background-color: #cba; height:150px}
+	</style>
+</head>
+<body>
+	<div class="container-fluid " spellcheck="false" >
+		<h1>break-inside</h1>
+		<ul class="list-group m-1">
+			<li class="list-group-item">
+				<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/break-inside" target="_blank" class="btn-link">https://developer.mozilla.org/en-US/docs/Web/CSS/break-inside</a>
+			</li>
+			<li class="list-group-item">
+				역활: page 나누기나 column 나누기에 element의 나뉘어서 표시되는지 여부를 설정한다.
+			</li>
+			<li class="list-group-item">
+				auto: Allows, but does not force, any break (page, column, or region) to be be inserted within the principal box. 잘린다.<br>
+				avoid: Avoids any break (page, column, or region) from being inserted within the principal box. 안 잘린다.<br>
+				avoid-page: Avoids any page break within the principal box. 페이지 나누기에서 안잘린다.<br>
+				avoid-column: Avoids any column break within the principal box. 컬럼에서 안잘린다.<br>
+				avoid-region: Avoids any region break within the principal box.
+			</li>
+			<li class="list-group-item">
+				부모 엘레멘트에 column-fill: auto; 일 경우 <br>
+				자식 엘레멘트에 break-inside:auto;로 설정하면 최대한 빡빡하게 단의 앞쪽 부터 내용이 채워진다.<br>
+				자식 엘레멘트에 break-inside:avoid;로 설정하면 자식 엘레멘트의 나누어짐 없이 단의 앞쪽 부터 내용이 채워진다.<br>
+				<hr>
+				부모 엘레멘트에 column-fill: balance; 일 경우 <br>
+				자식 엘레멘트에 break-inside:auto;로 높이에 맞춰서 자식 엘레멘트가 단에 균등하게 내용이 맞춰서 채워짐<br>
+				자식 엘레멘트에 break-inside:avoid;로 설정하면 자식 엘레멘트의 나누어짐 없이 최대한 단에 균등하게 내용이 맞춰서 채워짐<br>
+			</li>
+
+		</ul>
+		<h2>column-fill: auto; / break-inside:auto;</h2>
+		<div style="border:4px solid black; column-count:4;column-fill: auto;height:400px" class="my-1">
+			<div class="box box-bi-auto box-1">box-1</div>
+			<div class="box box-bi-auto box-2">box-2</div>
+			<div class="box box-bi-auto box-3">box-3</div>
+			<div class="box box-bi-auto box-1">box-1</div>
+			<div class="box box-bi-auto box-2">box-2</div>
+			<div class="box box-bi-auto box-3">box-3</div>
+			<div class="box box-bi-auto box-1">box-1</div>
+			<div class="box box-bi-auto box-2">box-2</div>
+		</div>
+		<h2>column-fill: auto; / break-inside:avoid;</h2>
+		<div style="border:4px solid black; column-count:4;column-fill: auto;height:400px" class="my-1">
+			<div class="box box-bi-avoid box-1">box-1</div>
+			<div class="box box-bi-avoid box-2">box-2</div>
+			<div class="box box-bi-avoid box-3">box-3</div>
+			<div class="box box-bi-avoid box-1">box-1</div>
+			<div class="box box-bi-avoid box-2">box-2</div>
+			<div class="box box-bi-avoid box-3">box-3</div>
+			<div class="box box-bi-avoid box-1">box-1</div>
+			<div class="box box-bi-avoid box-2">box-2</div>
+		</div>
+		<h2>column-fill: balance; / break-inside:auto;</h2>
+		<div style="border:4px solid black; column-count:4;column-fill: balance;height:400px" class="my-1">
+			<div class="box box-bi-auto box-1">box-1</div>
+			<div class="box box-bi-auto box-2">box-2</div>
+			<div class="box box-bi-auto box-3">box-3</div>
+			<div class="box box-bi-auto box-1">box-1</div>
+			<div class="box box-bi-auto box-2">box-2</div>
+			<div class="box box-bi-auto box-3">box-3</div>
+			<div class="box box-bi-auto box-1">box-1</div>
+			<div class="box box-bi-auto box-2">box-2</div>
+		</div>
+		<h2>column-fill: balance; / break-inside:avoid;</h2>
+		<div style="border:4px solid black; column-count:4;column-fill: balance;height:400px" class="my-1">
+			<div class="box box-bi-avoid box-1">box-1</div>
+			<div class="box box-bi-avoid box-2">box-2</div>
+			<div class="box box-bi-avoid box-3">box-3</div>
+			<div class="box box-bi-avoid box-1">box-1</div>
+			<div class="box box-bi-avoid box-2">box-2</div>
+			<div class="box box-bi-avoid box-3">box-3</div>
+			<div class="box box-bi-avoid box-1">box-1</div>
+			<div class="box box-bi-avoid box-2">box-2</div>
+		</div>
+
+	</div>
+</body>
+</html>
