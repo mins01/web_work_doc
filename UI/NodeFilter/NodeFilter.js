@@ -14,7 +14,7 @@ var NodeFilter = (function(){
         var ks = key.match(/([^\s]+)/g)
         var shs = [];
         for(var i=0,m=ks.length;i<m;i++){
-          shs.push("[data-key*='"+ks[i]+"']");
+          shs.push(this.key_pattern.replace(/{{sh}}/g,ks[i].trim().replace(/'/g,"\\\'")));
         }
         var sh0 = shs.join('');
         // var sh1 = ":not("+shs.join('):not(')+")";

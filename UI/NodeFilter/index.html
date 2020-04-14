@@ -58,20 +58,28 @@
 
       <h2>학교종</h2>
       <ol class="FN-box-0">
-        <li class="NF-item NF-shown" data-key="학교종이 땡땡땡 어서 모이자.">학교종이 땡땡땡 어서 모이자.</li>
+        <li class="NF-item NF-shown" data-key="'학교종'이 땡땡땡 어서 모이자.">'학교종'이 땡땡땡 어서 모이자.</li>
         <li class="NF-item NF-shown" data-key="선생님이 우리를 기다리신다.">선생님이 우리를 기다리신다.</li>
-        <li class="NF-item NF-shown" data-key="학교종이 땡땡땡 어서 모이자.">학교종이 땡땡땡 어서 모이자.</li>
-        <li class="NF-item NF-shown" data-key="사이좋게 오늘도 공부 잘하자.">사이좋게 오늘도 공부 잘하자.</li>
+        <li class="NF-item NF-shown" data-key="학교종이 땡땡땡 &quot;어서&quot; 모이자.">학교종이 땡땡땡 "어서" 모이자.</li>
+        <li class="NF-item NF-shown" data-key="사이좋게 오늘도 '공부' 잘하자.">사이좋게 오늘도 '공부' 잘하자.</li>
       </ol>
     </section>
     <hr>
     <section>
-      <form action="#" onsubmit="this.oninput(); return false;" oninput="nf1.filter(this.key.value); return false;">
+      <form action="#" onsubmit="this.oninput(); return false;" oninput="/*nf1.filter(this.key.value);*/ return false;">
         <div style="font-size:30px; text-align:center">
-          검색 <input name="key" class="input-filter" type="text" placeholder="키워드를 입력하세요." size="10" style="width:300px">
+          검색 <input id="input_1" name="key" class="input-filter" type="text" placeholder="키워드를 입력하세요." size="10" style="width:300px">
           <button class="button-filter">검색</button>
         </div>
       </form>
+      <script>
+        var input_1 = document.querySelector('#input_1');
+        input_1.addEventListener('compositionend', function(evt){ // IME가 완성 되었을 때만 동작하도록
+          // console.log(evt.data)
+          nf1.filter(evt.target.value)
+        });
+
+      </script>
       <h2>아기염소</h2>
       <ol class="FN-box-1">
         <li class="NF-item NF-shown" data-key="파란 하늘 파란 하늘 꿈이">파란 하늘 파란 하늘 꿈이</li>
