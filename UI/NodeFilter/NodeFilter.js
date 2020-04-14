@@ -23,16 +23,13 @@ var NodeFilter = (function(){
         // console.log(s1);
         var els1 = document.querySelectorAll(s1);
         for(var i=0,m=els1.length;i<m;i++){
-          els1[i].classList.add(this.hidden_className);
-          els1[i].classList.remove(this.shown_className);
+          els1[i].classList.replace(this.shown_className,this.hidden_className);
         }
 
         var s0 = this.box_selector+" ."+this.item_className+sh0;
         var els0 = document.querySelectorAll(s0);
         for(var i=0,m=els0.length;i<m;i++){
-          els0[i].classList.remove(this.hidden_className);
-          els0[i].classList.add(this.shown_className);
-
+          els1[i].classList.replace(this.hidden_className,this.shown_className);
         }
 
       }else{
