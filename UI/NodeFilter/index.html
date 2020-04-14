@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+  <title>NodeFilter</title>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script src="/js/ForGoogle.js"></script>
+  <!-- google analytics -->
+  <script>ForGoogle.analytics()</script>
+
+
+  <!-- jquery 관련 -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+
+
+  <!-- 부트스트랩 4 : IE8지원안됨! -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+  <!-- vue.js -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+  <script src="NodeFilter.js"></script>
+  <link rel="stylesheet" href="nodeFilter.css">
+  <!-- meta og -->
+
+  <meta property="og:title" content="NodeFilter">
+  <meta property="og:description" content="NodeFilter">
+  <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+  <meta property="og:image:width" content="190">
+  <meta property="og:image:height" content="70" />
+  <meta property="og:site_name" content="NodeFilter" />
+  <meta property="og:type" content="website">
+
+  <!-- //meta og -->
+
+  <script>
+    var nf0 = new NodeFilter('.FN-box-0')
+    var nf1 = new NodeFilter('.FN-box-1')
+
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>NodeFilter</h1>
+    <section>
+      <form action="#" onsubmit="this.oninput(); return false;" oninput="nf0.filter(this.key.value); return false;">
+        <div style="font-size:30px; text-align:center">
+          검색 <input name="key" class="input-filter" type="text" placeholder="키워드를 입력하세요." size="10" style="width:300px">
+          <button class="button-filter">검색</button>
+        </div>
+      </form>
+
+      <h2>학교종</h2>
+      <ol class="FN-box-0">
+        <li class="NF-item NF-shown" data-key="학교종이 땡땡땡 어서 모이자.">학교종이 땡땡땡 어서 모이자.</li>
+        <li class="NF-item NF-shown" data-key="선생님이 우리를 기다리신다.">선생님이 우리를 기다리신다.</li>
+        <li class="NF-item NF-shown" data-key="학교종이 땡땡땡 어서 모이자.">학교종이 땡땡땡 어서 모이자.</li>
+        <li class="NF-item NF-shown" data-key="사이좋게 오늘도 공부 잘하자.">사이좋게 오늘도 공부 잘하자.</li>
+      </ol>
+    </section>
+    <hr>
+    <section>
+      <form action="#" onsubmit="this.oninput(); return false;" oninput="nf1.filter(this.key.value); return false;">
+        <div style="font-size:30px; text-align:center">
+          검색 <input name="key" class="input-filter" type="text" placeholder="키워드를 입력하세요." size="10" style="width:300px">
+          <button class="button-filter">검색</button>
+        </div>
+      </form>
+      <h2>아기염소</h2>
+      <ol class="FN-box-1">
+        <li class="NF-item NF-shown" data-key="파란 하늘 파란 하늘 꿈이">파란 하늘 파란 하늘 꿈이</li>
+        <li class="NF-item NF-shown" data-key="드리운 푸른 언덕에">드리운 푸른 언덕에</li>
+        <li class="NF-item NF-shown" data-key="아기 염소 여럿이">아기 염소 여럿이</li>
+        <li class="NF-item NF-shown" data-key="풀을 뜯고 놀아요">풀을 뜯고 놀아요</li>
+        <li class="NF-item NF-shown" data-key="해처럼 밝은 얼굴로">해처럼 밝은 얼굴로</li>
+        <li class="NF-item NF-shown" data-key="빗방울이 뚝뚝뚝뚝">빗방울이 뚝뚝뚝뚝</li>
+        <li class="NF-item NF-shown" data-key="떨어지는 날에는">떨어지는 날에는</li>
+        <li class="NF-item NF-shown" data-key="잔뜩 찡그린 얼굴로">잔뜩 찡그린 얼굴로</li>
+        <li class="NF-item NF-shown" data-key="엄마 찾아 음매">엄마 찾아 음매</li>
+        <li class="NF-item NF-shown" data-key="아빠 찾아 음매">아빠 찾아 음매</li>
+        <li class="NF-item NF-shown" data-key="울상을 짓다가">울상을 짓다가</li>
+        <li class="NF-item NF-shown" data-key="해가 반짝 곱게 피어나면">해가 반짝 곱게 피어나면</li>
+        <li class="NF-item NF-shown" data-key="너무나 기다렸나봐">너무나 기다렸나봐</li>
+        <li class="NF-item NF-shown" data-key="폴짝폴짝 콩콩콩">폴짝폴짝 콩콩콩</li>
+        <li class="NF-item NF-shown" data-key="흔들흔들 콩콩콩">흔들흔들 콩콩콩</li>
+        <li class="NF-item NF-shown" data-key="신나는 아기 염소들">신나는 아기 염소들</li>
+      </ol>
+    </section>
+
+  </div>
+</body>
+</html>
