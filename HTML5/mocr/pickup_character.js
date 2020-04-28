@@ -3,6 +3,8 @@ var pickup_character = {
   cv:null,
   ctx:null,
   div_out:null,
+  charr:null,
+  chArraySize:32,
   init:function(){
     this.div_out = document.querySelector("#div_out");
     this.testimg = document.querySelector("#testimg");
@@ -16,10 +18,10 @@ var pickup_character = {
   run:function(){
     this.transparentColor(this.ctx,255,255,255); //배경색 없애기
     this.imgtrim(this.ctx); //여백제거
-    this.reisze(this.ctx,16,16,1); //크기 리사이즈
+    this.reisze(this.ctx,this.chArraySize,this.chArraySize,1); //크기 리사이즈
     var charr = this.img2ChArray(this.ctx)
-    this.log4Array(charr,16);
-
+    this.log4Array(charr,this.chArraySize);
+    this.charr = charr;
   },
   character2Array:function(char){
     var cv = document.createElement('canvas');
@@ -30,7 +32,7 @@ var pickup_character = {
     ctx.font      = "bold 64px Arial";
     ctx.fillStyle = "#000000";
     var text = ctx.measureText(char);
-    console.log(text);
+    // console.log(text);
     ctx.fillText(char, (cv.width-text.width)/2, 64);
 
     var cv2 = document.createElement('canvas');
@@ -42,10 +44,13 @@ var pickup_character = {
 
     this.transparentColor(ctx,255,255,255); //배경색 없애기
     this.imgtrim(ctx); //여백제거
-    this.reisze(ctx,16,16,1); //크기 리사이즈
+    this.reisze(ctx,this.chArraySize,this.chArraySize,1); //크기 리사이즈
     var charr = this.img2ChArray(ctx)
-    this.log4Array(charr,16);
+    // this.log4Array(charr,this.chArraySize);
     this.div_out.appendChild(cv);
+    console.log('점수',this.diff(this.charr,charr));
+    this.log4Array(this.diffArray(this.charr,charr),this.chArraySize);
+    // return charr;
 
   },
   transparentColor:function(ctx,ir,ig,ib){
@@ -135,6 +140,37 @@ var pickup_character = {
       parr.push(arr.slice(i,i+w).join(''));
     }
     console.log(parr.join("\n"))
+  },
+  diff:function(from,to){
+    var correct = 0;
+    var miss = 0;
+    for(var i=0,m=to.length;i<m;i++){
+      if(to[i]==1){
+        if(from[i]==1){
+          correct++;
+        }else{
+          miss++;
+        }
+      }
+    }
+    return [correct,miss];
+  },
+  diffArray:function(from,to){
+    var rArr = new Array(to.length)
+    var correct = 0;
+    var miss = 0;
+    for(var i=0,m=to.length;i<m;i++){
+      if(to[i]==1){
+        if(from[i]==1){
+          rArr[i]='0';
+        }else{
+          rArr[i]='-';
+        }
+      }else{
+        rArr[i]=' ';
+      }
+    }
+    return rArr;
   }
 
 }
