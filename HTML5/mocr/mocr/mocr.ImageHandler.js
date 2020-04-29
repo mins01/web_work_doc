@@ -13,6 +13,7 @@ mocr.ImageHandler = function(mocr){
   ImageHandler.prototype = {
     canvas:null,
     ctx:null,
+    desc:"",
     width:32,
     init:function(){
       this.canvas = document.createElement('canvas');
@@ -27,14 +28,19 @@ mocr.ImageHandler = function(mocr){
     loadFromCanvasNode:function(canvas){
 
     },
-    loadFromChar:function(char){
+    loadFromChar:function(char,fontFamily){
       var fontSize = 64;
       this.canvas.width = Math.ceil(fontSize*1.5);
       this.canvas.height = this.canvas.width;
       this.width = 64;
 
       this.ctx.save();
-      var font = "bold 64px Arial";
+      if(!fontFamily){
+        fontFamily = 'Arial'; //serif
+      }
+      this.desc = fontFamily;
+      var font = "normal 64px "+fontFamily;
+
       this.ctx.font = font;
       this.ctx.fillStyle = "#000000";
       var text = this.ctx.measureText(char);
@@ -76,8 +82,12 @@ mocr.ImageHandler = function(mocr){
       var letter = new mocr.Letter()
       letter.hex = this.toHex();
       letter.width = this.width;
+      letter.desc = this.desc;
       return letter;
     },
+    toString:function(){
+      return this.toDot();
+    }
 
   }
   return ImageHandler;

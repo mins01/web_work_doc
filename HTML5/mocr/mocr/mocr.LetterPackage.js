@@ -9,28 +9,43 @@ mocr.LetterPackage = function(mocr){
   }
   LetterPackage.prototype = {
     mih:null,
-    width:32,
-    data:[],
+    width:16,
+    letters:null,
     init:function(){
-      this.mih = new mocr.ImageHandler();
+      this.width = 16;
+      this.letters = [];
     },
-    "generate":function(){
-      var stCode = '가'.codePointAt(0);
-      var edCode = '힣'.codePointAt(0);
-      // console.log(stCode,edCode);
-      this.data = [];
-      for(var i=stCode,m=stCode+10;i<=m;i++){
-        var char = String.fromCodePoint(i);
-        console.log(char,i);
-        var letter = this.getLetter(char);
-        console.log(letter.valueOf());
+    clear:function(){
+      this.letters = [];
+    },
+    add:function(letter){
+      this.letters.push(letter);
+    },
+    toJson:function(){
+      var res = {
+        width:this.width,
+        letters:null
       }
-
+      var arr = new Array(this.letters.length);
+      for(var i=0,m=this.letters.length;i<m;i++){
+        var obj = this.letters[i].toObj();
+        delete obj.width;
+        arr[i] = obj;
+      }
+      res.letters = arr;
+      return JSON.stringify(arr,null,2);
     },
-    getLetter:function(char){
-      this.mih.loadFromChar(char);
-      this.mih.simplify(this.width);
-      return this.mih.getLetter();
+    search:function(letter,searchedCount){
+      if(!searchedCount) searchedCount = 5;
+      var searched = [];
+      var df = null;
+      for(var i=0,m=this.letters.length;i<m;i++){
+        searched.push(this.letters[i].diffBin(letter));
+      }
+      searched.sort(function(a,b){
+        return b.matched - a.matched
+      })
+      return searched;
     }
   }
   return LetterPackage;

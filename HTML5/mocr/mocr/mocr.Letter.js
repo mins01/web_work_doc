@@ -4,15 +4,18 @@ if(!mocr){
 }
 
 mocr.Letter = function(mocr){
-  var Letter = function(){
-    this.init();
+  var Letter = function(obj){
+    this.init(obj);
   }
   Letter.prototype = {
     letter:"",
     width:-1,
+    desc:"",
     hex:"",
-    init:function(){
-
+    init:function(obj){
+      if(obj){
+        this.setObj(obj);
+      }
     },
     toBin:function(){
       return mocr.ImageTool.hex2bin(this.hex);
@@ -34,13 +37,75 @@ mocr.Letter = function(mocr){
     },
     toString:function(){
       return this.toDot();
-    }
-    ,
-    valueOf:function(){
-      return this.toDot();
-    }
+    },
+    diffBin4Dot:function(to){
+      var from = this;
+      var fromBin = from.toBin();
+      var toBin = to.toBin();
+      var rArr = new Array(to.length)
+      var miss = 0;
+      for(var i=0,m=fromBin.length;i<m;i++){
+        if(fromBin[i]==1){
+          if(toBin[i]==1){
+            rArr[i]='O';
+          }else{
+            rArr[i]='F';
+          }
+        }else{
+          if(toBin[i]==1){
+            rArr[i]='T';
+          }else{
+            rArr[i]='-';
+          }
+        }
+      }
+      var res = {
+        letter:from.letter,
+        total:total,
+        matched:(counts[0]+counts[3])/total,
+        counts:counts,
+      }
+      return rArr.join("");
+    },
+    diffBin:function(to){
+      var from = this;
+      var fromBin = from.toBin();
+      var toBin = to.toBin();
+      var total = fromBin.length;
+      var counts = [0,0,0,0] //-,T,F,O
+      var dot = new Array(total);
 
 
+      var miss = 0;
+      for(var i=0,m=fromBin.length;i<m;i++){
+        if(fromBin[i]==1){
+          if(toBin[i]==1){
+            counts[3]++;
+            dot[i]='O';
+          }else{
+            counts[2]++;
+            dot[i]='F';
+          }
+        }else{
+          if(toBin[i]==1){
+            counts[1]++;
+            dot[i]='T';
+          }else{
+            counts[0]++;
+            dot[i]='-';
+          }
+        }
+      }
+      var res = {
+        letter:from.letter,
+        total:total,
+        desc:this.desc,
+        matched:counts[3]+counts[0]-counts[1]-counts[2]  ,
+        counts:counts,
+        dot:mocr.ImageTool.dot4Bin(dot.join(""),this.width),
+      }
+      return res;
+    }
   }
   return Letter;
 }(mocr);

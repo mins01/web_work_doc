@@ -42,37 +42,85 @@
       vertical-align:top ;
       outline: 1px dotted #000;
     }
+		img , canvas  {
+		  /* image-rendering: auto; */
+		  /* image-rendering: crisp-edges; */
+		  image-rendering: pixelated;
+		}
+		#div_dot{white-space: pre;font-family: monospace;}
   </style>
 
   <script src="mocr\mocr.js"></script>
   <script src="mocr\mocr.Letter.js"></script>
   <script src="mocr\mocr.ImageTool.js"></script>
 	<script src="mocr\mocr.ImageHandler.js"></script>
-  <script src="mocr\mocr.LetterPackage.js"></script>
+	<script src="mocr\mocr.LetterPackage.js"></script>
+  <script src="mocr\mocr.LetterPackageGenerator.js"></script>
   <script type="text/javascript">
-    var mit = null;
-    var mih = null;
+		var width = 32;
+    var mit = mocr.ImageTool;
+    var mih = new mocr.ImageHandler();
     var ml = null;
+		var ml1 = null;
+		var mlpg = new mocr.LetterPackageGenerator();
+		mlpg.width=width
 		var mlp = null;
     $(function(){
-      mit = mocr.ImageTool;
-      mih = new mocr.ImageHandler();
-			mlp = new mocr.LetterPackage();
-      mih.loadFromImgNode(document.querySelector("#testimg"));
-      mih.simplify(32);
-      ml = mih.getLetter();
-      $("#div_in").append(mih.canvas)
+			$("#div_parsed").append(mih.canvas)
+			mlp = mlpg.generate();
+      // mit = mocr.ImageTool;
+      // mih = new mocr.ImageHandler();
+			// mlpg = new mocr.LetterPackageGenerator();
+      // mih.loadFromImgNode(document.querySelector("#testimg_6"));
+      // mih.simplify(width);
+			// $("#div_in").append(mih.canvas)
+			//
+      // ml = mih.getLetter();
+
+			// var searched = mlp.search(ml);
+			// console.log(searched[0].letter,searched[0].desc,searched[0].matched,searched[0].counts,searched[0].dot);
+			// console.log(searched[1].letter,searched[1].desc,searched[1].matched,searched[1].counts,searched[1].dot);
+			// console.log(searched[2].letter,searched[2].desc,searched[2].matched,searched[2].counts,searched[2].dot);
     })
+		function checkImage(img){
+			mih.loadFromImgNode(img);
+      mih.simplify(width);
+      ml = mih.getLetter();
+			// mlp = mlpg.generate();
+			var searched = mlp.search(ml);
+			console.log(searched[0].letter,searched[0].desc,searched[0].matched,searched[0].counts,searched[0].dot);
+			$("#div_dot").text(searched[0].letter+"\n"+searched[0].desc+"\n========================\n"+searched[0].dot)
+		}
 
   </script>
 
 </head>
 <body style="background-color:#eee;">
 	<div class="container">
+		<h1>mocr</h1>
+		<h2>input image</h2>
     <div id="div_in" class="text-center m-1">
-      <img src="letter_0.png" id="testimg">
+			<img src="letter_0.png" id="testimg_0" onclick="checkImage(this);return false;">
+			<img src="letter_1.png" id="testimg_1" onclick="checkImage(this);return false;">
+			<img src="letter_2.png" id="testimg_2" onclick="checkImage(this);return false;">
+			<img src="letter_3.png" id="testimg_3" onclick="checkImage(this);return false;">
+			<img src="letter_4.png" id="testimg_4" onclick="checkImage(this);return false;">
+			<img src="letter_5.png" id="testimg_5" onclick="checkImage(this);return false;">
+			<img src="letter_6.png" id="testimg_6" onclick="checkImage(this);return false;">
+			<img src="letter_7.png" id="testimg_7" onclick="checkImage(this);return false;">
+			<img src="letter_8.png" id="testimg_8" onclick="checkImage(this);return false;">
+			<img src="letter_9.png" id="testimg_9" onclick="checkImage(this);return false;">
     </div>
+		<hr />
+		<h2>parsed image</h2>
+    <div id="div_parsed" class="text-center m-1">
+    </div>
+		<hr />
+		<h2>letter collection</h2>
     <div id="div_out" class="text-center m-1">
+    </div>
+		<h2>result</h2>
+		<div id="div_dot" class="text-center m-1">
     </div>
 	</div>
 </body>
