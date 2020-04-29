@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>mocr</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>ForGoogle.analytics()</script>
+
+
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+	<!-- meta og -->
+
+	<meta property="og:title" content="mocr">
+	<meta property="og:description" content="mocr">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="mocr" />
+	<meta property="og:type" content="website">
+
+	<!-- //meta og -->
+  <style media="screen">
+    img , canvas {
+      vertical-align:top ;
+      outline: 1px dotted #000;
+    }
+  </style>
+
+  <script src="mocr\mocr.js"></script>
+  <script src="mocr\mocr.Letter.js"></script>
+  <script src="mocr\mocr.ImageTool.js"></script>
+  <script src="mocr\mocr.ImageHandler.js"></script>
+  <script type="text/javascript">
+    var mit = null;
+    var mih = null;
+    var ml = null;
+    $(function(){
+      mit = mocr.ImageTool;
+      mih = new mocr.ImageHandler();
+      mih.loadFromImgNode(document.querySelector("#testimg"));
+      mih.simplify(100);
+      ml = mih.getLetter();
+      $("#div_in").append(mih.canvas)
+    })
+
+  </script>
+
+</head>
+<body style="background-color:#eee;">
+	<div class="container">
+    <div id="div_in" class="text-center m-1">
+      <img src="letter_0.png" id="testimg">
+    </div>
+    <div id="div_out" class="text-center m-1">
+    </div>
+	</div>
+</body>
+</html>

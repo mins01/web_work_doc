@@ -3,7 +3,7 @@ var pickup_character = {
   cv:null,
   ctx:null,
   div_out:null,
-  charr:null,
+  binarr:null,
   chArraySize:32,
   init:function(){
     this.div_out = document.querySelector("#div_out");
@@ -19,9 +19,18 @@ var pickup_character = {
     this.transparentColor(this.ctx,255,255,255); //배경색 없애기
     this.imgtrim(this.ctx); //여백제거
     this.reisze(this.ctx,this.chArraySize,this.chArraySize,1); //크기 리사이즈
-    var charr = this.img2ChArray(this.ctx)
-    this.log4Array(charr,this.chArraySize);
-    this.charr = charr;
+
+    var binstr = this.img2Bin(this.ctx)
+    var binarr = this.img2BinArray(this.ctx)
+    var hexstr = this.binArray2hex(binarr)
+    var binarr2 = this.hex2BinArray(hexstr)
+    console.log(binstr);
+    console.log(binarr);
+    console.log(hexstr);
+    console.log(binarr2);
+    this.log4Array(binarr,this.chArraySize);
+    this.log4Bin(binstr,this.chArraySize);
+    this.binarr = binarr;
   },
   character2Array:function(char){
     var cv = document.createElement('canvas');
@@ -45,12 +54,12 @@ var pickup_character = {
     this.transparentColor(ctx,255,255,255); //배경색 없애기
     this.imgtrim(ctx); //여백제거
     this.reisze(ctx,this.chArraySize,this.chArraySize,1); //크기 리사이즈
-    var charr = this.img2ChArray(ctx)
-    // this.log4Array(charr,this.chArraySize);
+    var binarr = this.img2BinArray(ctx)
+    // this.log4Array(binarr,this.chArraySize);
     this.div_out.appendChild(cv);
-    console.log('점수',this.diff(this.charr,charr));
-    this.log4Array(this.diffArray(this.charr,charr),this.chArraySize);
-    // return charr;
+    console.log('점수',this.diff(this.binarr,binarr));
+    this.log4Array(this.diffArray(this.binarr,binarr),this.chArraySize);
+    // return binarr;
 
   },
   transparentColor:function(ctx,ir,ig,ib){
@@ -94,7 +103,41 @@ var pickup_character = {
     ctx.canvas.height = imagedata.height;
     ctx.putImageData(imagedata,0,0);
   },
-  img2ChArray:function(ctx){
+  binArray2hex:function(binarr){
+    // var binarr = this.img2BinArray(ctx);
+    var hexs = [];
+    for(var i=0,m=binarr.length;i<m;i+=4){
+      hexs.push(parseInt(binarr.slice(i,i+4).join(""),2).toString(16));
+    }
+    return hexs.join('');
+  },
+  hex2BinArray:function(hexstr){
+    var binarr = [];
+    for(var i=0,m=hexstr.length;i<m;i++){
+      var bin = parseInt(hexstr[i],16).toString(2);
+      switch(bin.length){
+        case 0:bin='0000'+bin;break;
+        case 1:bin='000'+bin;break;
+        case 2:bin='00'+bin;break;
+        case 3:bin='0'+bin;break;
+      }
+      bin = bin.split("");
+      binarr = binarr.concat(bin);
+    }
+    return binarr;
+  },
+  img2Bin:function(ctx){
+    var w = ctx.canvas.width;
+    var h = ctx.canvas.height;
+    var imageData = ctx.getImageData(0, 0, w, h);
+    var chArray = new Array(w*h);
+    for(var i=0,m=imageData.data.length;i<m;i+=4){
+      var p = Math.floor((i/4));
+      chArray[p] = imageData.data[i+3]>0?1:0;
+    }
+    return chArray.join("");
+  },
+  img2BinArray:function(ctx){
     var w = ctx.canvas.width;
     var h = ctx.canvas.height;
     var imageData = ctx.getImageData(0, 0, w, h);
@@ -138,6 +181,13 @@ var pickup_character = {
     var parr = [];
     for(var i=0,m=arr.length;i<m;i+=w){
       parr.push(arr.slice(i,i+w).join(''));
+    }
+    console.log(parr.join("\n"))
+  },
+  log4Bin:function(bin,w){
+    var parr = [];
+    for(var i=0,m=bin.length;i<m;i+=w){
+      parr.push(bin.substr(i,w));
     }
     console.log(parr.join("\n"))
   },
