@@ -38,7 +38,7 @@ mocr.ImageHandler = function(mocr){
       this.ctx.font = font;
       this.ctx.fillStyle = "#000000";
       var text = this.ctx.measureText(char);
-      console.log(char,text);
+      // console.log(char,text);
       this.ctx.fillText(char, (this.canvas.width-text.width)/2, 64);
       this.ctx.restore();
     },

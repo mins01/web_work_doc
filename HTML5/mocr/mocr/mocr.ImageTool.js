@@ -27,7 +27,7 @@ mocr.ImageTool = function(mocr){
 
     },
     crop:function(ctx,x0,y0,w,h){
-      console.log(x0,y0,w,h)
+      // console.log(x0,y0,w,h)
       var imagedata = ctx.getImageData(x0,y0,w,h);
       ctx.canvas.width = imagedata.width;
       ctx.canvas.height = imagedata.height;
@@ -36,7 +36,7 @@ mocr.ImageTool = function(mocr){
     trim:function(ctx){
       var w = ctx.canvas.width;
       var h = ctx.canvas.height;
-      console.log(w,h);
+      // console.log(w,h);
       var imageData = ctx.getImageData(0, 0, w, h);
       var left = w;
       var right = 0;
@@ -61,7 +61,7 @@ mocr.ImageTool = function(mocr){
         bottom = Math.max(bottom,y);
       }
       ctx.putImageData(imageData,0,0);
-      console.log(left,top,right,bottom);
+      // console.log(left,top,right,bottom);
       this.crop(ctx,left,top,right-left+1,bottom-top+1);
     },
     transparentColor:function(ctx,ir,ig,ib){

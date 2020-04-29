@@ -47,16 +47,19 @@
   <script src="mocr\mocr.js"></script>
   <script src="mocr\mocr.Letter.js"></script>
   <script src="mocr\mocr.ImageTool.js"></script>
-  <script src="mocr\mocr.ImageHandler.js"></script>
+	<script src="mocr\mocr.ImageHandler.js"></script>
+  <script src="mocr\mocr.LetterPackage.js"></script>
   <script type="text/javascript">
     var mit = null;
     var mih = null;
     var ml = null;
+		var mlp = null;
     $(function(){
       mit = mocr.ImageTool;
       mih = new mocr.ImageHandler();
+			mlp = new mocr.LetterPackage();
       mih.loadFromImgNode(document.querySelector("#testimg"));
-      mih.simplify(100);
+      mih.simplify(32);
       ml = mih.getLetter();
       $("#div_in").append(mih.canvas)
     })
