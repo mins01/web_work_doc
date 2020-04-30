@@ -48,11 +48,12 @@
 		  image-rendering: pixelated;
 		}
 		#div_in img{width:50px;}
-		#div_dot{white-space: pre;font-family: monospace;}
+		#div_dot_info{white-space: pre; }
+		#div_dot_dot{white-space: pre;font-family: monospace;line-height: 1em;font-size:10px; font-weight: bold}
 		.letter-width32{width:32px;height:32px;display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 32px}
 		.div_input{ display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 32px}
-		.searched-letter{ display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 14px; width:50px; height: 50px; text-align: center; white-space: pre;}
-
+		.searched-letter{ display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 14px; width:80px; height: 50px; text-align: center; white-space: pre;}
+		.div_input div:first-of-type{font-weight: bold;}
   </style>
 
   <script src="mocr\mocr.js"></script>
@@ -72,7 +73,9 @@
 		mlpg.width=width
 		var mlp = null;
     $(function(){
-			$("#div_parsed").append(mih.canvas)
+			$("#div_parsed").append(mih.canvas);
+			$("#div_parsed").append(" vs ");
+			$("#div_parsed").append(mih1.canvas);
 			mlp = mlpg.generate(null);
 			mlpg.generate4Digit(mlp);
 			mlpg.generate4Alphabet(mlp);
@@ -97,8 +100,18 @@
 			var searched = mlp.search(ml);
 			var diffBin = searched[0];
 			console.log(diffBin.letter,diffBin.desc,diffBin.matched,diffBin.counts,diffBin.dot);
-			$("#div_dot").text(diffBin.letter+"\n"+diffBin.desc+"\n"+diffBin.matched+"\n========================\n"+diffBin.dot)
-			$(img).parent().find('.searched-letter').text(diffBin.letter+"\n"+diffBin.matched.toFixed(4))
+			$("#div_dot_info").text(diffBin.letter+"\n"+diffBin.desc+"\n"+diffBin.matched+"\n"+diffBin.counts)
+			$("#div_dot_dot").text(diffBin.dot)
+			$(img).parent().find('.searched-letter:eq(0)').text(diffBin.letter+"\n"+diffBin.matched.toFixed(4)+"\n"+diffBin.desc)
+			diffBin = searched[1];
+			$(img).parent().find('.searched-letter:eq(1)').text(diffBin.letter+"\n"+diffBin.matched.toFixed(4)+"\n"+diffBin.desc)
+			diffBin = searched[2];
+			$(img).parent().find('.searched-letter:eq(2)').text(diffBin.letter+"\n"+diffBin.matched.toFixed(4)+"\n"+diffBin.desc)
+			diffBin = searched[3];
+			$(img).parent().find('.searched-letter:eq(3)').text(diffBin.letter+"\n"+diffBin.matched.toFixed(4)+"\n"+diffBin.desc)
+			diffBin = searched[4];
+			$(img).parent().find('.searched-letter:eq(4)').text(diffBin.letter+"\n"+diffBin.matched.toFixed(4)+"\n"+diffBin.desc)
+
 		}
 		function onCheckImage2(event){
 			var ta = event.target;
@@ -112,7 +125,8 @@
 			// mlp = mlpg.generate();
 			var diffBin = ml1.diffBin(ml);
 			console.log(diffBin.letter,diffBin.desc,diffBin.matched,diffBin.counts,diffBin.dot);
-			$("#div_dot").text(diffBin.letter+"\n"+diffBin.desc+"\n"+diffBin.matched+"\n========================\n"+diffBin.dot)
+			$("#div_dot_info").text(diffBin.letter+"\n"+diffBin.desc+"\n"+diffBin.matched+"\n"+diffBin.counts)
+			$("#div_dot_dot").text(diffBin.dot)
 			// $(img).parent().find('.searched-letter').text(diffBin.letter)
 
 		}
@@ -124,46 +138,55 @@
 				var char = String.fromCodePoint(i);
 				mih1.loadFromChar(char,fontFamily,'bold');
 				// mih1.trim()
-				$("#div_in").append('<div class="div_input"><img src="'+mih1.canvas.toDataURL()+'"><div class="searched-letter"></div></div>')
+				$("#div_in").append('<div class="div_input"><img src="'+mih1.canvas.toDataURL()+'"><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div></div>')
 			}
 		}
-		$(function() {
+		function runTest(){
 			$("#div_in .div_input img").each(function(idx,el){
 				checkImage(el);
 			})
-		})
-
+		}
   </script>
 
 </head>
 <body style="background-color:#eee;">
 	<div class="container">
 		<h1>mocr</h1>
+		<button class="btn btn-info btn-lg" type="button" onclick="runTest()">run test</button>
 		<h2>input image</h2>
     <div id="div_in" class="text-left m-1" onclick="onCheckImage(event);return false;">
-			<div class="div_input"><img src="letter_0.png"><div class="searched-letter"></div></div>
-			<div class="div_input"><img src="letter_1.png"><div class="searched-letter"></div></div>
-			<div class="div_input"><img src="letter_2.png"><div class="searched-letter"></div></div>
-			<div class="div_input"><img src="letter_3.png"><div class="searched-letter"></div></div>
-			<div class="div_input"><img src="letter_4.png"><div class="searched-letter"></div></div>
-			<div class="div_input"><img src="letter_5.png"><div class="searched-letter"></div></div>
-			<div class="div_input"><img src="letter_6.png"><div class="searched-letter"></div></div>
-			<div class="div_input"><img src="letter_7.png"><div class="searched-letter"></div></div>
-			<div class="div_input"><img src="letter_8.png"><div class="searched-letter"></div></div>
-			<div class="div_input"><img src="letter_9.png"><div class="searched-letter"></div></div>
+			<div class="div_input"><img src="letter_0.png"><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div></div>
+			<div class="div_input"><img src="letter_1.png"><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div></div>
+			<div class="div_input"><img src="letter_2.png"><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div></div>
+			<div class="div_input"><img src="letter_3.png"><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div></div>
+			<div class="div_input"><img src="letter_4.png"><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div></div>
+			<div class="div_input"><img src="letter_5.png"><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div></div>
+			<div class="div_input"><img src="letter_6.png"><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div></div>
+			<div class="div_input"><img src="letter_7.png"><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div></div>
+			<div class="div_input"><img src="letter_8.png"><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div></div>
+			<div class="div_input"><img src="letter_9.png"><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div></div>
     </div>
-		<hr />
-		<h2>parsed image</h2>
-    <div id="div_parsed" class="text-center m-1">
-    </div>
+
 		<div class="row">
+			<div class="col-lg-6">
+				<hr />
+				<h2>parsed image</h2>
+		    <div id="div_parsed" class="text-center m-1">
+		    </div>
+			</div>
 			<div class="col-lg-6">
 				<hr />
 				<h2>result</h2>
 				<div id="div_dot" class="text-center m-1">
+					<div id="div_dot_info">
+
+					</div>
+					<div id="div_dot_dot">
+
+					</div>
 		    </div>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-lg-16">
 				<hr />
 				<h2>letter collection</h2>
 		    <div id="div_out" class="text-center m-1" onclick="onCheckImage2(event);return false;">
