@@ -47,7 +47,12 @@
 		  /* image-rendering: crisp-edges; */
 		  image-rendering: pixelated;
 		}
+		#div_in img{width:50px;}
 		#div_dot{white-space: pre;font-family: monospace;}
+		.letter-width32{width:32px;height:32px;display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 32px}
+		.div_input{ display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 32px}
+		.searched-letter{ display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 14px; width:50px; height: 50px; text-align: center; white-space: pre;}
+
   </style>
 
   <script src="mocr\mocr.js"></script>
@@ -60,6 +65,7 @@
 		var width = 32;
     var mit = mocr.ImageTool;
     var mih = new mocr.ImageHandler();
+		var mih1 = new mocr.ImageHandler();
     var ml = null;
 		var ml1 = null;
 		var mlpg = new mocr.LetterPackageGenerator();
@@ -67,30 +73,65 @@
 		var mlp = null;
     $(function(){
 			$("#div_parsed").append(mih.canvas)
-			mlp = mlpg.generate();
-      // mit = mocr.ImageTool;
-      // mih = new mocr.ImageHandler();
-			// mlpg = new mocr.LetterPackageGenerator();
-      // mih.loadFromImgNode(document.querySelector("#testimg_6"));
-      // mih.simplify(width);
-			// $("#div_in").append(mih.canvas)
-			//
-      // ml = mih.getLetter();
+			mlp = mlpg.generate(null);
+			mlpg.generate4Digit(mlp);
+			mlpg.generate4Alphabet(mlp);
+			//--- 테스트용 채우기
+			// generateTestImage('a','z','Serif')
+			// generateTestImage('A','Z','Serif')
+			generateTestImage('a','z','Comic Sans MS')
+			generateTestImage('A','Z','Comic Sans MS')
 
-			// var searched = mlp.search(ml);
-			// console.log(searched[0].letter,searched[0].desc,searched[0].matched,searched[0].counts,searched[0].dot);
-			// console.log(searched[1].letter,searched[1].desc,searched[1].matched,searched[1].counts,searched[1].dot);
-			// console.log(searched[2].letter,searched[2].desc,searched[2].matched,searched[2].counts,searched[2].dot);
+
     })
+		function onCheckImage(event){
+			var ta = event.target;
+			if(ta.tagName!='IMG') return false;
+			checkImage(ta)
+		}
 		function checkImage(img){
 			mih.loadFromImgNode(img);
       mih.simplify(width);
       ml = mih.getLetter();
 			// mlp = mlpg.generate();
 			var searched = mlp.search(ml);
-			console.log(searched[0].letter,searched[0].desc,searched[0].matched,searched[0].counts,searched[0].dot);
-			$("#div_dot").text(searched[0].letter+"\n"+searched[0].desc+"\n========================\n"+searched[0].dot)
+			var diffBin = searched[0];
+			console.log(diffBin.letter,diffBin.desc,diffBin.matched,diffBin.counts,diffBin.dot);
+			$("#div_dot").text(diffBin.letter+"\n"+diffBin.desc+"\n"+diffBin.matched+"\n========================\n"+diffBin.dot)
+			$(img).parent().find('.searched-letter').text(diffBin.letter+"\n"+diffBin.matched.toFixed(4))
 		}
+		function onCheckImage2(event){
+			var ta = event.target;
+			if(ta.tagName!='IMG') return false;
+			checkImage2(ta)
+		}
+		function checkImage2(img){
+			mih1.loadFromImgNode(img);
+      mih1.simplify(width);
+      ml1 = mih1.getLetter();
+			// mlp = mlpg.generate();
+			var diffBin = ml1.diffBin(ml);
+			console.log(diffBin.letter,diffBin.desc,diffBin.matched,diffBin.counts,diffBin.dot);
+			$("#div_dot").text(diffBin.letter+"\n"+diffBin.desc+"\n"+diffBin.matched+"\n========================\n"+diffBin.dot)
+			// $(img).parent().find('.searched-letter').text(diffBin.letter)
+
+		}
+		function generateTestImage(stChar,edChar,fontFamily){
+			var stCode = stChar.codePointAt(0);
+			var edCode = edChar.codePointAt(0);
+			// console.log(stCode,edCode);
+			for(var i=stCode,m=edCode;i<=m;i++){
+				var char = String.fromCodePoint(i);
+				mih1.loadFromChar(char,fontFamily,'bold');
+				// mih1.trim()
+				$("#div_in").append('<div class="div_input"><img src="'+mih1.canvas.toDataURL()+'"><div class="searched-letter"></div></div>')
+			}
+		}
+		$(function() {
+			$("#div_in .div_input img").each(function(idx,el){
+				checkImage(el);
+			})
+		})
 
   </script>
 
@@ -99,29 +140,37 @@
 	<div class="container">
 		<h1>mocr</h1>
 		<h2>input image</h2>
-    <div id="div_in" class="text-center m-1">
-			<img src="letter_0.png" id="testimg_0" onclick="checkImage(this);return false;">
-			<img src="letter_1.png" id="testimg_1" onclick="checkImage(this);return false;">
-			<img src="letter_2.png" id="testimg_2" onclick="checkImage(this);return false;">
-			<img src="letter_3.png" id="testimg_3" onclick="checkImage(this);return false;">
-			<img src="letter_4.png" id="testimg_4" onclick="checkImage(this);return false;">
-			<img src="letter_5.png" id="testimg_5" onclick="checkImage(this);return false;">
-			<img src="letter_6.png" id="testimg_6" onclick="checkImage(this);return false;">
-			<img src="letter_7.png" id="testimg_7" onclick="checkImage(this);return false;">
-			<img src="letter_8.png" id="testimg_8" onclick="checkImage(this);return false;">
-			<img src="letter_9.png" id="testimg_9" onclick="checkImage(this);return false;">
+    <div id="div_in" class="text-left m-1" onclick="onCheckImage(event);return false;">
+			<div class="div_input"><img src="letter_0.png"><div class="searched-letter"></div></div>
+			<div class="div_input"><img src="letter_1.png"><div class="searched-letter"></div></div>
+			<div class="div_input"><img src="letter_2.png"><div class="searched-letter"></div></div>
+			<div class="div_input"><img src="letter_3.png"><div class="searched-letter"></div></div>
+			<div class="div_input"><img src="letter_4.png"><div class="searched-letter"></div></div>
+			<div class="div_input"><img src="letter_5.png"><div class="searched-letter"></div></div>
+			<div class="div_input"><img src="letter_6.png"><div class="searched-letter"></div></div>
+			<div class="div_input"><img src="letter_7.png"><div class="searched-letter"></div></div>
+			<div class="div_input"><img src="letter_8.png"><div class="searched-letter"></div></div>
+			<div class="div_input"><img src="letter_9.png"><div class="searched-letter"></div></div>
     </div>
 		<hr />
 		<h2>parsed image</h2>
     <div id="div_parsed" class="text-center m-1">
     </div>
-		<hr />
-		<h2>letter collection</h2>
-    <div id="div_out" class="text-center m-1">
-    </div>
-		<h2>result</h2>
-		<div id="div_dot" class="text-center m-1">
-    </div>
+		<div class="row">
+			<div class="col-lg-6">
+				<hr />
+				<h2>result</h2>
+				<div id="div_dot" class="text-center m-1">
+		    </div>
+			</div>
+			<div class="col-lg-6">
+				<hr />
+				<h2>letter collection</h2>
+		    <div id="div_out" class="text-center m-1" onclick="onCheckImage2(event);return false;">
+		    </div>
+			</div>
+		</div>
+
 	</div>
 </body>
 </html>

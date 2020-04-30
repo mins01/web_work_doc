@@ -5,23 +5,43 @@ if(!mocr){
 
 mocr.ImageTool = function(mocr){
   var ImageTool = {
-    reisze:function(ctx,w,h,ratio){
-      var cv1 = document.createElement('canvas');
-      cv1.width = ctx.canvas.width;
-      cv1.height = ctx.canvas.height;
+    newContext2d:function(w,h,fillStyle){
+      var cv = document.createElement('canvas');
+      cv.width = w;
+      cv.height = h;
+      var ctx = cv.getContext('2d',{alpha:false});
+      ctx.imageSmoothingEnabled = false;
+      this.resetContext2d(ctx,w,h,fillStyle);
+      return ctx;
+    },
+    resetContext2d:function(ctx,w,h,fillStyle){
+      var cv = ctx.canvas;
+      cv.width = w;
+      cv.height = h;
+      ctx.save();
+      ctx.fillStyle = fillStyle;
+      ctx.fillRect(0,0,w,h);
+      ctx.restore();
+    },
+    resize:function(ctx,w,h,ratio){
+      var ctx1 = this.newContext2d(ctx.canvas.width,ctx.canvas.height,'#fff')
+      var cv1 = ctx1.canvas;
+      // console.log(cv1.width,cv1.height);
       var ctx1 = cv1.getContext('2d');
       ctx1.drawImage(ctx.canvas,0,0);
+      this.resetContext2d(ctx,w,h,'#fff');
       if(ratio){
-        var w1 = Math.ceil((cv1.width/cv1.height)*h)
-        var x1 = Math.ceil((w-w1)/2);
-        ctx.canvas.width=w;
-        ctx.canvas.height=h;
-        ctx.imageSmoothingEnabled = false;
-        ctx.drawImage(ctx1.canvas,x1,0,w1,h);
+        if(cv1.height>cv1.width){
+          var w1 = Math.ceil((cv1.width/cv1.height)*h)
+          var x1 = Math.ceil((w-w1)/2);
+          ctx.drawImage(ctx1.canvas,x1,0,w1,h);
+        }else{
+          var h1 = Math.ceil((cv1.height/cv1.width)*w)
+          var y1 = Math.ceil((h-h1)/2);
+          ctx.drawImage(ctx1.canvas,0,y1,w,h1);
+        }
+
       }else{
-        ctx.canvas.width=w;
-        ctx.canvas.height=h;
-        ctx.imageSmoothingEnabled = false;
         ctx.drawImage(ctx1.canvas,0,0,w,h);
       }
 
@@ -46,13 +66,18 @@ mocr.ImageTool = function(mocr){
       for(var i=0,m=imageData.data.length;i<m;i+=4){
         var x = (i/4)%w;
         var y = Math.floor((i/4)/w);
-        var r = imageData.data[i+0];
+        var r = imageData.data[i];
         var g = imageData.data[i+1];
         var b = imageData.data[i+2];
         var a = imageData.data[i+3];
-        if(a == 0 ){continue;}
+        if(r > 127 ){
+          // imageData.data[i+0]=255;
+          // imageData.data[i+1]=255;
+          // imageData.data[i+2]=255;
+          continue;
+        }
         // console.log(x,y)
-        imageData.data[i+0]=0;
+        imageData.data[i]=0;
         imageData.data[i+1]=0;
         imageData.data[i+2]=0;
         left = Math.min(left,x);
@@ -84,7 +109,8 @@ mocr.ImageTool = function(mocr){
       var chArray = new Array(w*h);
       for(var i=0,m=imageData.data.length;i<m;i+=4){
         var p = Math.floor((i/4));
-        chArray[p] = imageData.data[i+3]>0?1:0;
+        // chArray[p] = imageData.data[i+3]>0?1:0;
+        chArray[p] = imageData.data[i+0]<128?1:0;
       }
       return chArray.join("");
     },

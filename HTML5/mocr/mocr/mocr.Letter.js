@@ -11,6 +11,7 @@ mocr.Letter = function(mocr){
     letter:"",
     width:-1,
     desc:"",
+    letterType:"",
     hex:"",
     init:function(obj){
       if(obj){
@@ -37,35 +38,6 @@ mocr.Letter = function(mocr){
     },
     toString:function(){
       return this.toDot();
-    },
-    diffBin4Dot:function(to){
-      var from = this;
-      var fromBin = from.toBin();
-      var toBin = to.toBin();
-      var rArr = new Array(to.length)
-      var miss = 0;
-      for(var i=0,m=fromBin.length;i<m;i++){
-        if(fromBin[i]==1){
-          if(toBin[i]==1){
-            rArr[i]='O';
-          }else{
-            rArr[i]='F';
-          }
-        }else{
-          if(toBin[i]==1){
-            rArr[i]='T';
-          }else{
-            rArr[i]='-';
-          }
-        }
-      }
-      var res = {
-        letter:from.letter,
-        total:total,
-        matched:(counts[0]+counts[3])/total,
-        counts:counts,
-      }
-      return rArr.join("");
     },
     diffBin:function(to){
       var from = this;
@@ -100,7 +72,8 @@ mocr.Letter = function(mocr){
         letter:from.letter,
         total:total,
         desc:this.desc,
-        matched:counts[3]+counts[0]-counts[1]-counts[2]  ,
+        // matched:counts[3]-counts[1]-counts[2],
+        matched:counts[3]/(counts[3]+counts[1]+counts[2]),
         counts:counts,
         dot:mocr.ImageTool.dot4Bin(dot.join(""),this.width),
       }
