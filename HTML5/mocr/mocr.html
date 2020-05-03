@@ -56,12 +56,15 @@
 		.div_input div:first-of-type{font-weight: bold;}
   </style>
 
-  <script src="mocr\mocr.js"></script>
-  <script src="mocr\mocr.Letter.js"></script>
-  <script src="mocr\mocr.ImageTool.js"></script>
-	<script src="mocr\mocr.ImageHandler.js"></script>
-	<script src="mocr\mocr.LetterPackage.js"></script>
-  <script src="mocr\mocr.LetterPackageGenerator.js"></script>
+	<script src="WC2/colorPalette.js"></script>
+	<script src="WC2/colorPalette.palettes.js"></script>
+
+  <script src="mocr/mocr.js"></script>
+  <script src="mocr/mocr.Letter.js"></script>
+  <script src="mocr/mocr.ImageTool.js"></script>
+	<script src="mocr/mocr.ImageHandler.js"></script>
+	<script src="mocr/mocr.LetterPackage.js"></script>
+  <script src="mocr/mocr.LetterPackageGenerator.js"></script>
   <script type="text/javascript">
 		var width = 32;
     var mit = mocr.ImageTool;
@@ -152,6 +155,7 @@
 <body style="background-color:#eee;">
 	<div class="container">
 		<h1>mocr</h1>
+		<a href="mocr2.html">mocr2.html</a>
 		<button class="btn btn-info btn-lg" type="button" onclick="runTest()">run test</button>
 		<h2>input image</h2>
     <div id="div_in" class="text-left m-1" onclick="onCheckImage(event);return false;">

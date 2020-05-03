@@ -84,6 +84,9 @@ mocr.ImageHandler = function(mocr){
     trim:function(){
       mocr.ImageTool.trim(this.ctx);
     },
+    toBWColor:function(iwr,iwg,iwb){
+      mocr.ImageTool.toBWColor(this.ctx,iwr,iwg,iwb);
+    },
     toBin:function(){
       return mocr.ImageTool.img2Bin(this.ctx);
     },

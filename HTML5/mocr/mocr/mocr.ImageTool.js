@@ -102,6 +102,27 @@ mocr.ImageTool = function(mocr){
       }
       ctx.putImageData(imageData,0,0)
     },
+    //-- 흰색으로 지정된 색(iwr,iwg,iwb) 이외에는 전부 검은색(#000)으로 바꾼다.
+    toBWColor:function(ctx,iwr,iwg,iwb){
+      var imageData = ctx.getImageData(0,0,ctx.canvas.width,ctx.canvas.height);
+      for(var i=0,m=imageData.data.length;i<m;i+=4){
+        var r = imageData.data[i+0];
+        var g = imageData.data[i+1];
+        var b = imageData.data[i+2];
+        // var a = imageData.data[i+3];
+        imageData.data[i+3] = 255;
+        if(r==iwr && g==iwg && b==iwb ){
+          imageData.data[i+0] = 255;
+          imageData.data[i+1] = 255;
+          imageData.data[i+2] = 255;
+        }else{
+          imageData.data[i+0] = 0;
+          imageData.data[i+1] = 0;
+          imageData.data[i+2] = 0;
+        }
+      }
+      ctx.putImageData(imageData,0,0)
+    },
     img2Bin:function(ctx){
       var w = ctx.canvas.width;
       var h = ctx.canvas.height;
@@ -162,6 +183,14 @@ mocr.ImageTool = function(mocr){
       }
       return parr.join("\n");
     },
+    // toBWColor:function(ctx){
+    //   var imagedata = ctx.getImageData(0,0,ctx.canvas.width,ctx.canvas.height);
+    //   var toImagedata = colorPalette.applyPalette(imagedata,'black_white_1bit');
+    //   ctx.putImageData(toImagedata,0,0);
+    // },
+    boundBoxes:function(ctx){
+
+    }
   }
   return ImageTool;
 }(mocr)

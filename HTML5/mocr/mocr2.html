@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>mocr</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>ForGoogle.analytics()</script>
+
+
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+	<!-- meta og -->
+
+	<meta property="og:title" content="mocr">
+	<meta property="og:description" content="mocr">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="mocr" />
+	<meta property="og:type" content="website">
+
+	<!-- //meta og -->
+  <style media="screen">
+    img , canvas {
+      vertical-align:top;
+      outline: 1px dotted #000;
+    }
+		img , canvas  {
+		  /* image-rendering: auto; */
+		  /* image-rendering: crisp-edges; */
+		  image-rendering: pixelated;
+		}
+		/* #div_in img{width:50px;} */
+		#div_dot_info{white-space: pre; }
+		#div_dot_dot{white-space: pre;font-family: monospace;line-height: 1em;font-size:10px; font-weight: bold}
+		.letter-width32{width:32px;height:32px;display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 32px}
+		.div_input{ display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 32px}
+		.searched-letter{ display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 14px; width:80px; height: 50px; text-align: center; white-space: pre;}
+		.div_input div:first-of-type{font-weight: bold;}
+  </style>
+
+	<script src="WC2/colorPalette.js"></script>
+	<script src="WC2/colorPalette.palettes.js"></script>
+
+  <script src="mocr/mocr.js"></script>
+  <script src="mocr/mocr.Letter.js"></script>
+  <script src="mocr/mocr.ImageTool.js"></script>
+	<script src="mocr/mocr.ImageHandler.js"></script>
+	<script src="mocr/mocr.LetterPackage.js"></script>
+  <script src="mocr/mocr.LetterPackageGenerator.js"></script>
+  <script type="text/javascript">
+		var width = 32;
+    var mit = mocr.ImageTool;
+    var mih = new mocr.ImageHandler();
+		var mih1 = new mocr.ImageHandler();
+    var ml = null;
+		var ml1 = null;
+		var mlpg = new mocr.LetterPackageGenerator();
+		mlpg.width=width
+		var mlp = null;
+		$(function(){
+			var img_letter_0 = document.querySelector("#img_letter_0")
+			mih.loadFromImgNode(img_letter_0);
+			mih.toBWColor(255,255,255);
+			$(".div_input").append('<img src="'+mih.canvas.toDataURL()+'" />');
+		})
+
+  </script>
+
+</head>
+<body style="background-color:#eee;">
+	<div class="container">
+		<h1>mocr2</h1>
+		<button class="btn btn-info btn-lg" type="button" onclick="runTest()">run test</button>
+		<h2>input image</h2>
+    <div id="div_in" class="text-left m-1" onclick="onCheckImage(event);return false;">
+			<div class="div_input"><img id="img_letter_0" src="imgs/no_sweat.png"></div>
+    </div>
+
+	</div>
+</body>
+</html>
