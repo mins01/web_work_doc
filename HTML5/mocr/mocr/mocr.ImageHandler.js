@@ -87,6 +87,9 @@ mocr.ImageHandler = function(mocr){
     toBWColor:function(iwr,iwg,iwb){
       mocr.ImageTool.toBWColor(this.ctx,iwr,iwg,iwb);
     },
+    getBoundBoxes:function(){
+      return mocr.ImageTool.getBoundBoxes(this.ctx);
+    },
     toBin:function(){
       return mocr.ImageTool.img2Bin(this.ctx);
     },
