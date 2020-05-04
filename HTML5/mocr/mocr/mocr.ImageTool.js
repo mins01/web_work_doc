@@ -123,10 +123,31 @@ mocr.ImageTool = function(mocr){
       }
       ctx.putImageData(imageData,0,0)
     },
-    getBoundBoxes4X0Y0:function(imageData,w,h){
-      var x0 = w + 1;
-      var y0 = h + 1;
+    getBoundBoxes4FirstDot:function(imageData){
+      var w = imageData.width;
+      var h = imageData.height;
+      var xf = -1; //채색을 위한 기준점
+      var yf = -1;
       //-- 왼쪽 위 기준점 찾기
+      for(var i=0,m=imageData.data.length;i<m;i+=4){
+        // var r = imageData.data[i];
+        var g = imageData.data[i+1];
+        // var b = imageData.data[i+2];
+        // var a = imageData.data[i+3];
+        if(g > 127){ continue; }
+        var x = (i/4)%w;
+        var y = Math.floor((i/4)/w);
+        return [x,y]
+      }
+      return null;
+    },
+    getBoundBoxes4X0Y0:function(imageData,w,h){
+      var x0 = w;
+      var y0 = h;
+      var xf = -1; //채색을 위한 기준점
+      var yf = -1;
+      //-- 왼쪽 위 기준점 찾기
+
       for(var i=0,m=imageData.data.length;i<m;i+=4){
         var x = (i/4)%w;
         var y = Math.floor((i/4)/w);
@@ -134,79 +155,137 @@ mocr.ImageTool = function(mocr){
         var g = imageData.data[i+1];
         var b = imageData.data[i+2];
         var a = imageData.data[i+3];
-        if(r > 127){ continue; }
+        if(g > 127){ continue; }
+        if(xf==-1){
+          xf = x;
+          yf = y;
+        }
         x0 = Math.min(x0,x);
         y0 = Math.min(y0,y);
       }
-      return [x0,y0];
-    },
-    getBoundBoxes4X1Y1:function(imageData,w,h,x0,y0,xGap){
-      var x1 = -1
-      var y1 = -1
-      for(var xi1 = x0,xm1=Math.min(x0+xGap,w);xi1<xm1;xi1++){
-        for(var yi1 = y0,ym1=h;yi1<ym1;yi1++){
-          var isSkip = false;
-          for(var xi2 = x0,xm2=x0+xi1;xi2<xm2;xi2++){
-            var r = imageData.data[(w*yi1+xi2)*4];
-            imageData.data[(w*yi1+xi2)*4]=128;
-            if(r < 127){
-              imageData.data[(w*yi1+xi2)*4]=200;
-              isSkip = true; break;
-            }
-          }
-          if(isSkip){ continue;}
-          console.log("yi1+xi2+xm2",yi1,xi2,xm2)
-
-          imageData.data[(w*yi1+xi2)*4]=255;
-          for(var yi2 = y0,ym2=y0+yi1;yi2<ym2;yi2++){
-            var r = imageData.data[(w*yi2+xi2)*4];
-            // imageData.data[(w*yi2+xi2)*4]=100;
-
-            if(r < 127){
-              // imageData.data[(w*yi2+xi2)*4]=255;
-              isSkip = true; break;
-            }
-          }
-          if(isSkip){ continue;}
-          break;
-        }
-        // imageData.data[(w*yi1+xi1)*4+1]=255;
-        x1 = Math.max(xi1,x1)
-        y1 = Math.max(yi1,y1)
-        // imageData.data[(w*y1+x1)*4+2]=255;
-        // imageData.data[(w*y1+x1)*4+1]=255;
-        console.log("x1,y1",x1,y1);
+      if(x0==w && y0==h){
+        return null;
       }
-      return [x1,y1,imageData]
+      return [x0,y0,xf,yf];
+    },
+    getBoundBoxes4X1Y1:function(imageData,x0,y0){
+      var w = imageData.width;
+      var h = imageData.height;
+      var point ={x:x0,y:y0}
+      // var p0 = (point.y*w+point.x)*4
+      // var r0 = imageData.data[p0];
+      // var g0 = imageData.data[p0+1];
+      // var b0 = imageData.data[p0+2];
+      //https://stackoverflow.com/questions/23371608/fill-a-hollow-shape-with-color
+      var x1 = x0;
+      var y1 = y0;
+      var stack = Array();
+      stack.push(point); // Push the seed
+      while(stack.length > 0) {
+        var currPt = stack.pop();
+        var p1 = (currPt.y*w+currPt.x)*4
+        var g1 = imageData.data[p1+1];
+        if(g1 > 127) { continue; }
+            // Check if the point is not filled
+        imageData.data[p1+1] = 255;
+        x1 = Math.max(x1,currPt.x);
+        y1 = Math.max(y1,currPt.y);
+        // console.log("x1,y1",x1,y1);
+        if(currPt.x < w-1) stack.push({x:currPt.x + 1, y:currPt.y}); // Fill the east neighbour
+        if(currPt.y < h-1) stack.push({x:currPt.x, y:currPt.y + 1}); // Fill the south neighbour
+        if(currPt.x > 0) stack.push({x:currPt.x - 1, y:currPt.y}); // Fill the west neighbour
+        if(currPt.y > 0) stack.push({x:currPt.x, y:currPt.y - 1}); // Fill the north neighbour
+
+      }
+      if(x0==x1 && y0==y1){
+        return null;
+      }
+      return [x1,y1]
+
+    },
+    getBoundBox:function(imageData,xf,yf){
+      var w = imageData.width;
+      var h = imageData.height;
+      var point ={x:xf,y:yf}
+      // var p0 = (point.y*w+point.x)*4
+      // var r0 = imageData.data[p0];
+      // var g0 = imageData.data[p0+1];
+      // var b0 = imageData.data[p0+2];
+      //https://stackoverflow.com/questions/23371608/fill-a-hollow-shape-with-color
+      var x0 = w;
+      var y0 = h;
+      var x1 = -1;
+      var y1 = -1;
+      var stack = Array();
+      stack.push(point); // Push the seed
+      while(stack.length > 0) {
+        var currPt = stack.pop();
+        var p1 = (currPt.y*w+currPt.x)*4
+        var g1 = imageData.data[p1+1];
+        if(g1 > 127) { continue; }
+            // Check if the point is not filled
+        imageData.data[p1+1] = 255;
+        x0 = Math.min(x0,currPt.x);
+        y0 = Math.min(y0,currPt.y);
+        x1 = Math.max(x1,currPt.x);
+        y1 = Math.max(y1,currPt.y);
+        // console.log("x1,y1",x1,y1);
+        if(currPt.x < w-1) stack.push({x:currPt.x + 1, y:currPt.y}); // Fill the east neighbour
+        if(currPt.y < h-1) stack.push({x:currPt.x, y:currPt.y + 1}); // Fill the south neighbour
+        if(currPt.x > 0) stack.push({x:currPt.x - 1, y:currPt.y}); // Fill the west neighbour
+        if(currPt.y > 0) stack.push({x:currPt.x, y:currPt.y - 1}); // Fill the north neighbour
+
+      }
+      if(x0==w && x1==-1){
+        return null;
+      }
+      return {left:x0,top:y0,right:x1,bottom:y1,width:x1-x0,height:y1-y0};
 
     },
     //--
     getBoundBoxes:function(ctx){
       var w = ctx.canvas.width;
       var h = ctx.canvas.height;
-      var imageData = ctx.getImageData(0,0,w,h);
-
+      var imageData0 = ctx.getImageData(0,0,w,h);
+      var imageData = ctx.createImageData(imageData0);
+      imageData.data.set(imageData0.data);
+      var boxes = [];
 
       //-- 왼쪽 위 기준점 찾기
-      var r = this.getBoundBoxes4X0Y0(imageData,w,h);
-      var x0 = r[0];
-      var y0 = r[1];
-      console.log(x0,y0);
+      var r = null;
+      var i = 0;
+      while(r = this.getBoundBoxes4FirstDot(imageData,w,h)){
+        i++;
+        if(i>50){break;}
+        var xf = r[0];
+        var yf = r[1];
+        console.log("i,xf,yf",i,xf,yf);
 
-      var xy0 = (w*y0+x0)*4;
-      imageData.data[xy0]=100;
-      imageData.data[xy0+1]=255;
-      imageData.data[xy0+2]=255;
-      imageData.data[xy0+3]=255;
-      ctx.putImageData(imageData,0,0);
+        var xy0 = (w*yf+xf)*4;
+        console.log("i,xf,yf",i,xf,yf,imageData.data[xy0+1]);
+        // //-- 세로기준으로 가로가 전부 빈공간인것 찾기 => 박스 최 하단 y 위치
+        var boundBox = this.getBoundBox(imageData,xf,yf);
+        if(boundBox==null){
+          console.log("boundBox 없음");
+          break;
+        }
+        console.log("boundBox",boundBox);
+        ctx.putImageData(imageData,0,0);
+        boxes.push(boundBox);
+      }
+      ctx.putImageData(imageData0,0,0);
+      ctx.save();
+      ctx.strokeStyle = 'rgba(100,0,0,255)';
+      ctx.lineWidth = 1;
+      ctx.globalCompositeOperation ='multiply';
+      for(var i=0,m=boxes.length;i<m;i++){
+        var box = boxes[i];
+        ctx.strokeRect(box.left,box.top,box.width,box.height)
 
-      // //-- 세로기준으로 가로가 전부 빈공간인것 찾기 => 박스 최 하단 y 위치
-      var wGap = 30;//Math.ceil(w/100);
-      var xGap = 10;
-      var r = this.getBoundBoxes4X1Y1(imageData,w,h,x0,y0,xGap);
-      var x1 = r[0];
-      var y1 = r[1];
-      ctx.putImageData(r[2],0,0);
+      }
+      ctx.restore();
+      console.log(boxes);
+
       // var xy1 = (w*y1+x1)*4;
       // imageData.data[xy1]=100;
       // imageData.data[xy1+1]=255;
