@@ -73,12 +73,17 @@
 		mlpg.width=width
 		var mlp = null;
 		$(function(){
+
+
+		})
+		function runTest(){
 			var img_letter_0 = document.querySelector("#img_letter_0")
 			mih.loadFromImgNode(img_letter_0);
-			mih.toBWColor(255,255,255);
+
 			$(".div_input").append(mih.canvas);
+			mih.toBWColor(255,255,255);
 			mih.getBoundBoxes();
-		})
+		}
 
   </script>
 
