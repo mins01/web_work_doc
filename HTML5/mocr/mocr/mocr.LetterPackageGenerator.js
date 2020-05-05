@@ -22,7 +22,9 @@ mocr.LetterPackageGenerator = function(mocr){
       this.mih.simplify(this.width);
       var letter = this.mih.getLetter();
       letter.letter = char;
-      $("#div_out").append("<div class='letter-width"+letter.width+"' style='font-family:"+fontFamily+";'>"+letter.letter+"</div><img title='"+letter.desc+"' src='"+this.mih.canvas.toDataURL()+"'>");
+      var ctx = letter.toContext2d();
+      // $("#div_out").append("<div class='letter-width"+letter.width+"' style='font-family:"+fontFamily+";'>"+letter.letter+"</div><img title='"+letter.desc+"' src='"+this.mih.canvas.toDataURL()+"'>");
+      $("#div_out").append("<div class='letter-width"+letter.width+"' style='font-family:"+fontFamily+";'>"+letter.letter+"</div><img title='"+letter.desc+"' src='"+ctx.canvas.toDataURL()+"'>");
       return letter;
     },
     generate:function(){
