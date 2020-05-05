@@ -78,7 +78,23 @@ mocr.Letter = function(mocr){
         dot:mocr.ImageTool.dot4Bin(dot.join(""),this.width),
       }
       return res;
+    },
+    toContext2d:function(){
+      if(this.width < 1){return null;}
+      var ctx = mocr.ImageTool.newContext2d(this.width,this.width,'#fff');
+      var imageData = ctx.getImageData(0,0,ctx.canvas.width,ctx.canvas.height);
+      var bin = this.toBin();
+      for(var i=0,m=bin.length;i<m;i++){
+        var v = bin[i]==='0'?255:0
+        imageData.data[i*4+0]=v;
+        imageData.data[i*4+1]=v;
+        imageData.data[i*4+2]=v;
+      }
+      ctx.putImageData(imageData,0,0);
+      return ctx;
+
     }
+
   }
   return Letter;
 }(mocr);
