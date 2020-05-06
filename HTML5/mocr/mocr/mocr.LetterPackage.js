@@ -45,7 +45,7 @@ mocr.LetterPackage = function(mocr){
       searched.sort(function(a,b){
         return b.matched - a.matched
       })
-      return searched;
+      return searched.slice(0,10);
     }
   }
   return LetterPackage;

@@ -54,6 +54,7 @@
 		.div_input2{position: relative;}
 		.div_input2::before{position: absolute;width:300px;height: 120px; content: "";background-image: url('imgs/guide_line.png');left: 0;right: 0;opacity: 0.2}
 		.div_out_box{border: 1px solid rgba(100,0,0,0.5)}
+		#div_suggest span{ display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 14px; width:80px; height: 50px; text-align: center; white-space: pre;}
   </style>
 
 	<script src="WC2/colorPalette.js"></script>
@@ -80,6 +81,12 @@
 			setTimeout(runTest,100)
 		})
 		function runTest(){
+
+			mlp = mlpg.generate(null);
+			mlpg.generate4Digit(mlp);
+			mlpg.generate4Alphabet(mlp);
+			mlpg.generate4Range(mlp,' ','/');
+
 			var img_letter_0 = document.querySelector("#img_letter_0")
 			mih.loadFromImgNode(img_letter_0);
 
@@ -97,20 +104,30 @@
 			ctx.globalCompositeOperation ='multiply';
 			ctx.globalAlpha = 0.6
 			var tmep_mihs = [];
+			$("#div_out").html("")
+			$("#div_suggest").html("")
 			for(var i=0,m=abbs.length;i<m;i++){
 				var abb = abbs[i];
 				var div = document.createElement('div');
+
 				div.className="div_out_box"
 				$("#div_out").append(div)
+
 				for(var i2=0,m2=abb.boundBoxes.length;i2<m2;i2++){
+
 					var box = abb.boundBoxes[i2];
 					var temp_mih = mih.generateImageHandlerFromBoundBox(box);
+					var ml = temp_mih.getLetter()
 					tmep_mihs.push(temp_mih);
-					// temp_mih.simplify(temp_mih.width);
-					// $(document.body).append(temp_mih.canvas)
-					// temp_mih.simplify(temp_mih.width);
-					$(div).append(temp_mih.getLetter().toContext2d().canvas)
+					var searched = mlp.search(ml);
+					$(div).append(ml.toContext2d().canvas)
 
+					var div2 = document.createElement('div');
+					$("#div_suggest").append(div2)
+					$(div2).append('<img src="'+ml.toContext2d().canvas.toDataURL()+'">');
+					searched.forEach((item, i) => {
+						$(div2).append('<span>'+item.letter+'('+item.matched.toFixed(2)+')'+'</span>');
+					});
 				}
 			}
 
@@ -142,6 +159,10 @@
     </div>
 		<h2>output text image</h2>
 		<div id="div_out" class="text-left m-1" >
+
+    </div>
+		<h2>suggest text</h2>
+		<div id="div_suggest" class="text-left m-1" >
 
     </div>
 
