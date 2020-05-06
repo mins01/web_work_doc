@@ -19,6 +19,16 @@ mocr.ImageHandler = function(mocr){
       this.ctx = mocr.ImageTool.newContext2d(100,100,'#fff');
       this.canvas = this.ctx.canvas;
     },
+    generateImageHandlerFromBoundBox:function(boundBox){
+      var new_mih = new ImageHandler();
+      var width = Math.max(boundBox.width+1,boundBox.height+1);
+      mocr.ImageTool.resetContext2d(new_mih.ctx,width,width,'#fff');
+      new_mih.ctx.putImageData(this.ctx.getImageData(boundBox.left,boundBox.top,boundBox.width+1,boundBox.height+1),0,0);
+      new_mih.width = 32;
+      new_mih.trim();
+      new_mih.resize(new_mih.width,new_mih.width,1); //크기 리사이즈
+      return new_mih;
+    },
     loadFromImgNode:function(img){
       this.canvas.width = img.naturalWidth;
       this.canvas.height = img.naturalHeight;
