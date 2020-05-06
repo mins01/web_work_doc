@@ -183,9 +183,9 @@ mocr.ImageTool = function(mocr){
      * 영역이 겹치는 boundBox는 합침, 가까우면 합침
      * @return {[type]} [description]
      */
-    unionRoundBox:function(boundBoxes){
+    unionBoundBox:function(boundBoxes){
 
-      //가까우면 합침
+      //정사각 영역을 만들어서 그 속에 포함되는 boundbox는 합침
       var boundBoxes2 = [];
       var ck = {left:-1,top:-1,right:-1,bottom:-1,width:-1,height:-1,}
 
@@ -270,36 +270,46 @@ mocr.ImageTool = function(mocr){
         ck.height = ck.bottom-ck.top;
         // console.log(ck);
         // 한번처리된 것을 다시 한번해서 2번 처리함
-        var limit = 2;
+        var limit = 5; //최대 5회 중복 처리
+        var cnt = 0;
         while(limit-- >0){
+          cnt++;
+          var new_a2 = Object.assign({}, a);
           for(var i2=0,m2=m;i2<m2;i2++){
             var b = boundBoxes[i2];
+
             // console.log("a,b",a,b);
             if(ck.left <= b.right && b.left <= ck.right && ck.top <= b.bottom && b.top <= ck.bottom ){ //영역 겹침
-              new_a.left = Math.min(new_a.left,b.left);
-              new_a.top = Math.min(new_a.top,b.top);
-              new_a.right = Math.max(new_a.right,b.right);
-              new_a.bottom = Math.max(new_a.bottom,b.bottom);
+              new_a2.left = Math.min(new_a2.left,b.left);
+              new_a2.top = Math.min(new_a2.top,b.top);
+              new_a2.right = Math.max(new_a2.right,b.right);
+              new_a2.bottom = Math.max(new_a2.bottom,b.bottom);
 
-              gap = Math.max(new_a.width,new_a.height)*0.1;
+              gap = Math.max(new_a2.width,new_a2.height)*0.1;
               ck = {
-                left:new_a.left-gap,
-                top:new_a.top-gap,
-                right:new_a.right+gap,
-                bottom:new_a.bottom+gap,
+                left:new_a2.left-gap,
+                top:new_a2.top-gap,
+                right:new_a2.right+gap,
+                bottom:new_a2.bottom+gap,
               }
               ck.width = ck.right-ck.left
               ck.height = ck.bottom-ck.top;
             }
           }
+          if(new_a.left==new_a2.left && new_a.right==new_a2.right && new_a.top==new_a2.top && new_a.bottom==new_a2.bottom ){
+            // console.log("전부 매칭 완료.",cnt);
+            new_a  = Object.assign({}, new_a2);
+            break;
+          }
+          new_a  = Object.assign({}, new_a2);
         }
 
-        var k = new_a.left+","+new_a.top;
+        var k = new_a.left+"_"+new_a.top+"_"+new_a.right+"_"+new_a.bottom;
         if(boundBoxes3.indexOf(k)!==-1){ continue; }//중복제거
         boundBoxes3.push(k);
         new_a.width = new_a.right-new_a.left;
         new_a.height = new_a.bottom-new_a.top;
-        console.log("unionRoundBox",new_a);
+        // console.log("unionBoundBox",new_a);
         boundBoxes2.push(new_a);
 
       }
@@ -338,38 +348,65 @@ mocr.ImageTool = function(mocr){
           break;
         }
         // console.log("boundBox",boundBox);
-        ctx.putImageData(imageData,0,0);
+        // ctx.putImageData(imageData,0,0);
         boundBoxes.push(boundBox);
       }
-      boundBoxes = this.unionRoundBox(boundBoxes,w,h);
+      boundBoxes = this.unionBoundBox(boundBoxes,w,h);
 
 
       boundBoxes.sort(function(a,b){
         var va = a.height*w+a.left;
         var vb = b.height*w+b.left;
-        return vb-va;
+        return va-vb;
       })
-      console.log(boundBoxes);
-      ctx.putImageData(imageData0,0,0);
-      ctx.save();
-      ctx.strokeStyle = 'rgba(100,0,0,255)';
-      ctx.lineWidth = 1;
-      ctx.globalCompositeOperation ='multiply';
+      // console.log(boundBoxes);
+      // ctx.putImageData(imageData0,0,0);
+      // ctx.save();
+      // ctx.strokeStyle = 'rgba(100,0,0,255)';
+      // ctx.lineWidth = 1;
+      // // ctx.globalCompositeOperation ='multiply';
+      // ctx.globalAlpha = 0.8
+      // for(var i=0,m=boundBoxes.length;i<m;i++){
+      //   var box = boundBoxes[i];
+      //   ctx.strokeRect(box.left,box.top,box.width+1,box.height+1)
+      //
+      // }
+      // ctx.restore();
+      return boundBoxes;
+    },
+    getArrangedBoundBoxes:function(boundBoxes){
+      var arrangedBoxes = [];
       for(var i=0,m=boundBoxes.length;i<m;i++){
-        var box = boundBoxes[i];
-        ctx.strokeRect(box.left,box.top,box.width,box.height)
-
+        var a = boundBoxes[i];
+        var checked = false;
+        for(var i2=0,m2=arrangedBoxes.length;i2<m2;i2++){
+          var sh = arrangedBoxes[i2];
+          if(a.top <= sh.bottom && a.bottom >= sh.top){
+            sh.top = Math.min(a.top,sh.top);
+            sh.bottom = Math.max(a.bottom,sh.bottom);
+            sh.left = Math.min(a.left,sh.left);
+            sh.right = Math.max(a.right,sh.right);
+            sh.width = sh.right-sh.left;
+            sh.height = sh.bottom-sh.top;
+            checked = true;
+            sh.boundBoxes.push(a);
+          }
+        }
+        if(!checked){
+          arrangedBoxes.push({left:a.left,right:a.right,top:a.top,bottom:a.bottom,width:a.width,height:a.height,boundBoxes:[a]});
+        }
       }
-      ctx.restore();
 
-
-      // var xy1 = (w*y1+x1)*4;
-      // imageData.data[xy1]=100;
-      // imageData.data[xy1+1]=255;
-      // imageData.data[xy1+2]=255;
-      // imageData.data[xy1+3]=255;
-      // ctx.putImageData(imageData,0,0);
-
+      arrangedBoxes.sort(function(a,b){ //left 기준으로 정렬
+        return a.top-b.top;
+      })
+      for(var i=0,m=arrangedBoxes.length;i<m;i++){
+        arrangedBoxes[i].boundBoxes.sort(function(a,b){ //left 기준으로 정렬
+          return a.left-b.left;
+        })
+      }
+      // console.log(arrangedBoxes);
+      return arrangedBoxes;
     },
     img2Bin:function(ctx){
       var w = ctx.canvas.width;

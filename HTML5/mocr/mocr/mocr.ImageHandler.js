@@ -90,6 +90,9 @@ mocr.ImageHandler = function(mocr){
     getBoundBoxes:function(){
       return mocr.ImageTool.getBoundBoxes(this.ctx);
     },
+    getArrangedBoundBoxes:function(){
+      return mocr.ImageTool.getArrangedBoundBoxes(this.getBoundBoxes());
+    },
     toBin:function(){
       return mocr.ImageTool.img2Bin(this.ctx);
     },
