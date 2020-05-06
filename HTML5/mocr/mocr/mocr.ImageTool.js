@@ -421,7 +421,7 @@ mocr.ImageTool = function(mocr){
             new_a.bottom = arrangedBoxes[i].bottom;
             new_a.width = new_a.right - new_a.left;
             new_a.height = new_a.bottom - new_a.top;
-            console.log("공백부분",new_a);
+            // console.log("공백부분",new_a);
             arrangedBoxes[i].boundBoxes.splice(i2+1,0,new_a)
             m2=arrangedBoxes[i].boundBoxes.length-1;
           }

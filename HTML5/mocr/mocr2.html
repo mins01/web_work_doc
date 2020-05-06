@@ -53,6 +53,7 @@
 		.div_input div:first-of-type{font-weight: bold;}
 		.div_input2{position: relative;}
 		.div_input2::before{position: absolute;width:300px;height: 120px; content: "";background-image: url('imgs/guide_line.png');left: 0;right: 0;opacity: 0.2}
+		.div_out_box{border: 1px solid rgba(100,0,0,0.5)}
   </style>
 
 	<script src="WC2/colorPalette.js"></script>
@@ -99,6 +100,8 @@
 			for(var i=0,m=abbs.length;i<m;i++){
 				var abb = abbs[i];
 				var div = document.createElement('div');
+				div.className="div_out_box"
+				$("#div_out").append(div)
 				for(var i2=0,m2=abb.boundBoxes.length;i2<m2;i2++){
 					var box = abb.boundBoxes[i2];
 					var temp_mih = mih.generateImageHandlerFromBoundBox(box);
@@ -106,7 +109,7 @@
 					// temp_mih.simplify(temp_mih.width);
 					// $(document.body).append(temp_mih.canvas)
 					// temp_mih.simplify(temp_mih.width);
-					$(document.body).append(temp_mih.getLetter().toContext2d().canvas)
+					$(div).append(temp_mih.getLetter().toContext2d().canvas)
 
 				}
 			}
