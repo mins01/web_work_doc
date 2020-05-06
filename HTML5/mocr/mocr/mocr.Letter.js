@@ -73,7 +73,7 @@ mocr.Letter = function(mocr){
         total:total,
         desc:this.desc,
         // matched:counts[3]-counts[1]-counts[2],
-        matched:counts[3]/(counts[3]+counts[1]+counts[2]),
+        matched:(counts[3]+counts[1]+counts[2])==0?1:counts[3]/(counts[3]+counts[1]+counts[2]),
         counts:counts,
         dot:mocr.ImageTool.dot4Bin(dot.join(""),this.width),
       }

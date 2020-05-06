@@ -43,6 +43,11 @@ mocr.LetterPackageGenerator = function(mocr){
       this.addLetters(mlp,'A','Z','Sans-Serif');
       this.addLetters(mlp,'A','Z','Monospace');
     },
+    generate4Range:function(mlp,stChar,edChar){
+      this.addLetters(mlp,stChar,edChar,'Serif');
+      this.addLetters(mlp,stChar,edChar,'Sans-Serif');
+      this.addLetters(mlp,stChar,edChar,'Monospace');
+    },
     // Arial , serif , batang , Dotum
     addLetters:function(mlp,stChar,edChar,fontFamily){
       // var stCode = '가'.codePointAt(0);
@@ -57,11 +62,14 @@ mocr.LetterPackageGenerator = function(mocr){
       for(var i=stCode,m=edCode;i<=m;i++){
         var char = String.fromCodePoint(i);
         // console.log(char,i);
-        var letter = this.getLetter(char,fontFamily);
-        mlp.add(letter);
+        this.addLetter(mlp,char,fontFamily)
       }
       return mlp;
     },
+    addLetter:function(mlp,char,fontFamily){
+      var letter = this.getLetter(char,fontFamily);
+      mlp.add(letter);
+    }
 
   }
   return LetterPackageGenerator;
