@@ -401,10 +401,34 @@ mocr.ImageTool = function(mocr){
         return a.top-b.top;
       })
       for(var i=0,m=arrangedBoxes.length;i<m;i++){
-        arrangedBoxes[i].boundBoxes.sort(function(a,b){ //left 기준으로 정렬
+        //left 기준으로 정렬
+        arrangedBoxes[i].boundBoxes.sort(function(a,b){
           return a.left-b.left;
         })
+        //--- whitespace 체크
+        var h = arrangedBoxes[i].height;
+        var w = Math.floor(h*0.5)
+        var g = Math.floor(h*0.1)
+        for(var i2=0,m2=arrangedBoxes[i].boundBoxes.length-1;i2<m2;i2++){
+          var a = arrangedBoxes[i].boundBoxes[i2];
+          var b = arrangedBoxes[i].boundBoxes[i2+1];
+
+          if(b.left-a.right >= w){
+            var new_a = Object.assign({},a);
+            new_a.left = Math.floor((a.right+b.left-w)/2);
+            new_a.right = new_a.left+w;
+            new_a.top = arrangedBoxes[i].top;
+            new_a.bottom = arrangedBoxes[i].bottom;
+            new_a.width = new_a.right - new_a.left;
+            new_a.height = new_a.bottom - new_a.top;
+            console.log("공백부분",new_a);
+            arrangedBoxes[i].boundBoxes.splice(i2+1,0,new_a)
+            m2=arrangedBoxes[i].boundBoxes.length-1;
+          }
+        }
       }
+
+
       // console.log(arrangedBoxes);
       return arrangedBoxes;
     },
