@@ -183,7 +183,7 @@ mocr.ImageTool = function(mocr){
      * 영역이 겹치는 boundBox는 합침, 가까우면 합침
      * @return {[type]} [description]
      */
-    unionBoundBox:function(boundBoxes){
+    unionBoundBox:function(boundBoxes,w,h){
 
       //정사각 영역을 만들어서 그 속에 포함되는 boundbox는 합침
       var boundBoxes2 = [];
@@ -193,7 +193,13 @@ mocr.ImageTool = function(mocr){
         var a = boundBoxes[i];
         var new_a = Object.assign({}, a);
         // console.log("a,b",a,b);
-        if(
+        if(a.width > a.height*3){
+          console.log("너무 큰 차이가 나면 인근합침무시",a);
+          continue;
+        }else if(a.width > w*0.8 || a.height > h*0.8){
+          console.log("너무큰것은 인근합침무시",a);
+          continue;
+        }else if(
           a.width < a.height *4/5
           && a.width > a.height*2/5
         ){ //너비가 좁을 경우. b의 right가 height의 1.2배이하인 것을 체크, bottom의 차이는 20%까지만 허용. 너무 앏으면 체크 안함
@@ -258,6 +264,13 @@ mocr.ImageTool = function(mocr){
       var gap = 0;
       for(var i=0,m=boundBoxes.length;i<m;i++){
         var a = boundBoxes[i];
+        if(a.width > a.height*3){
+          console.log("너무 큰 차이가 나면 겹침무시",a);
+          continue;
+        }else if(a.width > w*0.8 || a.height > h*0.8){
+          console.log("너무큰것은 겹침무시",a);
+          continue;
+        }
         var new_a = Object.assign({}, a);
         gap = Math.max(new_a.width,new_a.height)*0.1;
         ck = {
@@ -334,7 +347,7 @@ mocr.ImageTool = function(mocr){
       var i = 0;
       while(r = this.getBoundBoxes4FirstDot(imageData,w,h)){
         i++;
-        if(i>50){break;}
+        if(i>500){break;}
         var xf = r[0];
         var yf = r[1];
         // console.log("i,xf,yf",i,xf,yf);
@@ -348,30 +361,16 @@ mocr.ImageTool = function(mocr){
           break;
         }
         // console.log("boundBox",boundBox);
-        // ctx.putImageData(imageData,0,0);
+        ctx.putImageData(imageData,0,0);
         boundBoxes.push(boundBox);
       }
       boundBoxes = this.unionBoundBox(boundBoxes,w,h);
-
-
       boundBoxes.sort(function(a,b){
         var va = a.height*w+a.left;
         var vb = b.height*w+b.left;
         return va-vb;
       })
-      // console.log(boundBoxes);
-      // ctx.putImageData(imageData0,0,0);
-      // ctx.save();
-      // ctx.strokeStyle = 'rgba(100,0,0,255)';
-      // ctx.lineWidth = 1;
-      // // ctx.globalCompositeOperation ='multiply';
-      // ctx.globalAlpha = 0.8
-      // for(var i=0,m=boundBoxes.length;i<m;i++){
-      //   var box = boundBoxes[i];
-      //   ctx.strokeRect(box.left,box.top,box.width+1,box.height+1)
-      //
-      // }
-      // ctx.restore();
+
       return boundBoxes;
     },
     getArrangedBoundBoxes:function(boundBoxes){

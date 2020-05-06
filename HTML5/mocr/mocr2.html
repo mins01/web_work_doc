@@ -48,11 +48,10 @@
 		#div_dot_info{white-space: pre; }
 		#div_dot_dot{white-space: pre;font-family: monospace;line-height: 1em;font-size:10px; font-weight: bold}
 		.letter-width32{width:32px;height:32px;display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 32px}
-		.div_input{ display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 32px}
+		.div_input{ }
 		.searched-letter{ display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 14px; width:80px; height: 50px; text-align: center; white-space: pre;}
-		.div_input div:first-of-type{font-weight: bold;}
 		.div_input2{position: relative;}
-		.div_input2::before{position: absolute;width:300px;height: 120px; content: "";background-image: url('imgs/guide_line.png');left: 0;right: 0;opacity: 0.2}
+		.div_input2::before{position: absolute;width:100%;height: 100%; content: "";background-image: url('imgs/guide_100px.png');left: 0;right: 0;opacity: 0.2}
 		.div_out_box{border: 1px solid rgba(100,0,0,0.5)}
 		#div_suggest span{ display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 14px; width:80px; height: 50px; text-align: center; white-space: pre;}
   </style>
@@ -78,22 +77,25 @@
 		var mlp = null;
 		$(function(){
 
-			setTimeout(runTest,100)
+			// setTimeout(runTest,100)
 		})
-		function runTest(){
+		function runTest(img_node){
 
-			mlp = mlpg.generate(null);
-			mlpg.generate4Digit(mlp);
-			mlpg.generate4Alphabet(mlp);
-			mlpg.generate4Range(mlp,' ','/');
 
-			var img_letter_0 = document.querySelector("#img_letter_0")
-			mih.loadFromImgNode(img_letter_0);
+
+			// var img_letter_0 = document.querySelector("#img_letter_0")
+			mih.loadFromImgNode(img_node);
 
 			$(".div_input2").append(mih.canvas);
 			mih.toBWColor(255,255,255);
+
 			// var boundBoxes = mih.getBoundBoxes();
+			// console.log(boundBoxes);
+			// return
 			var abbs = mih.getArrangedBoundBoxes();
+			// console.log(abbs);
+			// return;
+
 			// boundBoxes 범위 보여줌
 			var ctx = mih.ctx;
 			// ctx.putImageData(imageData0,0,0);
@@ -103,6 +105,10 @@
 			ctx.lineWidth = 1;
 			ctx.globalCompositeOperation ='multiply';
 			ctx.globalAlpha = 0.6
+			mlp = mlpg.generate(null);
+			mlpg.generate4Digit(mlp);
+			mlpg.generate4Alphabet(mlp);
+			mlpg.generate4Range(mlp,' ','/');
 			var tmep_mihs = [];
 			$("#div_out").html("")
 			$("#div_suggest").html("")
@@ -151,10 +157,17 @@
 <body style="background-color:#eee;">
 	<div class="container">
 		<h1>mocr2</h1>
-		<button class="btn btn-info btn-lg" type="button" onclick="runTest()">run test</button>
 		<h2>input image</h2>
     <div id="div_in" class="text-left m-1" >
-			<div class="div_input"><img id="img_letter_0" src="imgs/no_sweat.png"></div>
+			<div class="div_input">
+				<img id="img_node_1" src="imgs/no_sweat.png">
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'))">run test</button>
+			</div>
+
+			<div class="div_input">
+				<img id="img_node_2" src="imgs/namecard_0.png">
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'))">run test</button>
+			</div>
 			<div class="div_input2"></div>
     </div>
 		<h2>output text image</h2>
