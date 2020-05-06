@@ -113,6 +113,7 @@
 			$("#div_out").html("")
 			$("#div_suggest").html("")
 			for(var i=0,m=abbs.length;i<m;i++){
+				console.log(i);
 				var abb = abbs[i];
 				var div = document.createElement('div');
 
@@ -167,6 +168,10 @@
 			<div class="div_input">
 				<img id="img_node_2" src="imgs/namecard_0.png">
 				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'))">run test</button>
+			</div>
+			<div class="div_input">
+				<img id="img_node_3" src="imgs/namecard_1.png">
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'))">run test</button>
 			</div>
 			<div class="div_input2"></div>
     </div>
