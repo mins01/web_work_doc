@@ -369,11 +369,13 @@ mocr.ImageTool = function(mocr){
         boundBoxes.push(boundBox);
       }
       // boundBoxes = this.unionBoundBox(boundBoxes,w,h);
+      // boundBoxes = mocr.BoundBoxTool.union4overlap(boundBoxes)
       boundBoxes.sort(function(a,b){
         var va = a.height*w+a.left;
         var vb = b.height*w+b.left;
         return va-vb;
       })
+
 
       return boundBoxes;
     },

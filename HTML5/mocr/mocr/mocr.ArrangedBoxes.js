@@ -17,15 +17,21 @@ mocr.ArrangedBoxes = function(mocr){
     },
     inputBoundBoxes:function(boundBoxes){
       var arrangedBoxes = [];
+      boundBoxes.sort(function(a,b){ // left순으로 정렬
+        return a.left - b.left;
+      })
       for(var i=0,m=boundBoxes.length;i<m;i++){
         var a = boundBoxes[i];
         var checked = false;
         for(var i2=0,m2=arrangedBoxes.length;i2<m2;i2++){
           var sh = arrangedBoxes[i2];
-          var gap = Math.max(sh.height*0.1,5);
+          var gap = 0;
           if(a.top <= sh.bottom+gap && a.bottom >= sh.top-gap){
             var dist = mocr.BoundBoxTool.getDistance(a,sh);
-            if(dist[2]>sh.width*3){continue;} //거리가 높이에 3초과이면 무시한다.
+            if(dist[2]>sh.height*3){
+              console.log("거리가 높이에서 3초과 ",dist);
+              continue;
+            } //거리가 높이에 3초과이면 무시한다.
             sh.top = Math.min(a.top,sh.top);
             sh.bottom = Math.max(a.bottom,sh.bottom);
             sh.left = Math.min(a.left,sh.left);
@@ -87,9 +93,23 @@ mocr.ArrangedBoxes = function(mocr){
         for(var i2=0,m2=arrangedBoxes.length;i2<m2;i2++){
           var b = arrangedBoxes[i2];
           if(a.left <= b.right && b.left <= a.right && a.top <= b.bottom && b.top <= a.bottom ){ //영역 겹침
-            b.boundBoxes.push(a);
+            var new_a = Object.assign({},a);
+            // new_a.top = b.top; new_a.bottom = b.bottom; new_a.height = new_a.bottom-new_a.top; //top과 bottom을 arrangedBox 기준으로 바꾼다.
+            b.boundBoxes.push(new_a);
           }
+          arrangedBoxes[i2].boundBoxes.sort(function(a,b){ // left순으로 정렬
+            return a.left - b.left;
+          })
         }
+      }
+
+
+      // 겹치는 글자 합치기
+      for(var i2=0,m2=arrangedBoxes.length;i2<m2;i2++){
+        arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i2].boundBoxes)
+        arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i2].boundBoxes)
+        arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i2].boundBoxes)
+        arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i2].boundBoxes)
       }
 
       this.arrangedBoxes = arrangedBoxes;
