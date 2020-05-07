@@ -61,10 +61,13 @@
 
   <script src="mocr/mocr.js"></script>
   <script src="mocr/mocr.Letter.js"></script>
-  <script src="mocr/mocr.ImageTool.js"></script>
+	<script src="mocr/mocr.ImageTool.js"></script>
 	<script src="mocr/mocr.ImageHandler.js"></script>
 	<script src="mocr/mocr.LetterPackage.js"></script>
-  <script src="mocr/mocr.LetterPackageGenerator.js"></script>
+	<script src="mocr/mocr.LetterPackageGenerator.js"></script>
+<script src="mocr/mocr.BoundBoxTool.js"></script>
+  <script src="mocr/mocr.ArrangedBoxes.js"></script>
+
   <script type="text/javascript">
 		var width = 32;
     var mit = mocr.ImageTool;
@@ -98,7 +101,7 @@
 
 			// boundBoxes 범위 보여줌
 			var ctx = mih.ctx;
-			// ctx.putImageData(imageData0,0,0);
+			// // ctx.putImageData(imageData0,0,0);
 			ctx.save();
 			ctx.strokeStyle = 'rgba(0,0,100,255)';
 			ctx.fillStyle = 'rgba(100,0,0,255)';
@@ -126,8 +129,9 @@
 					var temp_mih = mih.generateImageHandlerFromBoundBox(box);
 					var ml = temp_mih.getLetter()
 					tmep_mihs.push(temp_mih);
-					var searched = mlp.search(ml);
 					$(div).append(ml.toContext2d().canvas)
+					var searched = mlp.search(ml);
+
 
 					var div2 = document.createElement('div');
 					$("#div_suggest").append(div2)

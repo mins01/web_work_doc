@@ -360,11 +360,15 @@ mocr.ImageTool = function(mocr){
           console.log("boundBox 없음");
           break;
         }
+        if(boundBox.width > w *0.8 && boundBox.height > h *0.8){
+          console.log("boundBox가 너무 큼");
+          continue;
+        }
         // console.log("boundBox",boundBox);
         ctx.putImageData(imageData,0,0);
         boundBoxes.push(boundBox);
       }
-      boundBoxes = this.unionBoundBox(boundBoxes,w,h);
+      // boundBoxes = this.unionBoundBox(boundBoxes,w,h);
       boundBoxes.sort(function(a,b){
         var va = a.height*w+a.left;
         var vb = b.height*w+b.left;
@@ -373,62 +377,25 @@ mocr.ImageTool = function(mocr){
 
       return boundBoxes;
     },
+    // getDistance4BoundBoxes:function(bb1,bb2){
+    //   var dx = -1;
+    //   var dy = -1;
+    //   if(bb1.left <= bb2.right && bb1.right >= bb2.left){ //x좌표기준으로 겹친 경우 거리는 0
+    //     dx = 0;
+    //   }else{
+    //     dx = Math.min(Math.abs(bb1.left-bb2.right),Math.abs(bb2.left-bb1.right))
+    //   }
+    //   if(bb1.top <= bb2.bottom && bb1.bottom >= bb2.top){ //y좌표기준으로 겹친 경우 거리는 0
+    //     dy = 0;
+    //   }else{
+    //     dy = Math.min(Math.abs(bb1.top-bb2.bottom),Math.abs(bb2.top-bb1.bottom))
+    //   }
+    //   return [dx,dy,Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2))]
+    // },
     getArrangedBoundBoxes:function(boundBoxes){
-      var arrangedBoxes = [];
-      for(var i=0,m=boundBoxes.length;i<m;i++){
-        var a = boundBoxes[i];
-        var checked = false;
-        for(var i2=0,m2=arrangedBoxes.length;i2<m2;i2++){
-          var sh = arrangedBoxes[i2];
-          if(a.top <= sh.bottom && a.bottom >= sh.top){
-            sh.top = Math.min(a.top,sh.top);
-            sh.bottom = Math.max(a.bottom,sh.bottom);
-            sh.left = Math.min(a.left,sh.left);
-            sh.right = Math.max(a.right,sh.right);
-            sh.width = sh.right-sh.left;
-            sh.height = sh.bottom-sh.top;
-            checked = true;
-            sh.boundBoxes.push(a);
-          }
-        }
-        if(!checked){
-          arrangedBoxes.push({left:a.left,right:a.right,top:a.top,bottom:a.bottom,width:a.width,height:a.height,boundBoxes:[a]});
-        }
-      }
-
-      arrangedBoxes.sort(function(a,b){ //left 기준으로 정렬
-        return a.top-b.top;
-      })
-      for(var i=0,m=arrangedBoxes.length;i<m;i++){
-        //left 기준으로 정렬
-        arrangedBoxes[i].boundBoxes.sort(function(a,b){
-          return a.left-b.left;
-        })
-        //--- whitespace 체크
-        var h = arrangedBoxes[i].height;
-        var w = Math.floor(h*0.5)
-        var g = Math.floor(h*0.1)
-        for(var i2=0,m2=arrangedBoxes[i].boundBoxes.length-1;i2<m2;i2++){
-          var a = arrangedBoxes[i].boundBoxes[i2];
-          var b = arrangedBoxes[i].boundBoxes[i2+1];
-
-          if(b.left-a.right >= w){
-            var new_a = Object.assign({},a);
-            new_a.left = Math.floor((a.right+b.left-w)/2);
-            new_a.right = new_a.left+w;
-            new_a.top = arrangedBoxes[i].top;
-            new_a.bottom = arrangedBoxes[i].bottom;
-            new_a.width = new_a.right - new_a.left;
-            new_a.height = new_a.bottom - new_a.top;
-            // console.log("공백부분",new_a);
-            arrangedBoxes[i].boundBoxes.splice(i2+1,0,new_a)
-            m2=arrangedBoxes[i].boundBoxes.length-1;
-          }
-        }
-      }
-
-
-      // console.log(arrangedBoxes);
+      var mArrangedBoxes = new mocr.ArrangedBoxes();
+      mArrangedBoxes.inputBoundBoxes(boundBoxes);
+      var arrangedBoxes = mArrangedBoxes.arrangedBoxes;
       return arrangedBoxes;
     },
     img2Bin:function(ctx){
