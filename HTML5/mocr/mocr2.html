@@ -83,15 +83,13 @@
 
 			// setTimeout(runTest,100)
 		})
-		function runTest(img_node){
-
-
+		function runTest(img_node,threshold){
 
 			// var img_letter_0 = document.querySelector("#img_letter_0")
 			mih.loadFromImgNode(img_node);
 
 			$(".div_input2").append(mih.canvas);
-			mih.toBWColor(255,255,255);
+			mih.toBWColor(255,255,255,threshold);
 
 			// var boundBoxes = mih.getBoundBoxes();
 			// console.log(boundBoxes);
@@ -178,16 +176,49 @@
     <div id="div_in" class="text-left m-1" >
 			<div class="div_input">
 				<img id="img_node_1" src="imgs/no_sweat.png">
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'))">run test</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'),0)">test 0</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'),20)">test 20</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'),40)">test 40</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'),50)">test 50</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'),70)">test 70</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'),100)">test 100</button>
 			</div>
 
 			<div class="div_input">
-				<img id="img_node_2" src="imgs/namecard_0.png">
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'))">run test</button>
+				<img id="img_node_2" style="width:300px" src="imgs/namecard_0.png">
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'),0)">test 0</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'),20)">test 20</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'),40)">test 40</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'),50)">test 50</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'),70)">test 70</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'),100)">test 100</button>
 			</div>
 			<div class="div_input">
-				<img id="img_node_3" src="imgs/namecard_1.png">
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'))">run test</button>
+				<img id="img_node_3" style="width:300px" src="imgs/namecard_1.png">
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'),0)">test 0</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'),20)">test 20</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'),40)">test 40</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'),50)">test 50</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'),70)">test 70</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'),100)">test 100</button>
+			</div>
+			<div class="div_input">
+				<img id="img_node_4" style="width:300px" src="imgs/alphabet_pangram.png">
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_4'),0)">test 0</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_4'),20)">test 20</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_4'),40)">test 40</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_4'),50)">test 50</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_4'),70)">test 70</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_4'),100)">test 100</button>
+			</div>
+			<div class="div_input">
+				<img id="img_node_5" style="width:300px" src="imgs/hangul_pangram.png">
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_5'),0)">test 0</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_5'),20)">test 20</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_5'),40)">test 40</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_5'),50)">test 50</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_5'),70)">test 70</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_5'),100)">test 100</button>
 			</div>
 			<div class="div_input2"></div>
     </div>

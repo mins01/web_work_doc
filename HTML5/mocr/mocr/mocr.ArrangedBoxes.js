@@ -108,8 +108,8 @@ mocr.ArrangedBoxes = function(mocr){
       for(var i2=0,m2=arrangedBoxes.length;i2<m2;i2++){
         arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i2].boundBoxes)
         arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i2].boundBoxes)
-        arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i2].boundBoxes)
-        arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i2].boundBoxes)
+        // arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i2].boundBoxes)
+        // arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i2].boundBoxes)
       }
 
       this.arrangedBoxes = arrangedBoxes;

@@ -103,7 +103,8 @@ mocr.ImageTool = function(mocr){
       ctx.putImageData(imageData,0,0)
     },
     //-- 흰색으로 지정된 색(iwr,iwg,iwb) 이외에는 전부 검은색(#000)으로 바꾼다.
-    toBWColor:function(ctx,iwr,iwg,iwb){
+    toBWColor:function(ctx,iwr,iwg,iwb,threshold){ //threshold 유사 한계도
+      if(threshold == undefined) threshold = 0;
       var imageData = ctx.getImageData(0,0,ctx.canvas.width,ctx.canvas.height);
       for(var i=0,m=imageData.data.length;i<m;i+=4){
         var r = imageData.data[i+0];
@@ -111,7 +112,9 @@ mocr.ImageTool = function(mocr){
         var b = imageData.data[i+2];
         // var a = imageData.data[i+3];
         imageData.data[i+3] = 255;
-        if(r==iwr && g==iwg && b==iwb ){
+        if(
+          (Math.abs(r-iwr)+Math.abs(g-iwg)+Math.abs(b-iwb))/3 <= threshold
+        ){
           imageData.data[i+0] = 255;
           imageData.data[i+1] = 255;
           imageData.data[i+2] = 255;

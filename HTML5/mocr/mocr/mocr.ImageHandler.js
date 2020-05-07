@@ -94,8 +94,10 @@ mocr.ImageHandler = function(mocr){
     trim:function(){
       mocr.ImageTool.trim(this.ctx);
     },
-    toBWColor:function(iwr,iwg,iwb){
-      mocr.ImageTool.toBWColor(this.ctx,iwr,iwg,iwb);
+    toBWColor:function(iwr,iwg,iwb,threshold){
+      if(threshold == undefined) threshold = 0;
+      mocr.ImageTool.toBWColor(this.ctx,iwr,iwg,iwb,threshold);
+
     },
     getBoundBoxes:function(){
       return mocr.ImageTool.getBoundBoxes(this.ctx);
