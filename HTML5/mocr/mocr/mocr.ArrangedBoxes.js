@@ -29,7 +29,7 @@ mocr.ArrangedBoxes = function(mocr){
           if(a.top <= sh.bottom+gap && a.bottom >= sh.top-gap){
             var dist = mocr.BoundBoxTool.getDistance(a,sh);
             if(dist[2]>sh.height*3){
-              console.log("거리가 높이에서 3초과 ",dist);
+              // console.log("거리가 높이에서 3배초과 ",dist);
               continue;
             } //거리가 높이에 3초과이면 무시한다.
             sh.top = Math.min(a.top,sh.top);
@@ -106,14 +106,20 @@ mocr.ArrangedBoxes = function(mocr){
 
       // 겹치는 글자 합치기
       for(var i2=0,m2=arrangedBoxes.length;i2<m2;i2++){
-        arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i2].boundBoxes)
-        arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i2].boundBoxes)
+        mocr.BoundBoxTool.union4OverlapInArrangedBox(arrangedBoxes[i2]);
+        mocr.BoundBoxTool.union4OverlapInArrangedBox(arrangedBoxes[i2]);
+        // arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4OverlapByX(arrangedBoxes[i2].boundBoxes);//겹치는 부분 합치기
+        // arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4OverlapByX(arrangedBoxes[i2].boundBoxes);//겹치는 부분 합치기
         // arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i2].boundBoxes)
         // arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i2].boundBoxes)
+        // mocr.BoundBoxTool.union4GangulInArrangedBox(arrangedBoxes[i2]);
       }
 
+      // mocr.BoundBoxTool.union4GangulInArrangedBox(arrangedBoxes[3]);
+
       this.arrangedBoxes = arrangedBoxes;
-    }
+    },
+
 
   }
   return ArrangedBoxes;

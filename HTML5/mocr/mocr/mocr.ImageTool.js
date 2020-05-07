@@ -364,7 +364,7 @@ mocr.ImageTool = function(mocr){
           break;
         }
         if(boundBox.width > w *0.8 && boundBox.height > h *0.8){
-          console.log("boundBox가 너무 큼");
+          // console.log("boundBox가 너무 큼");
           continue;
         }
         // console.log("boundBox",boundBox);
