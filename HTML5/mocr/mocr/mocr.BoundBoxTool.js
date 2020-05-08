@@ -96,7 +96,7 @@ mocr.BoundBoxTool = function(mocr){
             new_a.width = new_a.right-new_a.left
             new_a.height = new_a.bottom-new_a.top;
             arrangedBox.boundBoxes.splice(i,2,new_a);
-            console.log("한글 초성 예상 과 모음 합침",new_a);
+            // console.log("한글 초성 예상 과 모음 합침",new_a);
             // console.log(arrangedBox.boundBoxes);
           }
         }
@@ -107,19 +107,22 @@ mocr.BoundBoxTool = function(mocr){
       var avg_bottom = arrangedBox.boundBoxes.reduce(function(accumulator, boundBox, currentIndex, array) {
         return accumulator + boundBox.bottom;
       }, 0)/arrangedBox.boundBoxes.length;
-      // console.log(arrangedBox.bottom-avg_bottom);
-      var limit_bottom = Math.ceil(avg_bottom) + Math.ceil((arrangedBox.bottom-avg_bottom)*0.8);
+
+      var limit_bottom = Math.ceil(avg_bottom) + Math.ceil((arrangedBox.bottom-avg_bottom)*0.5);
+      var limit_bottom = Math.ceil(avg_bottom);
 
       // 평균 bottom 보다 크면 무시하면서 최대 bottom을 찾는다.
       var max_bottom = arrangedBox.boundBoxes.reduce(function(accumulator, boundBox, currentIndex, array) {
         if(boundBox.bottom > limit_bottom){
-          // console.log('skip',currentIndex,boundBox.bottom,'<=',limit_bottom,boundBox); //여기에 걸리는건 y나 g 같은 baseline 밑으로 출력되는 것!
+          console.log('skip',currentIndex,boundBox.bottom,'<=',limit_bottom,boundBox); //여기에 걸리는건 y나 g 같은 baseline 밑으로 출력되는 것!
           return accumulator
         }
         // console.log('ok',currentIndex,boundBox.bottom,'<=',limit_bottom,boundBox);
         // i_cnt++;
         return accumulator > boundBox.bottom ? accumulator:boundBox.bottom;
       }, 0)
+
+      console.log('baseline 계산용',arrangedBox.bottom,limit_bottom,max_bottom);
 
       arrangedBox.baseline = max_bottom;
       arrangedBox.fontSize = arrangedBox.baseline-arrangedBox.top;
@@ -132,7 +135,7 @@ mocr.BoundBoxTool = function(mocr){
       // console.log(arrangedBox.boundBoxes);
       if(arrangedBox.boundBoxes.length<3){return;}
       // var whitespaceWidth = arrangedBox.fontSize*0.5;
-      console.log("xxx",arrangedBox);
+      // console.log("xxx",arrangedBox);
       for(var i=0;i<arrangedBox.boundBoxes.length-1;i++){
         var a = arrangedBox.boundBoxes[i];
         var b = arrangedBox.boundBoxes[i+1];
