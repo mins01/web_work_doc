@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>mocr3</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>ForGoogle.analytics()</script>
+
+
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+	<!-- meta og -->
+
+	<meta property="og:title" content="mocr">
+	<meta property="og:description" content="mocr">
+	<meta property="og:site_name" content="mocr" />
+	<meta property="og:type" content="website">
+
+	<!-- //meta og -->
+  <style media="screen">
+
+  </style>
+
+	<script src="WC2/colorPalette.js"></script>
+	<script src="WC2/colorPalette.palettes.js"></script>
+
+  <script src="mocr/mocr.js"></script>
+  <script src="mocr/mocr.Letter.js"></script>
+	<script src="mocr/mocr.ImageTool.js"></script>
+	<script src="mocr/mocr.ImageHandler.js"></script>
+	<script src="mocr/mocr.LetterPackage.js"></script>
+	<script src="mocr/mocr.LetterPackageGenerator.js"></script>
+	<script src="mocr/mocr.BoundBoxTool.js"></script>
+  <script src="mocr/mocr.ArrangedBoxes.js"></script>
+
+	<style>
+	#div_out canvas{
+		margin:3px;
+	}
+	</style>
+
+  <script type="text/javascript">
+		var width = 32;
+    var mit = mocr.ImageTool;
+    var mih = new mocr.ImageHandler();
+		var mih1 = new mocr.ImageHandler();
+    var ml = null;
+		var ml1 = null;
+		var mlss = [];
+		var mlpg = new mocr.LetterPackageGenerator();
+		mlpg.width=width
+		var mlp = null;
+		var $div_out = null;
+
+		$(function(){
+			mlp = mlpg.generate(null);
+			$div_out = $("#div_out");
+		})
+		function generateFromForm(f){
+			var stChar = f.stChar.value;
+			var edChar = f.edChar.value;
+			var fontFamily = f.fontFamily.value;
+			var fontWeight = f.fontWeight.value;
+			mlpg.addLetters(mlp,stChar,edChar,fontFamily,fontWeight)
+			$("#letters_length").text(mlp.letters.length+"글자");
+			printMlpLetters()
+		}
+		function clearMlp(){
+			mlp.clear();
+		}
+		function printMlpLetters(){
+			$div_out.html("")
+			mlp.letters.forEach((letter, i) => {
+				var cv = letter.toContext2d().canvas;
+				cv.letter = letter;
+				cv.onclick = function(){
+					console.log(this.letter);
+				}
+				$div_out.append(cv)
+			});
+		}
+  </script>
+
+</head>
+<body style="background-color:#eee;">
+	<div class="container">
+		<h1>mocr3</h1>
+		<h2>generate Letters</h2>
+		<div class="m-3">
+			<form action="" onsubmit="generateFromForm(this);return false;">
+				<div class="form-inline">
+					<div class="input-group m-1">
+						<div class="input-group-prepend">
+							<span class="input-group-text">글자범위</span>
+						</div>
+						<input type="text" class="form-control" name="stChar"  style="width:5em" placeholder="시작" value="0" length="1"  pattern=".{1}" title="1글자만 입력해주세요.">
+						<div class="input-group-prepend" style="margin-left:-1px;">
+							<span class="input-group-text">~</span>
+						</div>
+						<input type="text" class="form-control" name="edChar"  style="width:5em" placeholder="끝" value="9"  length="1" pattern=".{1}"  title="1글자만 입력해주세요.">
+						<div class="input-group-prepend" style="margin-left:-1px;">
+							<span class="input-group-text" id="letters_length">0</span>
+						</div>
+						<div class="input-group-append" >
+					    <button class="btn btn-info" type="submit">generate</button>
+					  </div>
+
+					</div>
+				</div>
+				<div class="form-inline">
+					<div class="input-group m-1">
+						<div class="input-group-prepend">
+							<span class="input-group-text">글꼴</span>
+						</div>
+						<input type="text" list="datalist_fontFamily" class="form-control"  name="fontFamily"  style="width:10em" placeholder="글꼴" value="serif" length="30" title="시스템에서 지원하는 폰트명 사용">
+					</div>
+					<datalist id="datalist_fontFamily">
+						<option value="sans-serif">산세리프</option>
+						<option value="serif">세리프</option>
+						<option value="monospace">모노스페이스</option>
+						<option value="gulim">굴림</option>
+						<option value="gulimche">굴림체</option>
+						<option value="dotum">돋움</option>
+						<option value="dotumche">돋움체</option>
+						<option value="batang">바탕</option>
+						<option value="batangche">바탕체</option>
+						<option value="gungsuh">궁서</option>
+						<option value="gungsuhche">궁서체</option>
+					</datalist>
+					<div class="input-group m-1">
+						<div class="input-group-prepend">
+							<span class="input-group-text">글꼴 굵기</span>
+						</div>
+						<input type="text" list="datalist_fontWeight" class="form-control"  name="fontWeight"  style="width:10em" placeholder="글꼴 굵기" value="normal" length="30" title="시스템에서 지원하는 폰트명 사용">
+					</div>
+					<datalist id="datalist_fontWeight">
+						<option value="normal"></option>
+						<option value="bold"></option>
+					</datalist>
+				</div>
+				<button class="btn btn-info" type="button" onclick="clearMlp()">letterPackage 초기화</button>
+
+			</form>
+		</div>
+		<div class="m-3">
+			<div id="div_out">
+
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

@@ -14,42 +14,53 @@ mocr.LetterPackageGenerator = function(mocr){
     init:function(){
       this.mih = new mocr.ImageHandler();
     },
-    getLetter:function(char,fontFamily){
+    getLetter:function(char,fontFamily,fontWeight){
       if(!fontFamily){
         fontFamily = 'Serif'; //serif
       }
-      this.mih.loadFromChar(char,fontFamily,'bold');
+      if(!fontWeight){
+        fontWeight = 'normal'; //serif
+      }
+      this.mih.loadFromChar(char,fontFamily,fontWeight);
       this.mih.simplify(this.width);
       var letter = this.mih.getLetter();
       letter.letter = char;
       var ctx = letter.toContext2d();
       // $("#div_out").append("<div class='letter-width"+letter.width+"' style='font-family:"+fontFamily+";'>"+letter.letter+"</div><img title='"+letter.desc+"' src='"+this.mih.canvas.toDataURL()+"'>");
-      $("#div_out").append("<div class='letter-width"+letter.width+"' style='font-family:"+fontFamily+";'>"+letter.letter+"</div><img title='"+letter.desc+"' src='"+ctx.canvas.toDataURL()+"'>");
+      // $("#div_out").append("<div class='letter-width"+letter.width+"' style='font-family:"+fontFamily+";'>"+letter.letter+"</div><img title='"+letter.desc+"' src='"+ctx.canvas.toDataURL()+"'>");
       return letter;
     },
     generate:function(){
       return new mocr.LetterPackage();
     },
     generate4Digit:function(mlp){
-      this.addLetters(mlp,'0','9','Serif');
-      this.addLetters(mlp,'0','9','Sans-Serif');
-      this.addLetters(mlp,'0','9','Monospace');
+      this.addLetters(mlp,'0','9','Serif','bold');
+      this.addLetters(mlp,'0','9','Sans-Serif','bold');
+      this.addLetters(mlp,'0','9','Monospace','bold');
     },
     generate4Alphabet:function(mlp){
-      this.addLetters(mlp,'a','z','Serif');
-      this.addLetters(mlp,'a','z','Sans-Serif');
-      this.addLetters(mlp,'a','z','Monospace');
-      this.addLetters(mlp,'A','Z','Serif');
-      this.addLetters(mlp,'A','Z','Sans-Serif');
-      this.addLetters(mlp,'A','Z','Monospace');
+      this.addLetters(mlp,'a','z','Serif','bold');
+      this.addLetters(mlp,'a','z','Sans-Serif','bold');
+      this.addLetters(mlp,'a','z','Monospace','bold');
+      this.addLetters(mlp,'A','Z','Serif','bold');
+      this.addLetters(mlp,'A','Z','Sans-Serif','bold');
+      this.addLetters(mlp,'A','Z','Monospace','bold');
     },
     generate4Range:function(mlp,stChar,edChar){
-      this.addLetters(mlp,stChar,edChar,'Serif');
-      this.addLetters(mlp,stChar,edChar,'Sans-Serif');
-      this.addLetters(mlp,stChar,edChar,'Monospace');
+      this.addLetters(mlp,stChar,edChar,'Serif','bold');
+      this.addLetters(mlp,stChar,edChar,'Sans-Serif','bold');
+      this.addLetters(mlp,stChar,edChar,'Monospace','bold');
     },
-    // Arial , serif , batang , Dotum
-    addLetters:function(mlp,stChar,edChar,fontFamily){
+    /**
+     * mocr.LetterPackage 에 기준 문자를 기준으로 Letter를 추가한다.
+     * @param  {mocr.LetterPackage} mlp        [description]
+     * @param  {char} stChar     [description]
+     * @param  {char} edChar     [description]
+     * @param  {string} fontFamily Arial , serif , batang , Dotum
+     * @param  {string} fontWeight   normal, bold
+     * @return {mocr.LetterPackage}            [description]
+     */
+    addLetters:function(mlp,stChar,edChar,fontFamily,fontWeight){
       // var stCode = '가'.codePointAt(0);
       // var edCode = '힣'.codePointAt(0);
       // var stCode = '하'.codePointAt(0);
@@ -66,8 +77,8 @@ mocr.LetterPackageGenerator = function(mocr){
       }
       return mlp;
     },
-    addLetter:function(mlp,char,fontFamily){
-      var letter = this.getLetter(char,fontFamily);
+    addLetter:function(mlp,char,fontFamily,fontWeight){
+      var letter = this.getLetter(char,fontFamily,fontWeight);
       mlp.add(letter);
     }
 

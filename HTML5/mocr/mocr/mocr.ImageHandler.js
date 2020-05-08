@@ -42,10 +42,10 @@ mocr.ImageHandler = function(mocr){
      * [description]
      * @param  {[type]} char       [description]
      * @param  {[type]} fontFamily Serif , Sans-Serif , Monospace
-     * @param  {[type]} fontBold   normal,bold
+     * @param  {[type]} fontWeight   normal,bold
      * @return {[type]}            [description]
      */
-    loadFromChar:function(char,fontFamily,fontBold){
+    loadFromChar:function(char,fontFamily,fontWeight){
       console.log("loadFromChar",char,fontFamily);
       var fontSize = 64;
       var w = Math.ceil(fontSize*1.5);
@@ -59,11 +59,11 @@ mocr.ImageHandler = function(mocr){
       if(!fontFamily){
         fontFamily = 'Serif';
       }
-      if(!fontBold){
-        fontBold = 'normal';
+      if(!fontWeight){
+        fontWeight = 'normal';
       }
       this.desc = fontFamily;
-      var font = fontBold+" 64px "+fontFamily;
+      var font = fontWeight+" 64px "+fontFamily;
       console.log(font);
 
       this.ctx.font = font;
@@ -78,7 +78,7 @@ mocr.ImageHandler = function(mocr){
       // this.transparentColor(255,255,255); //배경색 없애기
       this.trim(); //여백제거
       this.resize(this.width,this.width,1); //크기 리사이즈
-      this.getLetter();
+      // return this.getLetter();
     },
     transparentColor:function(ir,ig,ib){
       mocr.ImageTool.transparentColor(this.ctx,ir,ig,ib);
