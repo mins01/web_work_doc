@@ -58,31 +58,31 @@ mocr.BoundBoxTool = function(mocr){
     },
     // 한글 관련해서 자음과 모음을 합치는 메소드지만, 잘 동작 안한다...
     union4GangulInArrangedBox:function(arrangedBox){
-      console.log(arrangedBox.boundBoxes);
+      // console.log(arrangedBox.boundBoxes);
       for(var i=0;i<arrangedBox.boundBoxes.length-1;i++){
         var a = arrangedBox.boundBoxes[i];
         var dist_top = Math.abs(arrangedBox.top - a.top);
         var dist_baseline = Math.abs(arrangedBox.baseline - a.bottom);
         var dist_top_baseline = Math.abs(dist_top-dist_baseline);
-        console.log(i,arrangedBox.height,a.height ,">=", arrangedBox.fontSize*0.5
-                      ,a.bottom ,"<=",arrangedBox.baseline*1.1
-                      ,a.width ,">=", arrangedBox.fontSize*0.3
-                      // ,dist_top_baseline ,"<", arrangedBox.fontSize*0.2
-                    );
+        // console.log(i,arrangedBox.height,a.height ,"<=", arrangedBox.fontSize*1.1
+        //               ,a.bottom ,"<=",arrangedBox.baseline*1.1
+        //               ,a.width ,">=", arrangedBox.fontSize*0.3
+        //               ,dist_top_baseline ,"<", arrangedBox.fontSize*0.2
+        //             );
         if(
-          a.height >= arrangedBox.height*0.5
+          a.height <= arrangedBox.fontSize*1.1
           && a.bottom <= arrangedBox.baseline*1.1
-          && a.width >= arrangedBox.height*0.3
-          // && dist_top_baseline < arrangedBox.fontSize*0.2
+          && a.width >= arrangedBox.fontSize*0.3
+          && dist_top_baseline < arrangedBox.fontSize*0.2
         ){
           var b = arrangedBox.boundBoxes[i+1]
           var tmp_w = b.right-a.left;
           var dist = this.getDistance(a,b);
-          console.log("한글 초성 예상",tmp_w ,">=", arrangedBox.fontSize*0.7
-           , tmp_w ,"<", arrangedBox.fontSize
-           ,dist[0], "<", arrangedBox.fontSize*0.5
-           ,b.height,">=",arrangedBox.fontSize*0.9
-           ,a.height*0.9,'<=',b.height);
+          // console.log("한글 초성 예상",tmp_w ,">=", arrangedBox.fontSize*0.7
+          //  , tmp_w ,"<", arrangedBox.fontSize
+          //  ,dist[0], "<", arrangedBox.fontSize*0.5
+          //  ,b.height,">=",arrangedBox.fontSize*0.9
+          //  ,a.height*0.9,'<=',b.height);
           if(tmp_w >= arrangedBox.fontSize*0.7
             && tmp_w <= arrangedBox.fontSize
             && dist[0] < arrangedBox.fontSize*0.5
@@ -125,6 +125,9 @@ mocr.BoundBoxTool = function(mocr){
       arrangedBox.fontSize = arrangedBox.baseline-arrangedBox.top;
       // console.log(arrangedBox.fontSize,arrangedBox,limit_bottom,max_bottom);
     },
+    addWhiteSpaceInArrangedBox:function(arrangedBox){
+
+    }
   }
   return BoundBoxTool;
 }(mocr)
