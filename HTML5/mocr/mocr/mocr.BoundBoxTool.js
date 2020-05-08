@@ -102,7 +102,7 @@ mocr.BoundBoxTool = function(mocr){
         }
       }
     },
-    // baseline,fontSize 찾기
+    // baseline,fontSize,whitespaceWidth 찾기
     generateFontSize4ArrangedBox:function(arrangedBox) {
       var avg_bottom = arrangedBox.boundBoxes.reduce(function(accumulator, boundBox, currentIndex, array) {
         return accumulator + boundBox.bottom;
@@ -124,29 +124,35 @@ mocr.BoundBoxTool = function(mocr){
       arrangedBox.baseline = max_bottom;
       arrangedBox.fontSize = arrangedBox.baseline-arrangedBox.top;
       // console.log(arrangedBox.fontSize,arrangedBox,limit_bottom,max_bottom);
+
+      arrangedBox.whitespaceWidth = arrangedBox.fontSize*0.5;
+      // arrangedBox.minWhitespaceWidth = arrangedBox.fontSize*0.2;
     },
     addWhiteSpaceInArrangedBox:function(arrangedBox){
       // console.log(arrangedBox.boundBoxes);
-      if(arrangedBox.boundBoxes.length<2){return;}
+      if(arrangedBox.boundBoxes.length<3){return;}
       // var whitespaceWidth = arrangedBox.fontSize*0.5;
-      var whitespaceDistanse = arrangedBox.fontSize*0.6;
+      console.log("xxx",arrangedBox);
       for(var i=0;i<arrangedBox.boundBoxes.length-1;i++){
         var a = arrangedBox.boundBoxes[i];
         var b = arrangedBox.boundBoxes[i+1];
         var dist = this.getDistance(a,b);
-        if(dist[0]>=whitespaceDistanse){
-          console.log(i,dist[0],">=",whitespaceDistanse,dist);
-          var whitespaceWidth = Math.ceil(dist[0] * 0.7)
+        if(
+          dist[0] >= arrangedBox.whitespaceWidth
+          // || (dist[0] < arrangedBox.whitespaceWidth && dist[0] >= arrangedBox.minWhitespaceWidth && b.right-a.left > arrangedBox.fontSize*2.4)
+        ){
+          // console.log(i,dist[0],">=",arrangedBox.whitespaceWidth);
+          var wsWidth = Math.ceil(dist[0] * 0.6)
           var new_a = Object.assign({},a);
-          // new_a.left =  a.right+Math.ceil((b.left-a.right-whitespaceWidth)/2);
-          new_a.left =  Math.ceil((a.right+b.left-whitespaceWidth)/2);
-          new_a.right = Math.ceil((a.right+b.left+whitespaceWidth)/2);
+          // new_a.left =  a.right+Math.ceil((b.left-a.right-wsWidth)/2);
+          new_a.left =  Math.ceil((a.right+b.left-wsWidth)/2);
+          new_a.right = Math.ceil((a.right+b.left+wsWidth)/2);
           new_a.top = arrangedBox.top;
           new_a.bottom = arrangedBox.baseline;
           new_a.width = new_a.right-new_a.left
           new_a.height = new_a.bottom-new_a.top;
           arrangedBox.boundBoxes.splice(i+1,0,new_a);
-          console.log("space 추가",i,new_a,a,b);
+          // console.log("space 추가",i,new_a,a,b);
           i++;
         }
 
