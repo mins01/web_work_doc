@@ -367,6 +367,10 @@ mocr.ImageTool = function(mocr){
           // console.log("boundBox가 너무 큼");
           continue;
         }
+        if(boundBox.width < 2 && boundBox.height < 2){
+          console.log("boundBox가 너무 작음");
+          continue;
+        }
         // console.log("boundBox",boundBox);
         ctx.putImageData(imageData,0,0);
         boundBoxes.push(boundBox);

@@ -104,15 +104,23 @@ mocr.ArrangedBoxes = function(mocr){
       }
 
 
-      // 겹치는 글자 합치기
-      for(var i2=0,m2=arrangedBoxes.length;i2<m2;i2++){
-        mocr.BoundBoxTool.union4OverlapInArrangedBox(arrangedBoxes[i2]);
-        mocr.BoundBoxTool.union4OverlapInArrangedBox(arrangedBoxes[i2]);
-        // arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4OverlapByX(arrangedBoxes[i2].boundBoxes);//겹치는 부분 합치기
-        // arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4OverlapByX(arrangedBoxes[i2].boundBoxes);//겹치는 부분 합치기
-        // arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i2].boundBoxes)
-        // arrangedBoxes[i2].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i2].boundBoxes)
-        // mocr.BoundBoxTool.union4GangulInArrangedBox(arrangedBoxes[i2]);
+
+
+      for(var i=0,m2=arrangedBoxes.length;i<m2;i++){
+        var arrangedBox = arrangedBoxes[i];
+
+        // 겹치는 글자 합치기
+        mocr.BoundBoxTool.union4OverlapInArrangedBox(arrangedBox);
+        mocr.BoundBoxTool.union4OverlapInArrangedBox(arrangedBox);
+        // arrangedBoxes[i].boundBoxes = mocr.BoundBoxTool.union4OverlapByX(arrangedBoxes[i].boundBoxes);//겹치는 부분 합치기
+        // arrangedBoxes[i].boundBoxes = mocr.BoundBoxTool.union4OverlapByX(arrangedBoxes[i].boundBoxes);//겹치는 부분 합치기
+        // arrangedBoxes[i].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i].boundBoxes)
+        // arrangedBoxes[i].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i].boundBoxes)
+
+        // arrangedBox 의 baseline,fontSize 찾기
+        mocr.BoundBoxTool.generateFontSize4ArrangedBox(arrangedBox);
+        // 한글 합침
+        mocr.BoundBoxTool.union4GangulInArrangedBox(arrangedBoxes[i]);
       }
 
       // mocr.BoundBoxTool.union4GangulInArrangedBox(arrangedBoxes[3]);
