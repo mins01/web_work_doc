@@ -121,6 +121,9 @@ mocr.ArrangedBoxes = function(mocr){
         mocr.BoundBoxTool.generateFontSize4ArrangedBox(arrangedBox);
         // 한글 합침
         mocr.BoundBoxTool.union4GangulInArrangedBox(arrangedBoxes[i]);
+        // 빈칸 처리
+        mocr.BoundBoxTool.addWhiteSpaceInArrangedBox(arrangedBoxes[i]);
+
       }
 
       // mocr.BoundBoxTool.union4GangulInArrangedBox(arrangedBoxes[3]);

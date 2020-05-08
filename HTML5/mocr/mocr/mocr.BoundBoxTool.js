@@ -126,7 +126,31 @@ mocr.BoundBoxTool = function(mocr){
       // console.log(arrangedBox.fontSize,arrangedBox,limit_bottom,max_bottom);
     },
     addWhiteSpaceInArrangedBox:function(arrangedBox){
+      // console.log(arrangedBox.boundBoxes);
+      if(arrangedBox.boundBoxes.length<2){return;}
+      // var whitespaceWidth = arrangedBox.fontSize*0.5;
+      var whitespaceDistanse = arrangedBox.fontSize*0.6;
+      for(var i=0;i<arrangedBox.boundBoxes.length-1;i++){
+        var a = arrangedBox.boundBoxes[i];
+        var b = arrangedBox.boundBoxes[i+1];
+        var dist = this.getDistance(a,b);
+        if(dist[0]>=whitespaceDistanse){
+          console.log(i,dist[0],">=",whitespaceDistanse,dist);
+          var whitespaceWidth = Math.ceil(dist[0] * 0.7)
+          var new_a = Object.assign({},a);
+          // new_a.left =  a.right+Math.ceil((b.left-a.right-whitespaceWidth)/2);
+          new_a.left =  Math.ceil((a.right+b.left-whitespaceWidth)/2);
+          new_a.right = Math.ceil((a.right+b.left+whitespaceWidth)/2);
+          new_a.top = arrangedBox.top;
+          new_a.bottom = arrangedBox.baseline;
+          new_a.width = new_a.right-new_a.left
+          new_a.height = new_a.bottom-new_a.top;
+          arrangedBox.boundBoxes.splice(i+1,0,new_a);
+          console.log("space 추가",i,new_a,a,b);
+          i++;
+        }
 
+      }
     }
   }
   return BoundBoxTool;
