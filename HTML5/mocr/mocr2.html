@@ -64,7 +64,8 @@
 	<script src="mocr/mocr.ImageTool.js"></script>
 	<script src="mocr/mocr.ImageHandler.js"></script>
 	<script src="mocr/mocr.LetterPackage.js"></script>
-	<script src="mocr/mocr.LetterPackageGenerator.js"></script>
+	<!-- <script src="mocr/mocr.LetterPackageGenerator.js"></script> -->
+	<script src="mocr/mocr.LetterPackageGroup.js"></script>
 	<script src="mocr/mocr.BoundBoxTool.js"></script>
   <script src="mocr/mocr.ArrangedBoxes.js"></script>
 
@@ -76,7 +77,7 @@
     var ml = null;
 		var ml1 = null;
 		var mlss = [];
-		var mlpg = new mocr.LetterPackageGenerator();
+		var mlpg = new mocr.LetterPackageGroup();
 		mlpg.width=width
 		var mlp = null;
 		$(function(){
@@ -152,15 +153,16 @@
 			ctx.restore();
 		}
 		function runRuggesst(){
-			mlp = mlpg.generate(null);
-			mlpg.generate4Digit(mlp);
-			mlpg.generate4Alphabet(mlp);
-			mlpg.generate4Range(mlp,' ','/');
+			// mlp = mlpg.generate(null);
+			mlpg.generate4Digit();
+			mlpg.generate4Alphabet();
+			mlpg.generate4Range(' ','/');
 			//mlss
 			for(var i=0,m=mlss.length;i<m;i++){
 				var mls = mlss[i];
 				mls.forEach((ml, i) => {
-					var searched = mlp.search(ml);
+					var searched = mlpg.search(ml,5);
+					console.log(searched.length);
 					var div2 = document.createElement('div');
 					$("#div_suggest").append(div2)
 					$(div2).append('<img src="'+ml.toContext2d().canvas.toDataURL()+'">');

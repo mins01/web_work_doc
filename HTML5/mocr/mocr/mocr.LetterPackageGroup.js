@@ -42,6 +42,8 @@ mocr.LetterPackageGroup = function(mocr){
       return letter;
     },
     generate:function(fontFamily,fontWeight){
+      fontFamily = fontFamily.toLowerCase();
+      fontWeight = fontWeight.toLowerCase();
       var name = fontFamily+"_"+fontWeight;
       if(this.letterPackagesByName[name]){
         return this.letterPackagesByName[name];
@@ -53,24 +55,33 @@ mocr.LetterPackageGroup = function(mocr){
       this.letterPackagesByName[name] = mlp;
       return mlp;
     },
-    // generate4Digit:function(mlp){
-    //   this.addLetters(mlp,'0','9','Serif','bold');
-    //   this.addLetters(mlp,'0','9','Sans-Serif','bold');
-    //   this.addLetters(mlp,'0','9','Monospace','bold');
-    // },
-    // generate4Alphabet:function(mlp){
-    //   this.addLetters(mlp,'a','z','Serif','bold');
-    //   this.addLetters(mlp,'a','z','Sans-Serif','bold');
-    //   this.addLetters(mlp,'a','z','Monospace','bold');
-    //   this.addLetters(mlp,'A','Z','Serif','bold');
-    //   this.addLetters(mlp,'A','Z','Sans-Serif','bold');
-    //   this.addLetters(mlp,'A','Z','Monospace','bold');
-    // },
-    // generate4Range:function(mlp,stChar,edChar){
-    //   this.addLetters(mlp,stChar,edChar,'Serif','bold');
-    //   this.addLetters(mlp,stChar,edChar,'Sans-Serif','bold');
-    //   this.addLetters(mlp,stChar,edChar,'Monospace','bold');
-    // },
+    generate4Digit:function(){
+      var mlp = this.generate('Serif','normal');
+      this.addLetters(mlp,'0','9');
+      mlp = this.generate('Sans-Serif','normal');
+      this.addLetters(mlp,'0','9');
+      mlp = this.generate('Monospace','normal');
+      this.addLetters(mlp,'0','9');
+    },
+    generate4Alphabet:function(){
+      var mlp = this.generate('Serif','normal');
+      this.addLetters(mlp,'A','Z');
+      this.addLetters(mlp,'a','z');
+      mlp = this.generate('Sans-Serif','normal');
+      this.addLetters(mlp,'A','Z');
+      this.addLetters(mlp,'a','z');
+      mlp = this.generate('Monospace','normal');
+      this.addLetters(mlp,'A','Z');
+      this.addLetters(mlp,'a','z');
+    },
+    generate4Range:function(stChar,edChar){
+      var mlp = this.generate('Serif','normal');
+      this.addLetters(mlp,stChar,edChar);
+      mlp = this.generate('Sans-Serif','normal');
+      this.addLetters(mlp,stChar,edChar);
+      mlp = this.generate('Monospace','normal');
+      this.addLetters(mlp,stChar,edChar);
+    },
     /**
      * mocr.LetterPackage 에 기준 문자를 기준으로 Letter를 추가한다.
      * @param  {mocr.LetterPackage} mlp        [description]
@@ -101,6 +112,21 @@ mocr.LetterPackageGroup = function(mocr){
       var letter = this.getLetter(char,mlp.fontFamily,mlp.fontWeight,threshold);
       mlp.add(letter);
       return letter;
+    },
+    search:function(letter,searchedCount){
+      var searched = []
+      this.letterPackages.forEach((mlp, i) => {
+        var searched2 = mlp.search(letter,searchedCount);
+        searched = searched.concat(searched2);
+
+        searched.sort(function(a,b){
+          return b.matched - a.matched
+        })
+        if(searched.length > searchedCount){
+          searched = searched.slice(0,searchedCount);
+        }
+      });
+      return searched;
     }
 
   }

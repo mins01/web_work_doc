@@ -25,6 +25,7 @@ mocr.LetterPackage = function(mocr){
       this.letters = [];
     },
     add:function(letter){
+      letter.letterPackage = this;
       this.letters.push(letter);
     },
     toJson:function(){
@@ -49,11 +50,17 @@ mocr.LetterPackage = function(mocr){
       var df = null;
       for(var i=0,m=this.letters.length;i<m;i++){
         searched.push(this.letters[i].diffBin(letter));
+        if(searched.length > searchedCount){
+          searched.sort(function(a,b){
+            return b.matched - a.matched
+          })
+          searched = searched.slice(0,searchedCount);
+        }
       }
       searched.sort(function(a,b){
         return b.matched - a.matched
       })
-      return searched.slice(0,10);
+      return searched.slice(0,searchedCount);
     }
   }
   return LetterPackage;

@@ -64,7 +64,8 @@
   <script src="mocr/mocr.ImageTool.js"></script>
 	<script src="mocr/mocr.ImageHandler.js"></script>
 	<script src="mocr/mocr.LetterPackage.js"></script>
-  <script src="mocr/mocr.LetterPackageGenerator.js"></script>
+	<!-- <script src="mocr/mocr.LetterPackageGenerator.js"></script> -->
+  <script src="mocr/mocr.LetterPackageGroup.js"></script>
   <script type="text/javascript">
 		var width = 32;
     var mit = mocr.ImageTool;
@@ -72,22 +73,36 @@
 		var mih1 = new mocr.ImageHandler();
     var ml = null;
 		var ml1 = null;
-		var mlpg = new mocr.LetterPackageGenerator();
+		var mlpg = new mocr.LetterPackageGroup();
 		mlpg.width=width
 		var mlp = null;
     $(function(){
 			$("#div_parsed_A").append(mih.canvas);
 			$("#div_parsed_B").append(mih1.canvas);
-			mlp = mlpg.generate(null);
-			mlpg.generate4Digit(mlp);
-			mlpg.generate4Alphabet(mlp);
-			mlpg.generate4Range(mlp,' ','/');
 			//--- 테스트용 채우기
 			// generateTestImage('a','z','Serif')
 			// generateTestImage('A','Z','Serif')
 			generateTestImage(' ','/','Comic Sans MS')
 			generateTestImage('a','z','Comic Sans MS')
 			generateTestImage('A','Z','Comic Sans MS')
+
+			// mlp = mlpg.generate(null);
+			mlpg.generate4Digit();
+			mlpg.generate4Alphabet();
+			mlpg.generate4Range(' ','/');
+			$div_out = $("#div_out");
+			mlpg.letterPackages.forEach((mlp, i) => {
+				mlp.letters.forEach((letter, i) => {
+					var cv = letter.toContext2d().canvas
+					cv.letter = letter;
+					// $div_out.append(ml.char);
+					// $div_out.append(cv);
+					$div_out.append("<div class='letter-width"+letter.width+"' style='font-family:"+letter.letterPackage.fontFamily+";'>"+letter.char+"</div><img title='"+letter.letterPackage.desc+"' src='"+letter.toContext2d().canvas.toDataURL()+"'>");
+
+				});
+
+			});
+
 
 
     })
@@ -101,7 +116,7 @@
       mih.simplify(width);
       ml = mih.getLetter();
 			// mlp = mlpg.generate();
-			var searched = mlp.search(ml);
+			var searched = mlpg.search(ml);
 			var diffBin = searched[0];
 			console.log(diffBin.char,diffBin.matched,diffBin.counts,diffBin.dot);
 			$("#div_dot_info").text(diffBin.char+"\n"+diffBin.matched+"\n"+diffBin.counts)
@@ -142,7 +157,7 @@
 			// console.log(stCode,edCode);
 			for(var i=stCode,m=edCode;i<=m;i++){
 				var char = String.fromCodePoint(i);
-				mih1.loadFromChar(char,fontFamily,'bold');
+				mih1.loadFromChar(char,fontFamily,'normal');
 				// mih1.trim()
 				$("#div_in").append('<div class="div_input"><img src="'+mih1.canvas.toDataURL()+'"><div class="searched-letter-img"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div></div>')
 			}
