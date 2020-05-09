@@ -353,11 +353,8 @@ mocr.ImageTool = function(mocr){
         if(i>500){break;}
         var xf = r[0];
         var yf = r[1];
-        // console.log("i,xf,yf",i,xf,yf);
 
         var xy0 = (w*yf+xf)*4;
-        // console.log("i,xf,yf",i,xf,yf,imageData.data[xy0+1]);
-        // //-- 세로기준으로 가로가 전부 빈공간인것 찾기 => 박스 최 하단 y 위치
         var boundBox = this.getBoundBox(imageData,xf,yf);
         if(boundBox==null){
           console.log("boundBox 없음");

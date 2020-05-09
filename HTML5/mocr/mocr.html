@@ -103,20 +103,20 @@
 			// mlp = mlpg.generate();
 			var searched = mlp.search(ml);
 			var diffBin = searched[0];
-			console.log(diffBin.char,diffBin.desc,diffBin.matched,diffBin.counts,diffBin.dot);
-			$("#div_dot_info").text(diffBin.char+"\n"+diffBin.desc+"\n"+diffBin.matched+"\n"+diffBin.counts)
+			console.log(diffBin.char,diffBin.matched,diffBin.counts,diffBin.dot);
+			$("#div_dot_info").text(diffBin.char+"\n"+diffBin.matched+"\n"+diffBin.counts)
 			$("#div_dot_dot").text(diffBin.dot)
 			$(img).parent().find('.searched-letter-img:eq(0)').html("")
 			$(img).parent().find('.searched-letter-img:eq(0)').append('<img src="'+ml.toContext2d().canvas.toDataURL()+'">')
-			$(img).parent().find('.searched-letter:eq(0)').text(diffBin.char+"\n"+diffBin.matched.toFixed(4)+"\n"+diffBin.desc)
+			$(img).parent().find('.searched-letter:eq(0)').text(diffBin.char+"\n"+diffBin.matched.toFixed(4))
 			diffBin = searched[1];
-			$(img).parent().find('.searched-letter:eq(1)').text(diffBin.char+"\n"+diffBin.matched.toFixed(4)+"\n"+diffBin.desc)
+			$(img).parent().find('.searched-letter:eq(1)').text(diffBin.char+"\n"+diffBin.matched.toFixed(4))
 			diffBin = searched[2];
-			$(img).parent().find('.searched-letter:eq(2)').text(diffBin.char+"\n"+diffBin.matched.toFixed(4)+"\n"+diffBin.desc)
+			$(img).parent().find('.searched-letter:eq(2)').text(diffBin.char+"\n"+diffBin.matched.toFixed(4))
 			diffBin = searched[3];
-			$(img).parent().find('.searched-letter:eq(3)').text(diffBin.char+"\n"+diffBin.matched.toFixed(4)+"\n"+diffBin.desc)
+			$(img).parent().find('.searched-letter:eq(3)').text(diffBin.char+"\n"+diffBin.matched.toFixed(4))
 			diffBin = searched[4];
-			$(img).parent().find('.searched-letter:eq(4)').text(diffBin.char+"\n"+diffBin.matched.toFixed(4)+"\n"+diffBin.desc)
+			$(img).parent().find('.searched-letter:eq(4)').text(diffBin.char+"\n"+diffBin.matched.toFixed(4))
 
 		}
 		function onCheckImage2(event){

@@ -46,7 +46,7 @@ mocr.ImageHandler = function(mocr){
      * @return {[type]}            [description]
      */
     loadFromChar:function(char,fontFamily,fontWeight){
-      console.log("loadFromChar",char,fontFamily);
+      // console.log("loadFromChar",char,fontFamily);
       var fontSize = 64;
       var w = Math.ceil(fontSize*1.5);
       mocr.ImageTool.resetContext2d(this.ctx,w,w,'#fff');
@@ -64,7 +64,7 @@ mocr.ImageHandler = function(mocr){
       }
       this.desc = fontFamily;
       var font = fontWeight+" 64px "+fontFamily;
-      console.log(font);
+      // console.log(font);
 
       this.ctx.font = font;
       this.ctx.fillStyle = "#000";
@@ -78,11 +78,12 @@ mocr.ImageHandler = function(mocr){
       this.width = w;
       // this.transparentColor(255,255,255); //배경색 없애기
       this.toBWColor(255,255,255,threshold);
+      // $(document.body).append('<img src="'+this.ctx.canvas.toDataURL()+'">');
       this.trim(); //여백제거
-      var fontWidthHeight = [this.canvas.width,this.canvas.height];
+      var charSize = [this.canvas.width,this.canvas.height];
       this.resize(this.width,this.width,1); //크기 리사이즈
       // return this.getLetter();
-      return fontWidthHeight;
+      return charSize;
     },
     transparentColor:function(ir,ig,ib){
       mocr.ImageTool.transparentColor(this.ctx,ir,ig,ib);
@@ -122,7 +123,6 @@ mocr.ImageHandler = function(mocr){
       var letter = new mocr.Letter()
       letter.hex = this.toHex();
       letter.width = this.width;
-      letter.desc = this.desc;
       return letter;
     },
     toString:function(){

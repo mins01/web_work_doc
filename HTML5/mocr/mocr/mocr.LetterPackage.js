@@ -8,7 +8,6 @@ mocr.LetterPackage = function(mocr){
     this.init(fontFamily,fontWeight);
   }
   LetterPackage.prototype = {
-    mih:null,
     name:'', //외부에서 지정
     width:32,
     fontWidth:-1, //나중에 자동 설정
@@ -16,9 +15,10 @@ mocr.LetterPackage = function(mocr){
     fontWeight:'',
     letters:null,
     init:function(fontFamily,fontWeight){
+      this.name = "";
+      this.width = 32;
       this.fontFamily = fontFamily;
       this.fontWeight = fontWeight;
-      this.fontWidth = fontWidth;
       this.letters = [];
     },
     clear:function(){
@@ -28,18 +28,20 @@ mocr.LetterPackage = function(mocr){
       this.letters.push(letter);
     },
     toJson:function(){
+      return JSON.stringify(this,null,1);
       var res = {
+        fontFamily:this.fontFamily,
+        fontWeight:this.fontWeight,
         width:this.width,
         letters:null
       }
-      var arr = new Array(this.letters.length);
+      res.letters = new Array(this.letters.length);
       for(var i=0,m=this.letters.length;i<m;i++){
         var obj = this.letters[i].toObj();
         delete obj.fontWidth;
-        arr[i] = obj;
+        res.letters[i] = obj;
       }
-      res.letters = arr;
-      return JSON.stringify(arr,null,2);
+      return JSON.stringify(res,null,2);
     },
     search:function(letter,searchedCount){
       if(!searchedCount) searchedCount = 5;

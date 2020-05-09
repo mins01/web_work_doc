@@ -54,6 +54,11 @@
 	#div_out canvas{
 		margin:3px;
 	}
+	img , canvas  {
+		/* image-rendering: auto; */
+		/* image-rendering: crisp-edges; */
+		image-rendering: pixelated;
+	}
 	</style>
 
   <script type="text/javascript">
@@ -79,7 +84,7 @@
 			var mlp = mlpg.generate(fontFamily,fontWeight);
 			var $letterPackages = $("#letterPackages");
 			$letterPackages.get(0).length = 0;
-			// console.log(mlp,mlpg.letterPackagesByName);
+			$letterPackages.append('<option disabled value="">NONE</option>')
 			for(var k in mlpg.letterPackagesByName){
 				var t_mlp = mlpg.letterPackagesByName[k];
 				// console.log(t_mlp);
@@ -93,7 +98,7 @@
 				alert("LetterPackage를 먼저 생성해주세요.");
 				return;
 			}
-			var mlp = mlpg.letterPackagesByName[k]
+			mlp = mlpg.letterPackagesByName[k]
 			var stChar = f.stChar.value;
 			var edChar = f.edChar.value;
 			var threshold = f.threshold.value;

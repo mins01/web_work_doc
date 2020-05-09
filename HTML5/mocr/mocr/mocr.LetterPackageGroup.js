@@ -28,16 +28,21 @@ mocr.LetterPackageGroup = function(mocr){
       }
       threshold = parseInt(threshold,10);
       this.mih.loadFromChar(char,fontFamily,fontWeight);
-      this.mih.simplify(this.width,threshold);
+      var charSize = this.mih.simplify(this.width,threshold);
+      // var bb = this.mih.getBoundBoxes();
+      // console.log(bb);
       var letter = this.mih.getLetter();
       letter.char = char;
+      letter.charWidth = charSize[0];
+      letter.charHeight = charSize[1];
+
       // var ctx = letter.toContext2d();
       // $("#div_out").append("<div class='letter-width"+letter.width+"' style='font-family:"+fontFamily+";'>"+letter.char+"</div><img title='"+letter.desc+"' src='"+this.mih.canvas.toDataURL()+"'>");
       // $("#div_out").append("<div class='letter-width"+letter.width+"' style='font-family:"+fontFamily+";'>"+letter.char+"</div><img title='"+letter.desc+"' src='"+ctx.canvas.toDataURL()+"'>");
       return letter;
     },
-    generate:function(fontFamily,fontWeight,fontWidth){
-      var name = fontFamily+","+fontWeight;
+    generate:function(fontFamily,fontWeight){
+      var name = fontFamily+"_"+fontWeight;
       if(this.letterPackagesByName[name]){
         return this.letterPackagesByName[name];
       }

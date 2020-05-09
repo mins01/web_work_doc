@@ -10,7 +10,8 @@ mocr.Letter = function(mocr){
   Letter.prototype = {
     letter:"",
     width:-1,
-    desc:"",
+    charWidth:null,
+    charHeight:null,
     letterType:"",
     hex:"",
     init:function(obj){
@@ -28,11 +29,15 @@ mocr.Letter = function(mocr){
       this.char = obj.char;
       this.width=obj.width;
       this.hex=obj.hex;
+      if(obj.charWidth !== undefined) this.charWidth=obj.charWidth;
+      if(obj.charWidth !== undefined) this.charHeight=obj.charHeight;
     },
     toObj:function(){
       return {
         char:this.char,
         width:this.width,
+        charWidth:this.charWidth,
+        charHeight:this.charHeight,
         hex:this.hex,
       }
     },
@@ -71,7 +76,6 @@ mocr.Letter = function(mocr){
       var res = {
         char:from.char,
         total:total,
-        desc:this.desc,
         // matched:counts[3]-counts[1]-counts[2],
         matched:(counts[3]+counts[1]+counts[2])==0?1:counts[3]/(counts[3]+counts[1]+counts[2]),
         counts:counts,
