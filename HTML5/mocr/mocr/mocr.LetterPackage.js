@@ -4,15 +4,21 @@ if(!mocr){
 }
 
 mocr.LetterPackage = function(mocr){
-  var LetterPackage = function(){
-    this.init();
+  var LetterPackage = function(fontFamily,fontWeight){
+    this.init(fontFamily,fontWeight);
   }
   LetterPackage.prototype = {
     mih:null,
-    width:16,
+    name:'', //외부에서 지정
+    width:32,
+    fontWidth:-1, //나중에 자동 설정
+    fontFamily:'',
+    fontWeight:'',
     letters:null,
-    init:function(){
-      this.width = 16;
+    init:function(fontFamily,fontWeight){
+      this.fontFamily = fontFamily;
+      this.fontWeight = fontWeight;
+      this.fontWidth = fontWidth;
       this.letters = [];
     },
     clear:function(){
@@ -29,7 +35,7 @@ mocr.LetterPackage = function(mocr){
       var arr = new Array(this.letters.length);
       for(var i=0,m=this.letters.length;i<m;i++){
         var obj = this.letters[i].toObj();
-        delete obj.width;
+        delete obj.fontWidth;
         arr[i] = obj;
       }
       res.letters = arr;

@@ -73,12 +73,16 @@ mocr.ImageHandler = function(mocr){
       this.ctx.fillText(char, (this.canvas.width-text.width)/2, 64);
       this.ctx.restore();
     },
-    simplify:function(w) {
+    simplify:function(w,threshold) {
+      if(threshold === undefined){threshold = 0;}
       this.width = w;
       // this.transparentColor(255,255,255); //배경색 없애기
+      this.toBWColor(255,255,255,threshold);
       this.trim(); //여백제거
+      var fontWidthHeight = [this.canvas.width,this.canvas.height];
       this.resize(this.width,this.width,1); //크기 리사이즈
       // return this.getLetter();
+      return fontWidthHeight;
     },
     transparentColor:function(ir,ig,ib){
       mocr.ImageTool.transparentColor(this.ctx,ir,ig,ib);

@@ -46,7 +46,7 @@
 	<script src="mocr/mocr.ImageTool.js"></script>
 	<script src="mocr/mocr.ImageHandler.js"></script>
 	<script src="mocr/mocr.LetterPackage.js"></script>
-	<script src="mocr/mocr.LetterPackageGenerator.js"></script>
+	<script src="mocr/mocr.LetterPackageGroup.js"></script>
 	<script src="mocr/mocr.BoundBoxTool.js"></script>
   <script src="mocr/mocr.ArrangedBoxes.js"></script>
 
@@ -64,28 +64,44 @@
     var ml = null;
 		var ml1 = null;
 		var mlss = [];
-		var mlpg = new mocr.LetterPackageGenerator();
+		var mlpg = new mocr.LetterPackageGroup();
 		mlpg.width=width
-		var mlp = null;
+		// var mlp = null;
 		var $div_out = null;
 
 		$(function(){
-			mlp = mlpg.generate(null);
 			$div_out = $("#div_out");
 		})
-		function generateFromForm(f){
-			var stChar = f.stChar.value;
-			var edChar = f.edChar.value;
+
+		function generateLetterPackage(f){
 			var fontFamily = f.fontFamily.value;
 			var fontWeight = f.fontWeight.value;
-			mlpg.addLetters(mlp,stChar,edChar,fontFamily,fontWeight)
+			var mlp = mlpg.generate(fontFamily,fontWeight);
+			var $letterPackages = $("#letterPackages");
+			$letterPackages.get(0).length = 0;
+			// console.log(mlp,mlpg.letterPackagesByName);
+			for(var k in mlpg.letterPackagesByName){
+				var t_mlp = mlpg.letterPackagesByName[k];
+				// console.log(t_mlp);
+				$letterPackages.append('<option value="'+t_mlp.name+'">'+t_mlp.name+'</option>')
+			}
+		}
+
+		function generateFromForm(f){
+			var k = f.letterPackages.value;
+			if(k.length < 2){
+				alert("LetterPackage를 먼저 생성해주세요.");
+				return;
+			}
+			var mlp = mlpg.letterPackagesByName[k]
+			var stChar = f.stChar.value;
+			var edChar = f.edChar.value;
+			var threshold = f.threshold.value;
+			mlpg.addLetters(mlp,stChar,edChar,threshold)
 			$("#letters_length").text(mlp.letters.length+"글자");
-			printMlpLetters()
+			printMlpLetters(mlp)
 		}
-		function clearMlp(){
-			mlp.clear();
-		}
-		function printMlpLetters(){
+		function printMlpLetters(mlp){
 			$div_out.html("")
 			mlp.letters.forEach((letter, i) => {
 				var cv = letter.toContext2d().canvas;
@@ -104,33 +120,8 @@
 		<h1>mocr3</h1>
 		<h2>generate Letters</h2>
 		<div class="m-3">
-			<form action="" onsubmit="generateFromForm(this);return false;">
+			<form action="" onsubmit="generateLetterPackage(this);return false;">
 				<div class="form-inline">
-					<div class="input-group m-1">
-						<div class="input-group-prepend">
-							<span class="input-group-text">글자범위</span>
-						</div>
-						<input type="text" class="form-control" name="stChar"  style="width:5em" placeholder="시작" value="0" length="1"  pattern=".{1}" title="1글자만 입력해주세요.">
-						<div class="input-group-prepend" style="margin-left:-1px;">
-							<span class="input-group-text">~</span>
-						</div>
-						<input type="text" class="form-control" name="edChar"  style="width:5em" placeholder="끝" value="9"  length="1" pattern=".{1}"  title="1글자만 입력해주세요.">
-						<div class="input-group-prepend" style="margin-left:-1px;">
-							<span class="input-group-text" id="letters_length">0</span>
-						</div>
-						<div class="input-group-append" >
-					    <button class="btn btn-info" type="submit">generate</button>
-					  </div>
-
-					</div>
-				</div>
-				<div class="form-inline">
-					<div class="input-group m-1">
-						<div class="input-group-prepend">
-							<span class="input-group-text">글꼴</span>
-						</div>
-						<input type="text" list="datalist_fontFamily" class="form-control"  name="fontFamily"  style="width:10em" placeholder="글꼴" value="serif" length="30" title="시스템에서 지원하는 폰트명 사용">
-					</div>
 					<datalist id="datalist_fontFamily">
 						<option value="sans-serif">산세리프</option>
 						<option value="serif">세리프</option>
@@ -144,19 +135,62 @@
 						<option value="gungsuh">궁서</option>
 						<option value="gungsuhche">궁서체</option>
 					</datalist>
-					<div class="input-group m-1">
-						<div class="input-group-prepend">
-							<span class="input-group-text">글꼴 굵기</span>
-						</div>
-						<input type="text" list="datalist_fontWeight" class="form-control"  name="fontWeight"  style="width:10em" placeholder="글꼴 굵기" value="normal" length="30" title="시스템에서 지원하는 폰트명 사용">
-					</div>
 					<datalist id="datalist_fontWeight">
 						<option value="normal"></option>
 						<option value="bold"></option>
 					</datalist>
-				</div>
-				<button class="btn btn-info" type="button" onclick="clearMlp()">letterPackage 초기화</button>
+					<div class="input-group m-1">
+						<div class="input-group-prepend">
+							<span class="input-group-text">글꼴</span>
+						</div>
+						<input type="text" list="datalist_fontFamily" class="form-control"  name="fontFamily"  style="width:10em" placeholder="글꼴" value="serif" length="30" title="시스템에서 지원하는 폰트명 사용">
+						<div class="input-group-prepend"  style="margin-left:-1px;">
+							<span class="input-group-text">글꼴 굵기</span>
+						</div>
+						<input type="text" list="datalist_fontWeight" class="form-control"  name="fontWeight"  style="width:10em" placeholder="글꼴 굵기" value="normal" length="30" title="시스템에서 지원하는 폰트명 사용">
+					</div>
 
+					<div class="input-group-append" >
+						<button class="btn btn-info" type="submit">LetterPackage gnerate</button>
+					</div>
+				</div>
+			</form>
+				<hr />
+			<form action="" onsubmit="generateFromForm(this);return false;">
+
+				<div class="form-inline">
+					<div class="input-group m-1">
+						<div class="input-group-prepend">
+							<span class="input-group-text">패키지선택</span>
+						</div>
+						<select name="letterPackages" id="letterPackages" class="form-control" style="min-width:10em">
+							<option>
+
+							</option>
+						</select>
+						<div class="input-group-prepend" style="margin-left:-1px;">
+							<span class="input-group-text">글자범위</span>
+						</div>
+						<input type="text" class="form-control" name="stChar"  style="width:5em" placeholder="시작" value="0" length="1"  pattern=".{1}" title="1글자만 입력해주세요.">
+						<div class="input-group-prepend" style="margin-left:-1px;">
+							<span class="input-group-text">~</span>
+						</div>
+						<input type="text" class="form-control" name="edChar"  style="width:5em" placeholder="끝" value="9"  length="1" pattern=".{1}"  title="1글자만 입력해주세요.">
+						<div class="input-group-prepend" style="margin-left:-1px;">
+							<span class="input-group-text" id="letters_length">0</span>
+						</div>
+						<div class="input-group-prepend"  style="margin-left:-1px;">
+							<span class="input-group-text">단순화 범위</span>
+						</div>
+						<input type="number" min="0" max="200"  class="form-control"  name="threshold"  style="width:10em" placeholder="단순화범위(0이면 굵게, 255면 얇게)" value="0" length="30" title="단순화범위(0이면 넓게, 255면 쫍게)">
+						<div class="input-group-append" >
+					    <button class="btn btn-info" type="submit">generate</button>
+					  </div>
+
+					</div>
+				</div>
+				<hr />
+				<button class="btn btn-info" type="button" onclick="clearMlp()">letterPackage 초기화</button>
 			</form>
 		</div>
 		<div class="m-3">

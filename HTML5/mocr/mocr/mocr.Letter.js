@@ -25,13 +25,13 @@ mocr.Letter = function(mocr){
       return mocr.ImageTool.dot4Bin(this.toBin(),this.width);
     },
     setObj:function(obj){
-      this.letter=obj.letter;
+      this.char = obj.char;
       this.width=obj.width;
       this.hex=obj.hex;
     },
     toObj:function(){
       return {
-        letter:this.letter,
+        char:this.char,
         width:this.width,
         hex:this.hex,
       }
@@ -69,7 +69,7 @@ mocr.Letter = function(mocr){
         }
       }
       var res = {
-        letter:from.letter,
+        char:from.char,
         total:total,
         desc:this.desc,
         // matched:counts[3]-counts[1]-counts[2],

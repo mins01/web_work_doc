@@ -164,8 +164,8 @@
 					var div2 = document.createElement('div');
 					$("#div_suggest").append(div2)
 					$(div2).append('<img src="'+ml.toContext2d().canvas.toDataURL()+'">');
-					searched.forEach((item, i) => {
-						$(div2).append('<span>'+item.letter+'('+item.matched.toFixed(2)+')'+'</span>');
+					searched.forEach((searched_ml, i) => {
+						$(div2).append('<span>'+searched_ml.char+'('+searched_ml.matched.toFixed(2)+')'+'</span>');
 					});
 				});
 			}
