@@ -161,7 +161,6 @@
 				var mls = mlss[i];
 				mls.forEach((ml, i) => {
 					var searched = mlpg.search(ml,5);
-					console.log(searched.length);
 					var div2 = document.createElement('div');
 					$("#div_suggest").append(div2)
 					$(div2).append('<img src="'+ml.toContext2d().canvas.toDataURL()+'">');

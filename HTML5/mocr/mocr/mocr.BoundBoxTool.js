@@ -114,7 +114,7 @@ mocr.BoundBoxTool = function(mocr){
       // 평균 bottom 보다 크면 무시하면서 최대 bottom을 찾는다.
       var max_bottom = arrangedBox.boundBoxes.reduce(function(accumulator, boundBox, currentIndex, array) {
         if(boundBox.bottom > limit_bottom){
-          console.log('skip',currentIndex,boundBox.bottom,'<=',limit_bottom,boundBox); //여기에 걸리는건 y나 g 같은 baseline 밑으로 출력되는 것!
+          // console.log('skip',currentIndex,boundBox.bottom,'<=',limit_bottom,boundBox); //여기에 걸리는건 y나 g 같은 baseline 밑으로 출력되는 것!
           return accumulator
         }
         // console.log('ok',currentIndex,boundBox.bottom,'<=',limit_bottom,boundBox);
@@ -122,7 +122,7 @@ mocr.BoundBoxTool = function(mocr){
         return accumulator > boundBox.bottom ? accumulator:boundBox.bottom;
       }, 0)
 
-      console.log('baseline 계산용',arrangedBox.bottom,limit_bottom,max_bottom);
+      // console.log('baseline 계산용',arrangedBox.bottom,limit_bottom,max_bottom);
 
       arrangedBox.baseline = max_bottom;
       arrangedBox.fontSize = arrangedBox.baseline-arrangedBox.top;

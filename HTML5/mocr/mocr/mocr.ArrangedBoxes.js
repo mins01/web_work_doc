@@ -107,7 +107,7 @@ mocr.ArrangedBoxes = function(mocr){
 
 
       for(var i=0,m2=arrangedBoxes.length;i<m2;i++){
-        console.log("arrangedBoxes",i);
+        // console.log("arrangedBoxes",i);
         var arrangedBox = arrangedBoxes[i];
 
         // 겹치는 글자 합치기
