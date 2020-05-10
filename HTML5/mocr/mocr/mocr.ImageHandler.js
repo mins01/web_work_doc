@@ -21,9 +21,9 @@ mocr.ImageHandler = function(mocr){
     },
     generateImageHandlerFromBoundBox:function(boundBox){
       var new_mih = new ImageHandler();
-      var width = Math.max(boundBox.width+1,boundBox.height+1);
+      var width = Math.max(boundBox.width,boundBox.height);
       mocr.ImageTool.resetContext2d(new_mih.ctx,width,width,'#fff');
-      new_mih.ctx.putImageData(this.ctx.getImageData(boundBox.left,boundBox.top,boundBox.width+1,boundBox.height+1),0,0);
+      new_mih.ctx.putImageData(this.ctx.getImageData(boundBox.left,boundBox.top,boundBox.width,boundBox.height),0,0);
       new_mih.width = 32;
       new_mih.trim();
       new_mih.resize(new_mih.width,new_mih.width,1); //크기 리사이즈
@@ -78,12 +78,13 @@ mocr.ImageHandler = function(mocr){
       this.width = w;
       // this.transparentColor(255,255,255); //배경색 없애기
       this.toBWColor(255,255,255,threshold);
-      // $(document.body).append('<img src="'+this.ctx.canvas.toDataURL()+'">');
+      // var bbs = this.getBoundBoxes();
+      // var bb = bbs[0];
+      // console.log(bbs);
+      // var bb = this.getBoundBox4MinMax();
+      // console.log(bb);
       this.trim(); //여백제거
-      var charSize = [this.canvas.width,this.canvas.height];
       this.resize(this.width,this.width,1); //크기 리사이즈
-      // return this.getLetter();
-      return charSize;
     },
     transparentColor:function(ir,ig,ib){
       mocr.ImageTool.transparentColor(this.ctx,ir,ig,ib);
@@ -106,6 +107,9 @@ mocr.ImageHandler = function(mocr){
     },
     getBoundBoxes:function(){
       return mocr.ImageTool.getBoundBoxes(this.ctx);
+    },
+    getBoundBox4MinMax:function(){
+      return mocr.ImageTool.getBoundBox4MinMax(this.ctx);
     },
     getArrangedBoundBoxes:function(){
       return mocr.ImageTool.getArrangedBoundBoxes(this.getBoundBoxes());

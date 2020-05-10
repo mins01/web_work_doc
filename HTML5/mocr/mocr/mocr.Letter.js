@@ -105,6 +105,25 @@ mocr.Letter = function(mocr){
       ctx.putImageData(imageData,0,0);
       return ctx;
 
+    },
+    getBoundBox:function(){
+      var w = this.width;
+      var h = this.width;
+      var boundBox = {left:w,top:h,right:-1,bottom:-1,width:-1,height:-1}
+      var bin = this.toBin();
+      var x = -1,y=-1;
+      for(var i=0,m=bin.length;i<m;i+=4){
+        if(bin[i]==0){continue;}
+        x = i%w;
+        y = Math.floor(i/w);
+        boundBox.left = Math.min(boundBox.left,x);
+        boundBox.top = Math.min(boundBox.top,y);
+        boundBox.right = Math.max(boundBox.right,x+1);
+        boundBox.bottom = Math.max(boundBox.bottom,y+1);
+      }
+      boundBox.width = boundBox.right-boundBox.left;
+      boundBox.height = boundBox.bottom-boundBox.top;
+      return boundBox;
     }
 
   }

@@ -32,9 +32,10 @@ mocr.LetterPackageGroup = function(mocr){
       // var bb = this.mih.getBoundBoxes();
       // console.log(bb);
       var letter = this.mih.getLetter();
+      // var bb = letter.getBoundBox();
       letter.char = char;
-      letter.charWidth = charSize[0];
-      letter.charHeight = charSize[1];
+      // letter.charWidth = bb.width;
+      // letter.charHeight = bb.height;
 
       // var ctx = letter.toContext2d();
       // $("#div_out").append("<div class='letter-width"+letter.width+"' style='font-family:"+fontFamily+";'>"+letter.char+"</div><img title='"+letter.desc+"' src='"+this.mih.canvas.toDataURL()+"'>");
@@ -127,6 +128,19 @@ mocr.LetterPackageGroup = function(mocr){
         }
       });
       return searched;
+    },
+    loadLetterPackageFromJson:function(json){
+      var obj = JSON.parse(json);
+      if(!obj){
+        console.error("json 구문이 잘못 되었습니다.");
+        return;
+      }
+      var mlp = this.generate(obj.fontFamily,obj.fontWeight);
+      mlp.loadFromObj(obj);
+      for(var i=0,m=obj.letters.length;i<m;i++){
+        mlp.add(new mocr.Letter(obj.letters[i]));
+      }
+      return mlp;
     }
 
   }

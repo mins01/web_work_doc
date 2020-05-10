@@ -136,16 +136,16 @@
 			ctx.globalAlpha = 0.6
 			for(var i=0,m=abbs.length;i<m;i++){
 				var abb = abbs[i];
-				// ctx.fillRect(abb.left,abb.top,abb.width+1,abb.height+1)
+				// ctx.fillRect(abb.left,abb.top,abb.width,abb.height)
 				ctx.strokeStyle = 'rgba(0,0,100,255)';
-				ctx.strokeRect(abb.left,abb.top,abb.width+1,abb.height+1)
+				ctx.strokeRect(abb.left,abb.top,abb.width,abb.height)
 				// console.log(abb.top,abb.baseline);
 				ctx.strokeStyle = 'rgba(0,255,255,255)';
-				ctx.strokeRect(abb.left,abb.baseline,abb.width+1,1)
+				ctx.strokeRect(abb.left,abb.baseline,abb.width,1)
 				for(var i2=0,m2=abb.boundBoxes.length;i2<m2;i2++){
 				  var box = abb.boundBoxes[i2];
-					ctx.fillRect(box.left,box.top,box.width+1,box.height+1)
-				  // ctx.strokeRect(box.left,box.top,box.width+1,box.height+1)
+					ctx.fillRect(box.left,box.top,box.width,box.height)
+				  // ctx.strokeRect(box.left,box.top,box.width,box.height)
 
 				}
 			}

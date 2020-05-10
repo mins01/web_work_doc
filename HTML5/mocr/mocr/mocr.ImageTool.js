@@ -81,13 +81,13 @@ mocr.ImageTool = function(mocr){
         imageData.data[i+1]=0;
         imageData.data[i+2]=0;
         left = Math.min(left,x);
-        right = Math.max(right,x);
+        right = Math.max(right,x+1);
         top = Math.min(top,y);
-        bottom = Math.max(bottom,y);
+        bottom = Math.max(bottom,y+1);
       }
       ctx.putImageData(imageData,0,0);
       // console.log(left,top,right,bottom);
-      this.crop(ctx,left,top,right-left+1,bottom-top+1);
+      this.crop(ctx,left,top,right-left,bottom-top);
     },
     transparentColor:function(ctx,ir,ig,ib){
       var imageData = ctx.getImageData(0,0,ctx.canvas.width,ctx.canvas.height);
@@ -144,6 +144,24 @@ mocr.ImageTool = function(mocr){
       }
       return null;
     },
+    getBoundBox4MinMax:function(ctx){
+      var w = ctx.canvas.width;
+      var h = ctx.canvas.height;
+      var imageData = ctx.getImageData(0,0,w,h)
+      var boundBox = {left:w,top:h,right:-1,bottom:-1,width:-1,height:-1}
+      var x = -1,y=-1;
+      for(var i=0,m=imageData.data.length;i<m;i+=4){
+        x = (i/4)%w;
+        y = Math.floor((i/4)/w);
+        boundBox.left = Math.min(boundBox.left,x);
+        boundBox.top = Math.min(boundBox.top,y);
+        boundBox.right = Math.max(boundBox.right,x+1);
+        boundBox.bottom = Math.max(boundBox.bottom,y+1);
+      }
+      boundBox.width = boundBox.right-boundBox.left;
+      boundBox.height = boundBox.bottom-boundBox.top;
+      return boundBox;
+    },
     getBoundBox:function(imageData,xf,yf){
       var w = imageData.width;
       var h = imageData.height;
@@ -168,8 +186,8 @@ mocr.ImageTool = function(mocr){
         imageData.data[p1+1] = 255;
         x0 = Math.min(x0,currPt.x);
         y0 = Math.min(y0,currPt.y);
-        x1 = Math.max(x1,currPt.x);
-        y1 = Math.max(y1,currPt.y);
+        x1 = Math.max(x1,currPt.x+1);
+        y1 = Math.max(y1,currPt.y+1);
         // console.log("x1,y1",x1,y1);
         if(currPt.x < w-1) stack.push({x:currPt.x + 1, y:currPt.y}); // Fill the east neighbour
         if(currPt.y < h-1) stack.push({x:currPt.x, y:currPt.y + 1}); // Fill the south neighbour
@@ -186,6 +204,7 @@ mocr.ImageTool = function(mocr){
      * 영역이 겹치는 boundBox는 합침, 가까우면 합침
      * @return {[type]} [description]
      */
+    // @deprecated
     unionBoundBox:function(boundBoxes,w,h){
 
       //정사각 영역을 만들어서 그 속에 포함되는 boundbox는 합침
@@ -383,21 +402,6 @@ mocr.ImageTool = function(mocr){
 
       return boundBoxes;
     },
-    // getDistance4BoundBoxes:function(bb1,bb2){
-    //   var dx = -1;
-    //   var dy = -1;
-    //   if(bb1.left <= bb2.right && bb1.right >= bb2.left){ //x좌표기준으로 겹친 경우 거리는 0
-    //     dx = 0;
-    //   }else{
-    //     dx = Math.min(Math.abs(bb1.left-bb2.right),Math.abs(bb2.left-bb1.right))
-    //   }
-    //   if(bb1.top <= bb2.bottom && bb1.bottom >= bb2.top){ //y좌표기준으로 겹친 경우 거리는 0
-    //     dy = 0;
-    //   }else{
-    //     dy = Math.min(Math.abs(bb1.top-bb2.bottom),Math.abs(bb2.top-bb1.bottom))
-    //   }
-    //   return [dx,dy,Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2))]
-    // },
     getArrangedBoundBoxes:function(boundBoxes){
       var mArrangedBoxes = new mocr.ArrangedBoxes();
       mArrangedBoxes.inputBoundBoxes(boundBoxes);

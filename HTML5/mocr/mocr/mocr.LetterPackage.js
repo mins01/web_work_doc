@@ -21,6 +21,12 @@ mocr.LetterPackage = function(mocr){
       this.fontWeight = fontWeight;
       this.letters = [];
     },
+    loadFromObj:function(obj){
+      this.name = obj.name;
+      this.width = obj.width;
+      this.fontFamily = obj.fontFamily;
+      this.fontWeight = obj.fontWeight;
+    },
     clear:function(){
       this.letters = [];
     },
@@ -28,6 +34,7 @@ mocr.LetterPackage = function(mocr){
       letter.letterPackage = this;
       this.letters.push(letter);
     },
+
     toJson:function(){
       return JSON.stringify(this,null,1);
       var res = {
