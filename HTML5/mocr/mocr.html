@@ -16,7 +16,7 @@
 
 
 	<!-- jquery 관련 -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 
 
 	<!-- 부트스트랩 4 : IE8지원안됨! -->
@@ -86,9 +86,9 @@
 			generateTestImage('A','Z','Comic Sans MS')
 
 			// mlp = mlpg.generate(null);
-			mlpg.generate4Digit();
-			mlpg.generate4Alphabet();
-			mlpg.generate4Range(' ','/');
+			// mlpg.generate4Digit();
+			// mlpg.generate4Alphabet();
+			// mlpg.generate4Range(' ','/');
 			$div_out = $("#div_out");
 			mlpg.letterPackages.forEach((mlp, i) => {
 				mlp.letters.forEach((letter, i) => {
@@ -99,12 +99,19 @@
 					$div_out.append("<div class='letter-width"+letter.width+"' style='font-family:"+letter.letterPackage.fontFamily+";'>"+letter.char+"</div><img title='"+letter.letterPackage.desc+"' src='"+letter.toContext2d().canvas.toDataURL()+"'>");
 
 				});
-
 			});
-
-
-
+			setTimeout(loadJsonUrl,200)
     })
+		function loadJsonUrl(){
+			var cb = function(data, textStatus, errorThrown){
+				// console.log(data, textStatus, errorThrown);
+			}
+			mlpg.loadFromJsonUrl("json/serif_normal_ascii.json",cb);
+			mlpg.loadFromJsonUrl("json/sans-serif_normal_ascii.json",cb);
+			// mlpg.loadFromJsonUrl("json/serif_normal_kr.json",cb);
+			// mlpg.loadFromJsonUrl("json/sans-serif_normal_kr.json",cb);
+
+		}
 		function onCheckImage(event){
 			var ta = event.target;
 			if(ta.tagName!='IMG') return false;

@@ -16,7 +16,7 @@
 
 
 	<!-- jquery 관련 -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 
 
 	<!-- 부트스트랩 4 : IE8지원안됨! -->
@@ -80,9 +80,20 @@
 		mlpg.width=width
 		var mlp = null;
 		$(function(){
+			setTimeout(loadJsonUrl,200)
 
 			// setTimeout(runTest,100)
 		})
+		function loadJsonUrl(){
+			var cb = function(data, textStatus, errorThrown){
+				// console.log(data, textStatus, errorThrown);
+			}
+			mlpg.loadFromJsonUrl("json/serif_normal_ascii.json",cb);
+			mlpg.loadFromJsonUrl("json/sans-serif_normal_ascii.json",cb);
+			// mlpg.loadFromJsonUrl("json/serif_normal_kr.json",cb);
+			// mlpg.loadFromJsonUrl("json/sans-serif_normal_kr.json",cb);
+
+		}
 		function runTest(img_node,threshold){
 
 			// var img_letter_0 = document.querySelector("#img_letter_0")
@@ -151,11 +162,12 @@
 			}
 			ctx.restore();
 		}
+
 		function runRuggesst(){
 			// mlp = mlpg.generate(null);
-			mlpg.generate4Digit();
-			mlpg.generate4Alphabet();
-			mlpg.generate4Range(' ','/');
+			// mlpg.generate4Digit();
+			// mlpg.generate4Alphabet();
+			// mlpg.generate4Range(' ','/');
 			//mlss
 			for(var i=0,m=mlss.length;i<m;i++){
 				var mls = mlss[i];

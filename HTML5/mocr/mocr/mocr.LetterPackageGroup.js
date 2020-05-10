@@ -116,6 +116,8 @@ mocr.LetterPackageGroup = function(mocr){
       return letter;
     },
     search:function(letter,searchedCount){
+      var k = "search( )"
+      if(console.time) console.time(k)
       var searched = []
       this.letterPackages.forEach((mlp, i) => {
         var searched2 = mlp.search(letter,searchedCount);
@@ -128,10 +130,14 @@ mocr.LetterPackageGroup = function(mocr){
           searched = searched.slice(0,searchedCount);
         }
       });
+      if(console.time) console.timeEnd(k)
       return searched;
     },
     loadLetterPackageFromJson:function(json){
       var obj = JSON.parse(json);
+      return this.loadLetterPackageFromObj(obj);
+    },
+    loadLetterPackageFromObj:function(obj){
       if(!obj){
         console.error("json 구문이 잘못 되었습니다.");
         return;
@@ -142,6 +148,33 @@ mocr.LetterPackageGroup = function(mocr){
         mlp.add(new mocr.Letter(obj.letters[i]));
       }
       return mlp;
+    },
+    loadFromJsonUrl:function(url,cb){
+      var thisC = this;
+      var k = "loadFromJsonUrl("+url+")";
+      if(console.time) console.time(k)
+      $.ajax({
+        url: url,
+        type: 'get', //GET
+        dataType: 'json', //xml, json, script, jsonp, or html
+        // data: post_data,
+      })
+      .done(function(rData) { //통신 성공 시 호출
+        console.log("success");
+        thisC.loadLetterPackageFromObj(rData)
+      })
+      .fail(function() { //통신 실패 시 호출
+        console.log("error");
+      })
+      .always(function(k,cb){
+        return function(data, textStatus, errorThrown) { //성공/실패 후 호출.
+          console.log("complete");
+          if(console.time) console.timeEnd(k)
+          if(typeof cb == 'function'){
+            cb(data, textStatus, errorThrown)
+          }
+        }
+      }(k,cb));
     }
 
   }

@@ -16,7 +16,7 @@
 
 
 	<!-- jquery 관련 -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 
 
 	<!-- 부트스트랩 4 : IE8지원안됨! -->
@@ -187,7 +187,8 @@
 				// loadJson();
 			};
 			// reader.readAsDataURL(input_file.files[0]);
-			reader.readAsBinaryString(input_file.files[0]);
+			// reader.readAsBinaryString(input_file.files[0]);
+			reader.readAsText(input_file.files[0]);
 
 		}
 		// download(jsonData, 'json.txt', 'text/plain');
