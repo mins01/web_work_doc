@@ -49,6 +49,14 @@ mocr.LetterPackageGroup = function(mocr){
       this.letterPackagesByName[name] = mlp;
       return mlp;
     },
+    generate4Ascii:function(){
+      var mlp = this.generate('Serif','normal');
+      this.addLetters(mlp,' ','~');
+      mlp = this.generate('Sans-Serif','normal');
+      this.addLetters(mlp,' ','~');
+      mlp = this.generate('Monospace','normal');
+      this.addLetters(mlp,' ','~');
+    },
     generate4Digit:function(){
       var mlp = this.generate('Serif','normal');
       this.addLetters(mlp,'0','9');

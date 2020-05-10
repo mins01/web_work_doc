@@ -102,8 +102,10 @@
 				return;
 			}
 			mlp = mlpg.letterPackagesByName[k]
-			var stChar = f.stChar.value;
-			var edChar = f.edChar.value;
+			var stChar_edChar = f.stChar_edChar.value;
+			var t = stChar_edChar.split(',');
+			var stChar = t[0];
+			var edChar = t[1];
 			var threshold = f.threshold.value;
 			mlpg.addLetters(mlp,stChar,edChar,threshold)
 			$("#letters_length").text(mlp.letters.length+"글자");
@@ -154,11 +156,17 @@
 				return;
 			}
 			mlp = mlpg.letterPackagesByName[k]
-			download(mlp.toJson(), 'k.json', 'text/plain');
+			download(mlp.toJson(), k+'.json', 'text/plain');
 		}
 		function saveJson(){
+			var $letterPackages = $("#letterPackages");
+			var k = $letterPackages.val();
+			if(k.length < 2){
+				alert("LetterPackage를 선택해주세요.");
+				return;
+			}
 			var json = document.querySelector('#textarea_json').value;
-			download(json, 'k.json', 'text/plain');
+			download(json, k+'.json', 'text/plain');
 		}
 		function download(content, fileName, contentType) {
 			var a = document.createElement("a");
@@ -218,7 +226,11 @@
 						<div class="input-group-prepend"  style="margin-left:-1px;">
 							<span class="input-group-text">글꼴 굵기</span>
 						</div>
-						<input type="text" list="datalist_fontWeight" class="form-control"  name="fontWeight"  style="width:10em" placeholder="글꼴 굵기" value="normal" length="30" title="시스템에서 지원하는 폰트명 사용">
+						<select class="form-control"  name="fontWeight" style="width:auto">
+							<option value="normal">normal</option>
+							<option value="bold">bold</option>
+						</select>
+						<!-- <input type="text" list="datalist_fontWeight" class="form-control"  name="fontWeight"  style="width:10em" placeholder="글꼴 굵기" value="normal" length="30" title="시스템에서 지원하는 폰트명 사용"> -->
 					</div>
 
 					<div class="input-group-append" >
@@ -242,13 +254,17 @@
 						<div class="input-group-prepend" style="margin-left:-1px;">
 							<span class="input-group-text">글자범위</span>
 						</div>
-						<input type="text" class="form-control" name="stChar"  style="width:5em" placeholder="시작" value="0" length="1"  pattern=".{1}" title="1글자만 입력해주세요.">
+						<select class="form-control" name="stChar_edChar" style="width:auto">
+							<option value=" ,~">특수기호+숫자+알파벳(96글자)</option>
+							<option value="가,힣">한글(11172글자)(오래걸림)</option>
+						</select>
+						<!-- <input type="text" class="form-control" name="stChar"  style="width:5em" placeholder="시작" value="0" length="1"  pattern=".{1}" title="1글자만 입력해주세요.">
 						<div class="input-group-prepend" style="margin-left:-1px;">
 							<span class="input-group-text">~</span>
 						</div>
-						<input type="text" class="form-control" name="edChar"  style="width:5em" placeholder="끝" value="9"  length="1" pattern=".{1}"  title="1글자만 입력해주세요.">
+						<input type="text" class="form-control" name="edChar"  style="width:5em" placeholder="끝" value="9"  length="1" pattern=".{1}"  title="1글자만 입력해주세요."> -->
 						<div class="input-group-prepend" style="margin-left:-1px;">
-							<span class="input-group-text" id="letters_length">0</span>
+							<span class="input-group-text" id="letters_length">0글자</span>
 						</div>
 						<div class="input-group-prepend"  style="margin-left:-1px;">
 							<span class="input-group-text">단순화 범위</span>
