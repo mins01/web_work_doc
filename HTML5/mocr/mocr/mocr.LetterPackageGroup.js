@@ -28,18 +28,11 @@ mocr.LetterPackageGroup = function(mocr){
       }
       threshold = parseInt(threshold,10);
       this.mih.loadFromChar(char,fontFamily,fontWeight);
-      var charSize = this.mih.simplify(this.width,threshold);
+      this.mih.simplify(this.width,threshold);
       // var bb = this.mih.getBoundBoxes();
       // console.log(bb);
       var letter = this.mih.getLetter();
-      // var bb = letter.getBoundBox();
       letter.char = char;
-      // letter.charWidth = bb.width;
-      // letter.charHeight = bb.height;
-
-      // var ctx = letter.toContext2d();
-      // $("#div_out").append("<div class='letter-width"+letter.width+"' style='font-family:"+fontFamily+";'>"+letter.char+"</div><img title='"+letter.desc+"' src='"+this.mih.canvas.toDataURL()+"'>");
-      // $("#div_out").append("<div class='letter-width"+letter.width+"' style='font-family:"+fontFamily+";'>"+letter.char+"</div><img title='"+letter.desc+"' src='"+ctx.canvas.toDataURL()+"'>");
       return letter;
     },
     generate:function(fontFamily,fontWeight){

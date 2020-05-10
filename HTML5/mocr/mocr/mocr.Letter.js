@@ -10,8 +10,7 @@ mocr.Letter = function(mocr){
   Letter.prototype = {
     letter:"",
     width:-1,
-    charWidth:null,
-    charHeight:null,
+    aspectRatio:null, // 글자의 너비/높이 
     letterType:"",
     hex:"",
     init:function(obj){
@@ -37,15 +36,13 @@ mocr.Letter = function(mocr){
       this.char = obj.char;
       this.width=obj.width;
       this.hex=obj.hex;
-      if(obj.charWidth !== undefined) this.charWidth=obj.charWidth;
-      if(obj.charWidth !== undefined) this.charHeight=obj.charHeight;
+      if(obj.aspectRatio !== undefined) this.aspectRatio=obj.aspectRatio;
     },
     toObj:function(){
       return {
         char:this.char,
         width:this.width,
-        charWidth:this.charWidth,
-        charHeight:this.charHeight,
+        aspectRatio:this.aspectRatio,
         hex:this.hex,
       }
     },

@@ -127,6 +127,8 @@ mocr.ImageHandler = function(mocr){
       var letter = new mocr.Letter()
       letter.hex = this.toHex();
       letter.width = this.width;
+      var bb = letter.getBoundBox();
+      letter.aspectRatio = bb.width/bb.height
       return letter;
     },
     toString:function(){
