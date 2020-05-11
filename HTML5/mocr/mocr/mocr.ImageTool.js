@@ -26,7 +26,7 @@ mocr.ImageTool = function(mocr){
     resize:function(ctx,w,h,ratio){
       var ctx1 = this.newContext2d(ctx.canvas.width,ctx.canvas.height,'#fff')
       var cv1 = ctx1.canvas;
-      // console.log(cv1.width,cv1.height);
+      // console.log(cv1.width,cv1.height,w,h);
       var ctx1 = cv1.getContext('2d');
       ctx1.drawImage(ctx.canvas,0,0);
       this.resetContext2d(ctx,w,h,'#fff');
@@ -72,12 +72,13 @@ mocr.ImageTool = function(mocr){
         var b = imageData.data[i+2];
         var a = imageData.data[i+3];
 
-        if((r+g+b)/3 > threshold){
+        if( r > threshold){
           // imageData.data[i+0]=255;
           // imageData.data[i+1]=255;
           // imageData.data[i+2]=255;
           continue;
         }
+
         // console.log(x,y)
         imageData.data[i]=0;
         imageData.data[i+1]=0;

@@ -36,7 +36,7 @@
 	<!-- //meta og -->
   <style media="screen">
     img , canvas {
-      vertical-align:top ;
+      vertical-align:bottom ;
       outline: 1px dotted #000;
     }
 		img , canvas  {
@@ -47,13 +47,17 @@
 		#div_in img{width:50px;}
 		#div_dot_info{white-space: pre; }
 		#div_dot_dot{white-space: pre;font-family: monospace;line-height: 1em;font-size:10px; font-weight: bold}
+		.letter-width{background-color: #fff;width:1em;height: 1em;line-height: 1em; display: inline-block;border: 1px dotted #000;}
 		.letter-width32{width:32px;height:32px;display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 32px}
+		.letter-width16{width:16px;height:16px;display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 16px}
+		.letter-width24{width:24px;height:24px;display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 24px}
 		.div_input{ display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 32px}
 		.searched-letter{ display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 14px; width:80px; height: 50px; text-align: center; white-space: pre;}
 		.searched-letter-img{ display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 14px; width:40px; height: 50px; text-align: center; white-space: pre;}
-		#div_in .searched-letter-img img{width:32px; height:32px;}
+		#div_in .searched-letter-img img{width:auto; height: auto}
 
 		.div_input div:first-of-type{font-weight: bold;}
+		.letter-char-img{display: inline-block;padding: 5px;margin: 5px; border: 1px solid #abc;}
   </style>
 
 	<script src="WC2/colorPalette.js"></script>
@@ -66,7 +70,7 @@
 	<script src="mocr/mocr.LetterPackage.js"></script>
   <script src="mocr/mocr.LetterPackageGroup.js"></script>
   <script type="text/javascript">
-		var width = 32;
+		var width = 32; // 32 , 16 , 24
     var mit = mocr.ImageTool;
     var mih = new mocr.ImageHandler();
 		var mih1 = new mocr.ImageHandler();
@@ -82,13 +86,21 @@
 			// generateTestImage('a','z','Serif')
 			// generateTestImage('A','Z','Serif')
 			generateTestImage(' ','/','Comic Sans MS')
-			generateTestImage('a','z','Comic Sans MS')
-			generateTestImage('A','Z','Comic Sans MS')
+			generateTestImage('a','d','Comic Sans MS')
+			generateTestImage('E','G','Comic Sans MS')
+			generateTestImage('가','간','gungsuh')
+			generateTestImage('가','간','malgun gothic')
 
 			// mlp = mlpg.generate(null);
 			// mlpg.generate4Digit();
 			// mlpg.generate4Alphabet();
-			// mlpg.generate4Range(' ','/');
+			mlpg.generate4Range(' ','~');
+			mlpg.generate4Range('가','간');
+
+			printMlpgLetters()
+			// setTimeout(loadJsonUrl,200)
+    })
+		function printMlpgLetters(){
 			$div_out = $("#div_out");
 			mlpg.letterPackages.forEach((mlp, i) => {
 				mlp.letters.forEach((letter, i) => {
@@ -96,16 +108,30 @@
 					cv.letter = letter;
 					// $div_out.append(ml.char);
 					// $div_out.append(cv);
-					$div_out.append("<div class='letter-width"+letter.width+"' style='font-family:"+letter.letterPackage.fontFamily+";'>"+letter.char+"</div><img title='"+letter.letterPackage.desc+"' src='"+letter.toContext2d().canvas.toDataURL()+"'>");
+					var d = document.createElement('div');
+					d.className = "letter-char-img"
+					$div_out.append(d);
+					$(d).append("<span class='letter-width letter-width"+letter.width+"' style='font-family:"+letter.letterPackage.fontFamily+";'>"+letter.char+"</span>")
+					$(d).append(cv);
+					// $div_out.append("<div class='letter-width"+letter.width+"' style='font-family:"+letter.letterPackage.fontFamily+";'>"+letter.char+"</div><img title='"+letter.letterPackage.desc+"' src='"+letter.toContext2d().canvas.toDataURL()+"'>");
 
 				});
 			});
-			setTimeout(loadJsonUrl,200)
-    })
+		}
 		function loadJsonUrl(){
-			var cb = function(data, textStatus, errorThrown){
-				// console.log(data, textStatus, errorThrown);
-			}
+			var obj_limit = {limit:0};
+			var cb = function(obj_limit){
+				return function(data, textStatus, errorThrown){
+					// console.log(data, textStatus, errorThrown);
+
+					obj_limit.limit--;
+					if(obj_limit.limit==0){
+						printMlpgLetters()
+					}
+				}
+			}(obj_limit)
+			obj_limit.limit++;
+			obj_limit.limit++;
 			mlpg.loadFromJsonUrl("json/serif_normal_ascii.json",cb);
 			mlpg.loadFromJsonUrl("json/sans-serif_normal_ascii.json",cb);
 			// mlpg.loadFromJsonUrl("json/serif_normal_kr.json",cb);
@@ -124,37 +150,38 @@
 			// mlp = mlpg.generate();
 			var searched = mlpg.search(ml);
 			var diffBin = searched[0];
-			console.log(diffBin.char,diffBin.matched,diffBin.counts,diffBin.dot);
-			$("#div_dot_info").text(diffBin.char+"\n"+diffBin.matched+"\n"+diffBin.counts)
-			$("#div_dot_dot").text(diffBin.dot)
+			console.log(diffBin.letter.char,diffBin.matched,diffBin.counts,diffBin.diffDot);
+			$("#div_dot_info").text(diffBin.letter.char+"\n"+diffBin.matched+"\n"+diffBin.counts)
+			$("#div_dot_dot").text(diffBin.diffDot)
 			$(img).parent().find('.searched-letter-img:eq(0)').html("")
 			$(img).parent().find('.searched-letter-img:eq(0)').append('<img src="'+ml.toContext2d().canvas.toDataURL()+'">')
-			$(img).parent().find('.searched-letter:eq(0)').text(diffBin.char+"\n"+diffBin.matched.toFixed(4))
+			$(img).parent().find('.searched-letter:eq(0)').text(diffBin.letter.char+"\n"+diffBin.matched.toFixed(4))
 			diffBin = searched[1];
-			$(img).parent().find('.searched-letter:eq(1)').text(diffBin.char+"\n"+diffBin.matched.toFixed(4))
+			$(img).parent().find('.searched-letter:eq(1)').text(diffBin.letter.char+"\n"+diffBin.matched.toFixed(4))
 			diffBin = searched[2];
-			$(img).parent().find('.searched-letter:eq(2)').text(diffBin.char+"\n"+diffBin.matched.toFixed(4))
+			$(img).parent().find('.searched-letter:eq(2)').text(diffBin.letter.char+"\n"+diffBin.matched.toFixed(4))
 			diffBin = searched[3];
-			$(img).parent().find('.searched-letter:eq(3)').text(diffBin.char+"\n"+diffBin.matched.toFixed(4))
+			$(img).parent().find('.searched-letter:eq(3)').text(diffBin.letter.char+"\n"+diffBin.matched.toFixed(4))
 			diffBin = searched[4];
-			$(img).parent().find('.searched-letter:eq(4)').text(diffBin.char+"\n"+diffBin.matched.toFixed(4))
+			$(img).parent().find('.searched-letter:eq(4)').text(diffBin.letter.char+"\n"+diffBin.matched.toFixed(4))
 
 		}
 		function onCheckImage2(event){
 			var ta = event.target;
-			if(ta.tagName!='IMG') return false;
+			if(ta.tagName!='CANVAS') return false;
 			checkImage2(ta)
 		}
 		function checkImage2(img){
-			mih1.loadFromImgNode(img);
-      mih1.simplify(width);
-      ml1 = mih1.getLetter();
+			// mih1.loadFromCanvasNode(img);
+      // mih1.simplify(width);
+      // ml1 = mih1.getLetter();
 			// mlp = mlpg.generate();
-			var diffBin = ml1.diffBin(ml);
-			console.log(diffBin.char,diffBin.desc,diffBin.matched,diffBin.counts,diffBin.dot);
-			$("#div_dot_info").text(diffBin.char+"\n"+diffBin.desc+"\n"+diffBin.matched+"\n"+diffBin.counts)
-			$("#div_dot_dot").text(diffBin.dot)
-			// $(img).parent().find('.searched-letter').text(diffBin.char)
+			var ml2 = img.letter;
+			var diffBin = ml2.diffBin(ml);
+			// console.log(diffBin);
+			$("#div_dot_info").text(diffBin.letter.char+"\n"+diffBin.letter.letterPackage.name+"\n"+diffBin.matched+"\n"+diffBin.counts)
+			$("#div_dot_dot").text(diffBin.diffDot)
+			// $(img).parent().find('.searched-letter').text(diffBin.letter.char)
 
 		}
 		function generateTestImage(stChar,edChar,fontFamily){

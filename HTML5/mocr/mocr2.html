@@ -130,7 +130,7 @@
 				for(var i2=0,m2=abb.boundBoxes.length;i2<m2;i2++){
 
 					var box = abb.boundBoxes[i2];
-					var temp_mih = mih.generateImageHandlerFromBoundBox(box);
+					var temp_mih = mih.generateImageHandlerFromBoundBox(box,width);
 					var ml = temp_mih.getLetter()
 					mls.push(ml)
 					tmep_mihs.push(temp_mih);
@@ -176,8 +176,8 @@
 					var div2 = document.createElement('div');
 					$("#div_suggest").append(div2)
 					$(div2).append('<img src="'+ml.toContext2d().canvas.toDataURL()+'">');
-					searched.forEach((searched_ml, i) => {
-						$(div2).append('<span>'+searched_ml.char+'('+searched_ml.matched.toFixed(2)+')'+'</span>');
+					searched.forEach((diff, i) => {
+						$(div2).append('<span>'+diff.letter.char+'('+diff.matched.toFixed(2)+')'+'</span>');
 					});
 				});
 			}

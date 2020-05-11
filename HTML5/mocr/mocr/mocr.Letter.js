@@ -10,7 +10,7 @@ mocr.Letter = function(mocr){
   Letter.prototype = {
     letter:"",
     width:-1,
-    aspectRatio:null, // 글자의 너비/높이 
+    aspectRatio:null, // 글자의 너비/높이
     letterType:"",
     hex:"",
     init:function(obj){
@@ -79,12 +79,12 @@ mocr.Letter = function(mocr){
         }
       }
       var res = {
-        char:from.char,
+        letter:from,
         total:total,
         // matched:counts[3]-counts[1]-counts[2],
         matched:(counts[3]+counts[1]+counts[2])==0?1:counts[3]/(counts[3]+counts[1]+counts[2]),
         counts:counts,
-        dot:mocr.ImageTool.dot4Bin(dot.join(""),this.width),
+        diffDot:mocr.ImageTool.dot4Bin(dot.join(""),this.width),
       }
       return res;
     },

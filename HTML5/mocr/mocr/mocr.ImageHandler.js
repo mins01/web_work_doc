@@ -24,9 +24,16 @@ mocr.ImageHandler = function(mocr){
       var width = Math.max(boundBox.width,boundBox.height);
       mocr.ImageTool.resetContext2d(new_mih.ctx,width,width,'#fff');
       new_mih.ctx.putImageData(this.ctx.getImageData(boundBox.left,boundBox.top,boundBox.width,boundBox.height),0,0);
+
       new_mih.width = 32;
-      new_mih.trim();
+
+      new_mih.trim(0);
+      // console.log(new_mih.canvas)
+
+      // $(document.body).append('<img src="'+new_mih.canvas.toDataURL()+'">');
       new_mih.resize(new_mih.width,new_mih.width,1); //크기 리사이즈
+      // $(document.body).append('<img src="'+new_mih.canvas.toDataURL()+'">');
+
       return new_mih;
     },
     loadFromImgNode:function(img){
@@ -36,7 +43,10 @@ mocr.ImageHandler = function(mocr){
       this.ctx.drawImage(img,0,0);
     },
     loadFromCanvasNode:function(canvas){
-
+      this.canvas.width = canvas.width;
+      this.canvas.height = canvas.width;
+      this.width = this.canvas.width;
+      this.ctx.drawImage(canvas,0,0);
     },
     /**
      * [description]
@@ -93,8 +103,8 @@ mocr.ImageHandler = function(mocr){
       this.width = w;
       mocr.ImageTool.crop(this.ctx,x0,y0,w,h);
     },
-    trim:function(){
-      mocr.ImageTool.trim(this.ctx);
+    trim:function(threshold){
+      mocr.ImageTool.trim(this.ctx,threshold);
     },
     toBWColor:function(iwr,iwg,iwb,threshold){
       if(threshold == undefined) threshold = 0;
