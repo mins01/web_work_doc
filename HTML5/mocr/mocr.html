@@ -82,7 +82,7 @@
 		var mlp = null;
     $(function(){
 			$("#div_parsed_A").append(mih.canvas);
-			$("#div_parsed_B").append(mih1.canvas);
+			// $("#div_parsed_B").append(mih1.canvas);
 			//--- 테스트용 채우기
 			// generateTestImage('a','z','Serif')
 			// generateTestImage('A','Z','Serif')
@@ -150,21 +150,24 @@
       ml = mih.getLetter();
 			// mlp = mlpg.generate();
 			var searched = mlpg.search(ml);
-			var diffBin = searched[0];
-			console.log(diffBin.letter.char,diffBin.matched,diffBin.counts,diffBin.diffDot);
-			$("#div_dot_info").text(diffBin.letter.char+"\n"+diffBin.matched+"\n"+diffBin.counts)
-			$("#div_dot_dot").text(diffBin.diffDot)
+			// console.log(searched);
+			var diffRes = searched[0];
+
+			$("#div_dot_info").text(diffRes.letter.char+"\n"+diffRes.letter.letterPackage.name+"\n"+diffRes.matched)
+			var dot = mocr.Util.dotFromBins(diffRes.letter.width,mocr.Util.uint8ArrayToBin(diffRes.matchedUint8Arr),mocr.Util.uint8ArrayToBin(diffRes.fromMissedUint8Arr),mocr.Util.uint8ArrayToBin(diffRes.toMissedUint8Arr));
+			$("#div_dot_dot").text(dot)
+			// console.log(diffRes.letter.char,diffRes.matched,diffRes.counts,diffRes.diffDot);
 			$(img).parent().find('.searched-letter-img:eq(0)').html("")
 			$(img).parent().find('.searched-letter-img:eq(0)').append('<img src="'+ml.toContext2d().canvas.toDataURL()+'">')
-			$(img).parent().find('.searched-letter:eq(0)').text(diffBin.letter.char+"\n"+diffBin.matched.toFixed(4))
-			diffBin = searched[1];
-			$(img).parent().find('.searched-letter:eq(1)').text(diffBin.letter.char+"\n"+diffBin.matched.toFixed(4))
-			diffBin = searched[2];
-			$(img).parent().find('.searched-letter:eq(2)').text(diffBin.letter.char+"\n"+diffBin.matched.toFixed(4))
-			diffBin = searched[3];
-			$(img).parent().find('.searched-letter:eq(3)').text(diffBin.letter.char+"\n"+diffBin.matched.toFixed(4))
-			diffBin = searched[4];
-			$(img).parent().find('.searched-letter:eq(4)').text(diffBin.letter.char+"\n"+diffBin.matched.toFixed(4))
+			$(img).parent().find('.searched-letter:eq(0)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
+			diffRes = searched[1];
+			$(img).parent().find('.searched-letter:eq(1)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
+			diffRes = searched[2];
+			$(img).parent().find('.searched-letter:eq(2)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
+			diffRes = searched[3];
+			$(img).parent().find('.searched-letter:eq(3)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
+			diffRes = searched[4];
+			$(img).parent().find('.searched-letter:eq(4)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
 
 		}
 		function onCheckImage2(event){
@@ -178,11 +181,14 @@
       // ml1 = mih1.getLetter();
 			// mlp = mlpg.generate();
 			ml1 = img.letter;
-			var diffBin = ml1.diffBin(ml);
-			// console.log(diffBin);
-			$("#div_dot_info").text(diffBin.letter.char+"\n"+diffBin.letter.letterPackage.name+"\n"+diffBin.matched+"\n"+diffBin.counts)
-			$("#div_dot_dot").text(diffBin.diffDot)
-			// $(img).parent().find('.searched-letter').text(diffBin.letter.char)
+			var diffRes= ml1.diff(ml);
+			// console.log(diffres);
+			$("#div_dot_info").text(diffRes.letter.char+"\n"+diffRes.letter.letterPackage.name+"\n"+diffRes.matched)
+			var dot = mocr.Util.dotFromBins(diffRes.letter.width,mocr.Util.uint8ArrayToBin(diffRes.matchedUint8Arr),mocr.Util.uint8ArrayToBin(diffRes.fromMissedUint8Arr),mocr.Util.uint8ArrayToBin(diffRes.toMissedUint8Arr));
+			$("#div_dot_dot").text(dot)
+			$("#div_parsed_B").html("")
+			$("#div_parsed_B").append(ml1.toContext2d().canvas)
+			// $(img).parent().find('.searched-letter').text(diffres.letter.char)
 
 		}
 		function generateTestImage(stChar,edChar,fontFamily){

@@ -56,7 +56,7 @@ mocr.LetterPackage = function(mocr){
       var searched = [];
       var df = null;
       for(var i=0,m=this.letters.length;i<m;i++){
-        searched.push(this.letters[i].diffBin(letter));
+        searched.push(this.letters[i].diff(letter));
         if(searched.length > searchedCount){
           searched.sort(function(a,b){
             return b.matched - a.matched

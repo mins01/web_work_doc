@@ -13,12 +13,12 @@ mocr.Letter = function(mocr){
     aspectRatio:null, // 글자의 너비/높이
     letterType:"",
     hex:"",
-    uint8:null,
+    uint8Arr:null,
     init:function(obj){
       if(obj){
         this.setObj(obj);
       }
-      this.uint8 = null;
+      this.uint8Arr = null;
       var _letterPackage = '';
       Object.defineProperty(this, 'letterPackage', {
     		value:null, //기본값 (get,set 과 같이 사용불가)
@@ -35,15 +35,15 @@ mocr.Letter = function(mocr){
       Object.defineProperty(this, 'hex', {
         get:function(thisC){
           return function(){
-            return mocr.Util.uint8ToHex(thisC.uint8);
+            return mocr.Util.uint8ArrArrayToHex(thisC.uint8Arr);
           }
         }(this),
     		set:function(thisC){
     			return function(hex){
-            thisC.uint8 = new Uint8Array(hex.length/2);
+            thisC.uint8Arr = new Uint8Array(hex.length/2);
             for(var i=0,m=hex.length;i<m;i+=2){
-              thisC.uint8[i/2] = parseInt(hex.substr(i,2),16);
-              // console.log(this.uint8[i/2],hex.substr(i,2));
+              thisC.uint8Arr[i/2] = parseInt(hex.substr(i,2),16);
+              // console.log(this.uint8Arr[i/2],hex.substr(i,2));
             }
     			}
     		}(this),
@@ -56,7 +56,7 @@ mocr.Letter = function(mocr){
     },
     toBin:function(){
       // return mocr.ImageTool.hex2bin(this.hex);
-      return mocr.Util.uint8ToBin(this.uint8);
+      return mocr.Util.uint8ArrayToBin(this.uint8Arr);
 
     },
     toDot:function(){
@@ -69,10 +69,10 @@ mocr.Letter = function(mocr){
       if(obj.aspectRatio !== undefined) this.aspectRatio=obj.aspectRatio;
     },
     computeUInt8Array:function(hex){
-      this.uint8 = new Uint8Array(hex.length/2);
+      this.uint8Arr = new Uint8Array(hex.length/2);
       for(var i=0,m=hex.length;i<m;i+=2){
-        this.uint8[i/2] = parseInt(hex.substr(i,2),16);
-        console.log(this.uint8[i/2],hex.substr(i,2));
+        this.uint8Arr[i/2] = parseInt(hex.substr(i,2),16);
+        console.log(this.uint8Arr[i/2],hex.substr(i,2));
       }
     },
     toObj:function(){
@@ -85,6 +85,55 @@ mocr.Letter = function(mocr){
     },
     toString:function(){
       return this.toDot();
+    },
+    diff:function(to){
+      var from = this;
+      var fromUint8Arr = from.uint8Arr;
+      var toUint8Arr = to.uint8Arr;
+      var matchedUint8Arr = new Uint8Array(fromUint8Arr.length);
+      var xorUint8Arr = new Uint8Array(fromUint8Arr.length);
+      var fromMissedUint8Arr = new Uint8Array(fromUint8Arr.length);
+      var toMissedUint8Arr = new Uint8Array(fromUint8Arr.length);
+      var matchedScore = 0;
+      var fromMissedScore = 0;
+      var toMissedScore = 0;
+      var t = 0;
+      for(var i=0,m=fromUint8Arr.length;i<m;i++){
+        matchedUint8Arr[i] = fromUint8Arr[i] & toUint8Arr[i];
+        // matchedScore = mocr.Util.intToBin(matchedUint8Arr[i]).split("").reduce((a,b)=>b=="1"?a+1:a,matchedScore)
+        xorUint8Arr[i] = fromUint8Arr[i] ^ toUint8Arr[i];
+        fromMissedUint8Arr[i] = xorUint8Arr[i] & fromUint8Arr[i];
+        toMissedUint8Arr[i] = xorUint8Arr[i] & toUint8Arr[i];
+        // fromMissedScore = mocr.Util.intToBin(fromMissedUint8Arr[i]).split("").reduce((a,b)=>b=="1"?a+1:a,fromMissedScore)
+        // toMissedScore = mocr.Util.intToBin(toMissedUint8Arr[i]).split("").reduce((a,b)=>b=="1"?a+1:a ,toMissedScore)
+      }
+      // bitSumForUint8
+      matchedScore = mocr.Util.bitSumForUint8Array(matchedUint8Arr);
+      fromMissedScore = mocr.Util.bitSumForUint8Array(fromMissedUint8Arr);
+      toMissedScore = mocr.Util.bitSumForUint8Array(toMissedUint8Arr);
+
+      // mocr.Util.uint8ArrayToBin(matchedUint8Arr);
+      // mocr.Util.uint8ArrayToBin(fromMissedUint8Arr);
+      // mocr.Util.uint8ArrayToBin(toMissedUint8Arr);
+      // matchedScore = mocr.Util.uint8ArrayToBin(matchedUint8Arr).split("").reduce((a,b)=>b=="1"?a+1:a,matchedScore)
+      // fromMissedScore = mocr.Util.uint8ArrayToBin(fromMissedUint8Arr).split("").reduce((a,b)=>b=="1"?a+1:a,fromMissedScore)
+      // toMissedScore = mocr.Util.uint8ArrayToBin(toMissedUint8Arr).split("").reduce((a,b)=>b=="1"?a+1:a,toMissedScore)
+
+
+      var res = {
+        letter:from,
+        total:this.width*this.width,
+        matched:(matchedScore+fromMissedScore+toMissedScore == matchedScore)?1:matchedScore/(matchedScore+fromMissedScore+toMissedScore),
+        // diffDot:mocr.ImageTool.dot4Bin(dot.join(""),this.width),
+        matchedUint8Arr:matchedUint8Arr,
+        fromMissedUint8Arr:fromMissedUint8Arr,
+        toMissedUint8Arr:toMissedUint8Arr,
+        xorUint8Arr:xorUint8Arr,
+        matchedScore:matchedScore,
+        fromMissedScore:fromMissedScore,
+        toMissedScore:toMissedScore,
+      }
+      return res;
     },
     diffBin:function(to){
       var from = this;
