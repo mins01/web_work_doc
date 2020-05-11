@@ -15,9 +15,6 @@ mocr.Letter = function(mocr){
     hex:"",
     uint8Arr:null,
     init:function(obj){
-      if(obj){
-        this.setObj(obj);
-      }
       this.uint8Arr = null;
       var _letterPackage = '';
       Object.defineProperty(this, 'letterPackage', {
@@ -52,7 +49,9 @@ mocr.Letter = function(mocr){
     		enumerable: true, //목록 열거시 표시여부
     		// configurable: true //삭제 가능여부. writable 속성 변경 가능 여부
     	});
-
+      if(obj){
+        this.setObj(obj);
+      }
     },
     toBin:function(){
       // return mocr.ImageTool.hex2bin(this.hex);

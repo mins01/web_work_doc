@@ -91,8 +91,8 @@
 			}
 			mlpg.loadFromJsonUrl("json/serif_normal_ascii.json",cb);
 			mlpg.loadFromJsonUrl("json/sans-serif_normal_ascii.json",cb);
-			// mlpg.loadFromJsonUrl("json/serif_normal_kr.json",cb);
-			// mlpg.loadFromJsonUrl("json/sans-serif_normal_kr.json",cb);
+			mlpg.loadFromJsonUrl("json/serif_normal_kr.json",cb);
+			mlpg.loadFromJsonUrl("json/sans-serif_normal_kr.json",cb);
 
 		}
 		function runTest(img_node,threshold){
@@ -177,8 +177,8 @@
 					var div2 = document.createElement('div');
 					$("#div_suggest").append(div2)
 					$(div2).append('<img src="'+ml.toContext2d().canvas.toDataURL()+'">');
-					searched.forEach((diff, i) => {
-						$(div2).append('<span>'+diff.letter.char+'('+diff.matched.toFixed(2)+')'+'</span>');
+					searched.forEach((diffRes, i) => {
+						$(div2).append('<span>'+diffRes.letter.char+'('+diffRes.matched.toFixed(2)+')'+'</span>');
 					});
 				});
 			}
