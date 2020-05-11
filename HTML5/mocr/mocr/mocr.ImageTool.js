@@ -476,9 +476,6 @@ mocr.ImageTool = function(mocr){
     //   var toImagedata = colorPalette.applyPalette(imageData,'black_white_1bit');
     //   ctx.putImageData(toImagedata,0,0);
     // },
-    boundBoxes:function(ctx){
-
-    }
   }
   return ImageTool;
 }(mocr)

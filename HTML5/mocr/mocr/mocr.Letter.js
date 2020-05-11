@@ -13,10 +13,12 @@ mocr.Letter = function(mocr){
     aspectRatio:null, // 글자의 너비/높이
     letterType:"",
     hex:"",
+    uint8:null,
     init:function(obj){
       if(obj){
         this.setObj(obj);
       }
+      this.uint8 = null;
       var _letterPackage = '';
       Object.defineProperty(this, 'letterPackage', {
     		value:null, //기본값 (get,set 과 같이 사용불가)
@@ -24,10 +26,38 @@ mocr.Letter = function(mocr){
     		enumerable: false, //목록 열거시 표시여부
     		// configurable: true //삭제 가능여부. writable 속성 변경 가능 여부
     	});
+      Object.defineProperty(this, 'uint8', {
+    		value:null, //기본값 (get,set 과 같이 사용불가)
+    		writable: true, //값 수정 가능여부 (get,set 과 같이 사용불가)
+    		enumerable: false, //목록 열거시 표시여부
+    		// configurable: true //삭제 가능여부. writable 속성 변경 가능 여부
+    	});
+      Object.defineProperty(this, 'hex', {
+        get:function(thisC){
+          return function(){
+            return mocr.Util.uint8ToHex(thisC.uint8);
+          }
+        }(this),
+    		set:function(thisC){
+    			return function(hex){
+            thisC.uint8 = new Uint8Array(hex.length/2);
+            for(var i=0,m=hex.length;i<m;i+=2){
+              thisC.uint8[i/2] = parseInt(hex.substr(i,2),16);
+              // console.log(this.uint8[i/2],hex.substr(i,2));
+            }
+    			}
+    		}(this),
+    		// value:null, //기본값 (get,set 과 같이 사용불가)
+    		// writable: false, //값 수정 가능여부 (get,set 과 같이 사용불가)
+    		enumerable: true, //목록 열거시 표시여부
+    		// configurable: true //삭제 가능여부. writable 속성 변경 가능 여부
+    	});
 
     },
     toBin:function(){
-      return mocr.ImageTool.hex2bin(this.hex);
+      // return mocr.ImageTool.hex2bin(this.hex);
+      return mocr.Util.uint8ToBin(this.uint8);
+
     },
     toDot:function(){
       return mocr.ImageTool.dot4Bin(this.toBin(),this.width);
@@ -37,6 +67,13 @@ mocr.Letter = function(mocr){
       this.width=obj.width;
       this.hex=obj.hex;
       if(obj.aspectRatio !== undefined) this.aspectRatio=obj.aspectRatio;
+    },
+    computeUInt8Array:function(hex){
+      this.uint8 = new Uint8Array(hex.length/2);
+      for(var i=0,m=hex.length;i<m;i+=2){
+        this.uint8[i/2] = parseInt(hex.substr(i,2),16);
+        console.log(this.uint8[i/2],hex.substr(i,2));
+      }
     },
     toObj:function(){
       return {
