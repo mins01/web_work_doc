@@ -53,7 +53,8 @@ mocr.ImageTool = function(mocr){
       ctx.canvas.height = imageData.height;
       ctx.putImageData(imageData,0,0);
     },
-    trim:function(ctx){
+    trim:function(ctx,threshold){
+      if(threshold === undefined) threshold = 0;
       var w = ctx.canvas.width;
       var h = ctx.canvas.height;
       // console.log(w,h);
@@ -70,7 +71,8 @@ mocr.ImageTool = function(mocr){
         var g = imageData.data[i+1];
         var b = imageData.data[i+2];
         var a = imageData.data[i+3];
-        if(r > 127 ){
+
+        if((r+g+b)/3 > threshold){
           // imageData.data[i+0]=255;
           // imageData.data[i+1]=255;
           // imageData.data[i+2]=255;

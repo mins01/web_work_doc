@@ -78,13 +78,9 @@ mocr.ImageHandler = function(mocr){
       this.width = w;
       // this.transparentColor(255,255,255); //배경색 없애기
       this.toBWColor(255,255,255,threshold);
-      // var bbs = this.getBoundBoxes();
-      // var bb = bbs[0];
-      // console.log(bbs);
-      // var bb = this.getBoundBox4MinMax();
-      // console.log(bb);
-      this.trim(); //여백제거
+      this.trim(threshold); //여백제거
       this.resize(this.width,this.width,1); //크기 리사이즈
+
     },
     transparentColor:function(ir,ig,ib){
       mocr.ImageTool.transparentColor(this.ctx,ir,ig,ib);
