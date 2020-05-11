@@ -16,7 +16,7 @@ mocr.Util = function(mocr){
         t = uint8Arr[i];
         while(t > 0){
           if((t & 1) == 1) s++;
-          t = t>1
+          t = t>>1
         }
       }
       return s;
