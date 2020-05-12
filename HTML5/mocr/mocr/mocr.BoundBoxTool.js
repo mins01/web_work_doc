@@ -69,24 +69,29 @@ mocr.BoundBoxTool = function(mocr){
         //               ,a.width ,">=", arrangedBox.fontSize*0.3
         //               ,dist_top_baseline ,"<", arrangedBox.fontSize*0.2
         //             );
+        var isKrLeft = (a.height >= arrangedBox.fontSize*0.8 || (arrangedBox.baseline - a.bottom) > arrangedBox.fontSize*0.1);
+        // console.log('한글왼쪽',isKrLeft);
         if(
           a.height <= arrangedBox.fontSize*1.1
-          && a.bottom <= arrangedBox.baseline*1.1
+          // && a.bottom <= arrangedBox.baseline*1.1
           && a.width >= arrangedBox.fontSize*0.3
-          && dist_top_baseline < arrangedBox.fontSize*0.2
+          // && dist_top_baseline < arrangedBox.fontSize*0.2
+          && isKrLeft
         ){
           var b = arrangedBox.boundBoxes[i+1]
           var tmp_w = b.right-a.left;
           var dist = this.getDistance(a,b);
+
+
           // console.log("한글 초성 예상",tmp_w ,">=", arrangedBox.fontSize*0.7
           //  , tmp_w ,"<", arrangedBox.fontSize
           //  ,dist[0], "<", arrangedBox.fontSize*0.5
           //  ,b.height,">=",arrangedBox.fontSize*0.9
           //  ,a.height*0.9,'<=',b.height);
-          if(tmp_w >= arrangedBox.fontSize*0.7
+          if(tmp_w >= arrangedBox.fontSize*0.6
             && tmp_w <= arrangedBox.fontSize
             && dist[0] < arrangedBox.fontSize*0.5
-            && b.height >= arrangedBox.fontSize*0.9
+            && b.height >= arrangedBox.fontSize*0.8
             && a.height*0.9 <= b.height){
             var new_a = Object.assign({},a);
             new_a.left = Math.min(new_a.left,b.left);
