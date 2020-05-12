@@ -35,14 +35,15 @@ mocr.LetterPackageGroup = function(mocr){
       letter.char = char;
       return letter;
     },
-    generate:function(fontFamily,fontWeight){
+    generate:function(fontFamily,fontWeight,width){
+      if(width === undefined) width = this.width;
       fontFamily = fontFamily.toLowerCase();
       fontWeight = fontWeight.toLowerCase();
-      var name = fontFamily+"_"+fontWeight+"_"+this.width;
+      var name = fontFamily+"_"+fontWeight+"_"+width;
       if(this.letterPackagesByName[name]){
         return this.letterPackagesByName[name];
       }
-      var mlp = new mocr.LetterPackage(fontFamily,fontWeight,this.width);
+      var mlp = new mocr.LetterPackage(fontFamily,fontWeight,width);
       // mlp.width = this.width;
       mlp.name = name
       this.letterPackages.push(mlp);
