@@ -51,7 +51,7 @@
 		.div_input{ margin:5px; }
 		.searched-letter{ display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 14px; width:80px; height: 50px; text-align: center; white-space: pre;}
 		.div_input2{position: relative;}
-		/* .div_input2::before{pointer-events: none;position: absolute;width:100%;height: 100%; content: "";background-image: url('imgs/guide_100px.png');left: 0;right: 0;opacity: 0.2} */
+		.div_input2::before{pointer-events: none;position: absolute;width:100%;height: 100%; content: "";background-image: url('imgs/guide_100px.png');left: 0;right: 0;opacity: 0.2}
 		.div_out_box{border: 1px solid rgba(100,0,0,0.5)}
 		#div_suggest span{ display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 14px; width:80px; height: 50px; text-align: center; white-space: pre;}
   </style>
@@ -276,12 +276,45 @@
 				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_6'),70)">threshold 70</button>
 				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_6'),100)">threshold 100</button>
 			</div>
+			<hr>
+			<h3>로컬파일 체크</h3>
+			<div>
+				<div class="input-group mb-3">
+					<input type="file" class="form-control" id="input-file" onclick="changeInputFile(this)" accept="image/*">
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary" type="button"  onclick="changeInputFile(document.querySelector('#input-file'))">File Load</button>
+					</div>
+				</div>
+				<script>
+				function changeInputFile(input){
+					if(!input.files[0]){return}
+					var f = input.files[0];
+					// console.log(f);
+					const reader = new FileReader();
+					reader.onload = function(e){
+						document.querySelector("#img_node_7").src = e.target.result;
+					};
+					reader.readAsDataURL(f)
+				}
+				</script>
+			</div>
+			<div class="div_input">
+				<img id="img_node_7" style="width:300px" src="imgs/no_sweat.png">
+				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_7'),0)">threshold 0</button>
+				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_7'),20)">threshold 20</button>
+				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_7'),40)">threshold 40</button>
+				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_7'),50)">threshold 50</button>
+				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_7'),70)">threshold 70</button>
+				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_7'),100)">threshold 100</button>
+			</div>
 			<div class="div_input2"></div>
     </div>
+		<hr>
 		<h2>output text image</h2>
 		<div id="div_out" class="text-left m-1" >
 
     </div>
+		<hr>
 		<h2>suggest text
 			<button class="btn btn-info" type="button" onclick="runRuggesst()">run suggest</button>
 		</h2>
