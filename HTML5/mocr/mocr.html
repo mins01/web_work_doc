@@ -162,14 +162,29 @@
 			$(img).parent().find('.searched-letter-img:eq(0)').html("")
 			$(img).parent().find('.searched-letter-img:eq(0)').append('<img src="'+ml.toContext2d().canvas.toDataURL()+'">')
 			$(img).parent().find('.searched-letter:eq(0)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
-			diffRes = searched[1];
-			$(img).parent().find('.searched-letter:eq(1)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
-			diffRes = searched[2];
 			$(img).parent().find('.searched-letter:eq(2)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
-			diffRes = searched[3];
-			$(img).parent().find('.searched-letter:eq(3)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
-			diffRes = searched[4];
-			$(img).parent().find('.searched-letter:eq(4)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
+			if(searched[1]){
+				diffRes = searched[1];
+				$(img).parent().find('.searched-letter:eq(1)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
+			}
+			if(searched[2]){
+				diffRes = searched[2];
+				$(img).parent().find('.searched-letter:eq(2)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
+			}
+			if(searched[3]){
+				diffRes = searched[3];
+				$(img).parent().find('.searched-letter:eq(3)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
+			}
+			if(searched[4]){
+				diffRes = searched[4];
+				$(img).parent().find('.searched-letter:eq(4)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
+			}
+			if(searched[5]){
+				diffRes = searched[5];
+				$(img).parent().find('.searched-letter:eq(5)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
+			}
+
+
 
 		}
 		function onCheckImage2(event){
