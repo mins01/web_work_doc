@@ -176,13 +176,37 @@
 			for(var i=0,m=mlss.length;i<m;i++){
 				var mls = mlss[i];
 				mls.forEach((ml, i) => {
-					var searched = mlpg.search(ml,5);
+					var searched = mlpg.search(ml,10);
 					var div2 = document.createElement('div');
+					$(div2).html("");
 					$("#div_suggest").append(div2)
-					$(div2).append('<img src="'+ml.toContext2d().canvas.toDataURL()+'">');
-					searched.forEach((diffRes, i) => {
-						$(div2).append('<span>'+diffRes.letter.char+'('+diffRes.matched.toFixed(2)+')'+'</span>');
-					});
+
+					$(div2).append(ml.toContext2d().canvas);
+					for(var i=0,m=5;i<m;i++){
+						if(searched[i]){
+							diffRes = searched[i];
+							var bin1 = mocr.Util.uint8ArrayToBin(diffRes.matchedUint8Arr);
+							var bin2 = mocr.Util.uint8ArrayToBin(diffRes.fromMissedUint8Arr);
+							var bin3 = mocr.Util.uint8ArrayToBin(diffRes.toMissedUint8Arr);
+							var ctx = mocr.Util.context2dFromBins(diffRes.letter.width,diffRes.letter.width,bin1,bin2,bin3);
+							// if(i==0){
+							// 	$("#div_dot_info").text(diffRes.letter.char+"\n"+diffRes.letter.letterPackage.name+"\n"+diffRes.matched);
+							// 	var dot = mocr.Util.dotFromBins(diffRes.letter.width,bin1,bin2,bin3);
+							// 	$("#div_dot_dot").text(dot)
+							// }
+							var div3 = document.createElement('div');
+							div3.className ="searched-letter";
+							$(div2).append(div3)
+							$(div3).append(ctx.canvas).append("<br>"+diffRes.letter.char+" : "+diffRes.matched.toFixed(2))
+						}else{
+							break;
+						}
+					}
+
+
+					// searched.forEach((diffRes, i) => {
+					// 	$(div2).append('<span>'+diffRes.letter.char+'('+diffRes.matched.toFixed(2)+')'+'</span>');
+					// });
 				});
 			}
 		}
@@ -194,52 +218,53 @@
 	<div class="container">
 		<h1>mocr2</h1>
 		<h2>input image</h2>
+		<div>threshold 40 정도가 가장 좋은 매칭을 보여준다.</div>
     <div id="div_in" class="text-left m-1" >
 			<div class="div_input">
 				<img id="img_node_1" src="imgs/no_sweat.png">
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'),0)">test 0</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'),20)">test 20</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'),40)">test 40</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'),50)">test 50</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'),70)">test 70</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'),100)">test 100</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'),0)">threshold 0</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'),20)">threshold 20</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'),40)">threshold 40</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'),50)">threshold 50</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'),70)">threshold 70</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_1'),100)">threshold 100</button>
 			</div>
 
 			<div class="div_input">
 				<img id="img_node_2" style="width:300px" src="imgs/namecard_0.png">
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'),0)">test 0</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'),20)">test 20</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'),40)">test 40</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'),50)">test 50</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'),70)">test 70</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'),100)">test 100</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'),0)">threshold 0</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'),20)">threshold 20</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'),40)">threshold 40</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'),50)">threshold 50</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'),70)">threshold 70</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_2'),100)">threshold 100</button>
 			</div>
 			<div class="div_input">
 				<img id="img_node_3" style="width:300px" src="imgs/namecard_1.png">
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'),0)">test 0</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'),20)">test 20</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'),40)">test 40</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'),50)">test 50</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'),70)">test 70</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'),100)">test 100</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'),0)">threshold 0</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'),20)">threshold 20</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'),40)">threshold 40</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'),50)">threshold 50</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'),70)">threshold 70</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_3'),100)">threshold 100</button>
 			</div>
 			<div class="div_input">
 				<img id="img_node_4" style="width:300px" src="imgs/alphabet_pangram.png">
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_4'),0)">test 0</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_4'),20)">test 20</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_4'),40)">test 40</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_4'),50)">test 50</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_4'),70)">test 70</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_4'),100)">test 100</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_4'),0)">threshold 0</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_4'),20)">threshold 20</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_4'),40)">threshold 40</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_4'),50)">threshold 50</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_4'),70)">threshold 70</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_4'),100)">threshold 100</button>
 			</div>
 			<div class="div_input">
 				<img id="img_node_5" style="width:300px" src="imgs/hangul_pangram.png">
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_5'),0)">test 0</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_5'),20)">test 20</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_5'),40)">test 40</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_5'),50)">test 50</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_5'),70)">test 70</button>
-				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_5'),100)">test 100</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_5'),0)">threshold 0</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_5'),20)">threshold 20</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_5'),40)">threshold 40</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_5'),50)">threshold 50</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_5'),70)">threshold 70</button>
+				<button class="btn btn-info btn-lg" type="button" onclick="runTest(document.querySelector('#img_node_5'),100)">threshold 100</button>
 			</div>
 			<div class="div_input2"></div>
     </div>
