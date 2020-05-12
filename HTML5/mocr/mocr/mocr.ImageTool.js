@@ -383,11 +383,15 @@ mocr.ImageTool = function(mocr){
           break;
         }
         if(boundBox.width > w *0.8 && boundBox.height > h *0.8){
-          // console.log("boundBox가 너무 큼");
+          console.log("boundBox가 너무 큼");
           continue;
         }
         if(boundBox.width < 2 && boundBox.height < 2){
           console.log("boundBox가 너무 작음");
+          continue;
+        }
+        if(boundBox.width > boundBox.height *10 || boundBox.width * 10 < boundBox.height){ // 비율이 너무 차이나면 무시한다.
+          console.log("boundBox가 너무 길죽함");
           continue;
         }
         // console.log("boundBox",boundBox);
@@ -471,11 +475,32 @@ mocr.ImageTool = function(mocr){
       }
       return parr.join("\n");
     },
-    // toBWColor:function(ctx){
-    //   var imageData = ctx.getImageData(0,0,ctx.canvas.width,ctx.canvas.height);
-    //   var toImagedata = colorPalette.applyPalette(imageData,'black_white_1bit');
-    //   ctx.putImageData(toImagedata,0,0);
-    // },
+    colorCounts4ImageData:function(imageData){
+      // var imageData = ctx.getImageData(0,0,ctx.canvas.width,ctx.canvas.height)
+      var res = {};
+      var arr = [];
+      for(var i=0,m=imageData.data.length;i<m;i+=4){
+        var rgb =[imageData.data[i],imageData.data[i+1],imageData.data[i+2]];
+        var k = rgb.toString();
+        if(res[k]===undefined){
+          res[k] = {k:k,rgb:rgb,v:0};
+          arr.push(res[k])
+        }
+        res[k].v++;
+      }
+      arr.sort((a,b) => b.v-a.v) //색 수에 따른 역순 정렬
+      return arr;
+    },
+    changeColor4ImageData:function(imageData,fr,fg,fb,tr,tg,tb){
+      for(var i=0,m=imageData.data.length;i<m;i+=4){
+        if(imageData.data[i]==fr && imageData.data[i+1]==fg && imageData.data[i+2]==fb){
+          imageData.data[i]=tr;
+          imageData.data[i+1]=tg;
+          imageData.data[i+2]=tb;
+        }
+      }
+      return imageData;
+    }
   }
   return ImageTool;
 }(mocr)

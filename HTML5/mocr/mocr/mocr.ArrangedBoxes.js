@@ -28,8 +28,8 @@ mocr.ArrangedBoxes = function(mocr){
           var gap = 0;
           if(a.top <= sh.bottom+gap && a.bottom >= sh.top-gap){
             var dist = mocr.BoundBoxTool.getDistance(a,sh);
-            if(dist[2]>sh.height*3){
-              // console.log("거리가 높이에서 3배초과 ",dist);
+            if(dist[0]>sh.height*3 || dist[0]>a.height*2){
+              console.log("높이에는 적용되지만 간격이 크다.",dist);
               continue;
             } //거리가 높이에 3초과이면 무시한다.
             sh.top = Math.min(a.top,sh.top);

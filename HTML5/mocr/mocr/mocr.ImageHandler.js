@@ -48,6 +48,33 @@ mocr.ImageHandler = function(mocr){
       this.width = this.canvas.width;
       this.ctx.drawImage(canvas,0,0);
     },
+    clearBackgroundColor:function(){
+      var imageData = this.ctx.getImageData(0,0,this.canvas.width,this.canvas.height);
+      // var opt_palette = colorPalette.getMedianCutPalette(imageData,16);
+      // var opt_palette = colorPalette.getPalette('color_8bit');
+      // var opt_palette = colorPalette.getPalette('grayscale_4bit');
+      var opt_palette = colorPalette.getPalette('grayscale_4bit'); //우선 회색으로 바꾼다.
+      var new_imageData = colorPalette.applyPalette(imageData,opt_palette);
+
+      var colorCounts = mocr.ImageTool.colorCounts4ImageData(new_imageData);
+      var size = this.canvas.width*this.canvas.height;
+      var sum = 0;
+      var limitSum = Math.floor(size*0.6);
+      var limitSum2 = Math.floor(size*0.3);
+      var delArr = []
+      for(var i=0,m=colorCounts.length;i<m;i++){
+        if(limitSum2 < colorCounts[i].v){
+          delArr.push(colorCounts[i].rgb);
+        }
+        sum+=colorCounts[i].v;
+        if(sum > limitSum){ break; }
+      }
+      for(var i=0,m=delArr.length;i<m;i++){
+        var delC = delArr[i];
+        new_imageData = mocr.ImageTool.changeColor4ImageData(new_imageData,delC[0],delC[1],delC[2],255,255,255);
+      }
+      this.ctx.putImageData(new_imageData,0,0)
+    },
     /**
      * [description]
      * @param  {[type]} char       [description]
