@@ -23,7 +23,7 @@ mocr.Letter = function(mocr){
     		enumerable: false, //목록 열거시 표시여부
     		// configurable: true //삭제 가능여부. writable 속성 변경 가능 여부
     	});
-      Object.defineProperty(this, 'uint8', {
+      Object.defineProperty(this, 'uint8Arr', {
     		value:null, //기본값 (get,set 과 같이 사용불가)
     		writable: true, //값 수정 가능여부 (get,set 과 같이 사용불가)
     		enumerable: false, //목록 열거시 표시여부
