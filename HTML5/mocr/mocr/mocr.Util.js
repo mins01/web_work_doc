@@ -27,6 +27,23 @@ mocr.Util = function(mocr){
     intToBin:function(intV){
       return ('00000000' + Number(intV).toString(2)).slice(-8)
     },
+    context2dFromBins:function(w,h,bin1,bin2,bin3){
+      var ctx = mocr.ImageTool.newContext2d(w,h,'#fff');
+      var imageData = ctx.getImageData(0,0,w,h);
+      for(var i=0,m=bin1.length;i<m;i++){
+        if(bin1[i]=='1'){
+          imageData.data[i*4+0] = 0; imageData.data[i*4+1] = 255; imageData.data[i*4+2] = 0;
+        }
+        if(bin2 && bin2[i]=='1'){
+          imageData.data[i*4+0] = 255; imageData.data[i*4+1] = 0; imageData.data[i*4+2] = 0;
+        }
+        if(bin3 && bin3[i]=='1'){
+          imageData.data[i*4+0] = 0; imageData.data[i*4+1] = 0; imageData.data[i*4+2] = 255;
+        }
+      }
+      ctx.putImageData(imageData,0,0);
+      return ctx;
+    },
     dotFromBins:function(w,bin1,bin2,bin3){
       var parr = new Array();
       bin1 = bin1.replace(/0/g,'-');
