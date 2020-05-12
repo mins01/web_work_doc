@@ -58,7 +58,7 @@ mocr.LetterPackage = function(mocr){
       var diffRes = null;
       for(var i=0,m=this.letters.length;i<m;i++){
         diffRes = this.letters[i].diff(letter);
-        if(diffRes.matched < 0.3){ continue; } //너무 차이가 크면 무시한다.
+        if(diffRes.matched < 0.4){ continue; } //너무 차이가 크면 무시한다.
         searched.push(diffRes);
         if(searched.length > searchedCount){
           searched.sort(function(a,b){
