@@ -55,9 +55,10 @@ mocr.ImageHandler = function(mocr){
      * @param  {[type]} fontWeight   normal,bold
      * @return {[type]}            [description]
      */
-    loadFromChar:function(char,fontFamily,fontWeight){
+    loadFromChar:function(char,fontFamily,fontWeight,scale){
+      if(scale === undefined) scale = 1;
       // console.log("loadFromChar",char,fontFamily);
-      var fontSize = 64;
+      var fontSize = Math.floor(64*scale);
       var w = Math.ceil(fontSize*1.5);
       mocr.ImageTool.resetContext2d(this.ctx,w,w,'#fff');
       // this.canvas.width = Math.ceil(fontSize*1.5);
@@ -73,14 +74,14 @@ mocr.ImageHandler = function(mocr){
         fontWeight = 'normal';
       }
       this.desc = fontFamily;
-      var font = fontWeight+" 64px "+fontFamily;
+      var font = fontWeight+" "+fontSize+"px "+fontFamily;
       // console.log(font);
 
       this.ctx.font = font;
       this.ctx.fillStyle = "#000";
       var text = this.ctx.measureText(char);
       // console.log(char,text);
-      this.ctx.fillText(char, (this.canvas.width-text.width)/2, 64);
+      this.ctx.fillText(char, (this.canvas.width-text.width)/2, fontSize);
       this.ctx.restore();
     },
     simplify:function(w,threshold) {

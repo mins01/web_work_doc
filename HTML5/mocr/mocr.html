@@ -91,13 +91,21 @@
 			generateTestImage('E','G','Comic Sans MS')
 			generateTestImage('가','간','gungsuh')
 			generateTestImage('가','간','malgun gothic')
+			generateTestImage('가','간','batangche')
+			generateTestImage('가','간','serif')
+			generateTestImage('붸','뷓','gungsuh')
+			generateTestImage('붸','뷓','New Gulim')
+			generateTestImage('붸','뷓','malgun gothic')
+			generateTestImage('붸','뷓','batangche')
+			generateTestImage('붸','뷓','serif')
 
-			// mlp = mlpg.generate(null);
+
 			// mlpg.generate4Digit();
 			// mlpg.generate4Alphabet();
 			// mlpg.generate4Range(' ','~');
 			// mlpg.generate4Range('가','간');
-			printMlpgLetters()
+			// mlpg.generate4Range('붸','뷓');
+			// printMlpgLetters()
 			setTimeout(loadJsonUrl,200)
     })
 		function printMlpgLetters(){
@@ -136,9 +144,9 @@
 			mlpg.loadFromJsonUrl("json/serif_normal_32_ascii.json",cb);
 			mlpg.loadFromJsonUrl("json/sans-serif_normal_32_ascii.json",cb);
 			mlpg.loadFromJsonUrl("json/monospace_normal_32_ascii.json",cb);
-			// mlpg.loadFromJsonUrl("json/serif_normal_32_kr.json",cb);
-			// mlpg.loadFromJsonUrl("json/sans-serif_normal_32_kr.json",cb);
-			// mlpg.loadFromJsonUrl("json/monospace_normal_32_kr.json",cb);
+			mlpg.loadFromJsonUrl("json/serif_normal_32_kr.json",cb);
+			mlpg.loadFromJsonUrl("json/sans-serif_normal_32_kr.json",cb);
+			mlpg.loadFromJsonUrl("json/monospace_normal_32_kr.json",cb);
 
 		}
 		function onCheckImage(event){
@@ -152,38 +160,26 @@
       ml = mih.getLetter();
 			// mlp = mlpg.generate();
 			var searched = mlpg.search(ml);
-			// console.log(searched);
-			var diffRes = searched[0];
-
-			$("#div_dot_info").text(diffRes.letter.char+"\n"+diffRes.letter.letterPackage.name+"\n"+diffRes.matched)
-			var dot = mocr.Util.dotFromBins(diffRes.letter.width,mocr.Util.uint8ArrayToBin(diffRes.matchedUint8Arr),mocr.Util.uint8ArrayToBin(diffRes.fromMissedUint8Arr),mocr.Util.uint8ArrayToBin(diffRes.toMissedUint8Arr));
-			$("#div_dot_dot").text(dot)
-			// console.log(diffRes.letter.char,diffRes.matched,diffRes.counts,diffRes.diffDot);
 			$(img).parent().find('.searched-letter-img:eq(0)').html("")
 			$(img).parent().find('.searched-letter-img:eq(0)').append('<img src="'+ml.toContext2d().canvas.toDataURL()+'">')
-			$(img).parent().find('.searched-letter:eq(0)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
-			$(img).parent().find('.searched-letter:eq(2)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
-			if(searched[1]){
-				diffRes = searched[1];
-				$(img).parent().find('.searched-letter:eq(1)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
-			}
-			if(searched[2]){
-				diffRes = searched[2];
-				$(img).parent().find('.searched-letter:eq(2)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
-			}
-			if(searched[3]){
-				diffRes = searched[3];
-				$(img).parent().find('.searched-letter:eq(3)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
-			}
-			if(searched[4]){
-				diffRes = searched[4];
-				$(img).parent().find('.searched-letter:eq(4)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
-			}
-			if(searched[5]){
-				diffRes = searched[5];
-				$(img).parent().find('.searched-letter:eq(5)').text(diffRes.letter.char+"\n"+diffRes.matched.toFixed(4))
-			}
 
+			for(var i=0,m=5;i<m;i++){
+				if(searched[i]){
+					diffRes = searched[i];
+					var bin1 = mocr.Util.uint8ArrayToBin(diffRes.matchedUint8Arr);
+					var bin2 = mocr.Util.uint8ArrayToBin(diffRes.fromMissedUint8Arr);
+					var bin3 = mocr.Util.uint8ArrayToBin(diffRes.toMissedUint8Arr);
+					var ctx = mocr.Util.context2dFromBins(diffRes.letter.width,diffRes.letter.width,bin1,bin2,bin3);
+					if(i==0){
+						$("#div_dot_info").text(diffRes.letter.char+"\n"+diffRes.letter.letterPackage.name+"\n"+diffRes.matched);
+						var dot = mocr.Util.dotFromBins(diffRes.letter.width,bin1,bin2,bin3);
+						$("#div_dot_dot").text(dot)
+					}
+					$(img).parent().find('.searched-letter:eq('+i+')').html('').append(ctx.canvas).append("<br>"+diffRes.letter.char+" : "+diffRes.matched.toFixed(2))
+				}else{
+					break;
+				}
+			}
 
 
 		}
@@ -214,7 +210,7 @@
 			// console.log(stCode,edCode);
 			for(var i=stCode,m=edCode;i<=m;i++){
 				var char = String.fromCodePoint(i);
-				mih1.loadFromChar(char,fontFamily,'normal');
+				mih1.loadFromChar(char,fontFamily,'normal',2.3);
 				// mih1.trim()
 				$("#div_in").append('<div class="div_input"><img src="'+mih1.canvas.toDataURL()+'"><div class="searched-letter-img"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div><div class="searched-letter"></div></div>')
 			}
