@@ -50,10 +50,10 @@ mocr.ImageHandler = function(mocr){
     },
     clearBackgroundColor:function(){
       var imageData = this.ctx.getImageData(0,0,this.canvas.width,this.canvas.height);
-      // var opt_palette = colorPalette.getMedianCutPalette(imageData,16);
+      var opt_palette = colorPalette.getMedianCutPalette(imageData,16);
       // var opt_palette = colorPalette.getPalette('color_8bit');
       // var opt_palette = colorPalette.getPalette('grayscale_4bit');
-      var opt_palette = colorPalette.getPalette('grayscale_4bit'); //우선 회색으로 바꾼다.
+      // var opt_palette = colorPalette.getPalette('grayscale_4bit'); //우선 회색으로 바꾼다.
       var new_imageData = colorPalette.applyPalette(imageData,opt_palette);
 
       var colorCounts = mocr.ImageTool.colorCounts4ImageData(new_imageData);
@@ -73,6 +73,11 @@ mocr.ImageHandler = function(mocr){
         var delC = delArr[i];
         new_imageData = mocr.ImageTool.changeColor4ImageData(new_imageData,delC[0],delC[1],delC[2],255,255,255);
       }
+      var opt_palette = colorPalette.getPalette('black_white_1bit'); //우선 회색으로 바꾼다.
+      var new_imageData = colorPalette.applyPalette(new_imageData,opt_palette);
+
+
+
       this.ctx.putImageData(new_imageData,0,0)
     },
     /**
