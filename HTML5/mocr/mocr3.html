@@ -82,7 +82,8 @@
 		function generateLetterPackage(f){
 			var fontFamily = f.fontFamily.value;
 			var fontWeight = f.fontWeight.value;
-			var mlp = mlpg.generate(fontFamily,fontWeight);
+			var width = f.width.value;
+			var mlp = mlpg.generate(fontFamily,fontWeight,width);
 			sync_letterPackages();
 		}
 		function sync_letterPackages(){
@@ -233,6 +234,14 @@
 							<option value="normal">normal</option>
 							<option value="bold">bold</option>
 						</select>
+						<div class="input-group-prepend"  style="margin-left:-1px;">
+							<span class="input-group-text">letter 너비(fontSize가 아님!)</span>
+						</div>
+						<select class="form-control"  name="width" style="width:auto">
+							<option value="32">32</option>
+							<option value="24">24</option>
+							<option value="16">16</option>
+						</select>
 						<!-- <input type="text" list="datalist_fontWeight" class="form-control"  name="fontWeight"  style="width:10em" placeholder="글꼴 굵기" value="normal" length="30" title="시스템에서 지원하는 폰트명 사용"> -->
 					</div>
 
@@ -258,7 +267,7 @@
 							<span class="input-group-text">글자범위</span>
 						</div>
 						<select class="form-control" name="stChar_edChar" style="width:auto">
-							<option value=" ,~">특수기호+숫자+알파벳(96글자)</option>
+							<option value=" ,~">특수기호+숫자+알파벳(95글자)</option>
 							<option value="가,힣">한글(11172글자)(오래걸림)</option>
 						</select>
 						<!-- <input type="text" class="form-control" name="stChar"  style="width:5em" placeholder="시작" value="0" length="1"  pattern=".{1}" title="1글자만 입력해주세요.">
