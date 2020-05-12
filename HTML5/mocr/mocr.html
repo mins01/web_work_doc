@@ -97,9 +97,8 @@
 			// mlpg.generate4Alphabet();
 			mlpg.generate4Range(' ','~');
 			mlpg.generate4Range('가','간');
-
 			printMlpgLetters()
-			// setTimeout(loadJsonUrl,200)
+			setTimeout(loadJsonUrl,200)
     })
 		function printMlpgLetters(){
 			$div_out = $("#div_out");
@@ -133,10 +132,10 @@
 			}(obj_limit)
 			obj_limit.limit++;
 			obj_limit.limit++;
-			mlpg.loadFromJsonUrl("json/serif_normal_ascii.json",cb);
-			mlpg.loadFromJsonUrl("json/sans-serif_normal_ascii.json",cb);
-			// mlpg.loadFromJsonUrl("json/serif_normal_kr.json",cb);
-			// mlpg.loadFromJsonUrl("json/sans-serif_normal_kr.json",cb);
+			mlpg.loadFromJsonUrl("json/serif_normal_32_ascii.json",cb);
+			mlpg.loadFromJsonUrl("json/sans-serif_normal_32_ascii.json",cb);
+			// mlpg.loadFromJsonUrl("json/serif_normal_32_kr.json",cb);
+			// mlpg.loadFromJsonUrl("json/sans-serif_normal_32_kr.json",cb);
 
 		}
 		function onCheckImage(event){
