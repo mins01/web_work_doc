@@ -38,12 +38,12 @@ mocr.LetterPackageGroup = function(mocr){
     generate:function(fontFamily,fontWeight){
       fontFamily = fontFamily.toLowerCase();
       fontWeight = fontWeight.toLowerCase();
-      var name = fontFamily+"_"+fontWeight;
+      var name = fontFamily+"_"+fontWeight+"_"+this.width;
       if(this.letterPackagesByName[name]){
         return this.letterPackagesByName[name];
       }
-      var mlp = new mocr.LetterPackage(fontFamily,fontWeight);
-      mlp.width = this.width;
+      var mlp = new mocr.LetterPackage(fontFamily,fontWeight,this.width);
+      // mlp.width = this.width;
       mlp.name = name
       this.letterPackages.push(mlp);
       this.letterPackagesByName[name] = mlp;

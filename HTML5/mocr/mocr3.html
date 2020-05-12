@@ -166,6 +166,7 @@
 				alert("LetterPackage를 선택해주세요.");
 				return;
 			}
+			mlp = mlpg.letterPackagesByName[k]
 			var json = document.querySelector('#textarea_json').value;
 			download(json, k+'.json', 'text/plain');
 		}

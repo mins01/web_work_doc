@@ -14,9 +14,10 @@ mocr.LetterPackage = function(mocr){
     fontFamily:'',
     fontWeight:'',
     letters:null,
-    init:function(fontFamily,fontWeight){
+    init:function(fontFamily,fontWeight,width){
+      if(width === undefined) width = 32;
       this.name = "";
-      this.width = 32;
+      this.width = width;
       this.fontFamily = fontFamily;
       this.fontWeight = fontWeight;
       this.letters = [];

@@ -32,7 +32,7 @@ mocr.Letter = function(mocr){
       Object.defineProperty(this, 'hex', {
         get:function(thisC){
           return function(){
-            return mocr.Util.uint8ArrArrayToHex(thisC.uint8Arr);
+            return mocr.Util.uint8ArrayToHex(thisC.uint8Arr);
           }
         }(this),
     		set:function(thisC){
