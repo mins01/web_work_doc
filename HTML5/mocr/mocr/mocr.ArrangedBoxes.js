@@ -118,10 +118,6 @@ mocr.ArrangedBoxes = function(mocr){
         // 겹치는 글자 합치기
         mocr.BoundBoxTool.union4OverlapInArrangedBox(arrangedBox);
         mocr.BoundBoxTool.union4OverlapInArrangedBox(arrangedBox);
-        // arrangedBoxes[i].boundBoxes = mocr.BoundBoxTool.union4OverlapByX(arrangedBoxes[i].boundBoxes);//겹치는 부분 합치기
-        // arrangedBoxes[i].boundBoxes = mocr.BoundBoxTool.union4OverlapByX(arrangedBoxes[i].boundBoxes);//겹치는 부분 합치기
-        // arrangedBoxes[i].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i].boundBoxes)
-        // arrangedBoxes[i].boundBoxes = mocr.BoundBoxTool.union4overlapByX(arrangedBoxes[i].boundBoxes)
 
         // arrangedBox 의 baseline,fontSize 찾기
         mocr.BoundBoxTool.generateFontSize4ArrangedBox(arrangedBox);
