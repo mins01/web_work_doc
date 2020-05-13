@@ -34,7 +34,9 @@ mocr.BoundBoxTool = function(mocr){
           var cnt = 0;
           for(var i2=0;i2<boundBoxes.length;i2++){
             var b = boundBoxes[i2];
-            if(new_a.left <= b.right && b.left <= new_a.right
+            if(
+              new_a.left <= b.right && b.left <= new_a.right
+              && Math.abs(b.left - new_a.right) > (new_a.width+b.width)/10 //살짝 겹치는 것 무시
               // && new_a.top <= b.bottom && b.top <= new_a.bottom
              ){ //영역 겹침
               // console.log(new_a,b);
@@ -126,6 +128,25 @@ mocr.BoundBoxTool = function(mocr){
         // i_cnt++;
         return accumulator > boundBox.bottom ? accumulator:boundBox.bottom;
       }, 0)
+
+      arrangedBox.baseline = max_bottom;
+      arrangedBox.fontSize = arrangedBox.baseline-arrangedBox.top;
+
+      // 너비 높이의 비율이 0.9와 1.1 사이인 것을 찾고 그 최대 너비를 구한다. 그 최대 너비가 fontSize보다 크다며 fontSiz를 최대 너비로 바꾼다.
+      var max_w = arrangedBox.fontSize
+      arrangedBox.boundBoxes.forEach((boundBox, i) => {
+        var wh = boundBox.width/boundBox.height;
+        if(wh >= 0.9 && wh <= 1.1){ //거의 정 사각형이라고 판단. 전각문자로 처리.
+          max_w = Math.max(max_w,boundBox.width)
+        }
+
+      });
+      // max_bottom,fontSize 재정의
+      if(arrangedBox.fontSize < max_w){
+        max_bottom = arrangedBox.top+max_w;
+        arrangedBox.baseline = max_bottom;
+        arrangedBox.fontSize = arrangedBox.baseline-arrangedBox.top;
+      }
 
       // console.log('baseline 계산용',arrangedBox.bottom,limit_bottom,max_bottom);
 
