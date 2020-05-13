@@ -54,6 +54,9 @@
 		.div_input2::before{pointer-events: none;position: absolute;width:100%;height: 100%; content: "";background-image: url('imgs/guide_100px.png');left: 0;right: 0;opacity: 0.2}
 		.div_out_box{border: 1px solid rgba(100,0,0,0.5)}
 		#div_suggest span{ display: inline-block;vertical-align: bottom; line-height: 1em;font-size: 14px; width:80px; height: 50px; text-align: center; white-space: pre;}
+		#div_suggest_text{border: 3px solid #999; margin:0.5em 0; padding:0.5em;}
+		#div_suggest_text .no-result{text-decoration: line-through;color: #999;}
+		/* #div_suggest_text .no-result::after{content: '?';} */
   </style>
 
 	<script src="vendor/rgbquant/src/rgbquant.js"></script>
@@ -122,6 +125,7 @@
 			var tmep_mihs = [];
 			$("#div_out").html("")
 			$("#div_suggest").html("")
+			$("#div_suggest_text").html("")
 			mlss = [];
 			for(var i=0,m=abbs.length;i<m;i++){
 				mlss.push([])
@@ -131,7 +135,6 @@
 
 				div.className="div_out_box"
 				$("#div_out").append(div)
-
 				for(var i2=0,m2=abb.boundBoxes.length;i2<m2;i2++){
 
 					var box = abb.boundBoxes[i2];
@@ -174,10 +177,18 @@
 			// mlpg.generate4Alphabet();
 			// mlpg.generate4Range(' ','/');
 			//mlss
+			$("#div_suggest_text").html("")
+			var textss = [];
 			for(var i=0,m=mlss.length;i<m;i++){
 				var mls = mlss[i];
+				var texts = [];
 				mls.forEach((ml, i) => {
 					var searched = mlpg.search(ml,10);
+					if(searched.length < 1){
+						texts.push("<span class='no-result'>?</span>")
+					}else{
+						texts.push(searched[0].letter.char)
+					}
 					var div2 = document.createElement('div');
 					$(div2).html("");
 					$("#div_suggest").append(div2)
@@ -190,11 +201,6 @@
 							var bin2 = mocr.Util.uint8ArrayToBin(diffRes.fromMissedUint8Arr);
 							var bin3 = mocr.Util.uint8ArrayToBin(diffRes.toMissedUint8Arr);
 							var ctx = mocr.Util.context2dFromBins(diffRes.letter.width,diffRes.letter.width,bin1,bin2,bin3);
-							// if(i==0){
-							// 	$("#div_dot_info").text(diffRes.letter.char+"\n"+diffRes.letter.letterPackage.name+"\n"+diffRes.matched);
-							// 	var dot = mocr.Util.dotFromBins(diffRes.letter.width,bin1,bin2,bin3);
-							// 	$("#div_dot_dot").text(dot)
-							// }
 							var div3 = document.createElement('div');
 							div3.className ="searched-letter";
 							$(div2).append(div3)
@@ -203,13 +209,11 @@
 							break;
 						}
 					}
-
-
-					// searched.forEach((diffRes, i) => {
-					// 	$(div2).append('<span>'+diffRes.letter.char+'('+diffRes.matched.toFixed(2)+')'+'</span>');
-					// });
 				});
+				textss.push(texts.join(''));
 			}
+			$("#div_suggest_text").html(textss.join('<br>'))
+
 		}
 
   </script>
@@ -241,15 +245,6 @@
 				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_2'),100)">threshold 100</button>
 			</div>
 			<div class="div_input">
-				<img id="img_node_3" style="width:300px" src="imgs/namecard_1.png">
-				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_3'),0)">threshold 0</button>
-				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_3'),20)">threshold 20</button>
-				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_3'),40)">threshold 40</button>
-				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_3'),50)">threshold 50</button>
-				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_3'),70)">threshold 70</button>
-				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_3'),100)">threshold 100</button>
-			</div>
-			<div class="div_input">
 				<img id="img_node_4" style="width:300px" src="imgs/namecard_2.png">
 				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_4'),0)">threshold 0</button>
 				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_4'),20)">threshold 20</button>
@@ -275,6 +270,15 @@
 				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_6'),50)">threshold 50</button>
 				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_6'),70)">threshold 70</button>
 				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_6'),100)">threshold 100</button>
+			</div>
+			<div class="div_input">
+				<img id="img_node_7" style="width:300px" src="imgs/mohw_01.jpg">
+				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_7'),0)">threshold 0</button>
+				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_7'),20)">threshold 20</button>
+				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_7'),40)">threshold 40</button>
+				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_7'),50)">threshold 50</button>
+				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_7'),70)">threshold 70</button>
+				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_7'),100)">threshold 100</button>
 			</div>
 			<hr>
 			<h3>로컬파일 체크</h3>
@@ -318,6 +322,7 @@
 		<h2>suggest text
 			<button class="btn btn-info" type="button" onclick="runRuggesst()">run suggest</button>
 		</h2>
+		<div id="div_suggest_text"></div>
 		<div id="div_suggest" class="text-left m-1" >
 
     </div>

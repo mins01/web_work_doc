@@ -73,8 +73,8 @@ mocr.ImageHandler = function(mocr){
         var delC = delArr[i];
         new_imageData = mocr.ImageTool.changeColor4ImageData(new_imageData,delC[0],delC[1],delC[2],255,255,255);
       }
-      var opt_palette = colorPalette.getPalette('black_white_1bit'); //우선 회색으로 바꾼다.
-      var new_imageData = colorPalette.applyPalette(new_imageData,opt_palette);
+      // var opt_palette = colorPalette.getPalette('black_white_1bit'); //우선 회색으로 바꾼다.
+      // var new_imageData = colorPalette.applyPalette(new_imageData,opt_palette);
 
 
 

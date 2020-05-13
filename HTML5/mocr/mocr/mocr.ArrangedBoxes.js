@@ -103,13 +103,11 @@ mocr.ArrangedBoxes = function(mocr){
         }
       }
 
+      //-- 너무 fontSize 가 작으면 제외함
 
-
-
-      for(var i=0,m2=arrangedBoxes.length;i<m2;i++){
+      for(var i=0,m=arrangedBoxes.length;i<m;i++){
         // console.log("arrangedBoxes",i);
         var arrangedBox = arrangedBoxes[i];
-
         // 겹치는 글자 합치기
         mocr.BoundBoxTool.union4OverlapInArrangedBox(arrangedBox);
         mocr.BoundBoxTool.union4OverlapInArrangedBox(arrangedBox);
@@ -124,11 +122,19 @@ mocr.ArrangedBoxes = function(mocr){
         mocr.BoundBoxTool.union4GangulInArrangedBox(arrangedBoxes[i]);
         // 빈칸 처리
         mocr.BoundBoxTool.addWhiteSpaceInArrangedBox(arrangedBoxes[i]);
-
       }
-
       // mocr.BoundBoxTool.union4GangulInArrangedBox(arrangedBoxes[3]);
 
+      //너무 작은 arrangedBox 제거
+      for(var i=0;i<arrangedBoxes.length;i++){
+
+        if(arrangedBoxes[i].width < 16 || arrangedBoxes[i].height < 16){
+          arrangedBoxes.splice(i,1);
+          console.log("너무 작은 문자열");
+        }
+      }
+      // console.log("arrangedBoxes 수",arrangedBoxes.length);
+      // window.xx = arrangedBoxes
       this.arrangedBoxes = arrangedBoxes;
     },
 

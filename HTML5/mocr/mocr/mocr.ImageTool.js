@@ -372,7 +372,7 @@ mocr.ImageTool = function(mocr){
       var i = 0;
       while(r = this.getBoundBoxes4FirstDot(imageData,w,h)){
         i++;
-        if(i>500){break;}
+        if(i>5000){break;}
         var xf = r[0];
         var yf = r[1];
 
@@ -382,8 +382,12 @@ mocr.ImageTool = function(mocr){
           console.log("boundBox 없음");
           break;
         }
-        if(boundBox.width > w *0.8 && boundBox.height > h *0.8){
+        if(boundBox.width > w *0.8 || boundBox.height > h *0.8){
           console.log("boundBox가 너무 큼");
+          continue;
+        }
+        if(boundBox.width > 80 || boundBox.height > 80){
+          console.log("boundBox가 너무 큼 2");
           continue;
         }
         if(boundBox.width < 2 && boundBox.height < 2){
