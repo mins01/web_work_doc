@@ -296,20 +296,20 @@
 					// console.log(f);
 					const reader = new FileReader();
 					reader.onload = function(e){
-						document.querySelector("#img_node_7").src = e.target.result;
+						document.querySelector("#input-file-img").src = e.target.result;
 					};
 					reader.readAsDataURL(f)
 				}
 				</script>
 			</div>
 			<div class="div_input">
-				<img id="img_node_7" style="width:300px" src="imgs/no_sweat.png">
-				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_7'),0)">threshold 0</button>
-				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_7'),20)">threshold 20</button>
-				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_7'),40)">threshold 40</button>
-				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_7'),50)">threshold 50</button>
-				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_7'),70)">threshold 70</button>
-				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_7'),100)">threshold 100</button>
+				<img id="input-file-img" style="width:300px" src="imgs/no_sweat.png">
+				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#input-file-img'),0)">threshold 0</button>
+				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#input-file-img'),20)">threshold 20</button>
+				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#input-file-img'),40)">threshold 40</button>
+				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#input-file-img'),50)">threshold 50</button>
+				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#input-file-img'),70)">threshold 70</button>
+				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#input-file-img'),100)">threshold 100</button>
 			</div>
 			<div class="div_input2"></div>
     </div>
