@@ -201,7 +201,7 @@ mocr.ImageTool = function(mocr){
       if(x0==w && x1==-1){
         return null;
       }
-      return {left:x0,top:y0,right:x1,bottom:y1,width:x1-x0,height:y1-y0};
+      return {left:x0,top:y0,right:x1,bottom:y1,width:x1-x0,height:y1-y0,bgCount:1};
     },
     /**
      * 영역이 겹치는 boundBox는 합침, 가까우면 합침
@@ -275,6 +275,7 @@ mocr.ImageTool = function(mocr){
             new_a.top = Math.min(new_a.top,b.top);
             new_a.right = Math.max(new_a.right,b.right);
             new_a.bottom = Math.max(new_a.bottom,b.bottom);
+            new_a.bgCount += b.bgCount
             // console.log("a 와 짝",i2,ck,b);
           }
         }

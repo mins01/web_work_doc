@@ -45,8 +45,10 @@ mocr.BoundBoxTool = function(mocr){
               new_a.top = Math.min(new_a.top,b.top);
               new_a.right = Math.max(new_a.right,b.right);
               new_a.bottom = Math.max(new_a.bottom,b.bottom);
+              new_a.bgCount += b.bgCount
               new_a.width = new_a.right-new_a.left
               new_a.height = new_a.bottom-new_a.top;
+
               boundBoxes.splice(i2,1);
               cnt++;
             }
@@ -84,11 +86,12 @@ mocr.BoundBoxTool = function(mocr){
           new_a.top = Math.min(new_a.top,b.top);
           new_a.right = Math.max(new_a.right,b.right);
           new_a.bottom = Math.max(new_a.bottom,b.bottom);
+          new_a.bgCount += b.bgCount
           new_a.width = new_a.right-new_a.left
           new_a.height = new_a.bottom-new_a.top;
           var tmp_w = c.right-new_a.left;
 
-          if(tmp_w >= arrangedBox.fontSize*0.8 &&  tmp_w <= arrangedBox.fontSize*1.1 ){
+          if(tmp_w >= arrangedBox.fontSize*0.8 &&  tmp_w <= arrangedBox.fontSize*1.1 && b.bgCount==1 && c.bgCount==1){
             if(
               (
                 new_a.height >= arrangedBox.fontSize*0.9 && new_a.width >= arrangedBox.fontSize*0.3
@@ -105,6 +108,7 @@ mocr.BoundBoxTool = function(mocr){
               new_a.top = Math.min(new_a.top,c.top);
               new_a.right = Math.max(new_a.right,c.right);
               new_a.bottom = Math.max(new_a.bottom,c.bottom);
+              new_a.bgCount += c.bgCount
               new_a.width = new_a.right-new_a.left
               new_a.height = new_a.bottom-new_a.top;
               arrangedBox.boundBoxes.splice(i,3,new_a);
@@ -116,16 +120,16 @@ mocr.BoundBoxTool = function(mocr){
         var new_a = Object.assign({},a);
         var b = arrangedBox.boundBoxes[i+1];
         var tmp_w = b.right-new_a.left;
-        if(tmp_w >= arrangedBox.fontSize*0.5 &&  tmp_w <= arrangedBox.fontSize*1.1 ){
+        if(tmp_w >= arrangedBox.fontSize*0.5 &&  tmp_w <= arrangedBox.fontSize*1.1 && b.bgCount==1){
           // console.log(i,ii,"번째글자",new_a,b,arrangedBox.fontSize*0.1,arrangedBox.fontSize*0.4);
           if(
             (
-              new_a.height >= arrangedBox.fontSize*0.9 //&& new_a.width >= arrangedBox.fontSize*0.3
+              new_a.height >= arrangedBox.fontSize*0.8 //&& new_a.width >= arrangedBox.fontSize*0.3
               || arrangedBox.baseline - arrangedBox.fontSize*0.1 > a.bottom
               || new_a.width >= arrangedBox.fontSize*0.6
             )
             && new_a.width >= arrangedBox.fontSize*0.3
-            && b.width >= min_w && b.width <= arrangedBox.fontSize*0.4
+            && b.width >= min_w && b.width <= arrangedBox.fontSize*0.5
             && b.height >= min_h
           ){
             // console.log(i,ii,"번째글자 적용",new_a,b);
@@ -134,6 +138,7 @@ mocr.BoundBoxTool = function(mocr){
             new_a.top = Math.min(new_a.top,b.top);
             new_a.right = Math.max(new_a.right,b.right);
             new_a.bottom = Math.max(new_a.bottom,b.bottom);
+            new_a.bgCount += b.bgCount
             new_a.width = new_a.right-new_a.left
             new_a.height = new_a.bottom-new_a.top;
             arrangedBox.boundBoxes.splice(i,2,new_a);
@@ -141,51 +146,6 @@ mocr.BoundBoxTool = function(mocr){
             continue;
           }
         }
-
-        // if( isKrLeft ){
-        //
-        //   var b = arrangedBox.boundBoxes[i+1];
-        //   var tmp_w = b.right-a.left;
-        //   // var dist = this.getDistance(a,b);
-        //   if(tmp_w >= arrangedBox.fontSize*0.7 &&  tmp_w <= arrangedBox.fontSize*1.1 ){
-        //     new_a.left = Math.min(new_a.left,b.left);
-        //     new_a.top = Math.min(new_a.top,b.top);
-        //     new_a.right = Math.max(new_a.right,b.right);
-        //     new_a.bottom = Math.max(new_a.bottom,b.bottom);
-        //     new_a.width = new_a.right-new_a.left
-        //     new_a.height = new_a.bottom-new_a.top;
-        //     arrangedBox.boundBoxes.splice(i,2,new_a);
-        //     // console.log("1번째뒤",i,ii);
-        //     continue;
-        //   }
-
-
-          // var b = arrangedBox.boundBoxes[i+1]
-          // var tmp_w = b.right-a.left;
-          // var dist = this.getDistance(a,b);
-          //
-          // console.log("isKrLeft",isKrLeft,a,b,
-          //   tmp_w,">=",arrangedBox.fontSize*0.7,
-          //   tmp_w,"<=",arrangedBox.fontSize*1.5,
-          //   b.height,">=",arrangedBox.fontSize*0.8
-          // );
-          // if(tmp_w >= arrangedBox.fontSize*0.7
-          //   && tmp_w <= arrangedBox.fontSize*1.2
-          //   // && dist[0] < arrangedBox.fontSize*0.5
-          //   && b.height >= arrangedBox.fontSize*0.8
-          //   ){
-          //   var new_a = Object.assign({},a);
-          //   new_a.left = Math.min(new_a.left,b.left);
-          //   new_a.top = Math.min(new_a.top,b.top);
-          //   new_a.right = Math.max(new_a.right,b.right);
-          //   new_a.bottom = Math.max(new_a.bottom,b.bottom);
-          //   new_a.width = new_a.right-new_a.left
-          //   new_a.height = new_a.bottom-new_a.top;
-          //   arrangedBox.boundBoxes.splice(i,2,new_a);
-          //   // console.log("한글 초성 예상 과 모음 합침",new_a);
-          //   // console.log(arrangedBox.boundBoxes);
-          //   i--;
-          // }
 
       }
     },
