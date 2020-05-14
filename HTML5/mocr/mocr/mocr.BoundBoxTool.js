@@ -61,42 +61,75 @@ mocr.BoundBoxTool = function(mocr){
     },
     // 한글 관련해서 자음과 모음을 합치는 메소드지만, 잘 동작 안한다...
     union4HangulInArrangedBox:function(arrangedBox){
-      // console.log(arrangedBox.boundBoxes);
+      console.log("ArrangedBox",arrangedBox);
+      var ii = 0;
       for(var i=0;i<arrangedBox.boundBoxes.length-1;i++){
+        ii++;
+        if(i==4)console.log("ArrangedBox.boundBox",i);
         var a = arrangedBox.boundBoxes[i];
-        var dist_top = Math.abs(arrangedBox.top - a.top);
-        var dist_baseline = Math.abs(arrangedBox.baseline - a.bottom);
-        var dist_top_baseline = Math.abs(dist_top-dist_baseline);
-        // console.log(i,arrangedBox.height,a.height ,"<=", arrangedBox.fontSize*1.1
-        //               ,a.bottom ,"<=",arrangedBox.baseline*1.1
-        //               ,a.width ,">=", arrangedBox.fontSize*0.3
-        //               ,dist_top_baseline ,"<", arrangedBox.fontSize*0.2
-        //             );
-        var isKrLeft = (a.height >= arrangedBox.fontSize*0.8 || (arrangedBox.baseline - a.bottom) > arrangedBox.fontSize*0.02);
-        // console.log('한글왼쪽',isKrLeft);
-        if(
-          a.height <= arrangedBox.fontSize*1.1
-          // && a.bottom <= arrangedBox.baseline*1.1
-          && a.width >= arrangedBox.fontSize*0.3
-          // && dist_top_baseline < arrangedBox.fontSize*0.2
-          && isKrLeft
-        ){
+        var new_a = Object.assign({},a);
+        var min_w = Math.floor(arrangedBox.fontSize*0.1);
+        var min_h = Math.floor(arrangedBox.fontSize*0.5);
+        // var isKrLeft = (
+        //   a.height >= arrangedBox.fontSize*0.9 && a.width >= arrangedBox.fontSize*0.3
+        //   || arrangedBox.baseline - arrangedBox.fontSize*0.1 > a.bottom
+        //   || a.width >= arrangedBox.fontSize*0.6
+        // ) && a.width >= arrangedBox.fontSize*0.4;
+        // // console.log('한글왼쪽',isKrLeft);
+
+        if(i+2 < arrangedBox.boundBoxes.length){ //ㅔ ㅖ 같은 경우
           var b = arrangedBox.boundBoxes[i+1]
-          var tmp_w = b.right-a.left;
-          var dist = this.getDistance(a,b);
+          var c = arrangedBox.boundBoxes[i+2]
+          new_a.left = Math.min(new_a.left,b.left);
+          new_a.top = Math.min(new_a.top,b.top);
+          new_a.right = Math.max(new_a.right,b.right);
+          new_a.bottom = Math.max(new_a.bottom,b.bottom);
+          new_a.width = new_a.right-new_a.left
+          new_a.height = new_a.bottom-new_a.top;
+          var tmp_w = c.right-new_a.left;
 
+          if(tmp_w >= arrangedBox.fontSize*0.8 &&  tmp_w <= arrangedBox.fontSize*1.1 ){
+            if(
+              (
+                new_a.height >= arrangedBox.fontSize*0.9 && new_a.width >= arrangedBox.fontSize*0.3
+                || arrangedBox.baseline - arrangedBox.fontSize*0.1 > a.bottom
+                || new_a.width >= arrangedBox.fontSize*0.7
+              )
+              && new_a.width >= arrangedBox.fontSize*0.3 //초성이 더 작아진다.
+              && b.width >= min_w
+              && c.width >= min_w
+              && b.height >= min_h
+              && c.height >= min_h
+            ){
+              new_a.left = Math.min(new_a.left,c.left);
+              new_a.top = Math.min(new_a.top,c.top);
+              new_a.right = Math.max(new_a.right,c.right);
+              new_a.bottom = Math.max(new_a.bottom,c.bottom);
+              new_a.width = new_a.right-new_a.left
+              new_a.height = new_a.bottom-new_a.top;
+              arrangedBox.boundBoxes.splice(i,3,new_a);
+              // console.log("ㅔ,ㅖ의 경우로 합쳐짐");
+              continue;
+            }
+          }
+        }
+        var new_a = Object.assign({},a);
+        var b = arrangedBox.boundBoxes[i+1];
+        var tmp_w = b.right-new_a.left;
+        if(tmp_w >= arrangedBox.fontSize*0.5 &&  tmp_w <= arrangedBox.fontSize*1.1 ){
+          // console.log(i,ii,"번째글자",new_a,b,arrangedBox.fontSize*0.1,arrangedBox.fontSize*0.4);
+          if(
+            (
+              new_a.height >= arrangedBox.fontSize*0.9 //&& new_a.width >= arrangedBox.fontSize*0.3
+              || arrangedBox.baseline - arrangedBox.fontSize*0.1 > a.bottom
+              || new_a.width >= arrangedBox.fontSize*0.6
+            )
+            && new_a.width >= arrangedBox.fontSize*0.3
+            && b.width >= min_w && b.width <= arrangedBox.fontSize*0.4
+            && b.height >= min_h
+          ){
+            // console.log(i,ii,"번째글자 적용",new_a,b);
 
-          // console.log("한글 초성 예상",tmp_w ,">=", arrangedBox.fontSize*0.7
-          //  , tmp_w ,"<", arrangedBox.fontSize
-          //  ,dist[0], "<", arrangedBox.fontSize*0.5
-          //  ,b.height,">=",arrangedBox.fontSize*0.9
-          //  ,a.height*0.9,'<=',b.height);
-          if(tmp_w >= arrangedBox.fontSize*0.6
-            && tmp_w <= arrangedBox.fontSize
-            && dist[0] < arrangedBox.fontSize*0.5
-            && b.height >= arrangedBox.fontSize*0.8
-            && a.height*0.9 <= b.height){
-            var new_a = Object.assign({},a);
             new_a.left = Math.min(new_a.left,b.left);
             new_a.top = Math.min(new_a.top,b.top);
             new_a.right = Math.max(new_a.right,b.right);
@@ -104,10 +137,56 @@ mocr.BoundBoxTool = function(mocr){
             new_a.width = new_a.right-new_a.left
             new_a.height = new_a.bottom-new_a.top;
             arrangedBox.boundBoxes.splice(i,2,new_a);
-            // console.log("한글 초성 예상 과 모음 합침",new_a);
-            // console.log(arrangedBox.boundBoxes);
+            // console.log("ㅔ,ㅖ의 아닌 경우로 합쳐짐");
+            continue;
           }
         }
+
+        // if( isKrLeft ){
+        //
+        //   var b = arrangedBox.boundBoxes[i+1];
+        //   var tmp_w = b.right-a.left;
+        //   // var dist = this.getDistance(a,b);
+        //   if(tmp_w >= arrangedBox.fontSize*0.7 &&  tmp_w <= arrangedBox.fontSize*1.1 ){
+        //     new_a.left = Math.min(new_a.left,b.left);
+        //     new_a.top = Math.min(new_a.top,b.top);
+        //     new_a.right = Math.max(new_a.right,b.right);
+        //     new_a.bottom = Math.max(new_a.bottom,b.bottom);
+        //     new_a.width = new_a.right-new_a.left
+        //     new_a.height = new_a.bottom-new_a.top;
+        //     arrangedBox.boundBoxes.splice(i,2,new_a);
+        //     // console.log("1번째뒤",i,ii);
+        //     continue;
+        //   }
+
+
+          // var b = arrangedBox.boundBoxes[i+1]
+          // var tmp_w = b.right-a.left;
+          // var dist = this.getDistance(a,b);
+          //
+          // console.log("isKrLeft",isKrLeft,a,b,
+          //   tmp_w,">=",arrangedBox.fontSize*0.7,
+          //   tmp_w,"<=",arrangedBox.fontSize*1.5,
+          //   b.height,">=",arrangedBox.fontSize*0.8
+          // );
+          // if(tmp_w >= arrangedBox.fontSize*0.7
+          //   && tmp_w <= arrangedBox.fontSize*1.2
+          //   // && dist[0] < arrangedBox.fontSize*0.5
+          //   && b.height >= arrangedBox.fontSize*0.8
+          //   ){
+          //   var new_a = Object.assign({},a);
+          //   new_a.left = Math.min(new_a.left,b.left);
+          //   new_a.top = Math.min(new_a.top,b.top);
+          //   new_a.right = Math.max(new_a.right,b.right);
+          //   new_a.bottom = Math.max(new_a.bottom,b.bottom);
+          //   new_a.width = new_a.right-new_a.left
+          //   new_a.height = new_a.bottom-new_a.top;
+          //   arrangedBox.boundBoxes.splice(i,2,new_a);
+          //   // console.log("한글 초성 예상 과 모음 합침",new_a);
+          //   // console.log(arrangedBox.boundBoxes);
+          //   i--;
+          // }
+
       }
     },
     // baseline,fontSize,whitespaceWidth 찾기
