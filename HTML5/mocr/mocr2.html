@@ -42,7 +42,7 @@
 		img , canvas  {
 		  /* image-rendering: auto; */
 		  /* image-rendering: crisp-edges; */
-		  image-rendering: pixelated;
+		  /* image-rendering: pixelated; */
 		}
 		/* #div_in img{width:50px;} */
 		#div_dot_info{white-space: pre; }
@@ -57,6 +57,7 @@
 		#div_suggest_text{border: 3px solid #999; margin:0.5em 0; padding:0.5em;}
 		#div_suggest_text .no-result{text-decoration: line-through;color: #999;}
 		/* #div_suggest_text .no-result::after{content: '?';} */
+		.div_input img{max-width:800px;}
   </style>
 
 	<script src="vendor/rgbquant/src/rgbquant.js"></script>
@@ -204,7 +205,7 @@
 							var div3 = document.createElement('div');
 							div3.className ="searched-letter";
 							$(div2).append(div3)
-							$(div3).append(ctx.canvas).append("<br>"+diffRes.letter.char+" : "+diffRes.matched.toFixed(2))
+							$(div3).append(ctx.canvas).append("<br>"+diffRes.letter.char+" : "+diffRes.matched.toFixed(3))
 						}else{
 							break;
 						}
@@ -225,6 +226,115 @@
 		<h2>input image</h2>
 		<div>threshold 40 정도가 가장 좋은 매칭을 보여준다.</div>
     <div id="div_in" class="text-left m-1" >
+			<div class="div_input"><h3>Arial</h3>
+			  <img src="imgs/fonts_Arial.png"><br>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),0)">threshold 0</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),20)">threshold 20</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),40)">threshold 40</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),50)">threshold 50</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),70)">threshold 70</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),100)">threshold 100</button>
+			</div>
+			<div class="div_input"><h3>Century_Gothic</h3>
+			  <img src="imgs/fonts_Century_Gothic.png"><br>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),0)">threshold 0</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),20)">threshold 20</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),40)">threshold 40</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),50)">threshold 50</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),70)">threshold 70</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),100)">threshold 100</button>
+			</div>
+			<div class="div_input"><h3>Comic_Sans_MS</h3>
+			  <img src="imgs/fonts_Comic_Sans_MS.png"><br>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),0)">threshold 0</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),20)">threshold 20</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),40)">threshold 40</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),50)">threshold 50</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),70)">threshold 70</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),100)">threshold 100</button>
+			</div>
+			<div class="div_input"><h3>Courier_New</h3>
+			  <img src="imgs/fonts_Courier_New.png"><br>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),0)">threshold 0</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),20)">threshold 20</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),40)">threshold 40</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),50)">threshold 50</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),70)">threshold 70</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),100)">threshold 100</button>
+			</div>
+			<div class="div_input"><h3>Impact</h3>
+			  <img src="imgs/fonts_Impact.png"><br>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),0)">threshold 0</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),20)">threshold 20</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),40)">threshold 40</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),50)">threshold 50</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),70)">threshold 70</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),100)">threshold 100</button>
+			</div>
+			<div class="div_input"><h3>monospace</h3>
+			  <img src="imgs/fonts_monospace.png"><br>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),0)">threshold 0</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),20)">threshold 20</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),40)">threshold 40</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),50)">threshold 50</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),70)">threshold 70</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),100)">threshold 100</button>
+			</div>
+			<div class="div_input"><h3>sans-serif</h3>
+			  <img src="imgs/fonts_sans-serif.png"><br>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),0)">threshold 0</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),20)">threshold 20</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),40)">threshold 40</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),50)">threshold 50</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),70)">threshold 70</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),100)">threshold 100</button>
+			</div>
+			<div class="div_input"><h3>serif</h3>
+			  <img src="imgs/fonts_serif.png"><br>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),0)">threshold 0</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),20)">threshold 20</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),40)">threshold 40</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),50)">threshold 50</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),70)">threshold 70</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),100)">threshold 100</button>
+			</div>
+			<div class="div_input"><h3>Tahoma</h3>
+			  <img src="imgs/fonts_Tahoma.png"><br>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),0)">threshold 0</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),20)">threshold 20</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),40)">threshold 40</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),50)">threshold 50</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),70)">threshold 70</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),100)">threshold 100</button>
+			</div>
+			<div class="div_input"><h3>Times_New_Roman</h3>
+			  <img src="imgs/fonts_Times_New_Roman.png"><br>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),0)">threshold 0</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),20)">threshold 20</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),40)">threshold 40</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),50)">threshold 50</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),70)">threshold 70</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),100)">threshold 100</button>
+			</div>
+			<div class="div_input"><h3>Verdana</h3>
+			  <img src="imgs/fonts_Verdana.png"><br>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),0)">threshold 0</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),20)">threshold 20</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),40)">threshold 40</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),50)">threshold 50</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),70)">threshold 70</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),100)">threshold 100</button>
+			</div>
+			<div class="div_input"><h3>Vivaldi</h3>
+			  <img src="imgs/fonts_Vivaldi.png"><br>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),0)">threshold 0</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),20)">threshold 20</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),40)">threshold 40</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),50)">threshold 50</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),70)">threshold 70</button>
+			  <button class="btn btn-info" type="button" onclick="runTest(this.parentNode.querySelector('img'),100)">threshold 100</button>
+			</div>
+
 			<div class="div_input">
 				<img id="img_node_1" src="imgs/no_sweat.png">
 				<button class="btn btn-info" type="button" onclick="runTest(document.querySelector('#img_node_1'),0)">threshold 0</button>
