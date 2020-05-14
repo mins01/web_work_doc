@@ -122,7 +122,7 @@ mocr.ArrangedBoxes = function(mocr){
         // arrangedBox 의 baseline,fontSize 찾기
         mocr.BoundBoxTool.generateFontSize4ArrangedBox(arrangedBox);
         // 한글 합침
-        mocr.BoundBoxTool.union4GangulInArrangedBox(arrangedBoxes[i]);
+        mocr.BoundBoxTool.union4HangulInArrangedBox(arrangedBoxes[i]);
         // 빈칸 처리
         // mocr.BoundBoxTool.addWhiteSpaceInArrangedBox(arrangedBoxes[i]); //우선 쓰지 말자.
       }

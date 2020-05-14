@@ -36,7 +36,8 @@ mocr.BoundBoxTool = function(mocr){
             var b = boundBoxes[i2];
             if(
               new_a.left <= b.right && b.left <= new_a.right
-              && Math.abs(b.left - new_a.right) > (new_a.width+b.width)/10 //살짝 겹치는 것 무시
+              // && Math.abs(b.left - new_a.right) > (new_a.width+b.width)*0.01 //살짝 겹치는 것 무시
+              // && new_a.right - b.left < (new_a.width+b.width)/2*0.01
               // && new_a.top <= b.bottom && b.top <= new_a.bottom
              ){ //영역 겹침
               // console.log(new_a,b);
@@ -59,7 +60,7 @@ mocr.BoundBoxTool = function(mocr){
       arrangedBox.boundBoxes = new_boundBoxes;
     },
     // 한글 관련해서 자음과 모음을 합치는 메소드지만, 잘 동작 안한다...
-    union4GangulInArrangedBox:function(arrangedBox){
+    union4HangulInArrangedBox:function(arrangedBox){
       // console.log(arrangedBox.boundBoxes);
       for(var i=0;i<arrangedBox.boundBoxes.length-1;i++){
         var a = arrangedBox.boundBoxes[i];
@@ -71,7 +72,7 @@ mocr.BoundBoxTool = function(mocr){
         //               ,a.width ,">=", arrangedBox.fontSize*0.3
         //               ,dist_top_baseline ,"<", arrangedBox.fontSize*0.2
         //             );
-        var isKrLeft = (a.height >= arrangedBox.fontSize*0.8 || (arrangedBox.baseline - a.bottom) > arrangedBox.fontSize*0.1);
+        var isKrLeft = (a.height >= arrangedBox.fontSize*0.8 || (arrangedBox.baseline - a.bottom) > arrangedBox.fontSize*0.02);
         // console.log('한글왼쪽',isKrLeft);
         if(
           a.height <= arrangedBox.fontSize*1.1

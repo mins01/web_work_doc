@@ -390,11 +390,11 @@ mocr.ImageTool = function(mocr){
           console.log("boundBox가 너무 큼 2");
           continue;
         }
-        if(boundBox.width < 2 && boundBox.height < 2){
-          console.log("boundBox가 너무 작음");
-          continue;
-        }
-        if(boundBox.width > boundBox.height *15 || boundBox.width * 15 < boundBox.height){ // 비율이 너무 차이나면 무시한다.
+        // if(boundBox.width < 2 && boundBox.height < 2){
+        //   console.log("boundBox가 너무 작음");
+        //   continue;
+        // }
+        if(boundBox.width > boundBox.height *20 || boundBox.width * 20 < boundBox.height){ // 비율이 너무 차이나면 무시한다.
           console.log("boundBox가 너무 길죽함");
           continue;
         }
