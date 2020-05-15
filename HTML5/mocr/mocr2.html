@@ -75,7 +75,7 @@
   <script src="mocr/mocr.ArrangedBoxes.js"></script>
 
   <script type="text/javascript">
-		var width = 32;
+		var width = 16;
     var mit = mocr.ImageTool;
     var mih = new mocr.ImageHandler();
 		var mih1 = new mocr.ImageHandler();
@@ -94,12 +94,12 @@
 			var cb = function(data, textStatus, errorThrown){
 				// console.log(data, textStatus, errorThrown);
 			}
-			mlpg.loadFromJsonUrl("json/serif_normal_32_ascii.json",cb);
-			mlpg.loadFromJsonUrl("json/sans-serif_normal_32_ascii.json",cb);
-			mlpg.loadFromJsonUrl("json/monospace_normal_32_ascii.json",cb);
-			mlpg.loadFromJsonUrl("json/serif_normal_32_kr.json",cb);
-			mlpg.loadFromJsonUrl("json/sans-serif_normal_32_kr.json",cb);
-			mlpg.loadFromJsonUrl("json/monospace_normal_32_kr.json",cb);
+			mlpg.loadFromJsonUrl("json/serif_normal_"+width+"_ascii.json",cb);
+			mlpg.loadFromJsonUrl("json/sans-serif_normal_"+width+"_ascii.json",cb);
+			mlpg.loadFromJsonUrl("json/monospace_normal_"+width+"_ascii.json",cb);
+			mlpg.loadFromJsonUrl("json/serif_normal_"+width+"_kr.json",cb);
+			mlpg.loadFromJsonUrl("json/sans-serif_normal_"+width+"_kr.json",cb);
+			mlpg.loadFromJsonUrl("json/monospace_normal_"+width+"_kr.json",cb);
 
 
 		}
@@ -141,6 +141,7 @@
 
 					var box = abb.boundBoxes[i2];
 					var temp_mih = mih.generateImageHandlerFromBoundBox(box,width);
+					temp_mih.simplify(width)
 					var ml = temp_mih.getLetter()
 					mls.push(ml)
 					tmep_mihs.push(temp_mih);
