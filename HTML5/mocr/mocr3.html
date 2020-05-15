@@ -80,9 +80,9 @@
 			var fontWeight = f.fontWeight.value;
 			var width = f.width.value;
 			var mlp = mlpg.generate(fontFamily,fontWeight,width);
-			sync_letterPackages();
+			sync_letterPackages(mlp.name);
 		}
-		function sync_letterPackages(){
+		function sync_letterPackages(mlp_name){
 			var $letterPackages = $("#letterPackages");
 			$letterPackages.get(0).length = 0;
 			$letterPackages.append('<option disabled value="">NONE</option>')
@@ -90,6 +90,9 @@
 				var t_mlp = mlpg.letterPackagesByName[k];
 				// console.log(t_mlp);
 				$letterPackages.append('<option value="'+t_mlp.name+'">'+t_mlp.name+'</option>')
+			}
+			if(mlp_name){
+				$letterPackages.val(mlp_name)
 			}
 		}
 		function generateFromForm(f){
