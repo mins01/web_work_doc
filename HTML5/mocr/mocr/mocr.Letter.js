@@ -13,8 +13,6 @@ mocr.Letter = function(mocr){
     aspectRatio:null, // 글자의 너비/높이
     letterType:"",
     hex:"",
-    bgCount:-1,
-    wgCount:-1,
     uint8Arr:null,
     init:function(obj){
       this.uint8Arr = null;
