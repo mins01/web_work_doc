@@ -13,9 +13,13 @@ mocr.Letter = function(mocr){
     aspectRatio:null, // 글자의 너비/높이
     letterType:"",
     hex:"",
+    bgCount:-1,
+    wgCount:-1,
     uint8Arr:null,
     init:function(obj){
       this.uint8Arr = null;
+      this.bgCount = -1;
+      this.wgCount = -1;
       var _letterPackage = '';
       Object.defineProperty(this, 'letterPackage', {
     		value:null, //기본값 (get,set 과 같이 사용불가)

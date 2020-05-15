@@ -57,6 +57,8 @@ mocr.LetterPackage = function(mocr){
       var searched = [];
       var diffRes = null;
       for(var i=0,m=this.letters.length;i<m;i++){
+        if(letter.width != this.letters[i].width){ continue; } //글자 width 가 다르면 무시한다.
+        if(Math.abs(letter.aspectRatio - this.letters[i].aspectRatio) > 0.2 ){ continue; } //글자 크기비율의 차이가 크면 무시한다
         diffRes = this.letters[i].diff(letter);
         if(diffRes.matched < 0.4){ continue; } //너무 차이가 크면 무시한다.
         searched.push(diffRes);
