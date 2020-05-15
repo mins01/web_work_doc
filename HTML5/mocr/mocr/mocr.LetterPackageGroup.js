@@ -16,7 +16,7 @@ mocr.LetterPackageGroup = function(mocr){
     init:function(){
       this.mih = new mocr.ImageHandler();
     },
-    getLetter:function(char,fontFamily,fontWeight,threshold){
+    getLetter:function(char,width,fontFamily,fontWeight,threshold){
       if(!fontFamily){
         fontFamily = 'Serif'; //serif
       }
@@ -28,7 +28,7 @@ mocr.LetterPackageGroup = function(mocr){
       }
       threshold = parseInt(threshold,10);
       this.mih.loadFromChar(char,fontFamily,fontWeight);
-      this.mih.simplify(this.width,threshold);
+      this.mih.simplify(width,threshold);
       // var bb = this.mih.getBoundBoxes();
       // console.log(bb);
       var letter = this.mih.getLetter();
@@ -112,7 +112,7 @@ mocr.LetterPackageGroup = function(mocr){
       return mlp;
     },
     addLetter:function(mlp,char,threshold){
-      var letter = this.getLetter(char,mlp.fontFamily,mlp.fontWeight,threshold);
+      var letter = this.getLetter(char,mlp.width,mlp.fontFamily,mlp.fontWeight,threshold);
       mlp.add(letter);
       return letter;
     },

@@ -4,8 +4,8 @@ if(!mocr){
 }
 
 mocr.LetterPackage = function(mocr){
-  var LetterPackage = function(fontFamily,fontWeight){
-    this.init(fontFamily,fontWeight);
+  var LetterPackage = function(fontFamily,fontWeight,width){
+    this.init(fontFamily,fontWeight,width);
   }
   LetterPackage.prototype = {
     name:'', //외부에서 지정
