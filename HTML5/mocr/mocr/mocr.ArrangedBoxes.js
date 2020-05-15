@@ -94,7 +94,6 @@ mocr.ArrangedBoxes = function(mocr){
           var b = arrangedBoxes[i2];
           if(a.left <= b.right && b.left <= a.right && a.top <= b.bottom && b.top <= a.bottom ){ //영역 겹침
             var new_a = Object.assign({},a);
-            // new_a.top = b.top; new_a.bottom = b.bottom; new_a.height = new_a.bottom-new_a.top; //top과 bottom을 arrangedBox 기준으로 바꾼다.
             b.boundBoxes.push(new_a);
           }
           arrangedBoxes[i2].boundBoxes.sort(function(a,b){ // left순으로 정렬
@@ -109,28 +108,31 @@ mocr.ArrangedBoxes = function(mocr){
         if(arrangedBoxes[i].width < 16 || arrangedBoxes[i].height < 16){
           arrangedBoxes.splice(i,1);
           console.log("너무 작은 arrangedBox");
+          continue;
         }
+
+
       }
 
       for(var i=0,m=arrangedBoxes.length;i<m;i++){
         // console.log("arrangedBoxes",i);
-        var arrangedBox = arrangedBoxes[i];
+        // var arrangedBox = arrangedBoxes[i];
         // 겹치는 글자 합치기
-        mocr.BoundBoxTool.union4OverlapInArrangedBox(arrangedBox);
-        mocr.BoundBoxTool.union4OverlapInArrangedBox(arrangedBox);
+        mocr.BoundBoxTool.union4OverlapInArrangedBox(arrangedBoxes[i]);
+        mocr.BoundBoxTool.union4OverlapInArrangedBox(arrangedBoxes[i]);
+
 
         // arrangedBox 의 baseline,fontSize 찾기
-        mocr.BoundBoxTool.generateFontSize4ArrangedBox(arrangedBox);
+        mocr.BoundBoxTool.generateFontSize4ArrangedBox(arrangedBoxes[i]);
         // 한글 합침
         mocr.BoundBoxTool.union4HangulInArrangedBox(arrangedBoxes[i]);
         // 빈칸 처리
         // mocr.BoundBoxTool.addWhiteSpaceInArrangedBox(arrangedBoxes[i]); //우선 쓰지 말자.
+
+        // 너무 많은 bgCount인 경우 제거함
+        mocr.BoundBoxTool.removeNotCharInArrangedBox(arrangedBoxes[i]);
       }
-      // mocr.BoundBoxTool.union4GangulInArrangedBox(arrangedBoxes[3]);
 
-
-      // console.log("arrangedBoxes 수",arrangedBoxes.length);
-      // window.xx = arrangedBoxes
       this.arrangedBoxes = arrangedBoxes;
     },
 

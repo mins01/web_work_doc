@@ -36,6 +36,7 @@ mocr.BoundBoxTool = function(mocr){
             var b = boundBoxes[i2];
             if(
               new_a.left <= b.right && b.left <= new_a.right
+              // && ((new_a.right > b.left  && new_a.right - b.left < 10) || 1)//살짝 겹치는 것 무시
               // && Math.abs(b.left - new_a.right) > (new_a.width+b.width)*0.01 //살짝 겹치는 것 무시
               // && new_a.right - b.left < (new_a.width+b.width)/2*0.01
               // && new_a.top <= b.bottom && b.top <= new_a.bottom
@@ -63,7 +64,7 @@ mocr.BoundBoxTool = function(mocr){
     },
     // 한글 관련해서 자음과 모음을 합치는 메소드지만, 잘 동작 안한다...
     union4HangulInArrangedBox:function(arrangedBox){
-      console.log("ArrangedBox",arrangedBox);
+      // console.log("ArrangedBox",arrangedBox);
       var ii = 0;
       for(var i=0;i<arrangedBox.boundBoxes.length-1;i++){
         ii++;
@@ -226,7 +227,17 @@ mocr.BoundBoxTool = function(mocr){
         }
 
       }
-    }
+    },
+    // 글자가 아닌 것으로 유추되는 것은 삭제한다.
+    removeNotCharInArrangedBox:function(arrangedBox){
+      var boundBoxes = arrangedBox.boundBoxes;
+      for(var i=0;i<boundBoxes.length;i++){
+        if(boundBoxes[i].bgCount > 10){ // bgCOunt가 너무 크면 제거한다.
+          console.log('글자가 아닌 것으로 판단해서 삭제');
+          boundBoxes.splice(i,1);
+        }
+      }
+    },
   }
   return BoundBoxTool;
 }(mocr)
