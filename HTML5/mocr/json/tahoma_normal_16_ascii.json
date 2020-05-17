@@ -1,0 +1,578 @@
+{
+ "name": "tahoma_normal_16",
+ "width": "16",
+ "fontFamily": "tahoma",
+ "fontWeight": "normal",
+ "letters": [
+  {
+   "hex": "0000000000000000000000000000000000000000000000000000000000000000",
+   "width": "16",
+   "aspectRatio": 1,
+   "char": " "
+  },
+  {
+   "hex": "01c001c001c001c001c001c001c001c001c001c001c001c00000000001c001c0",
+   "width": "16",
+   "aspectRatio": 0.0625,
+   "char": "!"
+  },
+  {
+   "hex": "0000fc3ffc3ffc3ffc3f7c3f7c3f7c3f7c3f7c3e7c3e7c3e7c3e7c3e7c3e7c3e",
+   "width": "16",
+   "aspectRatio": 0.8666666666666667,
+   "char": "\""
+  },
+  {
+   "hex": "03980318033003303ffe3ffe066006600c600c607ffc7ff818c019c019801980",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "#"
+  },
+  {
+   "hex": "0180018003c007f00d800d800f8007e001f001b001b00db00fe0018001800180",
+   "width": "16",
+   "aspectRatio": 0.3125,
+   "char": "$"
+  },
+  {
+   "hex": "000078306c30cc60c660c6c0ccc06d9e79b703330363066306330c370c1e0000",
+   "width": "16",
+   "aspectRatio": 0.9285714285714286,
+   "char": "%"
+  },
+  {
+   "hex": "1f803fc038e030e030c03dc01f9c1f1c3b9871d870f870f87078787c3fee1f87",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "&"
+  },
+  {
+   "hex": "0ff00ff00ff00ff00ff00ff00ff00ff007f007f007e007e007e007e007e007e0",
+   "width": "16",
+   "aspectRatio": 0.3125,
+   "char": "'"
+  },
+  {
+   "hex": "00e001c003800300030007000600060006000600070003000300038001c000e0",
+   "width": "16",
+   "aspectRatio": 0.0625,
+   "char": "("
+  },
+  {
+   "hex": "0700038001c000c000c000600060006000600060006000c000c001c003800700",
+   "width": "16",
+   "aspectRatio": 0.07142857142857142,
+   "char": ")"
+  },
+  {
+   "hex": "03c003c003c073cefbdf7ffe1ff807e007e01ff87ffefbdf73ce03c003c003c0",
+   "width": "16",
+   "aspectRatio": 0.8125,
+   "char": "*"
+  },
+  {
+   "hex": "0180018001800180018001800180ffffffff0180018001800180018001800180",
+   "width": "16",
+   "aspectRatio": 0.8125,
+   "char": "+"
+  },
+  {
+   "hex": "03fc03f807f807f007f00ff00fe00fe00fc00fc00f801f801f001f003f003e00",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": ","
+  },
+  {
+   "hex": "00000000000000000000ffffffffffffffffffffffff00000000000000000000",
+   "width": "16",
+   "aspectRatio": 2.1666666666666665,
+   "char": "-"
+  },
+  {
+   "hex": "7fff7fff7fff7fff7fff7fff7fff7fff7fff7fff7fff7fff7fff7fff7fff7fff",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "."
+  },
+  {
+   "hex": "0030003000600060006000c000c000c000800180018003000300030003000600",
+   "width": "16",
+   "aspectRatio": 0.16666666666666666,
+   "char": "/"
+  },
+  {
+   "hex": "03e007f00e380c181c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c0c180e3807f003e0",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "0"
+  },
+  {
+   "hex": "01c001c00fc00fc001c001c001c001c001c001c001c001c001c001c00ff80ff8",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "1"
+  },
+  {
+   "hex": "0fe01ff018700030003000300070007000e001c0038007000e001c001ff81ff8",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "2"
+  },
+  {
+   "hex": "0fe01ff0187000380038007001e003c00070003800380038003818701ff00fc0",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "3"
+  },
+  {
+   "hex": "007000f001f003f007700e700c701c7038703ffc3ffc00700070007000700070",
+   "width": "16",
+   "aspectRatio": 0.9,
+   "char": "4"
+  },
+  {
+   "hex": "0ff80ff80c000c000c000c000fe00ff00078003800380038003818701ff01fc0",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "5"
+  },
+  {
+   "hex": "01f803f807000e000c001c001ff01ff81c3c1c1c1c1c1c1c0c1c0e3807f803f0",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "6"
+  },
+  {
+   "hex": "1ffc1ffc001c001800380070007000e000e001c001c003800380070007000e00",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "7"
+  },
+  {
+   "hex": "07f00ff80c381c1c1c1c0e180fb807f00ef81c3c1c1c1c1c1c1c1e180ff807f0",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "8"
+  },
+  {
+   "hex": "07e00ff00e381c181c1c1c1c1c1c1e1c0ffc07fc00180018003800700fe00fc0",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "9"
+  },
+  {
+   "hex": "03e003e003e003e00000000000000000000000000000000003e003e003e003e0",
+   "width": "16",
+   "aspectRatio": 0.0625,
+   "char": ":"
+  },
+  {
+   "hex": "01c001c001c000000000000000000000000001e001c003c00380038007000700",
+   "width": "16",
+   "aspectRatio": 0.07142857142857142,
+   "char": ";"
+  },
+  {
+   "hex": "0003000f003f00fe03f81fc07f00fc00fc007f001fc003f800fe003f000f0003",
+   "width": "16",
+   "aspectRatio": 0.9285714285714286,
+   "char": "<"
+  },
+  {
+   "hex": "0000000000000000ffffffff0000000000000000ffffffff0000000000000000",
+   "width": "16",
+   "aspectRatio": 1.625,
+   "char": "="
+  },
+  {
+   "hex": "c000f800fc007f000fe003f800fe003f003f00fe03f80fe07f00fc00f800c000",
+   "width": "16",
+   "aspectRatio": 0.8125,
+   "char": ">"
+  },
+  {
+   "hex": "07e00ff00c38003800380038007000f001c00180018001800000000001800180",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "?"
+  },
+  {
+   "hex": "07f01e38380c718667f24e33cc33cc33cc33cc33ce7367fe73be38001e3007f0",
+   "width": "16",
+   "aspectRatio": 0.8125,
+   "char": "@"
+  },
+  {
+   "hex": "03c003c003c007e006e00e700e700e701c381c381ff83ffc381c381c700e700e",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "A"
+  },
+  {
+   "hex": "3fe03ff838383838383838383ff03ff03ff8381c381c381c381c383c3ff83fe0",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "B"
+  },
+  {
+   "hex": "03fc07fe0f0e1c021c003800380038003800380038001c001c020f0e0ffe03fc",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "C"
+  },
+  {
+   "hex": "3fe03ff8387c381c380e380e380e380e380e380e380e380e381c38783ff83fe0",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "D"
+  },
+  {
+   "hex": "1ffc1ffc1c001c001c001c001ff81ff81c001c001c001c001c001c001ffc1ffc",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "E"
+  },
+  {
+   "hex": "1ffc1ffc1c001c001c001c001ffc1ffc1ff81c001c001c001c001c001c001c00",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "F"
+  },
+  {
+   "hex": "03f807fe0e0e1c021c00380038003800387e387e38061c061c060e0607fe03f8",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "G"
+  },
+  {
+   "hex": "380e380e380e380e380e380e3ffe3ffe380e380e380e380e380e380e380e380e",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "H"
+  },
+  {
+   "hex": "07f007f001c001c001c001c001c001c001c001c001c001c001c001c007f007f0",
+   "width": "16",
+   "aspectRatio": 0.0625,
+   "char": "I"
+  },
+  {
+   "hex": "03f003f00070007000700070007000700070007000700070007000700fe00fc0",
+   "width": "16",
+   "aspectRatio": 0.3125,
+   "char": "J"
+  },
+  {
+   "hex": "381c3838387038e039c03b803f003f003f803bc039c039e038f03878383c381e",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "K"
+  },
+  {
+   "hex": "1c001c001c001c001c001c001c001c001c001c001c001c001c001c001ff81ff8",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "L"
+  },
+  {
+   "hex": "780f781f7c1f7c1f7e3f76377777776773e773c771c771c77007700770077007",
+   "width": "16",
+   "aspectRatio": 0.75,
+   "char": "M"
+  },
+  {
+   "hex": "3c1c3c1c3e1c3e1c371c371c339c319c31dc30dc30fc307c307c303c303c301c",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "N"
+  },
+  {
+   "hex": "07e01ff83c3c381c700e700e700e700e700e700e700e700e381c3c3c1ff807e0",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "O"
+  },
+  {
+   "hex": "1ff01ff81c3c1c1c1c1c1c1c1c1c1c781ff01fe01c001c001c001c001c001c00",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "P"
+  },
+  {
+   "hex": "07e00ff01818381c300c300c300c300c300c381c1c380ff007e000e0007c003c",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "Q"
+  },
+  {
+   "hex": "3fe03ff0387038383838383838703ff03fc03fc039e038e038703838383c381e",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "R"
+  },
+  {
+   "hex": "03f80ff80e181c001c001c001e000fe003f8003c001c001c101c1c3c1ff80ff0",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "S"
+  },
+  {
+   "hex": "3ffe3ffe01c001c001c001c001c001c001c001c001c001c001c001c001c001c0",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "T"
+  },
+  {
+   "hex": "381c381c381c381c381c381c381c381c381c381c381c381c381c1c381ff807e0",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "U"
+  },
+  {
+   "hex": "700e700e381c381c381c1c381c380c380e700e70067007e007e003c003c003c0",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "V"
+  },
+  {
+   "hex": "00000000c18361c363c663c663c67246326c366c366c3e3c1c3c1c381c380000",
+   "width": "16",
+   "aspectRatio": 1,
+   "char": "W"
+  },
+  {
+   "hex": "380e1c1c0e1c0e38077007f003e001c001e003e007f007700e381c1c1c1c380e",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "X"
+  },
+  {
+   "hex": "780e381c1c1c1c380e700f7007e003c003c001c001c001c001c001c001c001c0",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "Y"
+  },
+  {
+   "hex": "3ffc3ffc003c0078007000e001e001c0038007000f000e001c0038003ffc3ffc",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "Z"
+  },
+  {
+   "hex": "03e00300030003000300030003000300030003000300030003000300030003e0",
+   "width": "16",
+   "aspectRatio": 0.0625,
+   "char": "["
+  },
+  {
+   "hex": "06000600030003000300018001800180008000c000c000600060006000600030",
+   "width": "16",
+   "aspectRatio": 0.16666666666666666,
+   "char": "\\"
+  },
+  {
+   "hex": "03e00060006000600060006000600060006000600060006000600060006003e0",
+   "width": "16",
+   "aspectRatio": 0.0625,
+   "char": "]"
+  },
+  {
+   "hex": "00000000000003c003c007e00ff00e701c383c3c381c700ef00f000000000000",
+   "width": "16",
+   "aspectRatio": 1.3,
+   "char": "^"
+  },
+  {
+   "hex": "0000000000000000000000000000ffffffff0000000000000000000000000000",
+   "width": "16",
+   "aspectRatio": 6.5,
+   "char": "_"
+  },
+  {
+   "hex": "0000ffc0ffc07fe03fe03ff03ff81ff807fc03fc03fe03fe01fe00ff00ff0000",
+   "width": "16",
+   "aspectRatio": 0.9285714285714286,
+   "char": "`"
+  },
+  {
+   "hex": "1ff81ffc1ffe001e000e001e07fe1ffe1f0e3c0e380e380e3c1e1ffe1ffe0fee",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "a"
+  },
+  {
+   "hex": "18001800180018001be01ff01e701838183818381838183818301c701fe01fc0",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "b"
+  },
+  {
+   "hex": "03fc07fe0ffe1e061c003c003c003c003c003c003c003c001e060ffe07fe03fc",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "c"
+  },
+  {
+   "hex": "001800180018001803f807f80e180c181c181c181c181c181c180c380ff807d8",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "d"
+  },
+  {
+   "hex": "07f00ff81e7c3c1e381e780e7ffe7ffe78007800780078003c061ffe0ffe07fc",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "e"
+  },
+  {
+   "hex": "01f003f00300070007000fe00700070007000700070007000700070007000700",
+   "width": "16",
+   "aspectRatio": 0.8333333333333334,
+   "char": "f"
+  },
+  {
+   "hex": "03fc07fc0e0c1c0c1c0c1c0c1c0c1c0c0e1c0ffc07fc000c001c0c3c0ff80ff0",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "g"
+  },
+  {
+   "hex": "180018001800180019e01ff01e781c3818381838183818381838183818381838",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "h"
+  },
+  {
+   "hex": "01c001c00000000001c001c001c001c001c001c001c001c001c001c001c001c0",
+   "width": "16",
+   "aspectRatio": 0.0625,
+   "char": "i"
+  },
+  {
+   "hex": "00e000e0000001e001e000e000e000e000e000e000e000e000e000e007c007c0",
+   "width": "16",
+   "aspectRatio": 0.0625,
+   "char": "j"
+  },
+  {
+   "hex": "1c001c001c001c001c001c701ce01dc01f801f801f801dc01ce01c701c781c3c",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "k"
+  },
+  {
+   "hex": "01c001c001c001c001c001c001c001c001c001c001c001c001c001c001c001c0",
+   "width": "16",
+   "aspectRatio": 0.0625,
+   "char": "l"
+  },
+  {
+   "hex": "00000000df3efffef3e7e387c187c187c187c187c187c187c187c187c1870000",
+   "width": "16",
+   "aspectRatio": 1,
+   "char": "m"
+  },
+  {
+   "hex": "39f83ffc3ffc3e1e381e381e381e381e381e381e381e381e381e381e381e381e",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "n"
+  },
+  {
+   "hex": "07f01ff83ffc3c1e781f780f780f700f700f780f780f781f3c1e3ffc1ff807f0",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "o"
+  },
+  {
+   "hex": "19f01ff81e38181c181c181c181c181c181818381ff01fe01800180018001800",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "p"
+  },
+  {
+   "hex": "03fc07fc0e0c0c0c1c0c1c0c1c0c1c0c1c0c0e3c0ffc07ec000c000c000c000c",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "q"
+  },
+  {
+   "hex": "1ef81ff81ff81f801e001e001e001e001e001e001e001e001e001e001e001e00",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "r"
+  },
+  {
+   "hex": "0ff81ffc3f7c3c0c3c003c003f801ff00ff801fc003c003c303c3efc3ff81ff0",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "s"
+  },
+  {
+   "hex": "0700070007000ff00ff007000700070007000700070007000700038003f001f0",
+   "width": "16",
+   "aspectRatio": 0.38461538461538464,
+   "char": "t"
+  },
+  {
+   "hex": "381e381e381e381e381e381e381e381e381e381e381e381e3c3e3ffe1ffe0fce",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "u"
+  },
+  {
+   "hex": "f00f780f780f781e3c1e3c3c1e3c1e381e780f780f7007f007e007e003e003c0",
+   "width": "16",
+   "aspectRatio": 0.8125,
+   "char": "v"
+  },
+  {
+   "hex": "00000000e187e3c7e3c663c667ce766e766c3e6c3c7c3c3c3c38183800000000",
+   "width": "16",
+   "aspectRatio": 1.0833333333333333,
+   "char": "w"
+  },
+  {
+   "hex": "7c0f3c1e3e3e1f3c0f7807f003f003e003e003f007f00f781e3c3e3e3c1e780f",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "x"
+  },
+  {
+   "hex": "1c1c0c1c0e180e3806300730037003e003e001c001c001c00180038003800700",
+   "width": "16",
+   "aspectRatio": 0.6,
+   "char": "y"
+  },
+  {
+   "hex": "3ffe3ffe003e003c007800f001e003e003c007800f800f001e003c003ffe3ffe",
+   "width": "16",
+   "aspectRatio": 0.5625,
+   "char": "z"
+  },
+  {
+   "hex": "00f001c0018001800180018003800f000f000380018001800180018001c000f0",
+   "width": "16",
+   "aspectRatio": 0.3125,
+   "char": "{"
+  },
+  {
+   "hex": "0180018001800180018001800180018001800180018001800180018001800180",
+   "width": "16",
+   "aspectRatio": 0.0625,
+   "char": "|"
+  },
+  {
+   "hex": "0f000380018001800180018001c000f000f001c0018001800180018003800f00",
+   "width": "16",
+   "aspectRatio": 0.3125,
+   "char": "}"
+  },
+  {
+   "hex": "000000000000000000003e073f077787e3c7e1eee0fee07c0000000000000000",
+   "width": "16",
+   "aspectRatio": 1.8571428571428572,
+   "char": "~"
+  }
+ ]
+}
