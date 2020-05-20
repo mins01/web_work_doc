@@ -46,11 +46,11 @@
 <body>
 	<div class="container">
 		<h1>referrerpolicy</h1>
-		<h2>요약</h2>
+		<h2 class="mt-3">요약</h2>
 		<div>
 			이미지의 referrerpolicy="no-referrer" 애트리뷰트를 사용해서 리퍼럴 체크로 외부 링크 금지 이미지에 대해서도 브라우저에서 보여줄 수 있다.
 		</div>
-		<h2>링크</h2>
+		<h2 class="mt-3">링크</h2>
 		<ul class="list-group">
 			<li class="list-group-item">
 				<a href="https://html.spec.whatwg.org/multipage/embedded-content.html#attr-img-referrerpolicy">HTML Living Standard — Last Updated 19 May 202</a>
@@ -63,17 +63,23 @@
 			</li>
 
 		</ul>
-		<h2>문법</h2>
+		<h2 class="mt-3">문법</h2>
 		<div>
-			<code>
+
 				A DOMString representing the referrer policy. Possible values are:<br>
 
-				"no-referrer" meaning that the Referer: HTTP header will not be sent.<br>
-				"origin" meaning that the referrer will be the origin of the page, that is roughly the scheme, the host and the port.<br>
-				"unsafe-url" meaning that the referrer will include the origin and the path (but not the fragment, password, or username). This case is unsafe as it can leak path information that has been concealed to third-party by using TLS.
+				1. "no-referrer" meaning that the Referer: HTTP header will not be sent.<br>
+				2. "origin" meaning that the referrer will be the origin of the page, that is roughly the scheme, the host and the port.<br>
+				3. "unsafe-url" meaning that the referrer will include the origin and the path (but not the fragment, password, or username). This case is unsafe as it can leak path information that has been concealed to third-party by using TLS.
+
+		</div>
+		<h2 class="mt-3">예시 소스 </h2>
+		<div>
+			<code>
+				&lt;img alt="" <b  style="background-color:#ccc;">referrerpolicy="no-referrer"</b> src="https://mins01.godomall.com/data/skin/front/moment/img/banner/main-banner03.jpg"&gt;
 			</code>
 		</div>
-		<h2>이미지</h2>
+		<h2 class="mt-3">예시</h2>
 		<figure>
 			<figcaption>1. 고도몰 기본 메인배너01 (외부링크 금지)</figcaption>
 			<img alt="" src="https://mins01.godomall.com/data/skin/front/moment/img/banner/main-banner01.jpg">
