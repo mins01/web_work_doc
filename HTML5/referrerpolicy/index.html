@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>img referrerpolicy</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>ForGoogle.analytics()</script>
+
+
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+	<!-- meta og -->
+
+	<meta property="og:title" content="img referrerpolicy">
+	<meta property="og:description" content="img referrerpolicy">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="img referrerpolicy" />
+	<meta property="og:type" content="website">
+
+	<!-- //meta og -->
+
+
+</head>
+<body>
+	<div class="container">
+		<h1>referrerpolicy</h1>
+		<h2>요약</h2>
+		<div>
+			이미지의 referrerpolicy="no-referrer" 애트리뷰트를 사용해서 리퍼럴 체크로 외부 링크 금지 이미지에 대해서도 브라우저에서 보여줄 수 있다.
+		</div>
+		<h2>링크</h2>
+		<ul class="list-group">
+			<li class="list-group-item">
+				<a href="https://html.spec.whatwg.org/multipage/embedded-content.html#attr-img-referrerpolicy">HTML Living Standard — Last Updated 19 May 202</a>
+			</li>
+			<li class="list-group-item">
+				<a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/referrerPolicy">MDN - HTMLImageElement.referrerPolicy</a>
+			</li>
+			<li class="list-group-item">
+				<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-referrerpolicy">MDN - &lt;img&gt;: The Image Embed element</a>
+			</li>
+
+		</ul>
+		<h2>문법</h2>
+		<div>
+			<code>
+				A DOMString representing the referrer policy. Possible values are:<br>
+
+				"no-referrer" meaning that the Referer: HTTP header will not be sent.<br>
+				"origin" meaning that the referrer will be the origin of the page, that is roughly the scheme, the host and the port.<br>
+				"unsafe-url" meaning that the referrer will include the origin and the path (but not the fragment, password, or username). This case is unsafe as it can leak path information that has been concealed to third-party by using TLS.
+			</code>
+		</div>
+		<h2>이미지</h2>
+		<div>1. <img alt="" src="http://limyoy24.img4.kr/img/pd3/shea_1.jpg"></div>
+		<div>2. <img alt="" referrerpolicy="no-referrer" src="http://limyoy24.img4.kr/img/pd3/soap_2.jpg"></div>
+		<div>3. <img alt="" src="http://limyoy24.img4.kr/img/pd3/shea_3.jpg"></div>
+	</div>
+</body>
+</html>
