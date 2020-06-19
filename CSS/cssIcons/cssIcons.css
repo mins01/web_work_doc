@@ -12,6 +12,9 @@
   --main-bar-color: #000;
   --second-bar-color: #999;
 }
+.css-icon-grayscale{
+  filter: grayscale(1);
+}
 
 .css-icon-equalizer{
   position: relative;
@@ -73,10 +76,6 @@
   border-top-width:0;
   background-color: var(--main-bar-color, #999);
 
-}
-
-.css-icon-equalizer-grayscale{
-  filter: grayscale(1);
 }
 
 @keyframes bit-h-1 {
