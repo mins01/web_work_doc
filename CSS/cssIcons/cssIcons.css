@@ -10,6 +10,7 @@
   padding: 0;
 
   --main-bar-color: #000;
+  --second-bar-color: #999;
 }
 
 .css-icon-equalizer{
@@ -30,8 +31,8 @@
   top:0; bottom: 0;
   background-color: var(--main-bar-color, #000);
   width: 20%;
-  border-top: 1px solid #000;
-  
+  border-top: 0.1em solid var(--main-bar-color, #000);
+
 }
 .css-icon-equalizer .eq-bar-1{
   left:0%;
@@ -66,46 +67,45 @@
 .css-icon-equalizer .eq-bar-h{
   top:auto; bottom:0;
   left:0;right:0;
-  height:10%;
+  height:5%;
   width:auto;
   z-index: 10;
   border-top-width:0;
+  background-color: var(--main-bar-color, #999);
 
 }
 
+.css-icon-equalizer-grayscale{
+  filter: grayscale(1);
+}
 
 @keyframes bit-h-1 {
   from{top:90%;}
-  25%{top:60%;}
-  50%{top:40%;background-color: #888;}
+  10%{top:40%;background-color: #66f;}
   75%{top:90%;}
   to{top:90%;}
 }
 @keyframes bit-h-2 {
   from{top:90%;}
-  25%{top:40%;}
-  50%{top:20%;background-color: #999;}
+  10%{top:20%;background-color: #99f;}
   75%{top:90%;}
   to{top:90%;}
 }
 @keyframes bit-h-3 {
   from{top:90%;}
-  25%{top:20%;}
-  50%{top:0%;background-color: #aaa;}
+  10%{top:0%;background-color: #f9f;}
   75%{top:90%;}
   to{top:90%;}
 }
 @keyframes bit-h-4 {
   from{top:90%;}
-  25%{top:60%;}
-  50%{top:40%;background-color: #bbb;}
+  10%{top:40%;background-color: #f99;}
   75%{top:90%;}
   to{top:90%;}
 }
 @keyframes bit-h-5 {
   from{top:90%;}
-  25%{top:80%;}
-  50%{top:70%;background-color: #ccc;}
+  10%{top:70%;background-color: #f66;}
   75%{top:90%;}
   to{top:90%;}
 }
