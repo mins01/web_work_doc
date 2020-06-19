@@ -16,20 +16,20 @@
   filter: grayscale(1);
 }
 
-.css-icon-equalizerMeter{
+.css-icon-vuMeter{
   position: relative;
   padding-right:0.1em;
 }
 
-.css-icon-equalizerMeter.border-box{
+.css-icon-vuMeter.border-box{
   /* border: 1px solid #ccc; */
   /* border-radius: 0.3em; */
 }
-.css-icon-equalizerMeter .eq-box{
+.css-icon-vuMeter .eq-box{
   position: absolute;
   top:0; bottom: 0; right: 0; left: 0;
 }
-.css-icon-equalizerMeter .eq-bar{
+.css-icon-vuMeter .eq-bar{
   position: absolute;
   top:0; bottom: 0;
   background-color: var(--main-bar-color, #000);
@@ -37,37 +37,37 @@
   border-top: 0.1em solid var(--main-bar-color, #000);
 
 }
-.css-icon-equalizerMeter .eq-bar-1{
+.css-icon-vuMeter .eq-bar-1{
   left:0%;
   animation-duration: 0.3s;
   animation-name: bit-h-1;
   animation-iteration-count: infinite;
 }
-.css-icon-equalizerMeter .eq-bar-2{
+.css-icon-vuMeter .eq-bar-2{
   left:20%;
   animation-duration: 0.8s;
   animation-name: bit-h-2;
   animation-iteration-count: infinite;
 }
-.css-icon-equalizerMeter .eq-bar-3{
+.css-icon-vuMeter .eq-bar-3{
   left:40%;
   animation-duration: 1s;
   animation-name: bit-h-3;
   animation-iteration-count: infinite;
 }
-.css-icon-equalizerMeter .eq-bar-4{
+.css-icon-vuMeter .eq-bar-4{
   left:60%;
   animation-duration: 1.5s;
   animation-name: bit-h-4;
   animation-iteration-count: infinite;
 }
-.css-icon-equalizerMeter .eq-bar-5{
+.css-icon-vuMeter .eq-bar-5{
   left:80%;
   animation-duration: 0.3s;
   animation-name: bit-h-5;
   animation-iteration-count: infinite;
 }
-.css-icon-equalizerMeter .eq-bar-h{
+.css-icon-vuMeter .eq-bar-h{
   top:auto; bottom:0;
   left:0;right:0;
   height:5%;
