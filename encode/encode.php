@@ -1,10 +1,10 @@
 <?
-$charset = isset($_REQUEST['charset'])?$_REQUEST['charset']:'utf-8';
+$charset = isset($_REQUEST['charset'][0])?$_REQUEST['charset']:'utf-8';
 header('Content-Type: text/html; charset='.$charset);
 
 if($charset=='EUC-KR'){
 	$hp_charset = '';
-	
+
 }else{
 	$hp_charset  = $charset;
 }
@@ -18,10 +18,31 @@ if (get_magic_quotes_gpc()) {
 }
 
 
-function html_escape($str){
-	global $hp_charset;
-	$r = htmlspecialchars($str);
-	return $r;
+// function html_escape($str){
+// 	global $hp_charset;
+// 	$r = htmlspecialchars($str);
+// 	return $r;
+// }
+
+function html_escape($var, $double_encode = TRUE)
+{
+	global $charset;
+
+	$hp_charset  = $charset;
+	if($hp_charset=='EUC-KR'){
+		$hp_charset = 'ISO-8859-1';
+	}
+	if (empty($var))
+	{
+		return $var;
+	}
+
+	if (is_array($var))
+	{
+		return array_map('html_escape', $var, array_fill(0, count($var), $double_encode));
+	}
+
+	return htmlspecialchars($var, ENT_QUOTES, $hp_charset, $double_encode);
 }
 
 ?><!doctype html>
@@ -33,25 +54,25 @@ function html_escape($str){
 	<meta http-equiv="Content-Style-Type" content="text/css">
 	<meta http-equiv="Content-Type" content="text/html; charset=<?=$charset?>" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	
+
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
+
 	<!-- jquery  -->
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
-	
+
 	<!-- bootstrap 4 -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"  crossorigin="anonymous"></script>
-	
-	
+
+
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
-	
+
 	<!-- meta og -->
-	
+
 	<meta property="og:title" content="encode/decode">
 	<meta property="og:description" content="encode/decode">
 	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
@@ -59,9 +80,9 @@ function html_escape($str){
 	<meta property="og:image:height" content="70" />
 	<meta property="og:site_name" content="encode/decode" />
 	<meta property="og:type" content="website">
-	
+
 	<!-- //meta og -->
-	
+
 	<style>
 	.result-str{
 		border-radius: 0.5em; border-width: 0px 2px 0px 2px; border-style: solid;
@@ -72,28 +93,28 @@ function html_escape($str){
 	.type-hash .result-str{border-color: #7F7F7F}
 	.type-info .result-str{border-color: #abc}
 	</style>
-	
+
 	<script>
 	//<!--
 	var str = <?=json_encode($str)?>;
 	//-->
-	
+
 	</script>
-	
+
 </head>
 <body>
 	<div class="container">
 		<h1>ENCODE/DECODE</h1>
-		
+
 		<ul class="list-group">
-			
+
 			<li class="list-group-item">
 				<form action="" method="get">
 					<div class="input-group">
-						<input type="text" name="str" value="<?=html_escape($str)?>" maxlength="200" class="form-control" placeholder="String" aria-label="String">
+						<input type="text" name="str" value="<?=html_escape($str)?>" maxlength="1000" class="form-control" placeholder="String" aria-label="String">
 						<div class="input-group-append">
 							<select name="charset" class="custom-select">
-								<option >charset</option>
+								<option value="">charset</option>
 								<option value="">#NONE#</option>
 								<option value="UTF-8" <?=$charset=='UTF-8'?'selected':''?> >UTF-8</option>
 								<option value="ISO-8859-1" <?=$charset=='ISO-8859-1'?'selected':''?> >ISO-8859-1</option>
@@ -117,20 +138,20 @@ function html_escape($str){
 						<div class="input-group-append">
 							<button class="btn btn-outline-secondary" type="submit">Submit</button>
 						</div>
-					</div>	
+					</div>
 				</form>
-				
+
 			</li>
 			<li class="list-group-item type-info">
 				<div class="row">
 					<div class="col-lg-3 text-info function-str">
-						INPUT RAW : 
+						INPUT RAW :
 					</div>
 					<div class="col-lg-9  bg-light result-str ">
 						<xmp><?=$str?></xmp>
 					</div>
 				</div>
-				
+
 			</li>
 			<li class="list-group-item list-group-item-info">
 				URL
@@ -287,10 +308,10 @@ function html_escape($str){
 						<?=html_escape(htmlentities($str))?>
 					</div>
 				</div>
-				
+
 			</li>
 			<li class="list-group-item list-group-item-info">
-				BASE64	
+				BASE64
 			</li>
 			<li class="list-group-item">
 				<div class="row  mb-1  type-enc">
@@ -311,7 +332,7 @@ function html_escape($str){
 				</div>
 			</li>
 			<li class="list-group-item list-group-item-info">
-				HASH	
+				HASH
 			</li>
 			<li class="list-group-item">
 				<div class="row  mb-1  type-hash">
@@ -331,9 +352,9 @@ function html_escape($str){
 					</div>
 				</div>
 				<? foreach (hash_algos() as $v):
-					$r = hash($v, $str, false); 
-					// printf("%-12s %3d %s\n", $v, strlen($r), $r); 
-					
+					$r = hash($v, $str, false);
+					// printf("%-12s %3d %s\n", $v, strlen($r), $r);
+
 					?>
 					<div class="row  mb-1 type-hash">
 						<div class="col-lg-3 text-info function-str">
