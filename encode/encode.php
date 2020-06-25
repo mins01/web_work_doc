@@ -9,7 +9,7 @@ if($charset=='EUC-KR'){
 	$hp_charset  = $charset;
 }
 // ini_set( 'default_charset', $hp_charset);
-ini_set( 'default_charset', 'utf-8');
+// ini_set( 'default_charset', 'utf-8');
 
 
 $str = isset($_REQUEST['str'][0])?$_REQUEST['str']:'';
@@ -94,10 +94,16 @@ function html_escape($var, $double_encode = TRUE)
 	.type-info .result-str{border-color: #abc}
 	</style>
 
+	<?
+	$dec_str = json_encode($str);
+	if($dec_str===false){
+		$dec_str = 'null';
+	}
+	?>
 	<script>
-	//<!--
-	var str = <?=json_encode($str)?>;
-	//-->
+	// <!--
+	var str = <?=$dec_str?>;
+	// -->
 
 	</script>
 
@@ -111,9 +117,12 @@ function html_escape($var, $double_encode = TRUE)
 			<li class="list-group-item">
 				<form action="" method="get">
 					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><?=$charset?></span>
+						</div>
 						<input type="text" name="str" value="<?=html_escape($str)?>" maxlength="1000" class="form-control" placeholder="String" aria-label="String">
 						<div class="input-group-append">
-							<select name="charset" class="custom-select">
+							<select name="charset" class="custom-select" style="border-radius:0;">
 								<option value="">charset</option>
 								<option value="">#NONE#</option>
 								<option value="UTF-8" <?=$charset=='UTF-8'?'selected':''?> >UTF-8</option>
@@ -143,15 +152,31 @@ function html_escape($var, $double_encode = TRUE)
 
 			</li>
 			<li class="list-group-item type-info">
-				<div class="row">
+				<div class="row mb-1">
 					<div class="col-lg-3 text-info function-str">
 						INPUT RAW :
 					</div>
 					<div class="col-lg-9  bg-light result-str ">
 						<xmp><?=$str?></xmp>
+						<!-- </xmp> -->
 					</div>
 				</div>
-
+				<div class="row mb-1">
+					<div class="col-lg-3 text-info function-str">
+						Length
+					</div>
+					<div class="col-lg-9  bg-light result-str ">
+						<?=strlen($str)?> Byte / <?=iconv_strlen($str,$charset)?> chars
+					</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-lg-3 text-info function-str">
+						HEX
+					</div>
+					<div class="col-lg-9  bg-light result-str ">
+						<?=bin2hex($str)?>
+					</div>
+				</div>
 			</li>
 			<li class="list-group-item list-group-item-info">
 				URL
