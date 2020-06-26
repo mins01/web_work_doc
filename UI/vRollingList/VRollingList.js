@@ -1,3 +1,11 @@
+'use strict';
+/*
+vRollingList
+dev : mins01
+homepage : http://mins01.com
+date : 2020-06-26
+license : MIT + "공대여자는 예쁘다"를 나태내야함
+ */
 var VRollingList = function(target){
   this.target = null;
   this.init(target);
