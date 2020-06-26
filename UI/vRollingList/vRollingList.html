@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>verticalRollingList</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>ForGoogle.analytics()</script>
+
+
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+	<!-- meta og -->
+
+	<meta property="og:title" content="verticalRollingList">
+	<meta property="og:description" content="verticalRollingList">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="verticalRollingList" />
+	<meta property="og:type" content="website">
+
+	<!-- //meta og -->
+
+	<link rel="stylesheet" href="vRollingList.css">
+	<script src="VRollingList.js" ></script>
+	<script>
+	var vrm01 = null;
+	var vrm02 = null;
+	var vrm03 = null;
+	$(function(){
+		vrm01 = new VRollingList(document.querySelector("#vrm01"));
+		vrm02 = new VRollingList(document.querySelector("#vrm02"));
+		vrm03 = new VRollingList(document.querySelector("#vrm03"));
+		document.querySelector("#vrm03").onwheel =function(event){
+			var deltaY = event.deltaY;
+			if(deltaY<0){
+				vrm03.up();
+			}
+			if(deltaY>0){
+				vrm03.down();
+			}
+
+		}
+	})
+	</script>
+	<style>
+	.vRollingList#vrm01{
+	  /* 알맞게 재선언하자 */
+	  border: 0px solid #ccc;
+	  background-color: #f0f0f0;
+		padding:10px;
+	}
+
+	#vrm01 .vRollingList-item{
+	  /* 알맞게 재선언하자 */
+	  border: 1px solid #000;
+	  background-color: #f0f0f0;
+	}
+	.vRollingList#vrm02{
+		font-size:40px;
+	  /* 알맞게 재선언하자 */
+	  border: 3px solid #999;
+	  background-color: #aaa;
+		padding:10px;
+		border-radius: 0.5em;
+	}
+
+	#vrm02 .vRollingList-item{
+	  /* 알맞게 재선언하자 */
+	  border: 3px solid #7B27AC;
+	  background-color: #fff;
+		border-radius: 1em;
+		text-align: center;
+		font-weight: bold;;
+		text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+	}
+
+	.vRollingList#vrm03{
+		font-size:40px;
+	  /* 알맞게 재선언하자 */
+	  border: 3px solid #999;
+	  background-color: #aaa;
+		padding:10px;
+		border-radius: 0.5em;
+	}
+
+	#vrm03 .vRollingList-item{
+	  /* 알맞게 재선언하자 */
+	  border: 3px solid #7B27AC;
+	  background-color: #fff;
+		border-radius: 1em;
+		text-align: center;
+		font-weight: bold;;
+		text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+	}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>vRollingList</h1>
+		<h2>목록을 세로로 롤링시킨다.</h2>
+		<hr>
+		<div class="vRollingList" id="vrm01" style="margin:50px">
+			<div class="vRollingList-item">menu1</div>
+			<div class="vRollingList-item">menu2</div>
+			<div class="vRollingList-item">menu3</div>
+			<div class="vRollingList-item">menu4</div>
+			<div class="vRollingList-item">menu5</div>
+			<div class="vRollingList-item">menu6</div>
+			<div class="vRollingList-item">menu7</div>
+			<div class="vRollingList-item">menu8</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+			<div class="vRollingList-item">menu9</div>
+		</div>
+		<button class="btn btn-info" onclick="vrm01.first()">first</button>
+		<button class="btn btn-info" onclick="vrm01.up()">up</button>
+		<button class="btn btn-info" onclick="vrm01.down()">down</button>
+		<button class="btn btn-info" onclick="vrm01.last()">last</button>
+		<hr>
+		<div class="vRollingList" id="vrm02" style="margin:10px auto; width:300px ">
+			<a href="http://mins01.com" target="_blank" class="vRollingList-item">공대여자홈</a>
+			<div class="vRollingList-item">방화역</div>
+			<div class="vRollingList-item">개화산역</div>
+			<div class="vRollingList-item">김포공항역</div>
+			<div class="vRollingList-item">송정역</div>
+			<div class="vRollingList-item">마곡역</div>
+			<div class="vRollingList-item">발산역</div>
+			<div class="vRollingList-item">우장산역</div>
+			<div class="vRollingList-item">화곡역</div>
+			<div class="vRollingList-item">까치산역</div>
+			<div class="vRollingList-item">신정역</div>
+			<div class="vRollingList-item">목동역</div>
+			<div class="vRollingList-item">오목교역</div>
+			<div class="vRollingList-item">양평역</div>
+			<div class="vRollingList-item">영등포구청역</div>
+			<div class="vRollingList-item">영등포시장역</div>
+			<div class="vRollingList-item">신길역</div>
+			<div class="vRollingList-item">여의도역</div>
+			<div class="vRollingList-item">여의나루역</div>
+			<div class="vRollingList-item">마포역</div>
+			<div class="vRollingList-item">공덕역</div>
+			<div class="vRollingList-item">애오개역</div>
+			<div class="vRollingList-item">충정로역</div>
+			<div class="vRollingList-item">서대문역</div>
+			<div class="vRollingList-item">광화문역</div>
+			<div class="vRollingList-item">종로3가역</div>
+			<div class="vRollingList-item">을지로4가역</div>
+			<div class="vRollingList-item">동대문역사문화공원역</div>
+			<div class="vRollingList-item">청구역</div>
+			<div class="vRollingList-item">신금호역</div>
+			<div class="vRollingList-item">행당역</div>
+			<div class="vRollingList-item">왕십리역</div>
+			<div class="vRollingList-item">마장역</div>
+			<div class="vRollingList-item">답십리역</div>
+			<div class="vRollingList-item">장한평역</div>
+			<div class="vRollingList-item">군자역</div>
+			<div class="vRollingList-item">아차산역</div>
+			<div class="vRollingList-item">광나루역</div>
+			<div class="vRollingList-item">천호역</div>
+			<div class="vRollingList-item">강동역(상일동,마천분기점)</div>
+			<div class="vRollingList-item">길동역</div>
+			<div class="vRollingList-item">굽은다리</div>
+			<div class="vRollingList-item">명일역</div>
+			<div class="vRollingList-item">고덕역</div>
+			<div class="vRollingList-item">상일동역</div>
+			<div class="vRollingList-item">둔춘동역</div>
+			<div class="vRollingList-item">올림픽공원역</div>
+			<div class="vRollingList-item">방이역</div>
+			<div class="vRollingList-item">오금역</div>
+			<div class="vRollingList-item">개롱역</div>
+			<div class="vRollingList-item">거여역</div>
+			<div class="vRollingList-item">마천역</div>
+		</div>
+		<button class="btn btn-info" onclick="vrm02.first()">first</button>
+		<button class="btn btn-info" onclick="vrm02.up()">up</button>
+		<button class="btn btn-info" onclick="vrm02.down()">down</button>
+		<button class="btn btn-info" onclick="vrm02.last()">last</button>
+		<hr>
+		flex style + onwheel
+		<div class="flex-box" style="display:flex" >
+			<div class="vRollingList" id="vrm03" style="margin:0px auto; flex: 1 1 100%;" >
+				<a href="http://mins01.com" target="_blank" class="vRollingList-item">공대여자홈</a>
+				<div class="vRollingList-item">방화역</div>
+				<div class="vRollingList-item">개화산역</div>
+				<div class="vRollingList-item">김포공항역</div>
+				<div class="vRollingList-item">송정역</div>
+				<div class="vRollingList-item">마곡역</div>
+				<div class="vRollingList-item">발산역</div>
+				<div class="vRollingList-item">우장산역</div>
+				<div class="vRollingList-item">화곡역</div>
+				<div class="vRollingList-item">까치산역</div>
+				<div class="vRollingList-item">신정역</div>
+				<div class="vRollingList-item">목동역</div>
+				<div class="vRollingList-item">오목교역</div>
+				<div class="vRollingList-item">양평역</div>
+				<div class="vRollingList-item">영등포구청역</div>
+				<div class="vRollingList-item">영등포시장역</div>
+				<div class="vRollingList-item">신길역</div>
+				<div class="vRollingList-item">여의도역</div>
+				<div class="vRollingList-item">여의나루역</div>
+				<div class="vRollingList-item">마포역</div>
+				<div class="vRollingList-item">공덕역</div>
+				<div class="vRollingList-item">애오개역</div>
+				<div class="vRollingList-item">충정로역</div>
+				<div class="vRollingList-item">서대문역</div>
+				<div class="vRollingList-item">광화문역</div>
+				<div class="vRollingList-item">종로3가역</div>
+				<div class="vRollingList-item">을지로4가역</div>
+				<div class="vRollingList-item">동대문역사문화공원역</div>
+				<div class="vRollingList-item">청구역</div>
+				<div class="vRollingList-item">신금호역</div>
+				<div class="vRollingList-item">행당역</div>
+				<div class="vRollingList-item">왕십리역</div>
+				<div class="vRollingList-item">마장역</div>
+				<div class="vRollingList-item">답십리역</div>
+				<div class="vRollingList-item">장한평역</div>
+				<div class="vRollingList-item">군자역</div>
+				<div class="vRollingList-item">아차산역</div>
+				<div class="vRollingList-item">광나루역</div>
+				<div class="vRollingList-item">천호역</div>
+				<div class="vRollingList-item">강동역(상일동,마천분기점)</div>
+				<div class="vRollingList-item">길동역</div>
+				<div class="vRollingList-item">굽은다리</div>
+				<div class="vRollingList-item">명일역</div>
+				<div class="vRollingList-item">고덕역</div>
+				<div class="vRollingList-item">상일동역</div>
+				<div class="vRollingList-item">둔춘동역</div>
+				<div class="vRollingList-item">올림픽공원역</div>
+				<div class="vRollingList-item">방이역</div>
+				<div class="vRollingList-item">오금역</div>
+				<div class="vRollingList-item">개롱역</div>
+				<div class="vRollingList-item">거여역</div>
+				<div class="vRollingList-item">마천역</div>
+			</div>
+			<div style="flex:0 0 40px; display:flex;flex-direction: column;">
+				<button class="btn btn-success" onclick="vrm03.up()" style="flex: 1 1 50%; margin:0 0 5px 10px;">▲</button>
+				<button class="btn btn-success" onclick="vrm03.down()" style="flex: 1 1 50%; margin:5px 0 0 10px;">▼</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
