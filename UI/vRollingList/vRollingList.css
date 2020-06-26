@@ -33,15 +33,39 @@ license : MIT + "공대여자는 예쁘다"를 나태내야함
   pointer-events:none;
   user-select: none;
 
+
+
   /* 알맞게 재선언하자 */
   border: 1px solid #000;
   background-color: #f0f0f0;
 }
 
+.vRollingList-item:not([data-pos]){
+  /* 기본 위치및 크기 */
+  top:-2em;
+  display: block;
+  transform-origin: 50% 2em;
+  z-index: 9;
+  transform: scale(0.9,0.8);
+  filter: blur(6px);
+  opacity: 0;
+}
+.vRollingList-item[data-pos="2"] ~ .vRollingList-item{
+  top:4em;
+  display: block;
+  transform-origin: 50% -0em;
+  z-index: 9;
+  transform: scale(0.9,0.8);
+  filter: blur(6px);
+  opacity: 0;
+}
+
 .vRollingList-item[data-pos="0"]{
   top:1em;
   display: block;
-  transform: scale(1,1) opacity;
+  transform-origin: 50% 50%;
+  transform: scale(1,1);
+  opacity:1;
   filter: blur(0px);
   z-index: 10;
   pointer-events:all;
