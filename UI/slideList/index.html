@@ -1,0 +1,515 @@
+<!doctype html>
+<!--
+slideList
+dev : mins01
+homepage : http://mins01.com
+date : 2020-06-26
+license : MIT + "공대여자는 예쁘다"를 나태내야함
+-->
+<html lang="ko" >
+<head>
+	<title>SlideList</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>ForGoogle.analytics()</script>
+
+
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+
+	<!-- meta og -->
+
+	<meta property="og:title" content="SlideList">
+	<meta property="og:description" content="SlideList">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="SlideList" />
+	<meta property="og:type" content="website">
+
+	<!-- //meta og -->
+
+	<link rel="stylesheet" href="slideList.css">
+	<script src="SlideList.js" ></script>
+	<script>
+	var sl01 = null;
+	var sl01h = null;
+	var sl02 = null;
+	var sl02h = null;
+	var sl03 = null;
+	var sl03h = null;
+	$(function(){
+		sl01 = new SlideList(document.querySelector("#sl01"));
+		sl01h = new SlideList(document.querySelector("#sl01h"));
+		sl02 = new SlideList(document.querySelector("#sl02"));
+		sl02h = new SlideList(document.querySelector("#sl02h"));
+		sl03 = new SlideList(document.querySelector("#sl03"));
+		sl03h = new SlideList(document.querySelector("#sl03h"));
+		document.querySelector("#sl03").onwheel =function(event){
+			var deltaY = event.deltaY;
+			if(deltaY<0){	sl03.prev();	}
+			if(deltaY>0){ sl03.next();	}
+			return false;
+		}
+		document.querySelector("#sl03h").onwheel =function(event){
+			var deltaY = event.deltaY;
+			if(deltaY<0){	sl03h.prev();	}
+			if(deltaY>0){ sl03h.next();	}
+			return false;
+		}
+	})
+	</script>
+	<style>
+	.slideList#sl01 ,
+	.slideList#sl01h{
+	  /* 알맞게 재선언하자 */
+	  border: 0px solid #ccc;
+	  background-color: #f0f0f0;
+		padding:10px;
+	}
+
+	#sl01 .slideList-item ,
+	#sl01h .slideList-item{
+	  /* 알맞게 재선언하자 */
+	  border: 1px solid #000;
+	  background-color: #f0f0f0;
+	}
+	.slideList#sl02 ,
+	.slideList#sl02h{
+		width:300px;height:300px;
+		font-size:40px;
+	  /* 알맞게 재선언하자 */
+	  border: 3px solid #999;
+	  background-color: #aaa;
+		padding:10px;
+		border-radius: 0.5em;
+	}
+
+	#sl02 .slideList-item ,
+	#sl02h .slideList-item{
+	  /* 알맞게 재선언하자 */
+	  border: 3px solid #7B27AC;
+	  background-color: #fff;
+		border-radius: 1em;
+		text-align: center;
+		font-weight: bold;;
+		/* text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap; */
+	}
+
+	.slideList#sl03{
+		font-size:40px;
+	  /* 알맞게 재선언하자 */
+	  border: 3px solid #999;
+	  background-color: #aaa;
+		padding:10px;
+		border-radius: 0.5em;
+	}
+
+	#sl03 .slideList-item{
+	  /* 알맞게 재선언하자 */
+	  border: 3px solid #7B27AC;
+	  background-color: #fff;
+		border-radius: 1em;
+		text-align: center;
+		font-weight: bold;;
+		text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+	}
+	.slideList#sl03h{
+		font-size:40px;
+		/* 알맞게 재선언하자 */
+		border: 3px solid #999;
+		background-color: #aaa;
+		border-radius: 0.5em;
+	}
+
+	#sl03h .slideList-item{
+		/* 알맞게 재선언하자 */
+		border: 3px solid #7B27AC;
+		background-color: #fff;
+		border-radius: 1em;
+		text-align: center;
+		font-weight: bold;;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>slideList</h1>
+		<h2>목록을 가로/세로로 넘긴다.</h2>
+		<hr>
+		<h3>default sample</h3>
+		<div class="slideList slideList-v" id="sl01" style="margin:50px">
+			<div class="slideList-item">menu1</div>
+			<div class="slideList-item">menu2</div>
+			<div class="slideList-item">menu3</div>
+			<div class="slideList-item">menu4</div>
+			<div class="slideList-item">menu5</div>
+			<div class="slideList-item">menu6</div>
+			<div class="slideList-item">menu7</div>
+			<div class="slideList-item">menu8</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+		</div>
+		<div class="text-center">
+			<button class="btn btn-info" onclick="sl01.first()">first</button>
+			<button class="btn btn-info" onclick="sl01.prev()">prev</button>
+			<button class="btn btn-info" onclick="sl01.next()">next</button>
+			<button class="btn btn-info" onclick="sl01.last()">last</button>
+		</div>
+
+		<br>
+		<div class="slideList slideList-h" id="sl01h" style="margin:50px">
+			<div class="slideList-item">menu1</div>
+			<div class="slideList-item">menu2</div>
+			<div class="slideList-item">menu3</div>
+			<div class="slideList-item">menu4</div>
+			<div class="slideList-item">menu5</div>
+			<div class="slideList-item">menu6</div>
+			<div class="slideList-item">menu7</div>
+			<div class="slideList-item">menu8</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+			<div class="slideList-item">menu9</div>
+		</div>
+		<div class="text-center">
+			<button class="btn btn-info" onclick="sl01h.first()">first</button>
+			<button class="btn btn-info" onclick="sl01h.prev()">prev</button>
+			<button class="btn btn-info" onclick="sl01h.next()">next</button>
+			<button class="btn btn-info" onclick="sl01h.last()">last</button>
+		</div>
+		<hr>
+		<h3>design sample</h3>
+
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="slideList slideList-v" id="sl02" style="margin:10px auto; ">
+					<a href="http://mins01.com" target="_blank" class="slideList-item">공대여자홈</a>
+					<div class="slideList-item">방화역</div>
+					<div class="slideList-item">개화산역</div>
+					<div class="slideList-item">김포공항역</div>
+					<div class="slideList-item">송정역</div>
+					<div class="slideList-item">마곡역</div>
+					<div class="slideList-item">발산역</div>
+					<div class="slideList-item">우장산역</div>
+					<div class="slideList-item">화곡역</div>
+					<div class="slideList-item">까치산역</div>
+					<div class="slideList-item">신정역</div>
+					<div class="slideList-item">목동역</div>
+					<div class="slideList-item">오목교역</div>
+					<div class="slideList-item">양평역</div>
+					<div class="slideList-item">영등포구청역</div>
+					<div class="slideList-item">영등포시장역</div>
+					<div class="slideList-item">신길역</div>
+					<div class="slideList-item">여의도역</div>
+					<div class="slideList-item">여의나루역</div>
+					<div class="slideList-item">마포역</div>
+					<div class="slideList-item">공덕역</div>
+					<div class="slideList-item">애오개역</div>
+					<div class="slideList-item">충정로역</div>
+					<div class="slideList-item">서대문역</div>
+					<div class="slideList-item">광화문역</div>
+					<div class="slideList-item">종로3가역</div>
+					<div class="slideList-item">을지로4가역</div>
+					<div class="slideList-item">동대문역사문화공원역</div>
+					<div class="slideList-item">청구역</div>
+					<div class="slideList-item">신금호역</div>
+					<div class="slideList-item">행당역</div>
+					<div class="slideList-item">왕십리역</div>
+					<div class="slideList-item">마장역</div>
+					<div class="slideList-item">답십리역</div>
+					<div class="slideList-item">장한평역</div>
+					<div class="slideList-item">군자역</div>
+					<div class="slideList-item">아차산역</div>
+					<div class="slideList-item">광나루역</div>
+					<div class="slideList-item">천호역</div>
+					<div class="slideList-item">강동역(상일동,마천분기점)</div>
+					<div class="slideList-item">길동역</div>
+					<div class="slideList-item">굽은다리</div>
+					<div class="slideList-item">명일역</div>
+					<div class="slideList-item">고덕역</div>
+					<div class="slideList-item">상일동역</div>
+					<div class="slideList-item">둔춘동역</div>
+					<div class="slideList-item">올림픽공원역</div>
+					<div class="slideList-item">방이역</div>
+					<div class="slideList-item">오금역</div>
+					<div class="slideList-item">개롱역</div>
+					<div class="slideList-item">거여역</div>
+					<div class="slideList-item">마천역</div>
+				</div>
+				<div class="text-center">
+					<button class="btn btn-info" onclick="sl02.first()">first</button>
+					<button class="btn btn-info" onclick="sl02.prev()">prev</button>
+					<button class="btn btn-info" onclick="sl02.next()">next</button>
+					<button class="btn btn-info" onclick="sl02.last()">last</button>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="slideList slideList-h" id="sl02h" style="margin:10px auto; ">
+					<a href="http://mins01.com" target="_blank" class="slideList-item">공대여자홈</a>
+					<div class="slideList-item">방화역</div>
+					<div class="slideList-item">개화산역</div>
+					<div class="slideList-item">김포공항역</div>
+					<div class="slideList-item">송정역</div>
+					<div class="slideList-item">마곡역</div>
+					<div class="slideList-item">발산역</div>
+					<div class="slideList-item">우장산역</div>
+					<div class="slideList-item">화곡역</div>
+					<div class="slideList-item">까치산역</div>
+					<div class="slideList-item">신정역</div>
+					<div class="slideList-item">목동역</div>
+					<div class="slideList-item">오목교역</div>
+					<div class="slideList-item">양평역</div>
+					<div class="slideList-item">영등포구청역</div>
+					<div class="slideList-item">영등포시장역</div>
+					<div class="slideList-item">신길역</div>
+					<div class="slideList-item">여의도역</div>
+					<div class="slideList-item">여의나루역</div>
+					<div class="slideList-item">마포역</div>
+					<div class="slideList-item">공덕역</div>
+					<div class="slideList-item">애오개역</div>
+					<div class="slideList-item">충정로역</div>
+					<div class="slideList-item">서대문역</div>
+					<div class="slideList-item">광화문역</div>
+					<div class="slideList-item">종로3가역</div>
+					<div class="slideList-item">을지로4가역</div>
+					<div class="slideList-item">동대문역사문화공원역</div>
+					<div class="slideList-item">청구역</div>
+					<div class="slideList-item">신금호역</div>
+					<div class="slideList-item">행당역</div>
+					<div class="slideList-item">왕십리역</div>
+					<div class="slideList-item">마장역</div>
+					<div class="slideList-item">답십리역</div>
+					<div class="slideList-item">장한평역</div>
+					<div class="slideList-item">군자역</div>
+					<div class="slideList-item">아차산역</div>
+					<div class="slideList-item">광나루역</div>
+					<div class="slideList-item">천호역</div>
+					<div class="slideList-item">강동역(상일동,마천분기점)</div>
+					<div class="slideList-item">길동역</div>
+					<div class="slideList-item">굽은다리</div>
+					<div class="slideList-item">명일역</div>
+					<div class="slideList-item">고덕역</div>
+					<div class="slideList-item">상일동역</div>
+					<div class="slideList-item">둔춘동역</div>
+					<div class="slideList-item">올림픽공원역</div>
+					<div class="slideList-item">방이역</div>
+					<div class="slideList-item">오금역</div>
+					<div class="slideList-item">개롱역</div>
+					<div class="slideList-item">거여역</div>
+					<div class="slideList-item">마천역</div>
+				</div>
+				<div class="text-center">
+					<button class="btn btn-info" onclick="sl02h.first()">first</button>
+					<button class="btn btn-info" onclick="sl02h.prev()">prev</button>
+					<button class="btn btn-info" onclick="sl02h.next()">next</button>
+					<button class="btn btn-info" onclick="sl02h.last()">last</button>
+				</div>
+			</div>
+		</div>
+
+		<hr>
+		<h3>flex style + onwheel</h3>
+		<div class="flex-box" style="display:flex" >
+			<div class="slideList slideList-v" id="sl03" style="margin:0px auto; flex: 1 1 100%;" >
+				<a href="http://mins01.com" target="_blank" class="slideList-item">공대여자홈</a>
+				<div class="slideList-item">방화역</div>
+				<div class="slideList-item">개화산역</div>
+				<div class="slideList-item">김포공항역</div>
+				<div class="slideList-item">송정역</div>
+				<div class="slideList-item">마곡역</div>
+				<div class="slideList-item">발산역</div>
+				<div class="slideList-item">우장산역</div>
+				<div class="slideList-item">화곡역</div>
+				<div class="slideList-item">까치산역</div>
+				<div class="slideList-item">신정역</div>
+				<div class="slideList-item">목동역</div>
+				<div class="slideList-item">오목교역</div>
+				<div class="slideList-item">양평역</div>
+				<div class="slideList-item">영등포구청역</div>
+				<div class="slideList-item">영등포시장역</div>
+				<div class="slideList-item">신길역</div>
+				<div class="slideList-item">여의도역</div>
+				<div class="slideList-item">여의나루역</div>
+				<div class="slideList-item">마포역</div>
+				<div class="slideList-item">공덕역</div>
+				<div class="slideList-item">애오개역</div>
+				<div class="slideList-item">충정로역</div>
+				<div class="slideList-item">서대문역</div>
+				<div class="slideList-item">광화문역</div>
+				<div class="slideList-item">종로3가역</div>
+				<div class="slideList-item">을지로4가역</div>
+				<div class="slideList-item">동대문역사문화공원역</div>
+				<div class="slideList-item">청구역</div>
+				<div class="slideList-item">신금호역</div>
+				<div class="slideList-item">행당역</div>
+				<div class="slideList-item">왕십리역</div>
+				<div class="slideList-item">마장역</div>
+				<div class="slideList-item">답십리역</div>
+				<div class="slideList-item">장한평역</div>
+				<div class="slideList-item">군자역</div>
+				<div class="slideList-item">아차산역</div>
+				<div class="slideList-item">광나루역</div>
+				<div class="slideList-item">천호역</div>
+				<div class="slideList-item">강동역(상일동,마천분기점)</div>
+				<div class="slideList-item">길동역</div>
+				<div class="slideList-item">굽은다리</div>
+				<div class="slideList-item">명일역</div>
+				<div class="slideList-item">고덕역</div>
+				<div class="slideList-item">상일동역</div>
+				<div class="slideList-item">둔춘동역</div>
+				<div class="slideList-item">올림픽공원역</div>
+				<div class="slideList-item">방이역</div>
+				<div class="slideList-item">오금역</div>
+				<div class="slideList-item">개롱역</div>
+				<div class="slideList-item">거여역</div>
+				<div class="slideList-item">마천역</div>
+			</div>
+			<div style="flex:0 0 40px; display:flex;flex-direction: column;">
+				<button class="btn btn-success" onclick="sl03.prev()" style="flex: 1 1 50%; margin:5px;">▲</button>
+				<button class="btn btn-success" onclick="sl03.next()" style="flex: 1 1 50%; margin:5px;">▼</button>
+			</div>
+		</div>
+		<hr>
+		<h3>horizon+flex style + onwheel</h3>
+		<div class="flex-box" style="display:flex;flex-direction: column;" >
+			<div class="slideList slideList-h" id="sl03h" style="margin:0px auto; flex: 1 1 auto;width:100%;" >
+				<a href="http://mins01.com" target="_blank" class="slideList-item">공대여자홈</a>
+				<div class="slideList-item">방화역</div>
+				<div class="slideList-item">개화산역</div>
+				<div class="slideList-item">김포공항역</div>
+				<div class="slideList-item">송정역</div>
+				<div class="slideList-item">마곡역</div>
+				<div class="slideList-item">발산역</div>
+				<div class="slideList-item">우장산역</div>
+				<div class="slideList-item">화곡역</div>
+				<div class="slideList-item">까치산역</div>
+				<div class="slideList-item">신정역</div>
+				<div class="slideList-item">목동역</div>
+				<div class="slideList-item">오목교역</div>
+				<div class="slideList-item">양평역</div>
+				<div class="slideList-item">영등포구청역</div>
+				<div class="slideList-item">영등포시장역</div>
+				<div class="slideList-item">신길역</div>
+				<div class="slideList-item">여의도역</div>
+				<div class="slideList-item">여의나루역</div>
+				<div class="slideList-item">마포역</div>
+				<div class="slideList-item">공덕역</div>
+				<div class="slideList-item">애오개역</div>
+				<div class="slideList-item">충정로역</div>
+				<div class="slideList-item">서대문역</div>
+				<div class="slideList-item">광화문역</div>
+				<div class="slideList-item">종로3가역</div>
+				<div class="slideList-item">을지로4가역</div>
+				<div class="slideList-item">동대문역사문화공원역</div>
+				<div class="slideList-item">청구역</div>
+				<div class="slideList-item">신금호역</div>
+				<div class="slideList-item">행당역</div>
+				<div class="slideList-item">왕십리역</div>
+				<div class="slideList-item">마장역</div>
+				<div class="slideList-item">답십리역</div>
+				<div class="slideList-item">장한평역</div>
+				<div class="slideList-item">군자역</div>
+				<div class="slideList-item">아차산역</div>
+				<div class="slideList-item">광나루역</div>
+				<div class="slideList-item">천호역</div>
+				<div class="slideList-item">강동역(상일동,마천분기점)</div>
+				<div class="slideList-item">길동역</div>
+				<div class="slideList-item">굽은다리</div>
+				<div class="slideList-item">명일역</div>
+				<div class="slideList-item">고덕역</div>
+				<div class="slideList-item">상일동역</div>
+				<div class="slideList-item">둔춘동역</div>
+				<div class="slideList-item">올림픽공원역</div>
+				<div class="slideList-item">방이역</div>
+				<div class="slideList-item">오금역</div>
+				<div class="slideList-item">개롱역</div>
+				<div class="slideList-item">거여역</div>
+				<div class="slideList-item">마천역</div>
+			</div>
+			<div style="flex:0 0 40px; display:flex;flex-direction: row;">
+				<button class="btn btn-success" onclick="sl03h.prev()" style="flex: 1 1 50%; margin:5px;">◀</button>
+				<button class="btn btn-success" onclick="sl03h.next()" style="flex: 1 1 50%; margin:5px;">▶</button>
+			</div>
+		</div>
+	</div>
+	<hr>
+</body>
+</html>
