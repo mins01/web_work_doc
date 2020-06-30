@@ -8,6 +8,8 @@ license : MIT + "공대여자는 예쁘다"를 나태내야함
  */
 var SlideList = function(target){
   this.target = null;
+  this.isRepeat = false;
+  this.tm = null;
   this.init(target);
 }
 
@@ -26,11 +28,33 @@ SlideList.prototype.last = function(){
 }
 SlideList.prototype.prev = function(){
   var el = this.target.querySelector('.slideList-item[data-pos="-1"]');
-  return this.selectByNode(el)
+  if(this.isRepeat && !el){
+    return this.last();
+  }else{
+    return this.selectByNode(el)
+  }
 }
 SlideList.prototype.next = function(){
   var el = this.target.querySelector('.slideList-item[data-pos="1"]');
-  return this.selectByNode(el)
+  if(this.isRepeat && !el){
+    return this.first();
+  }else{
+    return this.selectByNode(el)
+  }
+}
+SlideList.prototype.playAuto = function(interval,isPrev){
+  this.stopAuto();
+  var fn = isPrev
+          ?function(thisC){ return function(){ if(!thisC.prev()){thisC.stopAuto()}}}(this)
+          :function(thisC){ return function(){ if(!thisC.next()){thisC.stopAuto()}}}(this)
+  this.tm = setInterval(fn,interval);
+}
+SlideList.prototype.stopAuto = function(){
+  // console.log("stopAuto");
+  if(this.tm != null){
+    clearInterval(this.tm)
+    this.tm = null;
+  }
 }
 SlideList.prototype.selectByNode = function(node){
   if(!node){ return false;}
