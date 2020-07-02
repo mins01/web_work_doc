@@ -55,6 +55,14 @@
       target.value += evt.clipboardData.getData('Text');
       target.value += '\n';
       target.value += '\n';
+      target.value += "evt.clipboardData.getData('text/plain')\n";
+      target.value += evt.clipboardData.getData('text/plain');
+      target.value += '\n';
+      target.value += '\n';
+      target.value += "evt.clipboardData.getData('text/html')\n";
+      target.value += evt.clipboardData.getData('text/html');
+      target.value += '\n';
+      target.value += '\n';
 
       var items = evt.clipboardData.items;
       if(items.length ==0 ){
