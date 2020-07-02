@@ -40,12 +40,28 @@
   <script type="text/javascript">
     function handler_paste(evt){
       var target = evt.target;
-      var items = event.clipboardData.items;
+
+      if(window.clipboardData && window.clipboardData.getData){ //IE
+        target.value ='';
+        target.value += "IE only : window.clipboardData.getData('Text')\n";
+        target.value += window.clipboardData.getData('Text');
+        target.value += '\n';
+        target.value += "IE only : window.clipboardData.getData('URL')\n";
+        target.value += window.clipboardData.getData('URL');
+        return false;
+      }
+      target.value = '';
+      target.value += "evt.clipboardData.getData('Text')\n";
+      target.value += evt.clipboardData.getData('Text');
+      target.value += '\n';
+      target.value += '\n';
+
+      var items = evt.clipboardData.items;
       if(items.length ==0 ){
         return;
       }
       var msgs = [];
-      target.value = '';
+
       for (let i = 0; i < items.length; i ++) {
         let item = items[i];
         let kind = item.kind;
@@ -55,15 +71,15 @@
            // This item is the target node
 
            item.getAsString(function (s){
-             target.value += i+":"+kind+":"+type+":"+s+"\n"+"\n";
+             target.value += "evt.clipboardData.items["+i+"]:"+kind+":"+type+":"+"\n"+s+"\n"+"\n";
            });
          } else if ((kind == 'string') && (type.match('^text/html'))) {
            item.getAsString(function (s){
-             target.value += i+":"+kind+":"+type+":"+s+"\n"+"\n";
+             target.value += "evt.clipboardData.items["+i+"]:"+kind+":"+type+":"+"\n"+s+"\n"+"\n";
            });
          } else if ((kind == 'string') && (type.match('^text/uri-list'))) {
            item.getAsString(function (s){
-             target.value += i+":"+kind+":"+type+":"+s+"\n"+"\n";
+             target.value += "evt.clipboardData.items["+i+"]:"+kind+":"+type+":"+"\n"+s+"\n"+"\n";
            });
          } else if ((kind == 'file') && (type.match('^image/'))) {
            // Drag data item is an image file
@@ -73,15 +89,22 @@
            var img = new Image();
            img.src = url;
            target.parentNode.appendChild(img);
-           target.value += i+":"+kind+":"+type+":"+url+"\n"+"\n";
+           target.value += "evt.clipboardData.items["+i+"]:"+kind+":"+type+":"+"\n"+url+"\n"+"\n";
          } else{
            item.getAsString(function (s){
-             target.value += i+":"+kind+":"+type+":"+s+"\n"+"\n";
+             target.value += "evt.clipboardData.items["+i+"]:"+kind+":"+type+":"+"\n"+s+"\n"+"\n";
            });
          }
        }
        return false;
     }
+
+    $(function(){
+      $("#textarea2").on('paste',function(evt){
+        handler_paste(evt.originalEvent);
+        return false;
+      })
+    })
   </script>
 
 </head>
@@ -108,9 +131,15 @@
         테스트 <img src="http://www.mins01.com/img/logo.gif" /> END
       </li>
       <li class="list-group-item">
+        <div>onpaste 애트리뷰트 사용</div>
         <textarea rows="20" name="name" rows="8" cols="80" onpaste="return handler_paste(event);" placeholder="여기에 붙여 넣으세요" class="form-control"></textarea>
+      </li>
+      <li class="list-group-item">
+        <div>addEventListener(paste)용</div>
+        <textarea rows="20" name="name2" id="textarea2" rows="8" cols="80" placeholder="여기에 붙여 넣으세요" class="form-control"></textarea>
       </li>
     </ul>
   </div>
+
 </body>
 </html>
