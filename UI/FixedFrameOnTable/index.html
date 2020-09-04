@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>fixed frame on table</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>ForGoogle.analytics()</script>
+
+
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+	<!-- meta og -->
+
+	<meta property="og:title" content="fixed frame on table">
+	<meta property="og:description" content="fixed frame on table">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="fixed frame on table" />
+	<meta property="og:type" content="website">
+
+	<!-- //meta og -->
+
+	<link rel="stylesheet" href="fixedFrameOnTable.css" >
+	<style>
+	.bg-box{background-image: url("bg_box.png")}
+	.tbl-1{
+		table-layout: fixed;
+		width:100%;
+	}
+	.tbl-1 td{
+		border:1px solid #000;
+		width:300px;
+		height:100px;
+		box-sizing: border-box;
+	}
+	</style>
+	<script>
+	function cb_scroll(ta){
+		// console.log(ta.scrollLeft,ta.scrollTop);
+		ta.closest(".ffot").querySelectorAll(".ffot-scrolled-left").forEach(function(el,idx){
+			el.style.transform="translate(-"+ta.scrollLeft+"px,0)";
+		})
+		ta.closest(".ffot").querySelectorAll(".ffot-scrolled-leftR").forEach(function(el,idx){
+			el.style.transform="translate("+ta.scrollLeft+"px,0)";
+		})
+		ta.closest(".ffot").querySelectorAll(".ffot-scrolled-top").forEach(function(el,idx){
+			el.style.transform="translate(0,-"+ta.scrollTop+"px)";
+		})
+		sync_size(ta)
+		// document.querySelector("#ffot-thread-table").style.transform="translate(-"+ta.scrollLeft+"px,0)";
+		// document.querySelector("#ffot-lside-table").style.transform="translate(0,-"+ta.scrollTop+"px)";
+		//document.querySelector("#ffot-tfoot-table").style.transform="translate(-"+ta.scrollLeft+"px,0px)";
+	}
+	function sync_size(ta){
+		var rect = ta.querySelector(".ffot-head-left").getBoundingClientRect();
+		ta.querySelector(".ffot-head-right").style.height=rect.height+'px';
+		ta.querySelector(".ffot-lside-left").style.width=rect.width+'px';
+		ta.querySelector(".ffot-body").style.marginLeft=rect.width+'px';
+		ta.querySelector(".ffot-lside").style.top=rect.height+'px';
+		var rect2 = ta.querySelector(".ffot-body").getBoundingClientRect();
+		ta.querySelector(".ffot-lside-left").style.height=rect2.height+'px';
+		ta.querySelector(".ffot-head-right").style.width=rect2.width+'px';
+	}
+
+	$(function(){
+		sync_size(document.querySelector("#ffot01"));
+		sync_size(document.querySelector("#ffot02"));
+	})
+	</script>
+</head>
+<body>
+	<div class="container-x">
+		<h1>fixed frame on table</h1>
+
+		<div class="ffot" id="ffot01" style="width:700px;height:250px;font-size:40px">
+			<div class="ffot-scrollbar" onscroll="cb_scroll(event.target)">
+				<div class="ffot-head">
+					<div class="bg-box ffot-head-left" style="width:300px;height:auto; background-color:#cab">left</div>
+					<div class="bg-box ffot-head-right ffot-scrolled-left" style="background-color:#abc">right</div>
+				</div>
+				<div class="ffot-lside ffot-scrolled-top">
+					<div class="bg-box ffot-lside-left " style="background-color:#bac;">left</div>
+				</div>
+				<div class="bg-box ffot-body" style="width:700px; height:2000px;background-color:#dda; ">right</div>
+
+			</div>
+		</div>
+
+		<div class="ffot" id="ffot02" style="width:700px;height:250px;">
+			<div class="ffot-scrollbar" onscroll="cb_scroll(event.target)">
+				<div class="ffot-head">
+					<div class="bg-box ffot-head-left" style="width:302px;background-color:#cab">
+						<table class="tbl-1">
+							<tr>
+								<td>11</td>
+							</tr>
+						</table>
+					</div>
+					<div class="bg-box ffot-head-right ffot-scrolled-left" style="background-color:#abc">
+						<table class="tbl-1">
+							<tr>
+								<td>12</td><td>13</td><td>14</td><td>15</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="ffot-lside ffot-scrolled-top">
+					<div class="bg-box ffot-lside-left" style="background-color:#bac;">
+						<table class="tbl-1">
+							<tr>
+								<td>21</td>
+							</tr>
+							<tr>
+								<td>31</td>
+							</tr>
+							<tr>
+								<td>41</td>
+							</tr>
+							<tr>
+								<td>51</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<table class="bg-box ffot-body tbl-1" style=" background-color:#dda; ">
+					<tr>
+						<td>22</td><td>23</td><td>24</td><td>25</td>
+					</tr>
+					<tr>
+						<td>32</td><td>33</td><td>34</td><td>35</td>
+					</tr>
+					<tr>
+						<td>42</td><td>43</td><td>44</td><td>45</td>
+					</tr>
+					<tr>
+						<td>52</td><td>53</td><td>54</td><td>55</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!--
+		<div class="ffot" style="width:700px;height:300px;">
+			<div class="ffot-scrollbar" onscroll="cb_scroll(event.target)">
+				<div class="ffot-head">
+					<div class="bg-box ffot-head-left" style="background-color:#cab">
+						<table class="tbl-1">
+							<tr>
+								<td>11</td>
+							</tr>
+						</table>
+					</div>
+					<div class="bg-box ffot-head-right ffot-scrolled-left" style="background-color:#abc">
+						<table class="tbl-1">
+							<tr>
+								<td>12</td><td>13</td><td>14</td><td>15</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="ffot-body">
+					<div class="bg-box ffot-body-left  ffot-scrolled-top" style="background-color:#bac;">
+						<table class="tbl-1">
+							<tr>
+								<td>21</td>
+							</tr>
+							<tr>
+								<td>31</td>
+							</tr>
+							<tr>
+								<td>41</td>
+							</tr>
+							<tr>
+								<td>51</td>
+							</tr>
+						</table>
+					</div>
+					<div class="bg-box ffot-body-right ffot-scrolled-top ffot-scrolled-left" style="background-color:#dda;" >
+						<table class="tbl-1">
+							<tr>
+								<td>22</td><td>23</td><td>24</td><td>25</td>
+							</tr>
+							<tr>
+								<td>32</td><td>33</td><td>34</td><td>35</td>
+							</tr>
+							<tr>
+								<td>42</td><td>43</td><td>44</td><td>45</td>
+							</tr>
+							<tr>
+								<td>52</td><td>53</td><td>54</td><td>55</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<table class="tbl-1">
+			<tr>
+				<td>11</td><td>12</td><td>13</td><td>14</td><td>15</td>
+			</tr>
+			<tr>
+				<td>21</td><td>22</td><td>23</td><td>24</td><td>25</td>
+			</tr>
+			<tr>
+				<td>31</td><td>32</td><td>33</td><td>34</td><td>35</td>
+			</tr>
+			<tr>
+				<td>41</td><td>42</td><td>43</td><td>44</td><td>45</td>
+			</tr>
+			<tr>
+				<td>51</td><td>52</td><td>53</td><td>54</td><td>55</td>
+			</tr>
+		</table>
+-->
+	</div>
+</body>
+</html>

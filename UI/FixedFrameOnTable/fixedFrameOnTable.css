@@ -1,0 +1,54 @@
+@charset "UTF-8";
+.ffot{
+	width: auto;
+	height: auto;
+	position: relative;
+}
+
+.ffot-scrollbar{
+	position: absolute;
+	left:0;right:0;top:0;bottom:0;
+	background-color: #aee;
+	overflow: scroll;
+}
+.ffot-head{
+	display: flex;
+	flex-direction: row;
+	position: sticky;
+	left:0;top:0;
+	z-index: 100;
+}
+.ffot-head > .ffot-head-left,
+.ffot-head > .ffot-head-right{
+	flex:0 0 auto;
+}
+.ffot-lside{
+	position: sticky;
+	left:0;top:0;
+	height: 0; overflow: visible;
+}
+.ffot-body{
+
+}
+
+.ffot-head{
+	z-index: 10;
+}
+.ffot-lside{
+	z-index: 9;
+}
+.ffot-head-left{
+	z-index: 10;
+	overflow: hidden;
+}
+.ffot-head-right{
+	z-index: 9;
+	overflow-x: hidden;
+}
+.ffot-lside-left{
+	z-index: 8;
+	overflow-x: hidden;
+}
+.ffot-lside-right{
+	z-index: 5;
+}
