@@ -1,0 +1,6 @@
+[submodule "toDraggable"]
+	path = toDraggable
+	url = https://github.com/mins01/ui_toDraggable.git
+[submodule "InputRangeBox"]
+	path = InputRangeBox
+	url = https://github.com/mins01/ui_InputRangeBox.git

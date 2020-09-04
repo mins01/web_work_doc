@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>ColorPalette</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>  
+	
+	
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script> 
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="ColorPalette">
+	<meta property="og:description" content="ColorPalette">
+	<meta name="og:image" content="ui_ColorPalette.png">
+	<meta property="og:image:width" content="344">
+	<meta property="og:image:height" content="624" />
+	<meta property="og:site_name" content="ColorPalette" />
+	<meta property="og:type" content="website">
+	
+	<!-- //meta og -->
+	<link rel="stylesheet" href="InputRangeBox/InputRangeBox.css"> 
+	<script src="InputRangeBox/InputRangeBox.js"></script>
+	
+	<script src="toDraggable/toDraggable.js"></script>	
+	<link rel="stylesheet" href="ColorPalette.css"> 
+	<script src="ColorPalette.js"></script>
+	<script>
+	var cp;
+	var $testModal;
+	window.addEventListener('load',function(evt){
+		var bookmark = ["#000000","#ffffff","#c00000","#ff0000","#ffc000","#ffff00","#92d050","#00b050","#00b0f0","#0070c0","#002060","#7030a0"]
+
+		cp = ColorPalette({defColor:"#a9c",bookmark:bookmark,maxHistory:40,localStorageHistoryKey:"cp"});
+		InputRangeBox.autoInit(cp);
+		document.getElementById('textDiv').appendChild(cp);
+		cp.addEventListener('input',function(evt){
+			console.log(evt.type)
+		})
+		cp.addEventListener('change',function(evt){
+			console.log(evt.type)
+		})
+		cp.addEventListener('confirm',function(evt){
+			console.log(evt.type,this.toString())
+		})
+		cp.addEventListener('cancel',function(evt){
+			console.log(evt.type)
+		})
+		cp.addEventListener('setselectedcolor',function(evt){
+			console.log(evt.type,this.getSelectedColor())
+		})
+		
+		
+		//--- bootstrap modal 연동 샘플 시작
+		$testModal = $("#testModal");
+		
+		cp2 = ColorPalette({defColor:"#abc",bookmark:bookmark,maxHistory:40,localStorageHistoryKey:"cp2"});
+		InputRangeBox.autoInit(cp2);
+		$testModal.find(".modal-body").html("").append(cp2);
+		cp2.addEventListener("confirm",function(evt){
+			$testModal.modal('hide');
+			var c_obj = this.get();
+			alert("select Color : "+c_obj.toStringHSL()+" "+c_obj.toStringRGB()+" "+c_obj.toStringHEX());
+			$("#testBtn").css("backgroundColor",c_obj.toString())
+		})
+		cp2.addEventListener("cancel",function(evt){
+			$testModal.modal('hide');
+		})
+		//--- bootstrap modal 연동 샘플 끝
+	})
+</script>
+
+
+</head>
+<body style="background-color:#eee;">
+	<div class="container">
+		<h1>ColorPalette</h1>
+		<ul style="word-break:break-all">
+			<li>컬러 파레트</li>
+			<li>jquery, Bootstrap 없이도 동작 가능</li>
+			<li><a href="http://www.mins01.com/mh/tech/read/1218" target="_blank">http://www.mins01.com/mh/tech/read/1218</a></li>
+			<li><a href="https://github.com/mins01/ui_ColorPalette/" target="_blank">https://github.com/mins01/ui_ColorPalette/</a></li>
+			<li><a href="https://mins01.github.io/ui_ColorPalette/" target="_blank">https://mins01.github.io/ui_ColorPalette/</a></li>
+			<li><a href="sample_bootstrap3.html" target="_blank">sample_bootstrap3.html</a></li>
+			<li><a href="ColorPalette.Color.html" target="_blank">ColorPalette.Color.html</a></li>
+		</ul>
+		<code>
+			<h2>create</h2>
+			<ul>
+				<li>
+					var cp:html_node = ColorPalette(opt);<br />
+					@param Object opt {defColor:기본색,bookmark:즐겨찾기 기본 배열,"maxHistory":최대 히스토리 수,"localStorageHistoryKey":히스토리용 키}<br />
+					@return cp:html_node tag div <br />
+				</li>
+				<li>ex <br />
+					var cp = ColorPalette({bookmark:["#abc","#369"],"maxHistory":10,"localStorageHistoryKey":"save_key"});<br />
+					InputRangeBox.autoInit(cp); //옵션 <br />
+					document.body.appendChild(cp); //옵션<br />
+					
+				</li>
+			</ul>
+			<h2>method</h2>
+			<ul>
+				<li>stringHSL:String = cp.toStringHSL() 선택된 색을 hsl(111,99%,99%) 로 나타냄</li>
+				<li>stringRGB:String = cp.toStringRGB() 선택된 색을 rgb(111,222,99) 로 나타냄</li>
+				<li>stringHEX:String = cp.toStringHEX() 선택된 색을 #aabbcc 로 나타냄</li>
+				<li>stringColor:String = cp.toString() 선택된 색 문자열로 출력(#aabbcc 가 기본) </li>
+				<li>c_obj:ColorPalette.Color = cp.get() 색 객체 반환</li>
+				<li>cp.set(colorInfo:[String,Object]) 컬러 데이터 설정하기</li>
+				<li>cp.setHEX(HEX:String) HEX로 값을 설정</li>
+				<li>cp.setHSL(h:Number,s:Number,l:Number) hsl 값으로 설정</li>
+				<li>cp.setRGB(r:Number,g:Number,b:Number) rgb 값으로 설정</li>
+				<li>cp.previewHSL(h:Number,s:Number,l:Number) hsl로 선택중인 값 변경</li>
+				<li>cp.previewRGB(r:Number,g:Number,b:Number) rgb로 선택중인 값 변경</li>
+				<li>cp.setPreview(colorInfo) 선택중인 색 변경</li>
+				<li>cp.getPreview() 선택중인 색 객체 반환</li>
+				<li>cp.confirm() confirm 동작. confirm 이벤트가 발생됨</li>
+				<li>cp.cancel() cancel 동작. cancel 이벤트가 발생됨</li>			
+			</ul>
+			<h2>참고</h2>
+			<ul>
+				<li>ObjectHSL:Object 모양 {"h":0,"s":72,"l":26}</li>
+				<li>ObjectRGB:Object 모양 {"r":115,"g":19,"b":19}</li>
+				<li>stringHSL:String 모양 hsl(111,99%,99%)</li>
+				<li>stringRGB:String 모양 rgb(111,222,99)</li>
+				<li>stringHEX:String 모양 #aabbcc</li>
+				<li>colorInfo:String,Object ObjectHSL,ObjectRGB,stringHSL,stringRGB,stringHEX 중 아무거나</li>
+				<li>toStringType:String HSL,RGB,HEX 중 하나</li>
+				<li><a href="ColorPalette.Color.html" target="_blank">ColorPalette.Color</a> 컬러 클래스</li>
+			</ul>
+			<h2>custom event</h2>
+			<ul>
+				<li>input : 선택중인 색 변경 이벤트</li>
+				<li>change : 선택중인 색 변경 완료 이벤트</li>
+				<li>confirm : 색 선택 이벤트</li>
+				<li>cancel : 색 선택 취소 이벤트</li>		
+			</ul>
+		</code>
+		<hr />
+		<!-- Button trigger modal -->
+		<button id="testBtn" type="button" class="btn" data-toggle="modal" data-target="#testModal">
+			bootstrap modal samlpe
+		</button>
+		<button type="button" class="btn" data-toggle="modal" data-target="#testModal" onclick="cp2.set('#ff0000')" style="background-color:#ff0000">
+			open #FF0000
+		</button>
+		<button type="button" class="btn" data-toggle="modal" data-target="#testModal" onclick="cp2.set('rgb(100,200,30)')" style="background-color:rgb(100,200,30)">
+			open rgb(100,200,30)
+		</button>
+		<button type="button" class="btn" data-toggle="modal" data-target="#testModal" onclick="cp2.set('hsl(270,50%,25%)')" style="background-color:hsl(270,50%,25%)">
+			open hsl(270,50%,25%)
+		</button>
+		<hr />
+		setPreview(string) : 선택중인 색 변경 <input type="text" oninput="cp.setPreview(this.value)" /><br />
+		getPreview : <button type="button" onclick="alert(cp.getPreview().toStringHEX())">선택중인 색 확인</button>
+		<div id="textDiv">
+			
+		</div>
+		
+		<br />
+		<div id="testModal" class="modal colorPalette-modal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">color palette</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Modal body text goes here.</p>
+					</div>
+					<!-- <div class="modal-footer">
+					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div> -->
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
