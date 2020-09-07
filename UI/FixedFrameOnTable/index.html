@@ -52,52 +52,13 @@
 		box-sizing: border-box;
 	}
 	</style>
+	<script src="FixedFrameOnTable.js"></script>
 	<script>
-	function cb_scroll(ta){
-		// console.log(ta.scrollLeft,ta.scrollTop);
-		var syncScrollTop = ta.closest(".ffot").querySelectorAll(".ffot-sync-scrollTop");
-		if(syncScrollTop.length > 0){
-			syncScrollTop.forEach(function(el,idx){
-				el.style.transform="translate(0,-"+ta.scrollTop+"px)";
-			})
-		}
-	}
-	function sync_init_size(ta){
-		var ffot= ta.closest(".ffot");
-		var rect_flh = ffot.querySelector('.ffot-lside-head').getBoundingClientRect();
-		ffot.querySelector('.ffot-lside-body').style.width = rect_flh.width+"px";
-		ffot.querySelector('.ffot-body-head').style.height = rect_flh.height+"px";
-		ffot.querySelector('.ffot-body').style.left = rect_flh.width+"px";
-
-
-
-	}
 	$(function(){
-		fbcResizeObserver  = new ResizeObserver(function(els){
-			for(var i=0,m=els.length;i<m;i++){
-				let ffot= els[i].target.closest(".ffot");
-				let rect_fbc = els[i].contentRect
-				ffot.querySelector('.ffot-lside-body').style.height = rect_fbc.height+"px";
-				// ffot.querySelector('.ffot-body-head').style.width = rect_fbc.width+"px";
-				// console.log(els[i]);
-
-			}
-		})
-		flhResizeObserver  = new ResizeObserver(function(els){
-			for(var i=0,m=els.length;i<m;i++){
-				let ffot= els[i].target.closest(".ffot");
-				let rect_flh = els[i].contentRect
-				ffot.querySelector('.ffot-lside-body').style.width = rect_flh.width+"px";
-				ffot.querySelector('.ffot-body-head').style.height = rect_flh.height+"px";
-				ffot.querySelector('.ffot-body').style.left = rect_flh.width+"px";
-			}
-		})
-		// sync_init_size(document.querySelector('#ffot01'));
-		fbcResizeObserver.observe(document.querySelector('#ffot01  .ffot-body-content'));
-		flhResizeObserver.observe(document.querySelector('#ffot01  .ffot-lside-head'));
-
-		fbcResizeObserver.observe(document.querySelector('#ffot11  .ffot-body-content'));
-		flhResizeObserver.observe(document.querySelector('#ffot11  .ffot-lside-head'));
+		var ffot01 = new FixedFrameOnTable(document.querySelector('#ffot01'));
+		var ffot11 = new FixedFrameOnTable(document.querySelector('#ffot11'));
+		var ffot12 = new FixedFrameOnTable(document.querySelector('#ffot12'));
+		var ffot13 = new FixedFrameOnTable(document.querySelector('#ffot13'));
 	})
 	</script>
 
@@ -110,23 +71,23 @@
 		<h1>fixed frame on table</h1>
 
 		<div id="ffot01" class="ffot" style="width:500px;height:300px;">
-			<div  class="ffot-scrollbar" style="" onscroll="cb_scroll(event.target)" >
-				<div class="ffot-lside" style="">
-					<div class="ffot-lside-head">
+			<div  class="ffot-scrollbar" style="" onscroll="" >
+				<div class="ffot-container-left">
+					<div class="ffot-header-00">
 						<div class="bg-box" style="background-color:#cab;" id="testFixedLeft">fixed left</div>
 					</div>
-					<div class="ffot-lside-body ffot-sync-scrollTop ffot-sync-body-content-height">
+					<div class="ffot-header-10">
 						<div class="bg-box" style="background-color:#abc;">fixed right</div>
 					</div>
 				</div>
-				<div class="ffot-body" style="left:300px;">
-					<div class=" ffot-body-head" >
+				<div class="ffot-container-body" >
+					<div class=" ffot-header-01" >
 						<div class="bg-box" style="background-color:#bac;">
 							fixed left
 						</div>
 					</div>
-					<div class="ffot-body-content" >
-						<div class="bg-box" style="background-color:#dda;" id="textContent">contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent</div>
+					<div class="ffot-content" >
+						<div class="bg-box" style="background-color:#dda;" id="textContent">asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd<br>asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd<br>asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd<br>asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd<br>asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd<br>asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd<br>asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd<br></div>
 					</div>
 				</div>
 			</div>
@@ -136,9 +97,9 @@
 		<hr>
 		<div id="ffot02" class="ffot" style="width:500px;height:300px;">
 			<div  class="ffot-scrollbar" style="" >
-				<div class="ffot-body" style="">
-					<div class="bg-box ffot-body-head" style="width:1000px;height:50px;background-color:#bac;">fixed left</div>
-					<div class="bg-box ffot-body-content" style="width:1000px;height:500px;background-color:#dda;">right</div>
+				<div class="ffot-container-body" style="">
+					<div class="bg-box ffot-header-01" style="width:1000px;height:50px;background-color:#bac;">fixed left</div>
+					<div class="bg-box ffot-content" style="width:1000px;height:500px;background-color:#dda;">right</div>
 				</div>
 			</div>
 		</div>
@@ -149,42 +110,69 @@
 		</style>
 		<div id="ffot03" class="ffot" style="width:500px;height:300px;">
 			<div  class="ffot-scrollbar" style="" >
-				<div class="ffot-body ffot-body-dir-row" >
-					<div class="bg-box ffot-body-lside " style="width:300px;height:500px;background-color:#abc;">fixed right</div>
-					<div class="bg-box ffot-body-content" style="width:1000px;height:500px;background-color:#dda;">right</div>
+				<div class="ffot-container-body ffot-container-body-dir-row" >
+					<div class="bg-box ffot-header-10 " style="width:300px;height:500px;background-color:#abc;">fixed right</div>
+					<div class="bg-box ffot-content" style="width:1000px;height:500px;background-color:#dda;">right</div>
 				</div>
 			</div>
 		</div>
 		<hr>
-		<div id="ffot11" class="ffot" style="width:500px;height:300px;">
-			<div  class="ffot-scrollbar" style="" onscroll="cb_scroll(event.target)" >
-				<div class="ffot-lside" style="">
-					<div class="ffot-lside-head">
-						<table class="text-table bg-box" style="background-color:#cab;">
-							<tr><td>00</td></tr>
-						</table>
-					</div>
-					<div class="ffot-lside-body ffot-sync-scrollTop ffot-sync-body-content-height">
-						<table class="text-table bg-box" style="background-color:#abc;">
-							<tr><td>10</td></tr>
-							<tr><td>20</td></tr>
-							<tr><td>30</td></tr>
-						</table>
-					</div>
+		<div id="ffot11" class="ffot" style="width:500px;height:300px;" contentEditable>
+			<div  class="ffot-scrollbar" style="" >
+				<div class="ffot-container-left" style="">
+					<table class="ffot-header-00 text-table bg-box" style="background-color:#cab;">
+						<tr><td width="50" height="40">00</td><td width="50">00</td></tr>
+						<tr><td height="40">00</td><td>00</td></tr>
+					</table>
+					<table class="ffot-header-10 text-table bg-box" style="background-color:#abc;">
+						<tr><td height="100">10</td><td height="100">10</td></tr>
+						<tr><td height="50">20</td><td height="50">20</td></tr>
+						<tr><td height="50">30</td><td height="50">30</td></tr>
+					</table>
 				</div>
-				<div class="ffot-body" style="left:300px;">
-					<div class=" ffot-body-head" >
-						<table class="text-table bg-box" style="background-color:#bac;">
-							<tr><td>00</td><td>01</td><td>02</td></tr>
-						</table>
-					</div>
-					<div class="ffot-body-content" >
-						<table class="text-table bg-box" style="background-color:#dda;">
-							<tr><td contenteditable>11</td><td contenteditable>12</td><td contenteditable>13</td></tr>
-							<tr><td contenteditable>21</td><td contenteditable>22</td><td contenteditable>23</td></tr>
-							<tr><td contenteditable>31</td><td contenteditable>32</td><td contenteditable>33</td></tr>
-						</table>
-					</div>
+				<div class="ffot-container-body" >
+					<table class="ffot-header-01 text-table bg-box" style="background-color:#bac;">
+						<tr><td height="100">00</td><td>01</td><td>02</td></tr>
+						<tr><td height="100">00</td><td>01</td><td>02</td></tr>
+					</table>
+					<table class="ffot-content text-table bg-box" style="background-color:#dda;">
+						<tr><td height="100" width="200">Hello</td><td width="300">12</td><td width="300">13</td></tr>
+						<tr><td height="50">21</td><td>22</td><td>23</td></tr>
+						<tr><td height="500">31</td><td>32</td><td>33</td></tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div id="ffot12" class="ffot" style="width:500px;height:300px;" contentEditable>
+			<div  class="ffot-scrollbar" style="" >
+				<div class="ffot-container-body" >
+					<table class="ffot-header-01 text-table bg-box" style="background-color:#bac;">
+						<tr><td height="50">00</td><td>01</td><td>02</td></tr>
+						<tr><td height="80">00</td><td>01</td><td>02</td></tr>
+					</table>
+					<table class="ffot-content text-table bg-box" style="background-color:#dda;">
+						<tr><td height="100" width="200">Hello</td><td width="300">12</td><td width="300">13</td></tr>
+						<tr><td height="50">21</td><td>22</td><td>23</td></tr>
+						<tr><td height="500">31</td><td>32</td><td>33</td></tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div id="ffot13" class="ffot" style="width:500px;height:300px;" contentEditable>
+			<div  class="ffot-scrollbar" style="" >
+				<div class="ffot-container-body ffot-container-body-dir-row" >
+					<table class="ffot-header-10 text-table bg-box" style="background-color:#abc;">
+						<tr><td height="100" width="20">10</td><td height="100" width="50">10</td></tr>
+						<tr><td height="50">20</td><td height="50">20</td></tr>
+						<tr><td height="50">30</td><td height="50">30</td></tr>
+					</table>
+					<table class="ffot-content text-table bg-box" style="background-color:#dda;">
+						<tr><td height="100" width="200">Hello</td><td width="300">12</td><td width="300">13</td></tr>
+						<tr><td height="50">21</td><td>22</td><td>23</td></tr>
+						<tr><td height="500">31</td><td>32</td><td>33</td></tr>
+					</table>
 				</div>
 			</div>
 		</div>
