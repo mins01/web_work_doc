@@ -61,8 +61,44 @@
 				el.style.transform="translate(0,-"+ta.scrollTop+"px)";
 			})
 		}
+	}
+	function sync_init_size(ta){
+		var ffot= ta.closest(".ffot");
+		var rect_flh = ffot.querySelector('.ffot-lside-head').getBoundingClientRect();
+		ffot.querySelector('.ffot-lside-body').style.width = rect_flh.width+"px";
+		ffot.querySelector('.ffot-body-head').style.height = rect_flh.height+"px";
+		ffot.querySelector('.ffot-body').style.left = rect_flh.width+"px";
+
+
 
 	}
+	$(function(){
+		fbcResizeObserver  = new ResizeObserver(function(els){
+			for(var i=0,m=els.length;i<m;i++){
+				let ffot= els[i].target.closest(".ffot");
+				let rect_fbc = els[i].contentRect
+				ffot.querySelector('.ffot-lside-body').style.height = rect_fbc.height+"px";
+				// ffot.querySelector('.ffot-body-head').style.width = rect_fbc.width+"px";
+				// console.log(els[i]);
+
+			}
+		})
+		flhResizeObserver  = new ResizeObserver(function(els){
+			for(var i=0,m=els.length;i<m;i++){
+				let ffot= els[i].target.closest(".ffot");
+				let rect_flh = els[i].contentRect
+				ffot.querySelector('.ffot-lside-body').style.width = rect_flh.width+"px";
+				ffot.querySelector('.ffot-body-head').style.height = rect_flh.height+"px";
+				ffot.querySelector('.ffot-body').style.left = rect_flh.width+"px";
+			}
+		})
+		// sync_init_size(document.querySelector('#ffot01'));
+		fbcResizeObserver.observe(document.querySelector('#ffot01  .ffot-body-content'));
+		flhResizeObserver.observe(document.querySelector('#ffot01  .ffot-lside-head'));
+
+		fbcResizeObserver.observe(document.querySelector('#ffot11  .ffot-body-content'));
+		flhResizeObserver.observe(document.querySelector('#ffot11  .ffot-lside-head'));
+	})
 	</script>
 
 	<style>
@@ -76,32 +112,83 @@
 		<div id="ffot01" class="ffot" style="width:500px;height:300px;">
 			<div  class="ffot-scrollbar" style="" onscroll="cb_scroll(event.target)" >
 				<div class="ffot-lside" style="">
-					<div class="bg-box ffot-lside-head" style="width:300px;height:50px;background-color:#cab;">left</div>
-					<div class="bg-box ffot-lside-body ffot-sync-scrollTop" style="width:300px;height:500px;background-color:#abc;">right</div>
+					<div class="ffot-lside-head">
+						<div class="bg-box" style="background-color:#cab;" id="testFixedLeft">fixed left</div>
+					</div>
+					<div class="ffot-lside-body ffot-sync-scrollTop ffot-sync-body-content-height">
+						<div class="bg-box" style="background-color:#abc;">fixed right</div>
+					</div>
 				</div>
 				<div class="ffot-body" style="left:300px;">
-					<div class="bg-box ffot-body-head" style="width:1000px;height:50px;background-color:#bac;">left</div>
-					<div class="bg-box ffot-body-body" style="width:1000px;height:500px;background-color:#dda;">right</div>
+					<div class=" ffot-body-head" >
+						<div class="bg-box" style="background-color:#bac;">
+							fixed left
+						</div>
+					</div>
+					<div class="ffot-body-content" >
+						<div class="bg-box" style="background-color:#dda;" id="textContent">contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent</div>
+					</div>
 				</div>
 			</div>
 		</div>
+		<button type="btn btn-info" onclick="document.querySelector('#textContent').innerHTML+='<br>'+document.querySelector('#textContent').innerHTML">content 내용수정</button>
+		<button type="btn btn-info" onclick="document.querySelector('#testFixedLeft').innerHTML+='<br>'+document.querySelector('#testFixedLeft').innerHTML">fixed left 내용수정</button>
+		<hr>
 		<div id="ffot02" class="ffot" style="width:500px;height:300px;">
 			<div  class="ffot-scrollbar" style="" >
 				<div class="ffot-body" style="">
-					<div class="bg-box ffot-body-head" style="width:1000px;height:50px;background-color:#bac;">left</div>
-					<div class="bg-box ffot-body-body" style="width:1000px;height:500px;background-color:#dda;">right</div>
+					<div class="bg-box ffot-body-head" style="width:1000px;height:50px;background-color:#bac;">fixed left</div>
+					<div class="bg-box ffot-body-content" style="width:1000px;height:500px;background-color:#dda;">right</div>
 				</div>
 			</div>
 		</div>
+		<hr>
+		<style>
+		.text-table{ }
+		.text-table td{}
+		</style>
 		<div id="ffot03" class="ffot" style="width:500px;height:300px;">
 			<div  class="ffot-scrollbar" style="" >
 				<div class="ffot-body ffot-body-dir-row" >
-					<div class="bg-box ffot-body-lside" style="width:300px;height:500px;background-color:#abc;">right</div>
-					<div class="bg-box ffot-body-body" style="width:1000px;height:500px;background-color:#dda;">right</div>
+					<div class="bg-box ffot-body-lside " style="width:300px;height:500px;background-color:#abc;">fixed right</div>
+					<div class="bg-box ffot-body-content" style="width:1000px;height:500px;background-color:#dda;">right</div>
 				</div>
 			</div>
 		</div>
-
+		<hr>
+		<div id="ffot11" class="ffot" style="width:500px;height:300px;">
+			<div  class="ffot-scrollbar" style="" onscroll="cb_scroll(event.target)" >
+				<div class="ffot-lside" style="">
+					<div class="ffot-lside-head">
+						<table class="text-table bg-box" style="background-color:#cab;">
+							<tr><td>00</td></tr>
+						</table>
+					</div>
+					<div class="ffot-lside-body ffot-sync-scrollTop ffot-sync-body-content-height">
+						<table class="text-table bg-box" style="background-color:#abc;">
+							<tr><td>10</td></tr>
+							<tr><td>20</td></tr>
+							<tr><td>30</td></tr>
+						</table>
+					</div>
+				</div>
+				<div class="ffot-body" style="left:300px;">
+					<div class=" ffot-body-head" >
+						<table class="text-table bg-box" style="background-color:#bac;">
+							<tr><td>00</td><td>01</td><td>02</td></tr>
+						</table>
+					</div>
+					<div class="ffot-body-content" >
+						<table class="text-table bg-box" style="background-color:#dda;">
+							<tr><td contenteditable>11</td><td contenteditable>12</td><td contenteditable>13</td></tr>
+							<tr><td contenteditable>21</td><td contenteditable>22</td><td contenteditable>23</td></tr>
+							<tr><td contenteditable>31</td><td contenteditable>32</td><td contenteditable>33</td></tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr>
 
 	</div>
 </body>

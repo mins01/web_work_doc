@@ -2,20 +2,30 @@
 .ffot{
 
 }
+.ffot table{
+	width:100%;
+
+}
 .ffot-scrollbar{
 	overflow:scroll; display:flex; height:100%;width:100%;position:relative;
 }
 .ffot-lside{
 	display:flex;flex-direction:column;position: sticky;left: 0;top: 0;z-index:10;
+	flex:0 0 auto;
 }
+
 .ffot-lside-head{
 	flex:0 0 auto;z-index:10;
 }
 .ffot-lside-body{
 	flex:0 0 auto;z-index:5;
 }
+.ffot-lside-body  > *:first-child{
+	width:100%;height:100%;
+}
 .ffot-body{
 	display:flex;flex-direction:column;position:absolute;top:0;
+	flex:0 0 auto;
 }
 .ffot-body-dir-row{
 	flex-direction:row;
@@ -29,6 +39,14 @@
 .ffot-body-head{
 	flex:0 0 auto;position: sticky;left: 0;top: 0;;z-index:9;
 }
-.ffot-body-body{
+.ffot-body-head > *:first-child{
+	width:100%;
+	height:100%;
+}
+.ffot-body-content{
 	flex:0 0 auto;
+}
+.ffot-body-content table{
+	width:100%;
+	table-layout: fixed;
 }
