@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>preserve-3d dice</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!-- <script src="/js/ForGoogle.js"></script> -->
+	<!-- google analytics -->
+	<!-- <script>ForGoogle.analytics()</script> -->
+
+
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+	<!-- meta og -->
+
+	<meta property="og:title" content="preserve-3d dice">
+	<meta property="og:description" content="preserve-3d dice">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="preserve-3d dice" />
+	<meta property="og:type" content="website">
+
+	<!-- //meta og -->
+
+	<style>
+	.box{
+		perspective:300px;perspective-origin: center;width:300px; height:300px; margin:0 auto; position: relative; border: 3px solid #000;
+
+		overflow: hidden;
+	}
+	.board-bg{
+		transform: rotateX(45deg);
+		background-image: url("bg.gif");
+		position: absolute;top:-400px;left:-400px;right:-400px;bottom:-400px;
+		transform-style:preserve-3d;
+	}
+	.board-dice{
+		transform: rotateX(45deg) translateZ(-100px) translateZ(50px);
+		position: absolute;top:0;left:0;right:0;bottom: 0;
+		transform-style:preserve-3d;
+	}
+
+	.rects{position: absolute;width:300px;height:300px;overflow: visible;
+		left:0;top:0;
+		display: flex;
+		justify-content: center;  /* 가로 중앙 */
+		align-items: center; /* 세로 중앙 */
+		transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+		pointer-events: none;
+		transition: all;
+		transform-style:preserve-3d;
+
+	}
+	.rects-animation{
+		animation-name: r-xyz;
+		animation-duration: 5s;
+		animation-iteration-count: infinite;
+	}
+	.roll-dice{
+		animation-name: roll-dice;
+		animation-duration: 2s;
+		animation-iteration-count: infinite;
+	}
+	.roll-dice[dice]{
+		animation-duration: 3s;
+		animation-iteration-count: 1;
+		animation-fill-mode: both;
+	}
+	.roll-dice[dice="1"]{
+		animation-name: roll-dice-1;
+	}
+	.roll-dice[dice="2"]{
+		animation-name: roll-dice-2;
+	}
+	.roll-dice[dice="3"]{
+		animation-name: roll-dice-3;
+	}
+	.roll-dice[dice="4"]{
+		animation-name: roll-dice-4;
+	}
+	.roll-dice[dice="5"]{
+		animation-name: roll-dice-5;
+	}
+	.roll-dice[dice="6"]{
+		animation-name: roll-dice-6;
+	}
+
+	.rect{background-color: #ccc; width:100px;height:100px; position: absolute;
+		display: flex;
+		justify-content: center;  /* 가로 중앙 */
+		align-items: center; /* 세로 중앙 */
+		font-size:80px;font-weight: bold;
+	}
+	.rect-1{background-color: #abc;  transform: translate3d(50px,0px,0px) rotateY(90deg) ;}
+	.rect-2{background-color: #bca;  transform: translate3d(-50px,0px,0px) rotateY(-90deg) ;}
+	.rect-3{background-color: #bac;  transform: translate3d(0px,0px,-50px) rotateY(180deg);}
+	.rect-4{background-color: #cab;  transform: translate3d(0px,0px,50px)  rotateY(0deg);}
+	.rect-5{background-color: #aab;  transform: translate3d(0px,50px,0px)  rotateX(-90deg);}
+	.rect-6{background-color: #caa;  transform: translate3d(0px,-50px,0px)  rotateX(90deg);}
+	/* .dice[dice="1"]{
+		transform:rotateX(0deg) rotateY(270deg) rotateZ(0deg) ;
+	}
+	.dice[dice="2"]{
+		transform:rotateX(270deg) rotateY(0deg) rotateZ(0deg) ;
+	}
+	.dice[dice="3"]{
+		transform:rotateX(180deg) rotateY(0deg) rotateZ(180deg) ;
+	}
+	.dice[dice="4"]{
+		transform:rotateX(0deg) rotateY(0deg) rotateZ(0deg) ;
+	}
+	.dice[dice="5"]{
+		transform:rotateX(90deg) rotateY(0deg) rotateZ(0deg) ;
+	}
+	.dice[dice="6"]{
+		transform:rotateX(0deg) rotateY(90deg) rotateZ(0deg) ;
+	} */
+	</style>
+	<style>
+	@keyframes r-xyz {
+	  from {
+	       transform: rotate3d(1, 1, 1, 0deg) ;
+	  }
+		50%{
+			transform: rotate3d(1, 1, 1, 720deg);
+		}
+	  to {
+	    transform: rotate3d(1, 1, 1, 360deg);
+	  }
+	}
+
+	@keyframes roll-dice {
+		from {
+			transform:translateY(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) ;
+		}
+		50%{
+			transform:translateY(100px) rotateX(180deg) rotateY(270deg) rotateZ(720deg) ;
+		}
+		75%{
+			transform:translateY(50px) rotateX(360deg) rotateY(180deg) rotateZ(270deg) ;
+		}
+		to {
+			transform:translateY(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) ;
+		}
+	}
+	@keyframes roll-dice-1 {
+		from {transform:translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) ;}
+		5%{transform:translateZ(200px) rotateX(-1180deg) rotateY(-1270deg) rotateZ(-1720deg) ;}
+		80%{transform:translateZ(180px) rotateX(10145deg) rotateY(10145deg) rotateZ(10190deg) ;}
+		90%{transform:translateZ(0px) rotateX(0deg) rotateY(270deg) rotateZ(0deg) ;}
+		92%{transform:translateZ(50px) rotateX(0deg) rotateY(270deg) rotateZ(0deg) ;}
+		95%{transform:translateZ(0px) rotateX(0deg) rotateY(270deg) rotateZ(0deg) ;}
+		97%{transform:translateZ(10px) rotateX(0deg) rotateY(270deg) rotateZ(0deg) ;}
+		to {
+			transform:rotateX(0deg) rotateY(270deg) rotateZ(0deg) ;
+		}
+	}
+	@keyframes roll-dice-2 {
+		from {transform:translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) ;}
+		5%{transform:translateZ(200px) rotateX(-1180deg) rotateY(-1270deg) rotateZ(-1720deg) ;}
+		80%{transform:translateZ(180px) rotateX(10145deg) rotateY(10145deg) rotateZ(10190deg) ;}
+		90%{transform:translateZ(0px) rotateX(270deg) rotateY(0deg) rotateZ(0deg) ;}
+		92%{transform:translateZ(50px) rotateX(270deg) rotateY(0deg) rotateZ(0deg) ;}
+		95%{transform:translateZ(0px) rotateX(270deg) rotateY(0deg) rotateZ(0deg) ;}
+		97%{transform:translateZ(10px) rotateX(270deg) rotateY(0deg) rotateZ(0deg) ;}
+		to {
+			transform:rotateX(270deg) rotateY(0deg) rotateZ(0deg) ;
+		}
+	}
+	@keyframes roll-dice-3 {
+		from {transform:translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) ;}
+		5%{transform:translateZ(200px) rotateX(-1180deg) rotateY(-1270deg) rotateZ(-1720deg) ;}
+		80%{transform:translateZ(180px) rotateX(10145deg) rotateY(10145deg) rotateZ(10190deg) ;}
+		90%{transform:translateZ(0px) rotateX(180deg) rotateY(0deg) rotateZ(180deg) ;}
+		92%{transform:translateZ(50px) rotateX(180deg) rotateY(0deg) rotateZ(180deg) ;}
+		95%{transform:translateZ(0px) rotateX(180deg) rotateY(0deg) rotateZ(180deg) ;}
+		97%{transform:translateZ(10px) rotateX(180deg) rotateY(0deg) rotateZ(180deg) ;}
+		to {
+			transform:rotateX(180deg) rotateY(0deg) rotateZ(180deg) ;
+		}
+	}
+	@keyframes roll-dice-4 {
+		from {transform:translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) ;}
+		5%{transform:translateZ(200px) rotateX(-1180deg) rotateY(-1270deg) rotateZ(-1720deg) ;}
+		80%{transform:translateZ(180px) rotateX(10145deg) rotateY(10145deg) rotateZ(10190deg) ;}
+		90%{transform:translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) ;}
+		92%{transform:translateZ(50px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) ;}
+		95%{transform:translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) ;}
+		97%{transform:translateZ(10px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) ;}
+		to {
+			transform:rotateX(0deg) rotateY(0deg) rotateZ(0deg) ;
+		}
+	}
+	@keyframes roll-dice-5 {
+		from {transform:translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) ;}
+		5%{transform:translateZ(200px) rotateX(-1180deg) rotateY(-1270deg) rotateZ(-1720deg) ;}
+		80%{transform:translateZ(180px) rotateX(10145deg) rotateY(10145deg) rotateZ(10190deg) ;}
+		90%{transform:translateZ(0px) rotateX(90deg) rotateY(0deg) rotateZ(0deg) ;}
+		92%{transform:translateZ(50px) rotateX(90deg) rotateY(0deg) rotateZ(0deg) ;}
+		95%{transform:translateZ(0px) rotateX(90deg) rotateY(0deg) rotateZ(0deg) ;}
+		97%{transform:translateZ(10px) rotateX(90deg) rotateY(0deg) rotateZ(0deg) ;}
+		to {
+			transform:rotateX(90deg) rotateY(0deg) rotateZ(0deg) ;
+		}
+	}
+	@keyframes roll-dice-6 {
+		from {transform:translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) ;}
+		5%{transform:translateZ(200px) rotateX(-1180deg) rotateY(-1270deg) rotateZ(-1720deg) ;}
+		80%{transform:translateZ(180px) rotateX(10145deg) rotateY(10145deg) rotateZ(10190deg) ;}
+		90%{transform:translateZ(0px) rotateX(0deg) rotateY(90deg) rotateZ(0deg) ;}
+		92%{transform:translateZ(50px) rotateX(0deg) rotateY(90deg) rotateZ(0deg) ;}
+		95%{transform:translateZ(0px) rotateX(0deg) rotateY(90deg) rotateZ(0deg) ;}
+		97%{transform:translateZ(10px) rotateX(0deg) rotateY(90deg) rotateZ(0deg) ;}
+		to {
+			transform:rotateX(0deg) rotateY(90deg) rotateZ(0deg) ;
+		}
+	}
+
+	</style>
+	<script>
+	function rotateRects(f){
+		let x = f.x.value;
+		let y = f.y.value;
+		let z = f.z.value;
+		document.querySelector("#rects").style.transform = "rotateX("+x+"deg) rotateY("+y+"deg) rotateZ("+z+"deg) "
+	}
+	$(function(){
+		// rotateRects(document.form_ctrl);
+		// playAnimation(1);
+	})
+	function playAnimation(v){
+		if(v){
+			document.querySelector("#rects").classList.add("rects-animation")
+		}else{
+			document.querySelector("#rects").classList.remove("rects-animation")
+		}
+	}
+	function rollDice(v){
+		if(v){
+			document.querySelector("#rects").classList.add("roll-dice")
+		}else{
+			document.querySelector("#rects").classList.remove("roll-dice")
+		}
+	}
+	function setDice(n){
+
+		document.querySelector("#rects").setAttribute('dice',0);
+		setTimeout(function(){
+			rollDice(n)
+			document.querySelector("#rects").setAttribute('dice',n);
+		},100)
+
+	}
+	</script>
+</head>
+<body>
+	<div class="container">
+		<h1>preserve-3d DICE</h1>
+	</div>
+	<div class="container">
+		<ul>
+			<li>preserve-3d 와 animation을 활용한 주사위 예제</li>
+		</ul>
+
+		<div class="box">
+			<div class="board-bg">
+			</div>
+			<div class="board-dice">
+				<div class="rects dice" id='rects'>
+					<div class="rect rect-1">
+						1
+					</div>
+					<div class="rect rect-2">
+						6
+					</div>
+					<div class="rect rect-3">
+						3
+					</div>
+					<div class="rect rect-4">
+						4
+					</div>
+					<div class="rect rect-5">
+						5
+					</div>
+					<div class="rect rect-6">
+						2
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="text-center">
+			<form name="form_ctrl" onchange="rotateRects(this)" oninput="rotateRects(this)">
+				<!-- animation : <label><input name="anip" type="radio" onclick='playAnimation(false)'> Stop </label>
+									/ <label><input name="anip" type="radio" onclick='playAnimation(true)' checked> Play </label>
+									<br>
+				rollDice : <label><input name="radioRollDice" type="radio" onclick='rollDice(false)'> Stop </label>
+									/ <label><input name="radioRollDice" type="radio" onclick='rollDice(true)' checked> Play </label>
+									<br> -->
+
+				<!-- X: <input type="range" name="x" value="0" min="0" max="360" ><br>
+				Y: <input type="range" name="y" value="0" min="0" max="360" ><br>
+				Z: <input type="range" name="z" value="0" min="0" max="360" ><br> -->
+				<hr>
+				<button type="button" class="btn btn-info"onclick="setDice(1)" >1</button>
+				<button type="button" class="btn btn-info"onclick="setDice(2)" >2</button>
+				<button type="button" class="btn btn-info"onclick="setDice(3)" >3</button>
+				<button type="button" class="btn btn-info"onclick="setDice(4)" >4</button>
+				<button type="button" class="btn btn-info"onclick="setDice(5)" >5</button>
+				<button type="button" class="btn btn-info"onclick="setDice(6)" >6</button>
+			</form>
+
+		</div>
+
+
+	</div>
+</body>
+</html>
