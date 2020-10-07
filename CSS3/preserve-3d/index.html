@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>preserve-3d</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!-- <script src="/js/ForGoogle.js"></script> -->
+	<!-- google analytics -->
+	<!-- <script>ForGoogle.analytics()</script> -->
+
+
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+	<!-- meta og -->
+
+	<meta property="og:title" content="preserve-3d">
+	<meta property="og:description" content="preserve-3d">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="preserve-3d" />
+	<meta property="og:type" content="website">
+
+	<!-- //meta og -->
+
+	<style>
+	.box{
+		perspective:300px;perspective-origin: center;width:300px; height:300px; margin:0 auto; position: relative; border: 3px solid #000;
+		background-image: url("bg.gif");
+	}
+	.rects{position: absolute;width:300px;height:300px;overflow: visible;
+		left:0;top:0;
+		display: flex;
+		justify-content: center;  /* 가로 중앙 */
+		align-items: center; /* 세로 중앙 */
+		transform-style:preserve-3d;
+		/* transform:rotateZ(86deg) rotateX(89deg); */
+		pointer-events: none;
+		transition: all;
+	}
+	.rects-animation{
+		animation: r-xyz;
+		animation-duration: 5s;
+		animation-iteration-count: infinite;
+	}
+	.rect{background-color: #ccc; width:100px;height:200px; position: absolute;
+		display: flex;
+		justify-content: center;  /* 가로 중앙 */
+		align-items: center; /* 세로 중앙 */
+		font-size:80px;font-weight: bold;
+	}
+	.rect-1{background-color: #abc;  transform: translate3d(40px,0px,0px) rotateY(90deg) ;}
+	.rect-2{background-color: #bca;  transform: translate3d(-40px,0px,0px) rotateY(-90deg) ;}
+	.rect-3{background-color: #bac;  transform: translate3d(0px,0px,-40px) rotateY(180deg);}
+	.rect-4{background-color: #cab;  transform: translate3d(0px,0px,40px);}
+	</style>
+	<style>
+	@keyframes r-xyz {
+	  from {
+	       transform: rotate3d(1, 1, 1, 0deg);
+	  }
+		50%{
+			transform: rotate3d(1, 1, 1, 720deg);
+		}
+	  to {
+	    transform: rotate3d(1, 1, 1, 360deg);
+	  }
+	}
+	</style>
+	<script>
+	function rotateRects(f){
+		let x = f.x.value;
+		let y = f.y.value;
+		let z = f.z.value;
+		document.querySelector("#rects").style.transform = "rotateX("+x+"deg) rotateY("+y+"deg) rotateZ("+z+"deg) "
+	}
+	$(function(){
+		rotateRects(document.form_ctrl);
+		playAnimation(1);
+	})
+	function playAnimation(v){
+		if(v){
+			document.querySelector("#rects").classList.add("rects-animation")
+		}else{
+			document.querySelector("#rects").classList.remove("rects-animation")
+		}
+	}
+	</script>
+</head>
+<body>
+	<div class="container">
+		<h1>preserve-3d</h1>
+	</div>
+	<div class="container">
+		<ul>
+			<li>transform-style: flat or preserve-3d </li>
+			<li>preserve-3d 선언된 노드 내부는 3D동작(Z축)에 대해서 3D로 동작한다.</li>
+			<li><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-style">https://developer.mozilla.org/en-US/docs/Web/CSS/transform-style</a></li>
+			<li>perspective: 1000px; 처럼 선언하면, Z축과의 보이는 거리 설정이 가능.</li>
+		</ul>
+
+		<div class="box">
+			<div class="rects" id='rects'>
+				<div class="rect rect-1">
+					1
+				</div>
+				<div class="rect rect-2">
+					2
+				</div>
+				<div class="rect rect-3">
+					3
+				</div>
+				<div class="rect rect-4">
+					4
+				</div>
+			</div>
+		</div>
+
+		<div class="text-center">
+			<form name="form_ctrl" onchange="rotateRects(this)" oninput="rotateRects(this)">
+				animation : <label><input name="anip" type="radio" onclick='playAnimation(false)'> Stop </label>
+									/ <label><input name="anip" type="radio" onclick='playAnimation(true)' checked> Play </label>
+									<br>
+				X: <input type="range" name="x" value="45" min="0" max="360" ><br>
+				Y: <input type="range" name="y" value="45" min="0" max="360" ><br>
+				Z: <input type="range" name="z" value="45" min="0" max="360" ><br>
+
+			</form>
+
+		</div>
+
+
+	</div>
+</body>
+</html>
