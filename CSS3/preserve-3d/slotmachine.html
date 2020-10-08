@@ -24,7 +24,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
 	<!-- vue.js -->
-	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
 
 	<!-- meta og -->
 
@@ -38,242 +38,125 @@
 
 	<!-- //meta og -->
 
-	<style>
-	.box{
-		/* perspective:300px;perspective-origin: center; */
-		width:306px; height:306px; margin:0 auto; position: relative; border: 3px solid #000;
-		background-color: #aaa;
-		overflow: hidden;
-	}
-	.machine{
-		width: 100%;height: 100%;
-		transform-style:preserve-3d;
-	}
-	.slots{
-		position: relative;
-		width: 100%;height: 100%;
-	}
-	.slot{
-		position: absolute;
-		left: 0;top: 0;
-		width:100px;height: 300px;
-		display: flex;
-		justify-content: center;  /* 가로 중앙 */
-		align-items: center; /* 세로 중앙 */
-		transform-style:preserve-3d;
-		perspective:none;perspective-origin: center;
-	}
-	#slot-1{
-		left: 0;
-	}
-	#slot-2{
-		left: 100px;
-	}
-	#slot-3{
-		left: 200px;
-	}
-	.rect{
-		position: absolute;
-		background-color: #eee;
-		border:1px solid #000;
-		width:100px;height:100px;
-		display: flex;
-		justify-content: center;  /* 가로 중앙 */
-		align-items: center; /* 세로 중앙 */
-		font-size:80px;font-weight: bold;
+	<script src="slotmachine.js"></script>
+	<link rel="stylesheet" href="slotmachine.css">
 
-	}
-	/*
-	w:100
-	h:100
-	빗변 100의 직각삼각형의 경우 나머지 변의 길이 70.71067812
-	Z 변경 : 35.35533906 = 70.71067812 / 2
-	Y 변경 : 85.35533906 = 100/2 + 70.71067812 / 2
-	 */
-	.rect-1{background-color: #abc;  transform: translate3d(0px,0px,120.71067812px) rotateY(0deg) ; z-index: 1;}
-	.rect-2{background-color: #bca;  transform: translate3d(0px,85.35533906px,85.35533906px) rotateX(-45deg) ; z-index: 1;}
-	.rect-3{background-color: #bac;  transform: translate3d(0px,120.7106781px,0px) rotateX(-90deg) ; z-index: 1;}
-	.rect-4{background-color: #cab;  transform: translate3d(0px,85.35533906px,-85.35533906px) rotateX(-135deg) ; z-index: 1;}
-	.rect-5{background-color: #aab;  transform: translate3d(0px,0px,-120.7106781px) rotateX(-180deg) ; z-index: 1;}
-	.rect-6{background-color: #caa;  transform: translate3d(0px,-85.35533906px,-85.35533906px) rotateX(-225deg) ; z-index: 1;}
-	.rect-7{background-color: #eee;  transform: translate3d(0px,-120.7106781px,0px) rotateX(-270deg) ; z-index: 1;}
-	.rect-8{background-color: #aae;  transform: translate3d(0px,-85.35533906px,85.35533906px) rotateX(-315deg) ; z-index: 1;}
-
-	.slot[num]{
-		animation-duration: 2s;
-		animation-iteration-count: 1;
-		animation-fill-mode: both;
-		animation-timing-function: ease-out ;
-	}
-	.slot[num="0"]{
-		animation-name: roll-0;
-		animation-duration: 1s;
-		animation-iteration-count: infinite;
-		animation-fill-mode: both;
-		animation-timing-function: linear ;
-	}
-	.slot[num="1"]{transform: rotateX(0deg);}
-	.slot[num="2"]{transform: rotateX(45deg);}
-	.slot[num="3"]{transform: rotateX(90deg);}
-	.slot[num="4"]{transform: rotateX(135deg);}
-	.slot[num="5"]{transform: rotateX(180deg);}
-	.slot[num="6"]{transform: rotateX(225deg);}
-	.slot[num="7"]{transform: rotateX(270deg);}
-	.slot[num="8"]{transform: rotateX(315deg);}
-	.slot[num="1"]{animation-name: roll-1;}
-	.slot[num="2"]{animation-name: roll-2;}
-	.slot[num="3"]{animation-name: roll-3;}
-	.slot[num="4"]{animation-name: roll-4;}
-	.slot[num="5"]{animation-name: roll-5;}
-	.slot[num="6"]{animation-name: roll-6;}
-	.slot[num="7"]{animation-name: roll-7;}
-	.slot[num="8"]{animation-name: roll-8;}
-	</style>
-	<style>
-
-		/*
-		-720deg
-		-765deg
-		-810deg
-		-855deg
-		-900deg
-		-945deg
-		-990deg
-		-1035deg
-		 */
-		 @keyframes roll-0 {
-	 		from {transform:rotateX(3600deg);}
-	 		to {transform:rotateX(0deg);}
-	 	}
-		@keyframes roll-1 {
-			80% {transform:rotateX(-730deg);}
-			90% {transform:rotateX(-710deg);}
-			to {transform:rotateX(-720deg);}
-		}
-		@keyframes roll-2 {
-			80% {transform:rotateX(-1045deg);}
-			90% {transform:rotateX(-1025deg);}
-			to {transform:rotateX(-1035deg);}
-		}
-		@keyframes roll-3 {
-			80% {transform:rotateX(-1000deg);}
-			90% {transform:rotateX(-980deg);}
-			to {transform:rotateX(-990deg);}
-		}
-		@keyframes roll-4 {
-			80% {transform:rotateX(-955deg);}
-			90% {transform:rotateX(-935deg);}
-			to {transform:rotateX(-945deg);}
-		}
-		@keyframes roll-5 {
-			80% {transform:rotateX(-910deg);}
-			90% {transform:rotateX(-890deg);}
-			to {transform:rotateX(-900deg);}
-		}
-		@keyframes roll-6 {
-			80% {transform:rotateX(-865deg);}
-			90% {transform:rotateX(-845deg);}
-			to {transform:rotateX(-855deg);}
-		}
-		@keyframes roll-7 {
-			80% {transform:rotateX(-820deg);}
-			90% {transform:rotateX(-800deg);}
-			to {transform:rotateX(-810deg);}
-		}
-		@keyframes roll-8 {
-			80% {transform:rotateX(-775deg);}
-			90% {transform:rotateX(-755deg);}
-			to {transform:rotateX(-765deg);}
-		}
-	</style>
-	<script>
-
-	</script>
 </head>
 <body>
 	<div class="container">
-		<h1>preserve-3d slotmachine</h1>
+		<h1 class="text-center">preserve-3d slotmachine</h1>
 	</div>
 	<div class="container">
 		<ul>
 			<li>preserve-3d 와 animation을 활용한 슬롯머신 예제</li>
 		</ul>
 
-		<div class="box">
-			<div class="machine" id="machine">
-				<div class="slots" >
-					<div class="slot slot-1" id="slot-1">
-						<div class="rect rect-1"> 1 </div>
-						<div class="rect rect-2"> 2 </div>
-						<div class="rect rect-3"> 3 </div>
-						<div class="rect rect-4"> 4 </div>
-						<div class="rect rect-5"> 5 </div>
-						<div class="rect rect-6"> 6 </div>
-						<div class="rect rect-7"> 7 </div>
-						<div class="rect rect-8"> 8 </div>
-					</div>
-					<div class="slot slot-2" id="slot-2">
-						<div class="rect rect-1"> 1 </div>
-						<div class="rect rect-2"> 2 </div>
-						<div class="rect rect-3"> 3 </div>
-						<div class="rect rect-4"> 4 </div>
-						<div class="rect rect-5"> 5 </div>
-						<div class="rect rect-6"> 6 </div>
-						<div class="rect rect-7"> 7 </div>
-						<div class="rect rect-8"> 8 </div>
-					</div>
-					<div class="slot slot-3" id="slot-3">
-						<div class="rect rect-1"> 1 </div>
-						<div class="rect rect-2"> 2 </div>
-						<div class="rect rect-3"> 3 </div>
-						<div class="rect rect-4"> 4 </div>
-						<div class="rect rect-5"> 5 </div>
-						<div class="rect rect-6"> 6 </div>
-						<div class="rect rect-7"> 7 </div>
-						<div class="rect rect-8"> 8 </div>
+		<div class="text-center" style="font-size:20px; font-weight:bold"><span>코인 : </span><b id="coin">0</b> <b>Coin</b> / <span>배팅코인 : </span><b id="batCoin">0</b> <b>Coin</b></div>
+		<div class="text-center" style="font-size:32px; font-weight:bold; color:red"><span>결과 : </span><span id="lastResult">-,-,-</span></div>
+		<div class="row">
+			<div class="col-lg-6 mb-3">
+				<div class="box">
+					<div class="machine" id="machine">
+						<div class="slot-container" >
+							<div class="slot-box"></div>
+							<div class="slot slot-0" id="slot-0">
+								<div class="rect rect-1"> 1 </div>
+								<div class="rect rect-2"> 2 </div>
+								<div class="rect rect-3"> 3 </div>
+								<div class="rect rect-4"> 4 </div>
+								<div class="rect rect-5"> 5 </div>
+								<div class="rect rect-6"> 6 </div>
+								<div class="rect rect-7"> 7 </div>
+								<div class="rect rect-8"> 8 </div>
+							</div>
+							<div class="slot slot-1" id="slot-1">
+								<div class="rect rect-1"> 1 </div>
+								<div class="rect rect-2"> 2 </div>
+								<div class="rect rect-3"> 3 </div>
+								<div class="rect rect-4"> 4 </div>
+								<div class="rect rect-5"> 5 </div>
+								<div class="rect rect-6"> 6 </div>
+								<div class="rect rect-7"> 7 </div>
+								<div class="rect rect-8"> 8 </div>
+							</div>
+							<div class="slot slot-2" id="slot-2">
+								<div class="rect rect-1"> 1 </div>
+								<div class="rect rect-2"> 2 </div>
+								<div class="rect rect-3"> 3 </div>
+								<div class="rect rect-4"> 4 </div>
+								<div class="rect rect-5"> 5 </div>
+								<div class="rect rect-6"> 6 </div>
+								<div class="rect rect-7"> 7 </div>
+								<div class="rect rect-8"> 8 </div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
+			<div class="col-lg-6 mb-3 text-center">
+				<form>
+					<hr>
+					<button type="button" class="btn btn-info" style="width:150px;height:100px; font-size:40px;line-height:1em;" onclick="slotmachine.pullLever()" >PULL<br>LEVER</button>
+					<hr>
+					<h3>INSERT COIN</h3>
+					<button type="button" class="btn btn-info" onclick="slotmachine.insertCoin(10)" >10</button>
+					<button type="button" class="btn btn-info" onclick="slotmachine.insertCoin(100)" >100</button>
+					<button type="button" class="btn btn-info" onclick="slotmachine.insertCoin(300)" >300</button>
+					<button type="button" class="btn btn-info" onclick="slotmachine.insertCoin(500)" >500</button>
 
+					<h3>BATTING COIN</h3>
+					<button type="button" class="btn btn-info" onclick="slotmachine.setBatCoin(1)" >1</button>
+					<button type="button" class="btn btn-info" onclick="slotmachine.setBatCoin(5)" >5</button>
+					<button type="button" class="btn btn-info" onclick="slotmachine.setBatCoin(10)" >10</button>
+					<button type="button" class="btn btn-info" onclick="slotmachine.setBatCoin(20)" >20</button>
+					<button type="button" class="btn btn-info" onclick="slotmachine.setBatCoin(30)" >30</button>
+					<button type="button" class="btn btn-info" onclick="slotmachine.setBatCoin(40)" >40</button>
+					<button type="button" class="btn btn-info" onclick="slotmachine.setBatCoin(50)" >50</button>
+
+			</div>
+			<div class="col-lg-6 mb-3">
+				<h3 class="text-center">점수표</h3>
+				<table class="table table-bordered table-condensed table-sm" style="width:300px; margin:0 auto">
+					<thead>
+						<tr class="danger"><th width="60">배수</th><th>설명</th></tr>
+					</thead>
+					<tr><th>30배</th><th>7,7,7 (전부 7)</th></tr>
+					<tr><th>20배</th><th>3,3,3 (전부 같은 숫자)</th></tr>
+					<tr><th>10배</th><th>1,3,2 (순서 없이 연속된 숫자)</th></tr>
+					<tr><th>50배</th><th>3,3,1 (두개가 같은 숫자)</th></tr>
+					<tr><th>30배</th><th>3,6,3 (전부 3의 배수)</th></tr>
+					<tr><th>2배</th><th>2,4,6 (전부 짝수)</th></tr>
+					<tr><th>2배</th><th>1,3,5 (전부 홀수)</th></tr>
+				</table>
+			</div>
+			<div class="col-lg-6 mb-3">
+				<div class="text-center">
+					<form name="form_ctrl" >
+						<hr>
+						<h3>카메라</h3>
+						X: <input type="range" style="width:80px;" name="x" value="0" min="-45" max="45" oninput="slotmachine.rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value,this.form.zoom.value)" onchange="slotmachine.rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value,this.form.zoom.value)" >
+						Y: <input type="range" style="width:80px;" name="y" value="0" min="-45" max="45" oninput="slotmachine.rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value,this.form.zoom.value)" onchange="slotmachine.rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value,this.form.zoom.value)" >
+						Z: <input type="range" style="width:80px;" name="z" value="0" min="-45" max="45" oninput="slotmachine.rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value,this.form.zoom.value)" onchange="slotmachine.rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value,this.form.zoom.value)" >
+						<br>
+						ZOOM: <input type="range" style="width:80px;" name="zoom" value="1" min="0.1" max="3" step="0.1" oninput="slotmachine.rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value,this.form.zoom.value)" onchange="slotmachine.rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value,this.form.zoom.value)" >
+						<button type="button" class="btn btn-warning" onclick="this.form.reset();this.form.x.oninput()">reset</button>
+					</form>
+				</div>
+			</div>
 
 		</div>
 
 		<div class="text-center">
 			<script>
-			function rotateBorad(x,y,z){
-				document.querySelector("#machine").style.transform = " rotateX("+x+"deg) rotateY("+y+"deg) rotateZ("+z+"deg) "
-			}
-			$(function(){
-				rotateBorad(0,0,0)
-				// rotateRects(document.form_ctrl);
-				// playAnimation(1);
-			})
-			function setSlot(slotN,n){
-				document.querySelector("#slot-"+slotN).setAttribute('num',n);
-			}
-			function rollSlot(slotN,n,delay){
-				// if(!delay) delay = 1000;
-				setSlot(slotN,0);
-				setTimeout(function(){
-					setSlot(slotN,n)
-				},1000)
-			}
-			function pullLever(){
-				rollSlot(1,Math.floor(Math.random()*8)+1);
-				setTimeout(function(){
-					rollSlot(2,Math.floor(Math.random()*8)+1);
-				},250);
-				setTimeout(function(){
-					rollSlot(3,Math.floor(Math.random()*8)+1);
-				},500);
-			}
 
+			$(function(){
+				slotmachine.init();
+				slotmachine.rotateBorad(0,0,0)
+				slotmachine.insertCoin(500);
+				slotmachine.setBatCoin(10);
+			})
 			</script>
-			<form name="form_ctrl" >
-				X: <input type="range" name="x" value="0" min="-180" max="180" oninput="rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value)" onchange="rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value)" >
-				Y: <input type="range" name="y" value="0" min="-180" max="180" oninput="rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value)" onchange="rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value)" >
-				Z: <input type="range" name="z" value="0" min="-180" max="180" oninput="rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value)" onchange="rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value)" >
-			</form>
+
 				<!-- animation : <label><input name="anip" type="radio" onclick='playAnimation(false)'> Stop </label>
 									/ <label><input name="anip" type="radio" onclick='playAnimation(true)' checked> Play </label>
 									<br>
@@ -284,46 +167,62 @@
 				<!-- X: <input type="range" name="x" value="0" min="0" max="360" ><br>
 				Y: <input type="range" name="y" value="0" min="0" max="360" ><br>
 				Z: <input type="range" name="z" value="0" min="0" max="360" ><br> -->
-			<form>
+			<form  style="display:none;">
 				<hr>
+				<h3>INSERT COIN</h3>
+				<button type="button" class="btn btn-info"onclick="slotmachine.insertCoin(10)" >10</button>
+				<button type="button" class="btn btn-info"onclick="slotmachine.insertCoin(100)" >100</button>
+				<button type="button" class="btn btn-info"onclick="slotmachine.insertCoin(300)" >300</button>
+				<button type="button" class="btn btn-info"onclick="slotmachine.insertCoin(500)" >500</button>
+
+				<h3>BATTING COIN</h3>
+				<button type="button" class="btn btn-info"onclick="slotmachine.setBatCoin(1)" >1</button>
+				<button type="button" class="btn btn-info"onclick="slotmachine.setBatCoin(5)" >5</button>
+				<button type="button" class="btn btn-info"onclick="slotmachine.setBatCoin(10)" >10</button>
+				<button type="button" class="btn btn-info"onclick="slotmachine.setBatCoin(20)" >20</button>
+				<button type="button" class="btn btn-info"onclick="slotmachine.setBatCoin(30)" >30</button>
+				<button type="button" class="btn btn-info"onclick="slotmachine.setBatCoin(40)" >40</button>
+				<button type="button" class="btn btn-info"onclick="slotmachine.setBatCoin(50)" >50</button>
 				<h3>PULL LEVER</h3>
-				<button type="button" class="btn btn-info"onclick="pullLever()" >PULL LEVER</button>
-				<hr>
-				<h3>ROLL SLOT-1</h3>
-				<button type="button" class="btn btn-success"onclick="rollSlot(1,0)" >0</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(1,1)" >1</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(1,2)" >2</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(1,3)" >3</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(1,4)" >4</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(1,5)" >5</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(1,6)" >6</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(1,7)" >7</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(1,8)" >8</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(1,Math.floor(Math.random()*8)+1)" >random</button>
-				<hr>
-				<h3>ROLL SLOT-2</h3>
-				<button type="button" class="btn btn-success"onclick="rollSlot(2,0)" >0</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(2,1)" >1</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(2,2)" >2</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(2,3)" >3</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(2,4)" >4</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(2,5)" >5</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(2,6)" >6</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(2,7)" >7</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(2,8)" >8</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(2,Math.floor(Math.random()*8)+1)" >random</button>
-				<hr>
-				<h3>ROLL SLOT-3</h3>
-				<button type="button" class="btn btn-success"onclick="rollSlot(3,0)" >0</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(3,1)" >1</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(3,2)" >2</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(3,3)" >3</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(3,4)" >4</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(3,5)" >5</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(3,6)" >6</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(3,7)" >7</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(3,8)" >8</button>
-				<button type="button" class="btn btn-success"onclick="rollSlot(3,Math.floor(Math.random()*8)+1)" >random</button>
+				<button type="button" class="btn btn-info"onclick="slotmachine.pullLever()" >PULL LEVER</button>
+				<div>
+					<hr>
+					<h3>ROLL SLOT-1</h3>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(0,0)" >0</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(0,1)" >1</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(0,2)" >2</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(0,3)" >3</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(0,4)" >4</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(0,5)" >5</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(0,6)" >6</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(0,7)" >7</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(0,8)" >8</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(0,Math.floor(Math.random()*8)+1)" >random</button>
+					<hr>
+					<h3>ROLL SLOT-2</h3>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(1,0)" >0</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(1,1)" >1</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(1,2)" >2</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(1,3)" >3</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(1,4)" >4</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(1,5)" >5</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(1,6)" >6</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(1,7)" >7</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(1,8)" >8</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(1,Math.floor(Math.random()*8)+1)" >random</button>
+					<hr>
+					<h3>ROLL SLOT-3</h3>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(2,0)" >0</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(2,1)" >1</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(2,2)" >2</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(2,3)" >3</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(2,4)" >4</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(2,5)" >5</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(2,6)" >6</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(2,7)" >7</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(2,8)" >8</button>
+					<button type="button" class="btn btn-success"onclick="slotmachine.rollSlot(2,Math.floor(Math.random()*8)+1)" >random</button>
+				</div>
 			</form>
 
 		</div>
