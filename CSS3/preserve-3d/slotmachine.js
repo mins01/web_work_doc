@@ -60,14 +60,15 @@ var slotmachine = (function(){
 		},
 
 		getResult:function(){
-			var n1 = this.slots[0].getAttribute('num');
-			var n2 = this.slots[1].getAttribute('num');
-			var n3 = this.slots[2].getAttribute('num');
+			var n1 = parseInt(this.slots[0].getAttribute('num'),10);
+			var n2 = parseInt(this.slots[1].getAttribute('num'),10);
+			var n3 = parseInt(this.slots[2].getAttribute('num'),10);
 			return [n1,n2,n3];
 		},
 		getMultiply:function(rs){
 			var r = [rs[0],rs[1],rs[2]];
 			r.sort();
+			console.log(r);
 			if(r[0]==7 && r[1]==7 && r[2]==7){ // 777
 				return 30;
 			}else if(r[0]==r[1] && r[2]==r[1]){ // 전부 같은 숫자
