@@ -59,14 +59,14 @@ Y 변경 : 85.35533906 = 100/2 + 70.71067812 / 2
 .rect-8{background-color: #aae;  transform: translate3d(0px,-85.35533906px,85.35533906px) rotateX(-315deg) ; z-index: 1;}
 
 .slot[num]{
-	animation-duration: 2s;
+	animation-duration: 3s;
 	animation-iteration-count: 1;
 	animation-fill-mode: both;
 	animation-timing-function: ease-out ;
 }
 .slot[num="0"]{
 	animation-name: roll-0;
-	animation-duration: 1s;
+	animation-duration: 5s;
 	animation-iteration-count: infinite;
 	animation-fill-mode: both;
 	animation-timing-function: linear ;
