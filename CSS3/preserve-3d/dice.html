@@ -41,17 +41,22 @@
 	<style>
 	.box{
 		perspective:300px;perspective-origin: center;width:300px; height:300px; margin:0 auto; position: relative; border: 3px solid #000;
-
+		background-color: #aaa;
 		overflow: hidden;
 	}
+	.board{
+		transform: rotateX(45deg) translateY(45px);
+		position: absolute;top:0px;left:0px;right:0px;bottom:0px;
+		transform-style:preserve-3d;
+	}
 	.board-bg{
-		transform: rotateX(45deg);
+		transform:  translateZ(0px) translateZ(0px);
 		background-image: url("bg.gif");
-		position: absolute;top:-400px;left:-400px;right:-400px;bottom:-400px;
+		position: absolute;top:-1200px;left:-1200px;right:-1200px;bottom:-1200px;
 		transform-style:preserve-3d;
 	}
 	.board-dice{
-		transform: rotateX(45deg) translateZ(-100px) translateZ(50px);
+		transform: scale3d(0.5,0.5,0.5) translateZ(50px);
 		position: absolute;top:0;left:0;right:0;bottom: 0;
 		transform-style:preserve-3d;
 	}
@@ -71,6 +76,24 @@
 		animation-name: r-xyz;
 		animation-duration: 5s;
 		animation-iteration-count: infinite;
+	}
+	.dice[dice="1"]{
+		transform:rotateX(0deg) rotateY(270deg) rotateZ(0deg) ;
+	}
+	.dice[dice="2"]{
+		transform:rotateX(270deg) rotateY(0deg) rotateZ(0deg) ;
+	}
+	.dice[dice="3"]{
+		transform:rotateX(180deg) rotateY(0deg) rotateZ(180deg) ;
+	}
+	.dice[dice="4"]{
+		transform:rotateX(0deg) rotateY(0deg) rotateZ(0deg) ;
+	}
+	.dice[dice="5"]{
+		transform:rotateX(90deg) rotateY(0deg) rotateZ(0deg) ;
+	}
+	.dice[dice="6"]{
+		transform:rotateX(0deg) rotateY(90deg) rotateZ(0deg) ;
 	}
 	.roll-dice{
 		animation-name: roll-dice;
@@ -113,24 +136,7 @@
 	.rect-4{background-color: #cab;  transform: translate3d(0px,0px,50px)  rotateY(0deg);}
 	.rect-5{background-color: #aab;  transform: translate3d(0px,50px,0px)  rotateX(-90deg);}
 	.rect-6{background-color: #caa;  transform: translate3d(0px,-50px,0px)  rotateX(90deg);}
-	/* .dice[dice="1"]{
-		transform:rotateX(0deg) rotateY(270deg) rotateZ(0deg) ;
-	}
-	.dice[dice="2"]{
-		transform:rotateX(270deg) rotateY(0deg) rotateZ(0deg) ;
-	}
-	.dice[dice="3"]{
-		transform:rotateX(180deg) rotateY(0deg) rotateZ(180deg) ;
-	}
-	.dice[dice="4"]{
-		transform:rotateX(0deg) rotateY(0deg) rotateZ(0deg) ;
-	}
-	.dice[dice="5"]{
-		transform:rotateX(90deg) rotateY(0deg) rotateZ(0deg) ;
-	}
-	.dice[dice="6"]{
-		transform:rotateX(0deg) rotateY(90deg) rotateZ(0deg) ;
-	} */
+
 	</style>
 	<style>
 	@keyframes r-xyz {
@@ -161,7 +167,7 @@
 	}
 	@keyframes roll-dice-1 {
 		from {transform:translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) ;}
-		5%{transform:translateZ(200px) rotateX(-1180deg) rotateY(-1270deg) rotateZ(-1720deg) ;}
+		5%{transform:translateZ(250px) rotateX(-1180deg) rotateY(-1270deg) rotateZ(-1720deg) ;}
 		80%{transform:translateZ(180px) rotateX(10145deg) rotateY(10145deg) rotateZ(10190deg) ;}
 		90%{transform:translateZ(0px) rotateX(0deg) rotateY(270deg) rotateZ(0deg) ;}
 		92%{transform:translateZ(50px) rotateX(0deg) rotateY(270deg) rotateZ(0deg) ;}
@@ -234,13 +240,11 @@
 
 	</style>
 	<script>
-	function rotateRects(f){
-		let x = f.x.value;
-		let y = f.y.value;
-		let z = f.z.value;
-		document.querySelector("#rects").style.transform = "rotateX("+x+"deg) rotateY("+y+"deg) rotateZ("+z+"deg) "
+	function rotateBorad(x,y,z){
+		document.querySelector("#board").style.transform = "translateY("+x+"px)  rotateX("+x+"deg) rotateY("+y+"deg) rotateZ("+z+"deg) "
 	}
 	$(function(){
+		rotateBorad(45,0,0)
 		// rotateRects(document.form_ctrl);
 		// playAnimation(1);
 	})
@@ -279,35 +283,42 @@
 		</ul>
 
 		<div class="box">
-			<div class="board-bg">
-			</div>
-			<div class="board-dice">
-				<div class="rects dice" id='rects'>
-					<div class="rect rect-1">
-						1
-					</div>
-					<div class="rect rect-2">
-						6
-					</div>
-					<div class="rect rect-3">
-						3
-					</div>
-					<div class="rect rect-4">
-						4
-					</div>
-					<div class="rect rect-5">
-						5
-					</div>
-					<div class="rect rect-6">
-						2
+			<div class="board" id="board">
+				<div class="board-bg">
+				</div>
+				<div class="board-dice">
+					<div class="rects dice" id='rects'>
+						<div class="rect rect-1">
+							1
+						</div>
+						<div class="rect rect-2">
+							6
+						</div>
+						<div class="rect rect-3">
+							3
+						</div>
+						<div class="rect rect-4">
+							4
+						</div>
+						<div class="rect rect-5">
+							5
+						</div>
+						<div class="rect rect-6">
+							2
+						</div>
 					</div>
 				</div>
 			</div>
 
+
 		</div>
 
 		<div class="text-center">
-			<form name="form_ctrl" onchange="rotateRects(this)" oninput="rotateRects(this)">
+			<form name="form_ctrl" >
+				X: <input type="range" name="x" value="45" min="-90" max="90" oninput="rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value)" onchange="rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value)" >
+				Y: <input type="range" name="y" value="0" min="-90" max="90" oninput="rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value)" onchange="rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value)" >
+				Z: <input type="range" name="z" value="0" min="-90" max="90" oninput="rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value)" onchange="rotateBorad(this.form.x.value,this.form.y.value,this.form.z.value)" >
+			</form>
 				<!-- animation : <label><input name="anip" type="radio" onclick='playAnimation(false)'> Stop </label>
 									/ <label><input name="anip" type="radio" onclick='playAnimation(true)' checked> Play </label>
 									<br>
@@ -319,12 +330,15 @@
 				Y: <input type="range" name="y" value="0" min="0" max="360" ><br>
 				Z: <input type="range" name="z" value="0" min="0" max="360" ><br> -->
 				<hr>
+			<form>
 				<button type="button" class="btn btn-info"onclick="setDice(1)" >1</button>
 				<button type="button" class="btn btn-info"onclick="setDice(2)" >2</button>
 				<button type="button" class="btn btn-info"onclick="setDice(3)" >3</button>
 				<button type="button" class="btn btn-info"onclick="setDice(4)" >4</button>
 				<button type="button" class="btn btn-info"onclick="setDice(5)" >5</button>
 				<button type="button" class="btn btn-info"onclick="setDice(6)" >6</button>
+				<hr>
+				<button type="button" class="btn btn-success"onclick="setDice(Math.floor(Math.random()*6)+1)" >ROLL DICE</button>
 			</form>
 
 		</div>
