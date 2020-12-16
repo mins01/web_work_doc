@@ -39,12 +39,12 @@
 	<!-- //meta og -->
 	<style>
 	.box{
-		width:120px; ;
+		width:220px; ;
 		display: inline-block;
 		padding:5px;
-		background-color: #090;
-		background-image: linear-gradient(to right, #000 0%,#090 50%,#090 51%,#fff 100%);
-		isolation: isolate; 
+		background-color: #fff;
+		/* background-image: linear-gradient(to right, #000 0%,#090 50%,#090 51%,#fff 100%); */
+
 	}
 	.box dt{
 		text-align: center;
@@ -52,9 +52,11 @@
 		background-color: #fff;
 	}
 	.box dd{
-		height: 100px;
+		margin: 10px auto;
+		width:200px;
+		height: 200px;
 		font-weight: bold;
-		border: 4px solid #f00;
+		border: 4px solid #999;
 		display: flex ;
 		justify-content: center;  /* 가로 중앙 */
 		align-items: center; /* 세로 중앙 */
@@ -62,10 +64,11 @@
 		position: relative;
 		text-align: center;
 		font-size:40px;
-		background-image: repeating-linear-gradient(-45deg, transparent 0 10px, #00f 10px 20px);
+		background-image: repeating-linear-gradient(-45deg, transparent 0 10px, #999 10px 15px);
 		z-index: 1;
+		isolation: isolate;
 	}
-	.box dd::before{
+	/* .box dd::before{
 		content: " ";
 		position: absolute;
 		height:50%; width:50%;
@@ -80,7 +83,52 @@
 		right:0;bottom:0;
 		background-image: repeating-linear-gradient(45deg, transparent 0 10px, #0ff 10px 20px);
 		z-index: -1;
+	} */
+	.cir{
+		position:absolute;
+		width:70%;height: 70%;
+		border-radius: 50%;
+		z-index: 10;
 	}
+	.cir.r{
+		/* background-color: #f00; */
+		background-image: radial-gradient(ellipse at center, #f00 0%,rgba(255,0,0,0.2) 100%);
+		top:0;left:0;
+	}
+	.cir.g{
+		/* background-color: #0f0; */
+		background-image: radial-gradient(ellipse at center, #0f0 0%,rgba(0,255,0,0.2) 100%);
+		top:0;right:0;
+	}
+	.cir.b{
+		/* background-color: #00f; */
+		background-image: radial-gradient(ellipse at center, #00f 0%,rgba(0,0,255,0.2) 100%);
+		bottom: 0;left:0;
+	}
+	.cir.y{
+		/* background-color: #ff0; */
+		background-image: radial-gradient(ellipse at center, #ff0 0%,rgba(255,255,0,0.2) 100%);
+		bottom:0;right:0;
+	}
+	.mix-blend-mode-normal > .cir{ mix-blend-mode:normal }
+	.mix-blend-mode-multiply > .cir{ mix-blend-mode:multiply }
+	.mix-blend-mode-screen > .cir{ mix-blend-mode:screen }
+	.mix-blend-mode-overlay > .cir{ mix-blend-mode:overlay }
+	.mix-blend-mode-darken > .cir{ mix-blend-mode:darken }
+	.mix-blend-mode-lighten > .cir{ mix-blend-mode:lighten }
+	.mix-blend-mode-color-dodge > .cir{ mix-blend-mode:color-dodge }
+	.mix-blend-mode-color-burn > .cir{ mix-blend-mode:color-burn }
+	.mix-blend-mode-hard-light > .cir{ mix-blend-mode:hard-light }
+	.mix-blend-mode-soft-light > .cir{ mix-blend-mode:soft-light }
+	.mix-blend-mode-difference > .cir{ mix-blend-mode:difference }
+	.mix-blend-mode-exclusion > .cir{ mix-blend-mode:exclusion }
+	.mix-blend-mode-hue > .cir{ mix-blend-mode:hue }
+	.mix-blend-mode-saturation > .cir{ mix-blend-mode:saturation }
+	.mix-blend-mode-color > .cir{ mix-blend-mode:color }
+	.mix-blend-mode-luminosity > .cir{ mix-blend-mode:luminosity }
+	.mix-blend-mode-initial > .cir{ mix-blend-mode:initial }
+	.mix-blend-mode-inherit > .cir{ mix-blend-mode:inherit }
+	.mix-blend-mode-unset > .cir{ mix-blend-mode:unset }
 	</style>
 
 </head>
@@ -93,25 +141,25 @@
 			<li class="list-group-item"><a href="https://developer.mozilla.org/ko/docs/Web/CSS/mix-blend-mode" target="_blank">https://developer.mozilla.org/ko/docs/Web/CSS/mix-blend-mode</a></li>
 			<li class="list-group-item"><a href="https://developer.mozilla.org/ko/docs/Web/CSS/blend-mode" target="_blank">https://developer.mozilla.org/ko/docs/Web/CSS/blend-mode</a></li>
 		</ul>
-		<dl class="box"><dt>normal</dt><dd style="mix-blend-mode:normal">ABC</dd></dl>
-		<dl class="box"><dt>multiply</dt><dd style="mix-blend-mode:multiply">ABC</dd></dl>
-		<dl class="box"><dt>screen</dt><dd style="mix-blend-mode:screen">ABC</dd></dl>
-		<dl class="box"><dt>overlay</dt><dd style="mix-blend-mode:overlay">ABC</dd></dl>
-		<dl class="box"><dt>darken</dt><dd style="mix-blend-mode:darken">ABC</dd></dl>
-		<dl class="box"><dt>lighten</dt><dd style="mix-blend-mode:lighten">ABC</dd></dl>
-		<dl class="box"><dt>color-dodge</dt><dd style="mix-blend-mode:color-dodge">ABC</dd></dl>
-		<dl class="box"><dt>color-burn</dt><dd style="mix-blend-mode:color-burn">ABC</dd></dl>
-		<dl class="box"><dt>hard-light</dt><dd style="mix-blend-mode:hard-light">ABC</dd></dl>
-		<dl class="box"><dt>soft-light</dt><dd style="mix-blend-mode:soft-light">ABC</dd></dl>
-		<dl class="box"><dt>difference</dt><dd style="mix-blend-mode:difference">ABC</dd></dl>
-		<dl class="box"><dt>exclusion</dt><dd style="mix-blend-mode:exclusion">ABC</dd></dl>
-		<dl class="box"><dt>hue</dt><dd style="mix-blend-mode:hue">ABC</dd></dl>
-		<dl class="box"><dt>saturation</dt><dd style="mix-blend-mode:saturation">ABC</dd></dl>
-		<dl class="box"><dt>color</dt><dd style="mix-blend-mode:color">ABC</dd></dl>
-		<dl class="box"><dt>luminosity</dt><dd style="mix-blend-mode:luminosity">ABC</dd></dl>
-		<dl class="box"><dt>initial</dt><dd style="mix-blend-mode:initial">ABC</dd></dl>
-		<dl class="box"><dt>inherit</dt><dd style="mix-blend-mode:inherit">ABC</dd></dl>
-		<dl class="box"><dt>unset</dt><dd style="mix-blend-mode:unset">ABC</dd></dl>
+		<dl class="box"><dt>normal</dt><dd class="mix-blend-mode-normal"><div class="cir r"></div><div class="cir g"></div><div class="cir b"></div><div class="cir y"></div>ABC</dd></dl>
+		<dl class="box"><dt>multiply</dt><dd class="mix-blend-mode-multiply"><div class="cir r"></div><div class="cir g"></div><div class="cir b"></div><div class="cir y"></div>ABC</dd></dl>
+		<dl class="box"><dt>screen</dt><dd class="mix-blend-mode-screen"><div class="cir r"></div><div class="cir g"></div><div class="cir b"></div><div class="cir y"></div>ABC</dd></dl>
+		<dl class="box"><dt>overlay</dt><dd class="mix-blend-mode-overlay"><div class="cir r"></div><div class="cir g"></div><div class="cir b"></div><div class="cir y"></div>ABC</dd></dl>
+		<dl class="box"><dt>darken</dt><dd class="mix-blend-mode-darken"><div class="cir r"></div><div class="cir g"></div><div class="cir b"></div><div class="cir y"></div>ABC</dd></dl>
+		<dl class="box"><dt>lighten</dt><dd class="mix-blend-mode-lighten"><div class="cir r"></div><div class="cir g"></div><div class="cir b"></div><div class="cir y"></div>ABC</dd></dl>
+		<dl class="box"><dt>color-dodge</dt><dd class="mix-blend-mode-color-dodge"><div class="cir r"></div><div class="cir g"></div><div class="cir b"></div><div class="cir y"></div>ABC</dd></dl>
+		<dl class="box"><dt>color-burn</dt><dd class="mix-blend-mode-color-burn"><div class="cir r"></div><div class="cir g"></div><div class="cir b"></div><div class="cir y"></div>ABC</dd></dl>
+		<dl class="box"><dt>hard-light</dt><dd class="mix-blend-mode-hard-light"><div class="cir r"></div><div class="cir g"></div><div class="cir b"></div><div class="cir y"></div>ABC</dd></dl>
+		<dl class="box"><dt>soft-light</dt><dd class="mix-blend-mode-soft-light"><div class="cir r"></div><div class="cir g"></div><div class="cir b"></div><div class="cir y"></div>ABC</dd></dl>
+		<dl class="box"><dt>difference</dt><dd class="mix-blend-mode-difference"><div class="cir r"></div><div class="cir g"></div><div class="cir b"></div><div class="cir y"></div>ABC</dd></dl>
+		<dl class="box"><dt>exclusion</dt><dd class="mix-blend-mode-exclusion"><div class="cir r"></div><div class="cir g"></div><div class="cir b"></div><div class="cir y"></div>ABC</dd></dl>
+		<dl class="box"><dt>hue</dt><dd class="mix-blend-mode-hue"><div class="cir r"></div><div class="cir g"></div><div class="cir b"></div><div class="cir y"></div>ABC</dd></dl>
+		<dl class="box"><dt>saturation</dt><dd class="mix-blend-mode-saturation"><div class="cir r"></div><div class="cir g"></div><div class="cir b"></div><div class="cir y"></div>ABC</dd></dl>
+		<dl class="box"><dt>color</dt><dd class="mix-blend-mode-color"><div class="cir r"></div><div class="cir g"></div><div class="cir b"></div><div class="cir y"></div>ABC</dd></dl>
+		<dl class="box"><dt>luminosity</dt><dd class="mix-blend-mode-luminosity"><div class="cir r"></div><div class="cir g"></div><div class="cir b"></div><div class="cir y"></div>ABC</dd></dl>
+		<dl class="box"><dt>initial</dt><dd class="mix-blend-mode-initial"><div class="cir r"></div><div class="cir g"></div><div class="cir b"></div><div class="cir y"></div>ABC</dd></dl>
+		<dl class="box"><dt>inherit</dt><dd class="mix-blend-mode-inherit"><div class="cir r"></div><div class="cir g"></div><div class="cir b"></div><div class="cir y"></div>ABC</dd></dl>
+		<dl class="box"><dt>unset</dt><dd class="mix-blend-mode-unset"><div class="cir r"></div><div class="cir g"></div><div class="cir b"></div><div class="cir y"></div>ABC</dd></dl>
 
 
 	</div>
