@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>mix-blend-mode</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>ForGoogle.analytics()</script>
+
+
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+	<!-- meta og -->
+
+	<meta property="og:title" content="mix-blend-mode">
+	<meta property="og:description" content="mix-blend-mode">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="mix-blend-mode" />
+	<meta property="og:type" content="website">
+
+	<!-- //meta og -->
+	<style>
+	.box{
+		width:120px; ;
+		display: inline-block;
+		padding:5px;
+		background-color: #090;
+		background-image: linear-gradient(to right, #000 0%,#090 50%,#090 51%,#fff 100%);
+	}
+	.box dt{
+		text-align: center;
+		/* mix-blend-mode: difference; */
+		background-color: #fff;
+	}
+	.box dd{
+		height: 100px;
+		font-weight: bold;
+		border: 4px solid #f00;
+		display: flex ;
+		justify-content: center;  /* 가로 중앙 */
+		align-items: center; /* 세로 중앙 */
+		color: #f00;
+		position: relative;
+		text-align: center;
+		font-size:40px;
+		background-image: repeating-linear-gradient(-45deg, transparent 0 10px, #00f 10px 20px);
+		z-index: 1;
+	}
+	.box dd::before{
+		content: " ";
+		position: absolute;
+		height:50%; width:50%;
+		left:0;top:0;
+		background-image: repeating-linear-gradient(45deg, transparent 0 10px, #ff0 10px 20px);
+		z-index: 2;
+	}
+	.box dd::after{
+		content: " ";
+		position: absolute;
+		height:50%; width:50%;
+		right:0;bottom:0;
+		background-image: repeating-linear-gradient(45deg, transparent 0 10px, #0ff 10px 20px);
+		z-index: -1;
+	}
+	</style>
+
+</head>
+<body>
+	<div class="container">
+		<h1>
+			mix-blend-mode
+		</h1>
+		<ul class="list-group mb-3">
+			<li class="list-group-item"><a href="https://developer.mozilla.org/ko/docs/Web/CSS/mix-blend-mode" target="_blank">https://developer.mozilla.org/ko/docs/Web/CSS/mix-blend-mode</a></li>
+			<li class="list-group-item"><a href="https://developer.mozilla.org/ko/docs/Web/CSS/blend-mode" target="_blank">https://developer.mozilla.org/ko/docs/Web/CSS/blend-mode</a></li>
+		</ul>
+		<dl class="box"><dt>normal</dt><dd style="mix-blend-mode:normal">ABC</dd></dl>
+		<dl class="box"><dt>multiply</dt><dd style="mix-blend-mode:multiply">ABC</dd></dl>
+		<dl class="box"><dt>screen</dt><dd style="mix-blend-mode:screen">ABC</dd></dl>
+		<dl class="box"><dt>overlay</dt><dd style="mix-blend-mode:overlay">ABC</dd></dl>
+		<dl class="box"><dt>darken</dt><dd style="mix-blend-mode:darken">ABC</dd></dl>
+		<dl class="box"><dt>lighten</dt><dd style="mix-blend-mode:lighten">ABC</dd></dl>
+		<dl class="box"><dt>color-dodge</dt><dd style="mix-blend-mode:color-dodge">ABC</dd></dl>
+		<dl class="box"><dt>color-burn</dt><dd style="mix-blend-mode:color-burn">ABC</dd></dl>
+		<dl class="box"><dt>hard-light</dt><dd style="mix-blend-mode:hard-light">ABC</dd></dl>
+		<dl class="box"><dt>soft-light</dt><dd style="mix-blend-mode:soft-light">ABC</dd></dl>
+		<dl class="box"><dt>difference</dt><dd style="mix-blend-mode:difference">ABC</dd></dl>
+		<dl class="box"><dt>exclusion</dt><dd style="mix-blend-mode:exclusion">ABC</dd></dl>
+		<dl class="box"><dt>hue</dt><dd style="mix-blend-mode:hue">ABC</dd></dl>
+		<dl class="box"><dt>saturation</dt><dd style="mix-blend-mode:saturation">ABC</dd></dl>
+		<dl class="box"><dt>color</dt><dd style="mix-blend-mode:color">ABC</dd></dl>
+		<dl class="box"><dt>luminosity</dt><dd style="mix-blend-mode:luminosity">ABC</dd></dl>
+		<dl class="box"><dt>initial</dt><dd style="mix-blend-mode:initial">ABC</dd></dl>
+		<dl class="box"><dt>inherit</dt><dd style="mix-blend-mode:inherit">ABC</dd></dl>
+		<dl class="box"><dt>unset</dt><dd style="mix-blend-mode:unset">ABC</dd></dl>
+
+
+	</div>
+</body>
+</html>
