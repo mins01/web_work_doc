@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>vertical-align</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>ForGoogle.analytics()</script>
+
+
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+	<!-- meta og -->
+
+	<meta property="og:title" content="vertical-align">
+	<meta property="og:description" content="vertical-align">
+	<!-- <meta name="og:image" content="http://www.mins01.com/img/logo.gif"> -->
+	<!-- <meta property="og:image:width" content="190"> -->
+	<!-- <meta property="og:image:height" content="70" /> -->
+	<meta property="og:site_name" content="vertical-align" />
+	<meta property="og:type" content="website">
+
+	<!-- //meta og -->
+	<style>
+	section{
+		margin: 5px 0;
+		padding:0.2em 0.5em;
+		border-radius: 5px;
+		border:1px solid #ccc;
+	}
+	.vertical-align-article{
+		height:150px;
+	}
+	.vertical-align-test button{
+		width: 50px;
+		height: 50px;
+		font-size:20px;
+		line-height: 50px;
+		text-align: center;
+	}
+	.vertical-align-baseline button{
+		vertical-align:baseline;
+	}
+	.vertical-align-sub button{
+		vertical-align:sub;
+	}
+	.vertical-align-super button{
+		vertical-align:super;
+	}
+	.vertical-align-text-top button{
+		vertical-align:text-top;
+	}
+	.vertical-align-text-bottom button{
+		vertical-align:text-bottom;
+	}
+	.vertical-align-middle button{
+		vertical-align:middle;
+	}
+	.vertical-align-top button{
+		vertical-align:top;
+	}
+	.vertical-align-bottom button{
+		vertical-align:bottom;
+	}
+	</style>
+
+
+</head>
+<body>
+	<header class="container">
+		<h1>vertical-align test</h1>
+		<ul class="list-group">
+			<li class="list-group-item">vertical-align에 따른 세로 정렬 테스트</li>
+			<li class="list-group-item"><a href="https://developer.mozilla.org/ko/docs/Web/CSS/vertical-align" target="_blank">MDN vertical-align</a></li>
+		</ul>
+	</header>
+
+	<main class="container vertical-align-test">
+		<section >
+			<article class="vertical-align-article vertical-align-baseline">
+				<h2>vertical-align: baseline;</h2>
+				<div>
+					<button>1</button> <button>2</button> <button>3</button> <button></button> <button></button> <button>6</button>
+				</div>
+			</article>
+		</section>
+		<section >
+			<article class="vertical-align-article vertical-align-sub">
+				<h2>vertical-align: sub;</h2>
+				<div>
+					<button>1</button> <button>2</button> <button>3</button> <button></button> <button></button> <button>6</button>
+				</div>
+			</article>
+		</section>
+		<section >
+			<article class="vertical-align-article vertical-align-super">
+				<h2>vertical-align: super;</h2>
+				<div>
+					<button>1</button> <button>2</button> <button>3</button> <button></button> <button></button> <button>6</button>
+				</div>
+			</article>
+		</section>
+		<section >
+			<article class="vertical-align-article vertical-align-text-top">
+				<h2>vertical-align: text-top;</h2>
+				<div>
+					<button>1</button> <button>2</button> <button>3</button> <button></button> <button></button> <button>6</button>
+				</div>
+			</article>
+		</section>
+		<section >
+			<article class="vertical-align-article vertical-align-text-bottom">
+				<h2>vertical-align: text-bottom;</h2>
+				<div>
+					<button>1</button> <button>2</button> <button>3</button> <button></button> <button></button> <button>6</button>
+				</div>
+			</article>
+		</section>
+		<section >
+			<article class="vertical-align-article vertical-align-middle">
+				<h2>vertical-align: middle;</h2>
+				<div>
+					<button>1</button> <button>2</button> <button>3</button> <button></button> <button></button> <button>6</button>
+				</div>
+			</article>
+		</section>
+		<section >
+			<article class="vertical-align-article vertical-align-top">
+				<h2>vertical-align: top;</h2>
+				<div>
+					<button>1</button> <button>2</button> <button>3</button> <button></button> <button></button> <button>6</button>
+				</div>
+			</article>
+		</section>
+		<section >
+			<article class="vertical-align-article vertical-align-bottom">
+				<h2>vertical-align: bottom;</h2>
+				<div>
+					<button>1</button> <button>2</button> <button>3</button> <button></button> <button></button> <button>6</button>
+				</div>
+			</article>
+		</section>
+	</main>
+
+</body>
+</html>
