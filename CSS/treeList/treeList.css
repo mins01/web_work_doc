@@ -3,22 +3,22 @@
 .treeList ,
 .treeListSimple{
 }
-.treeList .treeList-rows ,
+.treeList .treeList-stem ,
 .treeListSimple ul{
 	list-style: none;
 	padding-left:1em;
 }
-.treeList > .treeList-rows ,
+.treeList > .treeList-stem ,
 .treeListSimple > ul{
 	padding-left:0em;
 }
-.treeList-row ,
+.treeList-branch ,
 .treeListSimple li{
 	list-style: none;
 	list-style-position: outside;
 	position: relative;
 }
-.treeList-row::after ,
+.treeList-branch::after ,
 .treeListSimple li::after{
 	display: block;
 	content: "";
@@ -33,8 +33,10 @@
 	left:0em;
 	background-color: transparent !important;
 }
-.treeList-row::before ,
-.treeListSimple li::before{
+.treeList-branch::before ,
+.treeListSimple li::before ,
+.treeList-hidden-stem > .treeList-stem::before ,
+.treeListSimple .treeList-hidden-stem > ul::before{
 	display: block;
 	content: "";
 	padding: 0;
@@ -51,16 +53,16 @@
 	left:0;
 	background-color: transparent !important;
 }
-.treeList-row:first-child::before ,
+.treeList-branch:first-child::before ,
 .treeListSimple ul > li:first-child::before{
 	height: 1.2em;
 	margin-top:-0.2em;
 }
-.treeList-row:last-child::after ,
+.treeList-branch:last-child::after ,
 .treeListSimple ul > li:last-child::after{
 	display: none;
 }
-.treeList-label ,
+.treeList-leaf ,
 .treeListSimple li > div {
 	border:2px solid #999;
 	border-radius: 0.3em;
@@ -68,11 +70,42 @@
 	padding: 0.2em;
 	min-height: 2em;
 }
+
+.treeList-hidden-stem > .treeList-stem ,
+.treeListSimple .treeList-hidden-stem > ul{
+	position: relative;
+}
+.treeList-hidden-stem > .treeList-stem > .treeList-branch ,
+.treeListSimple .treeList-hidden-stem > ul > li{
+	display: none;
+}
+.treeList-hidden-stem > .treeList-stem::after ,
+.treeListSimple .treeList-hidden-stem > ul::after{
+	display: block;
+	content: " . . . hidden . . .";
+	border:2px solid #ccc;
+	color: #ccc;
+	border-radius: 0.3em;
+	margin:0.2em 0.5em;
+	padding: 0.2em;
+	min-height: 2em;
+}
+
+.treeList-hidden-stem > .treeList-stem::before ,
+.treeListSimple .treeList-hidden-stem > ul::before{
+	left:1em;
+	height: 1.2em;
+	margin-top: -0.2em;
+	border-color: #ccc;
+}
+
+
+
 /* 마우스 오버 강조 */
-.treeList-label:hover,
-.treeList-label:hover + .treeList-row::before ,
-.treeList-label:hover + .treeList-row::after,
-.treeList-label:hover + .treeList-rows .treeList-label ,
+.treeList-leaf:hover,
+.treeList-leaf:hover + .treeList-stem .treeList-branch::before ,
+.treeList-leaf:hover + .treeList-stem .treeList-branch::after ,
+.treeList-leaf:hover + .treeList-stem .treeList-leaf ,
 .treeListSimple li > div:hover,
 .treeListSimple li > div:hover + ul li::before ,
 .treeListSimple li > div:hover + ul li::after,

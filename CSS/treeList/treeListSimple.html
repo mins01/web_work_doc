@@ -42,6 +42,7 @@
 <body>
 	<div class="container">
 		<h1>treeListSimple</h1>
+		<h2>html class 사용 없이</h2>
 		<div>
 			<a href="index.html">class-style</a>
 		</div>
@@ -65,12 +66,12 @@
 									<div>2<br>2<br>2<br>2<br>2<br></div>
 								</li>
 								<li>
-									<div>3</div>
+									<div>3 (자식 없음)  <button type="button" class="btn btn-info btn-sm" onclick="this.parentNode.parentNode.classList.toggle('treeList-hidden-stem')">자식 토클</button></div>
 								</li>
 							</ul>
 						</li>
-						<li>
-							<div>2<br>2<br>2<br>2<br>2<br></div>
+						<li class="treeList-hidden-stem">
+							<div>2  <button type="button" class="btn btn-info btn-sm" onclick="this.parentNode.parentNode.classList.toggle('treeList-hidden-stem')">자식 토클</button></div>
 							<ul>
 								<li>
 									<div>1</div>
