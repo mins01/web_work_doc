@@ -128,51 +128,6 @@
 }
 
 
-/* theme custom */
-.treeList.treeList-theme-1 .treeList-leaf ,
-.treeListSimple.treeList-theme-1 li > div,
-.treeList.treeList-theme-1 .treeList-branch::after ,
-.treeListSimple.treeList-theme-1 li::after,
-.treeList.treeList-theme-1 .treeList-branch::before ,
-.treeListSimple.treeList-theme-1 li::before ,
-.treeList.treeList-theme-1 .treeList-hidden-stem > .treeList-stem::before ,
-.treeListSimple.treeList-theme-1 .treeList-hidden-stem > ul::before ,
-.treeList.treeList-theme-1 .treeList-hidden-stem > .treeList-stem::after ,
-.treeListSimple.treeList-theme-1 .treeList-hidden-stem > ul::after{
-	border-color:#abc;
-	border-style:solid;
-	border-width:1px;
-}
-.treeList.treeList-theme-2 .treeList-leaf ,
-.treeListSimple.treeList-theme-2 li > div,
-.treeList.treeList-theme-2 .treeList-branch::after ,
-.treeListSimple.treeList-theme-2 li::after,
-.treeList.treeList-theme-2 .treeList-branch::before ,
-.treeListSimple.treeList-theme-2 li::before ,
-.treeList.treeList-theme-2 .treeList-hidden-stem > .treeList-stem::before ,
-.treeListSimple.treeList-theme-2 .treeList-hidden-stem > ul::before ,
-.treeList.treeList-theme-2 .treeList-hidden-stem > .treeList-stem::after ,
-.treeListSimple.treeList-theme-2 .treeList-hidden-stem > ul::after{
-	border-color:#cba;
-	border-style:dotted;
-	border-width:3px;
-}
-.treeList.treeList-theme-3 .treeList-leaf ,
-.treeListSimple.treeList-theme-3 li > div,
-.treeList.treeList-theme-3 .treeList-branch::after ,
-.treeListSimple.treeList-theme-3 li::after,
-.treeList.treeList-theme-3 .treeList-branch::before ,
-.treeListSimple.treeList-theme-3 li::before ,
-.treeList.treeList-theme-3 .treeList-hidden-stem > .treeList-stem::before ,
-.treeListSimple.treeList-theme-3 .treeList-hidden-stem > ul::before ,
-.treeList.treeList-theme-3 .treeList-hidden-stem > .treeList-stem::after ,
-.treeListSimple.treeList-theme-3 .treeList-hidden-stem > ul::after{
-	border-color:#acb;
-	border-style:double;
-	border-width:5px;
-}
-
-
 /* 마우스 오버 강조  : 테마 뒤에 나와야 한다!*/
 .treeList.treeList-use-hover .treeList-leaf:hover,
 .treeList.treeList-use-hover .treeList-leaf:hover + .treeList-stem .treeList-branch::before ,
