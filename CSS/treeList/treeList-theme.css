@@ -25,8 +25,8 @@
 .treeList.treeList-theme-2 .treeList-hidden-stem > .treeList-stem::after ,
 .treeListSimple.treeList-theme-2 .treeList-hidden-stem > ul::after{
 	border-color:#cba;
-	border-style:dotted;
-	border-width:3px;
+	border-style:dashed;
+	border-width:2px;
 }
 .treeList.treeList-theme-3 .treeList-leaf ,
 .treeListSimple.treeList-theme-3 li > div,

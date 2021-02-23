@@ -109,7 +109,6 @@
 	left:1em;
 	height: 1.2em;
 	margin-top: -0.2em;
-	border-color: #ccc;
 }
 
 /* line first,last */
@@ -127,8 +126,23 @@
 	display: none;
 }
 
+/* 기본 선 설정 */
+.treeList .treeList-leaf ,
+.treeListSimple li > div,
+.treeList .treeList-branch::after ,
+.treeListSimple li::after,
+.treeList .treeList-branch::before ,
+.treeListSimple li::before ,
+.treeList .treeList-hidden-stem > .treeList-stem::before ,
+.treeListSimple .treeList-hidden-stem > ul::before ,
+.treeList .treeList-hidden-stem > .treeList-stem::after ,
+.treeListSimple .treeList-hidden-stem > ul::after{
+	border-color:#999;
+	border-style:solid;
+	border-width:2px;
+}
 
-/* 마우스 오버 강조  : 테마 뒤에 나와야 한다!*/
+/* 마우스 오버 강조  : 테마 후에 선언해야한다!*/
 .treeList.treeList-use-hover .treeList-leaf:hover,
 .treeList.treeList-use-hover .treeList-leaf:hover + .treeList-stem .treeList-branch::before ,
 .treeList.treeList-use-hover .treeList-leaf:hover + .treeList-stem .treeList-branch::after ,
@@ -138,9 +152,9 @@
 .treeListSimple.treeList-use-hover li > div:hover + ul li::after,
 .treeListSimple.treeList-use-hover li > div:hover + ul li > div,
 .treeList.treeList-use-hover .treeList-hidden-stem .treeList-leaf:hover + .treeList-stem::before ,
-.treeListSimple.treeList-use-hover  .treeList-hidden-stem  .treeList-leaf:hover + ul::before ,
+.treeListSimple.treeList-use-hover  li.treeList-hidden-stem > div:hover + ul::before ,
 .treeList.treeList-use-hover .treeList-hidden-stem  .treeList-leaf:hover +  .treeList-stem::after ,
-.treeListSimple.treeList-use-hover .treeList-hidden-stem  .treeList-leaf:hover +  ul::after{
+.treeListSimple.treeList-use-hover li.treeList-hidden-stem > div:hover +  ul::after{
 	/* border-color: #e99; */
-	filter: contrast(1.5);
+	filter: contrast(1.5) brightness(1.1);
 }
