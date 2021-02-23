@@ -161,8 +161,12 @@
 .treeListSimple.treeList-use-hover li > div:hover + ul li > div,
 .treeList.treeList-use-hover .treeList-leaf:hover + .treeList-stem .treeList-hidden-stem .treeList-stem::before ,
 .treeList.treeList-use-hover .treeList-leaf:hover + .treeList-stem .treeList-hidden-stem .treeList-stem::after ,
-.treeListSimple.treeList-use-hover div:hover + .treeList-stem li.treeList-hidden-stem ul::before ,
-.treeListSimple.treeList-use-hover div:hover + .treeList-stem li.treeList-hidden-stem ul::after{
+.treeList.treeList-use-hover .treeList-hidden-stem > .treeList-leaf:hover + .treeList-stem::before ,
+.treeList.treeList-use-hover .treeList-hidden-stem > .treeList-leaf:hover + .treeList-stem::after ,
+.treeListSimple.treeList-use-hover div:hover + ul .treeList-hidden-stem ul::before ,
+.treeListSimple.treeList-use-hover div:hover + ul .treeList-hidden-stem ul::after,
+.treeListSimple.treeList-use-hover .treeList-hidden-stem > div:hover + ul::before ,
+.treeListSimple.treeList-use-hover .treeList-hidden-stem > div:hover + ul::after{
 	border-color: #e99;
 	/* filter: contrast(1.1) brightness(1.2); */
 }
