@@ -55,85 +55,97 @@
 		</div>
 	</div>
 	<div class="container">
-		<div class="treeList">
-			<ul class="treeList-stem">
-				<li class="treeList-branch">
-					<div class="treeList-leaf">1</div>
-					<ul class="treeList-stem">
-						<li class="treeList-branch">
-							<div class="treeList-leaf">1</div>
-							<ul class="treeList-stem">
-								<li class="treeList-branch">
-									<div class="treeList-leaf">1</div>
-								</li>
-								<li class="treeList-branch">
-									<div class="treeList-leaf">2<br>2<br>2<br>2<br>2<br></div>
-								</li>
-								<li class="treeList-branch  treeList-hidden-stem">
-									<div class="treeList-leaf">3 (자식 없음)  <button type="button" class="btn btn-info btn-sm" onclick="this.parentNode.parentNode.classList.toggle('treeList-hidden-stem')">자식 토클</button></div>
-								</li>
-							</ul>
-						</li>
-						<li class="treeList-branch treeList-hidden-stem">
-							<div class="treeList-leaf">2 <button type="button" class="btn btn-info btn-sm" onclick="this.parentNode.parentNode.classList.toggle('treeList-hidden-stem')">자식 토클</button></div>
-							<ul class="treeList-stem">
-								<li class="treeList-branch">
-									<div class="treeList-leaf">1</div>
-								</li>
-								<li class="treeList-branch">
-									<div class="treeList-leaf">2<br>2<br>2<br>2<br>2<br></div>
-									<ul class="treeList-stem">
-										<li class="treeList-branch">
-											<div class="treeList-leaf">1</div>
-										</li>
-										<li class="treeList-branch">
-											<div class="treeList-leaf">2<br>2<br>2<br>2<br>2<br></div>
-											<ul class="treeList-stem">
-												<li class="treeList-branch">
-													<div class="treeList-leaf">1</div>
-												</li>
-												<li class="treeList-branch">
-													<div class="treeList-leaf">2<br>2<br>2<br>2<br>2<br></div>
-												</li>
-												<li class="treeList-branch">
-													<div class="treeList-leaf">3</div>
-												</li>
-											</ul>
-										</li>
-										<li class="treeList-branch">
-											<div class="treeList-leaf">3</div>
-										</li>
-									</ul>
-								</li>
-								<li class="treeList-branch">
-									<div class="treeList-leaf">3</div>
-								</li>
-							</ul>
-						</li>
-						<li class="treeList-branch">
-							<div class="treeList-leaf">3</div>
-							<ul class="treeList-stem">
-								<li class="treeList-branch">
-									<div class="treeList-leaf">1</div>
-								</li>
-								<li class="treeList-branch">
-									<div class="treeList-leaf">2<br>2<br>2<br>2<br>2<br></div>
-								</li>
-								<li class="treeList-branch">
-									<div class="treeList-leaf">3</div>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</li>
-				<li class="treeList-branch">
-					<div class="treeList-leaf">2</div>
-				</li>
-				<li class="treeList-branch">
-					<div class="treeList-leaf">3</div>
-				</li>
-			</ul>
+		<button class="btn btn-info btn-sm" type="button" onclick="document.querySelector('#div_treeList').className='treeList treeList-use-hover';">theme unset+hover</button>
+		<button class="btn btn-info btn-sm" type="button" onclick="document.querySelector('#div_treeList').className='treeList treeList-use-hover treeList-theme-1';">theme 1+hover</button>
+		<button class="btn btn-info btn-sm" type="button" onclick="document.querySelector('#div_treeList').className='treeList treeList-use-hover treeList-theme-2';">theme 2+hover</button>
+		<button class="btn btn-info btn-sm" type="button" onclick="document.querySelector('#div_treeList').className='treeList treeList-use-hover treeList-theme-3';">theme 3+hover</button>
+		<button class="btn btn-warning btn-sm" type="button" onclick="document.querySelector('#div_treeList').className='treeList';">theme unset</button>
+		<button class="btn btn-warning btn-sm" type="button" onclick="document.querySelector('#div_treeList').className='treeList treeList-theme-1';">theme 1</button>
+		<button class="btn btn-warning btn-sm" type="button" onclick="document.querySelector('#div_treeList').className='treeList treeList-theme-2';">theme 2</button>
+		<button class="btn btn-warning btn-sm" type="button" onclick="document.querySelector('#div_treeList').className='treeList treeList-theme-3';">theme 3</button>
+		<hr>
+		<div  style="border:1px solid #eee;">
+			<div class="treeList" id="div_treeList">
+				<ul class="treeList-stem">
+					<li class="treeList-branch">
+						<div class="treeList-leaf">1 <button type="button" class="btn btn-info btn-sm" onclick="this.parentNode.parentNode.classList.toggle('treeList-hidden-stem')">자식 토클</button></div>
+						<ul class="treeList-stem">
+							<li class="treeList-branch">
+								<div class="treeList-leaf">1</div>
+								<ul class="treeList-stem">
+									<li class="treeList-branch">
+										<div class="treeList-leaf">1</div>
+									</li>
+									<li class="treeList-branch">
+										<div class="treeList-leaf">2<br>2<br>2<br>2<br>2<br></div>
+									</li>
+									<li class="treeList-branch  treeList-hidden-stem">
+										<div class="treeList-leaf">3 (자식 없음)  <button type="button" class="btn btn-info btn-sm" onclick="this.parentNode.parentNode.classList.toggle('treeList-hidden-stem')">자식 토클</button></div>
+									</li>
+								</ul>
+							</li>
+							<li class="treeList-branch treeList-hidden-stem">
+								<div class="treeList-leaf">2 <button type="button" class="btn btn-info btn-sm" onclick="this.parentNode.parentNode.classList.toggle('treeList-hidden-stem')">자식 토클</button></div>
+								<ul class="treeList-stem">
+									<li class="treeList-branch">
+										<div class="treeList-leaf">1</div>
+									</li>
+									<li class="treeList-branch">
+										<div class="treeList-leaf">2<br>2<br>2<br>2<br>2<br></div>
+										<ul class="treeList-stem">
+											<li class="treeList-branch">
+												<div class="treeList-leaf">1</div>
+											</li>
+											<li class="treeList-branch">
+												<div class="treeList-leaf">2<br>2<br>2<br>2<br>2<br></div>
+												<ul class="treeList-stem">
+													<li class="treeList-branch">
+														<div class="treeList-leaf">1</div>
+													</li>
+													<li class="treeList-branch">
+														<div class="treeList-leaf">2<br>2<br>2<br>2<br>2<br></div>
+													</li>
+													<li class="treeList-branch">
+														<div class="treeList-leaf">3</div>
+													</li>
+												</ul>
+											</li>
+											<li class="treeList-branch">
+												<div class="treeList-leaf">3</div>
+											</li>
+										</ul>
+									</li>
+									<li class="treeList-branch">
+										<div class="treeList-leaf">3</div>
+									</li>
+								</ul>
+							</li>
+							<li class="treeList-branch">
+								<div class="treeList-leaf">3</div>
+								<ul class="treeList-stem">
+									<li class="treeList-branch">
+										<div class="treeList-leaf">1</div>
+									</li>
+									<li class="treeList-branch">
+										<div class="treeList-leaf">2<br>2<br>2<br>2<br>2<br></div>
+									</li>
+									<li class="treeList-branch">
+										<div class="treeList-leaf">3</div>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li class="treeList-branch">
+						<div class="treeList-leaf">2</div>
+					</li>
+					<li class="treeList-branch">
+						<div class="treeList-leaf">3<br>3<br>3<br>3<br></div>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
+	<footer class="container">*. 공대여자는 이쁘다.</footer>
 </body>
 </html>

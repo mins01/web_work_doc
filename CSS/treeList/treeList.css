@@ -3,65 +3,25 @@
 .treeList ,
 .treeListSimple{
 }
+/* stem */
 .treeList .treeList-stem ,
 .treeListSimple ul{
 	list-style: none;
 	padding-left:1em;
 }
+
 .treeList > .treeList-stem ,
 .treeListSimple > ul{
 	padding-left:0em;
 }
+/* branch */
 .treeList-branch ,
 .treeListSimple li{
 	list-style: none;
 	list-style-position: outside;
 	position: relative;
 }
-.treeList-branch::after ,
-.treeListSimple li::after{
-	display: block;
-	content: "";
-	padding: 0;
-	margin: 0;
-	width:0.5em;
-	overflow: hidden;
-	border:2px solid #999;
-	border-width:0 0 0 2px;
-	position: absolute;
-	top:0em;bottom:1.5em;
-	left:0em;
-	background-color: transparent !important;
-}
-.treeList-branch::before ,
-.treeListSimple li::before ,
-.treeList-hidden-stem > .treeList-stem::before ,
-.treeListSimple .treeList-hidden-stem > ul::before{
-	display: block;
-	content: "";
-	padding: 0;
-	margin: 0;
-	width:0.5em;
-	height: 3em;
-	margin-left: 0em;
-	margin-top:-2em;
-	overflow: hidden;
-	position: absolute;
-	border:2px solid #999;
-	border-width:0 0 2px 2px;
-	top:0em;
-	left:0;
-	background-color: transparent !important;
-}
-.treeList-branch:first-child::before ,
-.treeListSimple ul > li:first-child::before{
-	height: 1.2em;
-	margin-top:-0.2em;
-}
-.treeList-branch:last-child::after ,
-.treeListSimple ul > li:last-child::after{
-	display: none;
-}
+/* leaf */
 .treeList-leaf ,
 .treeListSimple li > div {
 	border:2px solid #999;
@@ -70,7 +30,7 @@
 	padding: 0.2em;
 	min-height: 2em;
 }
-
+/* hidden stem */
 .treeList-hidden-stem > .treeList-stem ,
 .treeListSimple .treeList-hidden-stem > ul{
 	position: relative;
@@ -83,14 +43,67 @@
 .treeListSimple .treeList-hidden-stem > ul::after{
 	display: block;
 	content: " . . . hidden . . .";
-	border:2px solid #ccc;
-	color: #ccc;
+	border:2px solid #999;
+	/* color: #ccc; */
 	border-radius: 0.3em;
 	margin:0.2em 0.5em;
 	padding: 0.2em;
 	min-height: 2em;
 }
+.treeList-hidden-stem > .treeList-stem::after ,
+.treeListSimple .treeList-hidden-stem > ul::after,
+.treeList-hidden-stem > .treeList-stem::before ,
+.treeListSimple .treeList-hidden-stem > ul::before{
+	/* filter: opacity(0.5); */
+	opacity:0.5;
+}
 
+/* line */
+.treeList-branch::after ,
+.treeListSimple li::after,
+.treeList-branch::before ,
+.treeListSimple li::before ,
+.treeList-hidden-stem > .treeList-stem::before ,
+.treeListSimple .treeList-hidden-stem > ul::before{
+	display: block;
+	content: "";
+	padding: 0;
+	margin: 0;
+	width:0.5em;
+	overflow: hidden;
+	border:2px solid #999;
+	position: absolute;
+	top:0em;
+	left:0em;
+	background-color: transparent !important;
+}
+
+.treeList-branch::after ,
+.treeListSimple li::after{
+
+	height:auto;
+	/* border-width:0 0 0 2px; */
+	border-top-width:0 !important;
+	border-right-width:0 !important;
+	border-bottom-width:0 !important;
+	/* border-left-width:0 !important; */
+	top:-0.2em; /* margin-top of leaf */
+	bottom:0em;
+
+}
+.treeList-branch::before ,
+.treeListSimple li::before ,
+.treeList-hidden-stem > .treeList-stem::before ,
+.treeListSimple .treeList-hidden-stem > ul::before{
+	margin-top:0.2em; /* margin-top of leaf */
+	height: 1em;
+	/* border-width:0 0 2px 2px; */
+	border-top-width:0 !important;
+	border-right-width:0 !important;
+	/* border-bottom-width:0 !important; */
+	/* border-left-width:0 !important; */
+	/* border-left-style:none; */
+}
 .treeList-hidden-stem > .treeList-stem::before ,
 .treeListSimple .treeList-hidden-stem > ul::before{
 	left:1em;
@@ -99,16 +112,80 @@
 	border-color: #ccc;
 }
 
+/* line first,last */
+.treeList-branch:not(:last-child)::before ,
+.treeListSimple ul > li:not(:last-child)::before{
+	border-left-width:0 !important;
+}
+.treeList-branch:last-child::before ,
+.treeListSimple ul > li:last-child::before{
+	margin-top: -0.2em;
+	height:1.4em;
+}
+.treeList-branch:last-child::after ,
+.treeListSimple ul > li:last-child::after{
+	display: none;
+}
 
 
-/* 마우스 오버 강조 */
-.treeList-leaf:hover,
-.treeList-leaf:hover + .treeList-stem .treeList-branch::before ,
-.treeList-leaf:hover + .treeList-stem .treeList-branch::after ,
-.treeList-leaf:hover + .treeList-stem .treeList-leaf ,
-.treeListSimple li > div:hover,
-.treeListSimple li > div:hover + ul li::before ,
-.treeListSimple li > div:hover + ul li::after,
-.treeListSimple li > div:hover + ul li > div{
-	border-color: #e99;
+/* theme custom */
+.treeList.treeList-theme-1 .treeList-leaf ,
+.treeListSimple.treeList-theme-1 li > div,
+.treeList.treeList-theme-1 .treeList-branch::after ,
+.treeListSimple.treeList-theme-1 li::after,
+.treeList.treeList-theme-1 .treeList-branch::before ,
+.treeListSimple.treeList-theme-1 li::before ,
+.treeList.treeList-theme-1 .treeList-hidden-stem > .treeList-stem::before ,
+.treeListSimple.treeList-theme-1 .treeList-hidden-stem > ul::before ,
+.treeList.treeList-theme-1 .treeList-hidden-stem > .treeList-stem::after ,
+.treeListSimple.treeList-theme-1 .treeList-hidden-stem > ul::after{
+	border-color:#abc;
+	border-style:solid;
+	border-width:1px;
+}
+.treeList.treeList-theme-2 .treeList-leaf ,
+.treeListSimple.treeList-theme-2 li > div,
+.treeList.treeList-theme-2 .treeList-branch::after ,
+.treeListSimple.treeList-theme-2 li::after,
+.treeList.treeList-theme-2 .treeList-branch::before ,
+.treeListSimple.treeList-theme-2 li::before ,
+.treeList.treeList-theme-2 .treeList-hidden-stem > .treeList-stem::before ,
+.treeListSimple.treeList-theme-2 .treeList-hidden-stem > ul::before ,
+.treeList.treeList-theme-2 .treeList-hidden-stem > .treeList-stem::after ,
+.treeListSimple.treeList-theme-2 .treeList-hidden-stem > ul::after{
+	border-color:#cba;
+	border-style:dotted;
+	border-width:3px;
+}
+.treeList.treeList-theme-3 .treeList-leaf ,
+.treeListSimple.treeList-theme-3 li > div,
+.treeList.treeList-theme-3 .treeList-branch::after ,
+.treeListSimple.treeList-theme-3 li::after,
+.treeList.treeList-theme-3 .treeList-branch::before ,
+.treeListSimple.treeList-theme-3 li::before ,
+.treeList.treeList-theme-3 .treeList-hidden-stem > .treeList-stem::before ,
+.treeListSimple.treeList-theme-3 .treeList-hidden-stem > ul::before ,
+.treeList.treeList-theme-3 .treeList-hidden-stem > .treeList-stem::after ,
+.treeListSimple.treeList-theme-3 .treeList-hidden-stem > ul::after{
+	border-color:#acb;
+	border-style:double;
+	border-width:5px;
+}
+
+
+/* 마우스 오버 강조  : 테마 뒤에 나와야 한다!*/
+.treeList.treeList-use-hover .treeList-leaf:hover,
+.treeList.treeList-use-hover .treeList-leaf:hover + .treeList-stem .treeList-branch::before ,
+.treeList.treeList-use-hover .treeList-leaf:hover + .treeList-stem .treeList-branch::after ,
+.treeList.treeList-use-hover .treeList-leaf:hover + .treeList-stem .treeList-leaf ,
+.treeListSimple.treeList-use-hover li > div:hover,
+.treeListSimple.treeList-use-hover li > div:hover + ul li::before ,
+.treeListSimple.treeList-use-hover li > div:hover + ul li::after,
+.treeListSimple.treeList-use-hover li > div:hover + ul li > div,
+.treeList.treeList-use-hover .treeList-hidden-stem .treeList-leaf:hover + .treeList-stem::before ,
+.treeListSimple.treeList-use-hover  .treeList-hidden-stem  .treeList-leaf:hover + ul::before ,
+.treeList.treeList-use-hover .treeList-hidden-stem  .treeList-leaf:hover +  .treeList-stem::after ,
+.treeListSimple.treeList-use-hover .treeList-hidden-stem  .treeList-leaf:hover +  ul::after{
+	/* border-color: #e99; */
+	filter: contrast(1.5);
 }
