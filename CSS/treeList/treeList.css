@@ -50,13 +50,21 @@
 	padding: 0.2em;
 	min-height: 2em;
 }
-.treeList-hidden-stem > .treeList-stem::after ,
-.treeListSimple .treeList-hidden-stem > ul::after,
-.treeList-hidden-stem > .treeList-stem::before ,
-.treeListSimple .treeList-hidden-stem > ul::before{
-	/* filter: opacity(0.5); */
-	opacity:0.5;
+.treeList-branch > .treeList-stem,
+.treeListSimple div + ul{
+	opacity:1;
 }
+.treeList-hidden-stem .treeList-stem,
+.treeListSimple .treeList-hidden-stem > ul {
+	opacity:0.3;
+}
+
+.treeList.treeList-hide-animation .treeList-branch > .treeList-stem,
+.treeListSimple.treeList-hide-animation div + ul{
+	transition: opacity 0.5s ease-out;
+}
+
+
 
 /* line */
 .treeList-branch::after ,
@@ -155,6 +163,6 @@
 .treeListSimple.treeList-use-hover  li.treeList-hidden-stem > div:hover + ul::before ,
 .treeList.treeList-use-hover .treeList-hidden-stem  .treeList-leaf:hover +  .treeList-stem::after ,
 .treeListSimple.treeList-use-hover li.treeList-hidden-stem > div:hover +  ul::after{
-	/* border-color: #e99; */
-	filter: contrast(1.5) brightness(1.1);
+	border-color: #e99;
+	/* filter: contrast(1.1) brightness(1.2); */
 }

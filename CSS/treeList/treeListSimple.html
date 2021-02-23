@@ -36,8 +36,8 @@
 	<meta property="og:site_name" content="treeList" />
 	<meta property="og:type" content="website">
 
-	<link rel="stylesheet" href="treeList-theme.css">
 	<link rel="stylesheet" href="treeList.css">
+	<link rel="stylesheet" href="treeList-theme.css">
 
 </head>
 <body>
@@ -52,15 +52,42 @@
 		</div>
 	</div>
 	<div class="container">
-		<button class="btn btn-warning btn-sm m-1" type="button" onclick="document.querySelector('#div_treeList').className='treeListSimple';">theme unset</button>
-		<button class="btn btn-warning btn-sm m-1" type="button" onclick="document.querySelector('#div_treeList').className='treeListSimple treeList-theme-1';">theme 1</button>
-		<button class="btn btn-warning btn-sm m-1" type="button" onclick="document.querySelector('#div_treeList').className='treeListSimple treeList-theme-2';">theme 2</button>
-		<button class="btn btn-warning btn-sm m-1" type="button" onclick="document.querySelector('#div_treeList').className='treeListSimple treeList-theme-3';">theme 3</button>
-		<button class="btn btn-success btn-sm m-1" type="button" onclick="document.querySelector('#div_treeList').className='treeListSimple treeList-use-hover';">theme unset+hover</button>
-		<button class="btn btn-success btn-sm m-1" type="button" onclick="document.querySelector('#div_treeList').className='treeListSimple treeList-use-hover treeList-theme-1';">theme 1+hover</button>
-		<button class="btn btn-success btn-sm m-1" type="button" onclick="document.querySelector('#div_treeList').className='treeListSimple treeList-use-hover treeList-theme-2';">theme 2+hover</button>
-		<button class="btn btn-success btn-sm m-1" type="button" onclick="document.querySelector('#div_treeList').className='treeListSimple treeList-use-hover treeList-theme-3';">theme 3+hover</button>
+		<hr>
+		<script>
+		function form_onsubmit(f){
+			var cs = [];
+			f.querySelectorAll('.classes:checked').forEach((item, i) => {
+				cs.push(item.value)
+			});
+			document.querySelector('#div_treeList').className=cs.join(" ");
+		}
+		</script>
+		<form action="" onchange="form_onsubmit(this);return">
+			<input class="form-control mb-3 classes" type="checkbox" style="display:none" checked name="def_class" value="treeListSimple">
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text" >theme</span>
+				</div>
+				<div class="form-control">
+					<label><input type="radio" class="classes" name="theme_class" value="" checked> unset</label> ,
+					<label><input type="radio" class="classes" name="theme_class" value="treeList-theme-1"> theme-1</label> ,
+					<label><input type="radio" class="classes" name="theme_class" value="treeList-theme-2"> theme-2</label> ,
+					<label><input type="radio" class="classes" name="theme_class" value="treeList-theme-3"> theme-3</label>
+				</div>
+			</div>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text" >etc</span>
+				</div>
+				<div class="form-control">
+					<label><input type="checkbox" class="classes" name="etc_class" value="treeList-use-hover"> hover</label> ,
+					<label><input type="checkbox" class="classes" name="etc_class" value="treeList-hide-animation"> hide-animation</label>
+				</div>
+			</div>
+		</form>
+	</div>
 
+	<div class="container">
 		<hr>
 		<div  style="border:1px solid #eee;">
 			<div class="treeListSimple" id="div_treeList">
