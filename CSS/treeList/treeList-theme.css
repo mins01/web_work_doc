@@ -15,18 +15,18 @@
 	border-width:1px;
 }
 
-.treeList.treeList-use-hover.treeList-theme-1  .treeList-leaf:hover,
-.treeList.treeList-use-hover.treeList-theme-1  .treeList-leaf:hover + .treeList-stem .treeList-branch::before ,
-.treeList.treeList-use-hover.treeList-theme-1  .treeList-leaf:hover + .treeList-stem .treeList-branch::after ,
-.treeList.treeList-use-hover.treeList-theme-1  .treeList-leaf:hover + .treeList-stem .treeList-leaf ,
-.treeListSimple.treeList-use-hover.treeList-theme-1  li > div:hover,
-.treeListSimple.treeList-use-hover.treeList-theme-1  li > div:hover + ul li::before ,
-.treeListSimple.treeList-use-hover.treeList-theme-1  li > div:hover + ul li::after,
-.treeListSimple.treeList-use-hover.treeList-theme-1  li > div:hover + ul li > div,
-.treeList.treeList-use-hover.treeList-theme-1  .treeList-hidden-stem .treeList-leaf:hover + .treeList-stem::before ,
-.treeListSimple.treeList-use-hover.treeList-theme-1   li.treeList-hidden-stem > div:hover + ul::before ,
-.treeList.treeList-use-hover.treeList-theme-1  .treeList-hidden-stem  .treeList-leaf:hover +  .treeList-stem::after ,
-.treeListSimple.treeList-use-hover.treeList-theme-1  li.treeList-hidden-stem > div:hover +  ul::after{
+.treeList.treeList-use-hover.treeList-theme-1 .treeList-leaf:hover,
+.treeList.treeList-use-hover.treeList-theme-1 .treeList-leaf:hover + .treeList-stem .treeList-branch::before ,
+.treeList.treeList-use-hover.treeList-theme-1 .treeList-leaf:hover + .treeList-stem .treeList-branch::after ,
+.treeList.treeList-use-hover.treeList-theme-1 .treeList-leaf:hover + .treeList-stem .treeList-leaf ,
+.treeListSimple.treeList-use-hover.treeList-theme-1 li > div:hover,
+.treeListSimple.treeList-use-hover.treeList-theme-1 li > div:hover + ul li::before ,
+.treeListSimple.treeList-use-hover.treeList-theme-1 li > div:hover + ul li::after,
+.treeListSimple.treeList-use-hover.treeList-theme-1 li > div:hover + ul li > div,
+.treeList.treeList-use-hover.treeList-theme-1 .treeList-leaf:hover + .treeList-stem .treeList-hidden-stem .treeList-stem::before ,
+.treeList.treeList-use-hover.treeList-theme-1 .treeList-leaf:hover + .treeList-stem .treeList-hidden-stem .treeList-stem::after ,
+.treeListSimple.treeList-use-hover.treeList-theme-1 div:hover + .treeList-stem li.treeList-hidden-stem ul::before ,
+.treeListSimple.treeList-use-hover.treeList-theme-1 div:hover + .treeList-stem li.treeList-hidden-stem ul::after{
 	border-color:#99f;
 }
 
@@ -45,18 +45,18 @@
 	border-width:2px;
 }
 
-.treeList.treeList-use-hover.treeList-theme-2  .treeList-leaf:hover,
-.treeList.treeList-use-hover.treeList-theme-2  .treeList-leaf:hover + .treeList-stem .treeList-branch::before ,
-.treeList.treeList-use-hover.treeList-theme-2  .treeList-leaf:hover + .treeList-stem .treeList-branch::after ,
-.treeList.treeList-use-hover.treeList-theme-2  .treeList-leaf:hover + .treeList-stem .treeList-leaf ,
-.treeListSimple.treeList-use-hover.treeList-theme-2  li > div:hover,
-.treeListSimple.treeList-use-hover.treeList-theme-2  li > div:hover + ul li::before ,
-.treeListSimple.treeList-use-hover.treeList-theme-2  li > div:hover + ul li::after,
-.treeListSimple.treeList-use-hover.treeList-theme-2  li > div:hover + ul li > div,
-.treeList.treeList-use-hover.treeList-theme-2  .treeList-hidden-stem .treeList-leaf:hover + .treeList-stem::before ,
-.treeListSimple.treeList-use-hover.treeList-theme-2   li.treeList-hidden-stem > div:hover + ul::before ,
-.treeList.treeList-use-hover.treeList-theme-2  .treeList-hidden-stem  .treeList-leaf:hover +  .treeList-stem::after ,
-.treeListSimple.treeList-use-hover.treeList-theme-2  li.treeList-hidden-stem > div:hover +  ul::after{
+.treeList.treeList-use-hover.treeList-theme-2 .treeList-leaf:hover,
+.treeList.treeList-use-hover.treeList-theme-2 .treeList-leaf:hover + .treeList-stem .treeList-branch::before ,
+.treeList.treeList-use-hover.treeList-theme-2 .treeList-leaf:hover + .treeList-stem .treeList-branch::after ,
+.treeList.treeList-use-hover.treeList-theme-2 .treeList-leaf:hover + .treeList-stem .treeList-leaf ,
+.treeListSimple.treeList-use-hover.treeList-theme-2 li > div:hover,
+.treeListSimple.treeList-use-hover.treeList-theme-2 li > div:hover + ul li::before ,
+.treeListSimple.treeList-use-hover.treeList-theme-2 li > div:hover + ul li::after,
+.treeListSimple.treeList-use-hover.treeList-theme-2 li > div:hover + ul li > div,
+.treeList.treeList-use-hover.treeList-theme-2 .treeList-leaf:hover + .treeList-stem .treeList-hidden-stem .treeList-stem::before ,
+.treeList.treeList-use-hover.treeList-theme-2 .treeList-leaf:hover + .treeList-stem .treeList-hidden-stem .treeList-stem::after ,
+.treeListSimple.treeList-use-hover.treeList-theme-2 div:hover + .treeList-stem li.treeList-hidden-stem ul::before ,
+.treeListSimple.treeList-use-hover.treeList-theme-2 div:hover + .treeList-stem li.treeList-hidden-stem ul::after{
 	border-color:#9f9;
 }
 
@@ -75,17 +75,17 @@
 	border-width:5px;
 }
 
-.treeList.treeList-use-hover.treeList-theme-3  .treeList-leaf:hover,
-.treeList.treeList-use-hover.treeList-theme-3  .treeList-leaf:hover + .treeList-stem .treeList-branch::before ,
-.treeList.treeList-use-hover.treeList-theme-3  .treeList-leaf:hover + .treeList-stem .treeList-branch::after ,
-.treeList.treeList-use-hover.treeList-theme-3  .treeList-leaf:hover + .treeList-stem .treeList-leaf ,
-.treeListSimple.treeList-use-hover.treeList-theme-3  li > div:hover,
-.treeListSimple.treeList-use-hover.treeList-theme-3  li > div:hover + ul li::before ,
-.treeListSimple.treeList-use-hover.treeList-theme-3  li > div:hover + ul li::after,
-.treeListSimple.treeList-use-hover.treeList-theme-3  li > div:hover + ul li > div,
-.treeList.treeList-use-hover.treeList-theme-3  .treeList-hidden-stem .treeList-leaf:hover + .treeList-stem::before ,
-.treeListSimple.treeList-use-hover.treeList-theme-3   li.treeList-hidden-stem > div:hover + ul::before ,
-.treeList.treeList-use-hover.treeList-theme-3  .treeList-hidden-stem  .treeList-leaf:hover +  .treeList-stem::after ,
-.treeListSimple.treeList-use-hover.treeList-theme-3  li.treeList-hidden-stem > div:hover +  ul::after{
+.treeList.treeList-use-hover.treeList-theme-3 .treeList-leaf:hover,
+.treeList.treeList-use-hover.treeList-theme-3 .treeList-leaf:hover + .treeList-stem .treeList-branch::before ,
+.treeList.treeList-use-hover.treeList-theme-3 .treeList-leaf:hover + .treeList-stem .treeList-branch::after ,
+.treeList.treeList-use-hover.treeList-theme-3 .treeList-leaf:hover + .treeList-stem .treeList-leaf ,
+.treeListSimple.treeList-use-hover.treeList-theme-3 li > div:hover,
+.treeListSimple.treeList-use-hover.treeList-theme-3 li > div:hover + ul li::before ,
+.treeListSimple.treeList-use-hover.treeList-theme-3 li > div:hover + ul li::after,
+.treeListSimple.treeList-use-hover.treeList-theme-3 li > div:hover + ul li > div,
+.treeList.treeList-use-hover.treeList-theme-3 .treeList-leaf:hover + .treeList-stem .treeList-hidden-stem .treeList-stem::before ,
+.treeList.treeList-use-hover.treeList-theme-3 .treeList-leaf:hover + .treeList-stem .treeList-hidden-stem .treeList-stem::after ,
+.treeListSimple.treeList-use-hover.treeList-theme-3 div:hover + .treeList-stem li.treeList-hidden-stem ul::before ,
+.treeListSimple.treeList-use-hover.treeList-theme-3 div:hover + .treeList-stem li.treeList-hidden-stem ul::after{
 	border-color:#99f;
 }
