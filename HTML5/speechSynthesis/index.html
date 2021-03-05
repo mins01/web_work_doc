@@ -42,6 +42,14 @@
 	function test_speak(){
 		window.speechSynthesis.speak(new SpeechSynthesisUtterance("안녕하세요 반갑습니다"));
 	}
+
+	function form_speak(f){
+		var utterThis = new SpeechSynthesisUtterance(f.str.value);
+		utterThis.voice = app.voices[f.voice.selectedIndex];
+		utterThis.pitch = f.pitch.value;
+		utterThis.rate = f.rate.value;
+		window.speechSynthesis.speak(utterThis);
+	}
 	let app = null;
 	$(function(){
 		app = gerenate_speechSynthesis_app('#app');
@@ -49,18 +57,33 @@
 	</script>
 </head>
 <body>
-	<div class="container">
+	<div class="container mb-1">
 		<h1>speechSynthesis TTS</h1>
+		<div class="container">
+			<button type="button" class="btn btn-info" onclick="test_speak()">test_speak : 안녕하세요 반갑습니다</button>
+		</div>
+		<ul class="list-group">
+			<li class="list-group-item"><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis">https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis</a></li>
+		</ul>
 	</div>
-	<div class="container">
-		<button type="button" class="btn btn-info" onclick="test_speak()">test_speak : 안녕하세요 반갑습니다</button>
-	</div>
-	<div class="container" id="app">
-		<select class="form-control" id="voice">
-			<template v-for="(vo,k) in voices" >
-				<option class="" :value="k">[{{ k }}] ({{ vo.lang }}) ({{ vo.localService?"로컬":"외부" }}) {{ vo.name }}</option>
-			</template>
-		</select>
+
+
+
+	<div class="container mb-1" id="app">
+		<form onsubmit="form_speak(this);return false;">
+			대본
+			<input name="str" type="text" class="form-control m-1" placeholder="TTS text" value="헬로우 안녕하세요 반갑습니다">
+			목소리
+			<select class="form-control m-1" name="voice">
+				<template v-for="(vo,k) in voices" >
+					<option class="" :value="k" :data-lang="vo.lang" :data-name="vo.name">[{{ k }}] ({{ vo.lang }}) ({{ vo.localService?"로컬":"외부" }}) {{ vo.name }} {{ vo.default?"<기본>":""}}</option>
+				</template>
+			</select>
+			<input name="pitch" type="number" class="form-control m-1" value="1" step="0.1">
+			<input name="rate" type="number" class="form-control m-1" value="1" step="0.1">
+			<button type="submit" class="btn btn-info m-1">말하기</button>
+		</form>
+
 
 	</div>
 </body>

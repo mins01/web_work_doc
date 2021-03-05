@@ -8,9 +8,15 @@ function gerenate_speechSynthesis_app(el){
 	});
 	app.enable = !!window.speechSynthesis;
 	if(app.enable){
-		setTimeout(function(){
-			app.voices = window.speechSynthesis.getVoices();
-		},1000)
+		app.voices = window.speechSynthesis.getVoices();
+		if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
+			speechSynthesis.onvoiceschanged = function(){
+				app.voices = window.speechSynthesis.getVoices();
+			};
+		}
+		// setTimeout(function(){
+		// 	app.voices = window.speechSynthesis.getVoices();
+		// },1000)
 
 	}
 
