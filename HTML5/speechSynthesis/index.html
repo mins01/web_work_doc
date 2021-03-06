@@ -36,19 +36,45 @@
 	<meta property="og:type" content="website">
 
 	<!-- //meta og -->
+	<style>
+		.input-group-text-w-1{width:7em;}
+		.speaking-emoji{}
+		.blink{-webkit-animation-name:blink;
+			animation-name:blink;
+			-webkit-animation-timing-function:cubic-bezier(0.42,0,0.58,1);
+			animation-timing-function:cubic-bezier(0.42,0,0.58,1);
+			-webkit-animation-duration:1s;
+			animation-duration:1s;
+			animation-iteration-count: infinite;
+		}
+		@keyframes blink{0%{opacity:1}50%{opacity:0.5}100%{opacity:1}}
+	</style>
 
 	<script src="app.js"></script>
+
 	<script>
-	function test_speak(){
-		window.speechSynthesis.speak(new SpeechSynthesisUtterance("안녕하세요 반갑습니다"));
-	}
 
 	function form_speak(f){
-		var utterThis = new SpeechSynthesisUtterance(f.str.value);
+		if(window.speechSynthesis.speaking){
+			console.log("이미 말하고 있습니다.");
+			return false;
+		}
+		var utterThis = new SpeechSynthesisUtterance();
+		utterThis.onboundary = function(event) {
+			console.log(event.name + ' boundary reached after ' + event.elapsedTime + ' seconds.');
+		}
+		utterThis.onstart = function(event) {
+			app.speaking = true;
+		}
+		utterThis.onend  = function(event) {
+			app.speaking = false;
+		}
+		utterThis.text = f.str.value;
 		utterThis.voice = app.voices[f.voice.selectedIndex];
 		utterThis.pitch = f.pitch.value;
 		utterThis.rate = f.rate.value;
 		window.speechSynthesis.speak(utterThis);
+
 	}
 	let app = null;
 	$(function(){
@@ -59,29 +85,76 @@
 <body>
 	<div class="container mb-1">
 		<h1>speechSynthesis TTS</h1>
-		<div class="container">
-			<button type="button" class="btn btn-info" onclick="test_speak()">test_speak : 안녕하세요 반갑습니다</button>
-		</div>
 		<ul class="list-group">
 			<li class="list-group-item"><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis">https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis</a></li>
+			<li class="list-group-item">
+				Microsoft Heami Desktop - Korean 는 한국어 윈도우즈일 경우 기본값이다.<br />
+				일번어는 못 읽으며, 중국어(한문)는 한국 발음으로 읽는다.(你好=>니호)
+			</li>
+			<li class="list-group-item">
+				Microsoft Zira Desktop - English (United States) 는 영어만 읽어준다.
+			</li>
+			<li class="list-group-item">
+				google 제공의 경우 해당 지역 사람의 발음으로 한글도 읽어준다. (일본어,중국어 읽기가 된다.)
+			</li>
+			<li class="list-group-item">
+				<button type="button" class="btn btn-info" onclick="window.speechSynthesis.speak(new SpeechSynthesisUtterance('안녕하세요 반갑습니다'));">simple_speak : 안녕하세요 반갑습니다</button>
+			</li>
 		</ul>
+		<hr />
 	</div>
 
 
 
 	<div class="container mb-1" id="app">
 		<form onsubmit="form_speak(this);return false;">
-			대본
-			<input name="str" type="text" class="form-control m-1" placeholder="TTS text" value="헬로우 안녕하세요 반갑습니다">
-			목소리
-			<select class="form-control m-1" name="voice">
-				<template v-for="(vo,k) in voices" >
-					<option class="" :value="k" :data-lang="vo.lang" :data-name="vo.name">[{{ k }}] ({{ vo.lang }}) ({{ vo.localService?"로컬":"외부" }}) {{ vo.name }} {{ vo.default?"<기본>":""}}</option>
-				</template>
-			</select>
-			<input name="pitch" type="number" class="form-control m-1" value="1" step="0.1">
-			<input name="rate" type="number" class="form-control m-1" value="1" step="0.1">
-			<button type="submit" class="btn btn-info m-1">말하기</button>
+			<div class="text-center mb-1">
+				<div style="font-size:100px;">
+					<div v-show="speaking" class="blink">
+						<span>🗣️</span>
+					</div>
+					<div v-show="!speaking">
+						<span>🤐</span>
+					</div>
+				</div>
+			</div>
+			<div class="input-group mb-1">
+				<div class="input-group-prepend">
+					<span class="input-group-text input-group-text-w-1" >대본</span>
+				</div>
+				<input name="str" type="text" class="form-control" placeholder="TTS text" value="안녕하세요. Hello. こんにちは. 你好.">
+			</div>
+
+			<div class="input-group mb-1">
+				<div class="input-group-prepend">
+					<span class="input-group-text input-group-text-w-1" >목소리</span>
+				</div>
+				<select class="form-control" name="voice">
+					<template v-for="(vo,k) in voices" >
+						<option class="" :value="k" :data-lang="vo.lang" :data-name="vo.name">[{{ k }}] ({{ vo.lang }}) ({{ vo.localService?"로컬":"리모트" }}) {{ vo.name }} {{ vo.default?"<기본>":""}}</option>
+					</template>
+				</select>
+			</div>
+
+			<div class="input-group mb-1">
+				<div class="input-group-prepend">
+					<span class="input-group-text input-group-text-w-1" >음의 높이</span>
+				</div>
+				<input name="pitch" type="number" class="form-control" value="1" step="0.5" min="0" max="10">
+			</div>
+			<div class="input-group mb-1">
+				<div class="input-group-prepend">
+					<span class="input-group-text input-group-text-w-1" >속도</span>
+				</div>
+				<input name="rate" type="number" class="form-control" value="1" step="0.5" min="0" max="10">
+			</div>
+			<div class="text-right">
+				<button type="submit" class="btn btn-primary m-1">speak</button>
+				<button type="button" class="btn btn-danger m-1" onclick="window.speechSynthesis.cancel()">cancel</button>
+				<button type="button" class="btn btn-success m-1" onclick="window.speechSynthesis.resume()">resume</button>
+				<button type="button" class="btn btn-warning m-1" onclick="window.speechSynthesis.pause()">pause</button>
+			</div>
+
 		</form>
 
 
