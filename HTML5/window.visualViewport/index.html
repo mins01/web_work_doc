@@ -67,7 +67,13 @@
 		<ul class="list-group">
 			<li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Visual_Viewport_API" target="_blank">https://developer.mozilla.org/en-US/docs/Web/API/Visual_Viewport_API</a></li>
 			<li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/VisualViewport" target="_blank">https://developer.mozilla.org/en-US/docs/Web/API/VisualViewport</a></li>
-			<li class="list-group-item">아직 정식 지원이 안님.<br>IE 미지원.<br>FF 63 이후에 지원</li>
+			<li class="list-group-item">
+				아직 정식 지원이 안님.<br>
+				IE 미지원.<br>
+				FF 63 이후에 지원<br>
+				모바일 안드리로이드 크롬에서 확대/축소시 scale이 변경됨을 확인함 (PC버전은 변경 안됨)<br>
+				scale은 top level frame에서 확대하는 경우에만 변경됨.(iframe,frame 같은건 scale 변화하지 않음)
+			</li>
 		</ul>
 	</div>
 	<div class="container">
