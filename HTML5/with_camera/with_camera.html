@@ -31,52 +31,56 @@
 </head>
 <body>
 	<script>
-	function viewImage(input_file,img){
-		(function(file){
-		 var fileReader = new FileReader();
-		 fileReader.onload = function (event) {
-		 // 	var img = new Image();
-		 // 	img.src = event.target.result;
-		 // 	preview.appendChild(img);
-			 img.src = event.target.result;
-			 
-		 };
-		 fileReader.readAsDataURL(file);
-	 })(input_file.files[0])
-	}
+		function viewImage(input_file,img){
+			(function(file){
+				var fileReader = new FileReader();
+				fileReader.onload = function (event) {
+					// 	var img = new Image();
+					// 	img.src = event.target.result;
+					// 	preview.appendChild(img);
+					img.src = event.target.result;
+					
+				};
+				fileReader.readAsDataURL(file);
+			})(input_file.files[0])
+		}
 	</script>
 	<div class="container">
 		<h1>with_camera</h1>
 		<form action="javascript:void(0)" onsubmit="return false;">
 			<div class="input-group">
 				<span class="input-group-addon">capture="camera"</span>
-				<input class="form-control" type="file" accept="image/*"  capture="camera" name="input_file" />
-				<span class="input-group-btn">
-				 <button class="btn btn-default" type="button" onclick="viewImage(this.form.input_file,document.getElementById('img0'))" >확인</button>
-				 
-			 </span>
+				<input class="form-control" type="file" accept="image/*"  capture="camera" name="input_file1" onchange="viewImage(this,document.getElementById('img0'))" />
+			</div>
+			<div class="input-group">
+				<span class="input-group-addon">capture="user"</span>
+				<input class="form-control" type="file" accept="image/*"  capture="user" name="input_file1_2" onchange="viewImage(this,document.getElementById('img0'))" />
+			</div>
+			<div class="input-group">
+				<span class="input-group-addon">capture="environment"</span>
+				<input class="form-control" type="file" accept="image/*"  capture="environment" name="input_file1_3" onchange="viewImage(this,document.getElementById('img0'))" />
 			</div>
 			<img id="img0" src="about:blank" style="max-width:300px;max-height:300px;display:block;margin:0 auto; border:1px dotted black;"/>
 			<hr />
 			<div class="input-group">
 				<span class="input-group-addon">capture="microphone"</span>
-				<input class="form-control" type="file" accept="audio/*"  capture="microphone" name="input_file2" />
-				<span class="input-group-btn">
-				 <button class="btn btn-default" type="button" onclick="viewImage(this.form.input_file2,document.getElementById('audio0'))" >확인</button>
-			 </span>
+				<input class="form-control" type="file" accept="audio/*"  capture="microphone" name="input_file2" onchange="viewImage(this,document.getElementById('audio0'))" />
 			</div>
-			<audio src="about:blank" controls id="audio0"></audio>
+			<div class="text-center">
+				<audio src="about:blank" controls id="audio0"></audio>
+			</div>
+			
 			<hr />
 			<div class="input-group">
 				<span class="input-group-addon">capture="camcorder"</span>
-				<input class="form-control" type="file" accept="video/*"  capture="camcorder" name="input_file3" />
-				<span class="input-group-btn">
-				 <button class="btn btn-default" type="button" onclick="viewImage(this.form.input_file3,document.getElementById('video0'))" >확인</button>
-			 </span>
+				<input class="form-control" type="file" accept="video/*"  capture="camcorder" name="input_file3" onchange="viewImage(this,document.getElementById('video0'))" />
 			</div>
-			<video src="about:blank" width="400" height="300" controls id="video0"></video>
+			<div class="text-center">
+				<video src="about:blank" width="400" height="300" controls id="video0"></video>
+			</div>
+			
 			<hr />
-
+			
 		</form>
 	</div>
 </body>
