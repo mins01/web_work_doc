@@ -37,11 +37,19 @@
 	
 	<!-- //meta og -->
 	<style>
-		progress{width:300px}
+		progress{min-width:300px; width: 90%; display: block; margin: 1px auto;}
 	</style>
 	
 	<script>
 		let app;
+		let audioContext 
+		let audioSourceNode 
+		let audioDestination 
+		let gainNode 
+		let analyserNode
+		let waveShaperNode
+		let convolverNode
+		// let oscillatorNode
 		window.onload=function(){
 			app = new Vue({
 				el: '#app',
@@ -50,109 +58,271 @@
 					timeDomains:[],
 				}
 			})
-		}
-	</script>
-</head>
-<body>
-	<div class="container">
-		<h1>audio test</h1>
-		<ul class="list-group">
-			<li class="list-group-item"><a href="https://developer.mozilla.org/ko/docs/Web/HTML/Element/audio">https://developer.mozilla.org/ko/docs/Web/HTML/Element/audio</a></li>
-			<li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/AudioContext">https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/AudioContext</a></li>
-			<li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/AnalyserNode">https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/AnalyserNode</a></li>
-			<li class="list-group-item"><a href="https://pks2974.medium.com/web-audio-%EA%B0%84%EB%8B%A8-%EC%A0%95%EB%A6%AC%ED%95%98%EA%B8%B0-952a19d6aa45">https://pks2974.medium.com/web-audio-%EA%B0%84%EB%8B%A8-%EC%A0%95%EB%A6%AC%ED%95%98%EA%B8%B0-952a19d6aa45</a></li>
 			
 			
-		</ul>
-		<hr>
-		<div class="text-center">
-			<audio style="width:300px;" controls  id="my-audio" src="mp3/Classic_Chopin_op25_9.mp3">
-				<!-- <source src="mp3/Classic_Chopin_op25_9.mp3" type="audio/mpeg"> -->
-			</audio>
-		</div>
-		<script>
-			const myAudio = document.querySelector("#my-audio");
-			myAudio.volume = 0.50;
 			
-			const audioContext = new AudioContext();
-			const audioSourceNode = audioContext.createMediaElementSource(myAudio);
-			const audioDestination = audioContext.destination;
-			const gainNode = audioContext.createGain(); //볼룸 조절
-			// const analyserNode  = new AnalyserNode(audioContext,{fftSize:32});
-			const analyserNode  = audioContext.createAnalyser();// AnalyserNode(audioContext,{fftSize:32});
-
-			analyserNode.fftSize=32;
-			audioSourceNode
-			.connect(analyserNode)
-			.connect(gainNode)
-			.connect(audioDestination)
-
-
+			
 			// gainNode.gain = 1; //추가 볼륨조절
 			myAudio.addEventListener('canplay', (event) => {
 				console.log(event.type,event);
 			});
 			myAudio.addEventListener('play', (event) => {
 				console.log(event.type,event);
+				if(!audioContext){
+					audioContext = new AudioContext();
+					// console.log(audioContext);
+					audioSourceNode = audioContext.createMediaElementSource(myAudio);
+					audioDestination = audioContext.destination;
+					analyserNode  = audioContext.createAnalyser();// AnalyserNode(audioContext,{fftSize:32});
+					analyserNode.fftSize=32;
+					waveShaperNode = audioContext.createWaveShaper();
+					biquadFilterNode = audioContext.createBiquadFilter();
+					convolverNode = audioContext.createConvolver();
+					gainNode = audioContext.createGain(); //볼룸 조절
+					
+					audioSourceNode.connect(analyserNode)
+					analyserNode.connect(waveShaperNode)
+					waveShaperNode.connect(biquadFilterNode)
+					biquadFilterNode.connect(gainNode)
+					gainNode.connect(audioDestination)
+					audioContext.onstatechange=function(event){
+						console.log(event.type,event);
+					}
+				}
+				
+				
 				audioContext.resume();
 				start_draw_freqs();
 			});
 			myAudio.addEventListener('suspend', (event) => {
 				console.log(event.type,event);
-				audioContext.suspend();
+				// audioContext.suspend();
 				stop_draw_freqs();
 			});
 			myAudio.addEventListener('pause', (event) => {
 				console.log(event.type,event);
-				audioContext.suspend();
+				// audioContext.suspend();
 				stop_draw_freqs();
 			});
 			// myAudio.addEventListener('timeupdate', (event) => {
-			// 	draw_freqs();
-			// });
-			let tm_draw_freqs;
-			function start_draw_freqs(){
-				tm_draw_freqs=setInterval(draw_freqs,100)
+				// 	draw_freqs();
+				// });
+				let tm_draw_freqs;
+				function start_draw_freqs(){
+					tm_draw_freqs=setInterval(draw_freqs,100)
+				}
+				function stop_draw_freqs(){
+					clearInterval(tm_draw_freqs);
+				}
+				
+				
+				
+				function draw_freqs(){
+					var bufferLength = analyserNode.frequencyBinCount;
+					var dataArray = new Uint8Array(bufferLength);
+					var dataArray2 = new Uint8Array(bufferLength);
+					// analyserNode.getByteTimeDomainData(dataArray);
+					analyserNode.getByteTimeDomainData(dataArray);
+					analyserNode.getByteFrequencyData(dataArray2);
+					app.timeDomains = dataArray
+					app.freqs = dataArray2
+					// console.log(dataArray,dataArray2);
+				}
 			}
-			function stop_draw_freqs(){
-				clearInterval(tm_draw_freqs);
-			}
-
-
-			audioContext.onstatechange=function(event){
-				console.log(event.type,event);
-			}
-			function draw_freqs(){
-				var bufferLength = analyserNode.frequencyBinCount;
-				var dataArray = new Uint8Array(bufferLength);
-				var dataArray2 = new Uint8Array(bufferLength);
-				// analyserNode.getByteTimeDomainData(dataArray);
-				analyserNode.getByteTimeDomainData(dataArray);
-				analyserNode.getByteFrequencyData(dataArray2);
-				app.timeDomains = dataArray
-				app.freqs = dataArray2
-				console.log(dataArray,dataArray2);
-			}
-		</script>
-	</div>
-	<div>
-		<div id="app">
 			
+			function makeDistortionCurve(amount) {
+				var k = typeof amount === 'number' ? amount : 50,
+				n_samples = 44100,
+				curve = new Float32Array(n_samples),
+				deg = Math.PI / 180,
+				i = 0,
+				x;
+				for ( ; i < n_samples; ++i ) {
+					x = i * 2 / n_samples - 1;
+					curve[i] = ( 3 + k ) * x * 20 * deg / ( Math.PI + k * Math.abs(x) );
+				}
+				return curve;
+			};
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>audio test</h1>
+			<ul class="list-group">
+				<li class="list-group-item"><a href="https://developer.mozilla.org/ko/docs/Web/HTML/Element/audio">https://developer.mozilla.org/ko/docs/Web/HTML/Element/audio</a></li>
+				<li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/AudioContext">https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/AudioContext</a></li>
+				<li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/AnalyserNode">https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/AnalyserNode</a></li>
+				<li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/WaveShaperNode">https://developer.mozilla.org/en-US/docs/Web/API/WaveShaperNode</a></li>
+				<li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode">https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode</a></li>
+				<li class="list-group-item"><a href="https://pks2974.medium.com/web-audio-%EA%B0%84%EB%8B%A8-%EC%A0%95%EB%A6%AC%ED%95%98%EA%B8%B0-952a19d6aa45">https://pks2974.medium.com/web-audio-%EA%B0%84%EB%8B%A8-%EC%A0%95%EB%A6%AC%ED%95%98%EA%B8%B0-952a19d6aa45</a></li>
+				
+				
+			</ul>
+			<hr class="my-1">
 			<div class="row">
 				<div class="col-lg-6 text-center">
-					<h3>time-domain</h3>
-					<template v-for="timeDomain in timeDomains">
-						<progress min="0" max="256" :value="timeDomain"></progress><br>
-					</template>
+					<audio   preload="auto" controls  id="my-audio" src="mp3/Classic_Chopin_op25_9.mp3" loop="-1">
+						<!-- <source src="mp3/Classic_Chopin_op25_9.mp3" type="audio/mpeg"> -->
+					</audio>
 				</div>
 				<div class="col-lg-6 text-center">
-					<h3>frequency</h3>
-					<template v-for="freq in freqs">
-						<progress min="0" max="255" :value="freq"></progress><br>
-					</template>
+					<form>
+						<div class="input-group m-1">
+							<div class="input-group-prepend">
+								<span class="input-group-text"  id="inputGroup-sizing-default">load at Local file</span>
+							</div>
+							<input class="form-control" type="file" onchange="oncahngeUpload(event)" >
+						</div>
+					</form>
+					<script>
+						function oncahngeUpload(event){
+							if(event.target.files.length > 0){ //파일 업로드가 있을 경우만
+								var preview = document.querySelector('#preview');							
+								for(var i=0,m=event.target.files.length;i<m;i++){ //다중 셀렉트 가능.
+									var file = event.target.files[i];
+									if(file.type.indexOf('audio')===-1){ 
+										alert("오디오파일만 지원됩니다.");
+										event.target.value='';
+										return false;
+									}
+									// (function(file){
+										// 	var fileReader = new FileReader();
+										// 	fileReader.onload = function (event) {
+											// 		myAudio.src = event.target.result;
+											// 		console.log('end load');
+											// 	};
+											// 	fileReader.readAsDataURL(file);
+											// })(event.target.files[i])
+											objectURL = URL.createObjectURL(event.target.files[i])
+											myAudio.src = objectURL;
+										}
+									}
+								}
+							</script>
+						</div>
+					</div>
+					
+					
+					<script>
+						const myAudio = document.querySelector("#my-audio");
+						myAudio.volume = 0.50;
+						myAudio.crossOrigin = "anonymous";
+					</script>
 				</div>
-			</div>
-		</div>
-	</div>
-</body>
-</html>
+				<hr class="my-1">
+				<div  class="container">
+					<div id="app">
+						<div class="row">
+							<div class="col-lg-12 text-center">
+								<div class=" card my-1">
+									<h3>control</h3>
+									<hr class="my-1">
+									<div class="form-inline" style="justify-content: center">
+										<div class="btn-group m-1" role="group" aria-label="Basic example">
+											<button type="button" onclick="myAudio.play();" class="btn btn-success">play</button>
+											<button type="button" onclick="myAudio.pause();" class="btn btn-warning">pause</button>
+											<button type="button" onclick="myAudio.muted=!myAudio.muted;" class="btn btn-secondary">mute</button>
+										</div>
+										<div class="input-group m-1">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-default">myAudio.volume</span>
+											</div>
+											<input class="form-control" oninput="myAudio.volume = this.value" type="number" value="1" min="0" max="1" step="0.01">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-12 text-center">
+								<div class=" card my-1">
+									<h3>setting</h3>
+									<hr class="my-1">
+									<div class="form-inline">
+										<div class="input-group m-1">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-default">BiquadFilter.type</span>
+											</div>
+											<select class="form-control" onchange="biquadFilterNode.type=this.value">
+												<option value=""></option>
+												<option value ='lowpass'>lowpass</option>
+												<option value ='highpass'>highpass</option>
+												<option value ='bandpass'>bandpass</option>
+												<option value ='lowshelf'>lowshelf</option>
+												<option value ='highshelf'>highshelf</option>
+												<option value ='peaking'>peaking</option>
+												<option value ='notch'>notch</option>
+												<option value ='allpass'>allpass</option>
+											</select>
+										</div>
+										<div class="input-group m-1">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-default">biquadFilterNode.gain.value</span>
+											</div>
+											<input class="form-control" oninput="biquadFilterNode.gain.value = this.value" type="number" value="0" min="-40" max="40" step="1">
+										</div>
+										<div class="input-group m-1">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-default">biquadFilterNode.frequency.value</span>
+											</div>
+											<input class="form-control" oninput="biquadFilterNode.frequency.value = this.value" type="number" value="350" min="0" max="24000" step="10">
+										</div>
+										<div class="input-group m-1">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-default">biquadFilterNode.Q.value</span>
+											</div>
+											<input class="form-control" oninput="biquadFilterNode.Q.value = this.value" type="number" value="1" min="0.0001" max="1000" step="1">
+										</div>
+									</div>
+									<hr class="my-1">
+									<div class="form-inline">
+										<div class="input-group m-1">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-default">gainNode.gain.value</span>
+											</div>
+											<input class="form-control" oninput="gainNode.gain.value = this.value" type="number" value="1" min="0" max="10" step="0.1">
+										</div>
+									</div>
+									<hr class="my-1">
+									<div class="form-inline">
+										<div class="input-group m-1">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-default">waveShaperNode.curve</span>
+											</div>
+											<input class="form-control" oninput="waveShaperNode.curve= makeDistortionCurve(parseInt(this.value,10))" type="number" value="0" min="0" max="1000" step="1">
+										</div>
+										<div class="input-group m-1">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-default">waveShaperNode.oversample </span>
+											</div>
+											<select class="form-control" onchange="waveShaperNode.oversample=this.value">
+												<option value="none">none</option>
+												<option value ='2x'>2x</option>
+												<option value ='4x'>4x</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							
+							<div class="col-lg-6 ">
+								<div class=" card m-1 text-center">
+									<h3>time-domain</h3>
+									<template v-for="timeDomain in timeDomains">
+										<progress min="0" max="256" :value="timeDomain"></progress>
+									</template>
+								</div>
+							</div>
+							<div class="col-lg-6 text-center">
+								<div class=" card m-1">
+									<h3>frequency</h3>
+									<template v-for="freq in freqs">
+										<progress min="0" max="255" :value="freq"></progress>
+									</template>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</body>
+			</html>
