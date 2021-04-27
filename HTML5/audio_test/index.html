@@ -50,7 +50,7 @@
 		let waveShaperNode
 		let convolverNode
 		// let oscillatorNode
-
+		
 		window.onload=function(){
 			app = new Vue({
 				el: '#app',
@@ -81,11 +81,13 @@
 					convolverNode = audioContext.createConvolver();
 					gainNode = audioContext.createGain(); //볼룸 조절
 					
-					audioSourceNode.connect(analyserNode)
-					analyserNode.connect(waveShaperNode)
-					waveShaperNode.connect(biquadFilterNode)
-					biquadFilterNode.connect(gainNode)
-					gainNode.connect(audioDestination)
+					
+					// audioSourceNode.connect(waveShaperNode)
+					// waveShaperNode.connect(biquadFilterNode)
+					// biquadFilterNode.connect(gainNode)
+					// gainNode.connect(analyserNode)
+					// analyserNode.connect(audioDestination)
+					init_from_form();
 					reconnect(true);
 				}
 				
@@ -149,22 +151,32 @@
 				waveShaperNode.disconnect()
 				biquadFilterNode.disconnect()
 				gainNode.disconnect()
-
-			if(type){
-				audioSourceNode.connect(analyserNode)
-				analyserNode.connect(waveShaperNode)
-				waveShaperNode.connect(biquadFilterNode)
-				biquadFilterNode.connect(gainNode)
-				gainNode.connect(audioDestination)
-			}else{
-				audioSourceNode.connect(analyserNode)
-				analyserNode.connect(waveShaperNode)
-				waveShaperNode.connect(gainNode)
-				// waveShaperNode.connect(biquadFilterNode)
-				// biquadFilterNode.connect(gainNode)
-				gainNode.connect(audioDestination)
+				
+				if(type){
+					audioSourceNode.connect(waveShaperNode)
+					waveShaperNode.connect(biquadFilterNode)
+					biquadFilterNode.connect(gainNode)
+					gainNode.connect(analyserNode)
+					analyserNode.connect(audioDestination)
+				}else{
+					audioSourceNode.connect(waveShaperNode)
+					waveShaperNode.connect(gainNode)
+					gainNode.connect(analyserNode)
+					analyserNode.connect(audioDestination)
+				}
 			}
-		}
+			function init_from_form(){
+				// console.log('x');
+				var f = document.form_setting;
+				f.querySelectorAll('[onchange]').forEach((el,idx) => {
+					// console.log(el,idx);
+					el.onchange();
+				});
+				f.querySelectorAll('[oninput]').forEach((el,idx) => {
+					// console.log(el,idx);
+					el.oninput();
+				});				
+			}
 		</script>
 	</head>
 	<body>
@@ -234,124 +246,127 @@
 				<hr class="my-1">
 				<div  class="container">
 					<div id="app">
-						<div class="row">
-							<div class="col-lg-12 text-center">
-								<div class=" card my-1">
-									<h3>control</h3>
-									<hr class="my-1">
-									<div class="form-inline" style="justify-content: center">
-										<div class="btn-group m-1" role="group" aria-label="Basic example">
-											<button type="button" onclick="myAudio.play();" class="btn btn-success">play</button>
-											<button type="button" onclick="myAudio.pause();" class="btn btn-warning">pause</button>
-											<button type="button" onclick="myAudio.muted=!myAudio.muted;" class="btn btn-secondary">mute</button>
-										</div>
-										<div class="input-group m-1">
-											<div class="input-group-prepend">
-												<span class="input-group-text" id="inputGroup-sizing-default">myAudio.volume</span>
+						<form name="form_setting">
+							<div class="row">
+								<div class="col-lg-12 text-center">
+									<div class=" card my-1">
+										<h3>control</h3>
+										<hr class="my-1">
+										<div class="form-inline" style="justify-content: center">
+											<div class="btn-group m-1" role="group" aria-label="Basic example">
+												<button type="button" onclick="myAudio.play();" class="btn btn-success">play</button>
+												<button type="button" onclick="myAudio.pause();" class="btn btn-warning">pause</button>
+												<button type="button" onclick="myAudio.muted=!myAudio.muted;" class="btn btn-secondary">mute</button>
 											</div>
-											<input class="form-control" oninput="myAudio.volume = this.value" type="number" value="1" min="0" max="1" step="0.01">
+											<div class="input-group m-1">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="inputGroup-sizing-default">myAudio.volume</span>
+												</div>
+												<input class="form-control" oninput="myAudio.volume = this.value" type="number" value="0.3" min="0" max="1" step="0.01">
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								
+								<div class="col-lg-12 text-center">
+									<div class=" card my-1">
+										<h3>setting</h3>
+										<hr class="my-1">
+										<div class="form-inline">
+											<div class="input-group m-1">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="inputGroup-sizing-default">connect BiquadFilter</span>
+												</div>
+												<div class="form-control">
+													<label><input type="checkbox"  oninput="reconnect(this.checked)" checked> On</label>
+												</div>
+											</div>
+											<div class="input-group m-1">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="inputGroup-sizing-default">BiquadFilter.type</span>
+												</div>
+												<select class="form-control" onchange="biquadFilterNode.type=this.value">
+													<option value ='lowpass'>lowpass</option>
+													<option value ='highpass'>highpass</option>
+													<option value ='bandpass'>bandpass</option>
+													<option value ='lowshelf'>lowshelf</option>
+													<option value ='highshelf'>highshelf</option>
+													<option value ='peaking'>peaking</option>
+													<option value ='notch'>notch</option>
+													<option value ='allpass'>allpass</option>
+												</select>
+											</div>
+											<div class="input-group m-1">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="inputGroup-sizing-default">biquadFilterNode.gain.value</span>
+												</div>
+												<input class="form-control" oninput="biquadFilterNode.gain.value = this.value" type="number" value="0" min="-40" max="40" step="1">
+											</div>
+											<div class="input-group m-1">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="inputGroup-sizing-default">biquadFilterNode.frequency.value</span>
+												</div>
+												<input class="form-control" oninput="biquadFilterNode.frequency.value = this.value" type="number" value="350" min="0" max="24000" step="10">
+											</div>
+											<div class="input-group m-1">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="inputGroup-sizing-default">biquadFilterNode.Q.value</span>
+												</div>
+												<input class="form-control" oninput="biquadFilterNode.Q.value = this.value" type="number" value="1" min="0.0001" max="1000" step="1">
+											</div>
+										</div>
+										<hr class="my-1">
+										<div class="form-inline">
+											<div class="input-group m-1">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="inputGroup-sizing-default">gainNode.gain.value</span>
+												</div>
+												<input class="form-control" oninput="gainNode.gain.value = this.value" type="number" value="1" min="0" max="10" step="0.1">
+											</div>
+										</div>
+										<hr class="my-1">
+										<div class="form-inline">
+											<div class="input-group m-1">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="inputGroup-sizing-default">waveShaperNode.curve</span>
+												</div>
+												<input class="form-control" oninput="waveShaperNode.curve= makeDistortionCurve(parseInt(this.value,10))" type="number" value="0" min="0" max="1000" step="1">
+											</div>
+											<div class="input-group m-1">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="inputGroup-sizing-default">waveShaperNode.oversample </span>
+												</div>
+												<select class="form-control" onchange="waveShaperNode.oversample=this.value">
+													<option value="none">none</option>
+													<option value ='2x'>2x</option>
+													<option value ='4x'>4x</option>
+												</select>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-12 text-center">
-								<div class=" card my-1">
-									<h3>setting</h3>
-									<hr class="my-1">
-									<div class="form-inline">
-										<div class="input-group m-1">
-											<div class="input-group-prepend">
-												<span class="input-group-text" id="inputGroup-sizing-default">connect BiquadFilter</span>
-											</div>
-											<div class="form-control">
-												<label><input type="checkbox"  oninput="reconnect(this.checked)" checked> On</label>
-											</div>
-										</div>
-										<div class="input-group m-1">
-											<div class="input-group-prepend">
-												<span class="input-group-text" id="inputGroup-sizing-default">BiquadFilter.type</span>
-											</div>
-											<select class="form-control" onchange="biquadFilterNode.type=this.value">
-												<option value=""></option>
-												<option value ='lowpass'>lowpass</option>
-												<option value ='highpass'>highpass</option>
-												<option value ='bandpass'>bandpass</option>
-												<option value ='lowshelf'>lowshelf</option>
-												<option value ='highshelf'>highshelf</option>
-												<option value ='peaking'>peaking</option>
-												<option value ='notch'>notch</option>
-												<option value ='allpass'>allpass</option>
-											</select>
-										</div>
-										<div class="input-group m-1">
-											<div class="input-group-prepend">
-												<span class="input-group-text" id="inputGroup-sizing-default">biquadFilterNode.gain.value</span>
-											</div>
-											<input class="form-control" oninput="biquadFilterNode.gain.value = this.value" type="number" value="0" min="-40" max="40" step="1">
-										</div>
-										<div class="input-group m-1">
-											<div class="input-group-prepend">
-												<span class="input-group-text" id="inputGroup-sizing-default">biquadFilterNode.frequency.value</span>
-											</div>
-											<input class="form-control" oninput="biquadFilterNode.frequency.value = this.value" type="number" value="350" min="0" max="24000" step="10">
-										</div>
-										<div class="input-group m-1">
-											<div class="input-group-prepend">
-												<span class="input-group-text" id="inputGroup-sizing-default">biquadFilterNode.Q.value</span>
-											</div>
-											<input class="form-control" oninput="biquadFilterNode.Q.value = this.value" type="number" value="1" min="0.0001" max="1000" step="1">
-										</div>
+							<div class="row">
+								
+								<div class="col-lg-6 ">
+									<div class=" card m-1 text-center">
+										<h3>time-domain</h3>
+										<template v-for="timeDomain in timeDomains">
+											<progress min="0" max="256" :value="timeDomain"></progress>
+										</template>
 									</div>
-									<hr class="my-1">
-									<div class="form-inline">
-										<div class="input-group m-1">
-											<div class="input-group-prepend">
-												<span class="input-group-text" id="inputGroup-sizing-default">gainNode.gain.value</span>
-											</div>
-											<input class="form-control" oninput="gainNode.gain.value = this.value" type="number" value="1" min="0" max="10" step="0.1">
-										</div>
-									</div>
-									<hr class="my-1">
-									<div class="form-inline">
-										<div class="input-group m-1">
-											<div class="input-group-prepend">
-												<span class="input-group-text" id="inputGroup-sizing-default">waveShaperNode.curve</span>
-											</div>
-											<input class="form-control" oninput="waveShaperNode.curve= makeDistortionCurve(parseInt(this.value,10))" type="number" value="0" min="0" max="1000" step="1">
-										</div>
-										<div class="input-group m-1">
-											<div class="input-group-prepend">
-												<span class="input-group-text" id="inputGroup-sizing-default">waveShaperNode.oversample </span>
-											</div>
-											<select class="form-control" onchange="waveShaperNode.oversample=this.value">
-												<option value="none">none</option>
-												<option value ='2x'>2x</option>
-												<option value ='4x'>4x</option>
-											</select>
-										</div>
+								</div>
+								<div class="col-lg-6 text-center">
+									<div class=" card m-1">
+										<h3>frequency</h3>
+										<template v-for="freq in freqs">
+											<progress min="0" max="255" :value="freq"></progress>
+										</template>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row">
-							
-							<div class="col-lg-6 ">
-								<div class=" card m-1 text-center">
-									<h3>time-domain</h3>
-									<template v-for="timeDomain in timeDomains">
-										<progress min="0" max="256" :value="timeDomain"></progress>
-									</template>
-								</div>
-							</div>
-							<div class="col-lg-6 text-center">
-								<div class=" card m-1">
-									<h3>frequency</h3>
-									<template v-for="freq in freqs">
-										<progress min="0" max="255" :value="freq"></progress>
-									</template>
-								</div>
-							</div>
-						</div>
+						</form>
 					</div>
 				</div>
 			</body>
