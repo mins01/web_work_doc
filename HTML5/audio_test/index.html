@@ -50,6 +50,7 @@
 		let waveShaperNode
 		let convolverNode
 		// let oscillatorNode
+
 		window.onload=function(){
 			app = new Vue({
 				el: '#app',
@@ -59,9 +60,6 @@
 				}
 			})
 			
-			
-			
-			
 			// gainNode.gain = 1; //추가 볼륨조절
 			myAudio.addEventListener('canplay', (event) => {
 				console.log(event.type,event);
@@ -70,6 +68,9 @@
 				console.log(event.type,event);
 				if(!audioContext){
 					audioContext = new AudioContext();
+					audioContext.onstatechange=function(event){
+						console.log(event.type,event);
+					}
 					// console.log(audioContext);
 					audioSourceNode = audioContext.createMediaElementSource(myAudio);
 					audioDestination = audioContext.destination;
@@ -85,15 +86,14 @@
 					waveShaperNode.connect(biquadFilterNode)
 					biquadFilterNode.connect(gainNode)
 					gainNode.connect(audioDestination)
-					audioContext.onstatechange=function(event){
-						console.log(event.type,event);
-					}
+					reconnect(true);
 				}
 				
 				
 				audioContext.resume();
 				start_draw_freqs();
 			});
+			
 			myAudio.addEventListener('suspend', (event) => {
 				console.log(event.type,event);
 				// audioContext.suspend();
@@ -143,6 +143,28 @@
 				}
 				return curve;
 			};
+			function reconnect(type){
+				audioSourceNode.disconnect()
+				analyserNode.disconnect()
+				waveShaperNode.disconnect()
+				biquadFilterNode.disconnect()
+				gainNode.disconnect()
+
+			if(type){
+				audioSourceNode.connect(analyserNode)
+				analyserNode.connect(waveShaperNode)
+				waveShaperNode.connect(biquadFilterNode)
+				biquadFilterNode.connect(gainNode)
+				gainNode.connect(audioDestination)
+			}else{
+				audioSourceNode.connect(analyserNode)
+				analyserNode.connect(waveShaperNode)
+				waveShaperNode.connect(gainNode)
+				// waveShaperNode.connect(biquadFilterNode)
+				// biquadFilterNode.connect(gainNode)
+				gainNode.connect(audioDestination)
+			}
+		}
 		</script>
 	</head>
 	<body>
@@ -237,6 +259,14 @@
 									<h3>setting</h3>
 									<hr class="my-1">
 									<div class="form-inline">
+										<div class="input-group m-1">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-default">connect BiquadFilter</span>
+											</div>
+											<div class="form-control">
+												<label><input type="checkbox"  oninput="reconnect(this.checked)" checked> On</label>
+											</div>
+										</div>
 										<div class="input-group m-1">
 											<div class="input-group-prepend">
 												<span class="input-group-text" id="inputGroup-sizing-default">BiquadFilter.type</span>
