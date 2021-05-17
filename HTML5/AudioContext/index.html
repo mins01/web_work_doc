@@ -36,7 +36,7 @@
 	<meta property="og:type" content="website">
 	
 	<!-- //meta og -->
-	
+	<script src="notevalues.js"></script>
 	
 </head>
 <body>
@@ -44,6 +44,7 @@
 		<ul class="list-group">
 			<li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/AudioContext">https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/AudioContext</a></li>
 			<li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioNode/connect">https://developer.mozilla.org/en-US/docs/Web/API/AudioNode/connect</a></li>
+			<li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Simple_synth">https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Simple_synth</a></li>
 			
 			
 		</ul>
@@ -60,23 +61,28 @@
 			
 			
 			function btn_start(event){
-				audioCtx = new AudioContext({
-					latencyHint: 'interactive',
-					sampleRate: 44100,
-				});
-				gainNode = audioCtx.createGain()
-				gainNode.gain.value = 0.1 // 10 %
-				gainNode.connect(audioCtx.destination);
+				if(!audioCtx){
+					audioCtx = new AudioContext({
+						latencyHint: 'interactive',
+						sampleRate: 44100,
+					});
+					gainNode = audioCtx.createGain()
+					gainNode.gain.value = 0.1 // 10 %
+					gainNode.connect(audioCtx.destination);
+				}
 				
-				oscillator = audioCtx.createOscillator();
-				oscillator.frequency.value = 1000; 
-				oscillator.type = 'square'
+				// oscillator = audioCtx.createOscillator();
+				// oscillator.frequency.value = 130.81; 
+				// // oscillator.frequency.setValueAtTime(16.35, audioCtx.currentTime); // value in hertz
+				// oscillator.type = 'sins'
+				// // oscillator.type = 'square';
 
-				audioCtx.resume().then(() => {
-					oscillator.start();	
-					console.log('Playback resumed successfully');
-				});
-				oscillator.connect(gainNode)
+
+				// audioCtx.resume().then(() => {
+				// 	oscillator.start();	
+				// 	console.log('Playback resumed successfully');
+				// });
+				// oscillator.connect(gainNode)
 				
 				// lfo.start();
 			}
@@ -86,9 +92,47 @@
 				// gainNode.disconnect(audioCtx.destination);
 				// lfo.stop();
 			}
+
+			function playTone(freq) {
+				btn_start(event);
+				osc = audioCtx.createOscillator();
+				osc.connect(gainNode);
+				osc.type ='square';
+				osc.frequency.value = freq;
+				osc.start();
+				return osc;
+			}
 		</script>
 		<button onclick="btn_start(event)" class="btn btn-info">start</button>
 		<button onclick="btn_stop(event)" class="btn btn-info">stop</button>
 	</div>
+	<div id="keyboard">
+		
+	</div>
+	<script>
+		let keyboard = document.querySelector("#keyboard");
+		let keys = [];
+		//noteValues
+		for(let key in noteValues){
+			let freq = noteValues[key];
+			let btn = document.createElement('button');
+			
+			btn.innerText = key;
+			btn.freq = freq;
+			btn.key = key;
+			btn.setAttribute("data-freq",freq);
+			btn.setAttribute("data-key",key);
+			btn.onmousedown = function(event){
+				console.log(event);
+				this.osc = playTone(this.freq);
+			}
+			btn.onmouseup = function(event){
+				console.log(event);
+				if(this.osc) this.osc.stop();
+				delete this.osc;
+			}
+			keyboard.append(btn);
+		}
+	</script>
 </body>
 </html>
