@@ -1,8 +1,19 @@
 @charset "utf-8";
-.keyboard{
+.keyboard-container{
 	position: fixed;
 	left: 10px;top:10px;right:10px;bottom: 10px;
 }
+
+/* .keyboard{
+	
+} */
+.btn-startAudio[data-on="0"]::before{
+	content: "off";
+}
+.btn-startAudio[data-on="1"]::before{
+	content: "on";
+}
+
 
 .kb-octave{
 	min-width: 300px;
@@ -20,6 +31,7 @@
 	justify-content: space-evenly;
 	align-items: center;
 	height:100%;
+	pointer-events: none;
 }
 .kb-octave-half{
 	position: absolute;
@@ -36,6 +48,7 @@
 	flex: 1 0 auto;
 	text-align: center;
 	height:100%;
+	pointer-events: all;
 }
 .kb-key::before{
 	content: attr(data-key)attr(data-half);
@@ -44,10 +57,12 @@
 .kb-octave-normal .kb-pos{
 	flex: 1 0 auto;
 	height:100%;
+	pointer-events: none;
 }
 .kb-octave-half .kb-pos{
 	flex: 2 0 0;
 	height:100%;
+	pointer-events: none;
 }
 .kb-octave-half .kb-pos:nth-child(1) ,
 .kb-octave-half .kb-pos:nth-child(8){
@@ -59,7 +74,7 @@
 .kb-octave-half .kb-pos:nth-child(8){
 	visibility: hidden;
 	pointer-events: none;
-	
+	height:0px;
 }
 
 .kb-key{
@@ -101,6 +116,17 @@
 
 /* for pc (-sm) */
 @media all and (min-width:576px) {
+	.keyboard-container{
+		display: flex;
+		flex-direction: row-reverse;
+		flex-wrap: nowrap;
+		align-items: stretch;
+	}
+	.keyboard-header{
+		text-align: center;
+		flex: 0 0 40px;
+		width:40px;
+	}
 	.keyboard{
 		display: flex;
     align-content: stretch;
@@ -112,11 +138,25 @@
 		height:100%;
 		width:100%;
 		max-height: 23vh;
-		max-width: 400px;
+		max-width: 23vw;
+		min-width:400px;
 	}
 }
 /* for mobile (-xs) */
-@media all and (max-width:575px) {
+@media all and (max-width:575px) and (orientation:portrait) {
+	.keyboard-container{
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
+		align-content: stretch;
+		flex-wrap: nowrap;
+		align-items: stretch;
+	}
+	.keyboard-header{
+		/* text-align: center; */
+		flex: 0 0 40px;
+		height:40px;
+	}
 	.keyboard{
 		display: flex;
     flex-direction: column;
@@ -124,9 +164,41 @@
     justify-content: center;
     align-items: stretch;
     flex-wrap: nowrap;
+		flex: 1 0 auto;
 	}
 	.kb-octave{
 		height:100%;
 		max-height: 12vh;
 	}
 }
+/* for mobile (-xs) */
+@media all and (max-height:575px) and (orientation:landscape) {
+	.keyboard-container{
+		display: flex;
+		flex-direction: row-reverse;
+		flex-wrap: nowrap;
+		align-items: stretch;
+	}
+	.keyboard-header{
+		text-align: center;
+		flex: 0 0 40px;
+		width:40px;
+	}
+	.keyboard{
+		display: flex;
+    align-content: stretch;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+		
+	}
+	.kb-octave{
+		height:100%;
+		width:100%;
+		max-height: 20vh;
+		max-width: 23vw;
+		min-width:300px;
+	}
+
+}
+
