@@ -1,0 +1,132 @@
+@charset "utf-8";
+.keyboard{
+	position: fixed;
+	left: 10px;top:10px;right:10px;bottom: 10px;
+}
+
+.kb-octave{
+	min-width: 300px;
+	margin:5px 0px;
+	height:80px;
+	position: relative;
+	/* border: 1px solid #ccc;; */
+}
+.kb-octave-normal ,
+.kb-octave-half{
+	
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+	height:100%;
+}
+.kb-octave-half{
+	position: absolute;
+	z-index: 1;
+	top:0;left:0;right:0;
+	bottom: 30%;
+  height: auto;;
+}
+
+
+
+.kb-key{
+	border: 1px solid #ccc;
+	flex: 1 0 auto;
+	text-align: center;
+	height:100%;
+}
+.kb-key::before{
+	content: attr(data-key)attr(data-half);
+}
+
+.kb-octave-normal .kb-pos{
+	flex: 1 0 auto;
+	height:100%;
+}
+.kb-octave-half .kb-pos{
+	flex: 2 0 0;
+	height:100%;
+}
+.kb-octave-half .kb-pos:nth-child(1) ,
+.kb-octave-half .kb-pos:nth-child(8){
+	flex: 1 0 0;
+	
+}
+.kb-octave-half .kb-pos:nth-child(1) ,
+.kb-octave-half .kb-pos:nth-child(4) ,
+.kb-octave-half .kb-pos:nth-child(8){
+	visibility: hidden;
+	pointer-events: none;
+	
+}
+
+.kb-key{
+	word-break: break-all;
+	display: flex;
+	flex-direction: column;
+	align-content: stretch;
+	align-items: center;
+	justify-content: flex-end;
+}
+.kb-key-15 ,
+.kb-key-25 ,
+.kb-key-45 ,
+.kb-key-55 ,
+.kb-key-65 {
+	flex: 2 1 0;
+	background-color:black;
+	color:#fff;
+}
+
+
+.kb-octave-normal .kb-key{
+	background-color: #fff;
+	color: #000;
+	/* width:50%; */
+	margin:0 auto;
+	
+}
+
+.kb-octave-half .kb-key{
+	background-color:black;
+	color:#fff;
+	width:70%;
+	margin:0 auto;
+	/* height: 70%; */
+}
+
+
+
+/* for pc (-sm) */
+@media all and (min-width:576px) {
+	.keyboard{
+		display: flex;
+    align-content: stretch;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+	}
+	.kb-octave{
+		height:100%;
+		width:100%;
+		max-height: 23vh;
+		max-width: 400px;
+	}
+}
+/* for mobile (-xs) */
+@media all and (max-width:575px) {
+	.keyboard{
+		display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: nowrap;
+	}
+	.kb-octave{
+		height:100%;
+		max-height: 12vh;
+	}
+}
