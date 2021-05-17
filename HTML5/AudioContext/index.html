@@ -125,6 +125,7 @@
 			btn.onmousedown = function(event){
 				event.preventDefault()
 				console.log(event);
+				if(this.osc){ this.osc.stop(); delete this.osc }
 				this.osc = playTone(this.freq);
 			}
 			btn.onmouseup = function(event){
@@ -136,6 +137,7 @@
 			btn.ontouchstart = function(event){
 				event.preventDefault()
 				console.log(event);
+				if(this.osc){ this.osc.stop(); delete this.osc }
 				this.osc = playTone(this.freq);
 			}
 			btn.ontouchend = function(event){
