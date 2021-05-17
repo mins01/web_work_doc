@@ -96,14 +96,15 @@
 
 			function playTone(freq) {
 				btn_start(event);
-				let gainNode = audioCtx.createGain();
-				gainNode.connect(audioCtx.destination);
+				let localGainNode = audioCtx.createGain();
+				localGainNode.connect(gainNode);
 				osc = audioCtx.createOscillator();
-				osc.connect(gainNode);
+				osc.connect(localGainNode);
+
 				osc.type ='square';
 				osc.frequency.value = freq;
-				gainNode.gain.value = 0.3 // 10 %
-				gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 3)
+				// localGainNode.gain.value = 0.3 // 10 %
+				localGainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 3)
 				osc.start();
 				return osc;
 			}
