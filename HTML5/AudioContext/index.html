@@ -96,10 +96,14 @@
 
 			function playTone(freq) {
 				btn_start(event);
+				let gainNode = audioCtx.createGain();
+				gainNode.connect(audioCtx.destination);
 				osc = audioCtx.createOscillator();
 				osc.connect(gainNode);
 				osc.type ='square';
 				osc.frequency.value = freq;
+				gainNode.gain.value = 0.3 // 10 %
+				gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 3)
 				osc.start();
 				return osc;
 			}
@@ -125,27 +129,23 @@
 			btn.setAttribute("data-key",key);
 			btn.onmousedown = function(event){
 				event.preventDefault()
-				console.log(event);
 				if(this.osc){ this.osc.stop(); delete this.osc }
 				this.osc = playTone(this.freq);
 			}
 			btn.onmouseup = function(event){
 				event.preventDefault()
-				console.log(event);
-				if(this.osc) this.osc.stop();
-				delete this.osc;
+				// if(this.osc) this.osc.stop();
+				// delete this.osc;
 			}
 			btn.ontouchstart = function(event){
 				event.preventDefault()
-				console.log(event);
 				if(this.osc){ this.osc.stop(); delete this.osc }
 				this.osc = playTone(this.freq);
 			}
 			btn.ontouchend = function(event){
 				event.preventDefault()
-				console.log(event);
-				if(this.osc) this.osc.stop();
-				delete this.osc;
+				// if(this.osc) this.osc.stop();
+				// delete this.osc;
 			}
 			keyboard.append(btn);
 		}
