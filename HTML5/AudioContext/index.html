@@ -123,10 +123,23 @@
 			btn.setAttribute("data-freq",freq);
 			btn.setAttribute("data-key",key);
 			btn.onmousedown = function(event){
+				event.preventDefault()
 				console.log(event);
 				this.osc = playTone(this.freq);
 			}
 			btn.onmouseup = function(event){
+				event.preventDefault()
+				console.log(event);
+				if(this.osc) this.osc.stop();
+				delete this.osc;
+			}
+			btn.ontouchstart = function(event){
+				event.preventDefault()
+				console.log(event);
+				this.osc = playTone(this.freq);
+			}
+			btn.ontouchend = function(event){
+				event.preventDefault()
 				console.log(event);
 				if(this.osc) this.osc.stop();
 				delete this.osc;
