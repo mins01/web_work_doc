@@ -1,7 +1,10 @@
 const webKeyboard = (function(){
 	let audioCtx=null;
 	let gainNode=null;
+
+
 	let downKey=function(event){
+
 		// console.log(event);
 		let target = event.target;
 		
@@ -22,9 +25,7 @@ const webKeyboard = (function(){
 		if(!freq){
 			return;
 		}
-		playTone(freq,3);
-
-
+		playTone(freq,webKeyboard.sustain);
 		return false;
 	}
 	let eventOption = {
@@ -34,7 +35,7 @@ const webKeyboard = (function(){
 	}
 	let initEvent = function(){
 		document.addEventListener('mousedown',downKey,eventOption);
-		document.addEventListener('pointerdown',downKey,eventOption)
+		document.addEventListener('pointerdown',downKey,eventOption);	
 		// document.addEventListener('touchstart',downKey,eventOption)
 	}
 	
@@ -45,7 +46,9 @@ const webKeyboard = (function(){
 				sampleRate: 44100,
 			});
 			gainNode = audioCtx.createGain()
-			gainNode.gain.value = 0.3 // 10 %
+			// gainNode.gain.value = 0.5 // 50 %
+			gainNode.gain.value = webKeyboard.volume;
+
 			gainNode.connect(audioCtx.destination);
 			console.log('startAudio');
 		}else{
@@ -58,7 +61,14 @@ const webKeyboard = (function(){
 			}
 		}
 	}
+	let setGainValue = function(v){
+		webKeyboard.volume = parseFloat(v)
+		if(!gainNode){return 0.5;}
+		gainNode.gain.value = webKeyboard.volume;
+		return webKeyboard.volume;
+	}
 	let playTone = function(freq,sec) {
+		console.log('playTone',freq,sec);
 		// startAudio();
 		if(!audioCtx){
 			console.warn("start audio?");
@@ -83,8 +93,10 @@ const webKeyboard = (function(){
 			initEvent();
 		},
 		playTone:playTone,
-		startAudio:startAudio
-		
+		startAudio:startAudio,
+		setGainValue:setGainValue,
+		volume:0.5,
+		sustain:3
 	}
 	return webKeyboard;
 })();

@@ -55,7 +55,31 @@
 	<div class="container">
 		<div class="keyboard-container">
 			<header class="keyboard-header">
-				<button data-on="0" onclick="webKeyboard.startAudio(this.dataset.on=='1');this.dataset.on=this.dataset.on=='0'?'1':'0';" class="btn-startAudio btn btn-info btn-sm"></button>
+				<form  action="#" onsubmit="return false;" style="vertical-align: middle;">
+					<button type="button" class="btn-startAudio btn btn-info btn-sm btn-parwnt-width" data-on="0" onclick="webKeyboard.startAudio(this.dataset.on=='1');this.dataset.on=this.dataset.on=='0'?'1':'0';" ></button>
+					<select class="form-control form-control-sm btn-parwnt-width" onchange="webKeyboard.setGainValue(parseFloat(this.value))" style="padding:0">
+						<optgroup label="volume">
+							<option value="0">0%</option>
+							<option value="0.1">10%</option>
+							<option value="0.2">20%</option>
+							<option value="0.3">30%</option>
+							<option value="0.4">40%</option>
+							<option value="0.5" selected>50%</option>
+							<option value="0.6">60%</option>
+							<option value="0.7">70%</option>
+							<option value="0.8">80%</option>
+							<option value="0.9">90%</option>
+							<option value="1">100%</option>
+						</optgroup>
+					</select>
+					
+					<label class="btn btn-info btn-sm btn-parwnt-width"><input name="sustain" type="radio" value="1" onclick="webKeyboard.sustain=parseFloat(this.value)"> 1</label>
+					<label class="btn btn-info btn-sm btn-parwnt-width"><input name="sustain" type="radio" value="3" onclick="webKeyboard.sustain=parseFloat(this.value)"  checked> 3</label>
+					<label class="btn btn-info btn-sm btn-parwnt-width"><input name="sustain" type="radio" value="5" onclick="webKeyboard.sustain=parseFloat(this.value)"> 5</label>
+					<label class="btn btn-info btn-sm btn-parwnt-width"><input name="sustain" type="radio" value="5" onclick="webKeyboard.sustain=parseFloat(this.value)"> 7</label>
+					<label class="btn btn-info btn-sm btn-parwnt-width"><input name="sustain" type="radio" value="5" onclick="webKeyboard.sustain=parseFloat(this.value)"> 10</label>
+				</form>
+				
 			</header>
 			<div class="keyboard">
 				<div class="kb-octave">
