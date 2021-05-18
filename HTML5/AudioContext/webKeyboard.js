@@ -1,32 +1,51 @@
 const webKeyboard = (function(){
 	let audioCtx=null;
 	let gainNode=null;
+	let isDown=false;
+	let stopEvent=function(event){
+		event.stopPropagation();
+		event.preventDefault();
+		return false;
+	}
 
-
+	let upKey=function(event){
+		isDown = false;
+		console.log(event.type);
+	}
 	let downKey=function(event){
-
+		isDown = true;
+		console.log(event.type);
 		// console.log(event);
 		let target = event.target;
+		
 		
 		if(!target.classList.contains('kb-key')){
 			return;
 		}
-		
 		try{
-			event.stopPropagation();
-			event.preventDefault();
+			stopEvent(event)
 		}catch(e){
 			console.log(e);
 		}
+		playKey(target);
 		
-		let code = target.dataset.key+target.dataset.half+target.dataset.tone;
+		return false;
+	}
+	let playKey = function(node){
+		if(node.timerOn){
+			clearTimeout(node.timerOn);
+		}
+		node.classList.add('on');
+		node.timerOn = setTimeout(function(){
+			node.classList.remove('on');
+		},1000)
+
+		let code = node.dataset.key+node.dataset.half+node.dataset.tone;
 		let freq = webKeyboard.codes[code];
-		console.log(code,event.type);
 		if(!freq){
 			return;
 		}
 		playTone(freq,webKeyboard.oscillatorType,webKeyboard.sustain);
-		return false;
 	}
 	let eventOption = {
 		capture: false,
@@ -34,9 +53,10 @@ const webKeyboard = (function(){
 		passive: false
 	}
 	let initEvent = function(){
-		document.addEventListener('mousedown',downKey,eventOption);
-		document.addEventListener('pointerdown',downKey,eventOption);	
+		// document.addEventListener('mousedown',downKey,eventOption);
 		// document.addEventListener('touchstart',downKey,eventOption)
+		document.addEventListener('pointerdown',downKey,eventOption);
+		document.addEventListener('pointerup',upKey,eventOption);
 	}
 	
 	let startAudio = function(off){
