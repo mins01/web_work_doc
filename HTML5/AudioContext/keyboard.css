@@ -113,6 +113,7 @@ body {
 	align-content: stretch;
 	align-items: center;
 	justify-content: flex-end;
+	cursor: pointer;
 	
 }
 .kb-key-15 ,
@@ -141,13 +142,13 @@ body {
 	color:#fff;
 	width:80%;
 	margin:0 auto;
-	border: 3px outset #ccc;
+	/* border: 3px outset #ccc; */
 	border-top-width: 0;
 	transition: all 0.5s ease;
 }
 .kb-octave-half .kb-key.on{
 	background-color: #369;
-	border-style:solid;
+	/* border-style:solid; */
 	/* margin: 3px 0 3px 3px; */
 }
 

@@ -1,3 +1,5 @@
+'use strict';
+// 공대여자는 예쁘다.
 const webKeyboard = (function(){
 	let audioCtx=null;
 	let gainNode=null;
@@ -41,11 +43,10 @@ const webKeyboard = (function(){
 		},1000)
 
 		let code = node.dataset.key+node.dataset.half+node.dataset.tone;
-		let freq = webKeyboard.codes[code];
-		if(!freq){
-			return;
+		let freq = webKeyboard.codeTable[code];
+		if(!freq){			return;
 		}
-		playTone(freq,webKeyboard.oscillatorType,webKeyboard.sustain);
+		playTone(freq,webKeyboard.wave,webKeyboard.sustain);
 	}
 	let eventOption = {
 		capture: false,
@@ -99,16 +100,38 @@ const webKeyboard = (function(){
 		let osc = audioCtx.createOscillator();
 		osc.connect(localGainNode);
 		// osc.type ='square';
-		osc.type =type;
+		switch(type){
+			case 'sine':;
+			case 'square':;
+			case 'sawtooth':;
+			case 'triangle':;
+			osc.type =type;
+			break;
+			default:
+				if(webKeyboard.waveTables[type]){
+					let wave = audioCtx.createPeriodicWave(webKeyboard.waveTables[type].real, webKeyboard.waveTables[type].imag, {disableNormalization: true});
+					osc.setPeriodicWave(wave);
+				}else{
+					console.error("not exists this.waveTables[type]",type);
+					return;
+				}
+			break;
+
+		}
 		
 		osc.frequency.value = freq;
 		// localGainNode.gain.value = 0.3 // 10 %
 		localGainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + sec)
 		osc.start();
+		osc.stop(audioCtx.currentTime + sec);
 	}
 
 	let webKeyboard = {
-		codes:[],
+		codeTable:[],
+		waveTables:[],
+		volume:0.5,
+		sustain:3,
+		wave:'square',
 		init:function(){
 			
 			console.log("init");
@@ -117,9 +140,6 @@ const webKeyboard = (function(){
 		playTone:playTone,
 		startAudio:startAudio,
 		setGainValue:setGainValue,
-		volume:0.5,
-		sustain:3,
-		oscillatorType:'square',
 	}
 	return webKeyboard;
 })();

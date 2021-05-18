@@ -41,11 +41,18 @@
 
 	<link rel="stylesheet" href="keyboard.css"> 
 	<script src="notevalues.js"></script>
+	<script src="waveTables.js"></script>
+	
 	<script src="webKeyboard.js"></script>
 	<script>
 		window.onload = function(){
-			webKeyboard.codes = noteValues; 
+			webKeyboard.codeTable = noteValues; 
+			webKeyboard.waveTables = waveTables; 
 			webKeyboard.init()
+			let w_wave = document.querySelector("#wave-custom");
+			for(var k in webKeyboard.waveTables){
+				w_wave.append(new Option(k,k,false,false))
+			}
 		}
 	</script>
 	
@@ -74,13 +81,15 @@
 							<option value="1">100%</option>
 						</optgroup>
 					</select>
-					<select class="form-control form-control-sm btn-parwnt-width" onchange="webKeyboard.oscillatorType = this.value" style="padding:0">
-						<optgroup label="volume">
+					<select class="form-control form-control-sm btn-parwnt-width" onchange="webKeyboard.wave = this.value" style="padding:0" id="webKeyboard-wave">
+						<optgroup label="wave-default">
 							<option value="sine">sine</option>
 							<option value="square" selected>square</option>
 							<option value="sawtooth">sawtooth</option>
 							<option value="triangle">triangle</option>
-							<!-- <option value="custom">custom</option> -->
+							
+						</optgroup>
+						<optgroup label="wave-custom" id="wave-custom">
 							
 						</optgroup>
 					</select>
@@ -267,5 +276,6 @@
 			
 		</div>
 	</div>
+	<!-- 공대여자는 예쁘다. -->
 </body>
 </html>
