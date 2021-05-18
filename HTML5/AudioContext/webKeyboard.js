@@ -88,7 +88,27 @@ const webKeyboard = (function(){
 		gainNode.gain.value = webKeyboard.volume;
 		return webKeyboard.volume;
 	}
-	let playTone = function(freq,type,sec) {
+	let setWave = function(wave){
+		if(!audioCtx){return;}
+		switch(wave){
+			case 'sine':;
+			case 'square':;
+			case 'sawtooth':;
+			case 'triangle':;
+				webKeyboard.wave = wave
+			break;
+			default:
+				if(webKeyboard.waveTables[wave]){
+					webKeyboard.wave = audioCtx.createPeriodicWave(webKeyboard.waveTables[wave].real, webKeyboard.waveTables[wave].imag, {disableNormalization: true});
+				}else{
+					console.error("not exists this.waveTables[type]",type);
+					return;
+				}
+			break;
+		}
+		
+	}
+	let playTone = function(freq,wave,sec) {
 		console.log('playTone',freq,sec);
 		// startAudio();
 		if(!audioCtx){
@@ -99,26 +119,14 @@ const webKeyboard = (function(){
 		localGainNode.connect(gainNode);
 		let osc = audioCtx.createOscillator();
 		osc.connect(localGainNode);
-		// osc.type ='square';
-		switch(type){
-			case 'sine':;
-			case 'square':;
-			case 'sawtooth':;
-			case 'triangle':;
-			osc.type =type;
-			break;
-			default:
-				if(webKeyboard.waveTables[type]){
-					let wave = audioCtx.createPeriodicWave(webKeyboard.waveTables[type].real, webKeyboard.waveTables[type].imag, {disableNormalization: true});
-					osc.setPeriodicWave(wave);
-				}else{
-					console.error("not exists this.waveTables[type]",type);
-					return;
-				}
-			break;
+		if(typeof wave =='string'){
+			osc.wave = wave;
 
+		}else{
+			osc.setPeriodicWave(wave);
+
+			// console.log(wave);
 		}
-		
 		osc.frequency.value = freq;
 		// localGainNode.gain.value = 0.3 // 10 %
 		localGainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + sec)
@@ -140,6 +148,7 @@ const webKeyboard = (function(){
 		playTone:playTone,
 		startAudio:startAudio,
 		setGainValue:setGainValue,
+		setWave:setWave,
 	}
 	return webKeyboard;
 })();
