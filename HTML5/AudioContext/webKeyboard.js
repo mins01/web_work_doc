@@ -25,7 +25,7 @@ const webKeyboard = (function(){
 		if(!freq){
 			return;
 		}
-		playTone(freq,webKeyboard.sustain);
+		playTone(freq,webKeyboard.oscillatorType,webKeyboard.sustain);
 		return false;
 	}
 	let eventOption = {
@@ -67,7 +67,7 @@ const webKeyboard = (function(){
 		gainNode.gain.value = webKeyboard.volume;
 		return webKeyboard.volume;
 	}
-	let playTone = function(freq,sec) {
+	let playTone = function(freq,type,sec) {
 		console.log('playTone',freq,sec);
 		// startAudio();
 		if(!audioCtx){
@@ -78,7 +78,9 @@ const webKeyboard = (function(){
 		localGainNode.connect(gainNode);
 		let osc = audioCtx.createOscillator();
 		osc.connect(localGainNode);
-		osc.type ='square';
+		// osc.type ='square';
+		osc.type =type;
+		
 		osc.frequency.value = freq;
 		// localGainNode.gain.value = 0.3 // 10 %
 		localGainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + sec)
@@ -96,7 +98,8 @@ const webKeyboard = (function(){
 		startAudio:startAudio,
 		setGainValue:setGainValue,
 		volume:0.5,
-		sustain:3
+		sustain:3,
+		oscillatorType:'square',
 	}
 	return webKeyboard;
 })();

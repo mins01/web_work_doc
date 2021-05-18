@@ -72,6 +72,16 @@
 							<option value="1">100%</option>
 						</optgroup>
 					</select>
+					<select class="form-control form-control-sm btn-parwnt-width" onchange="webKeyboard.oscillatorType = this.value" style="padding:0">
+						<optgroup label="volume">
+							<option value="sine">sine</option>
+							<option value="square" selected>square</option>
+							<option value="sawtooth">sawtooth</option>
+							<option value="triangle">triangle</option>
+							<!-- <option value="custom">custom</option> -->
+							
+						</optgroup>
+					</select>
 					
 					<label class="btn btn-info btn-sm btn-parwnt-width"><input name="sustain" type="radio" value="1" onclick="webKeyboard.sustain=parseFloat(this.value)"> 1</label>
 					<label class="btn btn-info btn-sm btn-parwnt-width"><input name="sustain" type="radio" value="3" onclick="webKeyboard.sustain=parseFloat(this.value)"  checked> 3</label>
