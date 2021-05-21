@@ -43,7 +43,7 @@
 	<div class="container">
 		<h1>datalist</h1>
 		<ul class="list-group">
-			<li class="list-group-item">attribute list 지원 type : text, search, url, tel, email, date, month, week, time, datetime-local, number, range</li>
+			<li class="list-group-item">attribute list 지원 type : text, search, url, tel, email, date, month, week, time, datetime-local, number, range, color</li>
 			<li class="list-group-item"><a href="https://developer.mozilla.org/ko/docs/Web/HTML/Element/Input#htmlattrdeflist" target="_blank">https://developer.mozilla.org/ko/docs/Web/HTML/Element/Input#htmlattrdeflist</a></li>
 		</ul>
 	</div>
@@ -121,6 +121,18 @@
 			</div>
 			<div>
 				input range <input type="range" list="datalist-num" step="0.1" min="0" max="10" oninput=" this.nextElementSibling.innerText=this.value"> <output></output>
+			</div>
+			<div>
+				input color <input type="color" list="datalist-color" >
+				<datalist id="datalist-color">
+					<option>#aabbcc</option>
+					<option>#00ffcc</option>
+					<option>#cba</option> <!-- not work -->
+					<option>#aabbcc66</option> <!-- not work -->
+					<option>rgb(0,127,255)</option> <!-- not work -->
+					<option>rgba(127,0,255,0.5)</option> <!-- not work -->
+					
+				</datalist>
 			</div>
 		</form>
 	</div>
