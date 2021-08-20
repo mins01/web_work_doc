@@ -1,2 +1,5 @@
 *.ignore
-~*.xlsx
+~$*.xlsx
+*.bak
+*.sLDH
+!.gitignore
