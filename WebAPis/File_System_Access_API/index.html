@@ -68,19 +68,19 @@
             });
         }
         function testOpenDir(){
-            window.showDirectoryPicker().then(fsdh=>{ 
+            window.showDirectoryPicker().then(async  fsdh=>{ 
                 //FileSystemFileHandle
                 console.log('FileSystemDirectoryHandle',fsdh);
                 // fsdh.resolve().then(x=>{console.log(x)})
-                // console.log('keys',Array.from(fsdh.keys()));
-                // console.log('values',Array.from(fsdh.values()));
-                // console.log('entries',Array.from(fsdh.entries()));
-                let subDir = fsdh.getDirectoryHandle(fsdh)
-                .then(subDir=>{
-                    console.log(subDir)
-                })
-                // console.log(Files);
-
+                for await (const entry of fsdh.keys()) { //하위 폴더를 가져온다.(key 는 파일/폴더 명)
+                    console.log(entry);
+                }
+                for await (const entry of fsdh.values()) { //하위 폴더를 가져온다. (value는 FileSystemFileHandle/FileSystemDirectoryHandle )
+                    console.log(entry);
+                }
+                for await (const entry of fsdh.entries()) { //하위 폴더를 가져온다. (key:value 형식)
+                    console.log(entry);
+                }
             }).catch(err=>{
                 console.log('err',err)
             });
