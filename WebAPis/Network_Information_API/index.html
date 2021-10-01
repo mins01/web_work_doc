@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+    <title>Network_Information_API</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">	
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <script src="/js/ForGoogle.js"></script>
+    <!-- google analytics -->
+    <script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+    
+    
+    <!-- jquery 관련 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    
+    <!-- 부트스트랩 4 : IE8지원안됨! -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script> 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <!-- vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    
+    <!-- meta og -->
+    
+    <meta property="og:title" content="Network_Information_API">
+    <meta property="og:description" content="Network_Information_API">
+    <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+    <meta property="og:image:width" content="190">
+    <meta property="og:image:height" content="70" />
+    <meta property="og:site_name" content="Network_Information_API" />
+    <meta property="og:type" content="website">
+    
+    <!-- //meta og -->
+    
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Network_Information_API</h1>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Network_Information_API" target="_blank">https://developer.mozilla.org/en-US/docs/Web/API/Network_Information_API</a></li>
+            <li class="list-group-item">
+                navigator.connection 로 정보를 가져올 수 있음<br>
+                네트워크 상태(속도 등)을 기준으로 요소 미리읽기, 비디오 화징 추천 등에 사용됨.<br>
+            </li>
+            <li class="list-group-item">
+                navigator.connection.effectiveType <br>
+                'slow-2g', '2g', '3g' 또는 '4g' 중 하나 (향후 더 추가 될 것으로 보임)
+            </li>
+            <li class="list-group-item">
+                몇몇 프로퍼티는 크롬OS에서만 제공한다. (downlinkMax , type 등)
+            </li>
+        </ul>
+        <hr>
+        <h3>크롬 PC(window 10) 버전 94.0.4606.61(공식 빌드) (64비트) 기준 프로퍼티</h3>
+
+        <ul class="list-group">
+            <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/onchange">.onchange</a> =null // 네트워크 정보가 바뀔 경우 발생하는 이벤트 함수 (자동차로 이동중 4G에서 3G로 바뀐다던지)</li>
+            <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/effectiveType">.effectiveType</a> =4g  // 'slow-2g', '2g', '3g' 또는 '4g' 중 하나 (향후 더 추가 될 것으로 보임)</li>
+            <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/rtt">.rtt</a> =50 // Round Trap Time. 통신 요청과 응답에 대한 왕복에 걸리는 시간(핑) (단위 ms)</li>
+            <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/downlink">.downlink</a> =10  // 통신 대역폭 (단위 Mbps)(데역폭 특정 데이터가 없다면 NIC의 접속모드 값 등을 사용함)</li>
+            <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/saveData">.saveData</a> =false  // 브라우저 등에서 제공하는 데이터 세이브 모드 사용중인가? 여부</li>
+        </ul>
+        <hr>
+        <h3>Current Raw Data</h3>
+        <textarea class="form-control" readonly rows="10" id="raw_data">
+            .onchange=null
+            .effectiveType=4g
+            .rtt=50
+            .downlink=10
+            .saveData=false
+            .addEventListener=function addEventListener() { [native code] }
+            .dispatchEvent=function dispatchEvent() { [native code] }
+            .removeEventListener=function removeEventListener() { [native code] }
+        </textarea>
+        <script>
+            var msgs = [];
+            for(let k in navigator.connection){
+                msgs.push("."+k+'='+navigator.connection[k])
+            }
+            document.querySelector('#raw_data').value = msgs.join('\n')
+        </script>
+    </div>
+    
+</body>
+</html>
