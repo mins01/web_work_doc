@@ -61,9 +61,17 @@
 
         <ul class="list-group">
             <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/onchange">.onchange</a> =null // 네트워크 정보가 바뀔 경우 발생하는 이벤트 함수 (자동차로 이동중 4G에서 3G로 바뀐다던지)</li>
-            <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/effectiveType">.effectiveType</a> =4g  // 'slow-2g', '2g', '3g' 또는 '4g' 중 하나 (향후 더 추가 될 것으로 보임)</li>
+            <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/effectiveType">.effectiveType</a> =4g  // 'slow-2g', '2g', '3g' 또는 '4g' 중 하나 (향후 더 추가 될 것으로 보임)<br>
+                속도(<a href="https://rantcell.com/comparison-of-2g-3g-4g-5g.html">링크</a>)<br>
+                2G : 64Kbps<br>
+                3G : 2Mbps<br>
+                4G : 50Mbps (MAX 1Gbps)<br>
+                4G : 400Mbps (MAX 10Gbps)
+            </li>
             <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/rtt">.rtt</a> =50 // Round Trap Time. 통신 요청과 응답에 대한 왕복에 걸리는 시간(핑) (단위 ms)</li>
-            <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/downlink">.downlink</a> =10  // 통신 대역폭 (단위 Mbps)(데역폭 특정 데이터가 없다면 NIC의 접속모드 값 등을 사용함)</li>
+            <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/downlink">.downlink</a> =10  // 통신 대역폭 (단위 Mbps)<br>
+                데역폭 특정 데이터가 없다면 NIC의 속도 값 등을 사용함<br>
+            </li>
             <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/saveData">.saveData</a> =false  // 브라우저 등에서 제공하는 데이터 세이브 모드 사용중인가? 여부</li>
             <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/downlinkMax">.downlinkMax</a> =Infinity  // 최대 다운로드 속도 (단위 Mpbs). (크롬 OS 지원값)(크롬 모바일에서도 확인됨)</li>
             <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/type">.type</a> =wifi  // "bluetooth","cellular","ethernet","none","wifi","wimax","other","unknown". (크롬 OS 지원값)(크롬 모바일에서도 확인됨)</li>
