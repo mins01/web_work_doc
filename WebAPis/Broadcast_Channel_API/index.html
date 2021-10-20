@@ -44,8 +44,14 @@
         <h1 class="text-truncate">Broadcast_Channel_API</h1>
         <ul class="list-group">
             <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API" target="_blank">https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API</a></li>
+            <li class="list-group-item">
+                현재 브라우저의 channel 에 내용을 전송한다.<br>
+                frame이나 popup 에서도 내용을 전달 받을 수 있다.<br>
+                postMessage한 페이지(window,frame,popup 등)에서는 메세지를 받지 않는다!(메세지를 보내기만 함)
+            </li>
             <li class="list-group-item"><a href="" target="_blank">새창띄우기(띄워진 새창에서도 같이 동작함)</a></li>
         </ul>
+        <hr>
         <div style="height: 150px;overflow-y:scroll;" class="m-1">
             <ul class="list-group" id="broadcast">
               <li class="list-group-item">---</li>
