@@ -51,9 +51,20 @@
 			<h3>srcdoc</h3>
 			<div>
 				<code>
-				<xmp><iframe srcdoc="&lt;!DOCTYPE html&gt;&lt;p&gt;Hello World!&lt;/p&gt;"></iframe></xmp>
-				<code>
-				<iframe srcdoc="&lt;!DOCTYPE html&gt;&lt;p&gt;Hello World!&lt;/p&gt;"></iframe>
+					<xmp><iframe id="iframe0" srcdoc="&lt;!DOCTYPE html&gt;&lt;p&gt;Hello World!&lt;/p&gt;"></iframe></xmp>
+				</code>
+				<form action="" onsubmit="document.querySelector('#iframe0').srcdoc=this.input_srcdoc.value; return false;">
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text">.srcdoc</span>
+						  </div>
+						<input type="text" name="input_srcdoc" class="form-control" value="&lt;!DOCTYPE html&gt;&lt;p&gt;Hello World!&lt;/p&gt;">
+						<div class="input-group-append">
+							<button class="btn btn-outline-secondary" type="submit">Button</button>
+						</div>
+					</div>
+				</form>
+				<iframe id="iframe0" srcdoc="&lt;!DOCTYPE html&gt;&lt;p&gt;Hello World!&lt;/p&gt;"></iframe>
 			</div>
 		</article>
 	</div>
