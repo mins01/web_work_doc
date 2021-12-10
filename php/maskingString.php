@@ -5,7 +5,7 @@ function maskingString($str,$divBy=3){
 	$len = count($ss);
 	$lenBy =$len/max(1,$divBy);
 	$lenSt =  max(1,floor($lenBy));
-    $lenMd=$len==2?$lenSt+1:min($len,$len-$lenSt);
+    $lenMd=$len==2?2:min($len,$len-$lenSt);
 		
 	for($i=$lenSt,$m=$lenMd;$i<$m;$i++){
 		$ss[$i] = '*';
