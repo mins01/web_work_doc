@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>validatePassword</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+	
+
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script> 
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="validatePassword">
+	<meta property="og:description" content="validatePassword">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="validatePassword" />
+	<meta property="og:type" content="website">
+	
+	<!-- //meta og -->
+	
+  <script>
+    /**
+     * 비밀번호 검증용 
+     * @param text 검증대상 문자열
+     * @param min=8 최소 길이
+     * @param max=20 최대 길이
+     * @param combi=3 조합수 (0~4)(숫자, 알파벳 소문자, 알파벳 대문자, 특수기호(숫자 알파벳 이외의 글자))
+    */
+    function validatePassword(text,min,max,combi){
+      validatePassword.error = '';
+      if(min==undefined) min=8;
+      if(max==undefined) max=20;
+      if(combi==undefined) combi=3;
+      let lenRegExp = new RegExp('^.{'+min+','+max+'}$');
+      if(text.match(lenRegExp)==null){
+        if(min==max){
+          validatePassword.error = `지정된 길이(${min})에 맞지 않습니다.`;
+        }else{
+          validatePassword.error = `지정된 길이(최대:${min}, 최대:${max})에 맞지 않습니다.`;
+        }
+        return false;
+      }
+      let combiCnt = 0;
+      combiCnt+=(text.match(/[0-9]/)!=null?1:0); // 숫자
+      combiCnt+=(text.match(/[a-z]/)!=null?1:0); // 알파벳 소문자
+      combiCnt+=(text.match(/[A-Z]/)!=null?1:0); // 알파벳 대문자
+      combiCnt+=(text.match(/[^0-9a-zA-Z]/)!=null?1:0); //그외 글자
+      if(combiCnt<combi){
+        validatePassword.error = `숫자, 알파벳 소문자, 알파벳 대문자, 특수기호 중 ${combi} 종류가 조합되어야합니다.`;
+        return false;
+      }
+      return true;
+    }
+  </script>
+	
+</head>
+<body>
+	<div class="container">
+    <h1>validatePassword</h1>
+    <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value)){this.pw.focus();alert(validatePassword.error);return false;}" >
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" >기본형</span>
+        </div>
+        <input type="password" name="pw" class="form-controller">
+        <div class="input-group-append">
+          <button class="btn btn-info" type="submit">전송</button>
+        </div>
+      </div>
+    </form>
+    <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,8,20,0)){this.pw.focus();alert(validatePassword.error);return false;}" >
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" >콤보0</span>
+        </div>
+        <input type="password" name="pw" class="form-controller">
+        <div class="input-group-append">
+          <button class="btn btn-info" type="submit">전송</button>
+        </div>
+      </div>
+    </form>
+    <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,8,20,1)){this.pw.focus();alert(validatePassword.error);return false;}" >
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" >콤보1</span>
+        </div>
+        <input type="password" name="pw" class="form-controller">
+        <div class="input-group-append">
+          <button class="btn btn-info" type="submit">전송</button>
+        </div>
+      </div>
+    </form>
+    <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,8,20,2)){this.pw.focus();alert(validatePassword.error);return false;}" >
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" >콤보2</span>
+        </div>
+        <input type="password" name="pw" class="form-controller">
+        <div class="input-group-append">
+          <button class="btn btn-info" type="submit">전송</button>
+        </div>
+      </div>
+    </form>
+    <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,8,20,3)){this.pw.focus();alert(validatePassword.error);return false;}" >
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" >콤보3</span>
+        </div>
+        <input type="password" name="pw" class="form-controller">
+        <div class="input-group-append">
+          <button class="btn btn-info" type="submit">전송</button>
+        </div>
+      </div>
+    </form>
+    <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,8,20,4)){this.pw.focus();alert(validatePassword.error);return false;}" >
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" >콤보4</span>
+        </div>
+        <input type="password" name="pw" class="form-controller">
+        <div class="input-group-append">
+          <button class="btn btn-info" type="submit">전송</button>
+        </div>
+      </div>
+    </form>
+    <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,4,4,1)){this.pw.focus();alert(validatePassword.error);return false;}" >
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" >길이 4</span>
+        </div>
+        <input type="password" name="pw" class="form-controller">
+        <div class="input-group-append">
+          <button class="btn btn-info" type="submit"  >전송</button>
+        </div>
+      </div>
+    </form>
+    <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,4,4,1)){this.pw.focus();alert(validatePassword.error);return false;}" >
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" >길이 4, pattern 애트리뷰트로 숫자만 허용</span>
+        </div>
+        <input type="password" name="pw" class="form-controller"  pattern="\d{4}">
+        <div class="input-group-append">
+          <button class="btn btn-info" type="submit"  >전송</button>
+        </div>
+      </div>
+    </form>
+	</div>
+</body>
+</html>
