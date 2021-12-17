@@ -75,95 +75,104 @@
 </head>
 <body>
 	<div class="container">
-    <h1>validatePassword</h1>
-    <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value)){this.pw.focus();alert(validatePassword.error);return false;}" >
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" >기본형</span>
+
+    <header>
+      <h1>validatePassword</h1>
+      <ul class="list-group mb-3">
+        <li class="list-group-item"><a href="https://github.com/mins01/web_work_doc/tree/master/js/validatePassword">github.com</a></li>
+      </ul>
+    </header>
+    <section>
+      <h2>예제</h2>
+      <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value)){this.pw.focus();alert(validatePassword.error);return false;}" >
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" >기본형</span>
+          </div>
+          <input type="password" name="pw" class="form-controller">
+          <div class="input-group-append">
+            <button class="btn btn-info" type="submit">전송</button>
+          </div>
         </div>
-        <input type="password" name="pw" class="form-controller">
-        <div class="input-group-append">
-          <button class="btn btn-info" type="submit">전송</button>
+      </form>
+      <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,8,20,0)){this.pw.focus();alert(validatePassword.error);return false;}" >
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" >콤보0</span>
+          </div>
+          <input type="password" name="pw" class="form-controller">
+          <div class="input-group-append">
+            <button class="btn btn-info" type="submit">전송</button>
+          </div>
         </div>
-      </div>
-    </form>
-    <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,8,20,0)){this.pw.focus();alert(validatePassword.error);return false;}" >
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" >콤보0</span>
+      </form>
+      <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,8,20,1)){this.pw.focus();alert(validatePassword.error);return false;}" >
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" >콤보1</span>
+          </div>
+          <input type="password" name="pw" class="form-controller">
+          <div class="input-group-append">
+            <button class="btn btn-info" type="submit">전송</button>
+          </div>
         </div>
-        <input type="password" name="pw" class="form-controller">
-        <div class="input-group-append">
-          <button class="btn btn-info" type="submit">전송</button>
+      </form>
+      <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,8,20,2)){this.pw.focus();alert(validatePassword.error);return false;}" >
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" >콤보2</span>
+          </div>
+          <input type="password" name="pw" class="form-controller">
+          <div class="input-group-append">
+            <button class="btn btn-info" type="submit">전송</button>
+          </div>
         </div>
-      </div>
-    </form>
-    <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,8,20,1)){this.pw.focus();alert(validatePassword.error);return false;}" >
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" >콤보1</span>
+      </form>
+      <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,8,20,3)){this.pw.focus();alert(validatePassword.error);return false;}" >
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" >콤보3</span>
+          </div>
+          <input type="password" name="pw" class="form-controller">
+          <div class="input-group-append">
+            <button class="btn btn-info" type="submit">전송</button>
+          </div>
         </div>
-        <input type="password" name="pw" class="form-controller">
-        <div class="input-group-append">
-          <button class="btn btn-info" type="submit">전송</button>
+      </form>
+      <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,8,20,4)){this.pw.focus();alert(validatePassword.error);return false;}" >
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" >콤보4</span>
+          </div>
+          <input type="password" name="pw" class="form-controller">
+          <div class="input-group-append">
+            <button class="btn btn-info" type="submit">전송</button>
+          </div>
         </div>
-      </div>
-    </form>
-    <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,8,20,2)){this.pw.focus();alert(validatePassword.error);return false;}" >
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" >콤보2</span>
+      </form>
+      <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,4,4,1)){this.pw.focus();alert(validatePassword.error);return false;}" >
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" >길이 4</span>
+          </div>
+          <input type="password" name="pw" class="form-controller">
+          <div class="input-group-append">
+            <button class="btn btn-info" type="submit"  >전송</button>
+          </div>
         </div>
-        <input type="password" name="pw" class="form-controller">
-        <div class="input-group-append">
-          <button class="btn btn-info" type="submit">전송</button>
+      </form>
+      <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,4,4,1)){this.pw.focus();alert(validatePassword.error);return false;}" >
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" >길이 4, pattern 애트리뷰트로 숫자만 허용</span>
+          </div>
+          <input type="password" name="pw" class="form-controller"  pattern="\d{4}">
+          <div class="input-group-append">
+            <button class="btn btn-info" type="submit"  >전송</button>
+          </div>
         </div>
-      </div>
-    </form>
-    <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,8,20,3)){this.pw.focus();alert(validatePassword.error);return false;}" >
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" >콤보3</span>
-        </div>
-        <input type="password" name="pw" class="form-controller">
-        <div class="input-group-append">
-          <button class="btn btn-info" type="submit">전송</button>
-        </div>
-      </div>
-    </form>
-    <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,8,20,4)){this.pw.focus();alert(validatePassword.error);return false;}" >
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" >콤보4</span>
-        </div>
-        <input type="password" name="pw" class="form-controller">
-        <div class="input-group-append">
-          <button class="btn btn-info" type="submit">전송</button>
-        </div>
-      </div>
-    </form>
-    <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,4,4,1)){this.pw.focus();alert(validatePassword.error);return false;}" >
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" >길이 4</span>
-        </div>
-        <input type="password" name="pw" class="form-controller">
-        <div class="input-group-append">
-          <button class="btn btn-info" type="submit"  >전송</button>
-        </div>
-      </div>
-    </form>
-    <form action="javascript:void(alert('form submit'));" onsubmit="if(!validatePassword(this.pw.value,4,4,1)){this.pw.focus();alert(validatePassword.error);return false;}" >
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" >길이 4, pattern 애트리뷰트로 숫자만 허용</span>
-        </div>
-        <input type="password" name="pw" class="form-controller"  pattern="\d{4}">
-        <div class="input-group-append">
-          <button class="btn btn-info" type="submit"  >전송</button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </section>
 	</div>
 </body>
 </html>
