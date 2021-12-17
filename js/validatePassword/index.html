@@ -55,7 +55,7 @@
         if(min==max){
           validatePassword.error = `지정된 길이(${min})에 맞지 않습니다.`;
         }else{
-          validatePassword.error = `지정된 길이(최대:${min}, 최대:${max})에 맞지 않습니다.`;
+          validatePassword.error = `지정된 길이(최소:${min}, 최대:${max})에 맞지 않습니다.`;
         }
         return false;
       }
@@ -65,7 +65,7 @@
       combiCnt+=(text.match(/[A-Z]/)!=null?1:0); // 알파벳 대문자
       combiCnt+=(text.match(/[^0-9a-zA-Z]/)!=null?1:0); //그외 글자
       if(combiCnt<combi){
-        validatePassword.error = `숫자, 알파벳 소문자, 알파벳 대문자, 특수기호 중 ${combi} 종류가 조합되어야합니다.`;
+        validatePassword.error = `숫자, 알파벳 소문자, 알파벳 대문자, 특수기호 중 ${combi} 종류가 조합되어야 합니다.`;
         return false;
       }
       return true;
