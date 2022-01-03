@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+.fl{
+    display: flex;
+    
+}
+.fl-center{
+    justify-content: center;
+}
+.fl-column{
+    flex-direction: column;
+}
+.fl-row{
+    flex-direction: row;
+}
+
+.fl > .fl-node-stech{
+    flex-grow: 1;
+}

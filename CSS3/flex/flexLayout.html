@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex Layout</title>
+    <link rel="stylesheet" href="flexLayout.css">
+    <style>
+        /* debug style */
+        .fl div,
+        .fl header,
+        .fl footer,
+        .fl aside,
+        .fl article,
+        .fl section
+        { 
+            padding:1em; 
+            outline-offset: -1px; 
+            outline: 1px dashed #ccc; 
+        }
+        html,body{padding:0;margin:0;height:100%;}
+    </style>
+</head>
+<body>
+
+    <div class="fl fl-row fl-center" style="margin:0 auto; max-width:600px; max-height:300px;">
+        <header>
+            <h1>header</h1>
+            <nav></nav>
+        </header>
+        <section class="fl-node fl-node-stech fl fl-row">
+            <aside>aside</aside>
+            <article class="fl-node fl-node-stech">
+                <h2>style class</h2>
+                <main>
+                    main-content
+                </main>
+            </article>
+            <aside>aside</aside>
+        </section>
+        <footer>
+            <h4>footer</h4>
+            <nav></nav>
+        </footer>
+    </div>
+    <hr>
+    <div class="fl fl-row fl-center" style="margin:0 auto; max-height:300px;">
+        <header>
+            <h1>header</h1>
+            <nav></nav>
+        </header>
+        <section class="fl-node fl-node-stech fl fl-row fl-center">
+            <aside>aside</aside>
+            <article >
+                <h2>style class</h2>
+                <main>
+                    main-content
+                </main>
+            </article>
+            <aside>aside</aside>
+        </section>
+        <footer>
+            <h4>footer</h4>
+            <nav></nav>
+        </footer>
+    </div>
+    <hr>
+    <div class="fl fl-row fl-center" style="margin:0 auto; max-height:300px;">
+        <header>
+            <h1>header</h1>
+            <nav></nav>
+        </header>
+        <section class="fl-node fl-node-stech fl fl-row">
+            <aside>aside</aside>
+            <article class="fl-node-stech">
+                <h2>style class</h2>
+                <main>
+                    main-content
+                </main>
+            </article>
+            <aside>aside</aside>
+        </section>
+        <footer>
+            <h4>footer</h4>
+            <nav></nav>
+        </footer>
+    </div>   
+
+    <hr>
+
+    <div class="fl fl-column fl-center" style="margin:0 auto; max-width:800px; height:800px">
+        <header>
+            <h1>header</h1>
+            <nav></nav>
+        </header>
+        <section class="fl-node fl fl-row">
+            <aside>aside</aside>
+            <article>
+                <h2>style class</h2>
+                <main>
+                    main-content
+                </main>
+            </article>
+            <aside>aside</aside>
+        </section>
+        <footer>
+            <h4>footer</h4>
+            <nav></nav>
+        </footer>
+    </div>
+    <hr>
+    <div class="fl fl-center" style="margin:0 auto; max-width:800px; height:800px">
+        <header>
+            <h1>header</h1>
+            <nav></nav>
+        </header>
+        <section class="fl-node fl-node-stech fl fl-row fl-center">
+            <aside>aside</aside>
+            <article>
+                <h2>style class</h2>
+                <main>
+                    main-content
+                </main>
+            </article>
+            <aside>aside</aside>
+        </section>
+        <footer>
+            <h4>footer</h4>
+            <nav></nav>
+        </footer>
+    </div>
+    <hr>
+    <div class="fl fl-center" style="margin:0 auto; max-width:800px; height:800px">
+        <header>
+            <h1>header</h1>
+            <nav></nav>
+        </header>
+        <section class="fl-node fl-node-stech fl fl-row">
+            <aside>aside</aside>
+            <article class="fl-node fl-node-stech">
+                <h2>style class</h2>
+                <main>
+                    main-content
+                </main>
+            </article>
+            <aside>aside</aside>
+        </section>
+        <footer>
+            <h4>footer</h4>
+            <nav></nav>
+        </footer>
+    </div>
+
+
+
+    
+</body>
+</html>
