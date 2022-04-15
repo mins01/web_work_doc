@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+    <title>CSS appearance</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">	
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <script src="/js/ForGoogle.js"></script>
+    <!-- google analytics -->
+    <script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+    
+    
+    <!-- jquery 관련 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    
+    <!-- 부트스트랩 4 : IE8지원안됨! -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script> 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <!-- vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    
+    <!-- meta og -->
+    
+    <meta property="og:title" content="CSS appearance">
+    <meta property="og:description" content="CSS appearance">
+    <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+    <meta property="og:image:width" content="190">
+    <meta property="og:image:height" content="70" />
+    <meta property="og:site_name" content="CSS appearance" />
+    <meta property="og:type" content="website">
+    
+    <!-- //meta og -->
+    
+    <style>
+        .none{
+            appearance: none !important;
+        }
+        .auto{
+            appearance: auto !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CSS : appearance</h1>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/appearance">https://developer.mozilla.org/en-US/docs/Web/CSS/appearance</a></li>
+            <li class="list-group-item">
+                1. 브라우저의 border 스타일이 초기화된다.<br>
+                2. radio와 checkbox 는 모양 자체가 사라진다.<br>
+                3. 공통 CSS로 input 등에 설정하지마라! 설정 시 관련 모양을 따로로 잡아줘야한다
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <hr>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>element</th>
+                        <th>appearance: none</th>
+                        <th>appearance: auto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td> div </td><td> <div class="none">123</div> </td><td> <div class="auto">123</div> </td></tr>
+                    <tr><td> span </td><td> <span class="none">123</span> </td><td> <span class="auto">123</span> </td></tr>
+                    <tr><td> img </td><td> <img class="none" src="image.png"> </td><td> <img class="auto" src="image.png"> </td></tr>
+                    <tr><td> a </td><td> <a href="#" class="none">123</a> </td><td> <a href="#" class="auto">123</a> </td></tr>
+                    <tr><td> input[type="text"] </td><td> <input class="none" type="text" value="123"> </td><td> <input class="auto" type="text" value="123"> </td></tr>
+                    <tr><td> input[type="number"] </td><td> <input class="none" type="number" value="123"> </td><td> <input class="auto" type="number" value="123"> </td></tr>
+                    <tr><td> input[type="date"] </td><td> <input class="none" type="date" value="123"> </td><td> <input class="auto" type="date" value="123"> </td></tr>
+                    <tr><td> input[type="time"] </td><td> <input class="none" type="time" value="123"> </td><td> <input class="auto" type="time" value="123"> </td></tr>
+                    <tr><td> input[type="checkbox"] </td><td> <input class="none" type="checkbox" value="123"> </td><td> <input class="auto" type="checkbox" value="123"> </td></tr>
+                    <tr><td> input[type="radio"] </td><td> <input class="none" type="radio" value="123"> </td><td> <input class="auto" type="radio" value="123"> </td></tr>
+                    <tr><td> input[type="button"] </td><td> <input class="none" type="button" value="123"> </td><td> <input class="auto" type="button" value="123"> </td></tr>
+                    <tr><td> input[type="submit"] </td><td> <input class="none" type="submit" value="123"> </td><td> <input class="auto" type="submit" value="123"> </td></tr>
+                    <tr><td> input[type="reset"] </td><td> <input class="none" type="reset" value="123"> </td><td> <input class="auto" type="reset" value="123"> </td></tr>
+                    <tr><td> input[type="image"] </td><td> <input class="none" src="image.png" type="image" value="123"> </td><td> <input class="auto" src="image.png" type="image" value="123"> </td></tr>
+                    <tr><td> select </td><td> <select class="none"><option value="1">2</option><option value="123">123</option></select> </td><td> <select class="auto"><option value="1">2</option><option value="123">123</option></select> </td></tr>
+                    <tr><td> select[size=3] </td><td> <select class="none" size="3" ><option value="1">2</option><option value="123">123</option></select> </td><td> <select class="auto" size="3" ><option value="1">2</option><option value="123">123</option></select> </td></tr>
+                    <tr><td> textarea </td><td> <textarea class="none">123</textarea> </td><td> <textarea class="auto">123</textarea> </td></tr>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
