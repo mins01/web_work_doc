@@ -1,98 +1,124 @@
 @charset "utf-8";
 
-input.custom{
+.custom-input{
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
 
-    --text-color:#333;
-    --stroke-color:#666;
-    --bg-color:#fff;
-    --checked-color:#aaa;
+    --text-color: #333;
+    --bg-color: #fff;
+    --checked-color: #333;
+    --border-color: #666;
+    --border-width: 0.1em;
+    --border-style: solid;
+    --border-radius: 0.5em;
+    --padding:0px;
+    --margin:0px;
 
-    margin: 0;
+    
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
     box-sizing: border-box;
+
+    margin: var(--margin);
+    padding: var(--padding);
+    
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    border-color: var(--border-color);
 }
-input.custom.transition{
-    transition: all 0.2s;
+.custom-input:disabled,
+.custom-input[readonly]{
+    filter:contrast(0.2) brightness(1.2);
 }
-input.custom[type="radio"],
-input.custom[type="checkbox"]{
+.custom-input.auto{
+    -webkit-appearance: auto;
+    -moz-appearance: auto;
+    appearance: auto; 
+}
+.custom-input.transition{
+    transition: all 0.3s;
+}
+.custom-input[type="radio"],
+.custom-input[type="checkbox"]{
     display: inline-block;
     font-size: 0.8em;
     height:1em;
     width:1em;
-    border: 0.2em solid var(--stroke-color);
+    border-width: 0.2em;
+    border-style: solid;
     vertical-align: baseline;
 }
-input.custom[type="radio"]:checked,
-input.custom[type="checkbox"]:checked{
+.custom-input[type="radio"]:checked,
+.custom-input[type="checkbox"]:checked{
     background-color: var(--checked-color);
 }
-input.custom[type="radio"]{
+.custom-input[type="radio"]{
     border-radius: 50%;
+}
+
+.custom-input.radius{
+    border-radius: var(--border-radius,0.3em);
 }
 
 /*
 colors / 부트스트랩 호환 4+
 */
-input.custom.primary{
+.custom-input.primary{
     --text-color:var(--primary,#007bff);
     --checked-color:var(--primary,#007bff);
 }
-input.custom.secondary{
+.custom-input.secondary{
     --text-color:var(--secondary,#6c757d);
     --checked-color:var(--secondary,#6c757d);
 }
-input.custom.success{
+.custom-input.success{
     --text-color:var(--success,#28a745);
     --checked-color:var(--success,#28a745);
 }
-input.custom.info{
+.custom-input.info{
     --text-color:var(--info,#17a2b8);
     --checked-color:var(--info,#17a2b8);
 }
-input.custom.warning{
+.custom-input.warning{
     --text-color:var(--warning,#ffc107);
     --checked-color:var(--warning,#ffc107);
 }
-input.custom.danger{
+.custom-input.danger{
     --text-color:var(--danger,#dc3545);
     --checked-color:var(--danger,#dc3545);
 }
-input.custom.light{
+.custom-input.light{
     --text-color:var(--light,#f8f9fa);
     --checked-color:var(--light,#f8f9fa);
 }
-input.custom.dark{
+.custom-input.dark{
     --text-color:var(--dark,#343a40);
     --checked-color:var(--dark,#343a40);
 }
 
-input.custom.border-primary{
-    --stroke-color:var(--primary,#007bff);
+.custom-input.border-primary{
+    --border-color:var(--primary,#007bff);
 }
-input.custom.border-secondary{
-    --stroke-color:var(--secondary,#6c757d);
+.custom-input.border-secondary{
+    --border-color:var(--secondary,#6c757d);
 }
-input.custom.border-success{
-    --stroke-color:var(--success,#28a745);
+.custom-input.border-success{
+    --border-color:var(--success,#28a745);
 }
-input.custom.border-info{
-    --stroke-color:var(--info,#17a2b8);
+.custom-input.border-info{
+    --border-color:var(--info,#17a2b8);
 }
-input.custom.border-warning{
-    --stroke-color:var(--warning,#ffc107);
+.custom-input.border-warning{
+    --border-color:var(--warning,#ffc107);
 }
-input.custom.border-danger{
-    --stroke-color:var(--danger,#dc3545);
+.custom-input.border-danger{
+    --border-color:var(--danger,#dc3545);
 }
-input.custom.border-light{
-    --stroke-color:var(--light,#f8f9fa);
+.custom-input.border-light{
+    --border-color:var(--light,#f8f9fa);
 }
-input.custom.border-dark{
-    --stroke-color:var(--dark,#343a40);
+.custom-input.border-dark{
+    --border-color:var(--dark,#343a40);
 }
