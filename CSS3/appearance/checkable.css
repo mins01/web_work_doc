@@ -19,6 +19,8 @@
     --transition-delay:0s;
     --transition-duration:0.3s;
     --transition-timing-function:ease;
+    --font-weight: bold;
+    --background-image:none;
     
     font-family: inherit;
     font-size: inherit;
@@ -66,6 +68,7 @@
     border-width: var(--border-width);
     border-color: var(--border-color);
     background-color: var(--background-color);
+    z-index: 3;
 }
 .checkable:checked::before{
     background-color: var(--checked-color);
@@ -81,21 +84,26 @@
     border-radius: 0 !important;
     transform: rotate(45deg);
 }
-
+.checkable.check-img{
+    --background-image:url("checkable/check-img.png");
+}
 
 .checkable.check-mark.transition::before ,
-.checkable.check-text.transition::before{
+.checkable.check-text.transition::before ,
+.checkable.check-img.transition::before{
     transition-property: none;
 }
 .checkable.check-mark.transition::after ,
-.checkable.check-text.transition::after{
+.checkable.check-text.transition::after ,
+.checkable.check-img.transition::after{
     transition-property: var(--transition-property,all);
     transition-delay: var(--transition-delay,0);
     transition-duration: var(--transition-duration,0.3s);
     transition-timing-function:var(--transition-timing-function,ease);
 }
 .checkable.check-mark:checked::before ,
-.checkable.check-text:checked::before{
+.checkable.check-text:checked::before ,
+.checkable.check-img:checked::before{
     background-color: var(--background-color);
 }
 .checkable.check-mark::after{
@@ -103,7 +111,7 @@
     position: absolute;
     top: 0; bottom: 0; left: 0; right: 0;
     box-sizing: border-box;
-    transform: translate(0, -50%) rotate(-45deg);
+    transform: translate(0, -50%) rotate(-45deg) scaleX(1.4);
     height:1em;
     width:1em;
     margin:0;
@@ -114,28 +122,43 @@
     border-color: var(--checked-color);
     border-top-width: 0;
     border-right-width: 0;
-    z-index: 2;
+    z-index: 5;
 }
 .checkable.check-text::after{
     content: var(--check-text,'!');
     position: absolute;
     top: 0; bottom: 0; left: 0; right: 0;
     font-size: inherit;
+    font-weight: var(--font-weight);
     line-height: 1em;
     text-align: center;
-    /* display: none; */
-    display: block;
     color: var(--checked-color);
-    z-index: 3;
+    z-index: 5;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+.checkable.check-img::after{
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+    background-image: var(--background-image);
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 .checkable.check-mark::after,
-.checkable.check-text::after{
+.checkable.check-text::after,
+.checkable.check-img::after{
     visibility: hidden;
     opacity: 0;
     margin-top: -1em;
 }
 .checkable.check-mark:checked::after,
-.checkable.check-text:checked::after{
+.checkable.check-text:checked::after,
+.checkable.check-img:checked::after{
     /* display: block; */
     visibility: visible;
     opacity: 1;
