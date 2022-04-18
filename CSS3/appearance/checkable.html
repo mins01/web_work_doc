@@ -56,6 +56,24 @@
         <hr>
         <div class="ex">
             <form onsubmit="formOnsubmit(this);return false;">
+                <h3>with bootstrap btn-group <button class="btn btn-primary btn-sm">submit</button></h3>
+                <div class="btn-group">
+                    <label class="btn btn-primary"><input type="checkbox" name="f" value="1" class="checkable" checked> 1</label>
+                    <label class="btn btn-success"><input type="checkbox" name="f" value="2" class="checkable check-mark" checked> 2</label>
+                    <label class="btn btn-info"><input type="checkbox" name="f" value="3" class="checkable check-text" style="--check-text:'ABC';" checked> 3</label>
+                    <label class="btn btn-warning"><input type="checkbox" name="f" value="4" class="checkable check-text" checked> 4</label>
+                    <label class="btn btn-danger"><input type="checkbox" name="f" value="5" class="checkable check-img" checked> 5</label>
+                </div>
+                <br>
+                <div class="btn-group">
+                    <label class="btn btn-primary"><input type="radio" name="f2" value="1" class="checkable" checked> 1</label>
+                    <label class="btn btn-success"><input type="radio" name="f2" value="2" class="checkable check-mark" checked> 2</label>
+                    <label class="btn btn-info"><input type="radio" name="f2" value="3" class="checkable check-text" style="--check-text:'ABC';" checked> 3</label>
+                    <label class="btn btn-warning"><input type="radio" name="f2" value="4" class="checkable check-text" checked> 4</label>
+                    <label class="btn btn-danger"><input type="radio" name="f2" value="5" class="checkable check-img" checked> 5</label>
+                </div>
+            </form>
+            <form onsubmit="formOnsubmit(this);return false;">
                 <h3>checkbox <button class="btn btn-primary btn-sm">submit</button></h3>
                 <label><input type="checkbox" name="f" value="1" class="checkable" checked> .checkable</label>
                 <label><input type="checkbox" name="f" value="2" class="checkable check-mark" checked> .checkable.check-mark</label>
