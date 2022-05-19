@@ -38,7 +38,7 @@
 	<!-- //meta og -->
 	<script>
 	function toShare(){
-		if(!navigator.share){
+		if(!navigator.share && navigator.canShare()){
 			console.log("navigator.share not supported");
 			alert("navigator.share not supported");
 			return false;
@@ -50,11 +50,11 @@
 			})
 			.then(function(){ 
 				console.log('Successful share')
-				alert('Successful share')
+				// alert('Successful share')
 			})
 			.catch(function(error){
 				console.log('Error sharing:', error)
-				alert('Error sharing:', error)
+				// alert('Error sharing:', error)
 			});
 		}
 	}
@@ -71,9 +71,13 @@
 				<a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share" target="_blank">🔗</a>
 				
 			</li>
+			<li class="list-group-item">
+				<code>navigator.share(data)</code>
+			</li>
 			<li class="list-group-item">다른 앱에 내용을 공유 하도록 해준다. 스마트 폰에서만 작동을 한다.(IOS 미지원, 크롬 모바일(안드로이드) 지원)</li>
 			<li class="list-group-item">현재 Draft 상태이고, 실험적인 지원상태. 오페라와 크롬 정도만 지원</li>
 			<li class="list-group-item">크롬에서는 HTTPS 일 때만 동작한다.</li>
+			<li class="list-group-item">한계 : 공유하기 창을 띄우면 종료된다. 즉, 공유를 진짜 했는지에 대한 리턴이 없다.</li>
 			<li class="list-group-item"><button type="button" class="btn btn-info" onclick="toShare()">공유하기</button></li>
 		</ul>
 	</div>
