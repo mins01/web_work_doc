@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>scrollSnap</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+	
+
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script> 
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="scrollSnap">
+	<meta property="og:description" content="scrollSnap">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="scrollSnap" />
+	<meta property="og:type" content="website">
+	
+	<!-- //meta og -->
+	<link rel="stylesheet" href="scrollSnap.css" >
+	<script src="scrollSnap.js"></script>
+	
+	<style>
+		.ex-item{
+			font-size:50px;
+			width:80%;
+			background-color: #abc;
+			height: 80%;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			align-content: center;
+			justify-content: center;
+			align-items: center;
+		}
+		.scroll-snap-item:nth-child(odd) .ex-item{
+			background-color: #cba;
+		}
+		.scroll-snap-container{
+			border: 1px solid #000;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>scroll-snap 을 사용한 배너 제어</h1>
+		<ul class="list-group">
+			<li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scroll_Snap/Basic_concepts">Basic concepts of CSS Scroll Snap</a></li>
+		  </ul>
+	</div>
+	<div class="container">
+		<div class="scroll-snap-app" id="scroll-snap-app-01">
+			<div class="scroll-snap-container scroll-snap-x-mandatory" style="width:300px; height: 300px;">
+				<div class="scroll-snap-item">
+					<div class="ex-item">1</div>
+				</div>
+				<div class="scroll-snap-item">
+					<div class="ex-item">2</div>
+				</div>
+				<div class="scroll-snap-item">
+					<div class="ex-item">3</div>
+				</div>
+				<div class="scroll-snap-item">
+					<div class="ex-item">4</div>
+				</div>
+				<div class="scroll-snap-item">
+					<div class="ex-item">5</div>
+				</div>
+			</div>
+		</div>
+		<button type="button" onclick="scrollSnap.show(document.querySelector('#scroll-snap-app-01'),1);">1</button>
+		<button type="button" onclick="scrollSnap.show(document.querySelector('#scroll-snap-app-01'),2);">2</button>
+		<button type="button" onclick="scrollSnap.show(document.querySelector('#scroll-snap-app-01'),3);">3</button>
+		<button type="button" onclick="scrollSnap.show(document.querySelector('#scroll-snap-app-01'),4);">4</button>
+		<button type="button" onclick="scrollSnap.show(document.querySelector('#scroll-snap-app-01'),5);">5</button>
+		<button type="button" onclick="scrollSnap.prev(document.querySelector('#scroll-snap-app-01'));">이전</button>
+		<button type="button" onclick="scrollSnap.next(document.querySelector('#scroll-snap-app-01'));">이후</button>
+		<hr>
+
+		<div class="scroll-snap-app" id="scroll-snap-app-02">
+			<div class="scroll-snap-container scroll-snap-y-mandatory" style="width:300px; height: 300px;">
+				<div class="scroll-snap-item">
+					<div class="ex-item">1</div>
+				</div>
+				<div class="scroll-snap-item">
+					<div class="ex-item">2</div>
+				</div>
+				<div class="scroll-snap-item">
+					<div class="ex-item">3</div>
+				</div>
+				<div class="scroll-snap-item">
+					<div class="ex-item">4</div>
+				</div>
+				<div class="scroll-snap-item">
+					<div class="ex-item">5</div>
+				</div>
+			</div>
+		</div>
+		<button type="button" onclick="scrollSnap.show(document.querySelector('#scroll-snap-app-02'),1);">1</button>
+		<button type="button" onclick="scrollSnap.show(document.querySelector('#scroll-snap-app-02'),2);">2</button>
+		<button type="button" onclick="scrollSnap.show(document.querySelector('#scroll-snap-app-02'),3);">3</button>
+		<button type="button" onclick="scrollSnap.show(document.querySelector('#scroll-snap-app-02'),4);">4</button>
+		<button type="button" onclick="scrollSnap.show(document.querySelector('#scroll-snap-app-02'),5);">5</button>
+		<button type="button" onclick="scrollSnap.prev(document.querySelector('#scroll-snap-app-02'));">이전</button>
+		<button type="button" onclick="scrollSnap.next(document.querySelector('#scroll-snap-app-02'));">이후</button>
+		<hr>
+		<div class="scroll-snap-app" id="scroll-snap-app-03">
+			<div class="scroll-snap-container scroll-snap-x-mandatory scroll-snap-hidden-scrollbar" style="width:300px; height: 300px;">
+				<div class="scroll-snap-item">
+					<div class="ex-item">1</div>
+				</div>
+				<div class="scroll-snap-item">
+					<div class="ex-item">2</div>
+				</div>
+				<div class="scroll-snap-item">
+					<div class="ex-item">3</div>
+				</div>
+				<div class="scroll-snap-item">
+					<div class="ex-item">4</div>
+				</div>
+				<div class="scroll-snap-item">
+					<div class="ex-item">5</div>
+				</div>
+			</div>
+		</div>
+		<button type="button" onclick="scrollSnap.show(document.querySelector('#scroll-snap-app-03'),1);">1</button>
+		<button type="button" onclick="scrollSnap.show(document.querySelector('#scroll-snap-app-03'),2);">2</button>
+		<button type="button" onclick="scrollSnap.show(document.querySelector('#scroll-snap-app-03'),3);">3</button>
+		<button type="button" onclick="scrollSnap.show(document.querySelector('#scroll-snap-app-03'),4);">4</button>
+		<button type="button" onclick="scrollSnap.show(document.querySelector('#scroll-snap-app-03'),5);">5</button>
+		<button type="button" onclick="scrollSnap.prev(document.querySelector('#scroll-snap-app-03'));">이전</button>
+		<button type="button" onclick="scrollSnap.next(document.querySelector('#scroll-snap-app-03'));">이후</button>
+		<hr>
+	</div>
+</body>
+</html>
