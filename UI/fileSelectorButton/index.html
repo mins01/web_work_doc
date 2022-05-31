@@ -46,7 +46,8 @@
             border-radius: 1em;
         }
         .ex-2{
-            font-size:30px;
+            font-size:20px;
+            width:300px;
             border: 2px solid #000;
             border-radius: 10px;
             cursor: pointer;
@@ -82,10 +83,15 @@
         }
         .ex-3{
             text-align: center;
-            font-size:30px;
+            font-size:18px;
+            width:300px;
             border: 2px solid #000;
             border-radius: 10px;
             cursor: pointer;
+            display: inline-flex;
+        }
+        .ex-3 input[type="file"]{
+            flex: 1 1 auto;
         }
         .ex-3 input[type="file"]::file-selector-button,
         .ex-3 input[type="file"]::-webkit-file-upload-button{
@@ -103,14 +109,21 @@
             cursor: pointer;
             transition: all 0.5s;
             display: inline-block;
+            white-space: nowrap;
         }
 
         .ex-4{
             text-align: center;
-            font-size:30px;
+            font-size:20px;
+            width:300px;
             border: 2px solid #000;
             border-radius: 10px;
             cursor: pointer;
+            display: inline-flex;
+            flex-direction: column;
+        }
+        .ex-3 input[type="file"]{
+            flex: 1 1 auto;
         }
         .ex-4 input[type="file"]::file-selector-button,
         .ex-4 input[type="file"]::-webkit-file-upload-button{
@@ -128,6 +141,7 @@
             cursor: pointer;
             transition: all 0.5s;
             display: block;
+            white-space: nowrap;
         }
         .ex-4 input[type="file"]:host-context(*){
             font-weight: bold;
