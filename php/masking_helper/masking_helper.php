@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * https://github.com/mins01/web_work_doc/tree/master/php/masking_helper
+ * php 마스킹용 헬퍼
+ */
+
 function masking_string($str,$divBy=3){
 	return mb_masking_string($str,$divBy);
 }
