@@ -1,0 +1,5 @@
+START : mb_maskingString
+loop : 100000
+time : 0.086326837539673 sec
+memory peak : 453840 byte
+END

@@ -1,0 +1,5 @@
+START : maskingString
+loop : 100000
+time : 0.18910193443298 sec
+memory peak : 453744 byte
+END
