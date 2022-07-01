@@ -70,7 +70,7 @@ function masking_email($str){
 }
 
 // 2차배열에서 key 기준으로 마스킹 처리한다.
-// masking_rows($data['list'],array('name'=>array('masking_string'),'phone'=>array('masking_phone')));
+// masking_rows($rows,array('name'=>array('masking_string'),'tel'=>array('masking_phone'),'email'=>array('masking_email')));
 function masking_rows(& $rows, $confs=array()){
     foreach($rows as & $row){
         masking_row($row, $confs);
