@@ -72,7 +72,7 @@ function masking_rows(& $rows, $confs=array()){
 }
 function masking_row(& $row, $confs=array()){
     foreach($confs as $confK => $confArgs ){
-        if(isset($row[$confK])){
+        if(is_array($row) && isset($row[$confK])){
             $method = $confArgs[0];
             $args = isset($confArgs[1])?$confArgs[1]:array();
             array_unshift($args,$row[$confK]);
