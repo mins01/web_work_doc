@@ -1,0 +1,52 @@
+$ php -v
+PHP 5.3.6 (cli) (built: Oct 10 2014 17:15:37)
+Copyright (c) 1997-2011 The PHP Group
+Zend Engine v2.3.0, Copyright (c) 1998-2011 Zend Technologies
+    with the ionCube PHP Loader v10.2.4, Copyright (c) 2002-2018, by ionCube Ltd.
+$ php bench.iconv_maskingString.php
+START : iconv_maskingString
+loop : 100000
+time : 2.2653248310089 sec
+memory peak : 665008 byte
+END
+$ php bench.maskingString.php
+START : maskingString
+loop : 100000
+time : 1.7957351207733 sec
+memory peak : 664848 byte
+END
+$ php  bench.mb_maskingString.php
+START : mb_maskingString
+loop : 100000
+time : 0.88650298118591 sec
+memory peak : 665008 byte
+END
+
+
+
+$ php -v
+PHP 7.4.27 (cli) (built: Dec 14 2021 19:52:13) ( ZTS Visual C++ 2017 x64 )
+Copyright (c) The PHP Group
+Zend Engine v3.4.0, Copyright (c) Zend Technologies
+
+$ php bench.iconv_maskingString.php
+START : iconv_maskingString
+loop : 100000
+time : 0.45160102844238 sec
+memory peak : 452920 byte
+END
+
+$ php bench.maskingString.php
+START : maskingString
+loop : 100000
+time : 0.18959188461304 sec
+memory peak : 452824 byte
+END
+
+$ php bench.mb_maskingString.php
+START : mb_maskingString
+loop : 100000
+time : 0.087738990783691 sec
+memory peak : 452920 byte
+END
+

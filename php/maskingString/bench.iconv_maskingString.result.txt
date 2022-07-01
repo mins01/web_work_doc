@@ -1,5 +1,0 @@
-START : iconv_maskingString
-loop : 100000
-time : 0.45023202896118 sec
-memory peak : 453840 byte
-END

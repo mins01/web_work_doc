@@ -1,0 +1,51 @@
+SYSTEM INFO
+Windows NT 10.0 build 18363 (Windows 10) AMD64
+Current PHP version: 7.4.27
+Zend engine version: 3.4.0
+
+START : maskingString
+loop : 100000
+time : 0.09548282623291 sec
+END
+
+START : preg_maskingString
+loop : 100000
+time : 0.18718314170837 sec
+END
+
+START : iconv_maskingString
+loop : 100000
+time : 0.45136785507202 sec
+END
+
+START : mb_maskingString
+loop : 100000
+time : 0.089772939682007 sec
+END
+
+
+
+SYSTEM INFO
+Linux 2.6.32-754.14.2.el6.x86_64 #1 SMP Tue May 14 19:35:42 UTC 2019 x86_64
+Current PHP version: 5.3.6
+Zend engine version: 2.3.0
+
+START : maskingString
+loop : 100000
+time : 0.89578700065613 sec
+END
+
+START : preg_maskingString
+loop : 100000
+time : 1.783401966095 sec
+END
+
+START : iconv_maskingString
+loop : 100000
+time : 2.2231938838959 sec
+END
+
+START : mb_maskingString
+loop : 100000
+time : 0.7615761756897 sec
+END

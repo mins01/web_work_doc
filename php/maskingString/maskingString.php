@@ -1,5 +1,9 @@
 <?php
 function maskingString($str,$divBy=3){
+	return mb_maskingString($str,$divBy);
+}
+
+function preg_maskingString($str,$divBy=3){
 	preg_match_all('/./u',$str,$ss);
 	$ss = isset($ss[0])?$ss[0]:array();
 	$len = count($ss);
