@@ -48,5 +48,5 @@ $rows = array(
 );
 
 
-maskingRows($rows,array('name'=>array('maskingString'),'tel'=>array('maskingPhone'),'email'=>array('maskingEmail')));
+masking_rows($rows,array('name'=>array('masking_string'),'tel'=>array('masking_phone'),'email'=>array('masking_email')));
 print_r($rows);
