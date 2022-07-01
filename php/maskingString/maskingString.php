@@ -42,3 +42,56 @@ function mb_maskingString($str,$divBy=3){
 
 	}
 }
+
+
+function maskingPhone($str){
+    $arr = explode('-',$str);
+    if(isset($arr[1])){
+        $arr[1] = str_repeat('*',strlen($arr[1]));
+        return implode('-',$arr);
+    }else{
+        return maskingString($str);
+    }	
+}
+function maskingEmail($str){
+    $arr = explode('@',$str);
+    if(isset($arr[1])){
+        $arr[0] = maskingString($arr[0]);
+        return implode('@',$arr);
+    }else{
+        return maskingString($str);
+    }	
+}
+
+// 2차배열에서 key 기준으로 마스킹 처리한다.
+// maskingRows($data['list'],array('name'=>array('maskingString'),'phone'=>array('maskingPhone')));
+function maskingRows(& $rows, $confs=array()){
+    foreach($rows as & $row){
+        if(is_array($row)){
+            maskingRowForArray($row, $confs);
+        }else{
+            maskingRowForObject($row, $confs);
+        }
+    }
+}
+function maskingRowForArray(& $row, $confs=array()){
+    foreach($confs as $confK => $confArgs ){
+        if(isset($row[$confK])){
+            $method = $confArgs[0];
+            $args = isset($confArgs[1])?$confArgs[1]:array();
+            array_unshift($args,$row[$confK]);
+            $row[$confK] = call_user_func_array($method,$args);
+        }
+    }
+}
+function maskingRowForObject(& $row, $confs=array()){
+    foreach($confs as $confK => $confArgs ){
+        if(isset($row->{$confK})){
+            $method = $confArgs[0];
+            $args = isset($confArgs[1])?$confArgs[1]:array();
+            array_unshift($args,$row->{$confK});
+            $row->{$confK} = call_user_func_array($method,$args);
+        }
+    }
+    
+}
