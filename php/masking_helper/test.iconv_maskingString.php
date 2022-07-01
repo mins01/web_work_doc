@@ -1,5 +1,5 @@
 <?php
-require('maskingString.php');
+require('masking_helper.php');
 
 echo iconv_maskingString('a'),"\n";
 echo iconv_maskingString('ab'),"\n";

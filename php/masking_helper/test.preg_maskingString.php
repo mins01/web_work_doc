@@ -1,5 +1,5 @@
 <?php
-require('maskingString.php');
+require('masking_helper.php');
 
 echo preg_maskingString('a'),"\n";
 echo preg_maskingString('ab'),"\n";

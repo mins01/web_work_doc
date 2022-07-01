@@ -1,5 +1,5 @@
 <?php
-require('maskingString.php');
+require('masking_helper.php');
 
 $rows = array(
     array(
