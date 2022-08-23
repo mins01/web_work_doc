@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>원고지 테스트</title>
+    <style>
+
+        .wrap{
+            width:750px;
+            margin: 0 auto;
+        }
+
+        .sm-paper{
+            box-sizing: content-box;
+            border:2px solid red;
+            display: flex;
+            padding:0.2em 0;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width:6em;
+            font-family: cursive ;
+            font-size: 116px;
+        }
+        .sm-paper > span{
+            box-sizing: border-box;
+            flex: 0 0 auto;
+            vertical-align: middle;
+            display: inline-flex;
+            flex-wrap: nowrap;
+            align-content: center;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            width:1.5em;
+            height:1.5em;
+            border:1px solid red;
+            border-left-width: 0px;
+            margin:0.2em 0;
+            /* margin-left: -1px; */
+        }
+        .sm-paper > span:nth-child(4n){
+            border-right-width: 0px;
+        }
+    </style>
+    <script>
+        function syncSmPaper(text){
+            let sm_paper = document.querySelector('#sm_paper');
+            sm_paper.innerHTML = '';
+            text = text.trim();
+            let len = text.length;
+            let mlen = (len > 16)?32:16;
+            text += ' '.repeat(Math.max(0,Math.min(mlen-len,32)));
+            text.split('').forEach(ch => {
+                let span = document.createElement('span')
+                span.textContent = ch;
+                sm_paper.append(span)
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="wrap">
+
+        <div>
+            <form action="#" onsubmit="return false;" style="text-align: center">
+                <input type="text" maxlength="32" style="width:700px;font-size: 30px;;" name="text" oninput="syncSmPaper(this.value); return false" onblur="syncSmPaper(this.value); return false">
+                <br>
+            </form>
+        </div>
+        <div class="sm-paper" id="sm_paper" style="margin:0 auto;">
+            <span>한</span>
+            <span>글</span>
+            <span>작</span>
+            <span>성</span>
+            <span> </span>
+            <span>.</span>
+            <span>?</span>
+            <span>!</span>
+            <span>한</span>
+            <span>글</span>
+            <span>작</span>
+            <span>성</span>
+            <span> </span>
+            <span>.</span>
+            <span>?</span>
+            <span>!</span>
+            <span>한</span>
+            <span>글</span>
+            <span>작</span>
+            <span>성</span>
+            <span> </span>
+            <span>.</span>
+            <span>?</span>
+            <span>!</span>
+            <span>한</span>
+            <span>글</span>
+            <span>작</span>
+            <span>성</span>
+            <span> </span>
+            <span>.</span>
+            <span>?</span>
+            <span>!</span>
+            <span>한</span>
+            <span>글</span>
+            <span>작</span>
+            <span>성</span>
+            <span> </span>
+            <span>.</span>
+            <span>?</span>
+            <span>!</span>
+            <span>한</span>
+            <span>글</span>
+            <span>작</span>
+            <span>성</span>
+            <span> </span>
+            <span>.</span>
+            <span>?</span>
+            <span>!</span>
+            <span>한</span>
+            <span>글</span>
+            <span>작</span>
+            <span>성</span>
+            <span> </span>
+            <span>.</span>
+            <span>?</span>
+            <span>!</span>
+            <span>한</span>
+            <span>글</span>
+            <span>작</span>
+            <span>성</span>
+            <span> </span>
+            <span>.</span>
+            <span>?</span>
+            <span>!</span>
+            <span>한</span>
+            <span>글</span>
+            <span>작</span>
+            <span>성</span>
+            <span> </span>
+            <span>.</span>
+            <span>?</span>
+            <span>!</span>
+            <span>한</span>
+            <span>글</span>
+            <span>작</span>
+            <span>성</span>
+            <span> </span>
+            <span>.</span>
+            <span>?</span>
+            <span>!</span>
+            <span>한</span>
+            <span>글</span>
+            <span>작</span>
+            <span>성</span>
+            <span> </span>
+            <span>.</span>
+            <span>?</span>
+            <span>!</span>
+            <span>한</span>
+            <span>글</span>
+            <span>작</span>
+            <span>성</span>
+            <span> </span>
+            <span>.</span>
+            <span>?</span>
+            <span>!</span>
+            <span>한</span>
+            <span>글</span>
+            <span>작</span>
+            <span>성</span>
+            <span> </span>
+            <span>.</span>
+            <span>?</span>
+            <span>!</span>
+            
+        </div>
+    </div>
+</body>
+</html>
