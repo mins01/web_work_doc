@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>imodal</title>
+
+    <link rel="stylesheet" href="imodal.css">
+    <script src="imodal.js"></script>
+    <script>
+        imodal.debug = true;
+    </script>
+
+</head>
+<body>
+    <h1>imodal</h1>
+    <hr>
+    <h2>info</h2>
+    <ul>
+        <li>제작 : 이민수</li>
+        <li>2022-08-12 : index.html 문서 작성</li>
+    </ul>
+    <hr>
+    <h2>properties</h2>
+    <ul>
+        <li>imodal.debug = true or false // true면 디버깅 모드 활성화. 동작에 대한 디버깅용 console.log 출력</li>
+        <li>imodal.lastModal = modal or null // 가장 마지막의 modal</li>
+    </ul>
+    <h2>methods</h2>
+    <ul>
+        <li>imodal.init() // 사용을 위한 초기화 (스크립트 로드 시 자동 실행된다.) </li>
+        <li>imodal.eventClose(event) // 애트리뷰트 data-imodal-dismiss에 대한 자동 닫기  (imodal.init() 에서 자동 실행한다.)</li>
+        <li>imodal.open(modal) // 지정된 modal을 오픈한다. (modal은 div.imodal 같은 element) </li>
+        <li>imodal.closeClosest(element) // element에서 가장 가까운 modal을 닫는다.</li>
+        <li>imodal.close(modal) // 지정된 modal을 닫는다.</li>
+        <li>imodal.closeAll() // 모든 modal을 닫는다.</li>
+        <li>imodal.gtag(event_name,event_params) // ga 연동용 함수.</li>
+        
+    </ul>
+    <h2>attributes</h2>
+    <ul>
+        <li>data-imodal-dismiss="imodal or none"  // imodal 이면 가장 가까운 modal을 찾아서 닫는다. 그 외의 값은 동작 안한다. </li>
+    </ul>
+    <h2>style classes</h2>
+    <ul>
+        <li>.imodal-close // 닫기 버튼 아이콘
+            <ul>
+                <li>.imodal-close.black // 닫기 버튼 아이콘 - 검은색</li>
+                <li>.imodal-close.white // 닫기 버튼 아이콘 - 흰색 (기본)</li>
+            </ul>
+        </li>        
+        <li>.imodal.imodal-loading-lazy : 설정시 내부 백그라운드 이미지를 사용하는 element는 바로 이미지를 읽어오지 않게 한다. modal이 보일 때 이미지를 읽어온다.</li>
+        <li>.imodal.on // 모달을 보이는 상태로 한다.</li>
+        <li>body.imodal-on // imodal.open 이되면 body의 className에 imodal-on 이 추가된다. (기본적으로 이걸로 제어하지는 동작은 없다.)</li>
+        <li>.imodal // 이 class 를 감싼 후 부터 modal로 동작한다. z-index:20; position: fixed;</li>
+        
+    </ul>
+    <hr>
+    <h2>예제</h2>
+    <button type="button" onclick="imodal.open(document.querySelector('#imodal_01'))">기본형</button>
+    <div class="imodal" id="imodal_01">
+        <div class="imodal-bg"  data-imodal-dismiss="none"></div>
+        <div class="imodal-box">
+            <div class="imodal-content">
+                <div class="imodal-header" >
+                    <div class="imodal-close" data-imodal-dismiss="imodal"></div>
+                </div>
+                <div class="imodal-body">
+                    <div style="background-color: #fff;width:300px;height: 300px;">내용부분</div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <button type="button" onclick="imodal.open(document.querySelector('#imodal_01_01'))">긴 내용(내부 스크롤)</button>
+    <div class="imodal" id="imodal_01_01">
+        <div class="imodal-bg"  data-imodal-dismiss="none"></div>
+        <div class="imodal-box">
+            <div class="imodal-content">
+                <div class="imodal-header" >
+                    <div class="imodal-close" data-imodal-dismiss="imodal"></div>
+                </div>
+                <div class="imodal-body">
+                    <div style="background-color: #fff;width:300px;height: 200vh;">내용부분</div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <button type="button" onclick="imodal.open(document.querySelector('#imodal_01_02'))">footer 포함</button>
+    <div class="imodal" id="imodal_01_02">
+        <div class="imodal-bg"  data-imodal-dismiss="none"></div>
+        <div class="imodal-box">
+            <div class="imodal-content">
+                <div class="imodal-header" >
+                    <div class="imodal-close" data-imodal-dismiss="imodal"></div>
+                </div>
+                <div class="imodal-body">
+                    <div style="background-color: #fff;width:300px;height: 200vh;">body 내용부분</div>
+                </div>
+                <div class="imodal-footer" >
+                    <div style="background-color: #abc;width:300px;height: 100px; ">footer 내용부분</div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <button type="button" onclick="imodal.open(document.querySelector('#imodal_02'))">배경 클릭시 닫기</button>
+    <div class="imodal" id="imodal_02">
+        <div class="imodal-bg"  data-imodal-dismiss="imodal"></div>
+        <div class="imodal-box">
+            <div class="imodal-content">
+                <div class="imodal-header" >
+                    <div class="imodal-close" data-imodal-dismiss="imodal"></div>
+                </div>
+                <div class="imodal-body">
+                    <div style="background-color: #fff;width:300px;height: 300px;">내용부분</div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <button type="button" onclick="imodal.open(document.querySelector('#imodal_03'))">닫기 아이콘들</button>
+    <div class="imodal" id="imodal_03">
+        <div class="imodal-bg"  data-imodal-dismiss="none"></div>
+        <div class="imodal-box">
+            <div class="imodal-content">
+                <div class="imodal-header" >
+                    <div class="imodal-close " data-imodal-dismiss="imodal"></div>
+                </div>
+                <div class="imodal-body">
+                    <div style="background-color: #abc;width:300px;min-height: 300px; color:#fff">내용부분
+                        <button type="button"  data-imodal-dismiss="imodal">닫기</button>
+                        <hr>
+                        기본<br>
+                        <div class="imodal-close " data-imodal-dismiss="imodal"></div>
+                        <div class="imodal-close white" data-imodal-dismiss="imodal"></div>
+                        <div class="imodal-close black" data-imodal-dismiss="imodal"></div>
+                        <hr>
+                        .mask-image (배경색으로 닫기 아이콘 색 변경)<br>
+                        <div class="imodal-close mask-image" data-imodal-dismiss="imodal"></div>
+                        <div class="imodal-close mask-image" style="background-color: #000;" data-imodal-dismiss="imodal"></div>
+                        <div class="imodal-close mask-image" style="background-color: red;" data-imodal-dismiss="imodal"></div>
+                        <div class="imodal-close mask-image" style="background-color: blue;" data-imodal-dismiss="imodal"></div>
+                        <div class="imodal-close mask-image" style="background-color: green;" data-imodal-dismiss="imodal"></div>
+                        <div class="imodal-close mask-image" style="background-color: yellow;" data-imodal-dismiss="imodal"></div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <button type="button" onclick="imodal.open(document.querySelector('#imodal_04'))">배경 뒤 흐리게(blur)</button>
+    <div class="imodal" id="imodal_04">
+        <div class="imodal-bg backdrop-filter-blur"  data-imodal-dismiss="none"></div>
+        <div class="imodal-box">
+            <div class="imodal-content">
+                <div class="imodal-header" >
+                    <div class="imodal-close" data-imodal-dismiss="imodal"></div>
+                </div>
+                <div class="imodal-body">
+                    <div style="background-color: #fff;width:300px;height: 300px;">내용부분</div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <button type="button" onclick="imodal.open(document.querySelector('#imodal_05'))">body의 스크롤 금지</button>
+    <div class="imodal imodal-body-noscroll" id="imodal_05">
+        <div class="imodal-bg "  data-imodal-dismiss="none"></div>
+        <div class="imodal-box">
+            <div class="imodal-content">
+                <div class="imodal-header" >
+                    <div class="imodal-close" data-imodal-dismiss="imodal"></div>
+                </div>
+                <div class="imodal-body">
+                    <div style="background-color: #fff;width:300px;height: 300px;">내용부분</div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <button type="button" onclick="imodal.open(document.querySelector('#imodal_06'))">fade</button>
+    <div class="imodal fade" id="imodal_06">
+        <div class="imodal-bg "  data-imodal-dismiss="none"></div>
+        <div class="imodal-box">
+            <div class="imodal-content">
+                <div class="imodal-header" >
+                    <div class="imodal-close" data-imodal-dismiss="imodal"></div>
+                </div>
+                <div class="imodal-body">
+                    <div style="background-color: #fff;width:300px;height: 300px;">내용부분</div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</body>
+</html>
