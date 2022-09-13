@@ -32,7 +32,8 @@ class NaverBlog{
             'Sec-Fetch-Dest: empty',
             'Sec-Fetch-Mode: cors',
             'Sec-Fetch-Site: same-origin',
-            'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+            // 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+            'User-Agent: cr-naver-blog',
         );
 
 
@@ -41,7 +42,8 @@ class NaverBlog{
         $exec_timeout = $this->exec_timeout;
         curl_setopt($conn, CURLOPT_HEADER, false); //응답헤더 OFF. ON 할경우 받는 파일에 헤더가 붙음.
         curl_setopt($conn, CURLOPT_RETURNTRANSFER , true); //응답 내용 가져올지 여부. TRUE면 내용을 리턴. FALSE면 직접 브라우저에 출력
-        curl_setopt($conn, CURLOPT_USERAGENT,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"); //User Agent 설정
+        // curl_setopt($conn, CURLOPT_USERAGENT,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"); //User Agent 설정
+        curl_setopt($conn, CURLOPT_USERAGENT,"cr-naver-blog"); //User Agent 설정
         curl_setopt($conn, CURLOPT_CONNECTTIMEOUT, $conn_timeout); //서버 접속시 timeout 설정
         curl_setopt($conn, CURLOPT_CONNECTTIMEOUT, $exec_timeout); //서버 접속시 timeout 설정
 
