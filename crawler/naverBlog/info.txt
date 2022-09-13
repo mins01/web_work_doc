@@ -1,0 +1,71 @@
+5일 방문자수 
+XML
+https://blog.naver.com/NVisitorgp4Ajax.naver?blogId=mins01
+
+
+이웃커넥트 > 나를 추가한 이웃
+https://section.blog.naver.com/connect/ViewMoreFollowers.naver?blogId=mins01&widgetSeq=1
+https://section.blog.naver.com/connect/ViewMoreFollowers.naver?blogId=ssuyeon0524&widgetSeq=1
+
+
+위젯정보
+카운터 정보(오늘/전체)
+JSON
+요청해더의 내용을 체크함(잘못되면 http code 204)
+설정에 따라서 가져오는 내용이 다름 (쿼리스트링이 설정 값임)
+https://blog.naver.com/WidgetListAsync.naver?blogId=mins01&listNumVisitor=5&isVisitorOpen=true&isBuddyOpen=true&selectCategoryNo=&skinId=0&skinType=C&isCategoryOpen=true&isEnglish=false&listNumComment=5&areaCode=11B10101&weatherType=0&currencySign=ALL&enableWidgetKeys=title%2Cmenu%2Cprofile%2Ccategory%2Ctag%2Ccalendar%2Cmapview%2Csearch%2Clibrary%2Ccomment%2Cvisitor%2Cbuddy%2Ccounter%2Cstat%2Crss%2Cpowered%2Ccontent%2Cgnb%2Cexternalwidget&writingMaterialListType=1&calType=
+https://blog.naver.com/WidgetListAsync.naver?blogId=ssuyeon0524&listNumVisitor=5&isVisitorOpen=false&isBuddyOpen=false&selectCategoryNo=15&skinId=0&skinType=C&isCategoryOpen=true&isEnglish=false&listNumComment=5&areaCode=11B10101&weatherType=0&currencySign=ALL&enableWidgetKeys=27%2C9%2CchallengeMasterTrack_3%2CchallengeMasterTrack_4%2CchallengeMasterTrack_2%2C26%2C25%2Cbuddyconnect%2Cvisitorgp%2Ccounter%2Crss%2Csearch%2C28%2Cmenu%2Cprofile%2Ccontent%2Cgnb%2Cexternalwidget&writingMaterialListType=1&calType=
+
+fetch("https://blog.naver.com/WidgetListAsync.naver?blogId=mins01&listNumVisitor=5&isVisitorOpen=true&isBuddyOpen=true&selectCategoryNo=&skinId=0&skinType=C&isCategoryOpen=true&isEnglish=false&listNumComment=5&areaCode=11B10101&weatherType=0&currencySign=ALL&enableWidgetKeys=title%2Cmenu%2Cprofile%2Ccategory%2Ctag%2Ccalendar%2Cmapview%2Csearch%2Clibrary%2Ccomment%2Cvisitor%2Cbuddy%2Ccounter%2Cstat%2Crss%2Cpowered%2Ccontent%2Cgnb%2Cexternalwidget&writingMaterialListType=1&calType=", {
+  "headers": {
+    "accept": "*/*",
+    "accept-language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
+    "charset": "utf-8",
+    "content-type": "application/x-www-form-urlencoded; charset=utf-8",
+    "sec-ch-ua": "\"Google Chrome\";v=\"105\", \"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"105\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-origin"
+  },
+  "referrer": "https://blog.naver.com/PostList.naver?blogId=mins01&widgetTypeCall=true&topReferer=https%3A%2F%2Fadmin.blog.naver.com%2FLayoutUpdate.naver%3FblogId%3Dmins01%26forward%3D0&directAccess=true",
+  "referrerPolicy": "unsafe-url",
+  "body": null,
+  "method": "GET",
+  "mode": "cors",
+  "credentials": "include"
+});
+
+
+curl 'https://blog.naver.com/WidgetListAsync.naver?blogId=mins01&listNumVisitor=5&isVisitorOpen=true&isBuddyOpen=true&selectCategoryNo=&skinId=0&skinType=C&isCategoryOpen=true&isEnglish=false&listNumComment=5&areaCode=11B10101&weatherType=0&currencySign=ALL&enableWidgetKeys=title%2Cmenu%2Cprofile%2Ccategory%2Ctag%2Ccalendar%2Cmapview%2Csearch%2Clibrary%2Ccomment%2Cvisitor%2Cbuddy%2Ccounter%2Cstat%2Crss%2Cpowered%2Ccontent%2Cgnb%2Cexternalwidget&writingMaterialListType=1&calType=' \
+  -H 'authority: blog.naver.com' \
+  -H 'accept: */*' \
+  -H 'accept-language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7' \
+  -H 'charset: utf-8' \
+  -H 'content-type: application/x-www-form-urlencoded; charset=utf-8' \
+  -H 'referer: https://blog.naver.com/PostList.naver?blogId=mins01&widgetTypeCall=true&topReferer=https%3A%2F%2Fadmin.blog.naver.com%2FLayoutUpdate.naver%3FblogId%3Dmins01%26forward%3D0&directAccess=true' \
+  -H 'sec-ch-ua: "Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Windows"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: same-origin' \
+  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36' \
+  --compressed
+
+  curl 'https://blog.naver.com/WidgetListAsync.naver?blogId=ssuyeon0524&listNumVisitor=5&isVisitorOpen=true&isBuddyOpen=true&selectCategoryNo=&skinId=0&skinType=C&isCategoryOpen=true&isEnglish=false&listNumComment=5&areaCode=11B10101&weatherType=0&currencySign=ALL&enableWidgetKeys=title%2Cmenu%2Cprofile%2Ccategory%2Ctag%2Ccalendar%2Cmapview%2Csearch%2Clibrary%2Ccomment%2Cvisitor%2Cbuddy%2Ccounter%2Cstat%2Crss%2Cpowered%2Ccontent%2Cgnb%2Cexternalwidget&writingMaterialListType=1&calType=' \
+  -H 'authority: blog.naver.com' \
+  -H 'accept: */*' \
+  -H 'accept-language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7' \
+  -H 'charset: utf-8' \
+  -H 'content-type: application/x-www-form-urlencoded; charset=utf-8' \
+  -H 'referer: https://blog.naver.com/PostList.naver?blogId=mins01&widgetTypeCall=true&topReferer=https%3A%2F%2Fadmin.blog.naver.com%2FLayoutUpdate.naver%3FblogId%3Dmins01%26forward%3D0&directAccess=true' \
+  -H 'sec-ch-ua: "Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Windows"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: same-origin' \
+  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36' \
+  --compressed
