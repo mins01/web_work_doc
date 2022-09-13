@@ -1,0 +1,33 @@
+https://abs.twimg.com/responsive-web/client-web/main.442638b9.js
+속에 
+s="AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA"
+이런 모양의 값이 있다, 이 값이 Authorization: Bearer  의 값이다.
+어느 주기로 변하는지 확인을 못했다.
+
+
+아이디 : cyJ2pzUq81mhV3m
+자동생성된 형태
+
+
+https://twitter.com/i/api/graphql/vG3rchZtwqiwlKgUYCrTRA/UserByScreenName?variables=%7B%22screen_name%22%3A%22cyj2pzuq81mhv3m%22%2C%22withSafetyModeUserFields%22%3Atrue%2C%22withSuperFollowsUserFields%22%3Atrue%7D&features=%7B%22responsive_web_graphql_timeline_navigation_enabled%22%3Afalse%7D
+
+curl 'https://twitter.com/i/api/graphql/vG3rchZtwqiwlKgUYCrTRA/UserByScreenName?variables=%7B%22screen_name%22%3A%22cyj2pzuq81mhv3m%22%2C%22withSafetyModeUserFields%22%3Atrue%2C%22withSuperFollowsUserFields%22%3Atrue%7D&features=%7B%22responsive_web_graphql_timeline_navigation_enabled%22%3Afalse%7D' \
+  -H 'authority: twitter.com' \
+  -H 'accept: */*' \
+  -H 'accept-language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7' \
+  -H 'authorization: Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA' \
+  -H 'content-type: application/json' \
+  -H 'cookie: personalization_id="v1_XrZKEQsJAKi8lYUfqvJBIQ=="; guest_id_marketing=v1%3A164516514326087796; guest_id_ads=v1%3A164516514326087796; guest_id=v1%3A164516514326087796; g_state={"i_p":1651026985682,"i_l":3}; kdt=YM3GWWpWJGhIgq0VSwZSjXG9yoD5wBXbtJSLpGSO; auth_token=9172550e0137e93cdceeef7ec396ae6f0d8bb643; ct0=0ff28d39339185e275a4f4d4d1fde711d02117f07e0b9a90168c2223d2acb0e843360cdea92e3a2c228cfb445eb9625f89494ba012c04361b57a512d40d288a61f5245d1bf91cf24ef86103afc9c2118; twid=u%3D1042993843879084032; dnt=1; mbox=PC#c2697d4bfc8040b78d410b19817be591.32_0#1721620934|session#415b15e6de9c4d028245f00080b58b03#1658377994; _ga_34PHSZMC42=GS1.1.1658374198.4.1.1658376136.0; _ga=GA1.2.1588822996.1645165143; external_referer=padhuUp37zjgzgv1mFWxJ12Ozwit7owX|0|8e8t2xd8A2w%3D; _gid=GA1.2.476757002.1663052359' \
+  -H 'referer: https://twitter.com/cyJ2pzUq81mhV3m' \
+  -H 'sec-ch-ua: "Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Windows"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: same-origin' \
+  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36' \
+  -H 'x-csrf-token: 0ff28d39339185e275a4f4d4d1fde711d02117f07e0b9a90168c2223d2acb0e843360cdea92e3a2c228cfb445eb9625f89494ba012c04361b57a512d40d288a61f5245d1bf91cf24ef86103afc9c2118' \
+  -H 'x-twitter-active-user: yes' \
+  -H 'x-twitter-auth-type: OAuth2Session' \
+  -H 'x-twitter-client-language: ko' \
+  --compressed
