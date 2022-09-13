@@ -2,8 +2,8 @@
 
 class NaverBlog{
     public $id = null;
-    public $conn_timeout	=	3;
-    public $exec_timeout	 =	3;
+    public $conn_timeout = 60;
+    public $exec_timeout = 60;
 
     public $result = null;
     public $data = array();
@@ -90,15 +90,15 @@ class NaverBlog{
         //-- 블로그 이웃/ 글 내보내기 / 글 스크랩
         $xml = simplexml_load_string($rs->stat->content);
         $r = $xml->xpath('ul/li/em');
-        $this->data['stat']['블로그 이웃'] = trim((string)$r[0]);
-        $this->data['stat']['글 보내기'] = trim((string)$r[1]);
-        $this->data['stat']['글 스크랩'] = trim((string)$r[2]);
+        $this->data['stat']['블로그 이웃'] = trim(preg_replace('/[^\d]/','',(string)$r[0]));
+        $this->data['stat']['글 보내기'] = trim(preg_replace('/[^\d]/','',(string)$r[1]));
+        $this->data['stat']['글 스크랩'] = trim(preg_replace('/[^\d]/','',(string)$r[2]));
         //-- 블로그 이웃/ 글 내보내기 / 글 스크랩
         $xml = simplexml_load_string('<div>'.$rs->counter->content.'</div>');
         $r = $xml->xpath('p[@class="today"]/span');
-       $this->data['counter']['Today'] = trim((string)$r[1]);
+       $this->data['counter']['Today'] = trim(preg_replace('/[^\d]/','',(string)$r[1]));
         $r = $xml->xpath('p[@class="total"]/span');
-       $this->data['counter']['Total'] = trim((string)$r[1]);        
+       $this->data['counter']['Total'] = trim(preg_replace('/[^\d]/','',(string)$r[1]));
     }
 
 }
