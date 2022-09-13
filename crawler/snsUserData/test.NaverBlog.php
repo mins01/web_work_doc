@@ -15,7 +15,7 @@ $id = $argv[1];
 $nb = new NaverBlog();
 
 $nb->crawling($id);
-// $nb->crawlingFromFile('temp/mins01.json');
+// $nb->crawlingFromFile('temp/naverblog-mins01.json');
 
 print_r($nb->data);
 // print_r($nb->result);
