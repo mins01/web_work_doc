@@ -2,7 +2,7 @@
 //https://pear.php.net/package/Services_JSON/download
 include('pear/Services_JSON.php');
 
-include('NaverBlog.php');
+include('src/NaverBlog.php');
 
 
 

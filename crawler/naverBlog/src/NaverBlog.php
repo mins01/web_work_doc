@@ -88,17 +88,21 @@ class NaverBlog{
         // var_dump($rs);exit;
         
         //-- 블로그 이웃/ 글 내보내기 / 글 스크랩
-        $xml = simplexml_load_string($rs->stat->content);
-        $r = $xml->xpath('ul/li/em');
-        $this->data['stat']['블로그 이웃'] = trim(preg_replace('/[^\d]/','',(string)$r[0]));
-        $this->data['stat']['글 보내기'] = trim(preg_replace('/[^\d]/','',(string)$r[1]));
-        $this->data['stat']['글 스크랩'] = trim(preg_replace('/[^\d]/','',(string)$r[2]));
-        //-- 블로그 이웃/ 글 내보내기 / 글 스크랩
-        $xml = simplexml_load_string('<div>'.$rs->counter->content.'</div>');
-        $r = $xml->xpath('p[@class="today"]/span');
-       $this->data['counter']['Today'] = trim(preg_replace('/[^\d]/','',(string)$r[1]));
-        $r = $xml->xpath('p[@class="total"]/span');
-       $this->data['counter']['Total'] = trim(preg_replace('/[^\d]/','',(string)$r[1]));
+        if(isset($rs->stat->content)){
+            $xml = simplexml_load_string($rs->stat->content);
+            $r = $xml->xpath('ul/li/em');
+            $this->data['stat']['블로그 이웃'] = trim(preg_replace('/[^\d]/','',(string)$r[0]));
+            $this->data['stat']['글 보내기'] = trim(preg_replace('/[^\d]/','',(string)$r[1]));
+            $this->data['stat']['글 스크랩'] = trim(preg_replace('/[^\d]/','',(string)$r[2]));
+        }
+        if(isset($rs->counter->content)){
+            //-- 블로그 이웃/ 글 내보내기 / 글 스크랩
+            $xml = simplexml_load_string('<div>'.$rs->counter->content.'</div>');
+            $r = $xml->xpath('p[@class="today"]/span');
+            $this->data['counter']['Today'] = trim(preg_replace('/[^\d]/','',(string)$r[1]));
+            $r = $xml->xpath('p[@class="total"]/span');
+            $this->data['counter']['Total'] = trim(preg_replace('/[^\d]/','',(string)$r[1]));
+        }
     }
 
 }
