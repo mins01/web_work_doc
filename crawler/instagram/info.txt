@@ -1,0 +1,23 @@
+기본 URL https://www.instagram.com/p/CgZKgZOLsOk/
+
+로그인 된 사태의 경우 아래 URL로 값일 가져옴
+https://i.instagram.com/api/v1/media/2889386842504741796/info/
+https://i.instagram.com/api/v1/media/{게시물아이디}/info/
+
+shortcode => CgZKgZOLsOk 처럼 된 값(게시물 아이디와 다름!)
+
+
+
+로그인 안된 경아래 값 사용.
+https://www.instagram.com/graphql/query/?query_hash=9f8827793ef34641b2fb195d4d41151c&variables=%7B%22shortcode%22%3A%22CgZKgZOLsOk%22%2C%22child_comment_count%22%3A3%2C%22fetch_comment_count%22%3A40%2C%22parent_comment_count%22%3A24%2C%22has_threaded_comments%22%3Atrue%7D
+
+
+
+https://www.instagram.com/graphql/query/?query_hash=9f8827793ef34641b2fb195d4d41151c&variables={"shortcode":"CgZKgZOLsOk","child_comment_count":3,"fetch_comment_count":40,"parent_comment_count":24,"has_threaded_comments":true}
+
+
+https://www.instagram.com/graphql/query/?query_hash=9f8827793ef34641b2fb195d4d41151c&variables=%7B%22shortcode%22%3A%22--------------%22%2C%22child_comment_count%22%3A3%2C%22fetch_comment_count%22%3A40%2C%22parent_comment_count%22%3A24%2C%22has_threaded_comments%22%3Atrue%7D
+
+query_hash는 
+https://static.cdninstagram.com/rsrc.php/v3iOvi4/yJ/l/ko_KR/_HrWBsnQ0Ae.js 
+속에 값이 정의 되어있음.
