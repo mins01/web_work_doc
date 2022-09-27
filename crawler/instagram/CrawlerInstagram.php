@@ -23,8 +23,37 @@ class CrawlerInstagram{
             file_put_contents($cached_path,$body);
             echo "save-cache\n";
         }
+        $doc = new DOMDocument();
+        $doc->loadHTML($body);
+        // print_r($doc);
+        $xml = simplexml_import_dom($doc);
+        $this->parseOpenGraph($xml);
+        $this->urlRsrcphpScript($xml);
+        // print_r($xml);
         
+        // print_r($metas);
+        // $xml = simplexml_load_string($body,'SimpleXMLElement',LIBXML_NOCDATA | LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD |LIBXML_NOENT  );
         // print_r($body);
+    }
+
+    private function parseOpenGraph($xml){
+        $metas = $xml->xpath('//meta[contains(@property,"og:")]');
+        $ogs = array();
+        foreach($metas as $meta){
+            $property = (string)$meta['property'];
+            $content = (string)$meta['content'];
+
+            if(!isset($ogs[$property])){
+                $ogs[$property] = array();
+            }
+            $ogs[$property][] = $content;
+        }
+        return $ogs;
+    }
+    private function urlRsrcphpScript($xml){
+        $script = $xml->xpath('//script[contains(@src,"rsrc.php")]');
+        print_r($script);
+        
     }
 
 
