@@ -5,37 +5,46 @@ class CrawlerInstagram{
     public $cache_dir = './cache';
     public $conn_timeout = 60;
     public $exec_timeout = 60;
+    public $debug = false;
 
     function __construct(){
 
     }
 
     public function mediaByShortcode($shortcode){
-        $cached_path = "{$this->cache_dir}/{$shortcode}.html";
-        if(is_file($cached_path)){
-            $body = file_get_contents($cached_path);
-            echo "cached\n";
-        }else{
-            $url = 'https://www.instagram.com/p/'.urlencode($shortcode).'/';
-            $rs = $this->curlGet($url);
-            $body = $rs['body'];
-            echo "no-cache\n";
-            file_put_contents($cached_path,$body);
-            echo "save-cache\n";
-        }
+        $shortcode_media = array(
+            'shortcode'=>$shortcode,
+        );
+        $cacheKey = "{$shortcode}.html";
+        $url = 'https://www.instagram.com/p/'.urlencode($shortcode).'/';
+        $body = $this->curlGetBodyWithCache($url,$cacheKey,86400);
+
         $doc = new DOMDocument();
         $doc->loadHTML($body);
         // print_r($doc);
         $xml = simplexml_import_dom($doc);
-        $this->parseOpenGraph($xml);
-        $this->urlRsrcphpScript($xml);
-        // print_r($xml);
-        
-        // print_r($metas);
-        // $xml = simplexml_load_string($body,'SimpleXMLElement',LIBXML_NOCDATA | LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD |LIBXML_NOENT  );
-        // print_r($body);
+        $open_graph = $this->parseOpenGraph($xml);
+        $shortcode_media['open_graph'] = $open_graph;
+
+
+        $variables = array(
+            'shortcode'=>$shortcode,
+            'child_comment_count'=>3,
+            'fetch_comment_count'=>40,
+            'parent_comment_count'=>24,
+            'has_threaded_comments'=>true,
+        );        
+        $query_hashes = $this->getQueryHashes($xml);
+        $json_q = $this->getJsonGraphqlQuery($query_hashes[0],$variables);
+        $like = isset($json_q['data']['shortcode_media']['edge_media_preview_like']['count'])?$json_q['data']['shortcode_media']['edge_media_preview_like']['count']:null;
+        $shortcode_media_id = isset($json_q['data']['shortcode_media']['id'])?$json_q['data']['shortcode_media']['id']:null;
+        $shortcode_media['id'] = $shortcode_media_id;
+        $shortcode_media['like'] = $like;
+
+        return $shortcode_media;
     }
 
+    // og 정보 추려내기
     private function parseOpenGraph($xml){
         $metas = $xml->xpath('//meta[contains(@property,"og:")]');
         $ogs = array();
@@ -50,14 +59,69 @@ class CrawlerInstagram{
         }
         return $ogs;
     }
-    private function urlRsrcphpScript($xml){
-        $script = $xml->xpath('//script[contains(@src,"rsrc.php")]');
-        print_r($script);
-        
+
+    // query_hash 가져오기
+    private function getQueryHashes($xml){
+        $scripts = $xml->xpath('//script[contains(@src,"rsrc.php")]');
+        $query_hashes = array();
+        // print_r($scripts);
+        foreach($scripts as $script){
+            $src = (string)$script['src'];
+            // echo $src;exit;
+            $cacheKey = hash('sha256',$src).'.js';
+            echo  "{$src} => {$cacheKey}\n";
+            $body = $this->curlGetBodyWithCache($src,$cacheKey,86400*7);
+            $matches = array();
+            // function(a,b,c,d,e,f,g,h){"use strict";var i="9f8827793ef34641b2fb195d4d41151c",j="6ff3f5c474a240353993056428fb851e",k="ba5c3def9f75f43213da3d428f4c783a";
+            // preg_match('/function\(a,b,c,d,e,f,g,h\)\{"use strict";var i="(.{32})",j="([0-9a-fA-F]{32})",k="([0-9a-fA-F]{32})";/',$body,$matches);
+            preg_match('/function\(a,b,c,d,e,f,g,h\)\{"use strict";var i="([\da-fA-F]{32})",j="([0-9a-fA-F]{32})",k="([0-9a-fA-F]{32})";/',$body,$matches);
+            if(!isset($matches[0])){
+                continue;
+            }
+
+            $query_hashes[] = $matches[1];
+            $query_hashes[] = $matches[2];
+            $query_hashes[] = $matches[3];
+            
+            
+        }
+        return $query_hashes;        
     }
 
+    // 
+    public function getJsonGraphqlQuery($query_hash,$variables){
+        // $variables = {"shortcode":"CgZKgZOLsOk","child_comment_count":3,"fetch_comment_count":40,"parent_comment_count":24,"has_threaded_comments":true}
+        $url = "https://www.instagram.com/graphql/query/?query_hash={$query_hash}&variables=".urlencode(json_encode($variables));
+        // echo $url ;exit;
+        // $rs = $this->curlGet($url); $body = $rs['body'];
+        $cacheKey = "{$query_hash}.json";
+        $body = $this->curlGetBodyWithCache($url,$cacheKey,60*60);
+        if(!isset($body[10])){return null;}
+        return json_decode($body,true);
+    }
+    
 
 
+    public function curlGetBodyWithCache($url,$cacheKey,$expire=3600){
+        if(!$url[0]){return null;}
+        $cached_path = "{$this->cache_dir}/{$cacheKey}";
+        $body = null;
+        if(is_file($cached_path) && time()-$expire <= filemtime($cached_path)){
+            $body = file_get_contents($cached_path);
+            if($this->debug) echo "cached\n";
+        }else{
+            if($this->debug && is_file($cached_path) && time()-$expire > filemtime($cached_path)){
+                echo "expired\n";
+            }
+            // $url = 'https://www.instagram.com/p/'.urlencode($shortcode).'/';
+            $rs = $this->curlGet($url);
+            $body = $rs['body'];
+            if($this->debug) echo "no-cache\n";
+            file_put_contents($cached_path,$body);
+            if($this->debug) echo "save-cache\n";
+        }
+        return $body;
+    }
     public function curlGet($url){
         
         // $url = 'https://www.instagram.com/p/CgZKgZOLsOk/';
