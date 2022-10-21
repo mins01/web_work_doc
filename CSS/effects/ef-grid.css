@@ -9,21 +9,28 @@
     --translate-move-minus:calc(-1 * var(--translate-move));
     --translate-move-zero:calc(0 * var(--translate-move));
     --transition-delay:100ms;
-    --transition-timing-function:steps(6, start);
+    /* --transition-timing-function:steps(4, start); */ /* 끊어지듯 동작한다 */
+    --transition-timing-function:linear;
     --grid-template-rows-number:5;
     --grid-template-columns-number:5;
 
     --filter:blur(0px) brightness(1) contrast(1) grayscale(0) hue-rotate(720deg) invert(0) opacity(0) saturate(1) sepia(0);
     --filter-on:blur(0) brightness(1) contrast(1) grayscale(0) hue-rotate(0) invert(0) opacity(1) saturate(1) sepia(0);
 }
+
+
 /* 그리드 자식 공용 설정 부분 */
-.ef-grid > *{ background-color: #abc; }
+.ef-grid > *{ 
+    background-color: #abc; 
+    pointer-events: none;
+}
 .ef-grid > * {
+    /* will-change 사용시 하드웨어 가속으로, paint 가속 됨. */
+    /* will-change:trasform; */
     transition: all var(--transition-duration) var(--transition-timing-function);
 }
 /* 그리드 공용 설정 */
 .ef-grid{
-    pointer-events: none;
     display: grid;
     grid-template-rows: repeat(var(--grid-template-rows-number), 1fr);
     grid-template-columns: repeat(var(--grid-template-columns-number), 1fr);
@@ -96,7 +103,7 @@
 
 /* 반짝이며 보이는 그리드 */
 .ef-grid-opacity > *{
-    filter: blur(2px)  opacity(0)  ;
+    filter: blur(0px)  opacity(0)  ;
 }
 
 .ef-grid-opacity.ef-on > *{
@@ -119,4 +126,20 @@
 }
 .ef-grid-filter.ef-on > *{
     filter:var(--filter-on)
+}
+
+
+
+/* fps timing 설정 */
+.ef-fps-24{
+    --transition-timing-function:steps(12, start);
+    --transition-duration:0.5s;
+}
+.ef-fps-12{
+    --transition-timing-function:steps(6, start);
+    --transition-duration:0.5s;
+}
+.ef-fps-6{
+    --transition-timing-function:steps(3, start);
+    --transition-duration:0.5s;
 }

@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="ef-grid.css">
 	<style>
         .p10px{padding:10px;}
-        .ex-box{margin:0 auto;}
+        .ex-box{margin:0 auto; width:200px; height:200px;}
     </style>
     <script>
         window.addEventListener('load',(event)=>{
@@ -59,17 +59,37 @@
             <h2>ef-grid-opacity</h2>
             <div class="row">
                 <div class="col-lg-6 p10px">
-                    <div id="ex-ef-grid-opacity-01" class="ex-box ef ef-grid ef-grid-opacity" style="width:300px;height:300px; --transition-duration:3s">
+                    <div id="ex-ef-grid-opacity-01" class="ex-box ef ef-grid ef-grid-opacity" style="">
                         <div data-delay="1"></div><div data-delay="2"></div><div data-delay="3"></div><div data-delay="4"></div><div data-delay="0"></div>
                         <div data-delay="0"></div><div data-delay="4"></div><div data-delay="3"></div><div data-delay="2"></div><div data-delay="1"></div>
                         <div data-delay="3"></div><div data-delay="2"></div><div data-delay="1"></div><div data-delay="4"></div><div data-delay="0"></div>
                         <div data-delay="4"></div><div data-delay="0"></div><div data-delay="2"></div><div data-delay="2"></div><div data-delay="1"></div>
                         <div data-delay="3"></div><div data-delay="0"></div><div data-delay="4"></div><div data-delay="4"></div><div data-delay="1"></div>
                     </div>
-                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-opacity-01').classList.toggle('ef-on')">동작</button> with --transition-duration:3s
+                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-opacity-01').classList.toggle('ef-on')">동작</button>
                 </div>
                 <div class="col-lg-6 p10px">
-                    <div id="ex-ef-grid-opacity-02" class="ex-box ef ef-grid ef-grid-opacity ef-on" style="width:300px;height:300px;--transition-delay:10ms; " data-ef-grid-size="10">
+                    <div id="ex-ef-grid-opacity-01-01" class="ex-box ef ef-grid ef-grid-opacity" style=" --transition-timing-function:steps(4, start);;">
+                        <div data-delay="1"></div><div data-delay="2"></div><div data-delay="3"></div><div data-delay="4"></div><div data-delay="0"></div>
+                        <div data-delay="0"></div><div data-delay="4"></div><div data-delay="3"></div><div data-delay="2"></div><div data-delay="1"></div>
+                        <div data-delay="3"></div><div data-delay="2"></div><div data-delay="1"></div><div data-delay="4"></div><div data-delay="0"></div>
+                        <div data-delay="4"></div><div data-delay="0"></div><div data-delay="2"></div><div data-delay="2"></div><div data-delay="1"></div>
+                        <div data-delay="3"></div><div data-delay="0"></div><div data-delay="4"></div><div data-delay="4"></div><div data-delay="1"></div>
+                    </div>
+                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-opacity-01-01').classList.toggle('ef-on')">동작</button> with --transition-timing-function:steps(4, start);
+                </div>
+                <div class="col-lg-6 p10px">
+                    <div id="ex-ef-grid-opacity-01-02" class="ex-box ef ef-grid ef-grid-opacity" style=" --transition-delay:500ms;--transition-duration:2s">
+                        <div data-delay="1"></div><div data-delay="2"></div><div data-delay="3"></div><div data-delay="4"></div><div data-delay="0"></div>
+                        <div data-delay="0"></div><div data-delay="4"></div><div data-delay="3"></div><div data-delay="2"></div><div data-delay="1"></div>
+                        <div data-delay="3"></div><div data-delay="2"></div><div data-delay="1"></div><div data-delay="4"></div><div data-delay="0"></div>
+                        <div data-delay="4"></div><div data-delay="0"></div><div data-delay="2"></div><div data-delay="2"></div><div data-delay="1"></div>
+                        <div data-delay="3"></div><div data-delay="0"></div><div data-delay="4"></div><div data-delay="4"></div><div data-delay="1"></div>
+                    </div>
+                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-opacity-01-02').classList.toggle('ef-on')">동작</button> with --transition-delay:500ms;--transition-duration:2s
+                </div>
+                <div class="col-lg-6 p10px">
+                    <div id="ex-ef-grid-opacity-02" class="ex-box ef ef-grid ef-grid-opacity ef-on" style="--transition-delay:50ms;--transition-duration:0.5s " data-ef-grid-size="10">
                         <div data-delay="1"></div><div data-delay="2"></div><div data-delay="3"></div><div data-delay="4"></div><div data-delay="0"></div><div data-delay="1"></div><div data-delay="2"></div><div data-delay="3"></div><div data-delay="4"></div><div data-delay="0"></div>
                         <div data-delay="0"></div><div data-delay="4"></div><div data-delay="3"></div><div data-delay="2"></div><div data-delay="1"></div><div data-delay="0"></div><div data-delay="4"></div><div data-delay="3"></div><div data-delay="2"></div><div data-delay="1"></div>
                         <div data-delay="3"></div><div data-delay="2"></div><div data-delay="1"></div><div data-delay="4"></div><div data-delay="0"></div><div data-delay="3"></div><div data-delay="2"></div><div data-delay="1"></div><div data-delay="4"></div><div data-delay="0"></div>
@@ -81,7 +101,7 @@
                         <div data-delay="4"></div><div data-delay="0"></div><div data-delay="2"></div><div data-delay="2"></div><div data-delay="1"></div><div data-delay="4"></div><div data-delay="0"></div><div data-delay="2"></div><div data-delay="2"></div><div data-delay="1"></div>
                         <div data-delay="3"></div><div data-delay="0"></div><div data-delay="4"></div><div data-delay="4"></div><div data-delay="1"></div><div data-delay="3"></div><div data-delay="0"></div><div data-delay="4"></div><div data-delay="4"></div><div data-delay="1"></div>
                     </div>
-                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-opacity-02').classList.toggle('ef-on')">동작</button> with --transition-delay:10ms
+                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-opacity-02').classList.toggle('ef-on')">동작</button> with --transition-delay:50ms;--transition-duration:0.5s
                 </div>
                 <div class="col-lg-6 p10px">
                     <div id="ex-ef-grid-opacity-03" class="ex-box ef ef-grid ef-grid-opacity" style="width:100%;height:300px;" data-ef-grid-size="20">
@@ -115,7 +135,7 @@
             <h2>ef-grid-opacity + ef-grid-translate</h2>
             <div class="row">
                 <div class="col-lg-6 p10px">
-                    <div id="ex-ef-grid-translate-01" class="ex-box ef ef-grid ef-grid-opacity ef-grid-translate" style="width:300px;height:300px;">
+                    <div id="ex-ef-grid-translate-01" class="ex-box ef ef-grid ef-grid-opacity ef-grid-translate" style="">
                         <div data-translate="1" data-delay="1"></div><div data-translate="2" data-delay="2"></div><div data-translate="3" data-delay="3"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
                         <div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
                         <div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
@@ -125,7 +145,17 @@
                     <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-translate-01').classList.toggle('ef-on')">동작</button>
                 </div>
                 <div class="col-lg-6 p10px">
-                    <div id="ex-ef-grid-translate-02" class="ex-box ef ef-grid ef-grid-opacity ef-grid-translate ef-grid-translate-x ef-on" style="width:300px;height:300px;" data-ef-grid-size="10">
+                    <div id="ex-ef-grid-translate-01-01" class="ex-box ef ef-grid ef-grid-opacity ef-grid-translate" style=" --transition-timing-function:steps(4, start);;">
+                        <div data-translate="1" data-delay="1"></div><div data-translate="2" data-delay="2"></div><div data-translate="3" data-delay="3"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
+                        <div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
+                        <div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
+                        <div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="2" data-delay="2"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
+                        <div data-translate="3" data-delay="3"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="4" data-delay="4"></div><div data-translate="1" data-delay="1"></div>
+                    </div>
+                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-translate-01-01').classList.toggle('ef-on')">동작</button>  with --transition-timing-function:steps(4, start);
+                </div>
+                <div class="col-lg-6 p10px">
+                    <div id="ex-ef-grid-translate-02" class="ex-box ef ef-grid ef-grid-opacity ef-grid-translate ef-grid-translate-x ef-on" style="" data-ef-grid-size="10">
                         <div data-translate="1" data-delay="1"></div><div data-translate="2" data-delay="2"></div><div data-translate="3" data-delay="3"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="1" data-delay="1"></div><div data-translate="2" data-delay="2"></div><div data-translate="3" data-delay="3"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
                         <div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
                         <div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
@@ -137,7 +167,7 @@
                         <div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="2" data-delay="2"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="2" data-delay="2"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
                         <div data-translate="3" data-delay="3"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="4" data-delay="4"></div><div data-translate="1" data-delay="1"></div><div data-translate="3" data-delay="3"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="4" data-delay="4"></div><div data-translate="1" data-delay="1"></div>
                     </div>
-                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-translate-02').classList.toggle('ef-on')">동작</button>
+                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-translate-02').classList.toggle('ef-on')">동작</button> with .ef-grid-translate-x
                 </div>
                 <div class="col-lg-6 p10px">
                     <div id="ex-ef-grid-translate-03" class="ex-box ef ef-grid ef-grid-opacity ef-grid-translate ef-grid-translate-y" style="width:100%;height:300px;" data-ef-grid-size="20">
@@ -162,7 +192,7 @@
                         <div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="2" data-delay="2"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="2" data-delay="2"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="2" data-delay="2"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="2" data-delay="2"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
                         <div data-translate="3" data-delay="3"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="4" data-delay="4"></div><div data-translate="1" data-delay="1"></div><div data-translate="3" data-delay="3"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="4" data-delay="4"></div><div data-translate="1" data-delay="1"></div><div data-translate="3" data-delay="3"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="4" data-delay="4"></div><div data-translate="1" data-delay="1"></div><div data-translate="3" data-delay="3"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="4" data-delay="4"></div><div data-translate="1" data-delay="1"></div>
                     </div>
-                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-translate-03').classList.toggle('ef-on')">동작</button>
+                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-translate-03').classList.toggle('ef-on')">동작</button> with ef-grid-translate-y
                 </div>
             </div>
         </section>
@@ -171,7 +201,7 @@
             <h2>ef-grid-filter + ef-grid-translate</h2>
             <div class="row">
                 <div class="col-lg-6 p10px">
-                    <div id="ex-ef-grid-filter-01" class="ex-box ef ef-grid ef-grid-filter ef-grid-translate" style="width:300px;height:300px;">
+                    <div id="ex-ef-grid-filter-01" class="ex-box ef ef-grid ef-grid-filter ef-grid-translate" style="">
                         <div data-translate="1" data-delay="1"></div><div data-translate="2" data-delay="2"></div><div data-translate="3" data-delay="3"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
                         <div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
                         <div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
@@ -181,7 +211,7 @@
                     <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-filter-01').classList.toggle('ef-on')">동작</button>
                 </div>
                 <div class="col-lg-6 p10px">
-                    <div id="ex-ef-grid-filter-02" class="ex-box ef ef-grid ef-grid-filter ef-grid-translate ef-grid-translate-x ef-on" style="width:300px;height:300px; --filter:blur(10px) brightness(1) contrast(1) grayscale(0) hue-rotate(0deg) invert(0) opacity(0) saturate(1);" data-ef-grid-size="10">
+                    <div id="ex-ef-grid-filter-02" class="ex-box ef ef-grid ef-grid-filter ef-grid-translate ef-grid-translate-x ef-on" style=" --filter:blur(10px) brightness(1) contrast(1) grayscale(0) hue-rotate(0deg) invert(0) opacity(0) saturate(1);" data-ef-grid-size="10">
                         <div data-translate="1" data-delay="1"></div><div data-translate="2" data-delay="2"></div><div data-translate="3" data-delay="3"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="1" data-delay="1"></div><div data-translate="2" data-delay="2"></div><div data-translate="3" data-delay="3"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
                         <div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
                         <div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
@@ -219,6 +249,72 @@
                         <div data-translate="3" data-delay="3"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="4" data-delay="4"></div><div data-translate="1" data-delay="1"></div><div data-translate="3" data-delay="3"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="4" data-delay="4"></div><div data-translate="1" data-delay="1"></div><div data-translate="3" data-delay="3"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="4" data-delay="4"></div><div data-translate="1" data-delay="1"></div><div data-translate="3" data-delay="3"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="4" data-delay="4"></div><div data-translate="1" data-delay="1"></div>
                     </div>
                     <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-filter-03').classList.toggle('ef-on')">동작</button>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2>--transition-timing-function:steps(N, start);</h2>
+            <h3>--transition-duration:0.5s 기준이며, N*2 가 fps 가 된다.</h3>
+            <div class="row">
+                <div class="col-lg-6 p10px">
+                    <div id="ex-ef-steps-30-01" class="ex-box ef ef-grid ef-grid-filter ef-grid-translate" style="--transition-timing-function:steps(30, start);">
+                        <div data-translate="1" data-delay="1"></div><div data-translate="2" data-delay="2"></div><div data-translate="3" data-delay="3"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
+                        <div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
+                        <div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
+                        <div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="2" data-delay="2"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
+                        <div data-translate="3" data-delay="3"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="4" data-delay="4"></div><div data-translate="1" data-delay="1"></div>
+                    </div>
+                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-steps-30-01').classList.toggle('ef-on')">동작</button> with --transition-timing-function:steps(30, start); (60 fps)
+                </div>
+                <div class="col-lg-6 p10px">
+                    <div id="ex-ef-steps-12-01" class="ex-box ef ef-grid ef-grid-filter ef-grid-translate" style="--transition-timing-function:steps(12, start);">
+                        <div data-translate="1" data-delay="1"></div><div data-translate="2" data-delay="2"></div><div data-translate="3" data-delay="3"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
+                        <div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
+                        <div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
+                        <div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="2" data-delay="2"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
+                        <div data-translate="3" data-delay="3"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="4" data-delay="4"></div><div data-translate="1" data-delay="1"></div>
+                    </div>
+                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-steps-12-01').classList.toggle('ef-on')">동작</button> with --transition-timing-function:steps(12, start); (24 fps)
+                </div>
+                <div class="col-lg-6 p10px">
+                    <div id="ex-ef-steps-6-01" class="ex-box ef ef-grid ef-grid-filter ef-grid-translate" style="--transition-timing-function:steps(6, start);">
+                        <div data-translate="1" data-delay="1"></div><div data-translate="2" data-delay="2"></div><div data-translate="3" data-delay="3"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
+                        <div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
+                        <div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
+                        <div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="2" data-delay="2"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
+                        <div data-translate="3" data-delay="3"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="4" data-delay="4"></div><div data-translate="1" data-delay="1"></div>
+                    </div>
+                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-steps-6-01').classList.toggle('ef-on')">동작</button> with --transition-timing-function:steps(6, start); (12 fps)
+                </div>
+                <div class="col-lg-6 p10px">
+                    <div id="ex-ef-steps-3-01" class="ex-box ef ef-grid ef-grid-filter ef-grid-translate" style="--transition-timing-function:steps(3, start);">
+                        <div data-translate="1" data-delay="1"></div><div data-translate="2" data-delay="2"></div><div data-translate="3" data-delay="3"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
+                        <div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
+                        <div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
+                        <div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="2" data-delay="2"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
+                        <div data-translate="3" data-delay="3"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="4" data-delay="4"></div><div data-translate="1" data-delay="1"></div>
+                    </div>
+                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-steps-3-01').classList.toggle('ef-on')">동작</button> with --transition-timing-function:steps(3, start); (6 fps)
+                </div>
+                <div class="col-lg-6 p10px">
+                    <div id="ex-ef-steps-2-01" class="ex-box ef ef-grid ef-grid-filter ef-grid-translate" style="--transition-timing-function:steps(2, start);">
+                        <div data-translate="1" data-delay="1"></div><div data-translate="2" data-delay="2"></div><div data-translate="3" data-delay="3"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
+                        <div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
+                        <div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
+                        <div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="2" data-delay="2"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
+                        <div data-translate="3" data-delay="3"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="4" data-delay="4"></div><div data-translate="1" data-delay="1"></div>
+                    </div>
+                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-steps-2-01').classList.toggle('ef-on')">동작</button> with --transition-timing-function:steps(2, start); (4 fps)
+                </div>
+                <div class="col-lg-6 p10px">
+                    <div id="ex-ef-steps-1-01" class="ex-box ef ef-grid ef-grid-filter ef-grid-translate" style="--transition-timing-function:steps(1, start);">
+                        <div data-translate="1" data-delay="1"></div><div data-translate="2" data-delay="2"></div><div data-translate="3" data-delay="3"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
+                        <div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
+                        <div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
+                        <div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="2" data-delay="2"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
+                        <div data-translate="3" data-delay="3"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="4" data-delay="4"></div><div data-translate="1" data-delay="1"></div>
+                    </div>
+                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-steps-1-01').classList.toggle('ef-on')">동작</button> with --transition-timing-function:steps(1, start); (2 fps)
                 </div>
             </div>
         </section>
