@@ -1,0 +1,73 @@
+@charset "utf-8";
+
+/* 공용 설정 부분 */
+.ef-grid > *{ background-color: #999; }
+.ef-grid > * {
+    transition: all 0.5s steps(6, end);
+    /* transition: filter 1s  linear; */
+}
+
+/* transition 딜레이 */
+.ef-grid > *[data-delay="0"]{ transition-delay: 0.0s; }
+.ef-grid > *[data-delay="1"]{ transition-delay: 0.1s; }
+.ef-grid > *[data-delay="2"]{ transition-delay: 0.2s; }
+.ef-grid > *[data-delay="3"]{ transition-delay: 0.3s; }
+.ef-grid > *[data-delay="4"]{ transition-delay: 0.4s; }
+.ef-grid > *[data-delay="5"]{ transition-delay: 0.5s; }
+.ef-grid > *[data-delay="6"]{ transition-delay: 0.6s; }
+.ef-grid > *[data-delay="7"]{ transition-delay: 0.7s; }
+.ef-grid > *[data-delay="8"]{ transition-delay: 0.8s; }
+.ef-grid > *[data-delay="9"]{ transition-delay: 0.9s; }
+.ef-grid > *[data-delay="10"]{ transition-delay: 0.10s; }
+/* 기본 위치 */
+.ef-grid > *[data-translate="0"]{ transform: translate(0px,0px); }
+.ef-grid > *[data-translate="1"]{ transform: translate(0px,-50px); }
+.ef-grid > *[data-translate="2"]{ transform: translate(50px,-50px); }
+.ef-grid > *[data-translate="3"]{ transform: translate(50px,0px); }
+.ef-grid > *[data-translate="4"]{ transform: translate(50px,50px); }
+.ef-grid > *[data-translate="5"]{ transform: translate(0px,50px); }
+.ef-grid > *[data-translate="6"]{ transform: translate(0px,50px); }
+.ef-grid > *[data-translate="7"]{ transform: translate(-50px,0px); }
+.ef-grid > *[data-translate="8"]{ transform: translate(-50px,-50px); }
+
+
+/* 그리드 공용 설정 */
+.ef-grid{
+    pointer-events: none;
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+}
+.ef-grid[data-ef-grid-size="5"]{
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+}
+.ef-grid[data-ef-grid-size="10"]{
+    grid-template-rows: repeat(10, 1fr);
+    grid-template-columns: repeat(10, 1fr);
+}
+.ef-grid[data-ef-grid-size="20"]{
+    grid-template-rows: repeat(20, 1fr);
+    grid-template-columns: repeat(20, 1fr);
+}
+
+
+
+/* 반짝이며 보이는 그리드 */
+.ef-grid-opacity > *{
+    filter: blur(2px)  opacity(0)  ;
+}
+
+.ef-grid-opacity.on > *{
+    filter: blur(0px)  opacity(1) ;    
+}
+
+/* 이동하면서 채워지는 그리드 */ 
+.ef-grid-translate > *{
+    transform: translate(0px,-100px);
+}
+
+.ef-grid-translate.on > *{
+    transform: translate(0px,0);
+}
+
