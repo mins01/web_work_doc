@@ -1,0 +1,110 @@
+@charset "utf-8";
+
+
+/* 기본 변수 */
+.ef-grid{
+    --transition-duration:0.5s;
+    --translate-move:100px;
+    --translate-move-plus:calc(1 * var(--translate-move));
+    --translate-move-minus:calc(-1 * var(--translate-move));
+    --translate-move-zero:calc(0 * var(--translate-move));
+    --transition-delay:100ms;
+    --transition-timing-function:steps(6, end);
+}
+/* 공용 설정 부분 */
+.ef-grid > *{ background-color: #999; }
+.ef-grid > * {
+    transition: all var(--transition-duration) var(--transition-timing-function);
+}
+
+/* transition 딜레이 */
+.ef-grid > *[data-delay="0"]{ transition-delay: calc(var(--transition-delay) * 0); }
+.ef-grid > *[data-delay="1"]{ transition-delay: calc(var(--transition-delay) * 1); }
+.ef-grid > *[data-delay="2"]{ transition-delay: calc(var(--transition-delay) * 2); }
+.ef-grid > *[data-delay="3"]{ transition-delay: calc(var(--transition-delay) * 3); }
+.ef-grid > *[data-delay="4"]{ transition-delay: calc(var(--transition-delay) * 4); }
+.ef-grid > *[data-delay="5"]{ transition-delay: calc(var(--transition-delay) * 5); }
+.ef-grid > *[data-delay="6"]{ transition-delay: calc(var(--transition-delay) * 6); }
+.ef-grid > *[data-delay="7"]{ transition-delay: calc(var(--transition-delay) * 7); }
+.ef-grid > *[data-delay="8"]{ transition-delay: calc(var(--transition-delay) * 8); }
+.ef-grid > *[data-delay="9"]{ transition-delay: calc(var(--transition-delay) * 9); }
+.ef-grid > *[data-delay="10"]{ transition-delay: calc(var(--transition-delay) * 10); }
+/* 기본 이동 위치 */
+.ef-grid-translate > *[data-translate="0"]{ transform: translate(var(--translate-move-zero),var(--translate-move-zero)); }
+.ef-grid-translate > *[data-translate="1"]{ transform: translate(var(--translate-move-zero),var(--translate-move-minus)); }
+.ef-grid-translate > *[data-translate="2"]{ transform: translate(var(--translate-move-plus),var(--translate-move-minus)); }
+.ef-grid-translate > *[data-translate="3"]{ transform: translate(var(--translate-move-plus),var(--translate-move-zero)); }
+.ef-grid-translate > *[data-translate="4"]{ transform: translate(var(--translate-move-plus),var(--translate-move-plus)); }
+.ef-grid-translate > *[data-translate="5"]{ transform: translate(var(--translate-move-zero),var(--translate-move-plus)); }
+.ef-grid-translate > *[data-translate="6"]{ transform: translate(var(--translate-move-zero),var(--translate-move-plus)); }
+.ef-grid-translate > *[data-translate="7"]{ transform: translate(var(--translate-move-minus),var(--translate-move-zero)); }
+.ef-grid-translate > *[data-translate="8"]{ transform: translate(var(--translate-move-minus),var(--translate-move-minus)); }
+
+/* x축만 이동 */
+.ef-grid-translate-x > *[data-translate="1"],
+.ef-grid-translate-x > *[data-translate="2"],
+.ef-grid-translate-x > *[data-translate="3"],
+.ef-grid-translate-x > *[data-translate="4"]
+{ transform: translate(var(--translate-move-minus),var(--translate-move-zero)); }
+.ef-grid-translate-x > *[data-translate="5"],
+.ef-grid-translate-x > *[data-translate="6"],
+.ef-grid-translate-x > *[data-translate="7"],
+.ef-grid-translate-x > *[data-translate="8"]
+{ transform: translate(var(--translate-move-plus),var(--translate-move-zero)); }
+
+/* x축만 이동 */
+.ef-grid-translate-y > *[data-translate="1"],
+.ef-grid-translate-y > *[data-translate="2"],
+.ef-grid-translate-y > *[data-translate="3"],
+.ef-grid-translate-y > *[data-translate="4"]
+{ transform: translate(var(--translate-move-zero),var(--translate-move-minus)); }
+.ef-grid-translate-y > *[data-translate="5"],
+.ef-grid-translate-y > *[data-translate="6"],
+.ef-grid-translate-y > *[data-translate="7"],
+.ef-grid-translate-y > *[data-translate="8"]
+{ transform: translate(var(--translate-move-zero),var(--translate-move-plus)); }
+
+
+
+/* 그리드 공용 설정 */
+.ef-grid{
+    pointer-events: none;
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+}
+.ef-grid[data-ef-grid-size="5"]{
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+}
+.ef-grid[data-ef-grid-size="10"]{
+    grid-template-rows: repeat(10, 1fr);
+    grid-template-columns: repeat(10, 1fr);
+}
+.ef-grid[data-ef-grid-size="20"]{
+    grid-template-rows: repeat(20, 1fr);
+    grid-template-columns: repeat(20, 1fr);
+}
+
+
+
+/* 반짝이며 보이는 그리드 */
+.ef-grid-opacity > *{
+    filter: blur(2px)  opacity(0)  ;
+}
+
+.ef-grid-opacity.on > *{
+    filter: blur(0px)  opacity(1)  !important;    
+}
+
+/* 이동하면서 채워지는 그리드 */ 
+
+
+.ef-grid-translate > *{
+    transform: translate(0px,-100px);
+}
+
+.ef-grid-translate.on > *{
+    transform: translate(0px,0) !important;
+}
+

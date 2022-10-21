@@ -36,38 +36,39 @@
 	<meta property="og:type" content="website">
 	
 	<!-- //meta og -->
+    <link rel="stylesheet" href="ef-grid.css">
 	<style>
-        .p10px{padding:10px;}
+        .p10px{padding:10px;}        
     </style>
-    <link rel="stylesheet" href="effects.css">
     <script>
         window.addEventListener('load',(event)=>{
             document.querySelectorAll('div[data-delay]').forEach((el,idx)=>{
                 el.dataset.delay = Math.floor(Math.random()*11)
             })
             document.querySelectorAll('div[data-translate]').forEach((el,idx)=>{
-                el.dataset.delay = Math.floor(Math.random()*11)
+                el.dataset.translate = Math.floor(Math.random()*8)+1
             })
         })
     </script>
 </head>
 <body>
 	<div class="container">
+        <h1>ef-grid</h1>
         <section>
             <h2>ef-grid-opacity</h2>
             <div class="row">
                 <div class="col-lg-6 p10px">
-                    <div id="ex-ef-grid-opacity-01" class="ef ef-grid ef-grid-opacity" style="width:300px;height:300px;">
+                    <div id="ex-ef-grid-opacity-01" class="ef ef-grid ef-grid-opacity" style="width:300px;height:300px; --transition-duration:3s">
                         <div data-delay="1"></div><div data-delay="2"></div><div data-delay="3"></div><div data-delay="4"></div><div data-delay="0"></div>
                         <div data-delay="0"></div><div data-delay="4"></div><div data-delay="3"></div><div data-delay="2"></div><div data-delay="1"></div>
                         <div data-delay="3"></div><div data-delay="2"></div><div data-delay="1"></div><div data-delay="4"></div><div data-delay="0"></div>
                         <div data-delay="4"></div><div data-delay="0"></div><div data-delay="2"></div><div data-delay="2"></div><div data-delay="1"></div>
                         <div data-delay="3"></div><div data-delay="0"></div><div data-delay="4"></div><div data-delay="4"></div><div data-delay="1"></div>
                     </div>
-                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-opacity-01').classList.toggle('on')">동작</button>
+                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-opacity-01').classList.toggle('on')">동작</button> with --transition-duration:3s
                 </div>
                 <div class="col-lg-6 p10px">
-                    <div id="ex-ef-grid-opacity-02" class="ef ef-grid ef-grid-opacity on" style="width:300px;height:300px;" data-ef-grid-size="10">
+                    <div id="ex-ef-grid-opacity-02" class="ef ef-grid ef-grid-opacity on" style="width:300px;height:300px;--transition-delay:10ms; " data-ef-grid-size="10">
                         <div data-delay="1"></div><div data-delay="2"></div><div data-delay="3"></div><div data-delay="4"></div><div data-delay="0"></div><div data-delay="1"></div><div data-delay="2"></div><div data-delay="3"></div><div data-delay="4"></div><div data-delay="0"></div>
                         <div data-delay="0"></div><div data-delay="4"></div><div data-delay="3"></div><div data-delay="2"></div><div data-delay="1"></div><div data-delay="0"></div><div data-delay="4"></div><div data-delay="3"></div><div data-delay="2"></div><div data-delay="1"></div>
                         <div data-delay="3"></div><div data-delay="2"></div><div data-delay="1"></div><div data-delay="4"></div><div data-delay="0"></div><div data-delay="3"></div><div data-delay="2"></div><div data-delay="1"></div><div data-delay="4"></div><div data-delay="0"></div>
@@ -79,7 +80,7 @@
                         <div data-delay="4"></div><div data-delay="0"></div><div data-delay="2"></div><div data-delay="2"></div><div data-delay="1"></div><div data-delay="4"></div><div data-delay="0"></div><div data-delay="2"></div><div data-delay="2"></div><div data-delay="1"></div>
                         <div data-delay="3"></div><div data-delay="0"></div><div data-delay="4"></div><div data-delay="4"></div><div data-delay="1"></div><div data-delay="3"></div><div data-delay="0"></div><div data-delay="4"></div><div data-delay="4"></div><div data-delay="1"></div>
                     </div>
-                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-opacity-02').classList.toggle('on')">동작</button>
+                    <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-opacity-02').classList.toggle('on')">동작</button> with --transition-delay:10ms
                 </div>
                 <div class="col-lg-6 p10px">
                     <div id="ex-ef-grid-opacity-03" class="ef ef-grid ef-grid-opacity" style="width:100%;height:300px;" data-ef-grid-size="20">
@@ -110,7 +111,7 @@
         </section>
         <hr>
         <section>
-            <h2>ef-grid-translate</h2>
+            <h2>ef-grid-opacity + ef-grid-translate</h2>
             <div class="row">
                 <div class="col-lg-6 p10px">
                     <div id="ex-ef-grid-translate-01" class="ef ef-grid ef-grid-opacity ef-grid-translate" style="width:300px;height:300px;">
@@ -123,7 +124,7 @@
                     <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-translate-01').classList.toggle('on')">동작</button>
                 </div>
                 <div class="col-lg-6 p10px">
-                    <div id="ex-ef-grid-translate-02" class="ef ef-grid ef-grid-opacity ef-grid-translate" style="width:300px;height:300px;" data-ef-grid-size="10">
+                    <div id="ex-ef-grid-translate-02" class="ef ef-grid ef-grid-opacity ef-grid-translate ef-grid-translate-x on" style="width:300px;height:300px;" data-ef-grid-size="10">
                         <div data-translate="1" data-delay="1"></div><div data-translate="2" data-delay="2"></div><div data-translate="3" data-delay="3"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="1" data-delay="1"></div><div data-translate="2" data-delay="2"></div><div data-translate="3" data-delay="3"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
                         <div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
                         <div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
@@ -138,7 +139,7 @@
                     <button class="btn btn-info my-3" type="button" onclick="document.querySelector('#ex-ef-grid-translate-02').classList.toggle('on')">동작</button>
                 </div>
                 <div class="col-lg-6 p10px">
-                    <div id="ex-ef-grid-translate-03" class="ef ef-grid ef-grid-opacity ef-grid-translate" style="width:100%;height:300px;" data-ef-grid-size="20">
+                    <div id="ex-ef-grid-translate-03" class="ef ef-grid ef-grid-opacity ef-grid-translate ef-grid-translate-y" style="width:100%;height:300px;" data-ef-grid-size="20">
                         <div data-translate="1" data-delay="1"></div><div data-translate="2" data-delay="2"></div><div data-translate="3" data-delay="3"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="1" data-delay="1"></div><div data-translate="2" data-delay="2"></div><div data-translate="3" data-delay="3"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="1" data-delay="1"></div><div data-translate="2" data-delay="2"></div><div data-translate="3" data-delay="3"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="1" data-delay="1"></div><div data-translate="2" data-delay="2"></div><div data-translate="3" data-delay="3"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
                         <div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="0" data-delay="0"></div><div data-translate="4" data-delay="4"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div>
                         <div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div><div data-translate="3" data-delay="3"></div><div data-translate="2" data-delay="2"></div><div data-translate="1" data-delay="1"></div><div data-translate="4" data-delay="4"></div><div data-translate="0" data-delay="0"></div>
