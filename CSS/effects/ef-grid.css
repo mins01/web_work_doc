@@ -99,7 +99,7 @@
     filter: blur(2px)  opacity(0)  ;
 }
 
-.ef-grid-opacity.on > *{
+.ef-grid-opacity.ef-on > *{
     filter: blur(0px)  opacity(1)  !important;    
 }
 
@@ -108,7 +108,7 @@
     transform: translate(0px,-100px);
 }
 
-.ef-grid-translate.on > *{
+.ef-grid-translate.ef-on > *{
     transform: translate(0px,0) !important;
 }
 
@@ -117,6 +117,6 @@
 .ef-grid-filter > *{
     filter:var(--filter)
 }
-.ef-grid-filter.on > *{
+.ef-grid-filter.ef-on > *{
     filter:var(--filter-on)
 }
