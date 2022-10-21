@@ -13,8 +13,8 @@
     --grid-template-rows-number:5;
     --grid-template-columns-number:5;
 
-    --filter:blur(0px) brightness(1) contrast(1) grayscale(0) hue-rotate(720deg) invert(0) opacity(0) saturate(1);
-    --filter-on:blur(0) brightness(1) contrast(1) grayscale(0) hue-rotate(0) invert(0) opacity(1) saturate(1);
+    --filter:blur(0px) brightness(1) contrast(1) grayscale(0) hue-rotate(720deg) invert(0) opacity(0) saturate(1) sepia(0);
+    --filter-on:blur(0) brightness(1) contrast(1) grayscale(0) hue-rotate(0) invert(0) opacity(1) saturate(1) sepia(0);
 }
 /* 그리드 자식 공용 설정 부분 */
 .ef-grid > *{ background-color: #abc; }
