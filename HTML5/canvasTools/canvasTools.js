@@ -40,7 +40,8 @@ const canvasTools = {
     let x = 0;
     switch(ctx.textAlign){
       case 'center':x=Math.ceil(canvas.width/2); break;
-      case 'right':x=canvas.width; break;
+      case 'right':x=canvas.width-paddingPx; break;
+      case 'left':x=paddingPx; break;
     }
     lines.forEach((text,idx)=>{
       ctx.fillText(text, x, lineHeightPx*(idx+1)+paddingPx)

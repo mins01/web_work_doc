@@ -67,7 +67,17 @@
         // strokeStyle:'transparent',
         textAlign:'left'
       }
-      var canvas = canvasTools.textBox(ctxConf,300,0,'한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',20) //높이를 0으로 하면 자동으로 높이 조절한다.
+      var canvas = canvasTools.textBox(ctxConf,300,0,'한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',20,10) //높이를 0으로 하면 자동으로 높이 조절한다.
+      document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
+
+      var ctxConf={
+        'font':'20px dotum',
+        fillStyle:'#abc',
+        strokeColor:'#000',
+        // strokeStyle:'transparent',
+        textAlign:'right'
+      }
+      var canvas = canvasTools.textBox(ctxConf,300,0,'한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',20,10) //높이를 0으로 하면 자동으로 높이 조절한다.
       document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
 
       // 웹폰트 사용시 해당 글꼴이 사용할 수 있는 상태가 되야한다. css로 웹폰트 선언만으로는 안된다. HTML에서 해당 부분을 사용해야한다. 특히 구글폰트는 글자를 나눠 놓기 때문에 더욱 문제가 됨.
