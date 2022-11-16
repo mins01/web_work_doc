@@ -45,15 +45,19 @@
 	<!-- //meta og -->
 	<script src="canvasTools.js"></script>
   <style>
-    canvas{outline: 1px solid #000;}
+    canvas{
+      outline: 1px solid #000; 
+      background-image: url(bg.gif);
+      margin:10px;
+    }
   </style>
   <script>
     // let tb01 = new canvasTools.TextBox();
     window.addEventListener('load',(event)=>{
       var ctxConf={
         'font':'40px arial',
-        fillStyle:'#abc',
-        // strokeColor:'#000',
+        fillStyle:'#369',
+        // strokeStyle:'#000',
         strokeStyle:'transparent',
         textAlign:'center'
       }
@@ -62,9 +66,9 @@
 
       var ctxConf={
         'font':'20px dotum',
-        fillStyle:'#abc',
-        strokeColor:'#000',
-        // strokeStyle:'transparent',
+        fillStyle:'#369',
+        // strokeStyle:'#000',
+        strokeStyle:'transparent',
         textAlign:'left'
       }
       var canvas = canvasTools.textBox(ctxConf,300,0,'한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',20,10) //높이를 0으로 하면 자동으로 높이 조절한다.
@@ -72,34 +76,36 @@
 
       var ctxConf={
         'font':'20px dotum',
-        fillStyle:'#abc',
-        strokeColor:'#000',
-        // strokeStyle:'transparent',
+        fillStyle:'#369',
+        // strokeStyle:'#000',
+        strokeStyle:'transparent',
         textAlign:'right'
       }
       var canvas = canvasTools.textBox(ctxConf,300,0,'한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',20,10) //높이를 0으로 하면 자동으로 높이 조절한다.
+      var canvas_text = canvas;
       document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
 
       // 웹폰트 사용시 해당 글꼴이 사용할 수 있는 상태가 되야한다. css로 웹폰트 선언만으로는 안된다. HTML에서 해당 부분을 사용해야한다. 특히 구글폰트는 글자를 나눠 놓기 때문에 더욱 문제가 됨.
       document.fonts.load("50px Gugi", '한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.').then(()=>{ // 해당 폰트 사용에 대하서 로드 되도록 하는 구문.
-          console.log('document.fonts.check',document.fonts.check("50px Gugi", '한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.')); // true가 나와야한다. false면 해당 폰트를 사용 못하는 경우다.
-          var ctxConf={
-            'font':'50px Gugi',
-            fillStyle:'#abc',
-            // strokeColor:'#000',
-            strokeStyle:'transparent',
-            textAlign:'center'
-          }
-          var canvas = canvasTools.textBox(ctxConf,200,0,'한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',50) //웹폰트 적용
-          document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
-          
-        })
+        console.log('document.fonts.check',document.fonts.check("50px Gugi", '한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.')); // true가 나와야한다. false면 해당 폰트를 사용 못하는 경우다.
+        var ctxConf={
+          'font':'50px Gugi',
+          fillStyle:'#369',
+          strokeStyle:'#abc',
+          lineWidth:3,
+          // strokeStyle:'transparent',
+          textAlign:'center'
+        }
+        var canvas = canvasTools.textBox(ctxConf,200,0,'한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',50) //웹폰트 적용
+        document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
+        
+      })
       
       
       var ctxConf={
         'font':'50px  arial',
-        fillStyle:'#abc',
-        // strokeColor:'#000',
+        fillStyle:'#369',
+        // strokeStyle:'#000',
         strokeStyle:'transparent',
         textAlign:'center'
       }
@@ -108,13 +114,47 @@
 
       var ctxConf={
         'font':'50px  arial',
-        fillStyle:'#abc',
-        // strokeColor:'#000',
-        strokeStyle:'transparent',
+        fillStyle:'#369',
+        strokeStyle:'#000',
+        // strokeStyle:'transparent',
         textAlign:'center'
       }
       var canvas = canvasTools.textBox(ctxConf,50,300,'한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',50,10) // padding:10
       document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
+
+      var canvas = canvasTools.fromImage(document.querySelector('#img_fromImage'));
+      document.querySelector('#output_div_canvasTools_fromImage').appendChild(canvas)
+
+      // 중앙에 글자를 붙여 넣기
+
+      document.fonts.load("50px Gugi", '테스트 글짜 뷁힣 입니다.').then(()=>{ // 해당 폰트 사용에 대하서 로드 되도록 하는 구문.
+        console.log('document.fonts.check',document.fonts.check("50px Gugi", '테스트 글짜 뷁힣 입니다.')); // true가 나와야한다. false면 해당 폰트를 사용 못하는 경우다.
+        var ctxConf={
+          'font':'50px Gugi',
+          fillStyle:'#369',
+          strokeStyle:'#000',
+          lineWidth:1,
+          // strokeStyle:'transparent',
+          textAlign:'center',
+
+          shadowColor:"red",
+          shadowBlur:15,
+        }
+        var canvas_text = canvasTools.textBox(ctxConf,200,0,'테스트 글짜 뷁힣 입니다.',50*1.5,20) //웹폰트 적용
+        document.querySelector('#output_div_canvasTools_merge').appendChild(canvas_text)
+
+        var canvas = canvasTools.fromImage(document.querySelector('#img_fromImage'));
+        canvasTools.merge(canvas,canvas_text,
+          0,0,canvas_text.width,canvas_text.height,
+          Math.ceil((canvas.width-canvas_text.width)/2),Math.ceil((canvas.height-canvas_text.height)/2),canvas_text.width,canvas_text.height
+          // 0,0,canvas_text.width,canvas_text.height
+        )
+        document.querySelector('#output_div_canvasTools_merge').appendChild(canvas)
+        
+      })
+
+
+      
     })
   </script>
 </head>
@@ -128,8 +168,20 @@
     </div>
     <hr>
     <h2>canvasTools.textBox</h2>
-    <div id="div_canvasTools_TextBox ">
+    <div>
       <div id="output_div_canvasTools_TextBox">
+      </div>
+    </div>
+    <h3>canvasTools.fromImage</h3>
+    <div>
+      <div id="output_div_canvasTools_fromImage">
+        <img id="img_fromImage" src="20221115182629545.png" width="100">
+      </div>
+    </div>
+    <h3>canvasTools.merge</h3>
+    <div>
+      <div id="output_div_canvasTools_merge">
+        
       </div>
     </div>
 	</div>

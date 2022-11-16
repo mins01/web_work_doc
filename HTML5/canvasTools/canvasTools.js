@@ -50,5 +50,17 @@ const canvasTools = {
 
     
     return canvas
+  },
+  fromImage(image){
+    let canvas = document.createElement('canvas');
+    canvas.width = image.naturalWidth || image.width;
+    canvas.height = image.naturalHeight || image.height;
+    let ctx = canvas.getContext('2d')
+    ctx.drawImage(image,0,0,canvas.width,canvas.height,0,0,canvas.width,canvas.height);
+    return canvas;
+  },
+  merge(target,source,sx,sy,sw,sh,dx,dy,dw,dh){
+    let ctx = target.getContext('2d')
+    ctx.drawImage(source,sx,sy,sw,sh,dx,dy,dw,dh);
   }
 }
