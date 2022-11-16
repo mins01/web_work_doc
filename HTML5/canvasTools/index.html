@@ -81,16 +81,20 @@
       document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
 
       // 웹폰트 사용시 해당 글꼴이 사용할 수 있는 상태가 되야한다. css로 웹폰트 선언만으로는 안된다. HTML에서 해당 부분을 사용해야한다. 특히 구글폰트는 글자를 나눠 놓기 때문에 더욱 문제가 됨.
-      console.log(document.fonts.check("12px Gugi", '한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.')); // <span style="font-family: Gugi;">한글...요.</span> 부분이 없으면 false가 나올것이다.
-      var ctxConf={
-        'font':'50px Gugi',
-        fillStyle:'#abc',
-        // strokeColor:'#000',
-        strokeStyle:'transparent',
-        textAlign:'center'
-      }
-      var canvas = canvasTools.textBox(ctxConf,200,0,'한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',50) //웹폰트 적용
-      document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
+      document.fonts.load("50px Gugi", '한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.').then(()=>{ // 해당 폰트 사용에 대하서 로드 되도록 하는 구문.
+          console.log('document.fonts.check',document.fonts.check("50px Gugi", '한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.')); // true가 나와야한다. false면 해당 폰트를 사용 못하는 경우다.
+          var ctxConf={
+            'font':'50px Gugi',
+            fillStyle:'#abc',
+            // strokeColor:'#000',
+            strokeStyle:'transparent',
+            textAlign:'center'
+          }
+          var canvas = canvasTools.textBox(ctxConf,200,0,'한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',50) //웹폰트 적용
+          document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
+          
+        })
+      
       
       var ctxConf={
         'font':'50px  arial',
@@ -120,7 +124,7 @@
     <hr>
     <div>
       <!-- 웹폰트 로드를 위한 태그 -->
-      <span style="font-family: Gugi;">한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.</span>
+      <!-- <span style="font-family: Gugi;">한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.</span> -->
     </div>
     <hr>
     <h2>canvasTools.textBox</h2>
