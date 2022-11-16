@@ -52,7 +52,7 @@ const canvasTools = {
     
     return canvas
   },
-  toCanvas(canvas){
+  toCanvas(canvas){ // clone
     return this.fromImage(canvas)
   },
   fromImage(image){
