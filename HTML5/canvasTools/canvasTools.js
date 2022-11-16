@@ -52,6 +52,9 @@ const canvasTools = {
     
     return canvas
   },
+  toCanvas(canvas){
+    return this.fromImage(canvas)
+  },
   fromImage(image){
     let canvas = document.createElement('canvas');
     canvas.width = image.naturalWidth || image.width;
@@ -64,9 +67,7 @@ const canvasTools = {
     let ctx = target.getContext('2d')
     ctx.drawImage(source,sx,sy,sw,sh,dx,dy,dw,dh);
   },
-  clone(canvas){
-    return this.fromImage(canvas)
-  },
+  
   toBlob(canvas,cb,type,encoderOptions){
     canvas.toBlob((blob) => {
       cb(blob)

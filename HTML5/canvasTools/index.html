@@ -165,7 +165,7 @@
           shadowBlur:15,
         }
 
-        var canvasN = canvasTools.clone(canvas);
+        var canvasN = canvasTools.toCanvas(canvas); //복제함
         var canvas_text = canvasTools.textBox(ctxConf,canvasN.width,0,'canvasTools.toImage(canvas,cb,image/png)',20,20)
         canvasTools.merge(canvasN,canvas_text,
           0,0,canvas_text.width,canvas_text.height,
@@ -177,7 +177,7 @@
           document.querySelector('#output_div_canvasTools_merge').appendChild(img)
         },'image/png');
 
-        var canvasN = canvasTools.clone(canvas);
+        var canvasN = canvasTools.toCanvas(canvas); //복제함
         var canvas_text = canvasTools.textBox(ctxConf,canvasN.width,0,'canvasTools.toImage(canvas,cb,image/jpeg,0.1)',20,20)
         canvasTools.merge(canvasN,canvas_text,
           0,0,canvas_text.width,canvas_text.height,
@@ -190,7 +190,7 @@
         },'image/jpeg',0.1);
 
 
-        var canvasN = canvasTools.clone(canvas);
+        var canvasN = canvasTools.toCanvas(canvas); //복제함
         var canvas_text = canvasTools.textBox(ctxConf,canvasN.width,0,'canvasTools.toImageWithBlob(canvas,cb)',20,20)
         canvasTools.merge(canvasN,canvas_text,
           0,0,canvas_text.width,canvas_text.height,
@@ -201,7 +201,7 @@
           img.width=300;
           document.querySelector('#output_div_canvasTools_merge').appendChild(img)
         });
-        var canvasN = canvasTools.clone(canvas);
+        var canvasN = canvasTools.toCanvas(canvas); //복제함
         var canvas_text = canvasTools.textBox(ctxConf,canvasN.width,0,'canvasTools.toImageWithDataURL(canvas,cb)',20,20)
         canvasTools.merge(canvasN,canvas_text,
           0,0,canvas_text.width,canvas_text.height,
