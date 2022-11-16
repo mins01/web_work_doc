@@ -59,19 +59,21 @@
         fillStyle:'#369',
         // strokeStyle:'#000',
         strokeStyle:'transparent',
-        textAlign:'center'
+        textAlign:'center',
+        textBaseline:"alphabetic", //이것만 사용하라 나머진 대응을..
+        
       }
-      var canvas = canvasTools.textBox(ctxConf,300,300,'한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',40)
+      var canvas = canvasTools.textBox(ctxConf,300,300,'A한bC글Txm 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',40)
       document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
 
       var ctxConf={
-        'font':'20px dotum',
+        'font':'20px dotum bold',
         fillStyle:'#369',
         // strokeStyle:'#000',
         strokeStyle:'transparent',
         textAlign:'left'
       }
-      var canvas = canvasTools.textBox(ctxConf,300,0,'한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',20,10) //높이를 0으로 하면 자동으로 높이 조절한다.
+      var canvas = canvasTools.textBox(ctxConf,300,0,'A한bC글Txm 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',20,10) //높이를 0으로 하면 자동으로 높이 조절한다.
       document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
 
       var ctxConf={
@@ -81,13 +83,13 @@
         strokeStyle:'transparent',
         textAlign:'right'
       }
-      var canvas = canvasTools.textBox(ctxConf,300,0,'한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',20,10) //높이를 0으로 하면 자동으로 높이 조절한다.
+      var canvas = canvasTools.textBox(ctxConf,300,0,'A한bC글Txm 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',20,10) //높이를 0으로 하면 자동으로 높이 조절한다.
       var canvas_text = canvas;
       document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
 
       // 웹폰트 사용시 해당 글꼴이 사용할 수 있는 상태가 되야한다. css로 웹폰트 선언만으로는 안된다. HTML에서 해당 부분을 사용해야한다. 특히 구글폰트는 글자를 나눠 놓기 때문에 더욱 문제가 됨.
-      document.fonts.load("50px Gugi", '한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.').then(()=>{ // 해당 폰트 사용에 대하서 로드 되도록 하는 구문.
-        console.log('document.fonts.check',document.fonts.check("50px Gugi", '한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.')); // true가 나와야한다. false면 해당 폰트를 사용 못하는 경우다.
+      document.fonts.load("50px Gugi", 'A한bC글Txm 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.').then(()=>{ // 해당 폰트 사용에 대하서 로드 되도록 하는 구문.
+        console.log('document.fonts.check',document.fonts.check("50px Gugi", 'A한bC글Txm 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.')); // true가 나와야한다. false면 해당 폰트를 사용 못하는 경우다.
         var ctxConf={
           'font':'50px Gugi',
           fillStyle:'#369',
@@ -96,7 +98,7 @@
           // strokeStyle:'transparent',
           textAlign:'center'
         }
-        var canvas = canvasTools.textBox(ctxConf,200,0,'한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',50) //웹폰트 적용
+        var canvas = canvasTools.textBox(ctxConf,200,0,'A한bC글Txm 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',50) //웹폰트 적용
         document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
         
       })
@@ -109,7 +111,7 @@
         strokeStyle:'transparent',
         textAlign:'center'
       }
-      var canvas = canvasTools.textBox(ctxConf,30,300,'한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',50) // 쫍은 너비
+      var canvas = canvasTools.textBox(ctxConf,30,300,'A한bC글Txm 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',50) // 쫍은 너비
       document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
 
       var ctxConf={
@@ -119,7 +121,7 @@
         // strokeStyle:'transparent',
         textAlign:'center'
       }
-      var canvas = canvasTools.textBox(ctxConf,50,300,'한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',50,10) // padding:10
+      var canvas = canvasTools.textBox(ctxConf,50,300,'A한bC글Txm 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',50,10) // padding:10
       document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
 
       var canvas = canvasTools.fromImage(document.querySelector('#img_fromImage'));
@@ -309,12 +311,17 @@
     <hr>
     <div>
       <!-- 웹폰트 로드를 위한 태그 -->
-      <!-- <span style="font-family: Gugi;">한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.</span> -->
+      <!-- <span style="font-family: Gugi;">A한bC글Txm 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.</span> -->
     </div>
     <hr>
     <h2>canvasTools.textBox</h2>
     <div>
       <div id="output_div_canvasTools_TextBox">
+        <div style=" background-image: url(bg.gif); width:300px;height:300px; font:40px arial;color:#369; line-height: 40px; text-align: center; outline: 1px solid #000; margin: 10px;white-space: normal; word-break: break-all; position: relative;"><div style="position: absolute;left:0;top:0">A한bC글Txm 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.</div></div>
+        <div>
+          일반 text와 canvas의 text에서 textBaseline=top 설정에 따른 높이 계산에 오차가 있다... 방법이 안보인다.<br>
+          textBaseline=alphabetic 을 사용하고, 한줄을 미리 내려서 출력하도록 했다.
+        </div>
       </div>
     </div>
     <h3>canvasTools.fromImage</h3>

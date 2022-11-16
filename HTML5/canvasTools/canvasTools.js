@@ -4,6 +4,11 @@ const canvasTools = {
     if(!ctxConf) ctxConf = {};
     if(paddingPx==undefined) paddingPx = 0;
     let canvas = document.createElement('canvas');
+    canvas.dataset.width = width
+    canvas.dataset.height = height
+    canvas.dataset.text = text
+    canvas.dataset.lineHeightPx = lineHeightPx
+    canvas.dataset.paddingPx = paddingPx
     canvas.width = width;
     canvas.height = height?height:300;
     let ctx = canvas.getContext('2d');
@@ -12,16 +17,18 @@ const canvasTools = {
       ctx[k] = ctxConf[k];
     }
     // 줄바꿈 계산
+    let textWidth = canvas.width-paddingPx*2;
     let lines = [''];
     let linePos = 0;
     let tmpText = '';
     for(let i=0,m=text.length;i<m;i++){
       tmpText = lines[linePos];
       tmpText += text[i];
-      if(width >= ctx.measureText(tmpText).width){
+      if(i===0 || textWidth >= ctx.measureText(tmpText).width){
         lines[linePos] = tmpText;
       }else{
         lines[linePos] = lines[linePos].trim();
+        // lines[linePos] = lines[linePos];
         lines.push(text[i])
         linePos++
       }
@@ -29,10 +36,8 @@ const canvasTools = {
 
 
     if(!height){
-      canvas.height = Math.ceil(lineHeightPx*(lines.length));
+      canvas.height = Math.ceil(lineHeightPx*(lines.length)) + (paddingPx*2);
     }
-    canvas.width = width+(paddingPx*2);
-    canvas.height +=(paddingPx*2);
     ctx = canvas.getContext('2d');
     for(var k in ctxConf){
       ctx[k] = ctxConf[k];
@@ -45,6 +50,7 @@ const canvasTools = {
       case 'left':x=paddingPx; break;
     }
     lines.forEach((text,idx)=>{
+      console.log('y',lineHeightPx*(idx+1)+paddingPx);
       ctx.fillText(text, x, lineHeightPx*(idx+1)+paddingPx)
       ctx.strokeText(text, x, lineHeightPx*(idx+1)+paddingPx)
     })
