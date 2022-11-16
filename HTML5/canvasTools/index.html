@@ -29,6 +29,7 @@
   <!-- https://fonts.google.com/specimen/Gugi -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet"> -->
   <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
 
 	<!-- meta og -->
@@ -70,6 +71,7 @@
       document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
 
       // 웹폰트 사용시 해당 글꼴이 사용할 수 있는 상태가 되야한다. css로 웹폰트 선언만으로는 안된다. HTML에서 해당 부분을 사용해야한다. 특히 구글폰트는 글자를 나눠 놓기 때문에 더욱 문제가 됨.
+      console.log(document.fonts.check("12px Gugi", '한글 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.')); // <span style="font-family: Gugi;">한글...요.</span> 부분이 없으면 false가 나올것이다.
       var ctxConf={
         'font':'50px Gugi',
         fillStyle:'#abc',
