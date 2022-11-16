@@ -1,4 +1,5 @@
 const canvasTools = {
+  toImageElementDelay:0, //toXXX 의 딜레이 부분
   textBox(ctxConf,width,height,text,lineHeightPx,paddingPx){
     if(!ctxConf) ctxConf = {};
     if(paddingPx==undefined) paddingPx = 0;
@@ -62,5 +63,98 @@ const canvasTools = {
   merge(target,source,sx,sy,sw,sh,dx,dy,dw,dh){
     let ctx = target.getContext('2d')
     ctx.drawImage(source,sx,sy,sw,sh,dx,dy,dw,dh);
+  },
+  clone(canvas){
+    return this.fromImage(canvas)
+  },
+  toBlob(canvas,cb,type,encoderOptions){
+    canvas.toBlob((blob) => {
+      cb(blob)
+    },type,encoderOptions);
+  },
+  toDataURL(canvas,cb,type,encoderOptions){
+    const dataURL =canvas.toDataURL(type,encoderOptions);
+    cb(dataURL)
+  },
+  toImage(canvas,cb,type,encoderOptions){
+    try{
+      // throw 'error test'; //for debug
+      return this.toImageWithBlob(canvas,cb,type,encoderOptions);
+    }catch(e){
+      console.error(e)
+      return this.toImageWithDataURL(canvas,cb,type,encoderOptions);
+    }
+  },
+  toImageWithBlob(canvas,cb,type,encoderOptions){
+    if(!type){type='image/png'}
+    let img = new Image();
+    img.crossOrigin="anonymous"
+    img.dataset.type=type;
+    img.dataset.encoderOptions=encoderOptions;
+    this.toBlob(canvas,(blob) => {
+      img.dataset.type=blob.type;
+      img.dataset.size=blob.size;
+      const url = URL.createObjectURL(blob);
+      img.onload = (event)=>{
+        // console.log('img.onload');
+        URL.revokeObjectURL(url);
+        if(cb){
+          if(this.toImageElementDelay>0){ setTimeout(()=>{ cb(img); },this.toImageElementDelay) }
+          else{ cb(img); }
+        }
+      }
+      img.src = url;
+    },type,encoderOptions);
+  },
+  toImageWithDataURL(canvas,cb,type,encoderOptions){
+    if(!type){type='image/png'}
+    let img = new Image();
+    img.crossOrigin="anonymous"
+    img.dataset.type=type;
+    img.dataset.encoderOptions=encoderOptions;
+    this.toDataURL(canvas,(dataURL) => {     
+      img.onload = (event)=>{
+        console.log('img.onload');
+        if(cb){
+          if(this.toImageElementDelay>0){ setTimeout(()=>{ cb(img); },this.toImageElementDelay) }
+          else{ cb(img); }
+        }
+      }
+      img.src = dataURL;
+    },type,encoderOptions);
+  },
+  downloadWithBlob(canvas,filename,type,encoderOptions){
+    this.toBlob(canvas,(blob) => {
+      const url = URL.createObjectURL(blob);
+      let a = document.createElement('a');
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.download = filename;
+      a.href = url
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    },type,encoderOptions);
+  },
+  downloadWithDataURL(canvas,filename,type,encoderOptions){
+    this.toDataURL(canvas,(dataURL) => {
+      // const url = URL.createObjectURL(blob);
+      let a = document.createElement('a');
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.download = filename;
+      a.href = dataURL
+      a.click();
+      // document.body.removeChild(a);
+    },type,encoderOptions);
+  },
+  download(canvas,filename,type,encoderOptions){
+    try{
+      // throw 'error test'; //for debug
+      return this.downloadWithBlob(canvas,filename,type,encoderOptions);
+    }catch(e){
+      console.error(e)
+      return this.downloadWithDataURL(canvas,filename,type,encoderOptions);
+    }
   }
 }

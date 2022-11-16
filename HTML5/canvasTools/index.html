@@ -150,12 +150,157 @@
           // 0,0,canvas_text.width,canvas_text.height
         )
         document.querySelector('#output_div_canvasTools_merge').appendChild(canvas)
-        
+
+
+
+        var ctxConf={
+          'font':'20px arial',
+          fillStyle:'#369',
+          strokeStyle:'#000',
+          lineWidth:1,
+          // strokeStyle:'transparent',
+          textAlign:'center',
+
+          shadowColor:"red",
+          shadowBlur:15,
+        }
+
+        var canvasN = canvasTools.clone(canvas);
+        var canvas_text = canvasTools.textBox(ctxConf,canvasN.width,0,'canvasTools.toImage(canvas,cb,image/png)',20,20)
+        canvasTools.merge(canvasN,canvas_text,
+          0,0,canvas_text.width,canvas_text.height,
+          0,0,canvas_text.width,canvas_text.height
+          // 0,0,canvas_text.width,canvas_text.height
+        )
+        canvasTools.toImage(canvasN,(img)=>{
+          img.width=300;
+          document.querySelector('#output_div_canvasTools_merge').appendChild(img)
+        },'image/png');
+
+        var canvasN = canvasTools.clone(canvas);
+        var canvas_text = canvasTools.textBox(ctxConf,canvasN.width,0,'canvasTools.toImage(canvas,cb,image/jpeg,0.1)',20,20)
+        canvasTools.merge(canvasN,canvas_text,
+          0,0,canvas_text.width,canvas_text.height,
+          0,0,canvas_text.width,canvas_text.height
+          // 0,0,canvas_text.width,canvas_text.height
+        )
+        canvasTools.toImage(canvasN,(img)=>{
+          img.width=300;
+          document.querySelector('#output_div_canvasTools_merge').appendChild(img)
+        },'image/jpeg',0.1);
+
+
+        var canvasN = canvasTools.clone(canvas);
+        var canvas_text = canvasTools.textBox(ctxConf,canvasN.width,0,'canvasTools.toImageWithBlob(canvas,cb)',20,20)
+        canvasTools.merge(canvasN,canvas_text,
+          0,0,canvas_text.width,canvas_text.height,
+          0,0,canvas_text.width,canvas_text.height
+          // 0,0,canvas_text.width,canvas_text.height
+        )
+        canvasTools.toImageWithBlob(canvasN,(img)=>{
+          img.width=300;
+          document.querySelector('#output_div_canvasTools_merge').appendChild(img)
+        });
+        var canvasN = canvasTools.clone(canvas);
+        var canvas_text = canvasTools.textBox(ctxConf,canvasN.width,0,'canvasTools.toImageWithDataURL(canvas,cb)',20,20)
+        canvasTools.merge(canvasN,canvas_text,
+          0,0,canvas_text.width,canvas_text.height,
+          0,0,canvas_text.width,canvas_text.height
+          // 0,0,canvas_text.width,canvas_text.height
+        )
+        canvasTools.toImageWithDataURL(canvasN,(img)=>{
+          img.width=300;
+          document.querySelector('#output_div_canvasTools_merge').appendChild(img)
+        });
       })
-
-
-      
     })
+
+    function download(filename,type,encoderOptions){
+      var ctxConf={
+          'font':'20px arial',
+          fillStyle:'#369',
+          strokeStyle:'#000',
+          lineWidth:1,
+          // strokeStyle:'transparent',
+          textAlign:'center',
+
+          shadowColor:"red",
+          shadowBlur:15,
+        }
+      var canvas = canvasTools.fromImage(document.querySelector('#img_fromImage'));
+      var canvas_text = canvasTools.textBox(ctxConf,canvas.width-50,0,`canvasTools.download(canvas,${filename},${type},${encoderOptions})`,20,20)
+      canvasTools.merge(canvas,canvas_text,
+        0,0,canvas_text.width,canvas_text.height,
+        Math.ceil((canvas.width-canvas_text.width)/2),Math.ceil((canvas.height-canvas_text.height)/2),canvas_text.width,canvas_text.height
+        // 0,0,canvas_text.width,canvas_text.height
+      )
+      canvasTools.download(canvas,filename,type,encoderOptions);
+    }
+    
+    function downloadWithBlob(filename,type,encoderOptions){
+      var ctxConf={
+          'font':'20px arial',
+          fillStyle:'#369',
+          strokeStyle:'#000',
+          lineWidth:1,
+          // strokeStyle:'transparent',
+          textAlign:'center',
+
+          shadowColor:"red",
+          shadowBlur:15,
+        }
+      var canvas = canvasTools.fromImage(document.querySelector('#img_fromImage'));
+      var canvas_text = canvasTools.textBox(ctxConf,canvas.width-50,0,`canvasTools.downloadWithBlob(canvas,${filename},${type},${encoderOptions})`,20,20)
+      canvasTools.merge(canvas,canvas_text,
+        0,0,canvas_text.width,canvas_text.height,
+        Math.ceil((canvas.width-canvas_text.width)/2),Math.ceil((canvas.height-canvas_text.height)/2),canvas_text.width,canvas_text.height
+        // 0,0,canvas_text.width,canvas_text.height
+      )
+      canvasTools.downloadWithBlob(canvas,filename,type,encoderOptions);
+    }
+    function downloadWithDataURL(filename,type,encoderOptions){
+      var ctxConf={
+          'font':'20px arial',
+          fillStyle:'#369',
+          strokeStyle:'#000',
+          lineWidth:1,
+          // strokeStyle:'transparent',
+          textAlign:'center',
+          shadowColor:"red",
+          shadowBlur:15,
+        }
+      var canvas = canvasTools.fromImage(document.querySelector('#img_fromImage'));
+      var canvas_text = canvasTools.textBox(ctxConf,canvas.width-50,0,`canvasTools.downloadWithDataURL(canvas,${filename},${type},${encoderOptions})`,20,20)
+      canvasTools.merge(canvas,canvas_text,
+        0,0,canvas_text.width,canvas_text.height,
+        Math.ceil((canvas.width-canvas_text.width)/2),Math.ceil((canvas.height-canvas_text.height)/2),canvas_text.width,canvas_text.height
+        // 0,0,canvas_text.width,canvas_text.height
+      )
+      canvasTools.downloadWithDataURL(canvas,filename,type,encoderOptions);
+
+    }
+
+    function toBlob(cb,type,encoderOptions){
+      var ctxConf={
+          'font':'20px arial',
+          fillStyle:'#369',
+          strokeStyle:'#000',
+          lineWidth:1,
+          // strokeStyle:'transparent',
+          textAlign:'center',
+
+          shadowColor:"red",
+          shadowBlur:15,
+        }
+      var canvas = canvasTools.fromImage(document.querySelector('#img_fromImage'));
+      var canvas_text = canvasTools.textBox(ctxConf,canvas.width-50,0,`canvasTools.toBlob(canvas,cb,${type},${encoderOptions})`,20,20)
+      canvasTools.merge(canvas,canvas_text,
+        0,0,canvas_text.width,canvas_text.height,
+        Math.ceil((canvas.width-canvas_text.width)/2),Math.ceil((canvas.height-canvas_text.height)/2),canvas_text.width,canvas_text.height
+        // 0,0,canvas_text.width,canvas_text.height
+      )
+      canvasTools.toBlob(canvas,cb,type,encoderOptions);
+    }
   </script>
 </head>
 <body>
@@ -183,6 +328,34 @@
       <div id="output_div_canvasTools_merge">
         
       </div>
+    </div>
+    <h3>download</h3>
+    <div>
+      <button type="button" class="btn btn-info m-1" onclick="download('test.png')">canvasTools.download</button>
+      <button type="button" class="btn btn-info m-1" onclick="downloadWithBlob('test.png')">canvasTools.downloadWithBlob</button>
+      <button type="button" class="btn btn-info m-1" onclick="downloadWithBlob('test.jpg','image/jpeg',0.1)">canvasTools.downloadWithBlob(...,'image/jpeg',0.1)</button>
+      <button type="button" class="btn btn-info m-1" onclick="downloadWithDataURL('test.png')">canvasTools.downloadWithDataURL</button>
+      <button type="button" class="btn btn-info m-1" onclick="downloadWithDataURL('test.jpg','image/jpeg',0.1)">canvasTools.downloadWithDataURL(...,'image/jpeg',0.1)</button>
+    </div>
+
+    <h3>toBlob , FormData</h3>
+    <div>
+      <button type="button" class="btn btn-info m-1" onclick="toBlob((blob)=>{console.log(blob);alert(blob.size+'byte, '+blob.type)})">toBlob</button>
+      <button type="button" class="btn btn-info m-1" onclick="toBlob((blob)=>{
+        let fd = new FormData;
+        fd.append('upload_image',blob,'test.png');
+        let file = fd.get('upload_image');
+        console.log(file);
+        alert(`upload_image : ${file.name} , ${file.type} , ${file.size}byte`);
+        })">toBlob with FormData ex</button>
+      <button type="button" class="btn btn-info m-1" onclick="toBlob((blob)=>{
+          let fd = new FormData;
+          fd.append('upload_image',blob,'test.jpg');
+          let file = fd.get('upload_image');
+          console.log(file);
+          alert(`upload_image : ${file.name} , ${file.type} , ${file.size}byte`);
+          },'image/jpeg',0.1)">toBlob with FormData ex ('image/jpeg',0.1)</button>
+      
     </div>
 	</div>
 </body>
