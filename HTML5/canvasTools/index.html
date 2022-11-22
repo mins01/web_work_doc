@@ -124,6 +124,18 @@
       var canvas = canvasTools.textBox(ctxConf,50,300,'A한bC글Txm 잘 되나요? 잘 되겠죠. 그러라고 만드는거니까요.',50,10) // padding:10
       document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
 
+      var canvas = canvasTools.textBox(ctxConf,200,200,'배경: \n#fff + 높이 고정',50,20,'#fff') // 배경색
+      document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
+      var canvas = canvasTools.textBox(ctxConf,200,0,'배경: #000',50,20,'#000') // 배경색
+      document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
+      var canvas = canvasTools.textBox(ctxConf,200,0,'배경: rgba(0,0,0,0.3)',50,20,'rgba(0,0,0,0.3)') // 배경색
+      document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
+      var canvas = canvasTools.textBox(ctxConf,200,0,'배경: #ff0000aa',50,20,'#ff0000aa') // 배경색
+      document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
+
+      var canvas = canvasTools.textBox(ctxConf,300,0,'줄바꿈\n줄바꿈\n\n줄바꿈줄바꿈줄바꿈줄바꿈\n\n\n줄바꿈',50,20,'#abc') // 줄바꿈
+      document.querySelector('#output_div_canvasTools_TextBox').append(canvas);
+
       var canvas = canvasTools.fromImage(document.querySelector('#img_fromImage'));
       document.querySelector('#output_div_canvasTools_fromImage').appendChild(canvas)
 
@@ -152,6 +164,93 @@
           // 0,0,canvas_text.width,canvas_text.height
         )
         document.querySelector('#output_div_canvasTools_merge').appendChild(canvas)
+
+
+
+        var ctxConf={
+          'font':'30px serif',
+          fillStyle:'#369',
+          strokeStyle:'#000',
+          lineWidth:1,
+          // strokeStyle:'transparent',
+          textAlign:'center',
+
+          shadowColor:"red",
+          shadowBlur:15,
+        }
+        // var canvasN = canvasTools.toCanvas(canvas); //복제함
+        var canvasN = canvasTools.fromImage(document.querySelector('#img_fromImage'));
+
+        var canvas_textN = canvasTools.textBox(ctxConf,200,0,'0도',30,30)
+        canvasTools.merge(canvasN,canvas_textN,
+          0,0,canvas_textN.width,canvas_textN.height,
+          0,0,canvas_textN.width,canvas_textN.height
+          ,0
+        )
+        var canvas_textN = canvasTools.textBox(ctxConf,200,0,'45도',30,30)
+        canvasTools.merge(canvasN,canvas_textN,
+          0,0,canvas_textN.width,canvas_textN.height,
+          100,0,canvas_textN.width,canvas_textN.height
+          ,45
+        )
+        var canvas_textN = canvasTools.textBox(ctxConf,200,0,'90도',30,30)
+        canvasTools.merge(canvasN,canvas_textN,
+          0,0,canvas_textN.width,canvas_textN.height,
+          200,0,canvas_textN.width,canvas_textN.height
+          ,90
+        )
+        var canvas_textN = canvasTools.textBox(ctxConf,200,0,'135도',30,30)
+        canvasTools.merge(canvasN,canvas_textN,
+          0,0,canvas_textN.width,canvas_textN.height,
+          300,0,canvas_textN.width,canvas_textN.height
+          ,135
+        )
+        var canvas_textN = canvasTools.textBox(ctxConf,200,0,'180도',30,30)
+        canvasTools.merge(canvasN,canvas_textN,
+          0,0,canvas_textN.width,canvas_textN.height,
+          0,300,canvas_textN.width,canvas_textN.height
+          ,180
+        )
+        var canvas_textN = canvasTools.textBox(ctxConf,200,0,'225도',30,30)
+        canvasTools.merge(canvasN,canvas_textN,
+          0,0,canvas_textN.width,canvas_textN.height,
+          100,300,canvas_textN.width,canvas_textN.height
+          ,225
+        )
+        var canvas_textN = canvasTools.textBox(ctxConf,200,0,'270도',30,30)
+        canvasTools.merge(canvasN,canvas_textN,
+          0,0,canvas_textN.width,canvas_textN.height,
+          200,300,canvas_textN.width,canvas_textN.height
+          ,270
+        )
+        var canvas_textN = canvasTools.textBox(ctxConf,200,0,'315도',30,30)
+        canvasTools.merge(canvasN,canvas_textN,
+          0,0,canvas_textN.width,canvas_textN.height,
+          300,300,canvas_textN.width,canvas_textN.height
+          ,315
+        )
+        var canvas_textN = canvasTools.textBox(ctxConf,200,0,'360도',30,30)
+        canvasTools.merge(canvasN,canvas_textN,
+          0,0,canvas_textN.width,canvas_textN.height,
+          0,600,canvas_textN.width,canvas_textN.height
+          ,360
+        )
+        var canvas_textN = canvasTools.textBox(ctxConf,200,0,'-45도',30,30)
+        canvasTools.merge(canvasN,canvas_textN,
+          0,0,canvas_textN.width,canvas_textN.height,
+          100,600,canvas_textN.width,canvas_textN.height
+          ,-45
+        )
+        var canvas_textN = canvasTools.textBox(ctxConf,200,0,'-90도',30,30)
+        canvasTools.merge(canvasN,canvas_textN,
+          0,0,canvas_textN.width,canvas_textN.height,
+          200,600,canvas_textN.width,canvas_textN.height
+          ,-90
+        )
+        
+        document.querySelector('#output_div_canvasTools_merge_with_rotate').appendChild(canvasN)
+
+        
 
 
 
@@ -333,6 +432,12 @@
     <h3>canvasTools.merge</h3>
     <div>
       <div id="output_div_canvasTools_merge">
+        
+      </div>
+    </div>
+    <h3>canvasTools.merge with rotate</h3>
+    <div>
+      <div id="output_div_canvasTools_merge_with_rotate">
         
       </div>
     </div>

@@ -1,7 +1,8 @@
 const canvasTools = {
   toImageElementDelay:0, //toXXX 의 딜레이 부분
-  textBox(ctxConf,width,height,text,lineHeightPx,paddingPx){
+  textBox(ctxConf,width,height,text,lineHeightPx,paddingPx,bgFillStyle){
     if(!ctxConf) ctxConf = {};
+    if(!bgFillStyle) bgFillStyle = null;
     if(paddingPx==undefined) paddingPx = 0;
     let canvas = document.createElement('canvas');
     canvas.dataset.width = width
@@ -10,7 +11,7 @@ const canvasTools = {
     canvas.dataset.lineHeightPx = lineHeightPx
     canvas.dataset.paddingPx = paddingPx
     canvas.width = width;
-    canvas.height = height?height:300;
+    canvas.height = height?height:300; //height 가 없으면 밑에서 자동 재계산한다.
     let ctx = canvas.getContext('2d');
     console.log();
     for(var k in ctxConf){
@@ -22,8 +23,14 @@ const canvasTools = {
     let linePos = 0;
     let tmpText = '';
     for(let i=0,m=text.length;i<m;i++){
+      
       tmpText = lines[linePos];
       tmpText += text[i];
+      if(text[i] == '\n'){ //줄바꿈 처리
+        lines.push(text[i].trim())
+        linePos++;
+        continue;
+      }
       if(i===0 || textWidth >= ctx.measureText(tmpText).width){
         lines[linePos] = tmpText;
       }else{
@@ -39,6 +46,14 @@ const canvasTools = {
       canvas.height = Math.ceil(lineHeightPx*(lines.length)) + (paddingPx*2);
     }
     ctx = canvas.getContext('2d');
+    if(bgFillStyle){
+      ctx.save();
+      ctx.fillStyle = bgFillStyle;
+      ctx.beginPath()
+      ctx.rect(0,0,canvas.width,canvas.height);
+      ctx.fill()
+      ctx.restore();
+    }
     for(var k in ctxConf){
       ctx[k] = ctxConf[k];
     }
@@ -69,9 +84,17 @@ const canvasTools = {
     ctx.drawImage(image,0,0,canvas.width,canvas.height,0,0,canvas.width,canvas.height);
     return canvas;
   },
-  merge(target,source,sx,sy,sw,sh,dx,dy,dw,dh){
+  merge(target,source,sx,sy,sw,sh,dx,dy,dw,dh,rotateCenterDegree){
     let ctx = target.getContext('2d')
+    const rotateAngle = rotateCenterDegree *  Math.PI / 180;
+    ctx.save();
+    ctx.translate(dx+dw/2, dy+dh/2);
+    ctx.rotate(rotateAngle);
+    ctx.translate(-1*(dx+dw/2), -1*(dy+dh/2));
+    // ctx.translate(dx, dy);
+    // ctx.drawImage(source,sx,sy,sw,sh,0,0,dw,dh);
     ctx.drawImage(source,sx,sy,sw,sh,dx,dy,dw,dh);
+    ctx.restore();
   },
   
   toBlob(canvas,cb,type,encoderOptions){
