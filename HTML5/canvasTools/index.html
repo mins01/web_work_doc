@@ -45,8 +45,13 @@
 	<!-- //meta og -->
 	<script src="canvasTools.js"></script>
   <style>
-    canvas{
-      outline: 1px solid #000; 
+    canvas, img{
+      outline: 1px solid #00f; 
+      background-image: url(bg.gif);
+      margin:10px;
+    }
+    img{
+      outline: 1px solid #f00; 
       background-image: url(bg.gif);
       margin:10px;
     }
@@ -139,6 +144,11 @@
       var canvas = canvasTools.fromImage(document.querySelector('#img_fromImage'));
       document.querySelector('#output_div_canvasTools_fromImage').appendChild(canvas)
 
+      var canvas = canvasTools.fromImage(document.querySelector('#img_fromImage_with_bgFillStyle'));
+      document.querySelector('#output_div_canvasTools_fromImage_with_bgFillStyle').appendChild(canvas)
+      var canvas = canvasTools.fromImage(document.querySelector('#img_fromImage_with_bgFillStyle'),'#ff00ff99');
+      document.querySelector('#output_div_canvasTools_fromImage_with_bgFillStyle').appendChild(canvas)
+
       // 중앙에 글자를 붙여 넣기
 
       document.fonts.load("50px Gugi", '테스트 글짜 뷁힣 입니다.').then(()=>{ // 해당 폰트 사용에 대하서 로드 되도록 하는 구문.
@@ -165,9 +175,10 @@
         )
         document.querySelector('#output_div_canvasTools_merge').appendChild(canvas)
 
+      })
 
 
-        var ctxConf={
+      var ctxConf={
           'font':'30px serif',
           fillStyle:'#369',
           strokeStyle:'#000',
@@ -313,7 +324,7 @@
           img.width=300;
           document.querySelector('#output_div_canvasTools_merge').appendChild(img)
         });
-      })
+
     })
 
     function download(filename,type,encoderOptions){
@@ -427,6 +438,12 @@
     <div>
       <div id="output_div_canvasTools_fromImage">
         <img id="img_fromImage" src="20221115182629545.png" width="100">
+      </div>
+    </div>
+    <h3>canvasTools.fromImage with bgFillStyle</h3>
+    <div>
+      <div id="output_div_canvasTools_fromImage_with_bgFillStyle">
+        <img id="img_fromImage_with_bgFillStyle" src="20221115182629545_2.png" width="100">
       </div>
     </div>
     <h3>canvasTools.merge</h3>

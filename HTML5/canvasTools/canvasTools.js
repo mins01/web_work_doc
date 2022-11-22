@@ -73,14 +73,22 @@ const canvasTools = {
     
     return canvas
   },
-  toCanvas(canvas){ // clone
-    return this.fromImage(canvas)
+  toCanvas(canvas,bgFillStyle){ // clone
+    return this.fromImage(canvas,bgFillStyle)
   },
-  fromImage(image){
+  fromImage(image,bgFillStyle){
     let canvas = document.createElement('canvas');
     canvas.width = image.naturalWidth || image.width;
     canvas.height = image.naturalHeight || image.height;
     let ctx = canvas.getContext('2d')
+    if(bgFillStyle){
+      ctx.save();
+      ctx.fillStyle = bgFillStyle;
+      ctx.beginPath()
+      ctx.rect(0,0,canvas.width,canvas.height);
+      ctx.fill()
+      ctx.restore();
+    }
     ctx.drawImage(image,0,0,canvas.width,canvas.height,0,0,canvas.width,canvas.height);
     return canvas;
   },
