@@ -151,7 +151,7 @@
 
       // 중앙에 글자를 붙여 넣기
 
-      document.fonts.load("50px Gugi", '테스트 글짜 뷁힣 입니다.').then(()=>{ // 해당 폰트 사용에 대하서 로드 되도록 하는 구문.
+      document.fonts.load("50px Gugi", '테스트 글짜 뷁힣 입니다.').then(()=>{ // 해당 폰트 사용에 대해서 로드 되도록 하는 구문.
         console.log('document.fonts.check',document.fonts.check("50px Gugi", '테스트 글짜 뷁힣 입니다.')); // true가 나와야한다. false면 해당 폰트를 사용 못하는 경우다.
         var ctxConf={
           'font':'50px Gugi',
@@ -173,7 +173,67 @@
           Math.ceil((canvas.width-canvas_text.width)/2),Math.ceil((canvas.height-canvas_text.height)/2),canvas_text.width,canvas_text.height
           // 0,0,canvas_text.width,canvas_text.height
         )
-        document.querySelector('#output_div_canvasTools_merge').appendChild(canvas)
+        document.querySelector('#output_div_canvasTools_merge').appendChild(canvas);
+
+        var ctxConf={
+          'font':'20px arial',
+          fillStyle:'#369',
+          strokeStyle:'#000',
+          lineWidth:1,
+          // strokeStyle:'transparent',
+          textAlign:'center',
+
+          shadowColor:"red",
+          shadowBlur:15,
+        }
+
+        var canvasN = canvasTools.toCanvas(canvas); //복제함
+        var canvas_text = canvasTools.textBox(ctxConf,canvasN.width,0,'canvasTools.toImage(canvas,cb,image/png)',20,20)
+        canvasTools.merge(canvasN,canvas_text,
+          0,0,canvas_text.width,canvas_text.height,
+          0,0,canvas_text.width,canvas_text.height
+          // 0,0,canvas_text.width,canvas_text.height
+        )
+        canvasTools.toImage(canvasN,(img)=>{
+          img.width=300;
+          document.querySelector('#output_div_canvasTools_merge').appendChild(img)
+        },'image/png');
+
+        var canvasN = canvasTools.toCanvas(canvas); //복제함
+        var canvas_text = canvasTools.textBox(ctxConf,canvasN.width,0,'canvasTools.toImage(canvas,cb,image/jpeg,0.1)',20,20)
+        canvasTools.merge(canvasN,canvas_text,
+          0,0,canvas_text.width,canvas_text.height,
+          0,0,canvas_text.width,canvas_text.height
+          // 0,0,canvas_text.width,canvas_text.height
+        )
+        canvasTools.toImage(canvasN,(img)=>{
+          img.width=300;
+          document.querySelector('#output_div_canvasTools_merge').appendChild(img)
+        },'image/jpeg',0.1);
+
+
+        var canvasN = canvasTools.toCanvas(canvas); //복제함
+        var canvas_text = canvasTools.textBox(ctxConf,canvasN.width,0,'canvasTools.toImageWithBlob(canvas,cb)',20,20)
+        canvasTools.merge(canvasN,canvas_text,
+          0,0,canvas_text.width,canvas_text.height,
+          0,0,canvas_text.width,canvas_text.height
+          // 0,0,canvas_text.width,canvas_text.height
+        )
+        canvasTools.toImageWithBlob(canvasN,(img)=>{
+          img.width=300;
+          document.querySelector('#output_div_canvasTools_merge').appendChild(img)
+        });
+        var canvasN = canvasTools.toCanvas(canvas); //복제함
+        var canvas_text = canvasTools.textBox(ctxConf,canvasN.width,0,'canvasTools.toImageWithDataURL(canvas,cb)',20,20)
+        canvasTools.merge(canvasN,canvas_text,
+          0,0,canvas_text.width,canvas_text.height,
+          0,0,canvas_text.width,canvas_text.height
+          // 0,0,canvas_text.width,canvas_text.height
+        )
+        canvasTools.toImageWithDataURL(canvasN,(img)=>{
+          img.width=300;
+          document.querySelector('#output_div_canvasTools_merge').appendChild(img)
+        });
 
       })
 
@@ -265,65 +325,7 @@
 
 
 
-        var ctxConf={
-          'font':'20px arial',
-          fillStyle:'#369',
-          strokeStyle:'#000',
-          lineWidth:1,
-          // strokeStyle:'transparent',
-          textAlign:'center',
-
-          shadowColor:"red",
-          shadowBlur:15,
-        }
-
-        var canvasN = canvasTools.toCanvas(canvas); //복제함
-        var canvas_text = canvasTools.textBox(ctxConf,canvasN.width,0,'canvasTools.toImage(canvas,cb,image/png)',20,20)
-        canvasTools.merge(canvasN,canvas_text,
-          0,0,canvas_text.width,canvas_text.height,
-          0,0,canvas_text.width,canvas_text.height
-          // 0,0,canvas_text.width,canvas_text.height
-        )
-        canvasTools.toImage(canvasN,(img)=>{
-          img.width=300;
-          document.querySelector('#output_div_canvasTools_merge').appendChild(img)
-        },'image/png');
-
-        var canvasN = canvasTools.toCanvas(canvas); //복제함
-        var canvas_text = canvasTools.textBox(ctxConf,canvasN.width,0,'canvasTools.toImage(canvas,cb,image/jpeg,0.1)',20,20)
-        canvasTools.merge(canvasN,canvas_text,
-          0,0,canvas_text.width,canvas_text.height,
-          0,0,canvas_text.width,canvas_text.height
-          // 0,0,canvas_text.width,canvas_text.height
-        )
-        canvasTools.toImage(canvasN,(img)=>{
-          img.width=300;
-          document.querySelector('#output_div_canvasTools_merge').appendChild(img)
-        },'image/jpeg',0.1);
-
-
-        var canvasN = canvasTools.toCanvas(canvas); //복제함
-        var canvas_text = canvasTools.textBox(ctxConf,canvasN.width,0,'canvasTools.toImageWithBlob(canvas,cb)',20,20)
-        canvasTools.merge(canvasN,canvas_text,
-          0,0,canvas_text.width,canvas_text.height,
-          0,0,canvas_text.width,canvas_text.height
-          // 0,0,canvas_text.width,canvas_text.height
-        )
-        canvasTools.toImageWithBlob(canvasN,(img)=>{
-          img.width=300;
-          document.querySelector('#output_div_canvasTools_merge').appendChild(img)
-        });
-        var canvasN = canvasTools.toCanvas(canvas); //복제함
-        var canvas_text = canvasTools.textBox(ctxConf,canvasN.width,0,'canvasTools.toImageWithDataURL(canvas,cb)',20,20)
-        canvasTools.merge(canvasN,canvas_text,
-          0,0,canvas_text.width,canvas_text.height,
-          0,0,canvas_text.width,canvas_text.height
-          // 0,0,canvas_text.width,canvas_text.height
-        )
-        canvasTools.toImageWithDataURL(canvasN,(img)=>{
-          img.width=300;
-          document.querySelector('#output_div_canvasTools_merge').appendChild(img)
-        });
+        
 
     })
 
