@@ -44,3 +44,14 @@
 .p3dml-layer[data-layer-index="8"]{ --p3dml-translateZ:calc( var(--p3dml-translateZ-gap) * 8); }
 .p3dml-layer[data-layer-index="9"]{ --p3dml-translateZ:calc( var(--p3dml-translateZ-gap) * 9); }
 .p3dml-layer[data-layer-index="10"]{ --p3dml-translateZ:calc( var(--p3dml-translateZ-gap) * 10); }
+
+.p3dml-layer[data-layer-index="-1"]{ --p3dml-translateZ:calc( var(--p3dml-translateZ-gap) * -1); }
+.p3dml-layer[data-layer-index="-2"]{ --p3dml-translateZ:calc( var(--p3dml-translateZ-gap) * -2); }
+.p3dml-layer[data-layer-index="-3"]{ --p3dml-translateZ:calc( var(--p3dml-translateZ-gap) * -3); }
+.p3dml-layer[data-layer-index="-4"]{ --p3dml-translateZ:calc( var(--p3dml-translateZ-gap) * -4); }
+.p3dml-layer[data-layer-index="-5"]{ --p3dml-translateZ:calc( var(--p3dml-translateZ-gap) * -5); }
+.p3dml-layer[data-layer-index="-6"]{ --p3dml-translateZ:calc( var(--p3dml-translateZ-gap) * -6); }
+.p3dml-layer[data-layer-index="-7"]{ --p3dml-translateZ:calc( var(--p3dml-translateZ-gap) * -7); }
+.p3dml-layer[data-layer-index="-8"]{ --p3dml-translateZ:calc( var(--p3dml-translateZ-gap) * -8); }
+.p3dml-layer[data-layer-index="-9"]{ --p3dml-translateZ:calc( var(--p3dml-translateZ-gap) * -9); }
+.p3dml-layer[data-layer-index="-10"]{ --p3dml-translateZ:calc( var(--p3dml-translateZ-gap) * -10); }
