@@ -7,6 +7,7 @@
     --p3dml-perspective:300px;
     --p3dml-layer-number:10;
     --p3dml-translateZ-gap:calc( var(--p3dml-perspective) / var(--p3dml-layer-number));
+    /* --p3dml-translateZ-gap:30px; */
     --p3dml-translateZ:0px;
 }
 .p3dml-box{
@@ -16,6 +17,8 @@
 .p3dml-box-transform{
     transform-style:preserve-3d;
     transform: rotateX(0deg) rotateY(0deg)  rotateZ(0deg)  translateX(0px) translateY(0px) translateZ(0px);
+    width:var(--p3dml-width,300px);
+    height:var(--p3dml-height,300px);
 }
 .p3dml-layers{
     margin:0 auto;    

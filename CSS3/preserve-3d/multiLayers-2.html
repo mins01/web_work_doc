@@ -40,10 +40,13 @@
 	<link rel="stylesheet" href="multiLayers.css">
 	<style>
 		.p3dml-containter{
+			position: fixed;
+			left:0;right:0;top:0;height:0;
+			width:100vw;
+			height:100vh;
 			overflow: hidden;
-			width:300px;
-			height: 300px;
-			margin:0 auto;
+			--p3dml-width:100vw;
+    		--p3dml-height:100vh;
 		}
 		.p3dml-layer{
 			font-size: 30px;
@@ -63,26 +66,32 @@
 		.p3dml-layers{
 			transform:translateZ(0px);
 		}
-		.p3dml-box:hover .p3dml-box-transform ,
-		.p3dml-box:active .p3dml-box-transform ,
-		.p3dml-box-transform.on{
-			transition: transform 10s linear;
-			transform:translateZ(var(--p3dml-perspective)) !important;
-		}
-
 
 		/* 이미지 감상 */
-		#p3dml-containter-02{
-			--p3dml-perspective:100px;
-			--p3dml-translateZ-gap: 50px
+		#p3dml-containter-02.p3dml-containter{
+			--p3dml-perspective:60px;
+			--p3dml-translateZ-gap:50px;
+			pointer-events: none;
 		}
+		/*
 		#p3dml-layers-02{
 			transform:translateZ( calc( var(--p3dml-perspective) * -0.9 ) );
-		}
+			
+		}*/
+		
 		#p3dml-containter-02 .p3dml-box-transform{
-			transition: transform 1s linear;
+			will-change: transform;
+			transition: transform 0.5s linear;
+		}
+		.p3dml-layer img{
+			
+			width:100%;height:100%;
+			object-fit: contain;
 		}
 
+		html{
+			cursor:crosshair;
+		}
 
 
 
@@ -93,7 +102,34 @@
 		}
 	</style>
 	<script>
-		
+		const fnTransform = (event)=>{
+			let p3dml_containter = document.querySelector('#p3dml-containter-02');
+			let box = p3dml_containter.getBoundingClientRect();
+			console.log(event);
+			let x = event.x - box.width/2;
+			let y = event.y - box.height/2;
+
+			let target = document.querySelector('#p3dml-box-transform-02');
+			let transform = `rotateX(0deg) rotateY(0deg) rotateZ(0deg)  translateX(${x}px) translateY(${y}px) translateZ(0px)`;
+			target.style.transform=transform;
+
+
+		}
+		document.addEventListener('click',fnTransform)
+		// document.addEventListener('mousemove',fnTransform)
+		document.addEventListener('wheel',(event)=>{
+			let deltaY = event.deltaY;
+			let p3dml_containter = document.querySelector('#p3dml-containter-02');
+			
+			// --p3dml-perspective
+
+			let p3dml_perspective = parseInt(p3dml_containter.style.getPropertyValue('--p3dml-perspective'))
+			console.log(p3dml_perspective);
+			p3dml_containter.style.setProperty('--p3dml-perspective',Math.max(0,(p3dml_perspective+deltaY/10))+'px');
+
+			// let p3dml_translateZ_gap = parseInt(p3dml_containter.style.getPropertyValue('--p3dml-translateZ-gap'))
+			// p3dml_containter.style.setProperty('--p3dml-translateZ-gap',(p3dml_translateZ_gap+deltaY/10)+'px');
+		})
 	
 	</script>
 </head>
@@ -106,96 +142,25 @@
 			<li>preserve-3d 를 활용한 다중 레이어 그림</li>
 		</ul>
 		<div class="card mb-3">
-			<div class="card-header">카운트다운</div>
 			<div class="card-body">
-				<div class="p3dml-containter">
+				<div class="p3dml-containter" id="p3dml-containter-02" style="--p3dml-translateZ-gap:10px;--p3dml-perspective:40px;">
 					<div class="p3dml-box">
-						<div class="p3dml-box-transform" id="p3dml-box-transform-01">
-							<div class="p3dml-layers" id="p3dml-layers-01">
-								<div class="p3dml-layer" data-layer-index="0" style="background-color: #d86c5e70;  background-image: url(bg.gif);">0</div>
-								<div class="p3dml-layer" data-layer-index="1" style="background-color: #d8c25e70;">1</div>
-								<div class="p3dml-layer" data-layer-index="2" style="background-color: #5ed86870;">2</div>
-								<div class="p3dml-layer" data-layer-index="3" style="background-color: #5ecad870;">3</div>
-								<div class="p3dml-layer" data-layer-index="4" style="background-color: #7e5ed870;">4</div>
-								<div class="p3dml-layer" data-layer-index="5" style="background-color: #d85e7870;">5</div>
-								<div class="p3dml-layer" data-layer-index="6" style="background-color: #d8c25e70;">6</div>
-								<div class="p3dml-layer" data-layer-index="7" style="background-color: #5ed86870;">7</div>
-								<div class="p3dml-layer" data-layer-index="8" style="background-color: #5ecad870;">8</div>
-								<div class="p3dml-layer" data-layer-index="9" style="background-color: #7e5ed870;">9</div>
-								<div class="p3dml-layer" data-layer-index="10" style="background-color: #7e5ed870;">10</div>
-								<div class="p3dml-layer" data-layer-index="-1" style="background-color: #d8c25e70;">-1</div>
-								<div class="p3dml-layer" data-layer-index="-2" style="background-color: #5ed86870;">-2</div>
-								<div class="p3dml-layer" data-layer-index="-3" style="background-color: #5ecad870;">-3</div>
-								<div class="p3dml-layer" data-layer-index="-4" style="background-color: #7e5ed870;">-4</div>
-								<div class="p3dml-layer" data-layer-index="-5" style="background-color: #d85e7870;">-5</div>
-								<div class="p3dml-layer" data-layer-index="-6" style="background-color: #d8c25e70;">-6</div>
-								<div class="p3dml-layer" data-layer-index="-7" style="background-color: #5ed86870;">-7</div>
-								<div class="p3dml-layer" data-layer-index="-8" style="background-color: #5ecad870;">-8</div>
-								<div class="p3dml-layer" data-layer-index="-9" style="background-color: #7e5ed870;">-9</div>
-								<div class="p3dml-layer" data-layer-index="-10" style="background-color: #7e5ed870;">-10</div>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-			</div>
-			<div class="card-footer">
-				<datalist id="datalist-translate">
-					<option value="0"></option>
-					<option value="100"></option>
-					<option value="200"></option>
-					<option value="300"></option>
-					<option value="400"></option>
-					<option value="500"></option>
-					<option value="600"></option>
-					<option value="700"></option>
-					<option value="800"></option>
-					<option value="900"></option>
-					<option value="-100"></option>
-					<option value="-200"></option>
-					<option value="-300"></option>
-					<option value="-400"></option>
-					<option value="-500"></option>
-					<option value="-600"></option>
-					<option value="-700"></option>
-					<option value="-800"></option>
-					<option value="-900"></option>
-				</datalist>
-				<div class="ctrl-container">
-					<div class="input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text">translateZ </span>
-						</div>
-						<input type="range" class="form-control" min="-600" max="600" value="0" list="datalist-translate" name="translateZ" oninput="document.querySelector('#p3dml-box-transform-01').style.transform='translateZ('+this.value+'px)'">
-						<div class="input-group-append" id="button-addon4">
-							<button type="button" class="btn btn-info" onclick="document.querySelector('#p3dml-box-transform-01').classList.toggle('on');">count down</button>
-						</div>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-		<div class="card mb-3">
-			<div class="card-header">이미지 감상 (<a href="multiLayers-2.html">두번째 예제</a>)</div>
-			<div class="card-body">
-				<div class="p3dml-containter" id="p3dml-containter-02">
-					<div class="p3dml-box">
-						<div class="p3dml-box-transform" id="p3dml-box-transform-02">
+						<div class="p3dml-box-transform" id="p3dml-box-transform-02" >
 							<div class="p3dml-layers" id="p3dml-layers-02">
-								<div class="p3dml-layer" data-layer-index="0" style="background-color: #fff; ;"><img src="assets/multiLayers-images/multiLayers-images_0006_background.png"></div>
-								<div class="p3dml-layer" data-layer-index="1" ><img src="assets/multiLayers-images/multiLayers-images_0005_sky.png"></div>
-								<div class="p3dml-layer" data-layer-index="2" ><img src="assets/multiLayers-images/multiLayers-images_0004_cloud-01.png"></div>
-								<div class="p3dml-layer" data-layer-index="3" ><img src="assets/multiLayers-images/multiLayers-images_0003_mountain.png"></div>
-								<div class="p3dml-layer" data-layer-index="5" ><img src="assets/multiLayers-images/multiLayers-images_0002_cloud-02.png"></div>
-								<div class="p3dml-layer" data-layer-index="7" ><img src="assets/multiLayers-images/multiLayers-images_0001_grass.png"></div>
-								<div class="p3dml-layer" data-layer-index="9" ><img src="assets/multiLayers-images/multiLayers-images_0000_text.png"></div>
+								<div class="p3dml-layer" data-layer-index="-10"><img src="assets/multiLayers-images/multiLayers-images_0006_background.png"></div>
+								<div class="p3dml-layer" data-layer-index="-9" ><img src="assets/multiLayers-images/multiLayers-images_0005_sky.png"></div>
+								<div class="p3dml-layer" data-layer-index="-7" ><img src="assets/multiLayers-images/multiLayers-images_0004_cloud-01.png"></div>
+								<div class="p3dml-layer" data-layer-index="-5" ><img src="assets/multiLayers-images/multiLayers-images_0003_mountain.png"></div>
+								<div class="p3dml-layer" data-layer-index="-3" ><img src="assets/multiLayers-images/multiLayers-images_0002_cloud-02.png"></div>
+								<div class="p3dml-layer" data-layer-index="-2" ><img src="assets/multiLayers-images/multiLayers-images_0001_grass.png"></div>
+								<!-- <div class="p3dml-layer" data-layer-index="2" ><img src="assets/multiLayers-images/multiLayers-images_0000_text.png"></div> -->
+								<div class="p3dml-layer text-center" data-layer-index="3" style="color: red;" ><div>CLICK ANYWHERE<br>MOUSE WHEEL</div></div>
 							</div>
 						</div>						
 					</div>
-					
 				</div>
 			</div>
-			<div class="card-footer">
+			<div class="card-footer d-none">
 				<datalist id="datalist-rotate">
 					<option value="0"></option>
 					<option value="90"></option>
@@ -224,9 +189,9 @@
 						let perspective = f.perspective.value;
 						target.closest('.p3dml-containter').style.setProperty('--p3dml-perspective',perspective+'px');
 					}
-					window.addEventListener('load',(evnet)=>{
-						setTransformRotateAndTranslate(document.querySelector('#p3dml-box-transform-02'),document.form_ex_02);
-					})
+					// window.addEventListener('load',(evnet)=>{
+					// 	setTransformRotateAndTranslate(document.querySelector('#p3dml-box-transform-02'),document.form_ex_02);
+					// })
 				</script>
 				<div class="ctrl-container">
 					<form action="#" name="form_ex_02" onsubmit="return false;" oninput="setTransformRotateAndTranslate(document.querySelector('#p3dml-box-transform-02'),this)">
