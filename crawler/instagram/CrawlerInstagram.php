@@ -65,8 +65,12 @@ class CrawlerInstagram{
         print_r($csrftoken);
         print_r($device_id);
         exit;
-        $cacheKey = "csrftoken_{$csrftoken}.html";
-        $url = "https://www.instagram.com/logging/falco";
+        https://www.instagram.com/api/v1/users/web_profile_info/?username=gongdaeyeoja
+        
+        set-cookie: csrftoken=nzbq1hURr3S55Lzoqd955i61KBvH8rvn; Domain=.instagram.com; expires=Thu, 14-Dec-2023 08:29:47 GMT; Max-Age=31449600; Path=/; Secure
+        set-cookie: mid=Y5ra-gALAAEKcZJnQPbTktcTwHAN; Domain=.instagram.com; expires=Sat, 14-Dec-2024 08:29:47 GMT; Max-Age=63072000; Path=/; Secure
+        strict-transport-security: max-age=31536000
+
 
         var_dump($res);
         // https://www.instagram.com/api/v1/users/web_profile_info/?username=gongdaeyeoja
