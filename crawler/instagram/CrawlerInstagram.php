@@ -15,7 +15,7 @@ class CrawlerInstagram{
         $shortcode_media = array(
             'shortcode'=>$shortcode,
         );
-        $cacheKey = "{$shortcode}.html";
+        $cacheKey = "_p_{$shortcode}.html";
         $url = 'https://www.instagram.com/p/'.urlencode($shortcode).'/';
         $body = $this->curlGetBodyWithCache($url,$cacheKey,86400);
 
@@ -43,6 +43,36 @@ class CrawlerInstagram{
 
         return $shortcode_media;
     }
+
+
+    public function webProfileInfoByUsername($username){
+        $data = [];
+        $data['username'] = $username;
+        $data['data'] = null;
+        //--- 기본 데이터
+        $cacheKey = "_{$username}.html";
+        $url = "https://www.instagram.com/{$username}/";
+        $res = $this->curlGetResWithCache($url,$cacheKey,86400);
+        // $res['body'] = '';
+        $matches = [];
+        preg_match_all('/{\\\"csrf_token\\\":\\\"([^"]+)\\\"/',$res['body'],$matches);
+        // print_r($matches);exit;
+        $csrftoken = $matches[1];
+        $matches = [];
+        preg_match_all('/"device_id":"([^$"]+)"/',$res['body'],$matches);
+
+        $device_id = $matches[1];
+        print_r($csrftoken);
+        print_r($device_id);
+        exit;
+        $cacheKey = "csrftoken_{$csrftoken}.html";
+        $url = "https://www.instagram.com/logging/falco";
+
+        var_dump($res);
+        // https://www.instagram.com/api/v1/users/web_profile_info/?username=gongdaeyeoja
+
+    }
+    
 
     // og 정보 추려내기
     private function parseOpenGraph($xml){
@@ -122,7 +152,28 @@ class CrawlerInstagram{
         }
         return $body;
     }
-    public function curlGet($url){
+    public function curlGetResWithCache($url,$cacheKey,$expire=3600){
+        if(!$url[0]){return null;}
+        $cached_path = "{$this->cache_dir}/{$cacheKey}";
+        $res = null;
+        if(is_file($cached_path) && time()-$expire <= filemtime($cached_path)){
+            $res = json_decode(file_get_contents($cached_path),true);
+            if($this->debug) echo "cached\n";
+        }else{
+            if($this->debug && is_file($cached_path) && time()-$expire > filemtime($cached_path)){
+                echo "expired\n";
+            }
+            // $url = 'https://www.instagram.com/p/'.urlencode($shortcode).'/';
+            $res = $this->curlGet($url,true);
+            if($this->debug) echo "no-cache\n";
+            file_put_contents($cached_path,json_encode($res));
+            if($this->debug) echo "save-cache\n";
+        }
+        return $res;
+    }
+
+
+    public function curlGet($url,$curlopt_header = false){
         
         // $url = 'https://www.instagram.com/p/CgZKgZOLsOk/';
 
@@ -152,7 +203,7 @@ class CrawlerInstagram{
         $conn = curl_init($url);
         $conn_timeout = $this->conn_timeout;
         $exec_timeout = $this->exec_timeout;
-        curl_setopt($conn, CURLOPT_HEADER, false); //응답헤더 OFF. ON 할경우 받는 파일에 헤더가 붙음.
+        curl_setopt($conn, CURLOPT_HEADER, $curlopt_header); //응답헤더 OFF. ON 할경우 받는 파일에 헤더가 붙음.
         curl_setopt($conn, CURLOPT_RETURNTRANSFER , true); //응답 내용 가져올지 여부. TRUE면 내용을 리턴. FALSE면 직접 브라우저에 출력
         // curl_setopt($conn, CURLOPT_USERAGENT,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"); //User Agent 설정
         curl_setopt($conn, CURLOPT_USERAGENT,"cr-instagram"); //User Agent 설정
@@ -162,6 +213,11 @@ class CrawlerInstagram{
         curl_setopt($conn, CURLOPT_HTTPHEADER, $headers);
 
         $result['body'] = curl_exec($conn);
+        if($curlopt_header){
+            $split_result = explode("\r\n\r\n", $result['body'], 2);
+            $result['header'] = isset($split_result[0])?$split_result[0]:'';
+            $result['body'] = isset($split_result[1])?$split_result[1]:'';
+        }
         $result['errormsg'] = curl_error($conn);
         $result['errorno'] = curl_errno($conn);
         $result['httpcode'] = curl_getinfo($conn,CURLINFO_HTTP_CODE);
