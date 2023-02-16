@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>offset</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>ForGoogle.analytics()</script>
+
+
+	<!-- jquery 관련 -->
+	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script> -->
+
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script> -->
+	<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script> -->
+	<!-- vue.js -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+
+	<!-- meta og -->
+
+	<meta property="og:title" content="offset">
+	<meta property="og:description" content="offset">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="offset" />
+	<meta property="og:type" content="website">
+
+	<style>
+		.box{
+			border: 1px solid #000;
+			position: relative;
+		}
+		.box-100{
+			width: 100px;
+			height: 100px;
+		}
+		.box-300{
+			width: 300px;
+			height: 300px;
+		}
+		.box-mov{
+			position: absolute;
+			content: "";
+			display: block;
+			width:100px;height:20px;
+			background-color: #f00;
+			border-radius: 3px;
+			offset: path("M 0 0 L 300 100 L 200 300 z");
+    		/* animation-play-state: paused */
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			align-content: center;
+			justify-content: center;
+			align-items: center;
+			white-space: nowrap;
+		}
+		.box-mov.animation-play{
+			animation: distance 3s infinite normal ease-in-out;
+			animation-play-state:running;
+		}
+		@keyframes distance {
+			100% {
+				offset-distance: 100%
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>offset</h1>
+		<ul class="list-group">
+			<li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset" target="_blank">https://developer.mozilla.org/en-US/docs/Web/CSS/offset</a></li>
+			<li class="list-group-item">CSS/SVG의 path를 사용해서 요소의 위치를 변경 시킬 수 있다.</li>
+			<li class="list-group-item">offset-distance 를 0%~100%로 변경시키면 애니메이션 처럼 동작한다.</li>
+			<li class="list-group-item">
+				<code>offset:{offset-path} {offset-distance} {offset-rotate};</code><br>
+				<code>offset: path("M 0 0 L 300 100 L 200 300 z") 0% auto;</code>
+			</li>
+			<li class="list-group-item"><b>offset-path : 위치 경로 (SVG 파일 사용가능)</b></li>
+			<li class="list-group-item"><b>offset-distance : 경로의 동작 거리. 100%면 완료. px 단위도 사용 가능</b></li>
+			<li class="list-group-item"><b>offset-rotate : 요소의 회전값.</b><br>
+				auto : 기본 값이며 경로에 맞춰서 요소가 회전한다.<br>
+				90deg : 요소는 무조건 90도 회전된 상태로 움직인다.<br>
+				auto 90deg : 요소는 90도 회전 후 path에 맞춰서 요소가 회전한다.
+				reverse : auto 180deg 와 같다. 
+			</li>
+			<li class="list-group-item">offset-anchor : 이동하는 요소 의 상자 내부 지점을 지정<br>
+
+				auto : 요소의 중앙을 기준으로 경로에 맞춰 이동<br>
+				top,right,left,bottom,center 등을 사용할 수 있다.<br>
+				현재 크롬에서 지원안됨!(2023-02-16. ver 110.0.5481.100)
+			</li>
+			<li class="list-group-item">offset-position : 이동하는 요소의 초기위치 지정<br>
+				현재 크롬에서 지원안됨!(2023-02-16. ver 110.0.5481.100)
+			</li>
+			
+			
+
+
+
+
+		</ul>
+	</div>
+	<div class="container my-3">
+		<div style="display: flex;flex-wrap: wrap;justify-content: space-around;">
+			<div>
+				<h3>animation</h3>
+				<div class="box box-300  m-3">
+					<div class="box-mov animation-play"></div>
+					<svg id="svg_css_ex1" width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+						<path fill="none" stroke="#00f" d="M 0 0 L 300 100 L 200 300 z" />
+					</svg>
+				</div>
+			</div>
+			<div>
+				<h3>animation<br>offset-rotate: 45deg;</h3>
+				<div class="box box-300  m-3">
+					<div class="box-mov animation-play" style="offset-rotate: 45deg;"></div>
+					<svg id="svg_css_ex1" width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+						<path fill="none" stroke="#00f" d="M 0 0 L 300 100 L 200 300 z" />
+					</svg>
+				</div>
+			</div>
+			<div>
+				<h3>animation<br>offset-rotate: auto 45deg;</h3>
+				<div class="box box-300  m-3">
+					<div class="box-mov animation-play" style="offset-rotate: auto 45deg;"></div>
+					<svg id="svg_css_ex1" width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+						<path fill="none" stroke="#00f" d="M 0 0 L 300 100 L 200 300 z" />
+					</svg>
+				</div>
+			</div>
+			<div>
+				<h3>offset-distance: 100px;</h3>
+				<div class="box box-300  m-3">
+					
+					<div class="box-mov" style="offset-distance: 100px;"></div>
+					<svg id="svg_css_ex1" width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+						<path fill="none" stroke="#00f" d="M 0 0 L 300 100 L 200 300 z" />
+					</svg>
+					
+				</div>
+			</div>
+			<div>
+				<h3>offset-distance: 50%;<br>offset-rotate: 45deg;</h3>
+				<div class="box box-300  m-3">
+					<div class="box-mov" style="offset-distance: 50%;offset-rotate: 45deg;"></div>
+					<svg id="svg_css_ex1" width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+						<path fill="none" stroke="#00f" d="M 0 0 L 300 100 L 200 300 z" />
+					</svg>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+	</div>
+
+</body>
+</html>
