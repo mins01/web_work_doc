@@ -54,10 +54,10 @@
 			position: absolute;
 			content: "";
 			display: block;
-			width:100px;height:20px;
+			width:40px;height:20px;
 			background-color: #f00;
-			border-radius: 3px;
-			offset: path("M 0 0 L 300 100 L 200 300 z");
+			border-radius: 0px 10px 10px 0px;
+			/* offset: path("M 0 0 L 300 100 L 200 300 z"); */
     		/* animation-play-state: paused */
 			display: flex;
 			flex-direction: row;
@@ -77,10 +77,58 @@
 			}
 		}
 
+		.path-tri{
+			offset-path: path("M 0 0 L 300 100 L 200 300 z");
+		}
+		.path-tri-url{
+			offset-path: url("path-tri.svg");
+		}
+		.path-tri-url-id{
+			offset-path: url("path-tri.svg#tri_path");
+		}
+		.path-basic-shape-circle{
+			offset-path: circle(50% at 25% 25%);
+		}
+		.path-ray{
+			offset-path: ray(0deg farthest-side);
+			animation: plane 5s infinite linear;
 
-		.wave-path{
+		}
+		@keyframes plane {
+			to {
+				offset-path: ray(360deg farthest-side);
+			}
+		}
+		
+		.path-wave{
 			offset-path: path("m 0.36449707,33.465313 c 46.53212293,-49.75896 44.62153893,-37.74218 75.14322493,0 0,0 32.497428,54.08481 75.143228,0 31.06266,-47.05641 47.31188,-28.95887 75.14323,0 0,0 33.83917,32.88782 73.79463,-25.25082");
-			/* offset-path: url(wave-path.svg); */
+			
+		}
+		.box-mov.path-wave.animation-play2{
+			animation: animation-path-wave 6s infinite normal ease-in-out;
+			animation-play-state:running;
+		}
+		@keyframes animation-path-wave {
+			0%{
+				offset-distance: 0%;
+				offset-rotate: auto 0deg;
+			}
+			45% {
+				offset-distance: 100%;
+				offset-rotate: auto 0deg;
+			}
+			50%{
+				offset-distance: 100%;
+				offset-rotate: auto 180deg;
+			}
+			95%{
+				offset-distance: 0%;
+				offset-rotate: auto 180deg;
+			}
+			100%{
+				offset-distance: 0%;
+				offset-rotate: auto 0deg;
+			}
 		}
 	</style>
 </head>
@@ -89,13 +137,19 @@
 		<h1>offset</h1>
 		<ul class="list-group">
 			<li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset" target="_blank">https://developer.mozilla.org/en-US/docs/Web/CSS/offset</a></li>
+			<li class="list-group-item"><a href="https://www.w3schools.com/cssref/css_pr_offset-path.php" target="_blank">https://www.w3schools.com/cssref/css_pr_offset-path.php</a></li>
+			
 			<li class="list-group-item">CSS/SVG의 path를 사용해서 요소의 위치를 변경 시킬 수 있다.</li>
 			<li class="list-group-item">offset-distance 를 0%~100%로 변경시키면 애니메이션 처럼 동작한다.</li>
 			<li class="list-group-item">
 				<code>offset:{offset-path} {offset-distance} {offset-rotate};</code><br>
 				<code>offset: path("M 0 0 L 300 100 L 200 300 z") 0% auto;</code>
 			</li>
-			<li class="list-group-item"><b>offset-path : 위치 경로 (SVG 파일 사용가능)</b></li>
+			<li class="list-group-item"><b>offset-path : 위치 경로 (SVG 파일 사용가능)</b><br>
+				MDN에서는 url(),ray(),basic-shape 들이 지원 된다고 적혀있는데, 현재 지원 안된다!<br>
+				즉, 현재로는 path()만 지원된다.
+
+			</li>
 			<li class="list-group-item"><b>offset-distance : 경로의 동작 거리. 100%면 완료. px 단위도 사용 가능</b></li>
 			<li class="list-group-item"><b>offset-rotate : 요소의 회전값.</b><br>
 				auto : 기본 값이며 경로에 맞춰서 요소가 회전한다.<br>
@@ -112,6 +166,9 @@
 			<li class="list-group-item">offset-position : 이동하는 요소의 초기위치 지정<br>
 				현재 크롬에서 지원안됨!(2023-02-16. ver 110.0.5481.100)
 			</li>
+			<li class="list-group-item">
+				(test on chrome 109.0.5414.122)
+			</li>
 			
 			
 
@@ -123,73 +180,113 @@
 	<div class="container my-3">
 		<div style="display: flex;flex-wrap: wrap;justify-content: space-around;">
 			<div>
-				<h3>animation</h3>
+				<h4>path-tri <br> animation</h4>
 				<div class="box box-300  m-3">
-					<div class="box-mov animation-play"></div>
-					<svg id="svg_css_ex1" width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-						<path fill="none" stroke="#00f" d="M 0 0 L 300 100 L 200 300 z" />
-					</svg>
+					<div class="box-mov path-tri animation-play"></div>
+					<img src="path-tri.svg" width="300px" height="300px">
 				</div>
 			</div>
 			<div>
-				<h3>animation<br>offset-rotate: 45deg;</h3>
+				<h4>path-tri <br> animation<br>offset-rotate: 45deg;</h4>
 				<div class="box box-300  m-3">
-					<div class="box-mov animation-play" style="offset-rotate: 45deg;"></div>
-					<svg id="svg_css_ex1" width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-						<path fill="none" stroke="#00f" d="M 0 0 L 300 100 L 200 300 z" />
-					</svg>
+					<div class="box-mov path-tri animation-play" style="offset-rotate: 45deg;"></div>
+					<img src="path-tri.svg" width="300px" height="300px">
 				</div>
 			</div>
 			<div>
-				<h3>animation<br>offset-rotate: auto 45deg;</h3>
+				<h4>path-tri <br>animation<br>offset-rotate: auto 45deg;</h4>
 				<div class="box box-300  m-3">
-					<div class="box-mov animation-play" style="offset-rotate: auto 45deg;"></div>
-					<svg id="svg_css_ex1" width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-						<path fill="none" stroke="#00f" d="M 0 0 L 300 100 L 200 300 z" />
-					</svg>
+					<div class="box-mov path-tri animation-play" style="offset-rotate: auto 45deg;"></div>
+					<img src="path-tri.svg" width="300px" height="300px">
 				</div>
 			</div>
 			<div>
-				<h3>offset-distance: 100px;</h3>
+				<h4>path-tri <br>offset-distance: 100px;</h4>
 				<div class="box box-300  m-3">
 					
-					<div class="box-mov" style="offset-distance: 100px;"></div>
-					<svg id="svg_css_ex1" width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-						<path fill="none" stroke="#00f" d="M 0 0 L 300 100 L 200 300 z" />
-					</svg>
+					<div class="box-mov path-tri" style="offset-distance: 100px;"></div>
+					<img src="path-tri.svg" width="300px" height="300px">
 					
 				</div>
 			</div>
 			<div>
-				<h3>offset-distance: 50%;<br>offset-rotate: 45deg;</h3>
+				<h4>path-tri <br>offset-distance: 50%;<br>offset-rotate: 45deg;</h4>
 				<div class="box box-300  m-3">
-					<div class="box-mov" style="offset-distance: 50%;offset-rotate: 45deg;"></div>
-					<svg id="svg_css_ex1" width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-						<path fill="none" stroke="#00f" d="M 0 0 L 300 100 L 200 300 z" />
-					</svg>
+					<div class="box-mov path-tri" style="offset-distance: 50%;offset-rotate: 45deg;"></div>
+					<img src="path-tri.svg" width="300px" height="300px">
+				</div>
+			</div>
+
+			<div>
+				<h4>path-tri-url <br>not working</h4>
+				<div class="box box-300  m-3">
+					<div class="box-mov path-tri-url" ></div>
+					<img src="path-tri.svg" width="300px" height="300px">
+				</div>
+			</div>
+
+			<div>
+				<h4>path-tri-url-id <br>not working</h4>
+				<div class="box box-300  m-3">
+					<div class="box-mov path-tri-url-id" ></div>
+					<img src="path-tri.svg" width="300px" height="300px">
+				</div>
+			</div>
+
+			<div>
+				<h4>path-basic-shape-circle <br>not working</h4>
+				<div class="box box-300  m-3">
+					<div class="box-mov path-basic-shape-circle" style="offset-distance: 50%;offset-rotate: 45deg;"></div>
+					<img src="path-tri.svg" width="300px" height="300px">
+				</div>
+			</div>
+
+			<div>
+				<h4>path-ray <br>not working </h4>
+				<div class="box box-300  m-3">
+					<div class="box-mov path-ray" style="offset-distance: 50%;offset-rotate: 45deg;"></div>
+					<img src="path-tri.svg" width="300px" height="300px">
 				</div>
 			</div>
 
 
+
+			
+			
+
+
+
+
+
+
+
 			<div>
-				<h3>wave-path</h3>
+				<h4>path-wave<br>animation-direction: alternate;</h4>
 				<div class="box box-300  m-3">
-					<div class="box-mov wave-path animation-play" style="animation-direction: alternate; "></div>
-					<!-- <object data="wave-path.svg"  width="300" height="58" type="image/svg+xml"  ></object> -->
+					<div class="box-mov path-wave animation-play" style="animation-direction: alternate; "></div>
+					<!-- <object data="path-wave.svg"  width="300" height="58" type="image/svg+xml"  ></object> -->
 					<svg
 						width="300.00009"
 						height="58.000011"
-						viewBox="0 0 300.00009 58.000012"
-						version="1.1"
-						id="svg5"
-						inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
-						sodipodi:docname="wave-path.svg"
-						xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-						xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-						xmlns="http://www.w3.org/2000/svg"
-						xmlns:svg="http://www.w3.org/2000/svg">
-						<defs
-							id="defs2" />
+						viewBox="0 0 300.00009 58.000012">
+						<path
+							style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.998085px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+							d="m 0.36449707,33.465313 c 46.53212293,-49.75896 44.62153893,-37.74218 75.14322493,0 0,0 32.497428,54.08481 75.143228,0 31.06266,-47.05641 47.31188,-28.95887 75.14323,0 0,0 33.83917,32.88782 73.79463,-25.25082"
+							id="path1494"
+							sodipodi:nodetypes="ccccc" />
+						</svg>
+
+				</div>
+			</div>
+			<div>
+				<h4>path-wave<br>animation-play2</h4>
+				<div class="box box-300  m-3">
+					<div class="box-mov path-wave animation-play2" ></div>
+					<!-- <object data="path-wave.svg"  width="300" height="58" type="image/svg+xml"  ></object> -->
+					<svg
+						width="300.00009"
+						height="58.000011"
+						viewBox="0 0 300.00009 58.000012">
 						<path
 							style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.998085px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
 							d="m 0.36449707,33.465313 c 46.53212293,-49.75896 44.62153893,-37.74218 75.14322493,0 0,0 32.497428,54.08481 75.143228,0 31.06266,-47.05641 47.31188,-28.95887 75.14323,0 0,0 33.83917,32.88782 73.79463,-25.25082"
