@@ -101,7 +101,7 @@
 		}
 		
 		.path-wave{
-			offset-path: path("m 0.36449707,33.465313 c 46.53212293,-49.75896 44.62153893,-37.74218 75.14322493,0 0,0 32.497428,54.08481 75.143228,0 31.06266,-47.05641 47.31188,-28.95887 75.14323,0 0,0 33.83917,32.88782 73.79463,-25.25082");
+			offset-path: path("m0.36518 33.465c46.532-49.757 44.621-37.741 75.143 0 0 0 32.497 54.083 75.143 0 31.062-47.055 47.312-28.958 75.143 0 0 0 33.839 32.887 73.794-25.25");
 			
 		}
 		.box-mov.path-wave.animation-play2{
@@ -129,6 +129,11 @@
 				offset-distance: 0%;
 				offset-rotate: auto 0deg;
 			}
+		}
+
+
+		.path-circle{
+			offset-path:path("m299.5 150a149.5 149.5 0 0 1-149.5 149.5 149.5 149.5 0 0 1-149.5-149.5 149.5 149.5 0 0 1 149.5-149.5 149.5 149.5 0 0 1 149.5 149.5z");
 		}
 	</style>
 </head>
@@ -264,17 +269,7 @@
 				<h4>path-wave<br>animation-direction: alternate;</h4>
 				<div class="box box-300  m-3">
 					<div class="box-mov path-wave animation-play" style="animation-direction: alternate; "></div>
-					<!-- <object data="path-wave.svg"  width="300" height="58" type="image/svg+xml"  ></object> -->
-					<svg
-						width="300.00009"
-						height="58.000011"
-						viewBox="0 0 300.00009 58.000012">
-						<path
-							style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.998085px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-							d="m 0.36449707,33.465313 c 46.53212293,-49.75896 44.62153893,-37.74218 75.14322493,0 0,0 32.497428,54.08481 75.143228,0 31.06266,-47.05641 47.31188,-28.95887 75.14323,0 0,0 33.83917,32.88782 73.79463,-25.25082"
-							id="path1494"
-							sodipodi:nodetypes="ccccc" />
-						</svg>
+					<img src="path-wave.svg" width="100%">
 
 				</div>
 			</div>
@@ -282,20 +277,66 @@
 				<h4>path-wave<br>animation-play2</h4>
 				<div class="box box-300  m-3">
 					<div class="box-mov path-wave animation-play2" ></div>
-					<!-- <object data="path-wave.svg"  width="300" height="58" type="image/svg+xml"  ></object> -->
-					<svg
-						width="300.00009"
-						height="58.000011"
-						viewBox="0 0 300.00009 58.000012">
-						<path
-							style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.998085px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-							d="m 0.36449707,33.465313 c 46.53212293,-49.75896 44.62153893,-37.74218 75.14322493,0 0,0 32.497428,54.08481 75.143228,0 31.06266,-47.05641 47.31188,-28.95887 75.14323,0 0,0 33.83917,32.88782 73.79463,-25.25082"
-							id="path1494"
-							sodipodi:nodetypes="ccccc" />
-						</svg>
+					<img src="path-wave.svg" width="100%">
+
 
 				</div>
 			</div>
+			<div>
+				<h4>path-circle<br>animation-play</h4>
+				<div class="box box-300  m-3">
+					<div class="box-mov path-circle animation-play" >HELLO</div>
+					<img src="path-circle.svg" width="100%" height="100%">
+				</div>
+			</div>
+			<div>
+				<h4>path-circle<br>TEXT</h4>
+				<div class="box box-300  m-3">
+					<div class="box-mov path-circle" style="offset-distance: 0em;" >가</div>
+					<div class="box-mov path-circle" style="offset-distance: 5em;" >나</div>
+					<div class="box-mov path-circle" style="offset-distance: 10em;" >다</div>
+					<div class="box-mov path-circle" style="offset-distance: 15em;" >라</div>
+					<div class="box-mov path-circle" style="offset-distance: 20em;" >마</div>
+					<div class="box-mov path-circle" style="offset-distance: 25em;" >바</div>
+					<div class="box-mov path-circle" style="offset-distance: 30em;" >사</div>
+					<div class="box-mov path-circle" style="offset-distance: 35em;" >A</div>
+					<div class="box-mov path-circle" style="offset-distance: 40em;" >B</div>
+					<div class="box-mov path-circle" style="offset-distance: 45em;" >C</div>
+					<div class="box-mov path-circle" style="offset-distance: 50em;" >d</div>
+					<div class="box-mov path-circle" style="offset-distance: 55em;" >e</div>
+					<img src="path-circle.svg" width="100%" height="100%">
+				</div>
+			</div>
+			<div>
+				<h4>path-circle<br>TEXT</h4>
+				<div class="box box-300  m-3">
+					<!-- <div class="box-mov path-circle" style="offset-distance: -50%; offset-rotate: auto 180deg;" >-50%</div> -->
+					<div class="box-mov path-circle" style="offset-distance: -45%; offset-rotate: auto 180deg;" >-45%</div>
+					<div class="box-mov path-circle" style="offset-distance: -40%; offset-rotate: auto 180deg;" >-40%</div>
+					<div class="box-mov path-circle" style="offset-distance: -35%; offset-rotate: auto 180deg;" >-35%</div>
+					<div class="box-mov path-circle" style="offset-distance: -30%; offset-rotate: auto 180deg;" >-30%</div>
+					<div class="box-mov path-circle" style="offset-distance: -25%; offset-rotate: auto 180deg;" >-25%</div>
+					<div class="box-mov path-circle" style="offset-distance: -20%; offset-rotate: auto 180deg;" >-20%</div>
+					<div class="box-mov path-circle" style="offset-distance: -15%; offset-rotate: auto 180deg;" >-15%</div>
+					<div class="box-mov path-circle" style="offset-distance: -10%; offset-rotate: auto 180deg;" >-10%</div>
+					<div class="box-mov path-circle" style="offset-distance: -5%; offset-rotate: auto 180deg;" >-5%</div>
+					<div class="box-mov path-circle" style="offset-distance: 0%;" >0%</div>
+					<div class="box-mov path-circle" style="offset-distance: 5%;" >5%</div>
+					<div class="box-mov path-circle" style="offset-distance: 10%;" >10%</div>
+					<div class="box-mov path-circle" style="offset-distance: 15%;" >15%</div>
+					<div class="box-mov path-circle" style="offset-distance: 20%;" >20%</div>
+					<div class="box-mov path-circle" style="offset-distance: 25%;" >25%</div>
+					<div class="box-mov path-circle" style="offset-distance: 30%;" >30%</div>
+					<div class="box-mov path-circle" style="offset-distance: 35%;" >35%</div>
+					<div class="box-mov path-circle" style="offset-distance: 40%;" >40%</div>
+					<div class="box-mov path-circle" style="offset-distance: 45%;" >45%</div>
+					<div class="box-mov path-circle" style="offset-distance: 50%;" >50%</div>
+					<img src="path-circle.svg" width="100%" height="100%">
+				</div>
+			</div>
+
+
+
 		</div>
 		
 		
