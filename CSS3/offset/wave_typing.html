@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>offset:wave_typing</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>ForGoogle.analytics()</script>
+
+
+	<!-- jquery 관련 -->
+	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script> -->
+
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script> -->
+	<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script> -->
+	<!-- vue.js -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+
+	<!-- meta og -->
+
+	<meta property="og:title" content="offset:wave_typing">
+	<meta property="og:description" content="offset:wave_typing">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="offset:wave_typing" />
+	<meta property="og:type" content="website">
+
+	<style>
+		.box-path{
+			position: absolute;
+			width:100%;
+			height: 100%;
+		}
+		.box-path > *{
+			font-size: 20px;
+			font-weight: bold;
+			--animation-delay:0s;
+			position: absolute;
+			display: inline-block;
+			offset-path: path("m0.36518 33.465c46.532-49.757 44.621-37.741 75.143 0 0 0 32.497 54.083 75.143 0 31.062-47.055 47.312-28.958 75.143 0 0 0 33.839 32.887 73.794-25.25");
+			/* offset-distance: var(--offset-distance,0em); */
+			offset-distance: 0;
+			animation: distance 3s linear var(--animation-delay,0s) infinite normal both;
+		}
+		
+		.box{
+			position: relative;
+			width:300px;
+		}
+		@keyframes distance {
+			0% {
+				filter: opacity(0);
+				offset-distance: 100%;
+				offset-rotate: 0deg;
+			}
+			10% {
+				filter: opacity(1);
+				offset-distance: 100%;
+				offset-rotate: 0deg;
+			}
+			80% {
+				filter: opacity(1);
+				offset-rotate: -360deg;
+				offset-distance: 0%;
+			}
+			100% {
+				filter: opacity(0);
+				offset-rotate: -1720deg;
+				offset-distance: 0%;
+			}
+		}
+	</style>
+	<script>
+		function onsubmit_form(text){
+			let box_path_circle = document.querySelector('.box-path');
+			
+			box_path_circle.innerHTML = '';
+			let arr = Array.from(text)
+			for(let i=0,m=arr.length;i<m;i++){
+				let ch = arr[i];
+				console.log(ch);
+				let div = document.createElement('div');
+				div.textContent = ch;
+				div.style.setProperty('--animation-delay',(0.5 * i)+'s');
+				box_path_circle.appendChild(div);
+				
+			}
+
+		}
+		window.addEventListener('load',()=>{
+			onsubmit_form('😄😁😆😅🤣😂🙂🙃😉😊😇');
+		})
+	</script>
+</head>
+<body>
+	<div class="container">
+		<h1>offset:wave_typing</h1>
+	</div>
+	<div class="container my-3">
+		<div class="box mx-auto my-5">
+			<div class="box-path">
+				<div style="--animation-delay:0s">한</div>
+				<div style="--animation-delay:0.5s">글</div>
+				<div style="--animation-delay:1s">A</div>
+				<div style="--animation-delay:1.5s">B</div>
+			</div>
+			<img src="path-wave.svg" width="100%">
+		</div>
+		<div>
+			<form action="" onsubmit="onsubmit_form(this.text.value.trim());this.text.value='';return false;">
+				<div class="input-group">
+					<input name="text" type="text" class="form-control">
+					<div class="input-group-append" id="button-addon4">
+						<button class="btn btn-outline-secondary" type="submit">확인</button>
+					  </div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>
