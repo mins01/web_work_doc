@@ -33,7 +33,7 @@
 }
 .resolution-box::after{
   display: flex; 
-  content: '브라우저 상단 + 윈도우 바(150px)';
+  content: '브라우저 상단 + 윈도우 바 마진(150px)';
   height: 150px;
   padding: 0;
   left:0;right:0;bottom:0; 
