@@ -1,0 +1,88 @@
+@charset "utf-8";
+
+/* 콘텐츠 내용 */
+.content-box-text{
+  text-align: center;
+}
+.content-box-text::before{
+  content: attr(data-fs) "한글 ABcd !@#$%^&*()_+";
+}
+.content-box-ratio{
+  margin:0 auto;
+  width:90%;
+  border:2px solid #000000;
+  background-color: #a6ff00;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  filter: opacity(0.3);
+  text-align: center;
+  font-size: 40px;
+}
+.content-box-ratio::before{
+  content: "너비 90%의 1:1 비율의 박스 \a" attr(data-size);
+  white-space: pre;
+}
+
+/* 폰트크기 */
+.fs[data-fs="16px"]{ font-size: 16px; }
+.fs[data-fs="20px"]{ font-size: 20px; }
+.fs[data-fs="24px"]{ font-size: 24px; }
+.fs[data-fs="28px"]{ font-size: 28px; }
+.fs[data-fs="32px"]{ font-size: 32px; }
+.fs[data-fs="36px"]{ font-size: 36px; }
+.fs[data-fs="40px"]{ font-size: 40px; }
+
+/* 콘텐츠 */
+.content-wrap{
+  position: absolute;
+  left:0;right:0;top:0;bottom:0;
+  min-width: 100%;
+  min-height:100%;
+  pointer-events: none;
+}
+.content-box{
+  outline: 4px dashed #00ff22b2;
+  outline-offset: -4px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  margin: 0 auto;
+  position: relative;
+  background-color: #ffd6d622;
+  min-height: 100%;
+  pointer-events: all;
+}
+.content-box::before{ left:0;top:0; }
+.content-box::before {
+  font-size: 20px;
+  padding:0.25em 0.5em;
+  background-color: rgb(47, 255, 92);
+  position: absolute;
+  content: attr(data-width);
+  filter: opacity(0.5);
+}
+.content-box-toggle{
+  position: absolute;
+  right:0;top:0;
+}
+.content-box[data-width="300px"]{ width:300px;}
+.content-box[data-width="400px"]{ width:400px;}
+.content-box[data-width="500px"]{ width:500px;}
+.content-box[data-width="600px"]{ width:600px;}
+.content-box[data-width="700px"]{ width:700px;}
+.content-box[data-width="800px"]{ width:800px;}
+.content-box[data-width="900px"]{ width:900px;}
+.content-box[data-width="1000px"]{ width:1000px;}
+
+
+/* 감추기 */
+.content-box-toggle::before{content: attr(data-width);}
+.content-box-off .content-box-toggle{filter: grayscale(1);}
+.content-box-off > *{visibility: hidden;}
+.content-box-off > .content-box-toggle{visibility: visible;}
+.content-box-off.content-box{ background-color: transparent; outline-style: none;}
+.content-box-off.content-box::before{ visibility: hidden;}
