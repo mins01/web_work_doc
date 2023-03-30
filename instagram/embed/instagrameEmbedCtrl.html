@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>인스타그램 embed 컨트롤</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+	
+
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script> 
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="인스타그램 embed 컨트롤">
+	<meta property="og:description" content="인스타그램 embed 컨트롤">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="인스타그램 embed 컨트롤" />
+	<meta property="og:type" content="website">
+	
+	<!-- //meta og -->
+	<link rel="stylesheet" href="instagrameEmbedCtrl.css">
+	<script src="InstagrameEmbedCtrl.js"></script>
+	<script> InstagrameEmbedCtrl.initEvent();</script>
+	
+</head>
+<body>
+	<div class="container">
+		<h1>인스타그램 embed 컨트롤</h1>
+		<hr>
+		<div class="iec-wrap">
+			<iframe class="instagram-media instagram-media-rendered" id="instagram-embed-2" src="https://www.instagram.com/p/CpcVUOevaut/embed/" allowtransparency="true" allowfullscreen="true" frameborder="0" height="500" data-instgrm-payload-id="instagram-media-payload-1" scrolling="no" ></iframe>
+		</div>
+		<div class="iec-wrap" style="width:400px">
+			<iframe class="instagram-media instagram-media-rendered" id="instagram-embed-3" src="https://www.instagram.com/p/CoejCVYPFu2/embed/captioned/" allowtransparency="true" allowfullscreen="true" frameborder="0" height="500" data-instgrm-payload-id="instagram-media-payload-2" scrolling="no" ></iframe>
+		</div>
+		<div class="iec-wrap" style="width:500px;border:2px dashed #000; border-radius: 20px; box-shadow: 5px 5px 5px #00000033;margin:10px">
+			<iframe class="instagram-media" src="https://www.instagram.com/p/CoejCVYPFu2/embed/captioned/" scrolling="no" ></iframe>
+		</div>
+		<div class="iec-wrap" style="width:240px;border:2px dashed #000; border-radius: 20px; box-shadow: 5px 5px 5px #00000033;margin:10px">
+			<iframe class="instagram-media" src="https://www.instagram.com/p/CqZnMTcv4sQ/embed/captioned/" scrolling="no" ></iframe>
+		</div>
+
+		
+		<h3>로드 실패</h3>
+		<div class="iec-wrap">
+			<iframe onerror="alert('d');" class="instagram-media instagram-media-rendered" id="instagram-embed-3" src="https://xxxinstagram.com/p/CoejCVYPFu2xxx/embed/captioned/" allowtransparency="true" allowfullscreen="true" frameborder="0" height="500" data-instgrm-payload-id="instagram-media-payload-3" scrolling="no" style="width:400px;height:100px;border:2px dashed #000; border-radius: 20px; box-shadow: 5px 5px 5px #00000033;"></iframe>
+		</div>
+		<hr>
+
+		<h3>URL 변경</h3>
+		<div class="iec-wrap">
+			<iframe class="instagram-media" id="iframe-test-open" src="https://www.instagram.com/p/CqZnMTcv4sQ/embed/captioned/" scrolling="no" ></iframe>
+		</div>
+		<div class="my-3">
+			히스토리 남음
+			<button type="button" class="btn btn-info"  onclick="InstagrameEmbedCtrl.openUrl(document.querySelector('#iframe-test-open'),'https://www.instagram.com/p/CqZnMTcv4sQ/embed/captioned/')">open URL-1</button>
+			<button type="button" class="btn btn-info"  onclick="InstagrameEmbedCtrl.openUrl(document.querySelector('#iframe-test-open'),'https://www.instagram.com/p/CqZnMTcv4sQ/embed/')">open URL-2</button>
+			<button type="button" class="btn btn-info"  onclick="InstagrameEmbedCtrl.openUrl(document.querySelector('#iframe-test-open'),'https://www.instagram.com/p/CoejCVYPFu2/embed/captioned/')">open URL-2</button>
+		</div>
+		
+		<div class="my-3">
+			히스토리 안남음
+			<button type="button" class="btn btn-info"  onclick="InstagrameEmbedCtrl.replaceUrl(document.querySelector('#iframe-test-open'),'https://www.instagram.com/p/CqZnMTcv4sQ/embed/captioned/')">replace URL-1</button>
+			<button type="button" class="btn btn-info"  onclick="InstagrameEmbedCtrl.replaceUrl(document.querySelector('#iframe-test-open'),'https://www.instagram.com/p/CqZnMTcv4sQ/embed/')">replace URL-2</button>
+			<button type="button" class="btn btn-info"  onclick="InstagrameEmbedCtrl.replaceUrl(document.querySelector('#iframe-test-open'),'https://www.instagram.com/p/CoejCVYPFu2/embed/captioned/')">replace URL-2</button>
+		</div>
+		<hr>
+
+	</div>
+</body>
+</html>
