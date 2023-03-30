@@ -1,3 +1,10 @@
+/**
+ * @author 공대여자
+ * @link http://mins01.com
+ * @link https://mins01.github.io/web_work_doc/instagram/embed
+ * @license MIT + '공대여자는 예쁘다'를 표시해야함
+ */
+// 공대여자는 예쁘다
 class InstagrameEmbedCtrl{
     static isInitedEvent = false
     static initEvent(){
