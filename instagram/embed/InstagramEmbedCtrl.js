@@ -38,7 +38,7 @@ class InstagramEmbedCtrl{
     static openUrl(target_iframe,src){
         if(!target_iframe){ console.warn('InstagramEmbedCtrl.open:target_iframe',target_iframe); return;}
         if(!src){console.warn('InstagramEmbedCtrl.open:src',src); return;}
-        console.log('InstagramEmbedCtrl.open',target_iframe,src);
+        // console.log('InstagramEmbedCtrl.open',target_iframe,src);
         let iecTarget = target_iframe.closest('.iec-wrap');
         if(iecTarget) iecTarget.classList.remove('loaded');
         target_iframe.src = src;
@@ -46,7 +46,7 @@ class InstagramEmbedCtrl{
     static replaceUrl(target_iframe,src){
         if(!target_iframe){ console.warn('InstagramEmbedCtrl.open:target_iframe',target_iframe); return;}
         if(!src){console.warn('InstagramEmbedCtrl.open:src',src); return;}
-        console.log('InstagramEmbedCtrl.open',target_iframe,src);
+        // console.log('InstagramEmbedCtrl.open',target_iframe,src);
         let iecTarget = target_iframe.closest('.iec-wrap');
         if(iecTarget) iecTarget.classList.remove('loaded');
 
