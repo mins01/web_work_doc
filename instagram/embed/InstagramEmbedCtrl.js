@@ -5,7 +5,7 @@
  * @license MIT + '공대여자는 예쁘다'를 표시해야함
  */
 // 공대여자는 예쁘다
-class InstagrameEmbedCtrl{
+class InstagramEmbedCtrl{
     static isInitedEvent = false
     static initEvent(){
         console.log('isInitedEvent',this.isInitedEvent);
@@ -36,17 +36,17 @@ class InstagrameEmbedCtrl{
         }
     }
     static openUrl(target_iframe,src){
-        if(!target_iframe){ console.warn('InstagrameEmbedCtrl.open:target_iframe',target_iframe); return;}
-        if(!src){console.warn('InstagrameEmbedCtrl.open:src',src); return;}
-        console.log('InstagrameEmbedCtrl.open',target_iframe,src);
+        if(!target_iframe){ console.warn('InstagramEmbedCtrl.open:target_iframe',target_iframe); return;}
+        if(!src){console.warn('InstagramEmbedCtrl.open:src',src); return;}
+        console.log('InstagramEmbedCtrl.open',target_iframe,src);
         let iecTarget = target_iframe.closest('.iec-wrap');
         if(iecTarget) iecTarget.classList.remove('loaded');
         target_iframe.src = src;
     }
     static replaceUrl(target_iframe,src){
-        if(!target_iframe){ console.warn('InstagrameEmbedCtrl.open:target_iframe',target_iframe); return;}
-        if(!src){console.warn('InstagrameEmbedCtrl.open:src',src); return;}
-        console.log('InstagrameEmbedCtrl.open',target_iframe,src);
+        if(!target_iframe){ console.warn('InstagramEmbedCtrl.open:target_iframe',target_iframe); return;}
+        if(!src){console.warn('InstagramEmbedCtrl.open:src',src); return;}
+        console.log('InstagramEmbedCtrl.open',target_iframe,src);
         let iecTarget = target_iframe.closest('.iec-wrap');
         if(iecTarget) iecTarget.classList.remove('loaded');
 
