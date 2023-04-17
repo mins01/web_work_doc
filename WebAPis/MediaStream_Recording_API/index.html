@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>MediaStream Recording API</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+	
+
+	<!-- jquery 관련 -->
+	<!-- <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script> -->
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>  -->
+	<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script> -->
+	<!-- vue.js -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="MediaStream Recording API">
+	<meta property="og:description" content="MediaStream Recording API">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="MediaStream Recording API" />
+	<meta property="og:type" content="website">
+	
+	<!-- //meta og -->
+
+</head>
+<body>
+	<div class="container">
+        <h1>MediaStream Recording API</h1>
+        <ul class="list-group">
+            <li class="list-group-item">MediaStream Recording API</li>
+            <li class="list-group-item">
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API">https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API</a>
+            </li>
+            <li class="list-group-item">
+                <a href="https://stackoverflow.com/questions/41739837/all-mime-types-supported-by-mediarecorder-in-firefox-and-chrome">크롬 MediaRecorder API에서 지원하는 Video/Audio Mimetype </a>
+                <ul>
+                    <li>video/webm</li>
+                    <li>video/webm;codecs=vp8</li>
+                    <li>video/webm;codecs=vp9</li>
+                    <li>video/webm;codecs=vp8.0</li>
+                    <li>video/webm;codecs=vp9.0</li>
+                    <li>video/webm;codecs=h264</li>
+                    <li>video/webm;codecs=H264</li>
+                    <li>video/webm;codecs=avc1</li>
+                    <li>video/webm;codecs=vp8,opus</li>
+                    <li>video/WEBM;codecs=VP8,OPUS</li>
+                    <li>video/webm;codecs=vp9,opus</li>
+                    <li>video/webm;codecs=vp8,vp9,opus</li>
+                    <li>video/webm;codecs=h264,opus</li>
+                    <li>video/webm;codecs=h264,vp9,opus</li>
+                    <li>video/x-matroska;codecs=avc1</li>
+                    <li>audio/webm</li>
+                    <li>audio/webm;codecs=opus</li>
+                </ul>
+            </li>
+            
+            
+          </ul>
+        <ul>
+
+	</div>
+    <hr>
+	<div class="container">
+        <canvas id="canvas" style="height:300px;width:300px" width="300" height="300"></canvas>
+        <video id="myVideo" controls="controls"  style="height:300px;width:300px"></video>
+        <a id="dl" href="" download="download.webm">download.webm</a>
+        <hr>
+        왜인지는 모르겠지만, 팟플레이어에서는 다운로드한 webm 파일이 재생 안된다.<br>
+        윈도우 미디어 플레이어에서는 재상된다.<br>
+        크롬에서는 재생 된다.
+    </div>
+    <script>
+        fn().then(async ({url, blob})=>{
+            document.querySelector('#dl').href = url;
+            document.querySelector('#myVideo').src = url;
+            document.querySelector('#myVideo').play();
+        })
+
+        function fn() {
+            var recordedChunks = [];
+
+            var time = 0;
+            var canvas = document.getElementById("canvas");
+            let cx = canvas.getContext("2d");
+            // cx.lineWidth = Math.floor(Math.random()*5)
+            // cx.strokeStyle = '#'+Math.floor(Math.random()*0xffffff);
+            cx.fillStyle = '#eeeeee';
+            cx.fillRect(0, 0, canvas.width, canvas.height)
+
+            return new Promise(function (res, rej) {
+                var stream = canvas.captureStream(60);
+
+                mediaRecorder = new MediaRecorder(stream, {
+                    mimeType: "video/webm; codecs=vp9"
+                    // mimeType: "video/webm;codecs=h264"
+                    // mimeType: "video/webm; codecs=vp8"
+                    // mimeType: 'video/mp4' //크롬은 mp4 로 레코딩 지원 안함
+                });
+
+                mediaRecorder.start(time);
+
+                mediaRecorder.ondataavailable = function (e) {
+                    recordedChunks.push(event.data);
+                    // for demo, removed stop() call to capture more than one frame
+                }
+
+                mediaRecorder.onstop = function (event) {
+                    var blob = new Blob(recordedChunks, {
+                        "type": "video/webm"
+                        // "type": "video/mp4"
+                    });
+                    var url = URL.createObjectURL(blob);
+                    res({url, blob}); // resolve both blob and url in an object
+
+                    
+                    // removed data url conversion for brevity
+                }
+
+                // for demo, draw random lines and then stop recording
+                var i = 0,
+                tid = setInterval(()=>{
+                    if(i++ > 40) {
+                        clearInterval(tid);
+                        mediaRecorder.stop();
+                    }
+                    let canvas = document.querySelector("canvas");
+                    // canvas.width = 300;
+                    // canvas.height = 300;
+                    let cx = canvas.getContext("2d");
+                    cx.beginPath();
+                    // cx.strokeStyle = 'green';
+                    cx.lineWidth = Math.floor(Math.random()*20)
+                    cx.strokeStyle = '#'+Math.floor(Math.random()*0xffffff).toString(16);
+                    cx.moveTo(Math.random()*300, Math.random()*300);
+                    cx.lineTo(Math.random()*300, Math.random()*300);
+                    cx.stroke();
+                    cx.closePath();
+                },100)
+
+            });
+        }
+      </script>
+
+</body>
+</html>
