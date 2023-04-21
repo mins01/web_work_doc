@@ -124,8 +124,8 @@
         <h2>테스트</h2>
         <component-test>
         </component-test>
-        <component-test style="font-size: 30px;">
-            <span slot="slot1">slot1</span>
+        <component-test style="font-size: 30px;" onclick="alert(this.createdAt)">
+            <span slot="slot1">클릭시 요소 생성일시을 알려줍니다.</span>
             <span slot="slot2">slot2</span>
             <span slot="slot3">slot3</span>
         </component-test>
@@ -163,6 +163,18 @@
                 .content;
                 const shadowRoot = this.attachShadow({mode: 'open'})
                 .appendChild(template.cloneNode(true));
+                this.createdAt = (new Date()).toISOString();
+            }
+        });
+        customElements.define('component-test2',
+        class extends HTMLElement {
+            constructor() {
+                super();
+                const template = document
+                .getElementById('template-component-test2')
+                .content;
+                const shadowRoot = this.attachShadow({mode: 'open'})
+                .appendChild(template.cloneNode(true));
             }
         });
         customElements.define('component-test3',
@@ -176,17 +188,6 @@
                 .appendChild(template.cloneNode(true));
             }
         },{extends:'p'});
-        customElements.define('component-test2',
-        class extends HTMLElement {
-            constructor() {
-                super();
-                const template = document
-                .getElementById('template-component-test2')
-                .content;
-                const shadowRoot = this.attachShadow({mode: 'open'})
-                .appendChild(template.cloneNode(true));
-            }
-        });
     </script>
 
 
