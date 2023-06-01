@@ -57,14 +57,14 @@
 	<div class="container">
         <h3>제어부</h3>
         <button class="btn btn-info" type="button" onclick="displayToVideo()">1. 화면 선택 후 비디오로 재생</button>
-        <button class="btn btn-info" type="button" onclick="recordStart()">2. 화면 녹화 시작</button>
-        <button class="btn btn-info" type="button" onclick="recordStop()">3. 화면 녹화 종료</button>
+        <button class="btn btn-danger" type="button" onclick="recordStart()">2. 화면 녹화 시작</button>
+        <button class="btn btn-success" type="button" onclick="recordStop()">3. 화면 녹화 종료</button>
         <hr>
         <div class="row">
              <div class="col-lg-6">
                 <hr>
                 <h3>선택한 화면</h3>
-                <video id="myVideo" controls="controls"  style="width:100%;min-height:auto; aspect-ratio: 16/9;"></video>
+                <video id="myVideo" controls="controls" muted  style="width:100%;min-height:auto; aspect-ratio: 16/9;"></video>
              </div>
              <div class="col-lg-6">
                 <hr>
@@ -81,12 +81,18 @@
     <script>
         let mediaDevices = null;
         function displayToVideo(){
+            //https://developer.chrome.com/docs/web-platform/screen-sharing-controls/
             var displayMediaOptions = {
                 video: {
+                    displaySurface: "monitor",
+                    surfaceSwitching: "include",
                     cursor: "always",
                     frameRate: 60,
                 },
-                audio: true
+                audio: true,
+                selfBrowserSurface: "exclude",
+                // systemAudio: "exclude",
+                systemAudio: "include",
             };
             mediaDevices = navigator.mediaDevices.getDisplayMedia(displayMediaOptions)
             mediaDevices.catch().then((mediaStream)=>{
