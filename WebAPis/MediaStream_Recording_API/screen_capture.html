@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>MediaStream Recording + Screen Capture API</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+	
+
+	<!-- jquery 관련 -->
+	<!-- <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script> -->
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>  -->
+	<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script> -->
+	<!-- vue.js -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="MediaStream Recording API">
+	<meta property="og:description" content="MediaStream Recording API">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="MediaStream Recording API" />
+	<meta property="og:type" content="website">
+	
+	<!-- //meta og -->
+
+</head>
+<body>
+	<div class="container">
+        <h1>MediaStream Recording API + Screen Capture API</h1>
+        <ul class="list-group">
+            <li class="list-group-item">스크린 캡쳐 한 것으로 동영상으로 만드는 예제</li>
+            <li class="list-group-item">
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API">https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API</a>
+            </li>
+            <li class="list-group-item">
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API/Using_Screen_Capture">https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API/Using_Screen_Capture</a>
+            </li>
+          </ul>
+        <ul>
+
+	</div>
+    <hr>
+	<div class="container">
+        <h3>제어부</h3>
+        <button class="btn btn-info" type="button" onclick="displayToVideo()">1. 화면 선택 후 비디오로 재생</button>
+        <button class="btn btn-info" type="button" onclick="recordStart()">2. 화면 녹화 시작</button>
+        <button class="btn btn-info" type="button" onclick="recordStop()">3. 화면 녹화 종료</button>
+        <hr>
+        <div class="row">
+             <div class="col-lg-6">
+                <hr>
+                <h3>선택한 화면</h3>
+                <video id="myVideo" controls="controls"  style="width:100%;min-height:auto; aspect-ratio: 16/9;"></video>
+             </div>
+             <div class="col-lg-6">
+                <hr>
+                <h3>녹화된 영상</h3>
+                <video id="myVideo2" controls="controls"  style="width:100%;min-height:auto; aspect-ratio: 16/9;"></video>
+                <a id="dl" href="" download="download.webm">download.webm</a>
+             </div>
+        </div>
+        
+        
+        
+
+    </div>
+    <script>
+        let mediaDevices = null;
+        function displayToVideo(){
+            var displayMediaOptions = {
+                video: {
+                    cursor: "always",
+                    frameRate: 60,
+                },
+                audio: true
+            };
+            mediaDevices = navigator.mediaDevices.getDisplayMedia(displayMediaOptions)
+            mediaDevices.catch().then((mediaStream)=>{
+                let video = document.querySelector('#myVideo');
+                video.srcObject = mediaStream;
+                video.addEventListener('canplaythrough',evt=>{
+                    // document.querySelector('#output').append(video);
+                    video.play();
+                    console.log(evt);
+                })
+                readyMediaRecorder(mediaStream);
+            });
+
+            
+        }
+
+        function recordStart(){
+            recordedChunks = [];
+            mediaRecorder.start(0);
+        }
+        function recordStop(){
+            mediaRecorder.stop();
+        }
+    </script>
+
+    <script>
+
+        let recordedChunks = [];
+        let mediaRecorder = null;
+
+
+        function readyMediaRecorder(stream){
+            console.log(stream);
+            // let video = document.querySelector('#myVideo');
+
+            // var stream = video.captureStream(60);
+
+            mediaRecorder = new MediaRecorder(stream, {
+                mimeType: "video/webm; codecs=vp9"
+                // mimeType: "video/webm;codecs=h264"
+                // mimeType: "video/webm; codecs=vp8"
+                // mimeType: 'video/mp4' //크롬은 mp4 로 레코딩 지원 안함
+            });
+
+            // mediaRecorder.start();
+            // mediaRecorder.stop();
+
+            mediaRecorder.ondataavailable = function (e) {
+                recordedChunks.push(event.data);
+                // for demo, removed stop() call to capture more than one frame
+            }
+
+            mediaRecorder.onstop = function (event) {
+                var blob = new Blob(recordedChunks, {
+                    "type": "video/webm"
+                    // "type": "video/mp4"
+                });
+                recordedChunks = [];
+                let url = URL.createObjectURL(blob);
+                console.log('url',url);
+                
+                if(!document.querySelector('#dl').href){
+                    URL.revokeObjectURL(document.querySelector('#dl').href);
+                }
+                document.querySelector('#dl').href = url;
+                document.querySelector('#myVideo2').src = url;
+                document.querySelector('#myVideo2').play();
+            }
+        }
+    </script>
+
+</body>
+</html>
