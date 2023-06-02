@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ko" >
 <head>
-	<title>parallel_multiple_imgs</title>
+	<title>parallel_multiple_call - imgs</title>
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Script-Type" content="text/javascript">
 	<meta http-equiv="Content-Style-Type" content="text/css">
@@ -27,12 +27,12 @@
 	
 	<!-- meta og -->
 	
-	<meta property="og:title" content="parallel_multiple_imgs">
-	<meta property="og:description" content="parallel_multiple_imgs">
+	<meta property="og:title" content="parallel_multiple_call - imgs">
+	<meta property="og:description" content="parallel_multiple_call - imgs">
 	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
 	<meta property="og:image:width" content="190">
 	<meta property="og:image:height" content="70" />
-	<meta property="og:site_name" content="parallel_multiple_imgs" />
+	<meta property="og:site_name" content="parallel_multiple_call - imgs" />
 	<meta property="og:type" content="website">
 	
 	<!-- //meta og -->
@@ -40,7 +40,7 @@
 </head>
 <body>
 	<div class="container">
-        <h1>parallel_multiple_imgs</h1>
+        <h1>parallel_multiple_call - imgs</h1>
         <ul class="list-group">
             <li class="list-group-item">parallel_multiple_imgs</li>
             <li class="list-group-item">
