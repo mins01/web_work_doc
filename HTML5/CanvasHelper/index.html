@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>CanvasHelper</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+	
+
+	<!-- jquery 관련 -->
+	<!-- <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script> -->
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>  -->
+	<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script> -->
+	<!-- vue.js -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+	
+
+    <!-- https://fonts.google.com/specimen/Gugi -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
+
+	<!-- meta og -->
+	
+	<meta property="og:title" content="CanvasHelper">
+	<meta property="og:description" content="CanvasHelper">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="CanvasHelper" />
+	<meta property="og:type" content="website">
+
+	<style>
+		.border{
+			border:2px solid #999;
+		}
+	</style>
+    <script src="CanvasHelper.js"></script>
+	<script>
+		let canvas = null;
+		var ctxTextConf={
+			'font':'16px arial',
+			fillStyle:'#369',
+			// strokeStyle:'#000',
+			strokeStyle:'transparent',
+			// textAlign:'center',
+			textAlign:'left',
+			textBaseline:"alphabetic", //이것만 사용하라 나머진 대응을..	
+		}
+		window.addEventListener('load',(event)=>{
+			canvas = CanvasHelper.canvnas(300,300);
+			CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvnas(300,300)",canvas.width,null,16,ctxTextConf,12);
+			canvas.classList.add('border')
+			document.body.appendChild(canvas);
+
+			canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+			CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvasByImage(document.querySelector('#test_img'))",canvas.width,null,16,ctxTextConf,12);
+			canvas.classList.add('border')
+			document.body.appendChild(canvas);
+
+			CanvasHelper.canvasByObject(document.querySelector('#test_img')).then((canvas)=>{
+				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvasByObject(document.querySelector('#test_img'))",canvas.width,null,16,ctxTextConf,12);
+
+				canvas.classList.add('border')
+				document.body.appendChild(canvas);
+			})
+
+			canvas = CanvasHelper.canvnas(300,300);
+			CanvasHelper.blobByCanvas(canvas).then((blob)=>{
+				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvasToBlob(canvas)",canvas.width,null,16,ctxTextConf,12);
+				console.log('blob',blob);
+
+				
+				CanvasHelper.canvasByObject(blob).then((cnavas)=>{
+					CanvasHelper.printOnCanvas(canvas,0,32,"CanvasHelper.canvasByObject(blob)",canvas.width,null,16,ctxTextConf,12);
+					canvas.classList.add('border')
+					document.body.appendChild(canvas);
+				});
+				// CanvasHelper.canvasByObject(null).then((cnavas)=>{
+				// 	CanvasHelper.printOnCanvas(canvas,0,32,"CanvasHelper.canvasByObject(null)",canvas.width,null,16,ctxTextConf,12);
+				// 	canvas.classList.add('border')
+				// 	document.body.appendChild(canvas);
+				// });
+				
+			})
+
+
+			CanvasHelper.imageByUrl(document.querySelector('#test_img').src).then((image)=>{
+				image.classList.add('border')
+				document.body.appendChild(image);
+			});
+
+
+
+			let ctxTextConf2={
+				'font':'30px arial',
+				fillStyle:'#963',
+				// strokeStyle:'#000',
+				strokeStyle:'transparent',
+				textAlign:'center',
+				// textAlign:'left',
+				textBaseline:"alphabetic", //이것만 사용하라 나머진 대응을..	
+			}
+			let text = '테스트 ABC\n줄바꿈DEF 테스트 테스트 테스트 (테스트)';
+			let width = 300;
+			let height = null;
+			let lineHeightPx = 36;
+			let paddingPx = 15;
+			let bgFillStyle = null;
+			let canvas2 = CanvasHelper.canvasByText(text,width,height,lineHeightPx,ctxTextConf2,paddingPx,bgFillStyle);
+			CanvasHelper.printOnCanvas(canvas2,0,0,"CanvasHelper.canvasByText(text,width,height,lineHeightPx,ctxTextConf2,paddingPx,bgFillStyle)",canvas2.width,null,16,ctxTextConf,12);
+
+			canvas2.classList.add('border')
+			document.body.appendChild(canvas2);
+			
+
+		})
+	</script>
+</head>
+<body>
+    <div class="container">
+        <h1>CanvasHelper</h1>
+        <ul class="list-group">
+            <li class="list-group-item">canvas 를 다루는 핼퍼</li>
+            <li class="list-group-item">
+                목표<br>
+                1. Static Class 형식<br>
+                2. 프로미스 사용(콜백 대신에)<br>
+            </li>
+        </ul>
+		<hr>
+		<img id="test_img" src="20221115182629545.png">
+    </div>
+</body>
+</html>
