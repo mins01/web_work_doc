@@ -43,8 +43,17 @@
 	<meta property="og:type" content="website">
 
 	<style>
-		.border{
-			border:2px solid #999;
+		img,canvas{
+			outline:2px solid #999;
+			outline-offset: -2px;
+			vertical-align: middle;
+			background-image: url(bg.gif);
+		}
+		img{
+			outline-color: rgb(98, 209, 116);
+		}
+		canvas{
+			outline-color: rgb(160, 51, 51);
 		}
 	</style>
     <script src="CanvasHelper.js"></script>
@@ -60,46 +69,61 @@
 			textBaseline:"alphabetic", //이것만 사용하라 나머진 대응을..	
 		}
 		window.addEventListener('load',(event)=>{
-			canvas = CanvasHelper.canvnas(300,300);
-			CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvnas(300,300)",canvas.width,null,16,ctxTextConf,12);
-			canvas.classList.add('border')
-			document.body.appendChild(canvas);
+			let div_result = document.querySelector('#div_result');
 
+			(()=>{
+				canvas = CanvasHelper.canvas(300,300);
+				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvas(300,300)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			})();
+			(()=>{
+				let canvas = CanvasHelper.canvas(300,300,'#fff');
+				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvas(300,300,'#fff')",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			})();
+			(()=>{
+				let canvas = CanvasHelper.canvas(300,300);
+				CanvasHelper.fillCanvas(canvas,'#aabbcc99');
+				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.fillCanvas(canvas,'#aabbcc99')",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			})();
+			
 			canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
 			CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvasByImage(document.querySelector('#test_img'))",canvas.width,null,16,ctxTextConf,12);
-			canvas.classList.add('border')
-			document.body.appendChild(canvas);
+			div_result.appendChild(canvas);
 
 			CanvasHelper.canvasByObject(document.querySelector('#test_img')).then((canvas)=>{
 				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvasByObject(document.querySelector('#test_img'))",canvas.width,null,16,ctxTextConf,12);
 
-				canvas.classList.add('border')
-				document.body.appendChild(canvas);
+				div_result.appendChild(canvas);
 			})
 
-			canvas = CanvasHelper.canvnas(300,300);
-			CanvasHelper.blobByCanvas(canvas).then((blob)=>{
-				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvasToBlob(canvas)",canvas.width,null,16,ctxTextConf,12);
-				console.log('blob',blob);
-
+			let canvas3 = CanvasHelper.canvas(300,300);
+			CanvasHelper.printOnCanvas(canvas3,0,0,"CanvasHelper.blobByCanvas(canvas3)",canvas3.width,null,16,ctxTextConf,12);
+			CanvasHelper.blobByCanvas(canvas3).then((blob)=>{
+				console.log('blob3',blob);
 				
-				CanvasHelper.canvasByObject(blob).then((cnavas)=>{
+				CanvasHelper.canvasByObject(blob).then((canvas)=>{
 					CanvasHelper.printOnCanvas(canvas,0,32,"CanvasHelper.canvasByObject(blob)",canvas.width,null,16,ctxTextConf,12);
-					canvas.classList.add('border')
-					document.body.appendChild(canvas);
+					div_result.appendChild(canvas);
 				});
-				// CanvasHelper.canvasByObject(null).then((cnavas)=>{
-				// 	CanvasHelper.printOnCanvas(canvas,0,32,"CanvasHelper.canvasByObject(null)",canvas.width,null,16,ctxTextConf,12);
-				// 	canvas.classList.add('border')
-				// 	document.body.appendChild(canvas);
-				// });
-				
+
+			})
+			let canvas4 = CanvasHelper.canvas(300,300);
+			CanvasHelper.printOnCanvas(canvas4,0,0,"CanvasHelper.blobByCanvas(canvas4)",canvas3.width,null,16,ctxTextConf,12);
+			CanvasHelper.blobByCanvas(canvas4).then((blob)=>{
+				console.log('blob4',blob);
+
+				CanvasHelper.canvasByObjectWithObjectUrl(blob).then((canvas)=>{
+					CanvasHelper.printOnCanvas(canvas,0,32,"CanvasHelper.canvasByObjectWithObjectUrl(blob)",canvas.width,null,16,ctxTextConf,12);
+					div_result.appendChild(canvas);
+				});
 			})
 
 
 			CanvasHelper.imageByUrl(document.querySelector('#test_img').src).then((image)=>{
-				image.classList.add('border')
-				document.body.appendChild(image);
+				image.classList.add('outline')
+				div_result.appendChild(image);
 			});
 
 
@@ -114,16 +138,68 @@
 				textBaseline:"alphabetic", //이것만 사용하라 나머진 대응을..	
 			}
 			let text = '테스트 ABC\n줄바꿈DEF 테스트 테스트 테스트 (테스트)';
-			let width = 300;
-			let height = null;
 			let lineHeightPx = 36;
-			let paddingPx = 15;
+			let paddingPx = 10;
 			let bgFillStyle = null;
-			let canvas2 = CanvasHelper.canvasByText(text,width,height,lineHeightPx,ctxTextConf2,paddingPx,bgFillStyle);
-			CanvasHelper.printOnCanvas(canvas2,0,0,"CanvasHelper.canvasByText(text,width,height,lineHeightPx,ctxTextConf2,paddingPx,bgFillStyle)",canvas2.width,null,16,ctxTextConf,12);
+			
+			(()=>{
+				let width = 300;
+				let height = null; // 자동 높이 조절
+				let canvas = CanvasHelper.canvasByText(text,width,height,lineHeightPx,ctxTextConf2,paddingPx,bgFillStyle);
+				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvasByText(text,width,height,lineHeightPx,ctxTextConf2,paddingPx,bgFillStyle)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			})();
+			(()=>{
+				let width = 300;
+				let height = 100;
+				let canvas = CanvasHelper.canvasByText(text,width,height,lineHeightPx,ctxTextConf2,paddingPx,bgFillStyle);
+				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvasByText(text,width,height,lineHeightPx,ctxTextConf2,paddingPx,bgFillStyle)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			})();
 
-			canvas2.classList.add('border')
-			document.body.appendChild(canvas2);
+			(()=>{
+				let canvas = CanvasHelper.canvas(300,300);
+				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvas(300,300)",canvas.width,null,16,ctxTextConf,12);
+				let newCanvas = CanvasHelper.cloneCanvas(canvas)
+				CanvasHelper.printOnCanvas(newCanvas,0,30,"CanvasHelper.cloneCanvas(canvas)",newCanvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+				div_result.appendChild(newCanvas);
+			})();
+
+			(()=>{
+				let canvas = CanvasHelper.canvas(600,300);
+				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvas(300,300)",canvas.width,null,16,ctxTextConf,12);
+				CanvasHelper.resizeCanvas(canvas,200,200)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.resizeCanvas(canvas,200,200)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			})();
+			(()=>{
+				// 비율 자동 계산 리사이즈
+				let canvas = CanvasHelper.canvas(600,300);
+				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvas(300,300)",canvas.width,null,16,ctxTextConf,12);
+				CanvasHelper.resizeCanvas(canvas,180,null); 
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.resizeCanvas(canvas,180,null)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			})();
+			(()=>{
+				// 비율 자동 계산 리사이즈
+				let canvas = CanvasHelper.canvas(600,300);
+				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvas(300,300)",canvas.width,null,16,ctxTextConf,12);
+				CanvasHelper.resizeCanvas(canvas,0,180)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.resizeCanvas(canvas,0,180)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			})();
+			(()=>{
+				// 비율 자동 계산 리사이즈
+				let canvas = CanvasHelper.canvas(600,300);
+				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvas(300,300)",canvas.width,null,16,ctxTextConf,12);
+				CanvasHelper.resizeCanvas(canvas,700,0)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.resizeCanvas(canvas,0,180)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			})();
+
+			
+			
 			
 
 		})
@@ -141,7 +217,24 @@
             </li>
         </ul>
 		<hr>
-		<img id="test_img" src="20221115182629545.png">
+		<h3>테스트 소스 이미지</h3>
+		<figure>
+			<figcaption>소스 이미지</figcaption>
+			<img id="test_img" alt="소스 이미지" src="20221115182629545.png">
+		</figure>
+		<hr>
+		<h3>테스트 버튼</h3>
+		<button class="btn btn-info" type="button" onclick="CanvasHelper.blobByCanvas(CanvasHelper.canvas(300,300),'image/png',1).then((blob)=>{ CanvasHelper.downloadBlob(blob,'테스트_'+(new Date()).toISOString()+'.png')});return false">CanvasHelper.downloadBlob(blob,filename)</button>
+		<button class="btn btn-info" type="button" onclick="CanvasHelper.blobByCanvas(CanvasHelper.canvasByImage(document.querySelector('#test_img')),'image/jpeg',0.1).then((blob)=>{ CanvasHelper.downloadBlob(blob,'테스트_'+(new Date()).toISOString()+'.jpg')});return false">CanvasHelper.downloadBlob(blob,filename)</button>
+
+		<button class="btn btn-info" type="button" onclick="CanvasHelper.downloadCanvas(CanvasHelper.canvas(300,300),'image/png',1,'테스트_'+(new Date()).toISOString()+'.png');return false">CanvasHelper.downloadCanvas(blob,filename)</button>
+		<button class="btn btn-info" type="button" onclick="CanvasHelper.downloadCanvas(CanvasHelper.canvasByImage(document.querySelector('#test_img')),'image/jpeg',0.1,'테스트_'+(new Date()).toISOString()+'.jpg');return false">CanvasHelper.downloadCanvas(blob,filename)</button>
+
+		<hr>
+		<h3>테스트 결과</h3>
+		<div id="div_result">
+
+		</div>
     </div>
 </body>
 </html>
