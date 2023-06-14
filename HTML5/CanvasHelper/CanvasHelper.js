@@ -1,6 +1,9 @@
 'use strict';
 
 class CanvasHelper {
+  static context2dByCanvas_contextAttributes = {
+    willReadFrequently: true, // 소프트웨어 2D캔버스를 강제함.(메모리 절약)
+  }
     /**
      * 
      * @param int w 
@@ -17,6 +20,17 @@ class CanvasHelper {
         }
         return canvas
     }
+    /**
+     * 
+     * @param Canvas canvas 
+     * @returns CanvasRenderingContext2D 
+     */
+    static context2dByCanvas(canvas,contextAttributes){
+      if(contextAttributes == undefined){
+        contextAttributes = this.context2dByCanvas_contextAttributes
+      }
+      return canvas.getContext('2d', contextAttributes);
+    }
 
     /**
      * 
@@ -24,7 +38,7 @@ class CanvasHelper {
      * @param string fillStyle 배경색
      */
     static fillCanvas(canvas,fillStyle){
-      let ctx = canvas.getContext('2d');
+      let ctx = CanvasHelper.context2dByCanvas(canvas);
       ctx.fillStyle = fillStyle;
       ctx.globalAlpha = 1;
       ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
@@ -50,7 +64,7 @@ class CanvasHelper {
      */
     static canvasByImage(image){
         let canvas = this.canvas(image.naturalWidth,image.naturalHeight);
-        let ctx = canvas.getContext('2d');
+        let ctx = CanvasHelper.context2dByCanvas(canvas);
         ctx.drawImage(image,0,0);
         return canvas;
     }
@@ -63,7 +77,7 @@ class CanvasHelper {
         return new Promise((resolve, reject) => {
             createImageBitmap(object).then((imageBitmap)=>{
                 let canvas = this.canvas(imageBitmap.width,imageBitmap.height);
-                let ctx = canvas.getContext('2d');
+                let ctx = CanvasHelper.context2dByCanvas(canvas);
                 ctx.drawImage(imageBitmap,0,0);
                 resolve(canvas);
             })
@@ -135,11 +149,17 @@ class CanvasHelper {
      */
     static cloneCanvas(canvas){
       let newCanvas = this.canvas(canvas.width,canvas.height);
-      let newCtx = newCanvas.getContext('2d');
-      let ctx = canvas.getContext('2d');
+      let newCtx = CanvasHelper.context2dByCanvas(newCanvas)
+      let ctx = CanvasHelper.context2dByCanvas(canvas);
       newCtx.putImageData(ctx.getImageData(0,0,ctx.canvas.width,ctx.canvas.height),0,0);
       return newCanvas;
     }
+    /**
+     * 
+     * @param Canvas canvas 
+     * @param int w 
+     * @param int h 
+     */
     static resizeCanvas(canvas,w,h){
       if(!w && !h){
         throw 'Error : width and height is empty value!'; 
@@ -149,9 +169,26 @@ class CanvasHelper {
       let newCanvas = this.cloneCanvas(canvas);
       canvas.width = w;
       canvas.height = h;
-      let ctx = canvas.getContext('2d');
+      let ctx = CanvasHelper.context2dByCanvas(canvas);
       ctx.drawImage(newCanvas,0,0,newCanvas.width,newCanvas.height,0,0,w,h);
-      return canvas;
+    }
+
+    /**
+     * 
+     * 주의 : 이미지 범위를 넘어가는 경우 범위 밖의 부분은 이상한 데이터를 가질 수 있다.
+     * @param Canvas canvas 
+     * @param int sx 
+     * @param int sy 
+     * @param int sw 
+     * @param int sh 
+     */
+    static cropCanvas(canvas,sx,sy,sw,sh){
+      let ctx = CanvasHelper.context2dByCanvas(canvas);
+      let imageData = ctx.getImageData(sx,sy,sw,sh);
+      canvas.width = imageData.width
+      canvas.height = imageData.height;
+      ctx = CanvasHelper.context2dByCanvas(canvas);
+      ctx.putImageData(imageData,0,0);
     }
 
 
@@ -193,7 +230,7 @@ class CanvasHelper {
         canvas.dataset.paddingPx = paddingPx
         canvas.width = width;
         canvas.height = height?height:300; //height 가 없으면 밑에서 자동 재계산한다.
-        let ctx = canvas.getContext('2d');
+        let ctx = CanvasHelper.context2dByCanvas(canvas);
         for(var k in ctxConf){
           ctx[k] = ctxConf[k];
         }
@@ -225,7 +262,7 @@ class CanvasHelper {
         if(!height){
           canvas.height = Math.ceil(lineHeightPx*(lines.length)) + (paddingPx*2);
         }
-        ctx = canvas.getContext('2d');
+        ctx = CanvasHelper.context2dByCanvas(canvas);
         if(bgFillStyle){
           ctx.save();
           ctx.fillStyle = bgFillStyle;
@@ -269,7 +306,7 @@ class CanvasHelper {
      */
     static printOnCanvas(canvas,dx,dy,text,width,height,lineHeightPx,ctxConf,paddingPx,bgFillStyle){
         let textCanvas = this.canvasByText(text,width,height,lineHeightPx,ctxConf,paddingPx,bgFillStyle);
-        let ctx = canvas.getContext('2d');
+        let ctx = CanvasHelper.context2dByCanvas(canvas);
         ctx.drawImage(textCanvas,dx,dy);
     }
 }
