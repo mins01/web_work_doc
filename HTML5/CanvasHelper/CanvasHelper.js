@@ -2,7 +2,7 @@
 
 class CanvasHelper {
   static context2dByCanvas_contextAttributes = {
-    willReadFrequently: true, // 소프트웨어 2D캔버스를 강제함.(메모리 절약)
+    // willReadFrequently: true, // 소프트웨어 2D캔버스를 강제함.(메모리 절약) getImageData 를 자주 사용시 설정하라.
   }
     /**
      * 
@@ -26,9 +26,11 @@ class CanvasHelper {
      * @returns CanvasRenderingContext2D 
      */
     static context2dByCanvas(canvas,contextAttributes){
-      if(contextAttributes == undefined){
-        contextAttributes = this.context2dByCanvas_contextAttributes
+      if(!contextAttributes){
+        contextAttributes = {}
       }
+      contextAttributes = Object.assign({},this.context2dByCanvas_contextAttributes,contextAttributes)
+      console.log(contextAttributes);
       return canvas.getContext('2d', contextAttributes);
     }
 
@@ -150,7 +152,7 @@ class CanvasHelper {
     static cloneCanvas(canvas){
       let newCanvas = this.canvas(canvas.width,canvas.height);
       let newCtx = CanvasHelper.context2dByCanvas(newCanvas)
-      let ctx = CanvasHelper.context2dByCanvas(canvas);
+      let ctx = CanvasHelper.context2dByCanvas(canvas,{willReadFrequently: true,});
       newCtx.putImageData(ctx.getImageData(0,0,ctx.canvas.width,ctx.canvas.height),0,0);
       return newCanvas;
     }
@@ -183,11 +185,17 @@ class CanvasHelper {
      * @param int sh 
      */
     static cropCanvas(canvas,sx,sy,sw,sh){
-      let ctx = CanvasHelper.context2dByCanvas(canvas);
+      // if(sx < 0 || sy < 0){
+      //   throw "Error : sx < 0 or sy < 0";
+      // }
+      // if(sx+sw > canvas.width || sy+sh > canvas.height){
+      //   throw "Error : sx+sw > canvas.width or sy+sh > canvas.height";
+      // }
+      let ctx = CanvasHelper.context2dByCanvas(canvas,{willReadFrequently: true,});
       let imageData = ctx.getImageData(sx,sy,sw,sh);
       canvas.width = imageData.width
       canvas.height = imageData.height;
-      ctx = CanvasHelper.context2dByCanvas(canvas);
+      // ctx = CanvasHelper.context2dByCanvas(canvas,{willReadFrequently: true,});
       ctx.putImageData(imageData,0,0);
     }
 
