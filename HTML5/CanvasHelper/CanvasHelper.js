@@ -5,7 +5,7 @@ class CanvasHelper {
     alpha: true, 
     colorSpace: 'srgb', 
     desynchronized: false, 
-    willReadFrequently: true, // true 이면, 소프트웨어 2D캔버스를 강제함.(메모리 절약) getImageData 를 자주 사용시 설정하라.
+    willReadFrequently: false, // true 이면, 소프트웨어 2D캔버스를 강제함.(메모리 절약) getImageData 를 자주 사용시 설정하라.
   }
     /**
      * 
