@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>CanvasHelper</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+	
+
+	<!-- jquery 관련 -->
+	<!-- <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script> -->
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>  -->
+	<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script> -->
+	<!-- vue.js -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+	
+
+    <!-- https://fonts.google.com/specimen/Gugi -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
+
+	<!-- meta og -->
+	
+	<meta property="og:title" content="CanvasHelper">
+	<meta property="og:description" content="CanvasHelper">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="CanvasHelper" />
+	<meta property="og:type" content="website">
+
+	<style>
+		img,canvas{
+			outline:2px solid #999;
+			outline-offset: -2px;
+			vertical-align: middle;
+			background-image: url(bg.gif);
+		}
+		img{
+			outline-color: rgb(98, 209, 116);
+		}
+		canvas{
+			outline-color: rgb(160, 51, 51);
+		}
+	</style>
+    <script src="CanvasHelper.js"></script>
+	<script>
+		// let canvas = null;
+		var ctxTextConf={
+			'font':'16px arial',
+			fillStyle:'#369',
+			// strokeStyle:'#000',
+			strokeStyle:'transparent',
+			// textAlign:'center',
+			textAlign:'left',
+			textBaseline:"alphabetic", //이것만 사용하라 나머진 대응을..	
+		}
+		let canvas_org = null;
+		window.addEventListener('load',(event)=>{
+			canvas_org = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+		})
+		
+		
+		function test_cropCanvasWithImageData(event){
+			let ps = performance.now();
+			for(let i=0,m=1000;i<m;i++){
+				let canvas = CanvasHelper.cloneCanvas(canvas_org);
+				CanvasHelper.cropCanvasWithImageData(canvas,300*0,0,300,400)
+			}
+			let pe = performance.now();
+			let gap = pe-ps;
+			event.currentTarget.querySelector('.gap-time').textContent = gap;
+		}
+
+		function test_cropCanvasWithDrawImage(event){
+			let ps = performance.now();
+			for(let i=0,m=1000;i<m;i++){
+				let canvas = CanvasHelper.cloneCanvas(canvas_org);
+				CanvasHelper.cropCanvasWithDrawImage(canvas,300*0,0,300,400)
+			}
+			let pe = performance.now();
+			let gap = pe-ps;
+			event.currentTarget.querySelector('.gap-time').textContent = gap;
+		}
+		
+	</script>
+</head>
+<body>
+    <div class="container">
+        <h1>CanvasHelper</h1>
+        <ul class="list-group">
+            <li class="list-group-item">CanvasHelper.cropCanvasWithImageData vs CanvasHelper.cropCanvasWithDrawImage</li>
+            <li class="list-group-item">
+                목표<br>
+                1. cropCanvasWithImageData 와 cropCanvasWithDrawImage 의 속도 차이 체크
+            </li>
+        </ul>
+		<hr>
+		<h3>테스트 소스 이미지</h3>
+		<figure>
+			<figcaption>소스 이미지</figcaption>
+			<img id="test_img" alt="소스 이미지" src="20221115182629545.png">
+		</figure>
+		<hr>
+		<h3>테스트 버튼</h3>
+
+		<button class="btn btn-info m-1" type="button" onclick="test_cropCanvasWithImageData(event)">cropCanvasWithImageData 1000회 동작 : <span class="gap-time">0</span>ms</button>
+		<button class="btn btn-info m-1" type="button" onclick="test_cropCanvasWithDrawImage(event)">cropCanvasWithDrawImage 1000회 동작 : <span class="gap-time">0</span>ms</button>
+		
+		<hr>
+		<h3>테스트 결과</h3>
+		<div id="div_result">
+
+		</div>
+    </div>
+</body>
+</html>

@@ -2,7 +2,10 @@
 
 class CanvasHelper {
   static context2dByCanvas_contextAttributes = {
-    // willReadFrequently: true, // 소프트웨어 2D캔버스를 강제함.(메모리 절약) getImageData 를 자주 사용시 설정하라.
+    alpha: true, 
+    colorSpace: 'srgb', 
+    desynchronized: false, 
+    willReadFrequently: true, // true 이면, 소프트웨어 2D캔버스를 강제함.(메모리 절약) getImageData 를 자주 사용시 설정하라.
   }
     /**
      * 
@@ -30,7 +33,7 @@ class CanvasHelper {
         contextAttributes = {}
       }
       contextAttributes = Object.assign({},this.context2dByCanvas_contextAttributes,contextAttributes)
-      console.log(contextAttributes);
+      // console.log(contextAttributes);
       return canvas.getContext('2d', contextAttributes);
     }
 
@@ -40,7 +43,7 @@ class CanvasHelper {
      * @param string fillStyle 배경색
      */
     static fillCanvas(canvas,fillStyle){
-      let ctx = CanvasHelper.context2dByCanvas(canvas);
+      let ctx = this.context2dByCanvas(canvas);
       ctx.fillStyle = fillStyle;
       ctx.globalAlpha = 1;
       ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
@@ -66,7 +69,7 @@ class CanvasHelper {
      */
     static canvasByImage(image){
         let canvas = this.canvas(image.naturalWidth,image.naturalHeight);
-        let ctx = CanvasHelper.context2dByCanvas(canvas);
+        let ctx = this.context2dByCanvas(canvas);
         ctx.drawImage(image,0,0);
         return canvas;
     }
@@ -79,7 +82,7 @@ class CanvasHelper {
         return new Promise((resolve, reject) => {
             createImageBitmap(object).then((imageBitmap)=>{
                 let canvas = this.canvas(imageBitmap.width,imageBitmap.height);
-                let ctx = CanvasHelper.context2dByCanvas(canvas);
+                let ctx = this.context2dByCanvas(canvas);
                 ctx.drawImage(imageBitmap,0,0);
                 resolve(canvas);
             })
@@ -151,8 +154,8 @@ class CanvasHelper {
      */
     static cloneCanvas(canvas){
       let newCanvas = this.canvas(canvas.width,canvas.height);
-      let newCtx = CanvasHelper.context2dByCanvas(newCanvas)
-      let ctx = CanvasHelper.context2dByCanvas(canvas,{willReadFrequently: true,});
+      let newCtx = this.context2dByCanvas(newCanvas,{"willReadFrequently": true,})
+      let ctx = this.context2dByCanvas(canvas,{"willReadFrequently": true,});
       newCtx.putImageData(ctx.getImageData(0,0,ctx.canvas.width,ctx.canvas.height),0,0);
       return newCanvas;
     }
@@ -171,10 +174,22 @@ class CanvasHelper {
       let newCanvas = this.cloneCanvas(canvas);
       canvas.width = w;
       canvas.height = h;
-      let ctx = CanvasHelper.context2dByCanvas(canvas);
+      let ctx = this.context2dByCanvas(canvas);
       ctx.drawImage(newCanvas,0,0,newCanvas.width,newCanvas.height,0,0,w,h);
     }
 
+    /**
+     * 
+     * cropCanvasWithImageData 가 cropCanvasWithDrawImage 에 비해서 30% 정도 빠르다
+     * @param Canvas canvas 
+     * @param int sx 
+     * @param int sy 
+     * @param int sw 
+     * @param int sh 
+     */
+    static cropCanvas(canvas,sx,sy,sw,sh){
+      return this.cropCanvasWithImageData(canvas,sx,sy,sw,sh);
+    }
     /**
      * 
      * 주의 : 이미지 범위를 넘어가는 경우 범위 밖의 부분은 이상한 데이터를 가질 수 있다.
@@ -184,19 +199,34 @@ class CanvasHelper {
      * @param int sw 
      * @param int sh 
      */
-    static cropCanvas(canvas,sx,sy,sw,sh){
+    static cropCanvasWithImageData(canvas,sx,sy,sw,sh){
       // if(sx < 0 || sy < 0){
       //   throw "Error : sx < 0 or sy < 0";
       // }
       // if(sx+sw > canvas.width || sy+sh > canvas.height){
       //   throw "Error : sx+sw > canvas.width or sy+sh > canvas.height";
       // }
-      let ctx = CanvasHelper.context2dByCanvas(canvas,{willReadFrequently: true,});
+      let ctx = this.context2dByCanvas(canvas,{"willReadFrequently": true,});
       let imageData = ctx.getImageData(sx,sy,sw,sh);
       canvas.width = imageData.width
       canvas.height = imageData.height;
-      // ctx = CanvasHelper.context2dByCanvas(canvas,{willReadFrequently: true,});
       ctx.putImageData(imageData,0,0);
+    }
+
+    /**
+     * 
+     * @param Canvas canvas 
+     * @param int sx 
+     * @param int sy 
+     * @param int sw 
+     * @param int sh 
+     */
+    static cropCanvasWithDrawImage(canvas,sx,sy,sw,sh){
+      let cloneCanvas = this.cloneCanvas(canvas);
+      canvas.width = sw;
+      canvas.height = sh;
+      let ctx = this.context2dByCanvas(canvas);
+      ctx.drawImage(cloneCanvas,sx,sy,sw,sh,0,0,ctx.canvas.width,ctx.canvas.height);
     }
 
 
@@ -238,7 +268,7 @@ class CanvasHelper {
         canvas.dataset.paddingPx = paddingPx
         canvas.width = width;
         canvas.height = height?height:300; //height 가 없으면 밑에서 자동 재계산한다.
-        let ctx = CanvasHelper.context2dByCanvas(canvas);
+        let ctx = this.context2dByCanvas(canvas);
         for(var k in ctxConf){
           ctx[k] = ctxConf[k];
         }
@@ -270,7 +300,7 @@ class CanvasHelper {
         if(!height){
           canvas.height = Math.ceil(lineHeightPx*(lines.length)) + (paddingPx*2);
         }
-        ctx = CanvasHelper.context2dByCanvas(canvas);
+        ctx = this.context2dByCanvas(canvas);
         if(bgFillStyle){
           ctx.save();
           ctx.fillStyle = bgFillStyle;
@@ -314,7 +344,7 @@ class CanvasHelper {
      */
     static printOnCanvas(canvas,dx,dy,text,width,height,lineHeightPx,ctxConf,paddingPx,bgFillStyle){
         let textCanvas = this.canvasByText(text,width,height,lineHeightPx,ctxConf,paddingPx,bgFillStyle);
-        let ctx = CanvasHelper.context2dByCanvas(canvas);
+        let ctx = this.context2dByCanvas(canvas);
         ctx.drawImage(textCanvas,dx,dy);
     }
 }

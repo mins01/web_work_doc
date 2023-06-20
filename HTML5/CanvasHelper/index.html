@@ -212,29 +212,60 @@
 			{
 				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
 				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvasByImage(document.querySelector('#test_img'))",canvas.width,null,16,ctxTextConf,12);
-				CanvasHelper.cropCanvas(canvas,300*0,0,300,400)
-				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.cropCanvas(canvas,300*0,400,300,400)",canvas.width,null,16,ctxTextConf,12);
+				CanvasHelper.cropCanvasWithImageData(canvas,300*0,0,300,400)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.cropCanvasWithImageData(canvas,300*0,400,300,400)",canvas.width,null,16,ctxTextConf,12);
 				div_result.appendChild(canvas);
 			}
 			{
 				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
 				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvasByImage(document.querySelector('#test_img'))",canvas.width,null,16,ctxTextConf,12);
-				CanvasHelper.cropCanvas(canvas,300*1,0,300,400)
-				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.cropCanvas(canvas,300*1,400,300,400)",canvas.width,null,16,ctxTextConf,12);
+				CanvasHelper.cropCanvasWithImageData(canvas,300*1,0,300,400)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.cropCanvasWithImageData(canvas,300*1,400,300,400)",canvas.width,null,16,ctxTextConf,12);
 				div_result.appendChild(canvas);
 			}
 			{
 				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
 				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvasByImage(document.querySelector('#test_img'))",canvas.width,null,16,ctxTextConf,12);
-				CanvasHelper.cropCanvas(canvas,300*0,400,300,400)
-				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.cropCanvas(canvas,300*0,400,300,400)",canvas.width,null,16,ctxTextConf,12);
+				CanvasHelper.cropCanvasWithImageData(canvas,300*0,400,300,400)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.cropCanvasWithImageData(canvas,300*0,400,300,400)",canvas.width,null,16,ctxTextConf,12);
 				div_result.appendChild(canvas);
 			}
 			{
 				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
 				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvasByImage(document.querySelector('#test_img'))",canvas.width,null,16,ctxTextConf,12);
-				CanvasHelper.cropCanvas(canvas,300*1,400,320,400)
-				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.cropCanvas(canvas,300*1,400,300,400)",canvas.width,null,16,ctxTextConf,12);
+				CanvasHelper.cropCanvasWithImageData(canvas,300*1,400,320,400)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.cropCanvasWithImageData(canvas,300*1,400,300,400)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			}
+
+
+
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvasByImage(document.querySelector('#test_img'))",canvas.width,null,16,ctxTextConf,12);
+				CanvasHelper.cropCanvasWithDrawImage(canvas,300*0,0,300,400)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.cropCanvasWithDrawImage(canvas,300*0,400,300,400)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			}
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvasByImage(document.querySelector('#test_img'))",canvas.width,null,16,ctxTextConf,12);
+				CanvasHelper.cropCanvasWithDrawImage(canvas,300*1,0,300,400)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.cropCanvasWithDrawImage(canvas,300*1,400,300,400)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			}
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvasByImage(document.querySelector('#test_img'))",canvas.width,null,16,ctxTextConf,12);
+				CanvasHelper.cropCanvasWithDrawImage(canvas,300*0,400,300,400)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.cropCanvasWithDrawImage(canvas,300*0,400,300,400)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			}
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				CanvasHelper.printOnCanvas(canvas,0,0,"CanvasHelper.canvasByImage(document.querySelector('#test_img'))",canvas.width,null,16,ctxTextConf,12);
+				CanvasHelper.cropCanvasWithDrawImage(canvas,300*1,400,320,400)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.cropCanvasWithDrawImage(canvas,300*1,400,300,400)",canvas.width,null,16,ctxTextConf,12);
 				div_result.appendChild(canvas);
 			}
 
@@ -255,6 +286,9 @@
                 1. Static Method 형식<br>
                 2. 프로미스 사용(콜백 대신에)<br>
             </li>
+			<li class="list-group-item">
+				<a href="benchCropCanvas.html">benchCropCanvas.html</a>
+			</li>
         </ul>
 		<hr>
 		<h3>테스트 소스 이미지</h3>
