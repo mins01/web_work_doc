@@ -270,7 +270,32 @@
 			}
 
 
-			
+			// flip
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				CanvasHelper.flip(canvas,false,false)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.flip(canvas,false,false)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			}
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				CanvasHelper.flip(canvas,true,false)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.flip(canvas,true,false)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			}
+
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				CanvasHelper.flip(canvas,false,true)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.flip(canvas,false,true)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			}
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				CanvasHelper.flip(canvas,true,true)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.flip(canvas,true,true)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			}
 			
 
 		})

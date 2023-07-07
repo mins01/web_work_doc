@@ -347,4 +347,33 @@ class CanvasHelper {
         let ctx = this.context2dByCanvas(canvas);
         ctx.drawImage(textCanvas,dx,dy);
     }
+
+    /**
+     * 캔버스 내용을 반전.
+     * @param Canvas canvas 
+     * @param bool horizontal : 좌우 
+     * @param bool vertical : 상하
+     */
+    static flip(canvas,horizontal,vertical){
+      let newCanvas = this.cloneCanvas(canvas);
+			let scaleV = vertical ? -1 : 1, // Set verical scale to -1 if flip vertical
+      scaleH = horizontal ? -1 : 1, // Set horizontal scale to -1 if flip horizontal
+			posX = horizontal ? canvas.width * -1 : 0, // Set x position to -100% if flip horizontal
+			posY = vertical ? canvas.height * -1 : 0; // Set y position to -100% if flip vertical
+      let ctx = this.context2dByCanvas(canvas);
+      ctx.save();
+      ctx.scale(scaleH, scaleV);
+      ctx.drawImage(newCanvas,posX, posY, canvas.width, canvas.height);
+      ctx.restore();
+
+			// this.cmdContext2d("save"); // Save the current state
+			// this.clear();
+			// this.cmdContext2d("scale",scaleH, scaleV); // Set scale to flip the image
+			// this.cmdContext2d("drawImage",c, posX, posY, this.width, this.height); // draw the image
+			// this.cmdContext2d("restore"); // Restore the last saved state
+    }
+
+    static rotate90Deg(canvas,NDeg){
+
+    }
 }
