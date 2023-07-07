@@ -273,30 +273,102 @@
 			// flip
 			{
 				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
-				CanvasHelper.flip(canvas,false,false)
-				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.flip(canvas,false,false)",canvas.width,null,16,ctxTextConf,12);
+				CanvasHelper.flipCanvas(canvas,false,false)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.flipCanvas(canvas,false,false)",canvas.width,null,16,ctxTextConf,12);
 				div_result.appendChild(canvas);
 			}
 			{
 				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
-				CanvasHelper.flip(canvas,true,false)
-				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.flip(canvas,true,false)",canvas.width,null,16,ctxTextConf,12);
+				CanvasHelper.flipCanvas(canvas,true,false)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.flipCanvas(canvas,true,false)",canvas.width,null,16,ctxTextConf,12);
 				div_result.appendChild(canvas);
 			}
 
 			{
 				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
-				CanvasHelper.flip(canvas,false,true)
-				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.flip(canvas,false,true)",canvas.width,null,16,ctxTextConf,12);
+				CanvasHelper.flipCanvas(canvas,false,true)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.flipCanvas(canvas,false,true)",canvas.width,null,16,ctxTextConf,12);
 				div_result.appendChild(canvas);
 			}
 			{
 				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
-				CanvasHelper.flip(canvas,true,true)
-				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.flip(canvas,true,true)",canvas.width,null,16,ctxTextConf,12);
+				CanvasHelper.flipCanvas(canvas,true,true)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.flipCanvas(canvas,true,true)",canvas.width,null,16,ctxTextConf,12);
 				div_result.appendChild(canvas);
 			}
-			
+
+			// rotate90DegCanvas(canvas,deg)
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				CanvasHelper.rotate90DegCanvas(canvas,0)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper..rotate90DegCanvas(canvas,0)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			}
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				CanvasHelper.rotate90DegCanvas(canvas,90)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.rotate90DegCanvas(canvas,90)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			}
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				CanvasHelper.rotate90DegCanvas(canvas,180)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.rotate90DegCanvas(canvas,180)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			}
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				CanvasHelper.rotate90DegCanvas(canvas,270)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.rotate90DegCanvas(canvas,270)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			}
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				CanvasHelper.rotate90DegCanvas(canvas,360)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.rotate90DegCanvas(canvas,360)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			}
+			{
+				try {
+					let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+					CanvasHelper.rotate90DegCanvas(canvas,18)
+					CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.rotate90DegCanvas(canvas,18)",canvas.width,null,16,ctxTextConf,12);
+					div_result.appendChild(canvas);	
+				} catch (error) {
+					console.warn(error);
+				}
+				
+			}
+
+			// rotateCanvas(canvas,deg)
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				CanvasHelper.rotateCanvas(canvas,0)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.rotateCanvas(canvas,0)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			}
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				CanvasHelper.rotateCanvas(canvas,45)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.rotateCanvas(canvas,45)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			}
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				CanvasHelper.rotateCanvas(canvas,200)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.rotateCanvas(canvas,200)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			}
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				// CanvasHelper.rotateCanvas(canvas,0)
+				// CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.rotateCanvas(canvas,200)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+				let deg = 5;
+				setInterval(()=>{
+					CanvasHelper.rotateCanvas(canvas,deg)
+				},500);
+			}
 
 		})
 	</script>

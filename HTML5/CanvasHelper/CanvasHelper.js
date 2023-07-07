@@ -354,26 +354,108 @@ class CanvasHelper {
      * @param bool horizontal : 좌우 
      * @param bool vertical : 상하
      */
-    static flip(canvas,horizontal,vertical){
+    static flipCanvas(canvas,horizontal,vertical){
       let newCanvas = this.cloneCanvas(canvas);
+      let ctx = this.context2dByCanvas(canvas);
+
 			let scaleV = vertical ? -1 : 1, // Set verical scale to -1 if flip vertical
       scaleH = horizontal ? -1 : 1, // Set horizontal scale to -1 if flip horizontal
 			posX = horizontal ? canvas.width * -1 : 0, // Set x position to -100% if flip horizontal
 			posY = vertical ? canvas.height * -1 : 0; // Set y position to -100% if flip vertical
-      let ctx = this.context2dByCanvas(canvas);
+      
       ctx.save();
       ctx.scale(scaleH, scaleV);
       ctx.drawImage(newCanvas,posX, posY, canvas.width, canvas.height);
       ctx.restore();
-
-			// this.cmdContext2d("save"); // Save the current state
-			// this.clear();
-			// this.cmdContext2d("scale",scaleH, scaleV); // Set scale to flip the image
-			// this.cmdContext2d("drawImage",c, posX, posY, this.width, this.height); // draw the image
-			// this.cmdContext2d("restore"); // Restore the last saved state
     }
 
-    static rotate90Deg(canvas,NDeg){
+    static rotate90DegCanvas(canvas,deg){
+      let newCanvas = this.cloneCanvas(canvas);
+      let ctx = this.context2dByCanvas(canvas);
+
+			if(deg % 90 == 0){
+        let NDeg = deg/90%4;
+
+        if(NDeg%2 == 1){
+          canvas.width = newCanvas.height;
+          canvas.height = newCanvas.width;
+        }else{
+          canvas.width = canvas.width;
+        }
+        ctx.save();
+        ctx.rotate((deg % 360) * Math.PI / 180);
+        if(NDeg == 0){
+          ctx.drawImage(newCanvas,0,0);
+        }else if(NDeg == 1){
+          ctx.drawImage(newCanvas, 0, -1*newCanvas.height);
+        }else if(NDeg == 2){
+          ctx.drawImage(newCanvas, -1*newCanvas.width, -1*newCanvas.height);
+        }else if(NDeg == 3){
+          ctx.drawImage(newCanvas,  -1*newCanvas.width, 0);
+        }
+        ctx.rotate(-1* (deg % 360) * Math.PI / 180);
+        ctx.restore();
+      }else{
+        throw `deg is not allow ${deg}`
+      }
+
+    }
+
+    /**
+     * 
+     * @param Canvas canvas 
+     * @param int deg only 0,90,180,270,360...
+     */
+    static rotate90DegCanvas(canvas,deg){
+      let newCanvas = this.cloneCanvas(canvas);
+      let ctx = this.context2dByCanvas(canvas);
+
+			if(deg % 90 == 0){
+        let NDeg = deg/90%4;
+
+        if(NDeg%2 == 1){
+          canvas.width = newCanvas.height;
+          canvas.height = newCanvas.width;
+        }else{
+          canvas.width = canvas.width;
+        }
+        ctx.save();
+        ctx.rotate((deg % 360) * Math.PI / 180);
+        if(NDeg == 0){
+          ctx.drawImage(newCanvas,0,0);
+        }else if(NDeg == 1){
+          ctx.drawImage(newCanvas, 0, -1*newCanvas.height);
+        }else if(NDeg == 2){
+          ctx.drawImage(newCanvas, -1*newCanvas.width, -1*newCanvas.height);
+        }else if(NDeg == 3){
+          ctx.drawImage(newCanvas,  -1*newCanvas.width, 0);
+        }
+        ctx.rotate(-1* (deg % 360) * Math.PI / 180);
+        ctx.restore();
+      }else{
+        throw `deg is not allow ${deg}`
+      }
+
+    }
+
+    /**
+     * 중앙을 기준으로 내용이 회전한다. canvas 자체가 회전하지는 않는다.
+     * @param Canvas canvas 
+     * @param int deg 
+     */
+    static rotateCanvas(canvas,deg){
+      let newCanvas = this.cloneCanvas(canvas);
+      let ctx = this.context2dByCanvas(canvas);
+
+
+      canvas.width = canvas.width;
+      ctx.save();
+      ctx.translate(newCanvas.width/2 ,newCanvas.height/2)
+      ctx.rotate((deg % 360) * Math.PI / 180);
+      ctx.translate(newCanvas.width/2*-1 ,newCanvas.height/2*-1)
+      ctx.drawImage(newCanvas,0 ,0,newCanvas.width ,newCanvas.height);
+      ctx.rotate(-1* (deg % 360) * Math.PI / 180);
+      ctx.restore();
 
     }
 }
