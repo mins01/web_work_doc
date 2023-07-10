@@ -337,7 +337,6 @@
 				} catch (error) {
 					console.warn(error);
 				}
-				
 			}
 
 			// rotateCanvas(canvas,deg)
@@ -368,6 +367,28 @@
 				setInterval(()=>{
 					CanvasHelper.rotateCanvas(canvas,deg)
 				},500);
+			}
+
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				let sourceImage = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				CanvasHelper.drawImageCanvas(canvas,sourceImage,200,300)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.drawImageCanvas(canvas,sourceImage,200,300)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			}
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				let sourceImage = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				CanvasHelper.drawImageCanvas(canvas,sourceImage,100,100,100,150)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.drawImageCanvas(canvas,sourceImage,100,100,100,150)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
+			}
+			{
+				let canvas = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				let sourceImage = CanvasHelper.canvasByImage(document.querySelector('#test_img'));
+				CanvasHelper.drawImageCanvas(canvas,sourceImage,100,100,100,150,100,100,300,400)
+				CanvasHelper.printOnCanvas(canvas,0,30,"CanvasHelper.drawImageCanvas(canvas,sourceImage,100,100,100,150,100,100,300,400)",canvas.width,null,16,ctxTextConf,12);
+				div_result.appendChild(canvas);
 			}
 
 		})

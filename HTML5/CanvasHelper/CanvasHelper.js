@@ -231,6 +231,19 @@ class CanvasHelper {
 
 
     /**
+     * 
+     * @param Canvas canvas 대상 캔버스
+     * @param ImageObject sourceImage 붙여 넣은 이미지 소스
+     * @param int dx,dy,dw,dh,sx,sy,sw,sh 등이 추가로 적용되야한다. https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
+     */
+    static drawImageCanvas(canvas,sourceImage){
+      let args = [...arguments];
+      args.shift();
+      let ctx = this.context2dByCanvas(canvas);
+      ctx.drawImage.apply(ctx,args);
+    }
+
+    /**
      * Canvas에서 Blob 을 만든다.
      * @param Canvas canvas 
      * @param string imageType image/png (default) , image/jpeg , image/webp
