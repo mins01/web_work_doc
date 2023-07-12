@@ -1,0 +1,95 @@
+URL : https://blog.naver.com/bsakam/222998421358
+RESULT : {"service":"naver blog","domain":"blog.naver.com","user_id":"bsakam","post_id":"222998421358"}
+userUrl : https://blog.naver.com/bsakam
+postUrl : https://blog.naver.com/bsakam/222998421358
+
+URL : https://blog.naver.com/PostView.naver?blogId=popline&logNo=222953172387
+RESULT : {"service":"naver blog","domain":"blog.naver.com","user_id":"popline","post_id":"222953172387"}
+userUrl : https://blog.naver.com/popline
+postUrl : https://blog.naver.com/popline/222953172387
+
+URL : https://m.blog.naver.com/bsakam/222998421358
+RESULT : {"service":"naver blog","domain":"m.blog.naver.com","user_id":"bsakam","post_id":"222998421358"}
+userUrl : https://m.blog.naver.com/bsakam
+postUrl : https://m.blog.naver.com/bsakam/222998421358
+
+URL : https://m.blog.naver.com/PostView.naver?blogId=bsakam&logNo=222998421358&proxyReferer=
+RESULT : {"service":"naver blog","domain":"m.blog.naver.com","user_id":"bsakam","post_id":"222998421358"}
+userUrl : https://m.blog.naver.com/bsakam
+postUrl : https://m.blog.naver.com/bsakam/222998421358
+
+URL : https://blog.naver.com/msjung0630
+RESULT : {"service":"naver blog","domain":"blog.naver.com","user_id":"msjung0630","post_id":null}
+userUrl : https://blog.naver.com/msjung0630
+postUrl : 
+
+URL : http://instagram.com/hellogra__
+RESULT : {"service":"instagram","domain":"instagram.com","user_id":"hellogra__","post_id":null}
+userUrl : https://instagram.com/hellogra__
+postUrl : 
+
+URL : https://www.instagram.com/p/Cuhf5Jbpbu4/?img_index=1
+RESULT : {"service":"instagram","domain":"www.instagram.com","user_id":null,"post_id":"Cuhf5Jbpbu4"}
+userUrl : 
+postUrl : https://www.instagram.com/p/Cuhf5Jbpbu4
+
+URL : https://www.facebook.com/permalink.php?story_fbid=pfbid02EGimNAVpsxSKGjJt8H57fszy1jnJJWWufZ2V62xeXKsgDCHphAL84wyYNC9eb7GRl&id=100004105173588
+RESULT : {"service":"facebook","domain":"www.facebook.com","user_id":"100004105173588","post_id":"pfbid02EGimNAVpsxSKGjJt8H57fszy1jnJJWWufZ2V62xeXKsgDCHphAL84wyYNC9eb7GRl"}
+userUrl : https://www.facebook.com/100004105173588
+postUrl : https://www.facebook.com/100004105173588/posts/pfbid02EGimNAVpsxSKGjJt8H57fszy1jnJJWWufZ2V62xeXKsgDCHphAL84wyYNC9eb7GRl
+
+URL : https://www.facebook.com/geukseop/posts/pfbid02hKrdHgZmvkBs776rMoGhJ4mXAAxjNfgRNRKpAKhChkBimBc4gzqcqKVNAX58Xsgwl
+RESULT : {"service":"facebook","domain":"www.facebook.com","user_id":"geukseop","post_id":"pfbid02hKrdHgZmvkBs776rMoGhJ4mXAAxjNfgRNRKpAKhChkBimBc4gzqcqKVNAX58Xsgwl"}
+userUrl : https://www.facebook.com/geukseop
+postUrl : https://www.facebook.com/geukseop/posts/pfbid02hKrdHgZmvkBs776rMoGhJ4mXAAxjNfgRNRKpAKhChkBimBc4gzqcqKVNAX58Xsgwl
+
+URL : https://m.facebook.com/story.php/?story_fbid=pfbid0xUJ7Jpum8iCBp31fZcZA4kP5rNcQzmoy7VBtVBmmXuXHVDT1yprWCV2VMTBjVpv8l&id=100031126815048
+RESULT : {"service":"facebook","domain":"m.facebook.com","user_id":"100031126815048","post_id":"pfbid0xUJ7Jpum8iCBp31fZcZA4kP5rNcQzmoy7VBtVBmmXuXHVDT1yprWCV2VMTBjVpv8l"}
+userUrl : https://m.facebook.com/100031126815048
+postUrl : https://m.facebook.com/100031126815048/posts/pfbid0xUJ7Jpum8iCBp31fZcZA4kP5rNcQzmoy7VBtVBmmXuXHVDT1yprWCV2VMTBjVpv8l
+
+URL : https://m.facebook.com/story.php?story_fbid=pfbid02h2fN2HnnJdbAxroMnBMDQrXS45qvD4a82ckQY2tzs3bcVQpSTtZrdtAij1V6aWTjl&id=100031126815048
+RESULT : {"service":"facebook","domain":"m.facebook.com","user_id":"100031126815048","post_id":"pfbid02h2fN2HnnJdbAxroMnBMDQrXS45qvD4a82ckQY2tzs3bcVQpSTtZrdtAij1V6aWTjl"}
+userUrl : https://m.facebook.com/100031126815048
+postUrl : https://m.facebook.com/100031126815048/posts/pfbid02h2fN2HnnJdbAxroMnBMDQrXS45qvD4a82ckQY2tzs3bcVQpSTtZrdtAij1V6aWTjl
+
+URL : https://twitter.com/@jinjinjara0807
+RESULT : {"service":"twitter","domain":"twitter.com","user_id":"jinjinjara0807","post_id":null}
+userUrl : https://twitter.com/jinjinjara0807
+postUrl : 
+
+URL : https://twitter.com/0Me3cQXsLSYrRxS/status/1637068317109395456?t=6O3ZdefCGY91GYLaqXuCew&s=19
+RESULT : {"service":"twitter","domain":"twitter.com","user_id":"0Me3cQXsLSYrRxS","post_id":"1637068317109395456"}
+userUrl : https://twitter.com/0Me3cQXsLSYrRxS
+postUrl : https://twitter.com/0Me3cQXsLSYrRxS/status/1637068317109395456
+
+URL : https://twitter.com/bata_bts2/status/1640690406810882050?s=46&t=mxBLHeEv-UsxrsxNz8fYUg
+RESULT : {"service":"twitter","domain":"twitter.com","user_id":"bata_bts2","post_id":"1640690406810882050"}
+userUrl : https://twitter.com/bata_bts2
+postUrl : https://twitter.com/bata_bts2/status/1640690406810882050
+
+URL : https://twitter.com/bissnara/status/1592514650914304001
+RESULT : {"service":"twitter","domain":"twitter.com","user_id":"bissnara","post_id":"1592514650914304001"}
+userUrl : https://twitter.com/bissnara
+postUrl : https://twitter.com/bissnara/status/1592514650914304001
+
+URL : https://story.kakao.com/pumpkin1027
+RESULT : {"service":"kakao story","domain":"story.kakao.com","user_id":"pumpkin1027","post_id":null}
+userUrl : https://story.kakao.com/pumpkin1027
+postUrl : 
+
+URL : https://story.kakao.com/lhs7818/AWnugHnQQ90
+RESULT : {"service":"kakao story","domain":"story.kakao.com","user_id":"lhs7818","post_id":"AWnugHnQQ90"}
+userUrl : https://story.kakao.com/lhs7818
+postUrl : https://story.kakao.com/lhs7818/AWnugHnQQ90
+
+URL : testStringXyz
+RESULT : null
+userUrl : 
+postUrl : 
+
+URL : http://mins01.com/xxx/yyy/zzz
+RESULT : {"service":null,"domain":null,"user_id":null,"post_id":null}
+userUrl : 
+postUrl : 
+

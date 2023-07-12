@@ -4,9 +4,9 @@ namespace mins01\snsUrlinfo\modules;
 class Module{
     public static $version = '20230712';
     public static $debug = false;
-    public static $service = 'default module';
-    public static $domain = 'default-module.com';
-    public static $site = 'https://default-module.com';
+    public static $service = null;
+    public static $domain = null;
+    public static $site = null;
     public static $defRs = array(
         'service'=>null,
         'domain'=>null,
