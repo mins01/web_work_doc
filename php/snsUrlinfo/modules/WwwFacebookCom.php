@@ -9,11 +9,6 @@ class WwwFacebookCom extends \mins01\snsUrlinfo\modules\Module{
     public static $domain = 'www.facebook.com';
     public static $site = 'https://www.facebook.com';
     public static $debug = false;
-    // protected static $defRs = array(
-    //     'service'=>null,
-    //     'user_id'=>null,
-    //     'post_id'=>null,
-    // );
 
     public static function urlinfo($url){
         $rs = static::getDefRs();

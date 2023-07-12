@@ -9,11 +9,6 @@ class TwitterCom extends \mins01\snsUrlinfo\modules\Module{
     public static $domain = 'twitter.com';
     public static $site = 'https://twitter.com';
     public static $debug = false;
-    // protected static $defRs = array(
-    //     'service'=>null,
-    //     'user_id'=>null,
-    //     'post_id'=>null,
-    // );
 
     public static function urlinfo($url){
         $rs = static::getDefRs();

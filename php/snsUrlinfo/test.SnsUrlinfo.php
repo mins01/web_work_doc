@@ -23,6 +23,9 @@ $urls = array(
     'https://twitter.com/bissnara/status/1592514650914304001',
     'https://story.kakao.com/pumpkin1027',
     'https://story.kakao.com/lhs7818/AWnugHnQQ90',
+    'https://www.youtube.com/watch?v=v_apulgKO1E',
+    'https://www.youtube.com/@user-pr3of4iy4u',
+    'https://www.youtube.com/GundamInfo',
     'testStringXyz',
     'http://mins01.com/xxx/yyy/zzz',
 );
@@ -35,6 +38,6 @@ foreach($urls as $url){
     echo "userUrl : {$userUrl}\n";
     $postUrl = SnsUrlinfo::postUrl($rs);
     echo "postUrl : {$postUrl}\n";
-    
+
     echo "\n";
 }

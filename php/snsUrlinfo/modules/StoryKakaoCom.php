@@ -9,11 +9,6 @@ class StoryKakaoCom extends \mins01\snsUrlinfo\modules\Module{
     public static $domain = 'story.kakao.com';
     public static $site = 'https://story.kakao.com';
     public static $debug = false;
-    // protected static $defRs = array(
-    //     'service'=>null,
-    //     'user_id'=>null,
-    //     'post_id'=>null,
-    // );
 
     public static function urlinfo($url){
         $rs = static::getDefRs();

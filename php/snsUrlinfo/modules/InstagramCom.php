@@ -9,11 +9,6 @@ class InstagramCom extends \mins01\snsUrlinfo\modules\Module{
     public static $domain = 'instagram.com';
     public static $site = 'https://instagram.com';
     public static $debug = false;
-    // protected static $defRs = array(
-    //     'service'=>null,
-    //     'user_id'=>null,
-    //     'post_id'=>null,
-    // );
 
     public static function urlinfo($url){
         $rs = static::getDefRs();

@@ -9,11 +9,6 @@ class BlogNaverCom extends \mins01\snsUrlinfo\modules\Module{
     public static $domain = 'blog.naver.com';
     public static $site = 'https://blog.naver.com';
     public static $debug = false;
-    // protected static $defRs = array(
-    //     'service'=>null,
-    //     'user_id'=>null,
-    //     'post_id'=>null,
-    // );
 
     public static function urlinfo($url){
         $rs = static::getDefRs();
