@@ -41,7 +41,11 @@ class SnsUrlinfo{
 
     }
 
-    static function parseSnsUrl_blog_naver_com($snsUrl){
+    public static function userUrl($rs){
 
     }
+    public static function postUrl($rs){
+        
+    }
+
 }
