@@ -27,11 +27,13 @@ class Module{
 
     // 사용자 프로필 URL.
     public static function userUrl($rs){
-        return isset($rs['user_id'])?static::$site."/{$rs['user_id']}":null;
+        // return isset($rs['user_id'])?static::$site."/{$rs['user_id']}":null;
+        return null;
     }
 
     // 게시글 URL
     public static function postUrl($rs){
-        return isset($rs['user_id'],$rs['post_id'])?static::$site."/{$rs['user_id']}/{$rs['post_id']}":null;
+        // return isset($rs['user_id'],$rs['post_id'])?static::$site."/{$rs['user_id']}/{$rs['post_id']}":null;
+        return null;
     }
 }
