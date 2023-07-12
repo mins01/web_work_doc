@@ -65,3 +65,35 @@ $rs = SnsUrlinfo::urlinfo($url);
 print_r($url);echo "\n";
 print_r($rs);
 
+
+
+$url = 'https://twitter.com/@jinjinjara0807';
+$rs = SnsUrlinfo::urlinfo($url);
+print_r($url);echo "\n";
+print_r($rs);
+$url = 'https://twitter.com/0Me3cQXsLSYrRxS/status/1637068317109395456?t=6O3ZdefCGY91GYLaqXuCew&s=19';
+$rs = SnsUrlinfo::urlinfo($url);
+print_r($url);echo "\n";
+print_r($rs);
+$url = 'https://twitter.com/bata_bts2/status/1640690406810882050?s=46&t=mxBLHeEv-UsxrsxNz8fYUg';
+$rs = SnsUrlinfo::urlinfo($url);
+print_r($url);echo "\n";
+print_r($rs);
+$url = 'https://twitter.com/bissnara/status/1592514650914304001';
+$rs = SnsUrlinfo::urlinfo($url);
+print_r($url);echo "\n";
+print_r($rs);
+
+$url = 'https://story.kakao.com/pumpkin1027';
+$rs = SnsUrlinfo::urlinfo($url);
+print_r($url);echo "\n";
+print_r($rs);
+
+
+$url = 'https://story.kakao.com/lhs7818/AWnugHnQQ90';
+$rs = SnsUrlinfo::urlinfo($url);
+print_r($url);echo "\n";
+print_r($rs);
+
+
+

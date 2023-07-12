@@ -3,9 +3,9 @@ namespace mins01\snsUrlinfo\modules;
 
 require_once(dirname(__FILE__).'/Module.php');
 
-class InstagramCom extends \mins01\snsUrlinfo\modules\Module{
+class TwitterCom extends \mins01\snsUrlinfo\modules\Module{
     public static $version = '20230712';
-    public static $service = 'instagram';
+    public static $service = 'twitter';
     public static $debug = false;
     // protected static $defRs = array(
     //     'service'=>null,
@@ -24,11 +24,13 @@ class InstagramCom extends \mins01\snsUrlinfo\modules\Module{
         if(isset($parsedUrl['path'])){
             $paths = explode('/',$parsedUrl['path']);
             // print_r($paths);
-            if($paths[1] =='p'){
-                if(isset($paths[2])) $rs['post_id'] = $paths[2];
-            }else{
-                if(isset($paths[1])) $rs['user_id'] = $paths[1];
+            if(isset($paths[1])) $rs['user_id'] = $paths[1];
+            if(isset($paths[3])) $rs['post_id'] = $paths[3];
+
+            if($rs['user_id'][0]=='@'){
+                $rs['user_id'] = substr($rs['user_id'],1);
             }
+
         }
         return $rs;
     }
