@@ -6,8 +6,12 @@ class SnsUrlinfo{
     public static $debug = false;
     public static $defaultModuleClassNs = '\mins01\SnsUrlinfo\modules\Module';
 
+    private static function autoloadModuleByDomain($domain){
+        $className = str_replace('.', '', ucwords($domain,'.'));
+        return static::autoloadModule($className);
+    }
     private static function autoloadModule($className){
-        $classNS = "\\mins01\\SnsUrlinfo\\modules\\{$className}";
+        $classNS = "\\mins01\\snsUrlinfo\\modules\\{$className}";
         if(!class_exists($classNS)){
             // echo "클래스 없음\n";
             $classPath = realpath(dirname(__FILE__)."/modules/{$className}.php");
@@ -20,9 +24,9 @@ class SnsUrlinfo{
         }
         if(!class_exists($classNS)){
             // echo "클래스 없음!!\n";
-            return null;
+            $classNS = static::autoloadModule('Module');
         }
-        $classNS::$debug = self::$debug;
+        $classNS::$debug = static::$debug;
         return  $classNS;
     }
     public static function urlinfo($url){
@@ -31,21 +35,20 @@ class SnsUrlinfo{
         if(!isset($parsedUrl['host'])){
             return null;
         }
-        $className = str_replace('.', '', ucwords($parsedUrl['host'],'.'));
-        $module = self::autoloadModule($className);
-        // echo $module::$version;
-        if(!isset($module)){ // 관련 모듈이 없으면 기본 모듈로 처리한다.
-            $module = self::$defaultModuleClassNs;
-        }
+        $module = static::autoloadModuleByDomain($parsedUrl['host']);
         return $module::urlinfo($url);
 
     }
 
     public static function userUrl($rs){
-
+        if(!isset($rs['domain'])) return null;
+        $module = static::autoloadModuleByDomain($rs['domain']);
+        return $module::userUrl($rs);
     }
     public static function postUrl($rs){
-        
+        if(!isset($rs['domain'])) return null;
+        $module = static::autoloadModuleByDomain($rs['domain']);
+        return $module::postUrl($rs);
     }
 
 }

@@ -6,6 +6,8 @@ require_once(dirname(__FILE__).'/Module.php');
 class WwwFacebookCom extends \mins01\snsUrlinfo\modules\Module{
     public static $version = '20230712';
     public static $service = 'facebook';
+    public static $domain = 'www.facebook.com';
+    public static $site = 'https://www.facebook.com';
     public static $debug = false;
     // protected static $defRs = array(
     //     'service'=>null,
@@ -14,8 +16,7 @@ class WwwFacebookCom extends \mins01\snsUrlinfo\modules\Module{
     // );
 
     public static function urlinfo($url){
-        $rs = self::$defRs;
-        $rs['service'] = self::$service;
+        $rs = static::getDefRs();
         // https://www.facebook.com/permalink.php?story_fbid=pfbid02EGimNAVpsxSKGjJt8H57fszy1jnJJWWufZ2V62xeXKsgDCHphAL84wyYNC9eb7GRl&id=100004105173588
         // https://www.facebook.com/geukseop/posts/pfbid02hKrdHgZmvkBs776rMoGhJ4mXAAxjNfgRNRKpAKhChkBimBc4gzqcqKVNAX58Xsgwl
         // https://www.facebook.com/geukseop/posts/pfbid0zNSBjgqg5BVevSdN5kWrJnQDFuJvR4kdhiNeMNtGa89U6pCzV8T5jVd1UA2hkMoGl
@@ -39,5 +40,15 @@ class WwwFacebookCom extends \mins01\snsUrlinfo\modules\Module{
             }
         }
         return $rs;
+    }
+
+    // 사용자 프로필 URL.
+    public static function userUrl($rs){
+        return isset($rs['user_id'])?static::$site."/{$rs['user_id']}":null;
+    }
+
+    // 게시글 URL
+    public static function postUrl($rs){
+        return isset($rs['post_id'])?static::$site."/{$rs['user_id']}/posts/{$rs['post_id']}":null;
     }
 }

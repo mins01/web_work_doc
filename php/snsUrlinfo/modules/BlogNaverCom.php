@@ -6,6 +6,8 @@ require_once(dirname(__FILE__).'/Module.php');
 class BlogNaverCom extends \mins01\snsUrlinfo\modules\Module{
     public static $version = '20230712';
     public static $service = 'naver blog';
+    public static $domain = 'blog.naver.com';
+    public static $site = 'https://blog.naver.com';
     public static $debug = false;
     // protected static $defRs = array(
     //     'service'=>null,
@@ -14,8 +16,7 @@ class BlogNaverCom extends \mins01\snsUrlinfo\modules\Module{
     // );
 
     public static function urlinfo($url){
-        $rs = self::$defRs;
-        $rs['service'] = self::$service;
+        $rs = static::getDefRs();
         // https://blog.naver.com/PostView.naver?blogId=popline&logNo=222953172387
         // https://blog.naver.com/bsakam/222998421358
         // https://m.blog.naver.com/bsakam/222998421358
@@ -39,4 +40,15 @@ class BlogNaverCom extends \mins01\snsUrlinfo\modules\Module{
         }
         return $rs;
     }
+
+    // 사용자 프로필 URL.
+    public static function userUrl($rs){
+        return isset($rs['user_id'])?static::$site."/{$rs['user_id']}":null;
+    }
+
+    // 게시글 URL
+    public static function postUrl($rs){
+        return isset($rs['user_id'],$rs['post_id'])?static::$site."/{$rs['user_id']}/{$rs['post_id']}":null;
+    }
+
 }

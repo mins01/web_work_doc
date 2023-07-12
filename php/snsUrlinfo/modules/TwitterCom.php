@@ -6,6 +6,8 @@ require_once(dirname(__FILE__).'/Module.php');
 class TwitterCom extends \mins01\snsUrlinfo\modules\Module{
     public static $version = '20230712';
     public static $service = 'twitter';
+    public static $domain = 'twitter.com';
+    public static $site = 'https://twitter.com';
     public static $debug = false;
     // protected static $defRs = array(
     //     'service'=>null,
@@ -14,11 +16,10 @@ class TwitterCom extends \mins01\snsUrlinfo\modules\Module{
     // );
 
     public static function urlinfo($url){
-        $rs = self::$defRs;
-        $rs['service'] = self::$service;
-        // http://instagram.com/hellogra__
-        // https://www.instagram.com/p/Cuhf5Jbpbu4/?img_index=1
-        // https://www.instagram.com/p/Cuhf5Jbpbu4/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==
+        $rs = static::getDefRs();
+        // https://twitter.com/0Me3cQXsLSYrRxS/status/1637068317109395456?t=6O3ZdefCGY91GYLaqXuCew&s=19
+        // https://twitter.com/bata_bts2/status/1640690406810882050?s=46&t=mxBLHeEv-UsxrsxNz8fYUg
+        // https://twitter.com/bissnara/status/1592514650914304001'
         $parsedUrl = parse_url($url);
         // print_r($parsedUrl);
         if(isset($parsedUrl['path'])){
@@ -33,5 +34,15 @@ class TwitterCom extends \mins01\snsUrlinfo\modules\Module{
 
         }
         return $rs;
+    }
+
+    // 사용자 프로필 URL.
+    public static function userUrl($rs){
+        return isset($rs['user_id'])?static::$site."/{$rs['user_id']}":null;
+    }
+
+    // 게시글 URL
+    public static function postUrl($rs){
+        return isset($rs['user_id'],$rs['post_id'])?static::$site."/{$rs['user_id']}/status/{$rs['post_id']}":null;
     }
 }

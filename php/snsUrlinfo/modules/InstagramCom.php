@@ -6,6 +6,8 @@ require_once(dirname(__FILE__).'/Module.php');
 class InstagramCom extends \mins01\snsUrlinfo\modules\Module{
     public static $version = '20230712';
     public static $service = 'instagram';
+    public static $domain = 'instagram.com';
+    public static $site = 'https://instagram.com';
     public static $debug = false;
     // protected static $defRs = array(
     //     'service'=>null,
@@ -14,8 +16,7 @@ class InstagramCom extends \mins01\snsUrlinfo\modules\Module{
     // );
 
     public static function urlinfo($url){
-        $rs = self::$defRs;
-        $rs['service'] = self::$service;
+        $rs = static::getDefRs();
         // http://instagram.com/hellogra__
         // https://www.instagram.com/p/Cuhf5Jbpbu4/?img_index=1
         // https://www.instagram.com/p/Cuhf5Jbpbu4/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==
@@ -31,5 +32,15 @@ class InstagramCom extends \mins01\snsUrlinfo\modules\Module{
             }
         }
         return $rs;
+    }
+
+    // 사용자 프로필 URL.
+    public static function userUrl($rs){
+        return isset($rs['user_id'])?static::$site."/{$rs['user_id']}":null;
+    }
+
+    // 게시글 URL
+    public static function postUrl($rs){
+        return isset($rs['post_id'])?static::$site."/p/{$rs['post_id']}":null;
     }
 }
