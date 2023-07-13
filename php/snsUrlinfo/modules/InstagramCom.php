@@ -15,12 +15,13 @@ class InstagramCom extends \mins01\snsUrlinfo\modules\Module{
         // http://instagram.com/hellogra__
         // https://www.instagram.com/p/Cuhf5Jbpbu4/?img_index=1
         // https://www.instagram.com/p/Cuhf5Jbpbu4/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==
+        // https://www.instagram.com/reels/Ctkboz4Jqng/
         $parsedUrl = parse_url($url);
         // print_r($parsedUrl);
         if(isset($parsedUrl['path'])){
             $paths = explode('/',$parsedUrl['path']);
             // print_r($paths);
-            if($paths[1] =='p'){
+            if($paths[1] =='p' || $paths[1] =='reels'){
                 if(isset($paths[2])) $rs['post_id'] = $paths[2];
             }else{
                 if(isset($paths[1])) $rs['user_id'] = $paths[1];
