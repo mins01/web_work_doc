@@ -30,8 +30,13 @@ class WwwFacebookCom extends \mins01\snsUrlinfo\modules\Module{
             if(isset($parsedUrl['path'][3])){
                 $paths = explode('/',$parsedUrl['path']);
                 // print_r($paths);
-                if(isset($paths[1])) $rs['user_id'] = $paths[1];
-                if(isset($paths[3])) $rs['post_id'] = $paths[3];
+                if(isset($paths[1]) && isset($paths[1])=='reel'){ //릴스
+                    if(isset($paths[1])) $rs['user_id'] = $paths[1];
+                    if(isset($paths[2])) $rs['post_id'] = $paths[2];
+                }else{
+                    if(isset($paths[1])) $rs['user_id'] = $paths[1];
+                    if(isset($paths[3])) $rs['post_id'] = $paths[3];
+                }
             }
         }
         return $rs;
@@ -44,6 +49,9 @@ class WwwFacebookCom extends \mins01\snsUrlinfo\modules\Module{
 
     // 게시글 URL
     public static function postUrl($rs){
+        if($rs['user_id']=='reel'){
+            return isset($rs['post_id'])?static::$site."/{$rs['user_id']}/{$rs['post_id']}":null;
+        }
         return isset($rs['post_id'])?static::$site."/{$rs['user_id']}/posts/{$rs['post_id']}":null;
     }
 }

@@ -1,10 +1,13 @@
 <?php
 namespace mins01\snsUrlinfo\modules;
-
 require_once(dirname(__FILE__).'/Module.php');
 
+/**
+ * 20230713 : 릴스 구분 추가
+ */
+
 class InstagramCom extends \mins01\snsUrlinfo\modules\Module{
-    public static $version = '20230712';
+    public static $version = '20230713';
     public static $service = 'instagram';
     public static $domain = 'instagram.com';
     public static $site = 'https://instagram.com';
@@ -21,7 +24,7 @@ class InstagramCom extends \mins01\snsUrlinfo\modules\Module{
         if(isset($parsedUrl['path'])){
             $paths = explode('/',$parsedUrl['path']);
             // print_r($paths);
-            if($paths[1] =='p' || $paths[1] =='reels'){
+            if($paths[1] =='p' || $paths[1] =='reels' || $paths[1] =='reel'){
                 if(isset($paths[2])) $rs['post_id'] = $paths[2];
             }else{
                 if(isset($paths[1])) $rs['user_id'] = $paths[1];

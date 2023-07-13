@@ -4,7 +4,7 @@ namespace mins01\snsUrlinfo\modules;
 require_once(dirname(__FILE__).'/Module.php');
 
 /**
- * 20230713 : 쇼츠 구분함
+ * 20230713 : 쇼츠 구분 추가
  */
 
 class WwwYoutubeCom extends \mins01\snsUrlinfo\modules\Module{
