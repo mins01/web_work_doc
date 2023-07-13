@@ -7,7 +7,11 @@ class SnsUrlinfo{
     public static $defaultModuleClassNs = '\mins01\SnsUrlinfo\modules\Module';
 
     private static function autoloadModuleByDomain($domain){
-        $className = str_replace('.', '', ucwords($domain,'.'));
+        if (version_compare(PHP_VERSION, '5.5.16', '>=')) {
+            $className = str_replace('.', '', ucwords(strtolower($domain),'.'));
+        }else{
+            $className = str_replace(' ', '', ucwords(str_replace('.',' ',strtolower($domain))));
+        }
         return static::autoloadModule($className);
     }
     private static function autoloadModule($className){
