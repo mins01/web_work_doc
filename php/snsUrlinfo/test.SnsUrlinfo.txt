@@ -1,4 +1,9 @@
-URL : https://blog.naver.com/bsakam/222998421358
+URL : http://start!.test/@asd#4lkasdj@?#324lk8u8한글은?잘되여ㅑ?
+RESULT : {"service":null,"domain":null,"user_id":null,"post_id":null}
+userUrl : 
+postUrl : 
+
+URL : https://BLOG.NAVER.COM/bsakam/222998421358
 RESULT : {"service":"naver blog","domain":"blog.naver.com","user_id":"bsakam","post_id":"222998421358"}
 userUrl : https://blog.naver.com/bsakam
 postUrl : https://blog.naver.com/bsakam/222998421358
@@ -32,6 +37,11 @@ URL : https://www.instagram.com/p/Cuhf5Jbpbu4/?img_index=1
 RESULT : {"service":"instagram","domain":"www.instagram.com","user_id":null,"post_id":"Cuhf5Jbpbu4"}
 userUrl : 
 postUrl : https://www.instagram.com/p/Cuhf5Jbpbu4
+
+URL : https://www.instagram.com/reels/Ctkboz4Jqng/
+RESULT : {"service":"instagram","domain":"www.instagram.com","user_id":null,"post_id":"Ctkboz4Jqng"}
+userUrl : 
+postUrl : https://www.instagram.com/p/Ctkboz4Jqng
 
 URL : https://www.facebook.com/permalink.php?story_fbid=pfbid02EGimNAVpsxSKGjJt8H57fszy1jnJJWWufZ2V62xeXKsgDCHphAL84wyYNC9eb7GRl&id=100004105173588
 RESULT : {"service":"facebook","domain":"www.facebook.com","user_id":"100004105173588","post_id":"pfbid02EGimNAVpsxSKGjJt8H57fszy1jnJJWWufZ2V62xeXKsgDCHphAL84wyYNC9eb7GRl"}
@@ -82,6 +92,31 @@ URL : https://story.kakao.com/lhs7818/AWnugHnQQ90
 RESULT : {"service":"kakao story","domain":"story.kakao.com","user_id":"lhs7818","post_id":"AWnugHnQQ90"}
 userUrl : https://story.kakao.com/lhs7818
 postUrl : https://story.kakao.com/lhs7818/AWnugHnQQ90
+
+URL : https://www.youtube.com/watch?v=v_apulgKO1E
+RESULT : {"service":"youtube","domain":"www.youtube.com","user_id":null,"post_id":"v_apulgKO1E"}
+userUrl : 
+postUrl : https://www.youtube.com/watch?v=v_apulgKO1E
+
+URL : https://www.youtube.com/@user-pr3of4iy4u
+RESULT : {"service":"youtube","domain":"www.youtube.com","user_id":"user-pr3of4iy4u","post_id":null}
+userUrl : https://www.youtube.com/@user-pr3of4iy4u
+postUrl : 
+
+URL : https://www.youtube.com/GundamInfo
+RESULT : {"service":"youtube","domain":"www.youtube.com","user_id":"GundamInfo","post_id":null}
+userUrl : https://www.youtube.com/@GundamInfo
+postUrl : 
+
+URL : https://www.youtube.com/shorts/el5A2WHl_m4
+RESULT : {"service":"youtube","domain":"www.youtube.com","user_id":"shorts","post_id":"el5A2WHl_m4"}
+userUrl : https://www.youtube.com/shorts
+postUrl : https://www.youtube.com/watch?v=el5A2WHl_m4
+
+URL : https://www.youtube.com/shorts/
+RESULT : {"service":"youtube","domain":"www.youtube.com","user_id":"shorts","post_id":null}
+userUrl : https://www.youtube.com/shorts
+postUrl : 
 
 URL : testStringXyz
 RESULT : null
