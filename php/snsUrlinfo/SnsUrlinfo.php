@@ -2,7 +2,7 @@
 namespace mins01\snsUrlinfo;
 
 class SnsUrlinfo{
-    public static $version = 0.1;
+    public static $version = 0.2;
     public static $debug = false;
     public static $defaultModuleClassNs = '\mins01\SnsUrlinfo\modules\Module';
 
