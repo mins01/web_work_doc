@@ -6,7 +6,8 @@ use mins01\snsUrlinfo\SnsUrlinfo;
 
 
 $urls = array(
-    'https://blog.naver.com/bsakam/222998421358',
+    'http://start!.test/@asd#4lkasdj@?#324lk8u8한글은?잘되여ㅑ?',
+    'https://BLOG.NAVER.COM/bsakam/222998421358',
     'https://blog.naver.com/PostView.naver?blogId=popline&logNo=222953172387',
     'https://m.blog.naver.com/bsakam/222998421358',
     'https://m.blog.naver.com/PostView.naver?blogId=bsakam&logNo=222998421358&proxyReferer=',
