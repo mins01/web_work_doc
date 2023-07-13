@@ -3,9 +3,13 @@ namespace mins01\snsUrlinfo\modules;
 
 require_once(dirname(__FILE__).'/Module.php');
 
+/**
+ * 20230713 : 쇼츠 구분함
+ */
+
 class WwwYoutubeCom extends \mins01\snsUrlinfo\modules\Module{
-    public static $version = '20230712';
-    public static $service = 'facebook';
+    public static $version = '20230713';
+    public static $service = 'youtube';
     public static $domain = 'www.youtube.com';
     public static $site = 'https://www.youtube.com';
     public static $debug = false;
@@ -29,6 +33,10 @@ class WwwYoutubeCom extends \mins01\snsUrlinfo\modules\Module{
             if(isset($parsedUrl['path'][1])){
                 $paths = explode('/',$parsedUrl['path']);
                 if(isset($paths[1])) $rs['user_id'] = preg_replace('/^@/','',$paths[1]);
+
+                if($rs['user_id']=='shorts'){ // 쇼츠 영상인 경우
+                    $rs['post_id'] = isset($paths[2][0])?$paths[2]:null;
+                }
             }
         }
         return $rs;
@@ -36,7 +44,12 @@ class WwwYoutubeCom extends \mins01\snsUrlinfo\modules\Module{
 
     // 사용자 프로필 URL.
     public static function userUrl($rs){
-        return isset($rs['user_id'])?static::$site."/@{$rs['user_id']}":null;
+        if(!isset($rs['user_id'])){return null;}
+        if($rs['user_id'] == 'shorts'){
+            return static::$site."/{$rs['user_id']}";
+        }else{
+            return static::$site."/@{$rs['user_id']}";
+        }
     }
 
     // 게시글 URL
