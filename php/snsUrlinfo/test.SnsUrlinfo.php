@@ -32,6 +32,7 @@ $urls = array(
     'https://www.youtube.com/GundamInfo',
     'https://www.youtube.com/shorts/el5A2WHl_m4', //쇼츠
     'https://www.youtube.com/shorts/', 
+    'https://youtube.com/shorts/dCgdw0h1zUA?feature=share3',
     'testStringXyz',
     'http://mins01.com/xxx/yyy/zzz',
 );
