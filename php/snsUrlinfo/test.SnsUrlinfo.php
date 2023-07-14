@@ -2,7 +2,7 @@
 require_once('SnsUrlinfo.php');
 use mins01\snsUrlinfo\SnsUrlinfo;
 
-
+\mins01\snsUrlinfo\SnsUrlinfo::$debug = true;
 
 
 $urls = array(
@@ -35,6 +35,7 @@ $urls = array(
     'https://youtube.com/shorts/dCgdw0h1zUA?feature=share3',
     'testStringXyz',
     'http://mins01.com/xxx/yyy/zzz',
+    'https://yjj5856.tistory.com/73', //티스토리
 );
 foreach($urls as $url){
     $rs = SnsUrlinfo::urlinfo($url);
