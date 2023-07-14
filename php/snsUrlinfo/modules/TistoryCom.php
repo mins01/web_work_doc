@@ -3,7 +3,7 @@ namespace mins01\snsUrlinfo\modules;
 require_once(dirname(__FILE__).'/Module.php');
 
 /**
- * 20230713 : 릴스 구분 추가
+ * 20230714 : 최초 추가. www 는 user_id 로 안 씀!
  */
 
 class TistoryCom extends \mins01\snsUrlinfo\modules\Module{
@@ -25,7 +25,7 @@ class TistoryCom extends \mins01\snsUrlinfo\modules\Module{
             $rs['user_id'] = $subDomain;
             if(isset($parsedUrl['path'])){
                 $paths = explode('/',$parsedUrl['path']);
-                if(isset($paths[2])) $rs['post_id'] = $paths[2];
+                if(isset($paths[1])) $rs['post_id'] = $paths[1];
             }
         }
         return $rs;
