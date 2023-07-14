@@ -6,6 +6,10 @@ class SnsUrlinfo{
     public static $debug = false;
     public static $defaultModuleClassNs = '\mins01\snsUrlinfo\modules\Module';
 
+    private static function echoDebug($msg){
+        if(static::$debug){   echo $msg."\n"; }
+    }
+
     private static function domainToClassName($domain){
         if (version_compare(PHP_VERSION, '5.5.16', '>=')) {
             return str_replace('.', '', ucwords(strtolower($domain),'.'));
@@ -18,34 +22,30 @@ class SnsUrlinfo{
     private static function autoloadModuleByDomain($domain){
         $className = static::domainToClassName($domain);
         $classNS = static::autoloadModule($className);
-        if($classNS == null){ // 모듈이 없으면, 서브도메인 없는 걸로 체크!
-            
+        if($classNS == null){ // 모듈이 없으면, 서브도메인 없는 걸로 로드!
             $removedSubDomain = preg_replace('/^[^\.]*\./','',$domain);
             $removedSubClassName = static::domainToClassName($removedSubDomain);
-            $classNS = static::autoloadModule($removedSubClassName); // 서브도메인으로 한번 더 체크
+            $classNS = static::autoloadModule($removedSubClassName); // 서브도메인으로 한번 더 로드
         }
         if($classNS == null){ // 모듈이 없으면, 기본 모듈 사용
             $classNS = static::autoloadModule('Module');
-            if(static::$debug){ echo "기본 클래스 파일 로드\n"; }
+            // static::echoDebug("기본 모듈 파일 로드");
         }
         return $classNS;
     }
     private static function autoloadModule($className){
         $classNS = "\\".__NAMESPACE__."\\modules\\{$className}";
         if(!class_exists($classNS)){
-            if(static::$debug){ echo "클래스 없음: {$classNS}\n"; }
             $classPath = realpath(dirname(__FILE__)."/modules/{$className}.php");
             if(!$classPath){
-                if(static::$debug){ echo "클래스 파일 없음: {$classPath}\n"; }
+                // static::echoDebug("모듈 파일 없음: {$className}");
             }else{
                 require_once($classPath);
-                if(static::$debug){ echo "클래스 파일 로드: {$classPath}\n"; }
+                static::echoDebug("모듈 파일 로드: {$className}");
             }
         }
         if(!class_exists($classNS)){
             return null;
-            // // echo "클래스 없음!!\n";
-            // $classNS = static::autoloadModule('Module');
         }
         $classNS::$debug = static::$debug;
         return  $classNS;

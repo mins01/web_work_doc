@@ -35,7 +35,9 @@ $urls = array(
     'https://youtube.com/shorts/dCgdw0h1zUA?feature=share3',
     'testStringXyz',
     'http://mins01.com/xxx/yyy/zzz',
+    'https://yjj5856.tistory.com', //티스토리
     'https://yjj5856.tistory.com/73', //티스토리
+    'https://www.tistory.com/community/forum', //티스토리
 );
 foreach($urls as $url){
     $rs = SnsUrlinfo::urlinfo($url);
@@ -46,6 +48,5 @@ foreach($urls as $url){
     echo "userUrl : {$userUrl}\n";
     $postUrl = SnsUrlinfo::postUrl($rs);
     echo "postUrl : {$postUrl}\n";
-
-    echo "\n";
+    echo "---------------------------------------------------------\n";
 }
