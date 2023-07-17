@@ -37,17 +37,31 @@
 	
 	<!-- //meta og -->
 	
-    <script src="memory/Game.js"></script>
-    <script src="memory/Board.js"></script>
-    <script src="memory/Card.js"></script>
-    <script>
-        let game = new Game();
-        game.board.debug = true;
-        window.addEventListener('load',(event)=>{
-            game.init(5);
-        })
-    </script>
-	
+	<!-- <script src="memory/Game.js"></script>
+	<script src="memory/Board.js"></script>
+	<script src="memory/Card.js"></script>
+	<script>
+			let game = new Game();
+			game.board.debug = true;
+			window.addEventListener('load',(event)=>{
+					game.ready();
+			})
+	</script> -->
+	<script type="module">
+		import Game from "./memory/Game.js";
+		import Board from "./memory/Board.js";
+		import Card from "./memory/Card.js";
+		let game = new Game();
+		globalThis.game = game;
+	</script>
+
+<script>
+	window.addEventListener('load',(event)=>{
+			game.ready(5);
+			game.start();
+	})
+</script>
+
 </head>
 <body>
 	<div class="container">

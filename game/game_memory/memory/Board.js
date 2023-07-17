@@ -1,5 +1,8 @@
 'use strict';
 
+import Card from "./Card.js";
+
+
 class Board{
     debug = false;
     cards = [];
@@ -93,3 +96,5 @@ class Board{
         return true;
     }
 }
+
+export default Board;

@@ -13,3 +13,5 @@ class Card{
         return JSON.stringify([ this.num, this.side, this.selected?'O':'X', this.found?'O':'X' ]);
     }
 }
+
+export default Card;
