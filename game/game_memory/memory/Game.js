@@ -6,7 +6,7 @@ class Game{
     debug=false;
     board=null;
     running=false;
-    exited=false;
+    ended=false;
     constructor(){
         this.board = new Board;
         this.cards = this.board.cards;
@@ -16,34 +16,45 @@ class Game{
         this.board.init(n);
     }
     ready(n){
-        this.exit = false;
+        console.log('게임 준비');
+        this.ended = false;
         this.running = false;
         this.init(n)
-        console.log('게임 준비');
+        this.onReady();
+    }
+    onReady(){
+        console.log('onReady');
     }
     start(){
-        this.running = true;
         console.log('게임 시작');
-        this.draw();
+        this.running = true;
+        this.onStart();
+    }
+    onStart(){
+        this.draw();        
+        console.log('onStart');
     }
     end(){
         console.log('게임 종료');
-        this.draw();
         this.running = false;
-        this.exit = true;
-
+        this.ended = true;
+        this.onEnd();
+    }
+    onEnd(){
+        this.draw();
+        console.log('onEnd');
     }
     draw(){
         // this.board.draw();
         let boxs = [];
-        boxs.push("# idx:[num,side,selected,found]");
+        boxs.push("# idx:[num]");
         this.cards.forEach((card,idx)=>{
             if(card.found){
-                boxs.push(`#${idx}:${card.num}# : found`)    
+                boxs.push(`  #${idx}:${card.num}# : found`)    
             }else if(card.selected){
-                boxs.push(`<${idx}:${card.num}> : selected`)    
+                boxs.push(`  <${idx}:${card.num}> : selected`)    
             }else{
-                boxs.push(`[${idx}:??]`)    
+                boxs.push(`  [${idx}:??]`)    
             }
         })
         console.log(boxs.join("\n"))
@@ -54,13 +65,20 @@ class Game{
         }
         let r = null
         if(r = this.board.selectCard(idx)){
-            setTimeout(()=>{
-                this.board.actionMatching();
-                this.draw()
-            },1000)
+            this.checkCards();
         }
         this.draw()
         return r;
+    }
+    checkCards(){
+        setTimeout(()=>{
+            this.board.checkMatching();
+            if(this.board.checkEnd()){
+                return this.end();    
+            }else{
+                this.draw()
+            }
+        },1000)
     }
 }
 

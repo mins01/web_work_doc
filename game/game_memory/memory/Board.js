@@ -46,12 +46,19 @@ class Board{
     }
 
     get selectedLength(){
-        let selectedLength = 0;
-        this.cards.forEach((card,idx)=>{
-            if(card.selected)
-            selectedLength++;
-        })
-        return selectedLength;
+        let length = 0;
+        this.cards.forEach((card)=>{ if(card.selected) length++; })
+        return length;
+    }
+    get notFoundLength(){
+        let length = 0;
+        this.cards.forEach((card)=>{ if(!card.found) length++; })
+        return length;
+    }
+    get foundLength(){
+        let length = 0;
+        this.cards.forEach((card)=>{ if(card.found) length++; })
+        return length;
     }
     selectCard(idx){
         if(this.cards[idx] === undefined){ this.consoleError("지정카드가 없음"); return false; }
@@ -72,7 +79,7 @@ class Board{
     /**
      * 짝이 맞는 카드가 있는지 확인한다.
      */
-    actionMatching(){
+    checkMatching(){
         let idxes = this.selectedCardIdxes();
         if(idxes.length < 2){ this.consoleDebug("선택된 카드 수가 2장 미만"); return false; }
         if(this.cards[idxes[0]].num != this.cards[idxes[1]].num){ return this.actionResetSelectedCard(); }
@@ -94,6 +101,9 @@ class Board{
             }
         })
         return true;
+    }
+    checkEnd(){
+        return (this.notFoundLength==0);
     }
 }
 

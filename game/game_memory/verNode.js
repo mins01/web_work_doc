@@ -1,19 +1,24 @@
 import Game from "./memory/Game.js";
-import Board from "./memory/Board.js";
-import Card from "./memory/Card.js";
+// import Board from "./memory/Board.js";
+// import Card from "./memory/Card.js";
 
 
 
 let game = new Game();
 game.board.debug = true;
-game.ready(5);
+game.onEnd = function(){
+  this.draw();
+  console.log('onEnd');
+  process.exit();
+}
+game.ready(1);
 
 console.error('s: Start');
 console.error('e: Exit');
 console.error('number: select card');
 
 process.stdin.on('data', function (input) {
-  if(!game.exited)
+  if(!game.ended)
   {
     // console.log(input);
     let arg = input.toString("utf-8").trim()
