@@ -6,6 +6,7 @@ import Card from "./Card.js";
 class Board{
     debug = false;
     cards = [];
+    score = null;
     constructor(){
         this.cards = [];
     };
@@ -20,7 +21,8 @@ class Board{
         this.shuffleCards();
     }
     generateCards(halfN){
-        this.card = [];
+        this.cards = [];
+        console.log(this.card)
         for(let i=0,m=halfN;i<m;i++){
             this.cards.push(new Card(i,1));
             this.cards.push(new Card(i,2));
@@ -66,6 +68,7 @@ class Board{
         if(this.cards[idx].selected){ this.consoleError("이미 선택된 카드"); return false; }
         if(this.cards[idx].found){ this.consoleError("이미 찾은 카드"); return false; }
         this.cards[idx].selected = true;
+        this.score.history.push(idx);
         let idxes = this.selectedCardIdxes();
         return (idxes.length == 2);
     }

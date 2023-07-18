@@ -1,27 +1,37 @@
 'use strict';
 
 import Board from "./Board.js";
+import Score from "./Score.js";
 
 class Game{
     debug=false;
     board=null;
+    score=null;
     running=false;
     checking=false;
     selecting=false;
     ended=false;
+    initN=0;
     constructor(){
-        this.board = new Board;
+        this.score = new Score();
+        this.board = new Board();
+        this.board.score = this.score;
         this.cards = this.board.cards;
     }
 
     init(n){
+        this.initN = n
         this.board.init(n);
     }
     ready(n){
+        if(!n){
+            n = this.initN;
+        }
         console.log('게임 준비');
         this.ended = false;
         this.running = false;
         this.init(n)
+        this.score.reset();
         this.onReady();
     }
     onReady(){
@@ -30,6 +40,7 @@ class Game{
     start(){
         console.log('게임 시작');
         this.running = true;
+        this.score.start();
         this.onStart();
     }
     onStart(){
@@ -40,6 +51,7 @@ class Game{
         console.log('게임 종료');
         this.running = false;
         this.ended = true;
+        this.score.end();
         this.onEnd();
     }
     onEnd(){
@@ -64,6 +76,7 @@ class Game{
     selectCard(idx){
         if(!this.running){
             console.log('게임 진행중이 아닙니다.');
+            return false;
         }
         let r = null
 
