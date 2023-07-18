@@ -4,7 +4,7 @@
 .game-board-cards{
     display: grid;
     grid-template-columns: repeat(5,1fr);
-    gap: 3px;
+    gap: 10px;
     align-content: center;
     justify-content: center;
     align-items: center;
@@ -27,14 +27,19 @@
     background-color: aqua;
     border-radius: 10px;
     overflow: hidden;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 2px #00000099;
+
+
+    background: white;
+    background-image: linear-gradient(90deg, rgba(200,0,0,.5) 50%, transparent 0),
+                      linear-gradient(rgba(200,0,0,.5) 50%, transparent 0);
+    background-size: 30px 30px;
+    background-position: center center;
+
 }
 
-.game-card[data-selected="true"] .game-card-view{
-    background-color: #abc;
-}
-.game-card[data-found="true"] .game-card-view{
-    
-}
+
 .game-card .game-card-view{
     position: relative;
 }
@@ -58,4 +63,14 @@
 
 .game-card:is([data-selected="true"],[data-found="true"]) .game-card-view::before{
     opacity: 1;
+}
+
+/* .game-card[data-selected="true"] .game-card-view{
+    
+} */
+.game-card[data-found="true"] .game-card-view{
+    box-shadow: 2px 2px 2px #cecb3d;
+    /* outline: 5px solid #cecb3d; */
+    /* outline-offset: -5px; */
+
 }

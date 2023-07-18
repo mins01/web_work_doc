@@ -74,6 +74,8 @@
 				div_game.dataset.ended = this.ended;
 			}
 			game.onReady = function(){
+				let div_game = document.querySelector('.game-memory');
+				div_game.dataset.cardLength = game.board.cards.length;
 				let div_cards = document.querySelector('.game-board-cards');
 				div_cards.innerHTML = '';
 				let template_card = document.querySelector('#template-card');
