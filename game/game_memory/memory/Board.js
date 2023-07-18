@@ -22,7 +22,6 @@ class Board{
     }
     generateCards(halfN){
         this.cards = [];
-        console.log(this.card)
         for(let i=0,m=halfN;i<m;i++){
             this.cards.push(new Card(i,1));
             this.cards.push(new Card(i,2));

@@ -62,7 +62,7 @@ class Game{
         // this.board.draw();
         let boxs = [];
         boxs.push("# idx:[num]");
-        this.cards.forEach((card,idx)=>{
+        this.board.cards.forEach((card,idx)=>{
             if(card.found){
                 boxs.push(`  #${idx}:${card.num}# : found`)    
             }else if(card.selected){
@@ -71,6 +71,7 @@ class Game{
                 boxs.push(`  [${idx}:??]`)    
             }
         })
+        console.log('# ==== CARDS ============================ #');
         console.log(boxs.join("\n"))
     }
     selectCard(idx){
