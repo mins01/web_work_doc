@@ -13,9 +13,8 @@ game.onEnd = function(){
 }
 game.ready(1);
 
-console.error('s: Start');
-console.error('e: Exit');
-console.error('number: select card');
+console.error('? s: Start.   e: Exit');
+console.error('? number: select card');
 
 process.stdin.on('data', function (input) {
   if(!game.ended)
@@ -34,7 +33,6 @@ process.stdin.on('data', function (input) {
   }else{
     process.exit();
   }
-  console.error('s: Start');
-  console.error('e: Exit');
-  console.error('number: select card');
+  console.error('? s: Start.   e: Exit');
+  console.error('? number: select card');
 });

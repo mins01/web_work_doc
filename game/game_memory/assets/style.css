@@ -1,0 +1,61 @@
+@charset "utf-8";
+
+
+.game-board-cards{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 3px;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
+
+
+.game-card{
+    /* height:100px; */
+    width: 100%;
+}
+.game-card-view{
+    cursor: pointer;
+    margin:0 auto;
+    aspect-ratio: 63 / 88;
+    width:100%;
+    min-width: 40px;
+    max-width: 140px;
+    min-height: 10px;
+    background-color: aqua;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.game-card[data-selected="true"] .game-card-view{
+    background-color: #abc;
+}
+.game-card[data-found="true"] .game-card-view{
+    
+}
+.game-card .game-card-view{
+    position: relative;
+}
+.game-card .game-card-view::before{
+    content: "NUM";
+    display: flex;
+    position: absolute;
+    left:0;right:0;bottom:0;top:0;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    background-color: #eee;
+    opacity: 0;
+}
+
+.game-card .game-card-view::before{
+    content: attr(data-num);
+}
+
+.game-card:is([data-selected="true"],[data-found="true"]) .game-card-view::before{
+    opacity: 1;
+}

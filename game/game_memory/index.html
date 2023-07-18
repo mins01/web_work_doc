@@ -47,6 +47,7 @@
 					game.ready();
 			})
 	</script> -->
+	<link rel="stylesheet" href="assets/style.css">
 	<script type="module">
 		import Game from "./memory/Game.js";
 		import Board from "./memory/Board.js";
@@ -55,16 +56,73 @@
 		globalThis.game = game;
 	</script>
 
-<script>
-	window.addEventListener('load',(event)=>{
+	<script>
+		window.addEventListener('load',(event)=>{
+			game.draw = function(){
+				this.board.cards.forEach((card,idx) => {
+					let div_card = card.div_card;
+					div_card.dataset.num = card.num;
+					div_card.dataset.idx = idx;
+					div_card.dataset.selected = card.selected;
+					div_card.dataset.found = card.found;
+				});
+
+				let div_game = document.querySelector('.game-memory');
+				div_game.dataset.running = this.running;
+				div_game.dataset.checking = this.checking;
+				div_game.dataset.selecting = this.selecting;
+				div_game.dataset.ended = this.ended;
+			}
+			game.onReady = function(){
+				let div_cards = document.querySelector('.game-board-cards');
+				div_cards.innerHTML = '';
+				let template_card = document.querySelector('#template-card');
+
+				this.board.cards.forEach((card,idx) => {
+					let clone = document.importNode(template_card.content,true);
+					let div_card = clone.querySelector('.game-card');
+					div_card.addEventListener('click',(event)=>{
+						game.selectCard(div_card.dataset.idx);
+					})
+					// div_card.dataset.num = card.num;
+					// div_card.dataset.idx = idx;
+					// div_card.dataset.selected = card.selected;
+					// div_card.dataset.found = card.found;
+					div_card.querySelector('.game-card-view').dataset.num = card.num;
+					div_cards.append(div_card);
+					card.div_card = div_card;
+				});
+				this.draw();
+
+				
+			}
 			game.ready(5);
 			game.start();
-	})
-</script>
+		})
+	</script>
 
 </head>
 <body>
-	<div class="container">
+	<div class="container py-1" >
+		<template id="template-card">
+			<div class="game-card" data-idx data-num data-selected data-found>
+				<div class="game-card-view"></div>
+			</div>
+		</template>
+		<div class="card" >
+			<div class="card-header">
+				신경쇠약(짝 맞추기, memory)
+			</div>
+			<div class="card-body">
+			  <div class="game game-memory">
+				<div class="game-board">
+					<div class="game-board-cards">
+						
+					</div>
+				</div>
+			  </div>
+			</div>
+		  </div>
 	</div>
 </body>
 </html>

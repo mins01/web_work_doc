@@ -6,6 +6,8 @@ class Game{
     debug=false;
     board=null;
     running=false;
+    checking=false;
+    selecting=false;
     ended=false;
     constructor(){
         this.board = new Board;
@@ -64,6 +66,9 @@ class Game{
             console.log('게임 진행중이 아닙니다.');
         }
         let r = null
+
+        this.selecting = true;
+        
         if(r = this.board.selectCard(idx)){
             this.checkCards();
         }
@@ -71,7 +76,10 @@ class Game{
         return r;
     }
     checkCards(){
+        this.checking=true;
         setTimeout(()=>{
+            this.checking = false;
+            this.selecting = false;
             this.board.checkMatching();
             if(this.board.checkEnd()){
                 return this.end();    
