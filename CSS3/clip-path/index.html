@@ -55,8 +55,6 @@
         .inner-box{
             margin:10%;
             width:80%;height:80%;
-            outline:1px dotted #000;
-            outline-offset: -1px;
             display: flex;
             flex-direction: row;
             flex-wrap: nowrap;
@@ -67,23 +65,29 @@
             text-align: center;
         }
         .piece-wrap{
-            width:200px;
-            height: 200px;
+            width: 100px;
+            height: 100px;
             /* outline:2px solid #ddd564;  */
-            display: inline-block;
-            vertical-align: bottom;
             /* filter: drop-shadow(0px 0px 3px black); */
         }
-        .piece-box{
+        .piece-shape{
             background-image: url(361331715_1995055744165677_6676229993515938374_n.jpg);
             background-size: cover;
             background-color: #abc;
         }
 
-        .piece-clip .inner-box{
-            margin:var(--clip-size,20px);
-            width:calc(100% - var(--clip-size,10%) * 2);
-            height:calc(100% - var(--clip-size,10%) * 2);
+        .piece-shape .inner-box{
+            margin:var(--shape-uneven,20px);
+            width:calc(100% - var(--shape-uneven,10%) * 2);
+            height:calc(100% - var(--shape-uneven,10%) * 2);
+        }
+
+        .test-grid-3{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width:fit-content;
+            margin:0 auto;
+            gap: 30px;
         }
     </style>
 </head>
@@ -101,13 +105,22 @@
     <hr>
     <div class="container">
         <div>
-            <div class="piece-wrap"><div class="piece-box"><div class="inner-box"></div></div></div>
-            <div class="piece-wrap "><div class="piece-box clip-path-0"><div class="inner-box">clip-path-0</div></div></div>
-            <div class="piece-wrap "><div class="piece-box clip-path-1"><div class="inner-box">clip-path-1</div></div></div>
-            <div class="piece-wrap "><div class="piece-box clip-path-2"><div class="inner-box">clip-path-2</div></div></div>
-            <div class="piece-container">
-                <div class="piece-wrap" ><div class="piece-box"><div class="inner-box">no-piece-clip</div></div></div>
-                <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-top="1"><div class="inner-box">piece-clip</div></div></div>
+            <div class="piece-wrap"><div class="piece-shape"><div class="inner-box"></div></div></div>
+            <div class="piece-wrap "><div class="piece-shape clip-path-0"><div class="inner-box">clip-path-0</div></div></div>
+            <div class="piece-wrap "><div class="piece-shape clip-path-1"><div class="inner-box">clip-path-1</div></div></div>
+            <div class="piece-wrap "><div class="piece-shape clip-path-2"><div class="inner-box">clip-path-2</div></div></div>
+            <div class="piece-container" style="--shape-uneven:20px">
+                <div class="p-3 d-inline-block">
+                    <div class="piece-wrap debug" ><div class="piece-shape"><div class="inner-box">piece-shape</div></div></div>
+                </div>
+                <div class="p-3 d-inline-block">
+                    <div class="piece-wrap debug" ><div class="piece-shape" data-shape-top="1"><div class="inner-box">piece-shape</div></div></div>
+                </div>
+                <div class="p-3 d-inline-block">
+                    <div class="piece-wrap debug" ><div class="piece-shape" data-shape-top="1" data-shape-right="1" data-shape-bottom="1" data-shape-left="1"><div class="inner-box">piece-shape</div></div></div>
+                </div>
+                
+                
             </div>
 
             
@@ -115,28 +128,25 @@
 
 
             <hr>
-            <h2>piece-clip</h2>
+            <h2>piece-shape</h2>
             <div class="card my-3">
                 <div class="card-header">
                     <h3>15px</h3>
                 </div>
                 <div class="card-body ">
-                    <div class="piece-container" style="--clip-size:15px;">
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-top="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-top="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-top="-1"> </div></div>
-                        <hr>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-right="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-right="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-right="-1"> </div></div>
-                        <hr>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-bottom="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-bottom="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-bottom="-1"> </div></div>
-                        <hr>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-left="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-left="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-left="-1"> </div></div>
+                    <div class="piece-container test-grid-3" style="--shape-uneven:15px;">
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="-1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="-1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="-1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="-1"> </div></div>
                     </div>
                 </div>
             </div>
@@ -145,22 +155,19 @@
                     <h3>0px</h3>
                 </div>
                 <div class="card-body ">
-                    <div class="piece-container" style="--clip-size:0px;">
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-top="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-top="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-top="-1"> </div></div>
-                        <hr>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-right="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-right="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-right="-1"> </div></div>
-                        <hr>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-bottom="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-bottom="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-bottom="-1"> </div></div>
-                        <hr>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-left="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-left="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-left="-1"> </div></div>
+                    <div class="piece-container test-grid-3" style="--shape-uneven:0px;">
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="-1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="-1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="-1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="-1"> </div></div>
                     </div>
                 </div>
             </div>
@@ -169,22 +176,19 @@
                     <h3>10%</h3>
                 </div>
                 <div class="card-body ">
-                    <div class="piece-container" style="--clip-size:10%;">
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-top="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-top="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-top="-1"> </div></div>
-                        <hr>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-right="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-right="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-right="-1"> </div></div>
-                        <hr>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-bottom="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-bottom="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-bottom="-1"> </div></div>
-                        <hr>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-left="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-left="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-left="-1"> </div></div>
+                    <div class="piece-container test-grid-3" style="--shape-uneven:10%;">
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="-1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="-1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="-1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="-1"> </div></div>
                     </div>
                 </div>
             </div>
@@ -193,22 +197,19 @@
                     <h3>25%</h3>
                 </div>
                 <div class="card-body ">
-                    <div class="piece-container" style="--clip-size:25%;">
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-top="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-top="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-top="-1"> </div></div>
-                        <hr>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-right="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-right="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-right="-1"> </div></div>
-                        <hr>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-bottom="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-bottom="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-bottom="-1"> </div></div>
-                        <hr>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-left="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-left="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-box  piece-clip" data-clip-left="-1"> </div></div>
+                    <div class="piece-container test-grid-3" style="--shape-uneven:25%;">
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="-1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="-1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="-1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="1"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="-1"> </div></div>
                     </div>
                 </div>
             </div>

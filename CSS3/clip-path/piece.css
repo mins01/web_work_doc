@@ -2,18 +2,32 @@
 
 
 .piece-container{
-    --clip-size:20px;
-    --clip-multiplier-top:0;
-    --clip-multiplier-right:0;
-    --clip-multiplier-bottom:0;
-    --clip-multiplier-left:0;
+    --shape-uneven:20px;
+    --shape-multiple-top:0;
+    --shape-multiple-right:0;
+    --shape-multiple-bottom:0;
+    --shape-multiple-left:0;    
 }
 
 .piece-wrap{
-    width:200px;
+    display: flex;
+    width: 200px;
     height: 200px;
+    position: relative;
 }
-.piece-box{
+
+.piece-wrap.debug::before{
+    content: '';
+    display: block;
+    position: absolute;
+    left:0;right:0;top:0;bottom:0;
+    outline:1px dotted #000;
+    outline-offset: -1px;
+    z-index: 10;
+}
+
+
+.piece-shape{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -25,34 +39,38 @@
     background-repeat: no-repeat;
 }
 
-.piece-clip{
-    --clip-size-left:var(--clip-size);
-    --clip-size-top:var(--clip-size);
-    --clip-size-right:calc(100% - var(--clip-size));
-    --clip-size-bottom:calc(100% - var(--clip-size));
+.piece-shape{
+    width:calc(100% + 2 * var(--shape-uneven,0));
+    height:calc(100% + 2 * var(--shape-uneven,0));
+    margin:calc(-1 * var(--shape-uneven,0));
+
+    --shape-uneven-left:var(--shape-uneven,0);
+    --shape-uneven-top:var(--shape-uneven,0);
+    --shape-uneven-right:calc(100% - var(--shape-uneven,0));
+    --shape-uneven-bottom:calc(100% - var(--shape-uneven,0));
     clip-path: polygon(
-        var(--clip-size-left) var(--clip-size-top),
-        50% calc(var(--clip-size-top) - var(--clip-multiplier-top,0) * var(--clip-size)),
-        var(--clip-size-right) var(--clip-size-top),
-        calc(var(--clip-size-right) + var(--clip-multiplier-right,0) * var(--clip-size)) 50%,
-        var(--clip-size-right) var(--clip-size-bottom),
-        50% calc(var(--clip-size-bottom) + var(--clip-multiplier-bottom,0) * var(--clip-size)),
-        var(--clip-size-left) var(--clip-size-bottom),
-        calc(var(--clip-size-left) - var(--clip-multiplier-left,0) * var(--clip-size)) 50%
+        var(--shape-uneven-left) var(--shape-uneven-top),
+        50% calc(var(--shape-uneven-top) - var(--shape-multiple-top,0) * var(--shape-uneven,0)),
+        var(--shape-uneven-right) var(--shape-uneven-top),
+        calc(var(--shape-uneven-right) + var(--shape-multiple-right,0) * var(--shape-uneven,0)) 50%,
+        var(--shape-uneven-right) var(--shape-uneven-bottom),
+        50% calc(var(--shape-uneven-bottom) + var(--shape-multiple-bottom,0) * var(--shape-uneven,0)),
+        var(--shape-uneven-left) var(--shape-uneven-bottom),
+        calc(var(--shape-uneven-left) - var(--shape-multiple-left,0) * var(--shape-uneven,0)) 50%
     );
 }
-.piece-clip[data-clip-top="0"]{ --clip-multiplier-top:0; }
-.piece-clip[data-clip-top="1"]{ --clip-multiplier-top:1; }
-.piece-clip[data-clip-top="-1"]{ --clip-multiplier-top:-1; }
+.piece-shape[data-shape-top="0"]{ --shape-multiple-top:0; }
+.piece-shape[data-shape-top="1"]{ --shape-multiple-top:1; }
+.piece-shape[data-shape-top="-1"]{ --shape-multiple-top:-1; }
 
-.piece-clip[data-clip-right="0"]{ --clip-multiplier-right:0; }
-.piece-clip[data-clip-right="1"]{ --clip-multiplier-right:1; }
-.piece-clip[data-clip-right="-1"]{ --clip-multiplier-right:-1; }
+.piece-shape[data-shape-right="0"]{ --shape-multiple-right:0; }
+.piece-shape[data-shape-right="1"]{ --shape-multiple-right:1; }
+.piece-shape[data-shape-right="-1"]{ --shape-multiple-right:-1; }
 
-.piece-clip[data-clip-bottom="0"]{ --clip-multiplier-bottom:0; }
-.piece-clip[data-clip-bottom="1"]{ --clip-multiplier-bottom:1; }
-.piece-clip[data-clip-bottom="-1"]{ --clip-multiplier-bottom:-1; }
+.piece-shape[data-shape-bottom="0"]{ --shape-multiple-bottom:0; }
+.piece-shape[data-shape-bottom="1"]{ --shape-multiple-bottom:1; }
+.piece-shape[data-shape-bottom="-1"]{ --shape-multiple-bottom:-1; }
 
-.piece-clip[data-clip-left="0"]{ --clip-multiplier-left:0; }
-.piece-clip[data-clip-left="1"]{ --clip-multiplier-left:1; }
-.piece-clip[data-clip-left="-1"]{ --clip-multiplier-left:-1; }
+.piece-shape[data-shape-left="0"]{ --shape-multiple-left:0; }
+.piece-shape[data-shape-left="1"]{ --shape-multiple-left:1; }
+.piece-shape[data-shape-left="-1"]{ --shape-multiple-left:-1; }
