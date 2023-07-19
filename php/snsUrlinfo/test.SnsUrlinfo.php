@@ -21,6 +21,7 @@ $urls = array(
     'https://m.facebook.com/story.php/?story_fbid=pfbid0xUJ7Jpum8iCBp31fZcZA4kP5rNcQzmoy7VBtVBmmXuXHVDT1yprWCV2VMTBjVpv8l&id=100031126815048',
     'https://m.facebook.com/story.php?story_fbid=pfbid02h2fN2HnnJdbAxroMnBMDQrXS45qvD4a82ckQY2tzs3bcVQpSTtZrdtAij1V6aWTjl&id=100031126815048',
     'https://www.facebook.com/reel/1333925437193951', //릴스
+    'https://www.facebook.com/100010078350179/posts/pfbid0sJwuZS4hkpiUedUuE7Mnr9eNmBhr4JWyu42QaaWymb5MUaYub2fuSqrGiudkyQpTl/?mibextid=Nif5oz',
     'https://twitter.com/@jinjinjara0807',
     'https://twitter.com/0Me3cQXsLSYrRxS/status/1637068317109395456?t=6O3ZdefCGY91GYLaqXuCew&s=19',
     'https://twitter.com/bata_bts2/status/1640690406810882050?s=46&t=mxBLHeEv-UsxrsxNz8fYUg',

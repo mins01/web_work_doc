@@ -3,8 +3,11 @@ namespace mins01\snsUrlinfo\modules;
 
 require_once(dirname(__FILE__).'/Module.php');
 
+/**
+ * 20230719 릴스 추가되면서 생긴 버그 수정(post_id 를 잘못 처리함)
+ */
 class WwwFacebookCom extends \mins01\snsUrlinfo\modules\Module{
-    public static $version = '20230712';
+    public static $version = '20230719';
     public static $service = 'facebook';
     public static $domain = 'www.facebook.com';
     public static $site = 'https://www.facebook.com';
@@ -27,13 +30,13 @@ class WwwFacebookCom extends \mins01\snsUrlinfo\modules\Module{
                 if(isset($get['story_fbid'])) $rs['post_id'] = $get['story_fbid'];
             }
         }else{
-            if(isset($parsedUrl['path'][3])){
+            if(isset($parsedUrl['path'])){
                 $paths = explode('/',$parsedUrl['path']);
                 // print_r($paths);
-                if(isset($paths[1]) && isset($paths[1])=='reel'){ //릴스
+                if(isset($paths[1]) && $paths[1]=='reel'){ //릴스
                     if(isset($paths[1])) $rs['user_id'] = $paths[1];
                     if(isset($paths[2])) $rs['post_id'] = $paths[2];
-                }else{
+                }else if(isset($paths[2]) && $paths[2]=='posts'){
                     if(isset($paths[1])) $rs['user_id'] = $paths[1];
                     if(isset($paths[3])) $rs['post_id'] = $paths[3];
                 }
