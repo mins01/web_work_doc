@@ -132,42 +132,75 @@
 
 
         .jigsaw-grid{
-            display: grid;
-            grid-template-columns: repeat(3,1fr);
-            width: max-content;
-            margin:0 auto;
-        }
-        .jigsaw-grid{
             --grid-width:500px;
             --grid-height:400px;
+            --div-x:3;
+            --div-y:3;
+            --background-image:url(361331715_1995055744165677_6676229993515938374_n.jpg);
+            display: grid;
+            grid-template-columns: repeat(var(--div-x),1fr);
+            grid-template-rows: repeat(var(--div-y),1fr);
+            width: max-content;
+            margin:0 auto;
+
             /* background-image: url(361331715_1995055744165677_6676229993515938374_n.jpg); */
             background-color: #fff;
             background-size: var(--grid-width) var(--grid-height);
             width:var(--grid-width);
             height:var(--grid-height);
         }
+        .jigsaw-grid[data-div-x="2"]{--div-x:2;}
+        .jigsaw-grid[data-div-x="3"]{--div-x:3;}
+        .jigsaw-grid[data-div-x="4"]{--div-x:4;}
+        .jigsaw-grid[data-div-x="5"]{--div-x:5;}
+        .jigsaw-grid[data-div-x="6"]{--div-x:6;}
+        .jigsaw-grid[data-div-x="7"]{--div-x:7;}
+        .jigsaw-grid[data-div-x="8"]{--div-x:8;}
+        .jigsaw-grid[data-div-x="9"]{--div-x:9;}
+
+        .jigsaw-grid[data-div-y="2"]{--div-y:2;}
+        .jigsaw-grid[data-div-y="3"]{--div-y:3;}
+        .jigsaw-grid[data-div-y="4"]{--div-y:4;}
+        .jigsaw-grid[data-div-y="5"]{--div-y:5;}
+        .jigsaw-grid[data-div-y="6"]{--div-y:6;}
+        .jigsaw-grid[data-div-y="7"]{--div-y:7;}
+        .jigsaw-grid[data-div-y="8"]{--div-y:8;}
+        .jigsaw-grid[data-div-y="9"]{--div-y:9;}
+        
         .jigsaw-grid > .box{
             opacity: 1;
-            width:100%;
-            height:100%;
+            /* width:100%;
+            height:100%; */
             width:calc(100% + var(--clip-value,10%) * 2 -1px);
             height:calc(100% + var(--clip-value,10%) * 2 -1px);
 
         }
         .jigsaw-grid .clip-box{
-            background-image: url(361331715_1995055744165677_6676229993515938374_n.jpg);
-            
+            background-image: var(--background-image,none);
             background-size: var(--grid-width) var(--grid-height);
         }
-        .jigsaw-grid div:nth-child(1) .clip-box{ background-position: calc(var(--grid-width) / 3 * 0 + var(--clip-value,10%)) calc(var(--grid-height) / 3 * 0 + var(--clip-value,10%)); }
-        .jigsaw-grid div:nth-child(2) .clip-box{ background-position: calc(var(--grid-width) / 3 * -1 + var(--clip-value,10%)) calc(var(--grid-height) / 3 * 0 + var(--clip-value,10%)); }
-        .jigsaw-grid div:nth-child(3) .clip-box{ background-position: calc(var(--grid-width) / 3 * -2 + var(--clip-value,10%)) calc(var(--grid-height) / 3 * 0 + var(--clip-value,10%)); }
-        .jigsaw-grid div:nth-child(4) .clip-box{ background-position: calc(var(--grid-width) / 3 * 0 + var(--clip-value,10%)) calc(var(--grid-height) / 3 * -1 + var(--clip-value,10%)); }
-        .jigsaw-grid div:nth-child(5) .clip-box{ background-position: calc(var(--grid-width) / 3 * -1 + var(--clip-value,10%)) calc(var(--grid-height) / 3 * -1 + var(--clip-value,10%)); }
-        .jigsaw-grid div:nth-child(6) .clip-box{ background-position: calc(var(--grid-width) / 3 * -2 + var(--clip-value,10%)) calc(var(--grid-height) / 3 * -1 + var(--clip-value,10%)); }
-        .jigsaw-grid div:nth-child(7) .clip-box{ background-position: calc(var(--grid-width) / 3 * 0 + var(--clip-value,10%)) calc(var(--grid-height) / 3 * -2 + var(--clip-value,10%)); }
-        .jigsaw-grid div:nth-child(8) .clip-box{ background-position: calc(var(--grid-width) / 3 * -1 + var(--clip-value,10%)) calc(var(--grid-height) / 3 * -2 + var(--clip-value,10%)); }
-        .jigsaw-grid div:nth-child(9) .clip-box{ background-position: calc(var(--grid-width) / 3 * -2 + var(--clip-value,10%)) calc(var(--grid-height) / 3 * -2 + var(--clip-value,10%)); }
+        .jigsaw-grid .box{ --pos-x:0; --pos-y:0; }
+        .jigsaw-grid .box[data-pos-x="0"]{ --pos-x:-0;}
+        .jigsaw-grid .box[data-pos-x="1"]{ --pos-x:-1;}
+        .jigsaw-grid .box[data-pos-x="2"]{ --pos-x:-2;}
+        .jigsaw-grid .box[data-pos-x="3"]{ --pos-x:-3;}
+        .jigsaw-grid .box[data-pos-x="4"]{ --pos-x:-4;}
+        .jigsaw-grid .box[data-pos-x="5"]{ --pos-x:-5;}
+        .jigsaw-grid .box[data-pos-x="6"]{ --pos-x:-6;}
+        .jigsaw-grid .box[data-pos-x="7"]{ --pos-x:-7;}
+        .jigsaw-grid .box[data-pos-x="8"]{ --pos-x:-8;}
+        .jigsaw-grid .box[data-pos-x="9"]{ --pos-x:-9;}
+        .jigsaw-grid .box[data-pos-y="0"]{ --pos-y:-0;}
+        .jigsaw-grid .box[data-pos-y="1"]{ --pos-y:-1;}
+        .jigsaw-grid .box[data-pos-y="2"]{ --pos-y:-2;}
+        .jigsaw-grid .box[data-pos-y="3"]{ --pos-y:-3;}
+        .jigsaw-grid .box[data-pos-y="4"]{ --pos-y:-4;}
+        .jigsaw-grid .box[data-pos-y="5"]{ --pos-y:-5;}
+        .jigsaw-grid .box[data-pos-y="6"]{ --pos-y:-6;}
+        .jigsaw-grid .box[data-pos-y="7"]{ --pos-y:-7;}
+        .jigsaw-grid .box[data-pos-y="8"]{ --pos-y:-8;}
+        .jigsaw-grid .box[data-pos-y="9"]{ --pos-y:-9;}
+        .jigsaw-grid .clip-box{ background-position: calc(var(--grid-width) / var(--div-x) * var(--pos-x) + var(--clip-value,10%)) calc(var(--grid-height) / var(--div-y) * var(--pos-y) + var(--clip-value,10%)); }
     </style>
 </head>
 <body>
@@ -183,31 +216,114 @@
                 </div>
                 <div class="card-body ">
                     <div class="jigsaw-grid clip-path-dynamic-container" style="--clip-value:20px;">
-                        <div class="box clip-margin-box" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="1" data-clip-bottom="-1" data-clip-left="0"><div class="inner-box"> </div></div></div>
-                        <div class="box clip-margin-box" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="-1" data-clip-bottom="1" data-clip-left="-1"><div class="inner-box"> </div></div></div>
-                        <div class="box clip-margin-box" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="1" data-clip-left="1"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="0" data-pos-y="0" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="1" data-clip-bottom="-1" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="1" data-pos-y="0" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="-1" data-clip-bottom="1" data-clip-left="-1"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="2" data-pos-y="0" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="1" data-clip-left="1"><div class="inner-box"> </div></div></div>
 
-                        <div class="box clip-margin-box" ><div class="clip-box  clip-path-dynamic" data-clip-top="1" data-clip-right="-1" data-clip-bottom="1" data-clip-left="0"><div class="inner-box"> </div></div></div>
-                        <div class="box clip-margin-box" ><div class="clip-box  clip-path-dynamic" data-clip-top="-1" data-clip-right="1" data-clip-bottom="1" data-clip-left="1"><div class="inner-box"> </div></div></div>
-                        <div class="box clip-margin-box" ><div class="clip-box  clip-path-dynamic" data-clip-top="-1" data-clip-right="0" data-clip-bottom="-1" data-clip-left="-1"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="0" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="1" data-clip-right="-1" data-clip-bottom="1" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="1" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="-1" data-clip-right="1" data-clip-bottom="1" data-clip-left="1"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="2" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="-1" data-clip-right="0" data-clip-bottom="-1" data-clip-left="-1"><div class="inner-box"> </div></div></div>
 
-                        <div class="box clip-margin-box" ><div class="clip-box  clip-path-dynamic" data-clip-top="-1" data-clip-right="1" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
-                        <div class="box clip-margin-box" ><div class="clip-box  clip-path-dynamic" data-clip-top="-1" data-clip-right="1" data-clip-bottom="0" data-clip-left="-1"><div class="inner-box"> </div></div></div>
-                        <div class="box clip-margin-box" ><div class="clip-box  clip-path-dynamic" data-clip-top="1" data-clip-right="0" data-clip-bottom="0" data-clip-left="-1"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="0" data-pos-y="2" ><div class="clip-box  clip-path-dynamic" data-clip-top="-1" data-clip-right="1" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="1" data-pos-y="2" ><div class="clip-box  clip-path-dynamic" data-clip-top="-1" data-clip-right="1" data-clip-bottom="0" data-clip-left="-1"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="2" data-pos-y="2" ><div class="clip-box  clip-path-dynamic" data-clip-top="1" data-clip-right="0" data-clip-bottom="0" data-clip-left="-1"><div class="inner-box"> </div></div></div>
                     </div>
                     <hr>
                     <div class="jigsaw-grid clip-path-dynamic-container" style="--clip-value:20px;--grid-width:300px; --grid-height:600px">
-                        <div class="box clip-margin-box" style="transform: translate(-30px, -20px);" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="1" data-clip-bottom="-1" data-clip-left="0"><div class="inner-box"> </div></div></div>
-                        <div class="box clip-margin-box" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="-1" data-clip-bottom="1" data-clip-left="-1"><div class="inner-box"> </div></div></div>
-                        <div class="box clip-margin-box" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="1" data-clip-left="1"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="0" data-pos-y="0" style="transform: translate(-30px, -20px);"><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="1" data-clip-bottom="-1" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="1" data-pos-y="0" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="-1" data-clip-bottom="1" data-clip-left="-1"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="2" data-pos-y="0" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="1" data-clip-left="1"><div class="inner-box"> </div></div></div>
 
-                        <div class="box clip-margin-box" ><div class="clip-box  clip-path-dynamic" data-clip-top="1" data-clip-right="-1" data-clip-bottom="1" data-clip-left="0"><div class="inner-box"> </div></div></div>
-                        <div class="box clip-margin-box" ><div class="clip-box  clip-path-dynamic" data-clip-top="-1" data-clip-right="1" data-clip-bottom="1" data-clip-left="1"><div class="inner-box"> </div></div></div>
-                        <div class="box clip-margin-box" ><div class="clip-box  clip-path-dynamic" data-clip-top="-1" data-clip-right="0" data-clip-bottom="-1" data-clip-left="-1"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="0" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="1" data-clip-right="-1" data-clip-bottom="1" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="1" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="-1" data-clip-right="1" data-clip-bottom="1" data-clip-left="1"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="2" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="-1" data-clip-right="0" data-clip-bottom="-1" data-clip-left="-1"><div class="inner-box"> </div></div></div>
 
-                        <div class="box clip-margin-box" ><div class="clip-box  clip-path-dynamic" data-clip-top="-1" data-clip-right="1" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
-                        <div class="box clip-margin-box" ><div class="clip-box  clip-path-dynamic" data-clip-top="-1" data-clip-right="1" data-clip-bottom="0" data-clip-left="-1"><div class="inner-box"> </div></div></div>
-                        <div class="box clip-margin-box" style="transform: translate(30px, 20px);"><div class="clip-box  clip-path-dynamic" data-clip-top="1" data-clip-right="0" data-clip-bottom="0" data-clip-left="-1"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="0" data-pos-y="2" ><div class="clip-box  clip-path-dynamic" data-clip-top="-1" data-clip-right="1" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="1" data-pos-y="2" ><div class="clip-box  clip-path-dynamic" data-clip-top="-1" data-clip-right="1" data-clip-bottom="0" data-clip-left="-1"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="2" data-pos-y="2" style="transform: translate(30px, 20px);"><div class="clip-box  clip-path-dynamic" data-clip-top="1" data-clip-right="0" data-clip-bottom="0" data-clip-left="-1"><div class="inner-box"> </div></div></div>
+                    </div>
+                    <hr>
+                    <div class="jigsaw-grid clip-path-dynamic-container" style="--clip-value:20px;--grid-width:300px; --grid-height:300px;--div-x:2; --div-y:2">
+                        <div class="box clip-margin-box" data-pos-x="0" data-pos-y="0" style="transform: translate(-30px, -20px);"><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="1" data-clip-bottom="-1" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="1" data-pos-y="0" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="-1" data-clip-bottom="1" data-clip-left="-1"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="0" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="1" data-clip-left="1"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="1" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="1" data-clip-right="-1" data-clip-bottom="1" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                    </div>
+                    <hr>
+                    <div class="jigsaw-grid clip-path-dynamic-container" data-div-x="6" data-div-y="5" style="--clip-value:20px;--grid-width:600px; --grid-height:300px;">
+                        <div class="box clip-margin-box" data-pos-x="0" data-pos-y="0" style="transform: translate(-30px, -20px);"><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="1" data-pos-y="0" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="2" data-pos-y="0" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="3" data-pos-y="0" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="4" data-pos-y="0" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="5" data-pos-y="0" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+
+                        <div class="box clip-margin-box" data-pos-x="0" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="1" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="2" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="3" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="4" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="5" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+
+                        <div class="box clip-margin-box" data-pos-x="0" data-pos-y="2" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="1" data-pos-y="2" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="2" data-pos-y="2" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="3" data-pos-y="2" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="4" data-pos-y="2" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="5" data-pos-y="2" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+
+                        <div class="box clip-margin-box" data-pos-x="0" data-pos-y="3" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="1" data-pos-y="3" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="2" data-pos-y="3" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="3" data-pos-y="3" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="4" data-pos-y="3" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="5" data-pos-y="3" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+
+                        <div class="box clip-margin-box" data-pos-x="0" data-pos-y="4" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="1" data-pos-y="4" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="2" data-pos-y="4" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="3" data-pos-y="4" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="4" data-pos-y="4" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="5" data-pos-y="4" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+
+                    </div>
+                    <hr>
+                    <div class="jigsaw-grid clip-path-dynamic-container" data-div-x="6" data-div-y="2" style="--clip-value:20px;--grid-width:600px; --grid-height:300px;">
+                        <div class="box clip-margin-box" data-pos-x="0" data-pos-y="0" style="transform: translate(-30px, -20px);"><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="1" data-pos-y="0" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="2" data-pos-y="0" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="3" data-pos-y="0" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="4" data-pos-y="0" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="5" data-pos-y="0" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+
+                        <div class="box clip-margin-box" data-pos-x="0" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="1" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="2" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="3" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="4" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="5" data-pos-y="1" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+
+                        <div class="box clip-margin-box" data-pos-x="0" data-pos-y="2" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="1" data-pos-y="2" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="2" data-pos-y="2" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="3" data-pos-y="2" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="4" data-pos-y="2" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="5" data-pos-y="2" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+
+                        <div class="box clip-margin-box" data-pos-x="0" data-pos-y="3" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="1" data-pos-y="3" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="2" data-pos-y="3" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="3" data-pos-y="3" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="4" data-pos-y="3" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="5" data-pos-y="3" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+
+                        <div class="box clip-margin-box" data-pos-x="0" data-pos-y="4" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="1" data-pos-y="4" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="2" data-pos-y="4" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="3" data-pos-y="4" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="4" data-pos-y="4" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+                        <div class="box clip-margin-box" data-pos-x="5" data-pos-y="4" ><div class="clip-box  clip-path-dynamic" data-clip-top="0" data-clip-right="0" data-clip-bottom="0" data-clip-left="0"><div class="inner-box"> </div></div></div>
+
                     </div>
                 </div>
             </div>
