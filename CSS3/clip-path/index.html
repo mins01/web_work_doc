@@ -42,6 +42,17 @@
         *{
             box-sizing: border-box;
         }
+        .clip-path-wrap{
+            width: 100px;
+            height: 100px;
+            vertical-align: bottom;
+        }
+        .clip-path-img{
+            background-image: url(361331715_1995055744165677_6676229993515938374_n.jpg);
+            background-size: cover;
+            background-color: #abc;
+            width:100%;height: 100%;;
+        }
         .clip-path-1{
             clip-path: polygon(0% 0%, 50% 10%, 100% 0, 90% 50%, 100% 100%, 50% 90%, 0 100%, 10% 50%);
         }
@@ -98,6 +109,7 @@
             <li class="list-group-item">clip-path CSS 속성은 요소의 클리핑 범위를 지정합니다. 클리핑 범위 안의 부분은 보여지고, 바깥은 숨겨집니다.</li>
             <li class="list-group-item"><a href="https://developer.mozilla.org/ko/docs/Web/CSS/clip-path">https://developer.mozilla.org/ko/docs/Web/CSS/clip-path</a></li>
             <li class="list-group-item"><a href="https://bennettfeely.com/clippy/">CSS clip-path maker</a></li>
+            <li class="list-group-item"><a href="piece.html">piece.html</a></li>
             <li class="list-group-item"><a href="jigsaw.html">jigsaw.html</a></li>
             
         </ul>
@@ -105,18 +117,19 @@
     <hr>
     <div class="container">
         <div>
-            <div class="piece-wrap"><div class="piece-shape"><div class="inner-box"></div></div></div>
-            <div class="piece-wrap "><div class="piece-shape clip-path-0"><div class="inner-box">clip-path-0</div></div></div>
-            <div class="piece-wrap "><div class="piece-shape clip-path-1"><div class="inner-box">clip-path-1</div></div></div>
-            <div class="piece-wrap "><div class="piece-shape clip-path-2"><div class="inner-box">clip-path-2</div></div></div>
+            <div class="p-4 d-inline-block align-bottom"><div class="clip-path-wrap"><div class="clip-path-img"><div class="inner-box"></div></div></div></div>
+            <div class="p-4 d-inline-block align-bottom"><div class="clip-path-wrap"><div class="clip-path-img clip-path-0"><div class="inner-box">clip-path-0</div></div></div></div>
+            <div class="p-4 d-inline-block align-bottom"><div class="clip-path-wrap"><div class="clip-path-img clip-path-1"><div class="inner-box">clip-path-1</div></div></div></div>
+            <div class="p-4 d-inline-block align-bottom"><div class="clip-path-wrap"><div class="clip-path-img clip-path-2"><div class="inner-box">clip-path-2</div></div></div></div>
+            <hr>
             <div class="piece-container" style="--shape-uneven:20px">
-                <div class="p-3 d-inline-block">
+                <div class="p-4 d-inline-block align-bottom">
                     <div class="piece-wrap debug" ><div class="piece-shape"><div class="inner-box">piece-shape</div></div></div>
                 </div>
-                <div class="p-3 d-inline-block">
+                <div class="p-4 d-inline-block align-bottom">
                     <div class="piece-wrap debug" ><div class="piece-shape" data-shape-top="1"><div class="inner-box">piece-shape</div></div></div>
                 </div>
-                <div class="p-3 d-inline-block">
+                <div class="p-4 d-inline-block align-bottom">
                     <div class="piece-wrap debug" ><div class="piece-shape" data-shape-top="1" data-shape-right="1" data-shape-bottom="1" data-shape-left="1"><div class="inner-box">piece-shape</div></div></div>
                 </div>
                 
@@ -127,93 +140,7 @@
 
 
 
-            <hr>
-            <h2>piece-shape</h2>
-            <div class="card my-3">
-                <div class="card-header">
-                    <h3>15px</h3>
-                </div>
-                <div class="card-body ">
-                    <div class="piece-container test-grid-3" style="--shape-uneven:15px;">
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="-1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="-1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="-1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="-1"> </div></div>
-                    </div>
-                </div>
-            </div>
-            <div class="card my-3">
-                <div class="card-header">
-                    <h3>0px</h3>
-                </div>
-                <div class="card-body ">
-                    <div class="piece-container test-grid-3" style="--shape-uneven:0px;">
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="-1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="-1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="-1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="-1"> </div></div>
-                    </div>
-                </div>
-            </div>
-            <div class="card my-3">
-                <div class="card-header">
-                    <h3>10%</h3>
-                </div>
-                <div class="card-body ">
-                    <div class="piece-container test-grid-3" style="--shape-uneven:10%;">
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="-1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="-1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="-1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="-1"> </div></div>
-                    </div>
-                </div>
-            </div>
-            <div class="card my-3">
-                <div class="card-header">
-                    <h3>25%</h3>
-                </div>
-                <div class="card-body ">
-                    <div class="piece-container test-grid-3" style="--shape-uneven:25%;">
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-top="-1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-right="-1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-bottom="-1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="1"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape" data-shape-left="-1"> </div></div>
-                    </div>
-                </div>
-            </div>
-            
+
         </div>
     </div>
 </body>
