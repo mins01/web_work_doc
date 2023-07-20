@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>piece-shapes</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+	
+
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script> 
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="style mask">
+	<meta property="og:description" content="style mask">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="style mask" />
+	<meta property="og:type" content="website">
+	
+	<!-- //meta og -->
+    <link rel="stylesheet" href="piece-shapes.css">
+    <style>
+        .mask-box{
+            width:100px; height:100px;
+            background-image: url(../361331715_1995055744165677_6676229993515938374_n.jpg);
+            background-size: contain;
+            background-color: #abc;
+        }
+        /* .mask-box::before{
+            content: '';
+            display: block;
+            width:100%;height: 100%;
+            
+        } */
+    </style>
+</head>
+<body>
+	<div class="container">
+        <h1>piece-shapes</h1>
+        <ul class="list-group">
+            <li class="list-group-item">mask CSS 속성은 아이템이 부분적으로만 보여지게 하거나 혹은 완전히 가려서 보여지지 않게 할 수 있는 기능을 가지고 있습니다. 이 속성은 마스킹 혹은 특정한 점을 기준으로 이미지를 잘라내는 기능을 함께 제공합니다.</li>
+            <li class="list-group-item"><a href="https://developer.mozilla.org/ko/docs/Web/CSS/mask">https://developer.mozilla.org/ko/docs/Web/CSS/mask</a></li>
+            <li class="list-group-item">크롬에서는 비표준으로 지원하네. -webkit-mask-image 처럼 써야하며, -webkit-mask-composite vs mask-composite는 설정할 수 있는 값 자체가 다르다.</li>
+            
+        </ul>
+	</div>
+    <hr>
+    <div class="container p-1 " style="background-color: #fee; ">
+        <div class="piece-shapes" style="display:grid; grid-template-columns: repeat(5,1fr); text-align: center;width:fit-content;gap:20px">
+            <div class="mask-box piece-shape mask" data-shape-top="X" data-shape-right="X" data-shape-bottom="X" data-shape-left="X">
+            </div>
+        </div>
+    </div>
+    <script>
+
+        window.addEventListener('load',(event)=>{
+            let tops = ['n','0','p'];
+            let rights = ['n','0','p'];
+            let bottoms = ['n','0','p'];
+            let lefts = ['n','0','p'];
+            let box = document.querySelector('.mask-box');
+            let pieceShapes = document.querySelector('.piece-shapes')
+            pieceShapes.innerHTML = '';
+            tops.forEach(top => {
+                rights.forEach(right => {
+                    bottoms.forEach(bottom => {
+                        lefts.forEach(left =>{
+                            let pieceShape = box.cloneNode(true);
+                            console.log(top,right,bottom,left)
+                            pieceShape.dataset.shapeTop = top;
+                            pieceShape.dataset.shapeRight = right;
+                            pieceShape.dataset.shapeBottom = bottom;
+                            pieceShape.dataset.shapeLeft = left;
+                            pieceShapes.appendChild(pieceShape)
+                        })
+                    });
+                });
+                
+            });
+        })
+    </script>
+</body>
+</html>
