@@ -1,0 +1,118 @@
+@charset "utf-8";
+
+
+.piece-container{
+    --shape-uneven:20px;
+    --shape-multiple-top:0;
+    --shape-multiple-right:0;
+    --shape-multiple-bottom:0;
+    --shape-multiple-left:0;
+}
+
+.piece-wrap{
+    display: flex;
+    width: 200px;
+    height: 200px;
+    position: relative;
+}
+
+.debug .piece-wrap::before,
+.piece-wrap.debug::before{
+    content: '';
+    display: block;
+    position: absolute;
+    left:0;right:0;top:0;bottom:0;
+    width:100%;height:100%;
+    outline:1px dotted #0000ff99;
+    outline-offset: -1px;
+    z-index: 5;
+}
+.debug .piece-wrap::after,
+.piece-wrap.debug::after{
+    content: '';
+    display: block;
+    position: absolute;
+    left:0;right:0;top:0;bottom:0;
+    outline:2px dashed #ff000099;
+    outline-offset: -2px;
+    z-index: 9;
+    width:calc(100% + 2 * var(--shape-uneven,0));
+    height:calc(100% + 2 * var(--shape-uneven,0));
+    margin:calc(-1 * var(--shape-uneven,0));
+}
+
+
+.piece-shape{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height:100%;
+    background-repeat: no-repeat;
+}
+
+
+
+.piece-shape{
+    width:calc(100% + 2 * var(--shape-uneven,0));
+    height:calc(100% + 2 * var(--shape-uneven,0));
+    margin:calc(-1 * var(--shape-uneven,0));
+
+    /* --shape-uneven-left:var(--shape-uneven,0);
+    --shape-uneven-top:var(--shape-uneven,0);
+    --shape-uneven-right:calc(100% - var(--shape-uneven,0));
+    --shape-uneven-bottom:calc(100% - var(--shape-uneven,0));
+    clip-path: polygon(
+        var(--shape-uneven-left) var(--shape-uneven-top),
+        50% calc(var(--shape-uneven-top) - var(--shape-multiple-top,0) * var(--shape-uneven,0)),
+        var(--shape-uneven-right) var(--shape-uneven-top),
+        calc(var(--shape-uneven-right) + var(--shape-multiple-right,0) * var(--shape-uneven,0)) 50%,
+        var(--shape-uneven-right) var(--shape-uneven-bottom),
+        50% calc(var(--shape-uneven-bottom) + var(--shape-multiple-bottom,0) * var(--shape-uneven,0)),
+        var(--shape-uneven-left) var(--shape-uneven-bottom),
+        calc(var(--shape-uneven-left) - var(--shape-multiple-left,0) * var(--shape-uneven,0)) 50%
+    ); */
+}
+
+.piece-shape.polygon{
+    --shape-uneven-left:var(--shape-uneven,0);
+    --shape-uneven-top:var(--shape-uneven,0);
+    --shape-uneven-right:calc(100% - var(--shape-uneven,0));
+    --shape-uneven-bottom:calc(100% - var(--shape-uneven,0));
+    clip-path: polygon(
+        var(--shape-uneven-left) var(--shape-uneven-top),
+        50% calc(var(--shape-uneven-top) - var(--shape-multiple-top,0) * var(--shape-uneven,0)),
+        var(--shape-uneven-right) var(--shape-uneven-top),
+        calc(var(--shape-uneven-right) + var(--shape-multiple-right,0) * var(--shape-uneven,0)) 50%,
+        var(--shape-uneven-right) var(--shape-uneven-bottom),
+        50% calc(var(--shape-uneven-bottom) + var(--shape-multiple-bottom,0) * var(--shape-uneven,0)),
+        var(--shape-uneven-left) var(--shape-uneven-bottom),
+        calc(var(--shape-uneven-left) - var(--shape-multiple-left,0) * var(--shape-uneven,0)) 50%
+    );
+}
+.piece-shape.polygon[data-shape-top="0"]{ --shape-multiple-top:0; }
+.piece-shape.polygon[data-shape-top="p"]{ --shape-multiple-top:1; }
+.piece-shape.polygon[data-shape-top="n"]{ --shape-multiple-top:-1; }
+
+.piece-shape.polygon[data-shape-right="0"]{ --shape-multiple-right:0; }
+.piece-shape.polygon[data-shape-right="p"]{ --shape-multiple-right:1; }
+.piece-shape.polygon[data-shape-right="n"]{ --shape-multiple-right:-1; }
+
+.piece-shape.polygon[data-shape-bottom="0"]{ --shape-multiple-bottom:0; }
+.piece-shape.polygon[data-shape-bottom="p"]{ --shape-multiple-bottom:1; }
+.piece-shape.polygon[data-shape-bottom="n"]{ --shape-multiple-bottom:-1; }
+
+.piece-shape.polygon[data-shape-left="0"]{ --shape-multiple-left:0; }
+.piece-shape.polygon[data-shape-left="p"]{ --shape-multiple-left:1; }
+.piece-shape.polygon[data-shape-left="n"]{ --shape-multiple-left:-1; }
+
+
+.piece-shape.mask-svg{
+    /* --shape-uneven:33.33%; */
+    width:calc(100% + 2 * var(--shape-uneven,0));
+    height:calc(100% + 2 * var(--shape-uneven,0));
+    margin:calc(-1 * var(--shape-uneven,0));
+}
