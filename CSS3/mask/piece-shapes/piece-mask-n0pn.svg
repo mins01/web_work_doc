@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="200" height="200" viewBox="0 0 200 200" version="1.1"
+<svg width="100%" height="100%" version="1.1"
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:svg="http://www.w3.org/2000/svg">
 	<defs>
@@ -31,7 +31,7 @@
 	</defs>
 	<g>
 		<rect style="fill:#ff0000;paint-order:stroke fill markers" id="svg-img-pppp"
-			width="200" height="200" x="0" y="0" rx="20" ry="20" mask="url(#svg-mask)"
+			width="100%" height="100%" x="0" y="0" rx="20" ry="20" mask="url(#svg-mask)"
 		/>
 	</g>
 </svg>

@@ -7,7 +7,7 @@ $arr_left = ['n','0','p'];
 
 
 echo '@charset "utf-8";'."\n";
-echo '.piece-shape.mask{ mask-size: contain; -webkit-mask-size: contain; }'."\n";
+echo '.piece-shape.mask{ mask-size: 100% 100%; -webkit-mask-size: 100% 100%; }'."\n";
 foreach($arr_top as $top_k => $top){
     $sets = array();
     foreach($arr_right as $right_k => $right){

@@ -1,5 +1,5 @@
 @charset "utf-8";
-.piece-shape.mask{ mask-size: contain; -webkit-mask-size: contain; }
+.piece-shape.mask{ mask-size: 100% 100%; -webkit-mask-size: 100% 100%; }
 .piece-shape[data-shape-top="n"][data-shape-right="n"][data-shape-bottom="n"][data-shape-left="n"]{mask-image: url(piece-mask-nnnn.svg);-webkit-mask-image: url(piece-mask-nnnn.svg);}
 .piece-shape[data-shape-top="n"][data-shape-right="n"][data-shape-bottom="n"][data-shape-left="0"]{mask-image: url(piece-mask-nnn0.svg);-webkit-mask-image: url(piece-mask-nnn0.svg);}
 .piece-shape[data-shape-top="n"][data-shape-right="n"][data-shape-bottom="n"][data-shape-left="p"]{mask-image: url(piece-mask-nnnp.svg);-webkit-mask-image: url(piece-mask-nnnp.svg);}
