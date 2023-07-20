@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ko" >
 <head>
-	<title>piece-shapes</title>
+	<title>piece-shape-svgs</title>
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Script-Type" content="text/javascript">
 	<meta http-equiv="Content-Style-Type" content="text/css">
@@ -36,7 +36,7 @@
 	<meta property="og:type" content="website">
 	
 	<!-- //meta og -->
-    <link rel="stylesheet" href="piece-shapes.css">
+    <link rel="stylesheet" href="piece-shape-svgs.css">
     <style>
         .mask-box{
             width:100px; height:100px;
@@ -54,23 +54,17 @@
 </head>
 <body>
 	<div class="container">
-        <h1>piece-shapes</h1>
-        <ul class="list-group">
-            <li class="list-group-item">mask CSS 속성은 아이템이 부분적으로만 보여지게 하거나 혹은 완전히 가려서 보여지지 않게 할 수 있는 기능을 가지고 있습니다. 이 속성은 마스킹 혹은 특정한 점을 기준으로 이미지를 잘라내는 기능을 함께 제공합니다.</li>
-            <li class="list-group-item"><a href="https://developer.mozilla.org/ko/docs/Web/CSS/mask">https://developer.mozilla.org/ko/docs/Web/CSS/mask</a></li>
-            <li class="list-group-item">크롬에서는 비표준으로 지원하네. -webkit-mask-image 처럼 써야하며, -webkit-mask-composite vs mask-composite는 설정할 수 있는 값 자체가 다르다.</li>
-            
-        </ul>
+        <h1>piece-shape-svgs</h1>
 	</div>
     <hr>
     <div class="container p-1 " style="background-color: #fee; ">
         <div class="piece-shapes" style="display:grid; grid-template-columns: repeat(5,1fr); text-align: center; width:fit-content;gap:0px;margin:0 auto;">
-            <div class="mask-box piece-shape mask" data-shape-top="X" data-shape-right="X" data-shape-bottom="X" data-shape-left="X"></div>
+            <div class="mask-box piece-shape mask-svg" data-shape-top="X" data-shape-right="X" data-shape-bottom="X" data-shape-left="X"></div>
         </div>
         <hr>
         <div class="piece-shapes" style="display:grid; grid-template-columns: repeat(5,1fr); text-align: center; width:fit-content;gap:0px;margin:0 auto;">
-            <div class="mask-box piece-shape mask" style="width:150px; height:100px;" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="p"></div>
-            <div class="mask-box piece-shape mask" style="width:100px; height:200px;" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="p"></div>
+            <div class="mask-box piece-shape mask-svg" style="width:150px; height:100px;" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="p"></div>
+            <div class="mask-box piece-shape mask-svg" style="width:100px; height:200px;" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="p"></div>
         </div>
 
     </div>

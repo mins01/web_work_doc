@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ko" >
 <head>
-	<title>style clip-path</title>
+	<title>css jigsaw</title>
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Script-Type" content="text/javascript">
 	<meta http-equiv="Content-Style-Type" content="text/css">
@@ -27,17 +27,18 @@
 	
 	<!-- meta og -->
 	
-	<meta property="og:title" content="style clip-path">
-	<meta property="og:description" content="style clip-path">
+	<meta property="og:title" content="css jigsaw">
+	<meta property="og:description" content="css jigsaw">
 	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
 	<meta property="og:image:width" content="190">
 	<meta property="og:image:height" content="70" />
-	<meta property="og:site_name" content="style clip-path" />
+	<meta property="og:site_name" content="css jigsaw" />
 	<meta property="og:type" content="website">
 	
 	<!-- //meta og -->
 
     <link rel="stylesheet" href="piece.css">
+    <link rel="stylesheet" href="piece-shape-svgs/piece-shape-svgs.css">
 	<style>
         *{
             box-sizing: border-box;
@@ -106,12 +107,13 @@
 	<div class="container">
         <h1>clip-path</h1>
         <ul class="list-group">
-            <li class="list-group-item">clip-path CSS 속성은 요소의 클리핑 범위를 지정합니다. 클리핑 범위 안의 부분은 보여지고, 바깥은 숨겨집니다.</li>
+            <li class="list-group-item">직소 퍼즐을 목표로 작업중</li>
             <li class="list-group-item"><a href="https://developer.mozilla.org/ko/docs/Web/CSS/clip-path">https://developer.mozilla.org/ko/docs/Web/CSS/clip-path</a></li>
+            <li class="list-group-item"><a href="https://developer.mozilla.org/ko/docs/Web/CSS/mask">https://developer.mozilla.org/ko/docs/Web/CSS/mask</a></li>
             <li class="list-group-item"><a href="https://bennettfeely.com/clippy/">CSS clip-path maker</a></li>
             <li class="list-group-item"><a href="piece.html">piece.html</a></li>
             <li class="list-group-item"><a href="jigsaw.html">jigsaw.html</a></li>
-            
+            <li class="list-group-item"><a href="piece-shape-svgs/index.html">piece-shape-svgs</a></li>
         </ul>
 	</div>
     <hr>
@@ -124,17 +126,30 @@
             <hr>
             <div class="piece-container" style="--shape-uneven:20px">
                 <div class="p-4 d-inline-block align-bottom">
-                    <div class="piece-wrap debug" ><div class="piece-shape polygon"><div class="inner-box">piece-shape</div></div></div>
+                    <div class="piece-wrap debug" ><div class="piece-shape polygon"><div class="inner-box">polygon</div></div></div>
                 </div>
                 <div class="p-4 d-inline-block align-bottom">
-                    <div class="piece-wrap debug" ><div class="piece-shape polygon" data-shape-top="p"><div class="inner-box">piece-shape</div></div></div>
+                    <div class="piece-wrap debug" ><div class="piece-shape polygon" data-shape-top="p"><div class="inner-box">polygon</div></div></div>
                 </div>
                 <div class="p-4 d-inline-block align-bottom">
-                    <div class="piece-wrap debug" ><div class="piece-shape polygon" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="p"><div class="inner-box">piece-shape</div></div></div>
+                    <div class="piece-wrap debug" ><div class="piece-shape polygon" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="p"><div class="inner-box">polygon</div></div></div>
                 </div>
-                
-                
+
             </div>
+            <hr>
+            <div class="piece-container" style="--shape-uneven:calc(100px * 0.3333 )">
+                <div class="p-4 d-inline-block align-bottom">
+                    <div class="piece-wrap debug" ><div class="piece-shape mask-svg"  data-shape-top="0" data-shape-right="0" data-shape-bottom="0" data-shape-left="0"><div class="inner-box">mask-svg</div></div></div>
+                </div>
+                <div class="p-4 d-inline-block align-bottom">
+                    <div class="piece-wrap debug" ><div class="piece-shape mask-svg"  data-shape-top="n" data-shape-right="n" data-shape-bottom="n" data-shape-left="n"><div class="inner-box">mask-svg</div></div></div>
+                </div>
+                <div class="p-4 d-inline-block align-bottom">
+                    <div class="piece-wrap debug" ><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="p"><div class="inner-box">mask-svg</div></div></div>
+                </div>
+
+            </div>
+            <div class="mask-box piece-shape mask" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="p"></div>
 
             
 
