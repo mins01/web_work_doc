@@ -61,6 +61,23 @@
     height:calc(100% + 2 * var(--shape-uneven,0));
     margin:calc(-1 * var(--shape-uneven,0));
 
+    /* --shape-uneven-left:var(--shape-uneven,0);
+    --shape-uneven-top:var(--shape-uneven,0);
+    --shape-uneven-right:calc(100% - var(--shape-uneven,0));
+    --shape-uneven-bottom:calc(100% - var(--shape-uneven,0));
+    clip-path: polygon(
+        var(--shape-uneven-left) var(--shape-uneven-top),
+        50% calc(var(--shape-uneven-top) - var(--shape-multiple-top,0) * var(--shape-uneven,0)),
+        var(--shape-uneven-right) var(--shape-uneven-top),
+        calc(var(--shape-uneven-right) + var(--shape-multiple-right,0) * var(--shape-uneven,0)) 50%,
+        var(--shape-uneven-right) var(--shape-uneven-bottom),
+        50% calc(var(--shape-uneven-bottom) + var(--shape-multiple-bottom,0) * var(--shape-uneven,0)),
+        var(--shape-uneven-left) var(--shape-uneven-bottom),
+        calc(var(--shape-uneven-left) - var(--shape-multiple-left,0) * var(--shape-uneven,0)) 50%
+    ); */
+}
+
+.piece-shape.polygon{
     --shape-uneven-left:var(--shape-uneven,0);
     --shape-uneven-top:var(--shape-uneven,0);
     --shape-uneven-right:calc(100% - var(--shape-uneven,0));
@@ -76,18 +93,31 @@
         calc(var(--shape-uneven-left) - var(--shape-multiple-left,0) * var(--shape-uneven,0)) 50%
     );
 }
-.piece-shape[data-shape-top="0"]{ --shape-multiple-top:0; }
-.piece-shape[data-shape-top="1"]{ --shape-multiple-top:1; }
-.piece-shape[data-shape-top="-1"]{ --shape-multiple-top:-1; }
+.piece-shape.polygon[data-shape-top="0"]{ --shape-multiple-top:0; }
+.piece-shape.polygon[data-shape-top="p"]{ --shape-multiple-top:1; }
+.piece-shape.polygon[data-shape-top="n"]{ --shape-multiple-top:-1; }
 
-.piece-shape[data-shape-right="0"]{ --shape-multiple-right:0; }
-.piece-shape[data-shape-right="1"]{ --shape-multiple-right:1; }
-.piece-shape[data-shape-right="-1"]{ --shape-multiple-right:-1; }
+.piece-shape.polygon[data-shape-right="0"]{ --shape-multiple-right:0; }
+.piece-shape.polygon[data-shape-right="p"]{ --shape-multiple-right:1; }
+.piece-shape.polygon[data-shape-right="n"]{ --shape-multiple-right:-1; }
 
-.piece-shape[data-shape-bottom="0"]{ --shape-multiple-bottom:0; }
-.piece-shape[data-shape-bottom="1"]{ --shape-multiple-bottom:1; }
-.piece-shape[data-shape-bottom="-1"]{ --shape-multiple-bottom:-1; }
+.piece-shape.polygon[data-shape-bottom="0"]{ --shape-multiple-bottom:0; }
+.piece-shape.polygon[data-shape-bottom="p"]{ --shape-multiple-bottom:1; }
+.piece-shape.polygon[data-shape-bottom="n"]{ --shape-multiple-bottom:-1; }
 
-.piece-shape[data-shape-left="0"]{ --shape-multiple-left:0; }
-.piece-shape[data-shape-left="1"]{ --shape-multiple-left:1; }
-.piece-shape[data-shape-left="-1"]{ --shape-multiple-left:-1; }
+.piece-shape.polygon[data-shape-left="0"]{ --shape-multiple-left:0; }
+.piece-shape.polygon[data-shape-left="p"]{ --shape-multiple-left:1; }
+.piece-shape.polygon[data-shape-left="n"]{ --shape-multiple-left:-1; }
+
+
+.piece-shape.svg{
+    --shape-uneven-left:var(--shape-uneven,0);
+    --shape-uneven-top:var(--shape-uneven,0);
+    --shape-uneven-right:calc(100% - var(--shape-uneven,0));
+    --shape-uneven-bottom:calc(100% - var(--shape-uneven,0));
+    /* clip-path: path('m 34.660417,61.118752 a 2.6458333,2.6458333 0 0 1 -2.645833,2.645833 2.6458333,2.6458333 0 0 1 -2.645834,-2.645833 2.6458333,2.6458333 0 0 1 2.645834,-2.645834 2.6458333,2.6458333 0 0 1 2.645833,2.645834 z M 63.764585,32.014584 a 2.6458333,2.6458333 0 0 1 -2.645833,2.645833 2.6458333,2.6458333 0 0 1 -2.645834,-2.645833 2.6458333,2.6458333 0 0 1 2.645834,-2.645834 2.6458333,2.6458333 0 0 1 2.645833,2.645834 z M 5.2916665,31.75 A 2.6458333,2.6458333 0 0 1 2.6458333,34.395833 2.6458333,2.6458333 0 0 1 0,31.75 2.6458333,2.6458333 0 0 1 2.6458333,29.104167 2.6458333,2.6458333 0 0 1 5.2916665,31.75 Z M 34.395833,2.6458333 A 2.6458333,2.6458333 0 0 1 31.75,5.2916665 2.6458333,2.6458333 0 0 1 29.104167,2.6458333 2.6458333,2.6458333 0 0 1 31.75,0 2.6458333,2.6458333 0 0 1 34.395833,2.6458333 Z m -23.8125,2.6458332 h 42.333335 c 2.931583,0 5.291666,2.3600833 5.291666,5.2916665 v 42.333335 c 0,2.931583 -2.360083,5.291666 -5.291666,5.291666 H 10.583333 c -2.9315832,0 -5.2916665,-2.360083 -5.2916665,-5.291666 V 10.583333 c 0,-2.9315832 2.3600833,-5.2916665 5.2916665,-5.2916665 z'); */
+    clip-path: url("#path_1111");
+    clip-path: url("#path_-1-1-1-1");
+    /* clip-path: url(#clipPath3051); */
+    
+}
