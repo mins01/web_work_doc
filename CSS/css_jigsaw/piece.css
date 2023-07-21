@@ -81,6 +81,7 @@
 
 
 /* .piece-shape.polygon */
+.piece-container.polygon .piece-shape,
 .piece-shape.polygon{
     --shape-uneven-polygon-x:calc(100% * var(--piece-uneven-ratio));
     --shape-uneven-polygon-y:calc(100% * var(--piece-uneven-ratio));
@@ -99,18 +100,18 @@
         calc(var(--shape-uneven-polygon-left) - var(--shape-multiple-left,0) * var(--shape-uneven-polygon-x,0)) 50%
     );
 }
-.piece-shape.polygon[data-shape-top="0"]{ --shape-multiple-top:0; }
-.piece-shape.polygon[data-shape-top="p"]{ --shape-multiple-top:1; }
-.piece-shape.polygon[data-shape-top="n"]{ --shape-multiple-top:-1; }
+:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-top="0"]{ --shape-multiple-top:0; }
+:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-top="p"]{ --shape-multiple-top:1; }
+:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-top="n"]{ --shape-multiple-top:-1; }
 
-.piece-shape.polygon[data-shape-right="0"]{ --shape-multiple-right:0; }
-.piece-shape.polygon[data-shape-right="p"]{ --shape-multiple-right:1; }
-.piece-shape.polygon[data-shape-right="n"]{ --shape-multiple-right:-1; }
+:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-right="0"]{ --shape-multiple-right:0; }
+:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-right="p"]{ --shape-multiple-right:1; }
+:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-right="n"]{ --shape-multiple-right:-1; }
 
-.piece-shape.polygon[data-shape-bottom="0"]{ --shape-multiple-bottom:0; }
-.piece-shape.polygon[data-shape-bottom="p"]{ --shape-multiple-bottom:1; }
-.piece-shape.polygon[data-shape-bottom="n"]{ --shape-multiple-bottom:-1; }
+:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-bottom="0"]{ --shape-multiple-bottom:0; }
+:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-bottom="p"]{ --shape-multiple-bottom:1; }
+:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-bottom="n"]{ --shape-multiple-bottom:-1; }
 
-.piece-shape.polygon[data-shape-left="0"]{ --shape-multiple-left:0; }
-.piece-shape.polygon[data-shape-left="p"]{ --shape-multiple-left:1; }
-.piece-shape.polygon[data-shape-left="n"]{ --shape-multiple-left:-1; }
+:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-left="0"]{ --shape-multiple-left:0; }
+:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-left="p"]{ --shape-multiple-left:1; }
+:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-left="n"]{ --shape-multiple-left:-1; }

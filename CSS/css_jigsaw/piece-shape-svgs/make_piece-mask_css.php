@@ -8,7 +8,7 @@ $arr_left = ['n','0','p'];
 
 $outs = array();
 $outs[]= '@charset "utf-8";';
-$outs[]= '.piece-shape.mask-svg{ mask-size: 100% 100%; -webkit-mask-size: 100% 100%; mask-image: url(piece-mask-0000.svg);-webkit-mask-image: url(piece-mask-0000.svg);}';
+$outs[]= ':is(.piece-container.mask-svg .piece-shape, .piece-shape.mask-svg){ mask-size: 100% 100%; -webkit-mask-size: 100% 100%; mask-image: url(piece-mask-0000.svg);-webkit-mask-image: url(piece-mask-0000.svg);}';
 foreach($arr_top as $top_k => $top){
     $sets = array();
     foreach($arr_right as $right_k => $right){
@@ -16,7 +16,7 @@ foreach($arr_top as $top_k => $top){
             foreach($arr_left as $left_k => $left){
                 $f_tail = "{$top}{$right}{$bottom}{$left}";
                 $filename = "piece-mask-{$f_tail}.svg";
-                $outs[]= ".piece-shape.mask-svg[data-shape-top=\"{$top}\"][data-shape-right=\"{$right}\"][data-shape-bottom=\"{$bottom}\"][data-shape-left=\"{$left}\"]{mask-image: url({$filename});-webkit-mask-image: url({$filename});}";
+                $outs[]= ":is(.piece-container.mask-svg .piece-shape, .piece-shape.mask-svg)[data-shape-top=\"{$top}\"][data-shape-right=\"{$right}\"][data-shape-bottom=\"{$bottom}\"][data-shape-left=\"{$left}\"]{mask-image: url({$filename});-webkit-mask-image: url({$filename});}";
             }
         }
     }
