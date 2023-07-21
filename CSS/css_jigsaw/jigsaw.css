@@ -1,6 +1,8 @@
 @charset "utf-8";
 
 .jigsaw-wrap{
+    --piece-shape-scale:calc(100 / 70);
+    
     --jigsaw-width:500px;
     --jigsaw-height:400px;
     --div-x:3;
@@ -21,6 +23,8 @@
     background-size: var(--jigsaw-width) var(--jigsaw-height);
     width:var(--jigsaw-width);
     height:var(--jigsaw-height);
+
+    
 }
 .jigsaw-wrap[data-div-x="2"]{--div-x:2;}
 .jigsaw-wrap[data-div-x="3"]{--div-x:3;}
@@ -40,12 +44,29 @@
 .jigsaw-wrap[data-div-y="8"]{--div-y:8;}
 .jigsaw-wrap[data-div-y="9"]{--div-y:9;}
 
+
+.jigsaw-wrap.debug .piece-wrap::after,
+.jigsaw-wrap .piece-wrap.debug::after{
+    top:calc( -1 * var(--shape-uneven-y));
+    right:calc( -1 * var(--shape-uneven-x));
+    bottom:calc( -1 * var(--shape-uneven-y));
+    left:calc( -1 * var(--shape-uneven-x));
+}
+
+
 .jigsaw-wrap > .piece-wrap{
     opacity: 1;
     width:100%;
     height:100%;
-
 }
+
+.jigsaw-wrap .piece-shape{
+    top:calc( -1 * var(--shape-uneven-y));
+    right:calc( -1 * var(--shape-uneven-x));
+    bottom:calc( -1 * var(--shape-uneven-y));
+    left:calc( -1 * var(--shape-uneven-x));
+}
+
 .jigsaw-wrap .piece-shape{
     background-image: var(--background-image,none);
     background-size: calc(var(--jigsaw-width)  )  calc(var(--jigsaw-height) );
