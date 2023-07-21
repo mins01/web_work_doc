@@ -115,3 +115,77 @@
 :is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-left="0"]{ --shape-multiple-left:0; }
 :is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-left="p"]{ --shape-multiple-left:1; }
 :is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-left="n"]{ --shape-multiple-left:-1; }
+
+
+/* .piece-shape.mask-css */
+.piece-container.mask-css .piece-shape,
+.piece-shape.mask-css{
+    --mask-css-n-top:#00000000;
+    --mask-css-p-top:#ffffff00;
+    --mask-css-n-right:#00000000;
+    --mask-css-p-right:#ffffff00;
+    --mask-css-n-bottom:#00000000;
+    --mask-css-p-bottom:#ffffff00;
+    --mask-css-n-left:#00000000;
+    --mask-css-p-left:#ffffff00;
+
+    -webkit-mask-image:
+    radial-gradient(circle var(--shape-uneven-y) at left 50% top 21%, var(--mask-css-n-top) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle var(--shape-uneven-x) at right 21% top 50%, var(--mask-css-n-right) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle var(--shape-uneven-y) at left 50% bottom 21%, var(--mask-css-n-bottom) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle var(--shape-uneven-x) at left 21% top 50%, var(--mask-css-n-left) 50%, transparent 55%, transparent 0 ),
+
+    radial-gradient(circle calc(var(--shape-uneven-y) *  0.9) at left 50% top 9%, var(--mask-css-p-top) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle calc(var(--shape-uneven-x) *  0.9) at right 9% top 50%, var(--mask-css-p-right) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle calc(var(--shape-uneven-y) *  0.9) at left 50% bottom 9%, var(--mask-css-p-bottom) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle calc(var(--shape-uneven-x) *  0.9) at left 9% top 50%, var(--mask-css-p-left) 50%, transparent 55%, transparent 0 ),
+
+    linear-gradient(#ffc107 100%,transparent 0);
+    -webkit-mask-size: contain,contain,contain,contain,contain,contain,contain,contain,70% 70%;
+    -webkit-mask-repeat: no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat;
+    -webkit-mask-position: center,center,center,center,center,center,center,center,center;
+    /* -webkit-mask-composite: destination-out,destination-out,destination-out,destination-out,destination-in; */
+    -webkit-mask-composite: destination-out,destination-out,destination-out,destination-out,source-over,source-over,source-over,source-over,source-over  ;
+
+
+    mask-size: 100% 100%; 
+    /* -webkit-mask-size: 100% 100%; */
+
+}
+:is(.piece-container.mask-css .piece-shape,.piece-shape.mask-css)[data-shape-top="n"]{ --mask-css-n-top:#000000ff; }
+:is(.piece-container.mask-css .piece-shape,.piece-shape.mask-css)[data-shape-top="p"]{ --mask-css-p-top:#ffffffff; }
+:is(.piece-container.mask-css .piece-shape,.piece-shape.mask-css)[data-shape-right="n"]{ --mask-css-n-right:#000000ff; }
+:is(.piece-container.mask-css .piece-shape,.piece-shape.mask-css)[data-shape-right="p"]{ --mask-css-p-right:#ffffffff; }
+:is(.piece-container.mask-css .piece-shape,.piece-shape.mask-css)[data-shape-bottom="n"]{ --mask-css-n-bottom:#000000ff; }
+:is(.piece-container.mask-css .piece-shape,.piece-shape.mask-css)[data-shape-bottom="p"]{ --mask-css-p-bottom:#ffffffff; }
+:is(.piece-container.mask-css .piece-shape,.piece-shape.mask-css)[data-shape-left="n"]{ --mask-css-n-left:#000000ff; }
+:is(.piece-container.mask-css .piece-shape,.piece-shape.mask-css)[data-shape-left="p"]{ --mask-css-p-left:#ffffffff; }
+
+.mask-css-bg{
+    --mask-css-n-top:#000000FF;
+    --mask-css-p-top:#ffffffFF;
+    --mask-css-n-right:#000000FF;
+    --mask-css-p-right:#ffffffFF;
+    --mask-css-n-bottom:#000000FF;
+    --mask-css-p-bottom:#ffffffFF;
+    --mask-css-n-left:#000000FF;
+    --mask-css-p-left:#ffffffFF;
+
+    background-color: #abc;
+    background-image: 
+    radial-gradient(circle 20px at left 50% top 21%, var(--mask-css-n-top) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle 20px at right 21% top 50%, var(--mask-css-n-right) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle 20px at left 50% bottom 21%, var(--mask-css-n-bottom) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle 20px at left 21% top 50%, var(--mask-css-n-left) 50%, transparent 55%, transparent 0 ),
+
+    radial-gradient(circle 20px at left 50% top 9%, var(--mask-css-p-top) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle 20px at right 9% top 50%, var(--mask-css-p-right) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle 20px at left 50% bottom 9%, var(--mask-css-p-bottom) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle 20px at left 9% top 50%, var(--mask-css-p-left) 50%, transparent 55%, transparent 0 ),
+
+    linear-gradient(#ffc107 100%,transparent 0);
+
+    background-size: contain,contain,contain,contain,contain,contain,contain,contain,70% 70%;
+    background-repeat: no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat;
+    background-position: center,center,center,center,center,center,center,center,center;
+}
