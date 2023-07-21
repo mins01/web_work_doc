@@ -6,6 +6,10 @@
     --div-x:3;
     --div-y:3;
     --background-image:url(361331715_1995055744165677_6676229993515938374_n.jpg);
+
+    --piece-wrap-width:calc(var(--jigsaw-width) /var(--div-x) );
+    --piece-wrap-height:calc(var(--jigsaw-height) /var(--div-y) );
+
     display: grid;
     grid-template-columns: repeat(var(--div-x),1fr);
     grid-template-rows: repeat(var(--div-y),1fr);
@@ -44,7 +48,7 @@
 }
 .jigsaw-wrap .piece-shape{
     background-image: var(--background-image,none);
-    background-size: calc(var(--jigsaw-width) + var(--shape-uneven,0))  calc(var(--jigsaw-height) + var(--shape-uneven,0));
+    background-size: calc(var(--jigsaw-width)  )  calc(var(--jigsaw-height) );
 }
 .jigsaw-wrap .piece-wrap{ --pos-x:0; --pos-y:0; }
 .jigsaw-wrap .piece-wrap[data-pos-x="0"]{ --pos-x:-0;}
@@ -67,4 +71,8 @@
 .jigsaw-wrap .piece-wrap[data-pos-y="7"]{ --pos-y:-7;}
 .jigsaw-wrap .piece-wrap[data-pos-y="8"]{ --pos-y:-8;}
 .jigsaw-wrap .piece-wrap[data-pos-y="9"]{ --pos-y:-9;}
-.jigsaw-wrap .piece-shape{ background-position: calc(var(--jigsaw-width) / var(--div-x) * var(--pos-x) + var(--shape-uneven,10%)) calc(var(--jigsaw-height) / var(--div-y) * var(--pos-y) + var(--shape-uneven,10%)); }
+.jigsaw-wrap .piece-shape{ 
+    background-position: 
+    calc(var(--jigsaw-width) / var(--div-x) * var(--pos-x) + var(--shape-uneven-x))
+    calc(var(--jigsaw-height) / var(--div-y) * var(--pos-y) + var(--shape-uneven-y) );
+}

@@ -44,12 +44,23 @@
         *{
             box-sizing: border-box;
         }
-
+.test-piece-wrap{
+    --piece-wrap-width:200px;
+    --piece-wrap-height:200px;
+}
+.test-piece-wrap .piece-shape{
+    background-image:url(361331715_1995055744165677_6676229993515938374_n.jpg);
+    background-size: 100% 100%;
+}
     </style>
 </head>
 <body>
 	<div class="container">
         <h1>jigsaw</h1>
+        <ul class="list-group">
+            <li class="list-group-item">외각 piece는 배경 이미지가 없다.</li>
+            <li class="list-group-item">배경크기는 piece-wrap 의 크기 기준이다.(확대 안함)</li>
+        </ul>
 	</div>
     <hr>
     <div class="container">
@@ -59,12 +70,36 @@
                     <h2>jigsaw</h2>
                 </div>
                 <div class="card-body ">
-                    <div class="jigsaw-wrap piece-container" style="--shape-uneven:0px;--div-x:2; --div-y:2">
-                        <div class="piece-wrap debug" data-pos-x="0" data-pos-y="0"><div class="piece-shape polygon"></div></div>
-                        <div class="piece-wrap debug" data-pos-x="1" data-pos-y="0"><div class="piece-shape polygon"></div></div>
-                        <div class="piece-wrap debug" data-pos-x="0" data-pos-y="1"><div class="piece-shape polygon"></div></div>
-                        <div class="piece-wrap debug" data-pos-x="1" data-pos-y="1"><div class="piece-shape polygon"></div></div>
+                    <div style="padding:100px">
+                        <div class=" piece-container" style="
+                            --jigsaw-width:200px;
+                            --jigsaw-height:200px;
+                            --shape-uneven:0px;--div-x:1; --div-y:1">
+                            <div class="piece-wrap debug test-piece-wrap" data-pos-x="0" data-pos-y="0"><div class="piece-shape mask-svg"  data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="p"></div></div>
+
+                            <div class="piece-wrap debug test-piece-wrap" data-pos-x="0" data-pos-y="0"><div class="piece-shape polygon"  data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="p"></div></div>
+                        </div>
                     </div>
+                    <hr>
+                    <div style="padding:100px">
+                        <div class="jigsaw-wrap piece-container" style="
+                            --jigsaw-width:200px;
+                            --jigsaw-height:200px;
+                            --shape-uneven:0px;--div-x:1; --div-y:1">
+                            <div class="piece-wrap debug" data-pos-x="0" data-pos-y="0"><div class="piece-shape polygon"  data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="p"></div></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div style="padding:100px">
+                        <div class="jigsaw-wrap piece-container" style="
+                            --jigsaw-width:200px;
+                            --jigsaw-height:200px;
+                            --shape-uneven:0px;--div-x:2; --div-y:1">
+                            <div class="piece-wrap debug" data-pos-x="0" data-pos-y="0"><div class="piece-shape polygon"  data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="p"></div></div>
+                            <div class="piece-wrap debug" data-pos-x="1" data-pos-y="0"><div class="piece-shape polygon"  data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="n"></div></div>
+                        </div>
+                    </div>
+                    
                     <hr>
                     <div class="jigsaw-wrap piece-container debug" style="gap:3px;--shape-uneven:20px;--div-x:2; --div-y:2; --jigsaw-width:600px;--jigsaw-height:300px">
                         <div class="piece-wrap" data-pos-x="0" data-pos-y="0" style="transform: translate(-30px, -30px);"><div class="piece-shape polygon" data-shape-top="0" data-shape-right="p" data-shape-bottom="n" data-shape-left="0"></div></div>
@@ -105,7 +140,7 @@
                         <div class="piece-wrap" data-pos-x="4" data-pos-y="3"><div class="piece-shape polygon" data-shape-top="p" data-shape-right="p" data-shape-bottom="0" data-shape-left="n"></div></div>
                     </div>
                     <hr>
-                    <div class="jigsaw-wrap piece-container debug" style="gap:1px;--shape-uneven:calc((600px / 5 * 0.3333 ));--div-x:5; --div-y:5; --jigsaw-width:600px;--jigsaw-height:600px">
+                    <div class="jigsaw-wrap piece-container" style="gap:0px;--div-x:5; --div-y:5; --jigsaw-width:600px;--jigsaw-height:600px">
                         <div class="piece-wrap" data-pos-x="0" data-pos-y="0"><div class="piece-shape mask-svg" data-shape-top="0" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
                         <div class="piece-wrap" data-pos-x="1" data-pos-y="0"><div class="piece-shape mask-svg" data-shape-top="0" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
                         <div class="piece-wrap" data-pos-x="2" data-pos-y="0"><div class="piece-shape mask-svg" data-shape-top="0" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
@@ -118,16 +153,56 @@
                         <div class="piece-wrap" data-pos-x="3" data-pos-y="1"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="n"></div></div>
                         <div class="piece-wrap" data-pos-x="4" data-pos-y="1"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="n"></div></div>
 
-                        <div class="piece-wrap" data-pos-x="0" data-pos-y="2"><div class="piece-shape mask-svg" data-shape-top="n" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
-                        <div class="piece-wrap" data-pos-x="1" data-pos-y="2"><div class="piece-shape mask-svg" data-shape-top="n" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
-                        <div class="piece-wrap" data-pos-x="2" data-pos-y="2"><div class="piece-shape mask-svg" data-shape-top="n" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
-                        <div class="piece-wrap" data-pos-x="3" data-pos-y="2"><div class="piece-shape mask-svg" data-shape-top="n" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
-                        <div class="piece-wrap" data-pos-x="4" data-pos-y="2"><div class="piece-shape mask-svg" data-shape-top="n" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
-                        <div class="piece-wrap" data-pos-x="0" data-pos-y="3" style="transform: translate(-30px, 30px);"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="0" data-shape-left="n"></div></div>
-                        <div class="piece-wrap" data-pos-x="1" data-pos-y="3"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="0" data-shape-left="n"></div></div>
-                        <div class="piece-wrap" data-pos-x="2" data-pos-y="3"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="0" data-shape-left="n"></div></div>
-                        <div class="piece-wrap" data-pos-x="3" data-pos-y="3"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="0" data-shape-left="n"></div></div>
-                        <div class="piece-wrap" data-pos-x="4" data-pos-y="3"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="0" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="0" data-pos-y="2"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="1" data-pos-y="2"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="2" data-pos-y="2"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="3" data-pos-y="2"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="4" data-pos-y="2"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="n"></div></div>
+
+                        <div class="piece-wrap" data-pos-x="0" data-pos-y="3"><div class="piece-shape mask-svg" data-shape-top="n" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="1" data-pos-y="3"><div class="piece-shape mask-svg" data-shape-top="n" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="2" data-pos-y="3"><div class="piece-shape mask-svg" data-shape-top="n" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="3" data-pos-y="3"><div class="piece-shape mask-svg" data-shape-top="n" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="4" data-pos-y="3"><div class="piece-shape mask-svg" data-shape-top="n" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
+                        
+                        <div class="piece-wrap" data-pos-x="0" data-pos-y="4" style="transform: translate(-30px, 30px);"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="0" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="1" data-pos-y="4"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="0" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="2" data-pos-y="4"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="0" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="3" data-pos-y="4"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="0" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="4" data-pos-y="4"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="0" data-shape-left="n"></div></div>
+                    </div>
+
+                    <hr>
+                    <div class="jigsaw-wrap piece-container debug" style="gap:0px;--div-x:5; --div-y:5; --jigsaw-width:300px;--jigsaw-height:600px">
+                        <div class="piece-wrap" data-pos-x="0" data-pos-y="0"><div class="piece-shape mask-svg" data-shape-top="0" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="1" data-pos-y="0"><div class="piece-shape mask-svg" data-shape-top="0" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="2" data-pos-y="0"><div class="piece-shape mask-svg" data-shape-top="0" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="3" data-pos-y="0"><div class="piece-shape mask-svg" data-shape-top="0" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="4" data-pos-y="0"><div class="piece-shape mask-svg" data-shape-top="0" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
+                        
+                        <div class="piece-wrap" data-pos-x="0" data-pos-y="1"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="1" data-pos-y="1"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="2" data-pos-y="1"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="3" data-pos-y="1"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="4" data-pos-y="1"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="n"></div></div>
+
+                        <div class="piece-wrap" data-pos-x="0" data-pos-y="2"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="1" data-pos-y="2"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="2" data-pos-y="2"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="3" data-pos-y="2"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="4" data-pos-y="2"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="n"></div></div>
+
+                        <div class="piece-wrap" data-pos-x="0" data-pos-y="3"><div class="piece-shape mask-svg" data-shape-top="n" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="1" data-pos-y="3"><div class="piece-shape mask-svg" data-shape-top="n" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="2" data-pos-y="3"><div class="piece-shape mask-svg" data-shape-top="n" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="3" data-pos-y="3"><div class="piece-shape mask-svg" data-shape-top="n" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="4" data-pos-y="3"><div class="piece-shape mask-svg" data-shape-top="n" data-shape-right="p" data-shape-bottom="n" data-shape-left="n"></div></div>
+                        
+                        <div class="piece-wrap" data-pos-x="0" data-pos-y="4" style="transform: translate(-30px, 30px);"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="0" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="1" data-pos-y="4"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="0" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="2" data-pos-y="4"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="0" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="3" data-pos-y="4"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="0" data-shape-left="n"></div></div>
+                        <div class="piece-wrap" data-pos-x="4" data-pos-y="4"><div class="piece-shape mask-svg" data-shape-top="p" data-shape-right="p" data-shape-bottom="0" data-shape-left="n"></div></div>
                     </div>
                 </div>
             </div>

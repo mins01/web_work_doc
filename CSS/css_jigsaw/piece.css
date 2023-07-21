@@ -1,23 +1,45 @@
 @charset "utf-8";
 
+:root{
 
+    
+
+}
 .piece-container{
-    --shape-uneven:20px;
     --shape-multiple-top:0;
     --shape-multiple-right:0;
     --shape-multiple-bottom:0;
     --shape-multiple-left:0;
+    /* --shape-uneven:20px; */
+    --piece-wrap-width:100px;
+    --piece-wrap-height:100px;
+    --shape-scale:calc(100 / 70);
+    --piece-uneven-ratio:0.15;
 }
 
 .piece-wrap{
     display: flex;
-    width: 200px;
-    height: 200px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+
+    width: var(--piece-wrap-width,100px);
+    height: var(--piece-wrap-height,100px);
     position: relative;
+
+
+    --shape-width:calc(var(--shape-scale) * var(--piece-wrap-width));
+    --shape-height:calc(var(--shape-scale) * var(--piece-wrap-height));
+    --shape-uneven:calc( ( var(--shape-width) - var(--piece-wrap-width,100px) ) / 2);
+    --shape-uneven-x:var(--shape-uneven);
+    --shape-uneven-y:calc( ( var(--shape-height) - var(--piece-wrap-height,100px) ) / 2);
 }
 
 .debug .piece-wrap::before,
 .piece-wrap.debug::before{
+    pointer-events: none;
     content: '';
     display: block;
     position: absolute;
@@ -29,6 +51,7 @@
 }
 .debug .piece-wrap::after,
 .piece-wrap.debug::after{
+    pointer-events: none;
     content: '';
     display: block;
     position: absolute;
@@ -36,61 +59,60 @@
     outline:2px dashed #ff000099;
     outline-offset: -2px;
     z-index: 9;
-    width:calc(100% + 2 * var(--shape-uneven,0));
+    top:calc( -1 * var(--shape-uneven-y));
+    right:calc( -1 * var(--shape-uneven-x));
+    bottom:calc( -1 * var(--shape-uneven-y));
+    left:calc( -1 * var(--shape-uneven-x));
+    /* transform: scale( calc( 100 / 70 )); */
+    /* width:calc(100% + 2 * var(--shape-uneven,0));
     height:calc(100% + 2 * var(--shape-uneven,0));
-    margin:calc(-1 * var(--shape-uneven,0));
+    margin:calc(-1 * var(--shape-uneven,0)); */
+    /* width:calc(var(--piece-wrap-width) + 2 * var(--shape-uneven-x));
+    height:calc(var(--piece-wrap-height) + 2 * var(--shape-uneven-y)); */
 }
 
 
 .piece-shape{
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-    width:100%;
-    height:100%;
     background-repeat: no-repeat;
 }
 
 
 
 .piece-shape{
-    width:calc(100% + 2 * var(--shape-uneven,0));
-    height:calc(100% + 2 * var(--shape-uneven,0));
-    margin:calc(-1 * var(--shape-uneven,0));
-
-    /* --shape-uneven-left:var(--shape-uneven,0);
-    --shape-uneven-top:var(--shape-uneven,0);
-    --shape-uneven-right:calc(100% - var(--shape-uneven,0));
-    --shape-uneven-bottom:calc(100% - var(--shape-uneven,0));
-    clip-path: polygon(
-        var(--shape-uneven-left) var(--shape-uneven-top),
-        50% calc(var(--shape-uneven-top) - var(--shape-multiple-top,0) * var(--shape-uneven,0)),
-        var(--shape-uneven-right) var(--shape-uneven-top),
-        calc(var(--shape-uneven-right) + var(--shape-multiple-right,0) * var(--shape-uneven,0)) 50%,
-        var(--shape-uneven-right) var(--shape-uneven-bottom),
-        50% calc(var(--shape-uneven-bottom) + var(--shape-multiple-bottom,0) * var(--shape-uneven,0)),
-        var(--shape-uneven-left) var(--shape-uneven-bottom),
-        calc(var(--shape-uneven-left) - var(--shape-multiple-left,0) * var(--shape-uneven,0)) 50%
-    ); */
+    display: block;
+    position: absolute;
+    top:calc( -1 * var(--shape-uneven-y));
+    right:calc( -1 * var(--shape-uneven-x));
+    bottom:calc( -1 * var(--shape-uneven-y));
+    left:calc( -1 * var(--shape-uneven-x));
+    /* transform: scale( var(--shape-scale) ); */
+    /* width:calc(var(--piece-wrap-width) + 2 * var(--shape-uneven-x));
+    height:calc(var(--piece-wrap-height) + 2 * var(--shape-uneven-y));
+    margin:calc(-1 * var(--shape-uneven-x)) calc(-1 * var(--shape-uneven-y)); */
 }
 
 .piece-shape.polygon{
-    --shape-uneven-left:var(--shape-uneven,0);
-    --shape-uneven-top:var(--shape-uneven,0);
-    --shape-uneven-right:calc(100% - var(--shape-uneven,0));
-    --shape-uneven-bottom:calc(100% - var(--shape-uneven,0));
+    /* --shape-uneven-left:var(--shape-uneven-x,0);
+    --shape-uneven-top:var(--shape-uneven-y,0);
+    --shape-uneven-right:calc(100% - var(--shape-uneven-x,0));
+    --shape-uneven-bottom:calc(100% - var(--shape-uneven-y,0)); */
+
+    --shape-uneven-polygon-x:calc(100% * var(--piece-uneven-ratio));
+    --shape-uneven-polygon-y:calc(100% * var(--piece-uneven-ratio));
+    --shape-uneven-polygon-left:calc(100% * var(--piece-uneven-ratio));
+    --shape-uneven-polygon-top:calc(100% * var(--piece-uneven-ratio));
+    --shape-uneven-polygon-right:calc(100% - 100% * var(--piece-uneven-ratio));
+    --shape-uneven-polygon-bottom:calc(100% - 100% * var(--piece-uneven-ratio));
     clip-path: polygon(
-        var(--shape-uneven-left) var(--shape-uneven-top),
-        50% calc(var(--shape-uneven-top) - var(--shape-multiple-top,0) * var(--shape-uneven,0)),
-        var(--shape-uneven-right) var(--shape-uneven-top),
-        calc(var(--shape-uneven-right) + var(--shape-multiple-right,0) * var(--shape-uneven,0)) 50%,
-        var(--shape-uneven-right) var(--shape-uneven-bottom),
-        50% calc(var(--shape-uneven-bottom) + var(--shape-multiple-bottom,0) * var(--shape-uneven,0)),
-        var(--shape-uneven-left) var(--shape-uneven-bottom),
-        calc(var(--shape-uneven-left) - var(--shape-multiple-left,0) * var(--shape-uneven,0)) 50%
+        var(--shape-uneven-polygon-left) var(--shape-uneven-polygon-top),
+        50% calc(var(--shape-uneven-polygon-top) - var(--shape-multiple-top,0) * var(--shape-uneven-polygon-y,0)),
+        var(--shape-uneven-polygon-right) var(--shape-uneven-polygon-top),
+        calc(var(--shape-uneven-polygon-right) + var(--shape-multiple-right,0) * var(--shape-uneven-polygon-x,0)) 50%,
+        var(--shape-uneven-polygon-right) var(--shape-uneven-polygon-bottom),
+        50% calc(var(--shape-uneven-polygon-bottom) + var(--shape-multiple-bottom,0) * var(--shape-uneven-polygon-y,0)),
+        var(--shape-uneven-polygon-left) var(--shape-uneven-polygon-bottom),
+        calc(var(--shape-uneven-polygon-left) - var(--shape-multiple-left,0) * var(--shape-uneven-polygon-x,0)) 50%
     );
 }
 .piece-shape.polygon[data-shape-top="0"]{ --shape-multiple-top:0; }
@@ -112,7 +134,7 @@
 
 .piece-shape.mask-svg{
     /* --shape-uneven:33.33%; */
-    width:calc(100% + 2 * var(--shape-uneven,0));
+    /* width:calc(100% + 2 * var(--shape-uneven,0));
     height:calc(100% + 2 * var(--shape-uneven,0));
-    margin:calc(-1 * var(--shape-uneven,0));
+    margin:calc(-1 * var(--shape-uneven,0)); */
 }
