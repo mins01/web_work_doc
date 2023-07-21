@@ -130,15 +130,15 @@
     --mask-css-p-left:#ffffff00;
 
     -webkit-mask-image:
-    radial-gradient(circle var(--shape-uneven-y) at left 50% top 21%, var(--mask-css-n-top) 50%, transparent 55%, transparent 0 ),
-    radial-gradient(circle var(--shape-uneven-x) at right 21% top 50%, var(--mask-css-n-right) 50%, transparent 55%, transparent 0 ),
-    radial-gradient(circle var(--shape-uneven-y) at left 50% bottom 21%, var(--mask-css-n-bottom) 50%, transparent 55%, transparent 0 ),
-    radial-gradient(circle var(--shape-uneven-x) at left 21% top 50%, var(--mask-css-n-left) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle var(--shape-uneven-y) at left 60% top 21%, var(--mask-css-n-top) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle var(--shape-uneven-x) at right 21% top 62%, var(--mask-css-n-right) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle var(--shape-uneven-y) at left 40% bottom 21%, var(--mask-css-n-bottom) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle var(--shape-uneven-x) at left 21% top 42%, var(--mask-css-n-left) 50%, transparent 55%, transparent 0 ),
 
-    radial-gradient(circle calc(var(--shape-uneven-y) *  0.9) at left 50% top 9%, var(--mask-css-p-top) 50%, transparent 55%, transparent 0 ),
-    radial-gradient(circle calc(var(--shape-uneven-x) *  0.9) at right 9% top 50%, var(--mask-css-p-right) 50%, transparent 55%, transparent 0 ),
-    radial-gradient(circle calc(var(--shape-uneven-y) *  0.9) at left 50% bottom 9%, var(--mask-css-p-bottom) 50%, transparent 55%, transparent 0 ),
-    radial-gradient(circle calc(var(--shape-uneven-x) *  0.9) at left 9% top 50%, var(--mask-css-p-left) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle calc(var(--shape-uneven-y) *  0.9) at left 40% top 9%, var(--mask-css-p-top) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle calc(var(--shape-uneven-x) *  0.9) at right 9% top 42%, var(--mask-css-p-right) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle calc(var(--shape-uneven-y) *  0.9) at left 60% bottom 9%, var(--mask-css-p-bottom) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle calc(var(--shape-uneven-x) *  0.9) at left 9% top 62%, var(--mask-css-p-left) 50%, transparent 55%, transparent 0 ),
 
     linear-gradient(#ffc107 100%,transparent 0);
     -webkit-mask-size: contain,contain,contain,contain,contain,contain,contain,contain,70% 70%;
