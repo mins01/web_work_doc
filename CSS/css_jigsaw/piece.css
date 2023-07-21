@@ -88,41 +88,64 @@
 }
 
 
-/* .piece-shape.clip-polygon */
-.piece-container.clip-polygon .piece-shape,
-.piece-shape.clip-polygon{
-    --shape-uneven-clip-polygon-x:calc(100% * var(--piece-uneven-ratio));
-    --shape-uneven-clip-polygon-y:calc(100% * var(--piece-uneven-ratio));
-    --shape-uneven-clip-polygon-left:calc(100% * var(--piece-uneven-ratio));
-    --shape-uneven-clip-polygon-top:calc(100% * var(--piece-uneven-ratio));
-    --shape-uneven-clip-polygon-right:calc(100% - 100% * var(--piece-uneven-ratio));
-    --shape-uneven-clip-polygon-bottom:calc(100% - 100% * var(--piece-uneven-ratio));
+/* .piece-shape.clip-zigzag */
+.piece-container.clip-zigzag .piece-shape,
+.piece-shape.clip-zigzag{
+
+    --uneven:calc(100% * var(--piece-uneven-ratio));
+    --top:calc(var(--uneven) - var(--shape-multiple-top) * var(--uneven));
+    --right:calc(100% - (var(--uneven) - var(--shape-multiple-right) * var(--uneven)));
+    --bottom:calc(100% - (var(--uneven) - var(--shape-multiple-bottom) * var(--uneven)));
+    --left:calc(var(--uneven) - var(--shape-multiple-left) * var(--uneven) );
+
     clip-path: polygon(
-        var(--shape-uneven-clip-polygon-left) var(--shape-uneven-clip-polygon-top),
-        50% calc(var(--shape-uneven-clip-polygon-top) - var(--shape-multiple-top,0) * var(--shape-uneven-clip-polygon-y,0)),
-        var(--shape-uneven-clip-polygon-right) var(--shape-uneven-clip-polygon-top),
-        calc(var(--shape-uneven-clip-polygon-right) + var(--shape-multiple-right,0) * var(--shape-uneven-clip-polygon-x,0)) 50%,
-        var(--shape-uneven-clip-polygon-right) var(--shape-uneven-clip-polygon-bottom),
-        50% calc(var(--shape-uneven-clip-polygon-bottom) + var(--shape-multiple-bottom,0) * var(--shape-uneven-clip-polygon-y,0)),
-        var(--shape-uneven-clip-polygon-left) var(--shape-uneven-clip-polygon-bottom),
-        calc(var(--shape-uneven-clip-polygon-left) - var(--shape-multiple-left,0) * var(--shape-uneven-clip-polygon-x,0)) 50%
+        15% 15%,
+        50% var(--top),
+        85% 15%,
+        var(--right) 50%,
+        85% 85%,
+        50% var(--bottom),
+        15% 85%,
+        var(--left) 50%
     );
 }
-:is(.piece-container.clip-polygon .piece-shape, .piece-shape.clip-polygon)[data-shape-top="0"]{ --shape-multiple-top:0; }
-:is(.piece-container.clip-polygon .piece-shape, .piece-shape.clip-polygon)[data-shape-top="p"]{ --shape-multiple-top:1; }
-:is(.piece-container.clip-polygon .piece-shape, .piece-shape.clip-polygon)[data-shape-top="n"]{ --shape-multiple-top:-1; }
 
-:is(.piece-container.clip-polygon .piece-shape, .piece-shape.clip-polygon)[data-shape-right="0"]{ --shape-multiple-right:0; }
-:is(.piece-container.clip-polygon .piece-shape, .piece-shape.clip-polygon)[data-shape-right="p"]{ --shape-multiple-right:1; }
-:is(.piece-container.clip-polygon .piece-shape, .piece-shape.clip-polygon)[data-shape-right="n"]{ --shape-multiple-right:-1; }
+.piece-container.clip-rect .piece-shape,
+.piece-shape.clip-rect{
+    --uneven:calc(100% * var(--piece-uneven-ratio));
+    --top:calc(var(--uneven) - var(--shape-multiple-top) * var(--uneven) );
+    --right:calc(100% - (var(--uneven) - var(--shape-multiple-right) * var(--uneven)) );
+    --bottom:calc(100% - (var(--uneven) - var(--shape-multiple-bottom) * var(--uneven)) );
+    --left:calc(var(--uneven) - var(--shape-multiple-left) * var(--uneven) );
 
-:is(.piece-container.clip-polygon .piece-shape, .piece-shape.clip-polygon)[data-shape-bottom="0"]{ --shape-multiple-bottom:0; }
-:is(.piece-container.clip-polygon .piece-shape, .piece-shape.clip-polygon)[data-shape-bottom="p"]{ --shape-multiple-bottom:1; }
-:is(.piece-container.clip-polygon .piece-shape, .piece-shape.clip-polygon)[data-shape-bottom="n"]{ --shape-multiple-bottom:-1; }
+    clip-path: polygon(
+        15% 15%, 42.5% 15%, 
+        42.5%   var(--top)  , 57.5%  var(--top)  , /* top */
+        57.5% 15%, 85% 15%, 85% 42.5%, 
+        var(--right)    42.5%,    var(--right)    57.5%, /* right */
+        85% 57.5%, 85% 85%, 57.5% 85%, 
+        57.5% var(--bottom), 42.5% var(--bottom), /* bottom */
+        42.5% 85%, 15% 85%, 15% 57.5%, 
+         var(--left) 57.5%,  var(--left) 42.5%,  /* left */
+        15% 42.5%);
+}
 
-:is(.piece-container.clip-polygon .piece-shape, .piece-shape.clip-polygon)[data-shape-left="0"]{ --shape-multiple-left:0; }
-:is(.piece-container.clip-polygon .piece-shape, .piece-shape.clip-polygon)[data-shape-left="p"]{ --shape-multiple-left:1; }
-:is(.piece-container.clip-polygon .piece-shape, .piece-shape.clip-polygon)[data-shape-left="n"]{ --shape-multiple-left:-1; }
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-top="0"]{ --shape-multiple-top:0; }
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-top="p"]{ --shape-multiple-top:1; }
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-top="n"]{ --shape-multiple-top:-1; }
+
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-right="0"]{ --shape-multiple-right:0; }
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-right="p"]{ --shape-multiple-right:1; }
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-right="n"]{ --shape-multiple-right:-1; }
+
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-bottom="0"]{ --shape-multiple-bottom:0; }
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-bottom="p"]{ --shape-multiple-bottom:1; }
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-bottom="n"]{ --shape-multiple-bottom:-1; }
+
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-left="0"]{ --shape-multiple-left:0; }
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-left="p"]{ --shape-multiple-left:1; }
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-left="n"]{ --shape-multiple-left:-1; }
+
 
 
 /* .piece-shape.mask-css */

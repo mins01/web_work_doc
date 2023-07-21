@@ -2,12 +2,13 @@
 
 .jigsaw-wrap{
     --piece-shape-scale:calc(100 / 70);
-    
+
     --jigsaw-width:500px;
     --jigsaw-height:400px;
     --div-x:3;
     --div-y:3;
-    --background-image:url(361331715_1995055744165677_6676229993515938374_n.jpg);
+    /* --background-image:url(361331715_1995055744165677_6676229993515938374_n.jpg); */
+    --background-image:none;
 
     --piece-wrap-width:calc(var(--jigsaw-width) /var(--div-x) );
     --piece-wrap-height:calc(var(--jigsaw-height) /var(--div-y) );
