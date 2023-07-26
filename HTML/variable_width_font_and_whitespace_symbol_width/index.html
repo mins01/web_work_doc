@@ -107,63 +107,79 @@
         <hr>
         <h2>가변폭 글꼴 : Noto Sans KR</h2>
         <h3>공백기호의 너비 계산이 주위의 글자에 영향을 받는다.</h3>
-        <table class="table table-bordered font-noto-sans-kr fs-20px">
+        <table class="table table-bordered font-noto-sans-kr fs-20px var-width-font">
             <thead>
                 <tr class="table-success">
                     <th width="100">문자열</th>
                     <th width="120">너비(px)</th>
+                    <th width="120">캔버스 너비(px)</th>
                     <th>비고</th>
                 </tr>
             </thead>
             <tbody>
-                <tr><td><span class="ws-box"> </span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">-</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">0</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">5</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">A</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">M</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">X</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">a</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">m</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">x</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">한</span></td><td class="result-width">너비</td><td>전각 한글</td></tr>
-                <tr><td><span class="ws-box">05</span></td><td class="result-width">너비</td><td>11.109375+11.109375 = 22.21875</td></tr>
-                <tr><td><span class="ws-box">0 5</span></td><td class="result-width">너비</td><td>11.109375+4.484375+11.109375 = 26.703125<br>(일반 글자와 공백기호가 같이 있으면 너비에 차이가 발생)</td></tr>
-                <tr><td><span class="ws-box">0  5</span></td><td class="result-width">너비</td><td>11.109375+4.484375+4.484375+11.109375 = 31.1875<br>(일반 글자와 공백기호가 같이 있으면 너비에 차이가 발생)</td></tr>
+                <tr><td><span class="ws-box"> </span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">-</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">0</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">5</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">A</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">M</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">X</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">a</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">m</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">x</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">한</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td>전각 한글</td></tr>
+                <tr><td><span class="ws-box">05</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td>11.109375+11.109375 = 22.21875</td></tr>
+                <tr><td><span class="ws-box">0 5</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td>11.109375+4.484375+11.109375 = 26.703125<br>(일반 글자와 공백기호가 같이 있으면 너비에 차이가 발생)</td></tr>
+                <tr><td><span class="ws-box">0  5</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td>11.109375+4.484375+4.484375+11.109375 = 31.1875<br>(일반 글자와 공백기호가 같이 있으면 너비에 차이가 발생)</td></tr>
             </tbody>
         </table>
         <h2>고정폭 글꼴 : monospace</h2>
         <h3>글자 하나마다 똑같은 너비를 가진다.</h3>
-        <table class="table table-bordered font-monospace fs-20px">
+        <table class="table table-bordered font-monospace fs-20px fixed-width-font">
             <thead>
                 <tr class="table-success">
                     <th width="100">문자열</th>
                     <th width="120">너비(px)</th>
+                    <th width="120">캔버스 너비(px)</th>
                     <th>비고</th>
                 </tr>
             </thead>
             <tbody>
-                <tr><td><span class="ws-box"> </span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">-</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">0</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">5</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">A</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">M</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">X</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">a</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">m</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">x</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">한</span></td><td class="result-width">너비</td><td>전각 한글</td></tr>
-                <tr><td><span class="ws-box">05</span></td><td class="result-width">너비</td><td>10+10 = 20</td></tr>
-                <tr><td><span class="ws-box">0 5</span></td><td class="result-width">너비</td><td>10+10+10 = 30</td></tr>
-                <tr><td><span class="ws-box">0  5</span></td><td class="result-width">너비</td><td>10+10+10+10 = 40</td></tr>
+                <tr><td><span class="ws-box"> </span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">-</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">0</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">5</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">A</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">M</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">X</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">a</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">m</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">x</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">한</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td>전각 한글</td></tr>
+                <tr><td><span class="ws-box">05</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td>10+10 = 20</td></tr>
+                <tr><td><span class="ws-box">0 5</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td>10+10+10 = 30</td></tr>
+                <tr><td><span class="ws-box">0  5</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td>10+10+10+10 = 40</td></tr>
             </tbody>
         </table>
         <script>
             window.addEventListener('load',(evnet)=>{
-                document.querySelectorAll('.ws-box').forEach(el=>{
+                let canvas = document.createElement('canvas');
+                ctx = canvas.getContext('2d');
+                ctx.font = '20px "Noto Sans KR", serif';
+                
+                document.querySelectorAll('.var-width-font .ws-box').forEach(el=>{
                     let rect = el.getBoundingClientRect();
                     el.closest('tr').querySelector('.result-width').textContent = rect.width;
+                    el.closest('tr').querySelector('.canvas-text-width').textContent = ctx.measureText(el.innerText).width;
+                    console.log(el.innerText);
+                })
+                ctx.font = '20px monospace';
+
+                document.querySelectorAll('.fixed-width-font .ws-box').forEach(el=>{
+                    let rect = el.getBoundingClientRect();
+                    el.closest('tr').querySelector('.result-width').textContent = rect.width;
+                    el.closest('tr').querySelector('.canvas-text-width').textContent = ctx.measureText(el.innerText).width;
+                    
                 })
             })
         </script>
