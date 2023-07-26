@@ -63,6 +63,10 @@
         <ul class="list-group">
             <li class="list-group-item">가변폭 글꼴의 공백(스페이스,빈칸, whitespace)기호 너비에 대한 변화 체크</li>
             <li class="list-group-item">
+                <b>결론 : 가변폭 글꼴을 사용하면, 공백(스페이스) 기호의 너비가 상황에 따라 변할 수 있다.</b>
+            </li>
+                
+            <li class="list-group-item">
                 주요 CSS class
                 <code style="display: block; white-space: pre-line;">.text-box{
                     <b>white-space: break-spaces; /* 공백기호가 무조건 보이고, 줄바꿈 되도록 */</b>
@@ -105,9 +109,9 @@
         <h3>공백기호의 너비 계산이 주위의 글자에 영향을 받는다.</h3>
         <table class="table table-bordered font-noto-sans-kr fs-20px">
             <thead>
-                <tr>
-                    <th>문자열</th>
-                    <th>너비(px)</th>
+                <tr class="table-success">
+                    <th width="100">문자열</th>
+                    <th width="120">너비(px)</th>
                     <th>비고</th>
                 </tr>
             </thead>
@@ -123,6 +127,7 @@
                 <tr><td><span class="ws-box">m</span></td><td class="result-width">너비</td><td> </td></tr>
                 <tr><td><span class="ws-box">x</span></td><td class="result-width">너비</td><td> </td></tr>
                 <tr><td><span class="ws-box">한</span></td><td class="result-width">너비</td><td>전각 한글</td></tr>
+                <tr><td><span class="ws-box">05</span></td><td class="result-width">너비</td><td>11.109375+11.109375 = 22.21875</td></tr>
                 <tr><td><span class="ws-box">0 5</span></td><td class="result-width">너비</td><td>11.109375+4.484375+11.109375 = 26.703125<br>(일반 글자와 공백기호가 같이 있으면 너비에 차이가 발생)</td></tr>
                 <tr><td><span class="ws-box">0  5</span></td><td class="result-width">너비</td><td>11.109375+4.484375+4.484375+11.109375 = 31.1875<br>(일반 글자와 공백기호가 같이 있으면 너비에 차이가 발생)</td></tr>
             </tbody>
@@ -131,9 +136,9 @@
         <h3>글자 하나마다 똑같은 너비를 가진다.</h3>
         <table class="table table-bordered font-monospace fs-20px">
             <thead>
-                <tr>
-                    <th>문자열</th>
-                    <th>너비(px)</th>
+                <tr class="table-success">
+                    <th width="100">문자열</th>
+                    <th width="120">너비(px)</th>
                     <th>비고</th>
                 </tr>
             </thead>
@@ -149,6 +154,7 @@
                 <tr><td><span class="ws-box">m</span></td><td class="result-width">너비</td><td> </td></tr>
                 <tr><td><span class="ws-box">x</span></td><td class="result-width">너비</td><td> </td></tr>
                 <tr><td><span class="ws-box">한</span></td><td class="result-width">너비</td><td>전각 한글</td></tr>
+                <tr><td><span class="ws-box">05</span></td><td class="result-width">너비</td><td>10+10 = 20</td></tr>
                 <tr><td><span class="ws-box">0 5</span></td><td class="result-width">너비</td><td>10+10+10 = 30</td></tr>
                 <tr><td><span class="ws-box">0  5</span></td><td class="result-width">너비</td><td>10+10+10+10 = 40</td></tr>
             </tbody>
