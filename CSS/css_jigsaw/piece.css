@@ -2,14 +2,13 @@
 
 :root{
     --piece-uneven-ratio:0.15;
-    --piece-shape-scale:calc(100 / 70);
+    --piece-shape-scale:1;
 }
 .piece-container{
     --shape-multiple-top:0;
     --shape-multiple-right:0;
     --shape-multiple-bottom:0;
     --shape-multiple-left:0;
-    /* --shape-uneven:20px; */
     --piece-wrap-width:100px;
     --piece-wrap-height:100px;
 }
@@ -29,9 +28,9 @@
 
     --shape-width:calc(var(--piece-shape-scale) * var(--piece-wrap-width));
     --shape-height:calc(var(--piece-shape-scale) * var(--piece-wrap-height));
-    --shape-uneven:calc( ( var(--shape-width) - var(--piece-wrap-width,100px) ) / 2);
+    --shape-uneven:calc( var(--shape-width) * var(--piece-uneven-ratio) );
     --shape-uneven-x:var(--shape-uneven);
-    --shape-uneven-y:calc( ( var(--shape-height) - var(--piece-wrap-height,100px) ) / 2);
+    --shape-uneven-y:calc( var(--shape-height) * var(--piece-uneven-ratio) );
 }
 
 .debug .piece-wrap::before,
@@ -42,7 +41,7 @@
     position: absolute;
     left:0;right:0;top:0;bottom:0;
     width:100%;height:100%;
-    outline:1px dotted #0000ff99;
+    outline:1px dotted #0000ff66;
     outline-offset: -1px;
     z-index: 5;
 }
@@ -53,13 +52,18 @@
     display: block;
     position: absolute;
     left:0;right:0;top:0;bottom:0;
-    outline:2px dashed #ff000099;
+    outline:2px dashed #ff000066;
     outline-offset: -2px;
     z-index: 9;
-    top:calc( -1 * var(--shape-uneven-y));
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+
+    /* top:calc( -1 * var(--shape-uneven-y));
     right:calc( -1 * var(--shape-uneven-x));
     bottom:calc( -1 * var(--shape-uneven-y));
-    left:calc( -1 * var(--shape-uneven-x));
+    left:calc( -1 * var(--shape-uneven-x)); */
 }
 
 
@@ -73,48 +77,75 @@
 .piece-shape{
     display: block;
     position: absolute;
-    top:calc( -1 * var(--shape-uneven-y));
+    /* top:calc( -1 * var(--shape-uneven-y));
     right:calc( -1 * var(--shape-uneven-x));
     bottom:calc( -1 * var(--shape-uneven-y));
-    left:calc( -1 * var(--shape-uneven-x));
+    left:calc( -1 * var(--shape-uneven-x)); */
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
 }
 
 
-/* .piece-shape.polygon */
-.piece-container.polygon .piece-shape,
-.piece-shape.polygon{
-    --shape-uneven-polygon-x:calc(100% * var(--piece-uneven-ratio));
-    --shape-uneven-polygon-y:calc(100% * var(--piece-uneven-ratio));
-    --shape-uneven-polygon-left:calc(100% * var(--piece-uneven-ratio));
-    --shape-uneven-polygon-top:calc(100% * var(--piece-uneven-ratio));
-    --shape-uneven-polygon-right:calc(100% - 100% * var(--piece-uneven-ratio));
-    --shape-uneven-polygon-bottom:calc(100% - 100% * var(--piece-uneven-ratio));
+/* .piece-shape.clip-zigzag */
+.piece-container.clip-zigzag .piece-shape,
+.piece-shape.clip-zigzag{
+
+    --uneven:calc(100% * var(--piece-uneven-ratio));
+    --top:calc(var(--uneven) - var(--shape-multiple-top) * var(--uneven));
+    --right:calc(100% - (var(--uneven) - var(--shape-multiple-right) * var(--uneven)));
+    --bottom:calc(100% - (var(--uneven) - var(--shape-multiple-bottom) * var(--uneven)));
+    --left:calc(var(--uneven) - var(--shape-multiple-left) * var(--uneven) );
+
     clip-path: polygon(
-        var(--shape-uneven-polygon-left) var(--shape-uneven-polygon-top),
-        50% calc(var(--shape-uneven-polygon-top) - var(--shape-multiple-top,0) * var(--shape-uneven-polygon-y,0)),
-        var(--shape-uneven-polygon-right) var(--shape-uneven-polygon-top),
-        calc(var(--shape-uneven-polygon-right) + var(--shape-multiple-right,0) * var(--shape-uneven-polygon-x,0)) 50%,
-        var(--shape-uneven-polygon-right) var(--shape-uneven-polygon-bottom),
-        50% calc(var(--shape-uneven-polygon-bottom) + var(--shape-multiple-bottom,0) * var(--shape-uneven-polygon-y,0)),
-        var(--shape-uneven-polygon-left) var(--shape-uneven-polygon-bottom),
-        calc(var(--shape-uneven-polygon-left) - var(--shape-multiple-left,0) * var(--shape-uneven-polygon-x,0)) 50%
+        15% 15%,
+        50% var(--top),
+        85% 15%,
+        var(--right) 50%,
+        85% 85%,
+        50% var(--bottom),
+        15% 85%,
+        var(--left) 50%
     );
 }
-:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-top="0"]{ --shape-multiple-top:0; }
-:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-top="p"]{ --shape-multiple-top:1; }
-:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-top="n"]{ --shape-multiple-top:-1; }
 
-:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-right="0"]{ --shape-multiple-right:0; }
-:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-right="p"]{ --shape-multiple-right:1; }
-:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-right="n"]{ --shape-multiple-right:-1; }
+.piece-container.clip-rect .piece-shape,
+.piece-shape.clip-rect{
+    --uneven:calc(100% * var(--piece-uneven-ratio));
+    --top:calc(var(--uneven) - var(--shape-multiple-top) * var(--uneven) );
+    --right:calc(100% - (var(--uneven) - var(--shape-multiple-right) * var(--uneven)) );
+    --bottom:calc(100% - (var(--uneven) - var(--shape-multiple-bottom) * var(--uneven)) );
+    --left:calc(var(--uneven) - var(--shape-multiple-left) * var(--uneven) );
 
-:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-bottom="0"]{ --shape-multiple-bottom:0; }
-:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-bottom="p"]{ --shape-multiple-bottom:1; }
-:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-bottom="n"]{ --shape-multiple-bottom:-1; }
+    clip-path: polygon(
+        15% 15%, 42.5% 15%, 
+        42.5%   var(--top)  , 57.5%  var(--top)  , /* top */
+        57.5% 15%, 85% 15%, 85% 42.5%, 
+        var(--right)    42.5%,    var(--right)    57.5%, /* right */
+        85% 57.5%, 85% 85%, 57.5% 85%, 
+        57.5% var(--bottom), 42.5% var(--bottom), /* bottom */
+        42.5% 85%, 15% 85%, 15% 57.5%, 
+         var(--left) 57.5%,  var(--left) 42.5%,  /* left */
+        15% 42.5%);
+}
 
-:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-left="0"]{ --shape-multiple-left:0; }
-:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-left="p"]{ --shape-multiple-left:1; }
-:is(.piece-container.polygon .piece-shape, .piece-shape.polygon)[data-shape-left="n"]{ --shape-multiple-left:-1; }
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-top="0"]{ --shape-multiple-top:0; }
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-top="p"]{ --shape-multiple-top:1; }
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-top="n"]{ --shape-multiple-top:-1; }
+
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-right="0"]{ --shape-multiple-right:0; }
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-right="p"]{ --shape-multiple-right:1; }
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-right="n"]{ --shape-multiple-right:-1; }
+
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-bottom="0"]{ --shape-multiple-bottom:0; }
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-bottom="p"]{ --shape-multiple-bottom:1; }
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-bottom="n"]{ --shape-multiple-bottom:-1; }
+
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-left="0"]{ --shape-multiple-left:0; }
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-left="p"]{ --shape-multiple-left:1; }
+:is(.piece-container.clip-zigzag .piece-shape, .piece-shape.clip-zigzag , .piece-container.clip-rect .piece-shape, .piece-shape.clip-rect)[data-shape-left="n"]{ --shape-multiple-left:-1; }
+
 
 
 /* .piece-shape.mask-css */
@@ -131,13 +162,13 @@
 
     -webkit-mask-image:
     radial-gradient(circle var(--shape-uneven-y) at left 60% top 21%, var(--mask-css-n-top) 50%, transparent 55%, transparent 0 ),
-    radial-gradient(circle var(--shape-uneven-x) at right 21% top 62%, var(--mask-css-n-right) 50%, transparent 55%, transparent 0 ),
-    radial-gradient(circle var(--shape-uneven-y) at left 40% bottom 21%, var(--mask-css-n-bottom) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle var(--shape-uneven-x) at left 79% top 62%, var(--mask-css-n-right) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle var(--shape-uneven-y) at left 40% top 79%, var(--mask-css-n-bottom) 50%, transparent 55%, transparent 0 ),
     radial-gradient(circle var(--shape-uneven-x) at left 21% top 42%, var(--mask-css-n-left) 50%, transparent 55%, transparent 0 ),
 
     radial-gradient(circle calc(var(--shape-uneven-y) *  0.9) at left 40% top 9%, var(--mask-css-p-top) 50%, transparent 55%, transparent 0 ),
-    radial-gradient(circle calc(var(--shape-uneven-x) *  0.9) at right 9% top 42%, var(--mask-css-p-right) 50%, transparent 55%, transparent 0 ),
-    radial-gradient(circle calc(var(--shape-uneven-y) *  0.9) at left 60% bottom 9%, var(--mask-css-p-bottom) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle calc(var(--shape-uneven-x) *  0.9) at left 91% top 42%, var(--mask-css-p-right) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle calc(var(--shape-uneven-y) *  0.9) at left 60% top 91%, var(--mask-css-p-bottom) 50%, transparent 55%, transparent 0 ),
     radial-gradient(circle calc(var(--shape-uneven-x) *  0.9) at left 9% top 62%, var(--mask-css-p-left) 50%, transparent 55%, transparent 0 ),
 
     linear-gradient(#ffc107 100%,transparent 0);
@@ -161,7 +192,7 @@
 :is(.piece-container.mask-css .piece-shape,.piece-shape.mask-css)[data-shape-left="n"]{ --mask-css-n-left:#000000ff; }
 :is(.piece-container.mask-css .piece-shape,.piece-shape.mask-css)[data-shape-left="p"]{ --mask-css-p-left:#ffffffff; }
 
-.mask-css-bg{
+.mask-css-test-bg{
     --mask-css-n-top:#000000FF;
     --mask-css-p-top:#ffffffFF;
     --mask-css-n-right:#000000FF;
@@ -170,22 +201,23 @@
     --mask-css-p-bottom:#ffffffFF;
     --mask-css-n-left:#000000FF;
     --mask-css-p-left:#ffffffFF;
-
+    
     background-color: #abc;
     background-image: 
-    radial-gradient(circle 20px at left 50% top 21%, var(--mask-css-n-top) 50%, transparent 55%, transparent 0 ),
-    radial-gradient(circle 20px at right 21% top 50%, var(--mask-css-n-right) 50%, transparent 55%, transparent 0 ),
-    radial-gradient(circle 20px at left 50% bottom 21%, var(--mask-css-n-bottom) 50%, transparent 55%, transparent 0 ),
-    radial-gradient(circle 20px at left 21% top 50%, var(--mask-css-n-left) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle var(--shape-uneven-y) at left 60% top 21%, var(--mask-css-n-top) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle var(--shape-uneven-x) at left 79% top 62%, var(--mask-css-n-right) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle var(--shape-uneven-y) at left 40% top 79%, var(--mask-css-n-bottom) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle var(--shape-uneven-x) at left 21% top 42%, var(--mask-css-n-left) 50%, transparent 55%, transparent 0 ),
 
-    radial-gradient(circle 20px at left 50% top 9%, var(--mask-css-p-top) 50%, transparent 55%, transparent 0 ),
-    radial-gradient(circle 20px at right 9% top 50%, var(--mask-css-p-right) 50%, transparent 55%, transparent 0 ),
-    radial-gradient(circle 20px at left 50% bottom 9%, var(--mask-css-p-bottom) 50%, transparent 55%, transparent 0 ),
-    radial-gradient(circle 20px at left 9% top 50%, var(--mask-css-p-left) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle calc(var(--shape-uneven-y) *  0.9) at left 40% top 9%, var(--mask-css-p-top) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle calc(var(--shape-uneven-x) *  0.9) at left 91% top 42%, var(--mask-css-p-right) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle calc(var(--shape-uneven-y) *  0.9) at left 60% top 91%, var(--mask-css-p-bottom) 50%, transparent 55%, transparent 0 ),
+    radial-gradient(circle calc(var(--shape-uneven-x) *  0.9) at left 9% top 62%, var(--mask-css-p-left) 50%, transparent 55%, transparent 0 ),
 
-    linear-gradient(#ffc107 100%,transparent 0);
+    linear-gradient(#ffc107 100%,transparent 0) !important;
 
-    background-size: contain,contain,contain,contain,contain,contain,contain,contain,70% 70%;
-    background-repeat: no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat;
-    background-position: center,center,center,center,center,center,center,center,center;
+    
+    background-size: contain,contain,contain,contain,contain,contain,contain,contain,70% 70% !important;
+    background-repeat: no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat !important;
+    background-position: center,center,center,center,center,center,center,center,center !important;
 }

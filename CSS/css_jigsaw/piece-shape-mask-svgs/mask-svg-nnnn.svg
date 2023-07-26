@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="100%" height="100%" version="1.1"
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:svg="http://www.w3.org/2000/svg">
+	data-width="0.15+0.7+0.15"
+	data-height="0.15+0.7+0.15"
+	<defs>
+		<style>
+			.svg-mask-uneven-p , .svg-mask-uneven-n{ fill:#ffffff;fill-opacity:0 }
+			.svg-mask-uneven-n{ fill:#000000; }
+			.on{ fill-opacity:1; }
+			.top-p .svg-mask-uneven-p.top{ fill-opacity:1; }
+			.right-p .svg-mask-uneven-p.right{ fill-opacity:1; }
+			.bottom-p .svg-mask-uneven-p.bottom{ fill-opacity:1; }
+			.left-p .svg-mask-uneven-p.left{ fill-opacity:1; }
+			.top-n .svg-mask-uneven-n.top{ fill-opacity:1; }
+			.right-n .svg-mask-uneven-n.right{ fill-opacity:1; }
+			.bottom-n .svg-mask-uneven-n.bottom{ fill-opacity:1; }
+			.left-n .svg-mask-uneven-n.left{ fill-opacity:1; }
+		</style>
+		<mask id="svg-mask" class="top-n right-n bottom-n left-n" maskContentUnits="objectBoundingBox" maskUnits="objectBoundingBox" >
+			<rect style="fill:#0000ff;fill-opacity:0;" width="1" height="1" x="0" y="0" ry="0" rx="0" />
+			<rect style="fill:#ffffff;" width="0.7" height="0.7" x="0.15" y="0.15" ry="0.05" rx="0.05" />
+			<circle class="svg-mask-uneven-p top" cx="0.5" cy="0.09" r="0.0675" />
+			<circle class="svg-mask-uneven-p right" cx="0.91" cy="0.5" r="0.0675" />
+			<circle class="svg-mask-uneven-p bottom" cx="0.5" cy="0.91" r="0.0675" />
+			<circle class="svg-mask-uneven-p left" cx="0.09" cy="0.5" r="0.0675" />
+
+			<circle class="svg-mask-uneven-n top " cx="0.5" cy="0.21" r="0.075" />
+			<circle class="svg-mask-uneven-n right " cx="0.79" cy="0.5" r="0.075" />
+			<circle class="svg-mask-uneven-n bottom " cx="0.5" cy="0.79" r="0.075" />
+			<circle class="svg-mask-uneven-n left " cx="0.21" cy="0.5" r="0.075" />
+		</mask>
+	</defs>
+	<g>
+		<rect style="fill:#ff0000;paint-order:stroke fill markers" id="svg-img-pppp"
+			width="100%" height="100%" x="0" y="0" rx="20" ry="20" mask="url(#svg-mask)"
+		/>
+	</g>
+</svg>

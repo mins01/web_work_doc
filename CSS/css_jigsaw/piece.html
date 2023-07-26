@@ -38,7 +38,7 @@
 	<!-- //meta og -->
 
     <link rel="stylesheet" href="piece.css">
-    <link rel="stylesheet" href="piece-shape-svgs/piece-shape-svgs.css">
+    <link rel="stylesheet" href="piece-shape-mask-svgs/piece-shape-mask-svgs.css">
 	<style>
         *{
             box-sizing: border-box;
@@ -71,7 +71,7 @@
         }
         
 
-        .test-grid-6{
+        .test-grid-3{
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             width:fit-content;
@@ -91,14 +91,15 @@
 	<div class="container">
         <h1>piece</h1>
         <ul class="list-group">
-            <li class="list-group-item">배경크기는 piece-shape 의 크기 기준이다.(확대 됨)</li>
-            <li class="list-group-item">돌출부위는 --piece-wrap-width 과 --piece-wrap-height 의 15% 크기를 가진다.</li>
+            <li class="list-group-item">돌출부위는 --piece-shape-width 과 --piece-shape-height 의 15% 크기를 가진다.</li>
             <li class="list-group-item">
                 .piece-shape 의 애트리뷰트 data-shape-top="n" data-shape-right="n" data-shape-bottom="n" data-shape-left="n" 로 돌출 부위 설정<br>
                 n : 안쪽 방향<br>
                 0 : 없음<br>
-                p : 밖같쪽 방향<br>
-
+                p : 바깥쪽 방향<br>
+            </li>
+            <li class="list-group-item">
+                .debug 를 사용하면 .piece-wrap(파란색)과 .piece-shape(빨간색)의 면적을 보여준다.
             </li>
         </ul>
 	</div>
@@ -107,13 +108,13 @@
         <div>
             <div class="piece-container" >
                 <div class="p-4 d-inline-block">
-                    <div class="piece-wrap debug" ><div class="piece-shape polygon"><div class="inner-box">piece-shape</div></div></div>
+                    <div class="piece-wrap debug" ><div class="piece-shape clip-zigzag"><div class="inner-box">clip-zigzag</div></div></div>
                 </div>
                 <div class="p-4 d-inline-block">
-                    <div class="piece-wrap debug" ><div class="piece-shape polygon" data-shape-top="n" data-shape-right="n" data-shape-bottom="n" data-shape-left="n"><div class="inner-box">piece-shape</div></div></div>
+                    <div class="piece-wrap debug" ><div class="piece-shape clip-zigzag" data-shape-top="n" data-shape-right="n" data-shape-bottom="n" data-shape-left="n"><div class="inner-box">clip-zigzag</div></div></div>
                 </div>
                 <div class="p-4 d-inline-block">
-                    <div class="piece-wrap debug" ><div class="piece-shape polygon" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="p"><div class="inner-box">piece-shape</div></div></div>
+                    <div class="piece-wrap debug" ><div class="piece-shape clip-zigzag" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="p"><div class="inner-box">clip-zigzag</div></div></div>
                 </div>
             </div>
             <div class="piece-container" >
@@ -142,13 +143,13 @@
 
             <div class="piece-container" style="--piece-wrap-width:210px;--piece-wrap-height:90px" >
                 <div class="p-4 d-inline-block">
-                    <div class="piece-wrap debug" ><div class="piece-shape polygon"><div class="inner-box">piece-shape</div></div></div>
+                    <div class="piece-wrap debug" ><div class="piece-shape clip-zigzag"><div class="inner-box">piece-shape</div></div></div>
                 </div>
                 <div class="p-4 d-inline-block">
-                    <div class="piece-wrap debug" ><div class="piece-shape polygon" data-shape-top="n" data-shape-right="n" data-shape-bottom="n" data-shape-left="n"><div class="inner-box">piece-shape</div></div></div>
+                    <div class="piece-wrap debug" ><div class="piece-shape clip-zigzag" data-shape-top="n" data-shape-right="n" data-shape-bottom="n" data-shape-left="n"><div class="inner-box">piece-shape</div></div></div>
                 </div>
                 <div class="p-4 d-inline-block">
-                    <div class="piece-wrap debug" ><div class="piece-shape polygon" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="p"><div class="inner-box">piece-shape</div></div></div>
+                    <div class="piece-wrap debug" ><div class="piece-shape clip-zigzag" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="p"><div class="inner-box">piece-shape</div></div></div>
                 </div>
             </div>
             <div class="piece-container" style="--piece-wrap-width:210px;--piece-wrap-height:90px">
@@ -177,25 +178,25 @@
             
             <hr>
 
-            <h2>piece-shape polygon</h2>
+            <h2>piece-shape clip-zigzag</h2>
             <div class="card my-3">
                 <div class="card-header">
-                    <h3>piece-shape polygon</h3>
+                    <h3>piece-shape clip-zigzag</h3>
                 </div>
                 <div class="card-body ">
                     <div class="piece-container test-grid-6" >
-                        <div class="piece-wrap" ><div class="piece-shape polygon" data-shape-top="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape polygon" data-shape-top="p"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape polygon" data-shape-top="n"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape polygon" data-shape-right="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape polygon" data-shape-right="p"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape polygon" data-shape-right="n"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape polygon" data-shape-bottom="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape polygon" data-shape-bottom="p"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape polygon" data-shape-bottom="n"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape polygon" data-shape-left="0"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape polygon" data-shape-left="p"> </div></div>
-                        <div class="piece-wrap" ><div class="piece-shape polygon" data-shape-left="n"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape clip-zigzag" data-shape-top="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape clip-zigzag" data-shape-top="p"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape clip-zigzag" data-shape-top="n"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape clip-zigzag" data-shape-right="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape clip-zigzag" data-shape-right="p"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape clip-zigzag" data-shape-right="n"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape clip-zigzag" data-shape-bottom="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape clip-zigzag" data-shape-bottom="p"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape clip-zigzag" data-shape-bottom="n"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape clip-zigzag" data-shape-left="0"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape clip-zigzag" data-shape-left="p"> </div></div>
+                        <div class="piece-wrap" ><div class="piece-shape clip-zigzag" data-shape-left="n"> </div></div>
                     </div>
                 </div>
             </div>
@@ -231,7 +232,7 @@
                 </div>
                 <div class="card-body ">
                     <div>
-                        <div style="width:100px; height:100px" class="mask-css-bg"></div>
+                        <div class="piece-wrap" ><div class="piece-shape mask-css-test-bg" data-shape-top="0"> </div></div>
                     </div>
                     <div class="piece-container mask-css test-grid-6" >
                         <div class="piece-wrap" ><div class="piece-shape" data-shape-top="0"> </div></div>

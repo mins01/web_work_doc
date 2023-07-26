@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>piece-shapes</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+	
+
+	<!-- jquery 관련 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script> 
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="style mask">
+	<meta property="og:description" content="style mask">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="style mask" />
+	<meta property="og:type" content="website">
+	
+	<!-- //meta og -->
+    <link rel="stylesheet" href="piece.css">
+    <link rel="stylesheet" href="piece-shape-mask-svgs/piece-shape-mask-svgs.css">
+    <style>
+        .piece-container{
+            --piece-wrap-width:80px;
+            --piece-wrap-height:80px;
+        }
+        .piece-shape{
+            background-color: #ff000099;
+        }
+        .test-flex{
+            display:flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-content: center;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width:fit-content;
+            gap:5px;
+            margin:0 auto;
+        }
+    </style>
+</head>
+<body>
+	<div class="container">
+        <h1>piece-shapes</h1>
+	</div>
+    <hr>
+	<div class="container">
+        <template id="template_piece-wrap">
+            <div class="piece-wrap"><div class="piece-shape" data-shape-top="p" data-shape-right="X" data-shape-bottom="X" data-shape-left="X"></div></div>
+        </template>
+        <div class="card">
+            <div class="card-header">
+                <div class="form-inline">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">shape type</span>
+                        </div>
+                        <select class="form-control" onchange="change_shape_type(event)">
+                            <option value="">NONE</option>
+                            <option value="clip-zigzag" selected>clip-zigzag</option>
+                            <option value="clip-rect" >clip-rect</option>
+                            <option value="mask-svg">mask-svg</option>
+                            <option value="mask-css">mask-css</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body"  style="background-color: #fee; ">
+                <div class="piece-container clip-zigzag">
+                    <div id="div-pieces" class="test-flex">
+
+                    </div>
+                    <hr>
+                    <div class="test-flex">
+                        <div class="piece-wrap" style="--piece-wrap-width:210px;--piece-wrap-height:140px;"><div class="piece-shape" data-shape-top="p" data-shape-right="p" data-shape-bottom="p" data-shape-left="p"></div></div>
+                        <div class="piece-wrap" style="--piece-wrap-width:80px;--piece-wrap-height:180px;"><div class="piece-shape" data-shape-top="n" data-shape-right="n" data-shape-bottom="n" data-shape-left="n"></div></div>
+                    </div>
+            
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <script>
+        function change_shape_type(event){
+            let ta = event.target;
+            let val = ta.value;
+            let pieceContainer = document.querySelector('.piece-container');
+            [...ta.options].forEach(option => {
+                if(option.value==''){return}
+                pieceContainer.classList.remove(option.value);
+            })
+            if(ta.value != '')
+            pieceContainer.classList.add(ta.value)
+        }
+        window.addEventListener('load',(event)=>{
+            let tops = ['n','0','p'];
+            let rights = ['n','0','p'];
+            let bottoms = ['n','0','p'];
+            let lefts = ['n','0','p'];
+            let templatPieceWrap =  document.querySelector('#template_piece-wrap') 
+            let divPieces = document.querySelector('#div-pieces')
+            tops.forEach(top => {
+                rights.forEach(right => {
+                    bottoms.forEach(bottom => {
+                        lefts.forEach(left =>{
+                            let newNode = document.importNode(templatPieceWrap.content,true)
+                            let pieceShape = newNode.querySelector('.piece-shape')
+                            console.log(top,right,bottom,left)
+                            pieceShape.dataset.shapeTop = top;
+                            pieceShape.dataset.shapeRight = right;
+                            pieceShape.dataset.shapeBottom = bottom;
+                            pieceShape.dataset.shapeLeft = left;
+                            divPieces.appendChild(newNode)
+                        })
+                    });
+                });
+                
+            });
+        })
+    </script>
+</body>
+</html>
