@@ -71,11 +71,32 @@
             </li>
             <li class="list-group-item">
                 공백기호가 꽤.. 종류가 되지만, 여기선 아스키 \x20 를 기본으로 테스트한다. (줄 바꿈 되는 공백기호).<br>
-                &amp;nbsp; 는 줄 바꿈 되지 않는 공백 기호로 \x20 와 모양은 같지만, 동작에 차이가 있다.
+                &amp;nbsp;(\xA0) 는 줄 바꿈 되지 않는 공백 기호로 \x20 와 모양은 같지만, 동작에 차이가 있다.
             </li>
             <li class="list-group-item">
-                <a href="https://en.wikipedia.org/wiki/Whitespace_character">wikipedia : Whitespace_character</a>
+                <a href="https://en.wikipedia.org/wiki/Whitespace_character">wikipedia : Whitespace_character</a><br>
                 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/white-space#collapsing_of_white_space">MDN : white-space</a>
+            </li>
+            <li class="list-group-item">
+                <div style="white-space: pre-line;">Code Name
+                    U+0020 space
+                    U+00A0 no-break space
+                    U+1680 ogham space mark
+                    U+180E mongolian vowel separator
+                    U+2000 en quad
+                    U+2001 em quad
+                    U+2002 en space
+                    U+2003 em space
+                    U+2004 three-per-em space
+                    U+2005 four-per-em space
+                    U+2006 six-per-em space
+                    U+2007 figure space
+                    U+2008 punctuation space
+                    U+2009 thin space
+                    U+200A hair space
+                    U+202F narrow no-break space
+                    U+205F medium mathematical space
+                    U+3000 ideographic space</div>
             </li>
             
           </ul>
@@ -100,10 +121,10 @@
                 <tr><td><span class="ws-box">X</span></td><td class="result-width">너비</td><td> </td></tr>
                 <tr><td><span class="ws-box">a</span></td><td class="result-width">너비</td><td> </td></tr>
                 <tr><td><span class="ws-box">m</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">X</span></td><td class="result-width">너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">x</span></td><td class="result-width">너비</td><td> </td></tr>
                 <tr><td><span class="ws-box">한</span></td><td class="result-width">너비</td><td>전각 한글</td></tr>
-                <tr><td><span class="ws-box">0 5</span></td><td class="result-width">너비</td><td>11.109375+4.484375+11.109375 = 26.703125<br>(일반 글자와 공백기호가 있으면 너비에 차이가 발생)</td></tr>
-                <tr><td><span class="ws-box">0  5</span></td><td class="result-width">너비</td><td>11.109375+4.484375+4.484375+11.109375 = 31.1875<br>(일반 글자와 공백기호가 있으면 너비에 차이가 발생)</td></tr>
+                <tr><td><span class="ws-box">0 5</span></td><td class="result-width">너비</td><td>11.109375+4.484375+11.109375 = 26.703125<br>(일반 글자와 공백기호가 같이 있으면 너비에 차이가 발생)</td></tr>
+                <tr><td><span class="ws-box">0  5</span></td><td class="result-width">너비</td><td>11.109375+4.484375+4.484375+11.109375 = 31.1875<br>(일반 글자와 공백기호가 같이 있으면 너비에 차이가 발생)</td></tr>
             </tbody>
         </table>
         <h2>고정폭 글꼴 : monospace</h2>
@@ -126,7 +147,7 @@
                 <tr><td><span class="ws-box">X</span></td><td class="result-width">너비</td><td> </td></tr>
                 <tr><td><span class="ws-box">a</span></td><td class="result-width">너비</td><td> </td></tr>
                 <tr><td><span class="ws-box">m</span></td><td class="result-width">너비</td><td> </td></tr>
-                <tr><td><span class="ws-box">X</span></td><td class="result-width">너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">x</span></td><td class="result-width">너비</td><td> </td></tr>
                 <tr><td><span class="ws-box">한</span></td><td class="result-width">너비</td><td>전각 한글</td></tr>
                 <tr><td><span class="ws-box">0 5</span></td><td class="result-width">너비</td><td>10+10+10 = 30</td></tr>
                 <tr><td><span class="ws-box">0  5</span></td><td class="result-width">너비</td><td>10+10+10+10 = 40</td></tr>
