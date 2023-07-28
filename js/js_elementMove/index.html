@@ -122,8 +122,8 @@
 		<hr>
 		<h3>lementMove.hitTest(), ElementMove.moveToTarget(), ElementMove.resetMove(), event onpointerup</h3>
 		<div id="area6" class="element-move-area" data-move-type="position" data-move-isolation="2">
-			<div id="area6-target1" class="element-move-target box flex-center" onpointermove="hitTest(this,document.querySelector('#area6-box1'))" onpointerup="let r = hitTest(this,document.querySelector('#area6-box1'));console.log('hitTest',r); if(r){ElementMove.moveToTarget(this,document.querySelector('#area6-box1'))}else{ElementMove.resetMove(this)}">1</div>
-			<div id="area6-target2" class="element-move-target box flex-center" style="--move-x:100px;--move-y:10px" onpointermove="hitTest(this,document.querySelector('#area6-box2'))" onpointerup="let r = hitTest(this,document.querySelector('#area6-box2'));console.log('hitTest',r); if(r){ElementMove.moveToTarget(this,document.querySelector('#area6-box3'))}else{ElementMove.resetMove(this)}">2</div>
+			<div id="area6-target1" class="element-move-target box flex-center" onpointermove="hitTest(event,this,document.querySelector('#area6-box1'))" onpointerup="let r = hitTest(event,this,document.querySelector('#area6-box1'));console.log('hitTest',r); if(r){ElementMove.moveToTarget(this,document.querySelector('#area6-box1'))}else{ElementMove.resetMove(this)}">1</div>
+			<div id="area6-target2" class="element-move-target box flex-center" style="--move-x:100px;--move-y:10px" onpointermove="hitTest(event,this,document.querySelector('#area6-box2'))" onpointerup="let r = hitTest(event,this,document.querySelector('#area6-box2'));console.log('hitTest',r); if(r){ElementMove.moveToTarget(this,document.querySelector('#area6-box3'))}else{ElementMove.resetMove(this)}">2</div>
 
 			<div id="area6-box1" class="box flex-center box-hover" style="position: absolute; left:200px; top:50px">HERE 1</div>
 			<div id="area6-box2" class="box flex-center box-hover" style="width:100px;height:100px;padding:25px; background-color: #0000ff33;position: absolute; left:200px; top:200px ">
@@ -131,18 +131,11 @@
 			</div>
 		</div>
 		<script>
-		function hitTest(target,hitedTarget){
-        const rect = target.getBoundingClientRect();
-        const els = document.elementsFromPoint(rect.left+rect.width/2, rect.top+rect.height/2);
-				
-				document.querySelectorAll('.hover').forEach((el)=>{el.classList.remove('hover')})
-        for(let x in els){
-            if(els[x] == hitedTarget){
-							hitedTarget.classList.add('hover')
-							return true;
-						}
-        }
-        return false;
+		function hitTest(event,target,hitedTarget){
+			const els = document.elementsFromPoint(event.clientX, event.clientY);
+			document.querySelectorAll('.hover').forEach((el)=>{el.classList.remove('hover')})
+			let r =  els.find(el=>{if(el===hitedTarget){ hitedTarget.classList.add('hover'); return true}});
+			return !!r;
     }
 		</script>
 
