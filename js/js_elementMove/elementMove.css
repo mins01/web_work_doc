@@ -1,0 +1,35 @@
+.element-move-area{
+  --move-x:0px;
+  --move-y:0px;
+  --move-x-pct:0%;
+  --move-y-pct:0%;
+}
+.element-move-target{
+  position: relative;
+  z-index: 1;
+}
+
+.element-move-body.element-move-body-moving{
+
+}
+.element-move-area.element-move-area-moving{
+
+}
+.element-move-target.element-move-target-moving{
+  z-index: 2;
+}
+
+
+
+.element-move-area[data-move-type="transform"] .element-move-target{
+  transform: translate(var(--move-x,0),var(--move-y,0));
+}
+
+.element-move-area[data-move-type="position"]{
+  position: relative;
+}
+.element-move-area[data-move-type="position"] .element-move-target{
+  position: absolute;
+  left:var(--move-x,0);
+  top:var(--move-y,0);
+}
