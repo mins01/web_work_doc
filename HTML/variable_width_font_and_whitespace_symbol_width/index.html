@@ -40,6 +40,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+
 	
     <style>
         .fs-20px{
@@ -51,10 +53,14 @@
         .font-monospace{
             font-family: monospace;
         }
+        .font-nanum-pen-script{
+            font-family: 'Nanum Pen Script', cursive;
+        }
         .ws-box{
             white-space: break-spaces;
             background-color: #abc;
         }
+        
     </style>
 </head>
 <body>
@@ -63,7 +69,12 @@
         <ul class="list-group">
             <li class="list-group-item">가변폭 글꼴의 공백(스페이스,빈칸, whitespace)기호 너비에 대한 변화 체크</li>
             <li class="list-group-item">
-                <b>결론 : 가변폭 글꼴을 사용하면, 공백(스페이스) 기호의 너비가 상황에 따라 변할 수 있다.</b>
+                <h3>결론</h3>
+                <b>
+                    가변 너비 글꼴라도 보통은 공백 기호의 너비가 조건에 따라 변하지는 않는다.<br>
+                    다만 <em>Noto Sans KR</em>과 같은 글꼴의 경우 조건에 따라 공백 기호의 너비가 변할 수 있다.<br>
+                    고정폭 글꼴은 반각/전각 구분 빼고는 너비가 똑같다.
+                </b>
             </li>
                 
             <li class="list-group-item">
@@ -112,6 +123,7 @@
                 <tr class="table-success">
                     <th width="100">문자열</th>
                     <th width="120">너비(px)</th>
+                    <th width="120">캔버스</th>
                     <th width="120">캔버스 너비(px)</th>
                     <th>비고</th>
                 </tr>
@@ -128,9 +140,39 @@
                 <tr><td><span class="ws-box">m</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
                 <tr><td><span class="ws-box">x</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
                 <tr><td><span class="ws-box">한</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td>전각 한글</td></tr>
-                <tr><td><span class="ws-box">05</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td>11.109375+11.109375 = 22.21875</td></tr>
-                <tr><td><span class="ws-box">0 5</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td>11.109375+4.484375+11.109375 = 26.703125<br>(일반 글자와 공백기호가 같이 있으면 너비에 차이가 발생)</td></tr>
-                <tr><td><span class="ws-box">0  5</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td>11.109375+4.484375+4.484375+11.109375 = 31.1875<br>(일반 글자와 공백기호가 같이 있으면 너비에 차이가 발생)</td></tr>
+                <tr><td><span class="ws-box">05</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td>예상너비 : 22.21875 = 11.109375+11.109375</td></tr>
+                <tr><td><span class="ws-box">0 5</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td>예상너비 : 26.703125 = 11.109375+4.484375+11.109375</td></tr>
+                <tr><td><span class="ws-box">0  5</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td>예상너비 : 31.1875 = 11.109375+4.484375+4.484375+11.109375</td></tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2>가변폭 글꼴 : Nanum Pen Script</h2>
+        <h3>글자마다의 폭은 다르지만, 공백의 폭이 변경되지는 않는다.</h3>
+        <table class="table table-bordered font-nanum-pen-script fs-20px var-width-font">
+            <thead>
+                <tr class="table-success">
+                    <th width="100">문자열</th>
+                    <th width="120">너비(px)</th>
+                    <th width="120">캔버스</th>
+                    <th width="120">캔버스 너비(px)</th>
+                    <th>비고</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><span class="ws-box"> </span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">-</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">0</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">5</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">A</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">M</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">X</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">a</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">m</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">x</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td> </td></tr>
+                <tr><td><span class="ws-box">한</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td>전각 한글</td></tr>
+                <tr><td><span class="ws-box">05</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td>예상너비 : 14.84375 = 7.171875+7.671875</td></tr>
+                <tr><td><span class="ws-box">0 5</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td>예상너비 : 20.453125 = 7.171875+5.609375+7.671875</td></tr>
+                <tr><td><span class="ws-box">0  5</span></td><td class="result-width">너비</td><td class="canvas-text-width">CANVAS 너비</td><td>예상너비 : 26.0625 = 7.171875+5.609375+5.609375+7.671875</td></tr>
             </tbody>
         </table>
         <h2>고정폭 글꼴 : monospace</h2>
@@ -140,6 +182,7 @@
                 <tr class="table-success">
                     <th width="100">문자열</th>
                     <th width="120">너비(px)</th>
+                    <th width="120">캔버스</th>
                     <th width="120">캔버스 너비(px)</th>
                     <th>비고</th>
                 </tr>
@@ -162,26 +205,40 @@
             </tbody>
         </table>
         <script>
-            window.addEventListener('load',(evnet)=>{
+            function calcFontWidth(event){
                 let canvas = document.createElement('canvas');
                 ctx = canvas.getContext('2d');
+
                 ctx.font = '20px "Noto Sans KR", serif';
-                
-                document.querySelectorAll('.var-width-font .ws-box').forEach(el=>{
+                document.querySelectorAll('table.font-noto-sans-kr .ws-box').forEach(el=>{
                     let rect = el.getBoundingClientRect();
                     el.closest('tr').querySelector('.result-width').textContent = rect.width;
                     el.closest('tr').querySelector('.canvas-text-width').textContent = ctx.measureText(el.innerText).width;
                     console.log(el.innerText);
                 })
-                ctx.font = '20px monospace';
 
-                document.querySelectorAll('.fixed-width-font .ws-box').forEach(el=>{
+                ctx.font = '20px "Nanum Pen Script", cursive';
+                document.querySelectorAll('table.font-nanum-pen-script .ws-box').forEach(el=>{
                     let rect = el.getBoundingClientRect();
                     el.closest('tr').querySelector('.result-width').textContent = rect.width;
                     el.closest('tr').querySelector('.canvas-text-width').textContent = ctx.measureText(el.innerText).width;
-                    
+                    console.log(el.innerText);
                 })
+
+
+                ctx.font = '20px monospace';
+                document.querySelectorAll('table.font-monospace .ws-box').forEach(el=>{
+                    let rect = el.getBoundingClientRect();
+                    el.closest('tr').querySelector('.result-width').textContent = rect.width;
+                    el.closest('tr').querySelector('.canvas-text-width').textContent = ctx.measureText(el.innerText).width;
+                })
+            }
+            window.addEventListener('load',(evnet)=>{
+                calcFontWidth(event);
             })
+            document.fonts.ready.then(function () {
+                calcFontWidth(event);
+            });
         </script>
     </div>
 </body>
