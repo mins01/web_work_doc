@@ -28,6 +28,8 @@ class ElementMove{
         // area.addEventListener('pointerenter',this.pointerenter);
         // area.addEventListener('pointerover',this.pointerover);
         this.area.addEventListener('pointerdown',this.pointerdown);
+        this.area.addEventListener('contextmenu',this.contextmenu);
+        
         
         // document.addEventListener('pointermove',this.pointermove);
         // document.addEventListener('pointerup',this.pointerup);
@@ -35,6 +37,7 @@ class ElementMove{
         // document.addEventListener('pointerleave',this.pointerleave);
         // document.addEventListener('pointercancel',this.pointercancel);        
     }
+        
     getTarget(el){
         return el.closest('.element-move-target');
     }
@@ -144,6 +147,12 @@ class ElementMove{
 
         target.dispatchEvent(new CustomEvent("empointerup", {bubbles: false,detail: {elementMove:this,event:event}, }))
         
+    }
+
+    contextmenu = (event)=>{
+        event.preventDefault(); // 기본 태그 기능 막기
+        event.stopPropagation(); // 이벤트 전달 막기
+        return false;
     }
 
     
