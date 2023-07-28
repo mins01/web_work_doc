@@ -46,6 +46,7 @@
 		let em5 = null;
 		let em6 = null;
 		let em7 = null;
+		let em8 = null;
 		window.addEventListener('load',(event)=>{
 			// ElementMove.init(document.querySelector('#area1'));
 			// ElementMove.init(document.querySelector('#area2'));
@@ -56,6 +57,7 @@
 			em5 = new ElementMove(document.querySelector('#area5'))
 			em6 = new ElementMove(document.querySelector('#area6'))
 			em7 = new ElementMove(document.querySelector('#area7'))
+			em8 = new ElementMove(document.querySelector('#area8'))
 		})
 	</script>
 	<style>
@@ -182,6 +184,22 @@
 				if(r){ElementMove.moveToTarget(this,document.querySelector('#area7-box3'))}else{ElementMove.resetMove(this)}
 			})
 		</script>
+
+		<hr>
+		<h3>--move-y:125px !important, --move-x:125px !important</h3>
+		<div id="area8" class="element-move-area" data-move-type="position" data-move-isolation="2">
+			<div id="area8-target1" class="element-move-target box flex-center" style="--move-x:100px" >1</div>
+			<div id="area8-target2" class="element-move-target box flex-center" style="--move-x:100px;--move-y:10px"  style="--move-x:125px" >2</div>
+		</div>
+		<style>
+			#area8-target1{
+				--move-y:125px !important
+			}
+			#area8-target2{
+				--move-x:125px !important
+			}
+		</style>
 	</div>
+	
 </body>
 </html>
