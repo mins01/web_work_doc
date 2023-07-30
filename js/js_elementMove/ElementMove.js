@@ -37,13 +37,11 @@ class ElementMove{
         // document.addEventListener('pointerleave',this.pointerleave);
         // document.addEventListener('pointercancel',this.pointercancel);        
     }
+    removeEvents(){
+        this.area.removeEventListener('pointerdown',this.pointerdown);
+        this.area.removeEventListener('contextmenu',this.contextmenu);
+    }
         
-    getTarget(el){
-        return el.closest('.element-move-target');
-    }
-    getArea(el){
-        return el.closest('.element-move-area');
-    }
 
 
     // /* ========= 이벤트 처리부 */
@@ -53,12 +51,9 @@ class ElementMove{
     static pointerover = (event)=>{ //console.log(this,event.type); 
     }
     pointerdown = (event)=>{
-        // console.log(event.type); 
         if(ElementMove.activeElementMove) return false;
-        const target = this.getTarget(event.target); if(!target){return false;}
+        const target = this.constructor.getTarget(event.target); if(!target){return false;}
         ElementMove.activeElementMove = this;
-        // target.setPointerCapture(event.pointerId);
-        // console.log(event.pointerId,event.y,event.screenY,event.pageY);
         event.preventDefault();
 
         this.moving = true;
@@ -96,36 +91,19 @@ class ElementMove{
         const py1 = event.pageY;
         let x = this.x0 + (px1 - this.px0);
         let y = this.y0 + (py1 - this.py0);
-        let pos = this.posIsolation(x,y)
+        
+        let moveIsolation = this.area.dataset.moveIsolation;
+        if(moveIsolation != undefined){
+            let pos = this.constructor.isolatedPos(moveIsolation,this.target,x,y)
+            x = pos.x;
+            y = pos.y;
+        }
 
-        this.constructor.moveTo(this.target,pos.x,pos.y);
+        this.constructor.moveTo(this.target,x,y);
 
         this.target.dispatchEvent(new CustomEvent("empointermove", {bubbles: false,detail: {elementMove:this,event:event}, }))
-
-
     }
-    posIsolation(x,y){
-        if(this.area.dataset.moveIsolation=='1'){
-            const rectArea = this.area.getBoundingClientRect();
-            const rectTarget = this.target.getBoundingClientRect();
-            const minX = 0;
-            const minY = 0;
-            const maxX = rectArea.width - rectTarget.width;
-            const maxY = rectArea.height - rectTarget.height;
-            x = Math.min(Math.max(minX,x),maxX);
-            y = Math.min(Math.max(minY,y),maxY);
-        }else if(this.area.dataset.moveIsolation=='2'){
-            const rectArea = this.area.getBoundingClientRect();
-            const rectTarget = this.target.getBoundingClientRect();
-            const minX = rectTarget.width/-2;
-            const minY = rectTarget.height/-2;
-            const maxX = rectArea.width - rectTarget.width - rectTarget.width/-2;
-            const maxY = rectArea.height - rectTarget.height - rectTarget.height/-2;
-            x = Math.min(Math.max(minX,x),maxX);
-            y = Math.min(Math.max(minY,y),maxY);
-        }
-        return {"x":x , "y":y};
-    }
+
 
     pointerup = (event)=>{ 
         // console.log(event.type); 
@@ -142,10 +120,10 @@ class ElementMove{
         this.target = null;
         ElementMove.activeElementMove = null;
 
+        target.dispatchEvent(new CustomEvent("empointerup", {bubbles: false,detail: {elementMove:this,event:event}, }))
+
         document.removeEventListener('pointermove',this.pointermove);
         document.removeEventListener('pointerup',this.pointerup);
-
-        target.dispatchEvent(new CustomEvent("empointerup", {bubbles: false,detail: {elementMove:this,event:event}, }))
         
     }
 
@@ -155,7 +133,53 @@ class ElementMove{
         return false;
     }
 
-    
+ 
+    static getTarget(el){
+        return el.closest('.element-move-target');
+    }
+    static getArea(el){
+        return el.closest('.element-move-area');
+    }
+    static getIsolation(el){
+        return el.closest('.element-move-isolation');
+    }
+
+
+    static isolatedPos(moveIsolation,target,x,y){
+        // const area = this.getArea(target);
+        const isolation = this.getIsolation(target);
+        if(!isolation){
+            return {"x":x , "y":y};
+        }
+        const pos = this.pos(target);
+        const rectIsolation = isolation.getBoundingClientRect();
+        const rectTarget = target.getBoundingClientRect();
+
+        let gapX = 0;
+        let gapY = 0;
+        if(moveIsolation=='in'){          
+            
+        }else if(moveIsolation=='center'){
+            gapX = rectTarget.width/2;
+            gapY = rectTarget.height/2;
+        }else if(moveIsolation=='out'){
+            gapX = rectTarget.width;
+            gapY = rectTarget.height;
+        }else if(moveIsolation){
+            let margin = parseInt(moveIsolation,10);
+            gapX = margin;
+            gapY = margin;
+        }
+
+        let minX = rectIsolation.left - rectTarget.left + pos.x - gapX;
+        let minY = rectIsolation.top - rectTarget.top + pos.y - gapY;
+        let maxX = rectIsolation.right - rectTarget.right + pos.x + gapX;
+        let maxY = rectIsolation.bottom - rectTarget.bottom + pos.y + gapY;
+
+        x = Math.min(Math.max(minX,x),maxX);
+        y = Math.min(Math.max(minY,y),maxY);
+        return {"x":x , "y":y};
+    }
 
     static pos(target){
         let x = parseInt(target.style.getPropertyValue('--move-x'),10);
@@ -183,5 +207,9 @@ class ElementMove{
     static resetMove(target){
         if(target._initialX === undefined){return}
         this.moveTo(target,target._initialX,target._initialY);
+    }
+
+    static isolateMove(target){
+
     }
 }
