@@ -157,7 +157,9 @@ class ElementMove{
 
         let gapX = 0;
         let gapY = 0;
-        if(moveIsolation=='in'){          
+        if(moveIsolation===null || moveIsolation===undefined || moveIsolation==='' || moveIsolation=='none'){
+            return {"x":x , "y":y};
+        }else if(moveIsolation=='in'){          
             
         }else if(moveIsolation=='center'){
             gapX = rectTarget.width/2;
@@ -169,6 +171,8 @@ class ElementMove{
             let margin = parseInt(moveIsolation,10);
             gapX = margin;
             gapY = margin;
+        }else{
+            return {"x":x , "y":y};
         }
 
         let minX = rectIsolation.left - rectTarget.left + pos.x - gapX;
@@ -188,6 +192,14 @@ class ElementMove{
         if(isNaN(y)) y = 0;
         return {"x":x , "y":y};
     }
+
+    static isolate(moveIsolation,el){
+        const target = this.getTarget(el);
+        let pos = this.pos(target);
+        pos = this.isolatedPos(moveIsolation,target,pos.x,pos.y);
+        this.moveTo(target,pos.x,pos.y)
+    }
+
     static moveTo(target,x,y){
         target.style.setProperty('--move-x',x+'px');
         target.style.setProperty('--move-y',y+'px');
