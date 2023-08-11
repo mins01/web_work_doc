@@ -87,30 +87,35 @@
 		}
 
 		.offset-path-tri{
+			motion-path: path("M 0 0 L 300 100 L 200 300 z");
 			offset-path: path("M 0 0 L 300 100 L 200 300 z");
 		}
-		.clip-path-tri{
+		.clip-path-path-tri{
 			clip-path: path("M 0 0 L 300 100 L 200 300 z");
 		}
 		.offset-path-tri-url{
+			motion-path: url("path-tri.svg");
 			offset-path: url("path-tri.svg");
 		}
-		.clip-path-tri-url{
+		.clip-path-path-tri-url{
 			clip-path: url("path-tri.svg");
 		}
 		.offset-path-tri-url-id{
+			motion-path: url("path-tri.svg#tri_path");
 			offset-path: url("path-tri.svg#tri_path");
 		}
-		.clip-path-tri-url-id{
+		.clip-path-path-tri-url-id{
 			clip-path: url("path-tri.svg#tri_path");
 		}
 		.offset-path-basic-shape-circle{
+			motion-path: circle(50% at 25% 25%);
 			offset-path: circle(50% at 25% 25%);
 		}
 		.clip-path-basic-shape-circle{
 			clip-path: circle(50% at 25% 25%);
 		}
 		.offset-path-ray{
+			motion-path: ray(0deg farthest-side);
 			offset-path: ray(0deg farthest-side);
 			animation: plane 5s infinite linear;
 		}
@@ -120,11 +125,13 @@
 		}
 		@keyframes plane {
 			to {
+				motion-path: ray(360deg farthest-side);
 				offset-path: ray(360deg farthest-side);
 			}
 		}
 		
 		.offset-path-wave{
+			motion-path: path("m0.36518 33.465c46.532-49.757 44.621-37.741 75.143 0 0 0 32.497 54.083 75.143 0 31.062-47.055 47.312-28.958 75.143 0 0 0 33.839 32.887 73.794-25.25");
 			offset-path: path("m0.36518 33.465c46.532-49.757 44.621-37.741 75.143 0 0 0 32.497 54.083 75.143 0 31.062-47.055 47.312-28.958 75.143 0 0 0 33.839 32.887 73.794-25.25");
 		}
 		.clip-path-wave{
@@ -159,12 +166,14 @@
 
 
 		.offset-path-path-circle{
+			motion-path:path("m299.5 150a149.5 149.5 0 0 1-149.5 149.5 149.5 149.5 0 0 1-149.5-149.5 149.5 149.5 0 0 1 149.5-149.5 149.5 149.5 0 0 1 149.5 149.5z");
 			offset-path:path("m299.5 150a149.5 149.5 0 0 1-149.5 149.5 149.5 149.5 0 0 1-149.5-149.5 149.5 149.5 0 0 1 149.5-149.5 149.5 149.5 0 0 1 149.5 149.5z");
 		}
 		.clip-path-path-circle{
 			clip-path:path("m299.5 150a149.5 149.5 0 0 1-149.5 149.5 149.5 149.5 0 0 1-149.5-149.5 149.5 149.5 0 0 1 149.5-149.5 149.5 149.5 0 0 1 149.5 149.5z");
 		}
 		.offset-path-inset{
+			motion-path:inset(10% 20% round 30px);
 			offset-path:inset(10% 20% round 30px);
 		}
 		.clip-path-inset{
@@ -172,6 +181,7 @@
 
 		}
 		.offset-path-polygon{
+			motion-path:polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
 			offset-path:polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
 		}
 
@@ -180,6 +190,7 @@
 		}
 
 		.offset-path-circle{
+			motion-path:circle(100px at 50px 50px);
 			offset-path:circle(100px at 50px 50px);
 		}
 		.clip-path-circle{
@@ -237,63 +248,63 @@
 		<h3>노란색 영역 : 같은 영역을 clip-path 로 잘라낸 부분. 해당 부분의 외각선으로 동작하길 예상한다.</h3>
 		<div style="display: flex;flex-wrap: wrap;justify-content: space-around;">
 			<div>
-				<h4>path-tri <br> animation</h4>
+				<h4>offset-path-tri <br> animation</h4>
 				<div class="box box-300  m-3">
 					<div class="box-mov offset-path-tri animation-play"></div>
-					<div class="clip-box clip-path-tri"></div>
+					<div class="clip-box clip-path-path-tri"></div>
 				</div>
 			</div>
 			<div>
-				<h4>path-tri <br> animation<br>offset-rotate: 45deg;</h4>
+				<h4>offset-path-tri <br> animation<br>offset-rotate: 45deg;</h4>
 				<div class="box box-300  m-3">
 					<div class="box-mov offset-path-tri animation-play" style="offset-rotate: 45deg;"></div>
-					<div class="clip-box clip-path-tri"></div>
+					<div class="clip-box clip-path-path-tri"></div>
 				</div>
 			</div>
 			<div>
-				<h4>path-tri <br>animation<br>offset-rotate: auto 45deg;</h4>
+				<h4>offset-path-tri <br>animation<br>offset-rotate: auto 45deg;</h4>
 				<div class="box box-300  m-3">
 					<div class="box-mov offset-path-tri animation-play" style="offset-rotate: auto 45deg;"></div>
-					<div class="clip-box clip-path-tri"></div>
+					<div class="clip-box clip-path-path-tri"></div>
 				</div>
 			</div>
 			<div>
-				<h4>path-tri <br>offset-distance: 100px;</h4>
+				<h4>offset-path-tri <br>offset-distance: 100px;</h4>
 				<div class="box box-300  m-3">
 					
 					<div class="box-mov offset-path-tri" style="offset-distance: 100px;"></div>
-					<div class="clip-box clip-path-tri"></div>
+					<div class="clip-box clip-path-path-tri"></div>
 					
 				</div>
 			</div>
 			<div>
-				<h4>path-tri <br>offset-distance: 50%;<br>offset-rotate: 45deg;</h4>
+				<h4>offset-path-tri <br>offset-distance: 50%;<br>offset-rotate: 45deg;</h4>
 				<div class="box box-300  m-3">
 					<div class="box-mov offset-path-tri" style="offset-distance: 50%;offset-rotate: 45deg;"></div>
-					<div class="clip-box clip-path-tri"></div>
+					<div class="clip-box clip-path-path-tri"></div>
 				</div>
 			</div>
 
 			<div>
-				<h4>path-tri-url <br>not working</h4>
+				<h4>offset-path-tri-url <br>not working</h4>
 				<div class="box box-300  m-3">
 					<div class="box-mov offset-path-tri-url" ></div>
-					<div class="clip-box clip-path-tri-url"></div>
+					<div class="clip-box clip-path-path-tri-url"></div>
 
 				</div>
 			</div>
 
 			<div>
-				<h4>path-tri-url-id <br>not working</h4>
+				<h4>offset-path-tri-url-id <br>not working</h4>
 				<div class="box box-300  m-3">
 					<div class="box-mov offset-path-tri-url-id" ></div>
-					<div class="clip-box clip-path-tri-url-id"></div>
+					<div class="clip-box clip-path-path-tri-url-id"></div>
 
 				</div>
 			</div>
 
 			<div>
-				<h4>path-basic-shape-circle <br>not working</h4>
+				<h4>offset-path-basic-shape-circle <br>not working</h4>
 				<div class="box box-300  m-3">
 					<div class="box-mov offset-path-basic-shape-circle" style="offset-distance: 50%;offset-rotate: 45deg;"></div>
 					<div class="clip-box clip-path-basic-shape-circle"></div>
@@ -301,7 +312,7 @@
 			</div>
 
 			<div>
-				<h4>path-ray <br>not working </h4>
+				<h4>offset-path-ray <br>not working </h4>
 				<div class="box box-300  m-3">
 					<div class="box-mov offset-path-ray" style="offset-distance: 50%;offset-rotate: 45deg;"></div>
 					<div class="clip-box clip-path-ray"></div>
@@ -320,7 +331,7 @@
 
 
 			<div>
-				<h4>path-wave<br>animation-direction: alternate;</h4>
+				<h4>offset-path-wave <br>animation-direction: alternate;</h4>
 				<div class="box box-300  m-3">
 					<div class="box-mov offset-path-wave animation-play" style="animation-direction: alternate; "></div>
 					<img src="path-wave.svg" width="100%">
@@ -329,7 +340,7 @@
 				</div>
 			</div>
 			<div>
-				<h4>path-wave<br>animation-play2</h4>
+				<h4>offset-path-wave <br>animation-play2</h4>
 				<div class="box box-300  m-3">
 					<div class="box-mov offset-path-wave animation-play2" ></div>
 					<img src="path-wave.svg" width="100%">
@@ -339,7 +350,7 @@
 				</div>
 			</div>
 			<div>
-				<h4>path-path-circle<br>animation-play</h4>
+				<h4>offset-path-path-circle<br>animation-play</h4>
 				<div class="box box-300  m-3">
 					<div class="box-mov offset-path-path-circle animation-play" >HELLO</div>
 					<img src="path-circle.svg" width="100%" height="100%">
@@ -347,7 +358,7 @@
 				</div>
 			</div>
 			<div>
-				<h4>path-path-circle<br>TEXT</h4>
+				<h4>offset-path-path-circle<br>TEXT</h4>
 				<div class="box box-300  m-3">
 					<div class="box-mov offset-path-path-circle" style="offset-distance: 0em;" >가</div>
 					<div class="box-mov offset-path-path-circle" style="offset-distance: 5em;" >나</div>
@@ -366,7 +377,7 @@
 				</div>
 			</div>
 			<div>
-				<h4>path-path-circle<br>TEXT</h4>
+				<h4>offset-path-path-circle<br>TEXT</h4>
 				<div class="box box-300  m-3">
 					<!-- <div class="box-mov offset-path-path-circle" style="offset-distance: -50%; offset-rotate: auto 180deg;" >-50%</div> -->
 					<div class="box-mov offset-path-path-circle" style="offset-distance: -45%; offset-rotate: auto 180deg;" >-45%</div>
@@ -397,7 +408,7 @@
 
 			
 			<div>
-				<h4>path-inset<br>animation-play</h4>
+				<h4>offset-path-inset<br>animation-play</h4>
 				<div class="box box-300  m-3">
 					<div class="box-mov offset-path-inset animation-play" >HELLO</div>
 					<div class="clip-box clip-path-inset"></div>
@@ -405,7 +416,7 @@
 			</div>
 			
 			<div>
-				<h4>path-polygon<br>animation-play</h4>
+				<h4>offset-path-polygon<br>animation-play</h4>
 				<div class="box box-300   m-3">
 					<div class="box-mov offset-path-polygon animation-play" >HELLO</div>
 					<div class="clip-box clip-path-polygon"></div>
@@ -413,7 +424,7 @@
 			</div>
 
 			<div>
-				<h4>path-circle<br>animation-play</h4>
+				<h4>offset-path-circle<br>animation-play</h4>
 				<div class="box box-300 m-3">
 					<div class="box-mov offset-path-circle animation-play" >HELLO</div>
 					<div class="clip-box clip-path-circle"></div>
