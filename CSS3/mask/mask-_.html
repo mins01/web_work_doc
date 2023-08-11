@@ -52,6 +52,7 @@
             width:200px;
             height: 200px;
             outline:2px solid #000;
+            margin:0 auto;
         }
 
         .bg{
@@ -74,6 +75,44 @@
             --bg-position:center center
         }
 
+        .bg-var2{
+            --bg-var:
+            radial-gradient(ellipse 100px 100px at left 30% top 30%, #990000ff 48%, transparent 50%, transparent 0 ),
+            linear-gradient(#009900ff 100%,transparent 0)
+            ;
+            --bg-size:contain,50% 50%;
+            --bg-position:center center
+        }
+        .bg-var3{
+            --bg-var:
+            radial-gradient(ellipse 100px 100px at left 30% top 30%, #990000ff 48%, transparent 50%, transparent 0 ),
+            linear-gradient(#009900ff 100%,transparent 0),
+            radial-gradient(ellipse 100px 100px at right 30% bottom 30%, #000099ff 48%, transparent 50%, transparent 0 )
+            ;
+            --bg-size:contain,50% 50%,contain;
+            --bg-position:center center
+        }
+        .bg-var4{
+            --bg-var:
+            radial-gradient(ellipse 100px 100px at left 30% top 30%, #990000ff 48%, transparent 50%, transparent 0 ),
+            linear-gradient(#009900ff 100%,transparent 0),
+            linear-gradient(#999900ff 100%,transparent 0),
+            radial-gradient(ellipse 100px 100px at right 30% bottom 30%, #000099ff 48%, transparent 50%, transparent 0 )
+            ;
+            --bg-size:contain,80% 30%,30% 80%,contain;
+            --bg-position:center center
+        }
+
+        .bg-var5{
+            --bg-var:
+            radial-gradient(ellipse 100px 100px at left 30% top 30%, transparent 48%, #990000aa 50%, #990000aa 0 ),
+            linear-gradient(#009900ff 100%,transparent 0),
+            linear-gradient(#999900ff 100%,transparent 0),
+            radial-gradient(ellipse 100px 100px at right 30% bottom 30%, #000099ff 48%, transparent 50%, transparent 0 )
+            ;
+            --bg-size:contain,80% 30%,30% 80%,contain;
+            --bg-position:center center
+        }
 
 
         .bg-wrap .box{
@@ -138,8 +177,9 @@
 	</div>
     <hr>
     <div class="container py-3">
-        <div class="text-center">
-            <h2>기본모양</h2>
+        <h2>예제</h2>
+        <div>
+            <h3>기본모양</h3>
             <div class="flex-wrap bg-var">
                 <div class="box-wrap">
                     <div class="box bg"></div>
@@ -152,7 +192,7 @@
                     <div class="text-center">마스크모양</div>
                 </div>
             </div>
-            <h2>mask-image , -webkit-mask-image</h2>
+            <h3>mask-image , -webkit-mask-image</h3>
             <div class="flex-wrap bg-var">
                 <div class="box-wrap mask-image-wrap">
                     <div class="box bg"></div>
@@ -165,7 +205,7 @@
                     <div class="text-center">FF:O , CHROME:O</div>
                 </div>
             </div>
-            <h2>mask-type :  css mask-* 와 상관 없다. svg 의 &lt;mask&gt; 제어용</h2>
+            <h3>mask-type :  css mask-* 와 상관 없다. svg 의 &lt;mask&gt; 제어용</h3>
             <div class="flex-wrap bg-var">
                 <div class="box-wrap -webkit-mask-image-wrap mask-type-luminance-wrap">
                     <div class="box bg"></div>
@@ -178,7 +218,7 @@
                     <div class="text-center">FF:O , CHROME:O</div>
                 </div>
             </div>
-            <h2>mask-mode</h2>
+            <h3>mask-mode</h3>
             <h3>FF only</h3>
             <div class="flex-wrap bg-var">
                 <div class="box-wrap -webkit-mask-image-wrap mask-mode-luminance-wrap">
@@ -197,7 +237,7 @@
                     <div class="text-center">FF:O , CHROME:X</div>
                 </div>
             </div>
-            <h2>mask-composite , -webkit-mask-composite</h2>
+            <h3>mask-composite , -webkit-mask-composite</h3>
             <h3>(이 둘은 동작에 아주 많은 차이가 있다.)</h3>
             <ul class="text-left">
                 <li>mask-composite 는 mask-image 보다 1개 작은 값을 가지며, <br>
@@ -228,6 +268,211 @@
             </div>
         </div>
     </div>
-    
+    <hr>
+    <div class="container py-3">
+        <h2>mask-composite , -webkit-mask-composite</h2>
+        <ul class="text-left">
+            <li>mask-composite 는 add, subtract , intersect, exclude(xor) 를 지원하며 </li>
+            <li>-webkit-mask-composite 의 source-over , source-out, source-in, xor 에 대응한다.</li>
+        </ul>
+        <h3>composite 동작 설명</h3>
+        <ul class="text-left">
+            <li>mask-composite(-webkit-mask-composite)는 마스크 레이어 갯수보다 1개 적게 설정한다.</li>
+            <li>합성 순서는 마스크 레이어 밑에서 부터 위로 합성한다.</li>
+            <li>최초 합성 시 소스는 n-1 번째 , 타겟은 n 번째 레이어가 된다.</li>
+            <li>최초 후 합성 시 소스는 이전 레이어가 되고, 타겟은 이전 작업의 합성 된 결과물이다</li>
+            <li>mask-composite 는 sourse-* 기반 밖에 설정 못하기에, 호환성을 염두한다면 전부 소스 기준으로 동작하도록 설정해야한다.(destination-* 등 을 사용하면 안된다.)</li>
+        </ul>
+        <div>
+            <h3>기본모양</h3>
+            <div class="flex-wrap bg-var2">
+                <div class="box-wrap">
+                    <div class="box bg"></div>
+                    <div class="text-center">배경모양</div>
+                </div>
+                <div class="box-wrap bg-wrap">
+                    <div class="box bg"></div>
+                    <div class="text-center">마스크모양</div>
+                </div>
+            </div>
+            <h3>add = source-over (default value)</h3>
+            <ul class="text-left">
+                <li>add : The source is placed over the destination.</li>
+                <li>source-over : The source mask image is rendered over the destination mask image.</li>
+            </ul>
+            <div class="flex-wrap bg-var2">
+                <div class="box-wrap mask-image-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="mask-composite:add"></div>
+                    <div class="text-center">mask-composite:add</div>
+                </div>
+                <div class="box-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="-webkit-mask-composite:source-over"></div>
+                    <div class="text-center">-webkit-mask-composite:source-over</div>
+                </div>
+            </div>
+            <h3>subtract = source-out</h3>
+            <ul class="text-left">
+                <li>subtract : The source is placed, where it falls outside of the destination.</li>
+                <li>source-out : Overlapping pixels in the source mask image and the destination mask image are cleared; all remaining pixels of the source mask image are rendered.</li>
+            </ul>
+            <div class="flex-wrap bg-var2">
+                <div class="box-wrap mask-image-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="mask-composite:subtract"></div>
+                    <div class="text-center">mask-composite:subtract</div>
+                </div>
+                <div class="box-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="-webkit-mask-composite:source-out"></div>
+                    <div class="text-center">-webkit-mask-composite:source-out</div>
+                </div>
+            </div>
+            <h3>intersect = source-in</h3>
+            <ul class="text-left">
+                <li>intersect : The parts of source that overlap the destination, replace the destination.</li>
+                <li>source-in : Overlapping pixels in the source mask image and the destination mask image are replaced by the pixels of the source mask image; all other pixels are cleared.</li>
+            </ul>
+            <div class="flex-wrap bg-var2">
+                <div class="box-wrap mask-image-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="mask-composite:intersect"></div>
+                    <div class="text-center">mask-composite:intersect</div>
+                </div>
+                <div class="box-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="-webkit-mask-composite:source-in"></div>
+                    <div class="text-center">-webkit-mask-composite:source-in</div>
+                </div>
+            </div>
+            <h3>exclude = xor</h3>
+            <ul class="text-left">
+                <li>exclude : The non-overlapping regions of source and destination are combined.</li>
+                <li>xor : Overlapping pixels in the source mask image and the destination mask image become fully transparent if they are both fully opaque.</li>
+            </ul>
+            <div class="flex-wrap bg-var2">
+                <div class="box-wrap mask-image-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="mask-composite:exclude"></div>
+                    <div class="text-center">mask-composite:exclude</div>
+                </div>
+                <div class="box-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="-webkit-mask-composite:xor"></div>
+                    <div class="text-center">-webkit-mask-composite:xor</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container py-3">
+        <h2>호환성을 생각한 mask-composite , -webkit-mask-composite</h2>
+        <ul class="text-left">
+            <li>source-* 기준으로 작업해야한다! </li>
+        </ul>
+        <div>
+            <h3>3개의 mask-image 기본모양</h3>
+            <div class="flex-wrap bg-var4">
+                <div class="box-wrap">
+                    <div class="box bg"></div>
+                    <div class="text-center">배경모양</div>
+                </div>
+                <div class="box-wrap bg-wrap">
+                    <div class="box bg"></div>
+                    <div class="text-center">마스크모양</div>
+                </div>
+            </div>
+            <h3>3개의 mask-image. add,subtract</h3>
+            <div class="flex-wrap bg-var3">
+                <div class="box-wrap mask-image-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="mask-composite:add,subtract"></div>
+                    <div class="text-center">mask-composite:add,subtract</div>
+                </div>
+                <div class="box-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="-webkit-mask-composite:source-over,source-out"></div>
+                    <div class="text-center">-webkit-mask-composite:source-over,source-out</div>
+                </div>
+                <div class="box-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="mask-composite:add,subtract; -webkit-mask-composite:source-over,source-out"></div>
+                    <div class="text-center">mask-composite:add,subtract; -webkit-mask-composite:source-over,source-out</div>
+                </div>
+            </div>
+            <h3>3개의 mask-image. add,intersect</h3>
+            <div class="flex-wrap bg-var3">
+                <div class="box-wrap mask-image-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="mask-composite:add,intersect"></div>
+                    <div class="text-center">mask-composite:add,intersect</div>
+                </div>
+                <div class="box-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="-webkit-mask-composite:source-over,source-in"></div>
+                    <div class="text-center">-webkit-mask-composite:source-over,source-in</div>
+                </div>
+                <div class="box-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="mask-composite:add,intersect; -webkit-mask-composite:source-over,source-in"></div>
+                    <div class="text-center">mask-composite:add,intersect; -webkit-mask-composite:source-over,source-in</div>
+                </div>
+            </div>
+            <h3>4개의 mask-image 기본모양</h3>
+            <div class="flex-wrap bg-var4">
+                <div class="box-wrap">
+                    <div class="box bg"></div>
+                    <div class="text-center">배경모양</div>
+                </div>
+                <div class="box-wrap bg-wrap">
+                    <div class="box bg"></div>
+                    <div class="text-center">마스크모양</div>
+                </div>
+            </div>            
+            <h3>4개의 mask-image. add,subtract,intersect = source-over,source-out,source-in</h3>
+            <h4>동작 설명</h4>
+            <ol class="text-left">
+                <li>intersect : 마스크이미지 3번(노란색 사각형, 소스)과 4번(파란색 원, 타겟)의 공통 부분 추출 </li>
+                <li>subtract : 마스크이미지 2번(연두 사각형, 소스)을 위의 결과(타겟)로 뺀다.</li>
+                <li>subtract : 마스크이미지 1번(붉은 원, 소스)을 위의 결과(타겟)로 합친다.</li>
+            </ol>
+
+            <div class="flex-wrap bg-var4">
+                <div class="box-wrap mask-image-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="mask-composite:add,subtract,intersect"></div>
+                    <div class="text-center">mask-composite:add,subtract,intersect</div>
+                </div>
+                <div class="box-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="-webkit-mask-composite:source-over,source-out,source-in"></div>
+                    <div class="text-center">-webkit-mask-composite:source-over,source-out,source-in</div>
+                </div>
+                <div class="box-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="mask-composite:add,subtract,intersect; -webkit-mask-composite:source-over,source-out,source-in"></div>
+                    <div class="text-center">mask-composite:add,subtract,intersect; -webkit-mask-composite:source-over,source-out,source-in</div>
+                </div>
+            </div>
+        </div>
+        <div class="container py-3">
+            <h2>destination-out 구현을 위한 방법</h2>
+            <ul class="text-left">
+                <li>destination-out 을 사용할 수 없으므로, 소스 레이어를 반전해서 intersect(source-in) 로 동작 </li>
+            </ul>
+            <h3>4개의 mask-image 기본모양 (2)</h3>
+            <ul class="text-left">
+                <li>붉은색에 빈 원이 반전된 소스 레이어</li>
+            </ul>
+            <div class="flex-wrap bg-var5">
+                <div class="box-wrap">
+                    <div class="box bg"></div>
+                    <div class="text-center">배경모양</div>
+                </div>
+                <div class="box-wrap bg-wrap">
+                    <div class="box bg"></div>
+                    <div class="text-center">마스크모양</div>
+                </div>
+            </div>
+            <h3>destination-out 구현</h3>
+            <div class="flex-wrap bg-var5">
+                <div class="box-wrap mask-image-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="mask-composite:intersect,subtract,intersect"></div>
+                    <div class="text-center">mask-composite:intersect,subtract,intersect</div>
+                </div>
+                <div class="box-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="-webkit-mask-composite:source-in,source-out,source-in"></div>
+                    <div class="text-center">-webkit-mask-composite:source-in,source-out,source-in</div>
+                </div>
+                <div class="box-wrap -webkit-mask-image-wrap">
+                    <div class="box bg" style="mask-composite:intersect,subtract,intersect; -webkit-mask-composite:source-in,source-out,source-in"></div>
+                    <div class="text-center">mask-composite:intersect,subtract,intersect; -webkit-mask-composite:source-in,source-out,source-in</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
