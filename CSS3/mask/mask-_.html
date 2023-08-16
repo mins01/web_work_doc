@@ -282,23 +282,8 @@
             </div>
             <h3>mask-composite , -webkit-mask-composite</h3>
             <h3>(이 둘은 동작에 아주 많은 차이가 있다.)</h3>
-            <ul class="text-left">
-                <li>mask-composite 는 mask-image 보다 1개 작은 값을 가지며, <br>
-                    <s>
-                        첫번째 설정은 마지막-1 이미지와 마지막 이미지를 합성한다. = A<br>
-                        두번째 설정은 마지막-2 와 A를 합성한다.<br>
-                        <a href="https://css-tricks.com/almanac/properties/m/mask-composite/">LINK</a>
-                    </s>(잘못된 설명 같다.)
-                </li>
-                <li>
-                    테스트 해본 결과 mask-composite:add,add,add,subtract 처럼 하면 (총 7개의 mask-image)<br>
-                    ((((mask-image 1 와 mask-image 2 를 add)와 mask-image 3 를 add)와 mask-image 4 를 add)와 subtract)  이후 전부 subtract
-                </li>
-            </ul>
-            <h4>
-            </h4>
             <div class="flex-wrap bg-var">
-                <div class="box-wrap -webkit-mask-image-wrap mask-composite-wrap">
+                <div class="box-wrap mask-image-wrap mask-composite-wrap">
                     <div class="box bg"></div>
                     <div class="text-center">mask-composite</div>
                     <div class="text-center">FF:O , CHROME:X</div>
