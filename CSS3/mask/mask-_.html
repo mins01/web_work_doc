@@ -169,12 +169,55 @@
         <h1>mask-* , -webkit-mask-*</h1>
         <ul class="list-group">
             <li class="list-group-item">mask CSS 속성은 아이템이 부분적으로만 보여지게 하거나 혹은 완전히 가려서 보여지지 않게 할 수 있는 기능을 가지고 있습니다. 이 속성은 마스킹 혹은 특정한 점을 기준으로 이미지를 잘라내는 기능을 함께 제공합니다.</li>
-            <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/mask-composite">https://developer.mozilla.org/en-US/docs/Web/CSS/mask-composite</a></li>
+            <li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/mask">https://developer.mozilla.org/en-US/docs/Web/CSS/mask</a></li>
             <li class="list-group-item">mask-composite(FIRE FOX) , -webkit-mask-image(CHROME, SAFARI , ... )</li>
             <li class="list-group-item">파이어폭스만 mask-composite 를 지원한다, 향후 어떻게 바뀔지 모르겠다.</li>
             <li class="list-group-item">mask-composite 와 -webkit-mask-image 는 설정하는 값이 다르다!!</li>
         </ul>
 	</div>
+    <hr>
+	<div class="container">
+        <h2>브라우저 호환표</h2>
+        <div class="table-retable-responsive">
+            <table class="table table-sm table-bordered">
+                <tr>
+                    <th>CSS</th>
+                    <th>FireFox</th>
+                    <th>chrome, safari 등</th>
+                    <th>비고</th>
+                </tr>
+                <tr><td>mask-image</td><td>O</td><td>X</td><td></td></tr>
+                <tr><td>-webkit-mask-image</td><td>O</td><td>O</td><td></td></tr>
+                <tr><td>mask-size</td><td>O</td><td>X</td><td></td></tr>
+                <tr><td>-webkit-mask-size</td><td>O</td><td>O</td><td></td></tr>
+                <tr><td>mask-repeat</td><td>O</td><td>X</td><td></td></tr>
+                <tr><td>-webkit-mask-repeat</td><td>O</td><td>O</td><td></td></tr>
+                <tr><td>mask-mask-position</td><td>O</td><td>X</td><td></td></tr>
+                <tr><td>mask-mode</td><td>O</td><td>X</td><td></td></tr>
+                <tr><td>mask-composite</td><td>O</td><td>X</td><td></td></tr>
+                <tr><td>-webkit-mask-composite</td><td>O?</td><td>O</td><td>FireFox 도 -webkit-mask-image 를 지원하지만,mask-composite 의 별칭으로 지원한다. (즉, 설정 값은 add,subtract 등만 가능)</td></tr>
+            </table>
+        </div>
+        <ul class="text-left">
+            <li>FireFox 도 -webkit-mask-*의 대부분을 지원하므로, 호환성 생각한다면 -webkit-mask-* 를 같이 사용하라.</li>
+        </ul>
+        <hr>
+        <h3>mask-composite vs -webkit-mask-image</h3>
+        <div class="table-retable-responsive">
+            <table class="table table-sm table-bordered">
+                <tr>
+                    <th>mask-composite(FireFox)</th>
+                    <th>-webkit-mask-image (chrome, safari ...)</th>
+                    <th>비고</th>
+                </tr>
+                <tr><td>add</td><td>source-over</td><td>합집함. 기본값</td></tr>
+                <tr><td>subtract</td><td>source-out</td><td>차집함.</td></tr>
+                <tr><td>intersect</td><td>source-in</td><td>교집합</td></tr>
+                <tr><td>exclude</td><td>xor</td><td>배타적 논리합</td></tr>
+            </table>
+        </div>
+
+    </div>
     <hr>
     <div class="container py-3">
         <h2>예제</h2>
