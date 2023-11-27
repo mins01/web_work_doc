@@ -1,5 +1,8 @@
 <?php
 namespace mins01\snsUrlinfo;
+/**
+ * 2023-11-27 : filter_var($url, FILTER_VALIDATE_URL) 적용. 이상 URL에서는 동작안하도록.
+ */
 
 class SnsUrlinfo{
     public static $version = 0.2;
@@ -51,6 +54,9 @@ class SnsUrlinfo{
         return  $classNS;
     }
     public static function urlinfo($url){
+        if(!filter_var($url, FILTER_VALIDATE_URL)){ // 이상 URL이면 처리 안함. 비인코딩 한글도 이상 URL로 처리함
+            return null;
+        }
         $parsedUrl = parse_url($url);
         // print_r($parsedUrl);
         if(!isset($parsedUrl['host'])){
