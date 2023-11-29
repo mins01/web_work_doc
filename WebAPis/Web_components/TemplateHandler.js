@@ -1,7 +1,15 @@
-class WebComponentHandler{
+class TemplateHandler{
     target = null;
     template = null;
     _data = null;
+
+    static htmlToDoc(html){
+        const doc = (new DOMParser()).parseFromString(html, 'text/html');
+        // console.log(doc);
+        return doc.body.firstChild;
+    }
+
+
     constructor(target , template){
         this.target = target
         this.template = template;
