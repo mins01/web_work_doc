@@ -15,6 +15,7 @@ class TemplateHandler{
         this.template = template;
         // this._shadowRoot = this.target.attachShadow({mode: 'open'})
         this._data = [];
+        this.draw();
     }
     set data(newData){
         if(newData===null || newData===undefined){ // null 등이면 빈 배열로 변경
