@@ -32,7 +32,7 @@ class TemplateToCustomElement{
             constructor() {
                 super();
                 this.ttce_template = template;
-                const shadowRoot = this.attachShadow({mode: 'open'}).appendChild(this.ttce_template.content.cloneNode(true));
+                this.attachShadow({mode: 'open'}).appendChild(this.ttce_template.content.cloneNode(true));
             }
         };
         // 커스텀 이벤트 등록
