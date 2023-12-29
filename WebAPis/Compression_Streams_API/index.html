@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>Compression Streams API</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="/js/ForGoogle.js"></script>
+	<!-- google analytics -->
+	<script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+	
+
+	<!-- jquery 관련 -->
+	<!-- <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script> -->
+
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" crossorigin="anonymous">
+	<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" crossorigin="anonymous"></script> -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script> -->
+	<!-- vue.js -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="Compression Streams API">
+	<meta property="og:description" content="Compression Streams API">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="Compression Streams API" />
+	<meta property="og:type" content="website">
+	
+	<!-- //meta og -->
+	
+	<script>
+		/*
+		  compressionStreamFormat : deflate or gzip
+		*/
+		async function compressBlob(input,compressionStreamFormat) {
+			const stream = new Response(input).body.pipeThrough(new CompressionStream(compressionStreamFormat));
+			return await new Response(stream).blob();
+		}
+		async function decompressBlob(blob,compressionStreamFormat) {
+			const ds = new DecompressionStream(compressionStreamFormat);
+			const decompressedStream = blob.stream().pipeThrough(ds);
+			return await new Response(decompressedStream).blob();
+		}
+		async function decompressBlobToText(blob,compressionStreamFormat) {
+			return await (await decompressBlob(blob,compressionStreamFormat)).text();
+		}
+		async function run(){
+			let i=100;
+			let msgs = ["plain_text"];
+			while(i--){
+				msgs.push((Math.floor(Math.random()*1000000000)+9000000000).toString())
+			}
+			msgs.push('_A한b🤔韓_')
+			msgs.push('END')
+			const plain_text = msgs.join("");
+
+			console.log('plain_text',plain_text);
+			console.log('plain_text.size',(new Blob([plain_text])).size);
+			let compress_deflate_blob = await compressBlob(plain_text,'deflate');
+			console.log('compress_deflate_blob',compress_deflate_blob)
+			let decompress_deflate_blob = await decompressBlob(compress_deflate_blob,'deflate');
+			console.log('decompress_deflate_blob',decompress_deflate_blob)
+			// console.log('decompress_deflate_blob.text()',await decompress_deflate_blob.text())
+			let decompress_deflate_blob_to_text = await decompressBlobToText(compress_deflate_blob,'deflate');
+			// console.log('decompress_deflate_blob_to_text',decompress_deflate_blob_to_text)
+			console.assert(plain_text == decompress_deflate_blob_to_text,"입력된 문자열과 압축해제된 문자열이 다릅니다.")
+
+
+			let compress_gzip_blob = await compressBlob(plain_text,'gzip');
+			console.log('compress_gzip_blob',compress_gzip_blob)
+			let decompress_gzip_blob = await decompressBlob(compress_gzip_blob,'gzip');
+			console.log('decompress_gzip_blob',decompress_gzip_blob,)
+			// console.log('decompress_gzip_blob.text()',await decompress_gzip_blob.text())
+			let decompress_gzip_blob_to_text = await decompressBlobToText(compress_gzip_blob,'gzip');
+			// console.log('decompress_gzip_blob_to_text',decompress_gzip_blob_to_text)
+			console.assert(plain_text == decompress_gzip_blob_to_text,"입력된 문자열과 압축해제된 문자열이 다릅니다.")
+		}
+		run();
+	</script>
+</head>
+<body>
+	<div class="container">
+		<h1>Compression Streams API</h1>
+		<ul class="list-group">
+			<li class="list-group-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Compression_Streams_API">https://developer.mozilla.org/en-US/docs/Web/API/Compression_Streams_API</a></li>
+			<li class="list-group-item">웹에서 스트리밍 압축(압축풀기)을 사용할 수 있다!!!</li>
+			<li class="list-group-item">콘솔로그에 테스트 내역이 나옴</li>
+			<li class="list-group-item"><a href="test.CompressionHelper.html">test.CompressionHelper.html</a></li>
+		</ul>
+		
+	</div>
+</body>
+</html>
