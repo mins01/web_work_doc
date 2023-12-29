@@ -15,7 +15,10 @@ class CompressionHelper{
 		return new Response(new Response(input).body.pipeThrough(new CompressionStream(compressionFormat)));
 	}
 	/**
-	 * @alias decompressToBlob
+	 * 
+	 * @param {*} input 
+	 * @param {string} compressionFormat deflate|gzip
+	 * @returns {Promise} Blob 
 	 */
 	static compress(){
 		return (this.createCompressionResponse(...arguments)).blob();
@@ -26,13 +29,15 @@ class CompressionHelper{
 	 * 
 	 * @param {Blob} blob 
 	 * @param {string} compressionFormat deflate|gzip
-	 * @returns {Promise} Blob
+	 * @returns {Response} 
 	 */
 	static createDecompressionResponse(blob,compressionFormat) {
 		return new Response(blob.stream().pipeThrough(new DecompressionStream(compressionFormat)));
 	}
 	/**
-	 * @alias decompressToBlob
+	 * @param {Blob} blob 
+	 * @param {string} compressionFormat deflate|gzip
+	 * @returns {Promise} Blob 
 	 */
 	static decompress(){
 		return (this.createDecompressionResponse(...arguments)).blob();
