@@ -98,28 +98,28 @@
             <li class="list-group-item">
                 <code>
                     :root{<br>
-                        --rfs-min-size:8px; /* 최소 폰트 사이즈 */<br>
-                        --rfs-max-size:100vw; /* 최대 폰트 사이즈 */<br>
-                        --frs-font-size:calc(100vw / 20 ); /* 기본 폰트 사이즈 */<br>
+                        --rfs-min:8px; /* 최소 폰트 사이즈 */<br>
+                        --rfs-max:100vw; /* 최대 폰트 사이즈 */<br>
+                        --rfs-size:calc(100vw / 20 ); /* 기본 폰트 사이즈 */<br>
                     }
                 </code>
             </li>
             <li class="list-group-item">
                 <code>
                     .rfs{<br>
-                        font-size:clamp(var(--rfs-min-size),var(--frs-font-size),var(--rfs-max-size));<br>
+                        font-size:clamp(var(--rfs-min),var(--rfs-size),var(--rfs-max));<br>
                     }
                 </code>
             </li>
             <li class="list-group-item">
                 <code>
-                    .rfs-NN{--frs-font-size:calc(100vw / NN )} /* 100vw기준 NN개의 글자가 한줄에 표시된다. */
+                    .rfs-NN{--rfs-size:calc(100vw / NN )} /* 100vw기준 NN개의 글자가 한줄에 표시된다. */
                 </code>
                 <a class="btn btn-sm btn-info" href="index.html">sample</a>
             </li>
             <li class="list-group-item">
                 <code>
-                    .rfs-vmin-NN{--frs-font-size:calc(100vmin / NN )} /* 100vmin기준 NN개의 글자가 한줄에 표시된다. */
+                    .rfs-vmin-NN{--rfs-size:calc(100vmin / NN )} /* 100vmin기준 NN개의 글자가 한줄에 표시된다. */
                 </code>
                 <a class="btn btn-sm btn-info" href="rfs-vmin.html">sample</a>
             </li>
