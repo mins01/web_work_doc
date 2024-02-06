@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+    <title>responsive-font-size</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="/js/ForGoogle.js"></script>
+    <!-- google analytics -->
+    <script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+    
+
+    <!-- jquery 관련 -->
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+
+    <!-- 부트스트랩 5.3.x -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <!-- vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    
+    <!-- meta og -->
+    
+    <meta property="og:title" content="responsive-font-size">
+    <meta property="og:description" content="responsive-font-size">
+    <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+    <meta property="og:image:width" content="190">
+    <meta property="og:image:height" content="70" />
+    <meta property="og:site_name" content="responsive-font-size" />
+    <meta property="og:type" content="website">
+    
+    <!-- //meta og -->
+    
+    <link rel="stylesheet" href="responsive-font-size.css">
+    <style>
+        #outputbox{
+            overflow-x: hidden;
+            margin:10px;
+            padding:10px 0;
+        }
+        .tbox{
+            border:1px solid #999;
+            white-space: nowrap;
+            line-height: 1em;
+            /* display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-content: center;
+            justify-content: center;
+            align-items: center; */
+            text-align: center;
+        }
+        .tbox::before{
+            content: "[" attr(data-font-size) "]";
+        }
+        .body{
+            padding:0 !important;
+            margin:0 !important;
+        }
+    </style>    
+    <script>
+        window.addEventListener('load',(event)=>{
+            const base = document.querySelector('.tbox.rfs');
+            const outputbox = document.querySelector('#outputbox');
+            for(let i=5,m=100;i<=m;i++){
+                const c = base.cloneNode(true);
+                const rfs_N = `rfs-vmin-${i}`
+                c.textContent = c.textContent.replace('rfs',rfs_N);
+                c.classList.add(rfs_N);
+                outputbox.appendChild(c);
+            }
+            redrawFs();
+        })
+        window.addEventListener('resize',(event)=>{
+            redrawFs();
+        })
+        function redrawFs(){
+            document.querySelectorAll('.tbox.rfs').forEach((el)=>{
+                el.dataset.fontSize = el.computedStyleMap('font-size').get('font-size').toString()
+            })
+        }
+    </script>
+</head>
+<body>
+    <div class="container mb-3">
+        <h1>responsive-font-size</h1>
+        <ul class="list-group">
+            <li class="list-group-item">.rfs.rfs-N 을 클래스에 사용하면 N개의 글자만큼 한줄에 보이도록 font-size가 조정 된다.(소문자 m 기준이며 전각일 경우 2배의 너비가 필요)</li>
+        </ul>
+        <h2>CSS</h2>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <code>
+                    :root{<br>
+                        --rfs-min-size:8px; /* 최소 폰트 사이즈 */<br>
+                        --rfs-max-size:100vw; /* 최대 폰트 사이즈 */<br>
+                        --frs-font-size:calc(100vw / 20 ); /* 기본 폰트 사이즈 */<br>
+                    }
+                </code>
+            </li>
+            <li class="list-group-item">
+                <code>
+                    .rfs{<br>
+                        font-size:clamp(var(--rfs-min-size),var(--frs-font-size),var(--rfs-max-size));<br>
+                    }
+                </code>
+            </li>
+            <li class="list-group-item">
+                <code>
+                    .rfs-NN{--frs-font-size:calc(100vw / NN )} /* 100vw기준 NN개의 글자가 한줄에 표시된다. */
+                </code>
+                <a class="btn btn-sm btn-info" href="index.html">sample</a>
+            </li>
+            <li class="list-group-item">
+                <code>
+                    .rfs-vmin-NN{--frs-font-size:calc(100vmin / NN )} /* 100vmin기준 NN개의 글자가 한줄에 표시된다. */
+                </code>
+                <a class="btn btn-sm btn-info" href="rfs-vmin.html">sample</a>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <h2>.rfs-vmin-NN sample</h2>
+    </div>
+    <div id="outputbox">
+        <div class='tbox rfs'>rfs한글AB韓한글AB韓한글AB韓한글AB韓한글AB韓한글AB韓한글AB韓한글AB韓한글AB韓한글AB韓</div>
+    </div>
+</body>
+</html>

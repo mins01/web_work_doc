@@ -1,0 +1,224 @@
+@charset "utf-8";
+
+
+:root{
+    --rfs-min-size:8px; /* 최소 폰트 사이즈 */
+    --rfs-max-size:100vw; /* 최대 폰트 사이즈 */
+    --frs-font-size:calc(100vw / 20 ); /* 기본 폰트 사이즈 */
+}
+.rfs{
+    font-size:clamp(var(--rfs-min-size),var(--frs-font-size),var(--rfs-max-size));
+}
+
+/*
+100vw기준 NN개의 글자가 한줄에 표시된다.
+.rfs-NN{--frs-font-size:calc(100vw / NN )}
+*/
+.rfs-1{--frs-font-size:calc(100vw / 1 )}
+.rfs-2{--frs-font-size:calc(100vw / 2 )}
+.rfs-3{--frs-font-size:calc(100vw / 3 )}
+.rfs-4{--frs-font-size:calc(100vw / 4 )}
+.rfs-5{--frs-font-size:calc(100vw / 5 )}
+.rfs-6{--frs-font-size:calc(100vw / 6 )}
+.rfs-7{--frs-font-size:calc(100vw / 7 )}
+.rfs-8{--frs-font-size:calc(100vw / 8 )}
+.rfs-9{--frs-font-size:calc(100vw / 9 )}
+.rfs-10{--frs-font-size:calc(100vw / 10 )}
+.rfs-11{--frs-font-size:calc(100vw / 11 )}
+.rfs-12{--frs-font-size:calc(100vw / 12 )}
+.rfs-13{--frs-font-size:calc(100vw / 13 )}
+.rfs-14{--frs-font-size:calc(100vw / 14 )}
+.rfs-15{--frs-font-size:calc(100vw / 15 )}
+.rfs-16{--frs-font-size:calc(100vw / 16 )}
+.rfs-17{--frs-font-size:calc(100vw / 17 )}
+.rfs-18{--frs-font-size:calc(100vw / 18 )}
+.rfs-19{--frs-font-size:calc(100vw / 19 )}
+.rfs-20{--frs-font-size:calc(100vw / 20 )}
+.rfs-21{--frs-font-size:calc(100vw / 21 )}
+.rfs-22{--frs-font-size:calc(100vw / 22 )}
+.rfs-23{--frs-font-size:calc(100vw / 23 )}
+.rfs-24{--frs-font-size:calc(100vw / 24 )}
+.rfs-25{--frs-font-size:calc(100vw / 25 )}
+.rfs-26{--frs-font-size:calc(100vw / 26 )}
+.rfs-27{--frs-font-size:calc(100vw / 27 )}
+.rfs-28{--frs-font-size:calc(100vw / 28 )}
+.rfs-29{--frs-font-size:calc(100vw / 29 )}
+.rfs-30{--frs-font-size:calc(100vw / 30 )}
+.rfs-31{--frs-font-size:calc(100vw / 31 )}
+.rfs-32{--frs-font-size:calc(100vw / 32 )}
+.rfs-33{--frs-font-size:calc(100vw / 33 )}
+.rfs-34{--frs-font-size:calc(100vw / 34 )}
+.rfs-35{--frs-font-size:calc(100vw / 35 )}
+.rfs-36{--frs-font-size:calc(100vw / 36 )}
+.rfs-37{--frs-font-size:calc(100vw / 37 )}
+.rfs-38{--frs-font-size:calc(100vw / 38 )}
+.rfs-39{--frs-font-size:calc(100vw / 39 )}
+.rfs-40{--frs-font-size:calc(100vw / 40 )}
+.rfs-41{--frs-font-size:calc(100vw / 41 )}
+.rfs-42{--frs-font-size:calc(100vw / 42 )}
+.rfs-43{--frs-font-size:calc(100vw / 43 )}
+.rfs-44{--frs-font-size:calc(100vw / 44 )}
+.rfs-45{--frs-font-size:calc(100vw / 45 )}
+.rfs-46{--frs-font-size:calc(100vw / 46 )}
+.rfs-47{--frs-font-size:calc(100vw / 47 )}
+.rfs-48{--frs-font-size:calc(100vw / 48 )}
+.rfs-49{--frs-font-size:calc(100vw / 49 )}
+.rfs-50{--frs-font-size:calc(100vw / 50 )}
+.rfs-51{--frs-font-size:calc(100vw / 51 )}
+.rfs-52{--frs-font-size:calc(100vw / 52 )}
+.rfs-53{--frs-font-size:calc(100vw / 53 )}
+.rfs-54{--frs-font-size:calc(100vw / 54 )}
+.rfs-55{--frs-font-size:calc(100vw / 55 )}
+.rfs-56{--frs-font-size:calc(100vw / 56 )}
+.rfs-57{--frs-font-size:calc(100vw / 57 )}
+.rfs-58{--frs-font-size:calc(100vw / 58 )}
+.rfs-59{--frs-font-size:calc(100vw / 59 )}
+.rfs-60{--frs-font-size:calc(100vw / 60 )}
+.rfs-61{--frs-font-size:calc(100vw / 61 )}
+.rfs-62{--frs-font-size:calc(100vw / 62 )}
+.rfs-63{--frs-font-size:calc(100vw / 63 )}
+.rfs-64{--frs-font-size:calc(100vw / 64 )}
+.rfs-65{--frs-font-size:calc(100vw / 65 )}
+.rfs-66{--frs-font-size:calc(100vw / 66 )}
+.rfs-67{--frs-font-size:calc(100vw / 67 )}
+.rfs-68{--frs-font-size:calc(100vw / 68 )}
+.rfs-69{--frs-font-size:calc(100vw / 69 )}
+.rfs-70{--frs-font-size:calc(100vw / 70 )}
+.rfs-71{--frs-font-size:calc(100vw / 71 )}
+.rfs-72{--frs-font-size:calc(100vw / 72 )}
+.rfs-73{--frs-font-size:calc(100vw / 73 )}
+.rfs-74{--frs-font-size:calc(100vw / 74 )}
+.rfs-75{--frs-font-size:calc(100vw / 75 )}
+.rfs-76{--frs-font-size:calc(100vw / 76 )}
+.rfs-77{--frs-font-size:calc(100vw / 77 )}
+.rfs-78{--frs-font-size:calc(100vw / 78 )}
+.rfs-79{--frs-font-size:calc(100vw / 79 )}
+.rfs-80{--frs-font-size:calc(100vw / 80 )}
+.rfs-81{--frs-font-size:calc(100vw / 81 )}
+.rfs-82{--frs-font-size:calc(100vw / 82 )}
+.rfs-83{--frs-font-size:calc(100vw / 83 )}
+.rfs-84{--frs-font-size:calc(100vw / 84 )}
+.rfs-85{--frs-font-size:calc(100vw / 85 )}
+.rfs-86{--frs-font-size:calc(100vw / 86 )}
+.rfs-87{--frs-font-size:calc(100vw / 87 )}
+.rfs-88{--frs-font-size:calc(100vw / 88 )}
+.rfs-89{--frs-font-size:calc(100vw / 89 )}
+.rfs-90{--frs-font-size:calc(100vw / 90 )}
+.rfs-91{--frs-font-size:calc(100vw / 91 )}
+.rfs-92{--frs-font-size:calc(100vw / 92 )}
+.rfs-93{--frs-font-size:calc(100vw / 93 )}
+.rfs-94{--frs-font-size:calc(100vw / 94 )}
+.rfs-95{--frs-font-size:calc(100vw / 95 )}
+.rfs-96{--frs-font-size:calc(100vw / 96 )}
+.rfs-97{--frs-font-size:calc(100vw / 97 )}
+.rfs-98{--frs-font-size:calc(100vw / 98 )}
+.rfs-99{--frs-font-size:calc(100vw / 99 )}
+.rfs-100{--frs-font-size:calc(100vw / 100 )}
+
+
+
+
+/*
+100vmin기준 NN개의 글자가 한줄에 표시된다.
+.rfs-vmin-NN{--frs-font-size:calc(100vmin / NN )}
+*/
+.rfs-vmin-1{--frs-font-size:calc(100vmin / 1 )}  /* NN개의 글자가 한줄에 표시된다. */
+.rfs-vmin-2{--frs-font-size:calc(100vmin / 2 )}
+.rfs-vmin-3{--frs-font-size:calc(100vmin / 3 )}
+.rfs-vmin-4{--frs-font-size:calc(100vmin / 4 )}
+.rfs-vmin-5{--frs-font-size:calc(100vmin / 5 )}
+.rfs-vmin-6{--frs-font-size:calc(100vmin / 6 )}
+.rfs-vmin-7{--frs-font-size:calc(100vmin / 7 )}
+.rfs-vmin-8{--frs-font-size:calc(100vmin / 8 )}
+.rfs-vmin-9{--frs-font-size:calc(100vmin / 9 )}
+.rfs-vmin-10{--frs-font-size:calc(100vmin / 10 )}
+.rfs-vmin-11{--frs-font-size:calc(100vmin / 11 )}
+.rfs-vmin-12{--frs-font-size:calc(100vmin / 12 )}
+.rfs-vmin-13{--frs-font-size:calc(100vmin / 13 )}
+.rfs-vmin-14{--frs-font-size:calc(100vmin / 14 )}
+.rfs-vmin-15{--frs-font-size:calc(100vmin / 15 )}
+.rfs-vmin-16{--frs-font-size:calc(100vmin / 16 )}
+.rfs-vmin-17{--frs-font-size:calc(100vmin / 17 )}
+.rfs-vmin-18{--frs-font-size:calc(100vmin / 18 )}
+.rfs-vmin-19{--frs-font-size:calc(100vmin / 19 )}
+.rfs-vmin-20{--frs-font-size:calc(100vmin / 20 )}
+.rfs-vmin-21{--frs-font-size:calc(100vmin / 21 )}
+.rfs-vmin-22{--frs-font-size:calc(100vmin / 22 )}
+.rfs-vmin-23{--frs-font-size:calc(100vmin / 23 )}
+.rfs-vmin-24{--frs-font-size:calc(100vmin / 24 )}
+.rfs-vmin-25{--frs-font-size:calc(100vmin / 25 )}
+.rfs-vmin-26{--frs-font-size:calc(100vmin / 26 )}
+.rfs-vmin-27{--frs-font-size:calc(100vmin / 27 )}
+.rfs-vmin-28{--frs-font-size:calc(100vmin / 28 )}
+.rfs-vmin-29{--frs-font-size:calc(100vmin / 29 )}
+.rfs-vmin-30{--frs-font-size:calc(100vmin / 30 )}
+.rfs-vmin-31{--frs-font-size:calc(100vmin / 31 )}
+.rfs-vmin-32{--frs-font-size:calc(100vmin / 32 )}
+.rfs-vmin-33{--frs-font-size:calc(100vmin / 33 )}
+.rfs-vmin-34{--frs-font-size:calc(100vmin / 34 )}
+.rfs-vmin-35{--frs-font-size:calc(100vmin / 35 )}
+.rfs-vmin-36{--frs-font-size:calc(100vmin / 36 )}
+.rfs-vmin-37{--frs-font-size:calc(100vmin / 37 )}
+.rfs-vmin-38{--frs-font-size:calc(100vmin / 38 )}
+.rfs-vmin-39{--frs-font-size:calc(100vmin / 39 )}
+.rfs-vmin-40{--frs-font-size:calc(100vmin / 40 )}
+.rfs-vmin-41{--frs-font-size:calc(100vmin / 41 )}
+.rfs-vmin-42{--frs-font-size:calc(100vmin / 42 )}
+.rfs-vmin-43{--frs-font-size:calc(100vmin / 43 )}
+.rfs-vmin-44{--frs-font-size:calc(100vmin / 44 )}
+.rfs-vmin-45{--frs-font-size:calc(100vmin / 45 )}
+.rfs-vmin-46{--frs-font-size:calc(100vmin / 46 )}
+.rfs-vmin-47{--frs-font-size:calc(100vmin / 47 )}
+.rfs-vmin-48{--frs-font-size:calc(100vmin / 48 )}
+.rfs-vmin-49{--frs-font-size:calc(100vmin / 49 )}
+.rfs-vmin-50{--frs-font-size:calc(100vmin / 50 )}
+.rfs-vmin-51{--frs-font-size:calc(100vmin / 51 )}
+.rfs-vmin-52{--frs-font-size:calc(100vmin / 52 )}
+.rfs-vmin-53{--frs-font-size:calc(100vmin / 53 )}
+.rfs-vmin-54{--frs-font-size:calc(100vmin / 54 )}
+.rfs-vmin-55{--frs-font-size:calc(100vmin / 55 )}
+.rfs-vmin-56{--frs-font-size:calc(100vmin / 56 )}
+.rfs-vmin-57{--frs-font-size:calc(100vmin / 57 )}
+.rfs-vmin-58{--frs-font-size:calc(100vmin / 58 )}
+.rfs-vmin-59{--frs-font-size:calc(100vmin / 59 )}
+.rfs-vmin-60{--frs-font-size:calc(100vmin / 60 )}
+.rfs-vmin-61{--frs-font-size:calc(100vmin / 61 )}
+.rfs-vmin-62{--frs-font-size:calc(100vmin / 62 )}
+.rfs-vmin-63{--frs-font-size:calc(100vmin / 63 )}
+.rfs-vmin-64{--frs-font-size:calc(100vmin / 64 )}
+.rfs-vmin-65{--frs-font-size:calc(100vmin / 65 )}
+.rfs-vmin-66{--frs-font-size:calc(100vmin / 66 )}
+.rfs-vmin-67{--frs-font-size:calc(100vmin / 67 )}
+.rfs-vmin-68{--frs-font-size:calc(100vmin / 68 )}
+.rfs-vmin-69{--frs-font-size:calc(100vmin / 69 )}
+.rfs-vmin-70{--frs-font-size:calc(100vmin / 70 )}
+.rfs-vmin-71{--frs-font-size:calc(100vmin / 71 )}
+.rfs-vmin-72{--frs-font-size:calc(100vmin / 72 )}
+.rfs-vmin-73{--frs-font-size:calc(100vmin / 73 )}
+.rfs-vmin-74{--frs-font-size:calc(100vmin / 74 )}
+.rfs-vmin-75{--frs-font-size:calc(100vmin / 75 )}
+.rfs-vmin-76{--frs-font-size:calc(100vmin / 76 )}
+.rfs-vmin-77{--frs-font-size:calc(100vmin / 77 )}
+.rfs-vmin-78{--frs-font-size:calc(100vmin / 78 )}
+.rfs-vmin-79{--frs-font-size:calc(100vmin / 79 )}
+.rfs-vmin-80{--frs-font-size:calc(100vmin / 80 )}
+.rfs-vmin-81{--frs-font-size:calc(100vmin / 81 )}
+.rfs-vmin-82{--frs-font-size:calc(100vmin / 82 )}
+.rfs-vmin-83{--frs-font-size:calc(100vmin / 83 )}
+.rfs-vmin-84{--frs-font-size:calc(100vmin / 84 )}
+.rfs-vmin-85{--frs-font-size:calc(100vmin / 85 )}
+.rfs-vmin-86{--frs-font-size:calc(100vmin / 86 )}
+.rfs-vmin-87{--frs-font-size:calc(100vmin / 87 )}
+.rfs-vmin-88{--frs-font-size:calc(100vmin / 88 )}
+.rfs-vmin-89{--frs-font-size:calc(100vmin / 89 )}
+.rfs-vmin-90{--frs-font-size:calc(100vmin / 90 )}
+.rfs-vmin-91{--frs-font-size:calc(100vmin / 91 )}
+.rfs-vmin-92{--frs-font-size:calc(100vmin / 92 )}
+.rfs-vmin-93{--frs-font-size:calc(100vmin / 93 )}
+.rfs-vmin-94{--frs-font-size:calc(100vmin / 94 )}
+.rfs-vmin-95{--frs-font-size:calc(100vmin / 95 )}
+.rfs-vmin-96{--frs-font-size:calc(100vmin / 96 )}
+.rfs-vmin-97{--frs-font-size:calc(100vmin / 97 )}
+.rfs-vmin-98{--frs-font-size:calc(100vmin / 98 )}
+.rfs-vmin-99{--frs-font-size:calc(100vmin / 99 )}
+.rfs-vmin-100{--frs-font-size:calc(100vmin / 100 )}
