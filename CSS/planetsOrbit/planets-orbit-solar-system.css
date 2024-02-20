@@ -1,0 +1,137 @@
+@charset "utf-8";
+.solar-system{
+    /* transform: rotateX(45deg);
+    transform-style: preserve-3d; */
+    font-size: 8px;
+
+    width:100%;
+    height:100%;
+}
+.solar-system.planets-orbit{
+    /* 거리 배수 */
+    --distance-multiplier:0.002;
+    /* 시간 배수 */
+    --time-multiplier:0.1;
+    /* 중심과의 거리 */
+    --distance-from-center:300px;
+    --distance-from-center-multiplier: var(--distance-multiplier) / 10000;
+    /* 행성의 지름 */
+    --planet-diameter:30px;
+    --planet-diameter-multiplier: var(--distance-multiplier) / 500;
+    /* 행성 공전 주기 */
+    --planet-orbit-duration:5s;
+    --planet-orbit-delay:1s;
+    /* 행성 자전 주기 */
+    --planet-rotation-duration:5s;
+    --planet-rotation-delay:1s;
+
+    font-size: clamp(8px, calc( 5vmin * 50 * var(--distance-multiplier) ),60px)
+
+}
+/* 태양계 행성/항성 설정 */
+/*
+지름순_태양계_천체_목록
+https://ko.wikipedia.org/wiki/%EB%B0%98%EC%A7%80%EB%A6%84%EC%88%9C_%ED%83%9C%EC%96%91%EA%B3%84_%EC%B2%9C%EC%B2%B4_%EB%AA%A9%EB%A1%9D
+How Big is Our Solar System? 
+https://www.nasa.gov/wp-content/uploads/2015/01/yoss_act1.pdf
+공전주기
+https://namu.wiki/w/%EA%B3%B5%EC%A0%84%20%EC%A3%BC%EA%B8%B0
+*/
+/* 태양 */
+.planet-container[data-name="Sun"]{
+    --distance-from-center:0px;
+    --planet-diameter:calc( 696000px * 2 * var(--planet-diameter-multiplier) );
+    --planet-rotation-duration:calc( 25s * var(--time-multiplier) );
+    --planet-orbit-duration:calc( 0s * var(--time-multiplier) );
+}
+.planet-container[data-name="Sun"] .planet{
+    background-color: rgb(255, 140, 32);
+}
+
+/* 수성 */
+.planet-container[data-name="Mercury"]{
+    --distance-from-center:calc(57000000px * var(--distance-from-center-multiplier) );
+    --planet-diameter:calc( 2439px * 2 * var(--planet-diameter-multiplier) );
+    --planet-rotation-duration:calc( 59s * var(--time-multiplier) );
+    --planet-orbit-duration:calc( 88s * var(--time-multiplier) );
+}
+.planet-container[data-name="Mercury"] .planet{
+    background-color: rgb(74, 150, 238);
+}
+
+/* 금성 : 역자전 함 */
+.planet-container[data-name="Venus"]{
+    --distance-from-center:calc(108000000px * var(--distance-from-center-multiplier) );
+    --planet-diameter:calc( 6051px * 2 * var(--planet-diameter-multiplier) );
+    --planet-rotation-duration:243s * var(--time-multiplier);
+    --planet-orbit-duration:calc( 225s * var(--time-multiplier) );
+    --planet-rotation-direction:reverse;
+}
+.planet-container[data-name="Venus"] .planet{
+    background-color: rgb(241, 227, 23);
+}
+
+/* 지구 */
+.planet-container[data-name="Earth"]{
+    --distance-from-center:calc(149000000px * var(--distance-from-center-multiplier) );
+    --planet-diameter:calc( 6371px * 2 * var(--planet-diameter-multiplier) );
+    --planet-rotation-duration:calc( 1s * var(--time-multiplier) );
+    --planet-orbit-duration:calc( 365s * var(--time-multiplier) );
+}
+.planet-container[data-name="Earth"] .planet{
+    background-color: rgb(28, 131, 54);
+}
+
+
+/* 화성 */
+.planet-container[data-name="Mars"]{
+    --distance-from-center:calc(228000000px * var(--distance-from-center-multiplier) );
+    --planet-diameter:calc( 3390px * 2 * var(--planet-diameter-multiplier) );
+    --planet-rotation-duration:calc( 687s * var(--time-multiplier) );
+    --planet-orbit-duration:calc( 694s * var(--time-multiplier) );
+}
+.planet-container[data-name="Mars"] .planet{
+    background-color: rgb(190, 44, 34);
+}
+
+/* 목성 */
+.planet-container[data-name="Jupiter"]{
+    --distance-from-center:calc(780000000px * var(--distance-from-center-multiplier) );
+    --planet-diameter:calc( 69911px * 2 * var(--planet-diameter-multiplier) );
+    --planet-rotation-duration:calc( 687s * var(--time-multiplier) );
+    --planet-orbit-duration:calc( 4344s * var(--time-multiplier) );
+}
+.planet-container[data-name="Jupiter"] .planet{
+    background-color: rgb(150, 112, 69);
+}
+/* 토성 */
+.planet-container[data-name="Saturn"]{
+    --distance-from-center:calc(1437000000px * var(--distance-from-center-multiplier) );
+    --planet-diameter:calc( 58232px * 2 * var(--planet-diameter-multiplier) );
+    --planet-rotation-duration:calc( 687s * var(--time-multiplier) );
+    --planet-orbit-duration:calc( 10768s * var(--time-multiplier) );
+}
+.planet-container[data-name="Saturn"] .planet{
+    background-color: rgb(150, 112, 69);
+}
+/* 천왕성 */
+.planet-container[data-name="Uranus"]{
+    --distance-from-center:calc(2871000000px * var(--distance-from-center-multiplier) );
+    --planet-diameter:calc( 25362px * 2 * var(--planet-diameter-multiplier) );
+    --planet-rotation-duration:calc( 687s * var(--time-multiplier) );
+    --planet-orbit-duration:calc( 30660s * var(--time-multiplier) );
+}
+.planet-container[data-name="Uranus"] .planet{
+    background-color: rgb(150, 112, 69);
+}
+/* 해왕성 */
+.planet-container[data-name="Neptune"]{
+    --distance-from-center:calc(4530000000px * var(--distance-from-center-multiplier) );
+    --planet-diameter:calc( 24622px * 2 * var(--planet-diameter-multiplier) );
+    --planet-rotation-duration:calc( 687s * var(--time-multiplier) );
+    --planet-orbit-duration:calc( 60225s * var(--time-multiplier) );
+}
+.planet-container[data-name="Neptune"] .planet{
+    background-color: rgb(150, 112, 69);
+}
+

@@ -1,0 +1,143 @@
+@charset "utf-8";
+
+
+.planets-orbit-containrer{
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+.planets-orbit{
+    position: relative;
+    width:400px;
+    height:400px;
+    /* outline: 1px dotted #abc;; */
+
+    /* width: 100vmin;
+    height: 100vmin; */
+    width:100%;
+    height: 100%;
+    margin:0 auto;
+    
+    /* overflow: scroll; */
+    overflow: hidden;
+    pointer-events: none;
+    
+}
+
+.planets-orbit{
+    /* 거리 배수 */
+    --distance-multiplier:0.002;
+    /* 시간 배수 */
+    --time-multiplier:1;
+    /* 중심과의 거리 */
+    --distance-from-center:300px;
+    --distance-from-center-multiplier: var(--distance-multiplier) / 10000;
+    /* 행성의 지름 */
+    --planet-diameter:30px;
+    --planet-diameter-multiplier: var(--distance-multiplier) / 500;
+    /* 행성 공전 주기 */
+    --planet-orbit-duration:5s;
+    --planet-orbit-delay:1s;
+    /* 행성 자전 주기 */
+    --planet-rotation-duration:5s;
+    --planet-rotation-delay:1s;
+    
+}
+
+
+.planets-orbit-contol{
+    position: absolute;
+    top:0;left:0;right:0;
+    z-index: 20;
+}
+
+
+.planet-container{
+    position: absolute;
+    top:0;left:0;right:0;bottom:0;
+    z-index: 10;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+.planet-container.planet-center{
+    --distance-from-center:0;
+}
+.planet-container.planet-center .planet-orbit{
+    justify-content: center;
+}
+.planet-container.planet-center .planet{
+    margin-right:0px;
+}
+
+.planet-orbit{
+    border-radius: 999999px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: end;
+    align-items: center;
+    /* outline: 1px dotted #abc; */
+    overflow: visible;
+
+
+
+    height: var(--distance-from-center);
+    width: var(--distance-from-center);
+    min-height: var(--distance-from-center);
+    min-width: var(--distance-from-center);
+    outline: 1px dashed #cccccc99;
+
+    /* font-size: 8px; */
+    text-align: center;
+}
+.planet{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+
+    
+    border-radius: 999999px;
+    width: var(--planet-diameter);
+    height: var(--planet-diameter);
+    min-width: var(--planet-diameter);
+    min-height: var(--planet-diameter);
+    outline: 1px dotted #abc;
+    background-color: #ccb;
+    margin-right:calc( -1 * var(--planet-diameter) / 2);
+    
+}
+
+
+
+.planet-orbit{
+    /* animation: ani-planet-orbit 5s linear 0 infinite normal both; */
+    animation: ani-planet-orbit var(--planet-orbit-duration) linear var(--planet-orbit-delay) infinite normal both;
+}
+
+.planet{
+    /* animation: ani-planet-orbit 5s linear 0 infinite normal both; */
+    animation: ani-planet-rotation var(--planet-rotation-duration) linear var(--planet-rotation-delay) infinite var(--planet-rotation-direction,normal) both;
+}
+.planet-orbit-stop .planet-orbit{
+    animation-name: none;
+}
+.planet-rotation-stop .planet{
+    animation-name: none;
+}
+@keyframes ani-planet-orbit {
+    0%  { transform: rotate(0deg); }
+    100%{ transform: rotate(-360deg); }
+}
+@keyframes ani-planet-rotation {
+    0%  { transform: rotate(0deg); }
+    100%{ transform: rotate(-360deg); }
+}
+

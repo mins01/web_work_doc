@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+    <title>planets orbit css</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="/js/ForGoogle.js"></script>
+    <!-- google analytics -->
+    <script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+    
+
+    <!-- jquery 관련 -->
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+
+    <!-- 부트스트랩 5.3.x -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <!-- vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    
+    <!-- meta og -->
+    
+    <meta property="og:title" content="planets orbit css">
+    <meta property="og:description" content="planets orbit css">
+    <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+    <meta property="og:image:width" content="190">
+    <meta property="og:image:height" content="70" />
+    <meta property="og:site_name" content="planets orbit css" />
+    <meta property="og:type" content="website">
+    
+    <!-- //meta og -->
+    
+    <link rel="stylesheet" href="planets-orbit.css">
+    <link rel="stylesheet" href="planets-orbit-solar-system.css">
+
+    <script>
+        function chageMultiplier(f){
+            const target = f.closest('.planets-orbit-containrer').querySelector('.planets-orbit');
+            target.style.setProperty("--distance-multiplier", f.distance_multiplier.value);
+            target.style.setProperty("--time-multiplier", f.time_multiplier.value);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>planet orbit</h1>
+        <ul class="list-group">
+            <li class="list-group-item active">CSS로 행성의 공전을 표시</li>
+            <li class="list-group-item">
+                <ol>
+                    <li>태양</li>
+                    <li>수성</li>
+                    <li>금성</li>
+                    <li>지구</li>
+                    <li>화성</li>
+                    <li>목성</li>
+                    <li>토성</li>
+                    <li>천왕성</li>
+                    <li>혜왕성</li>
+                </ol>
+            </li>
+        </ul>
+    </div>
+    <div class="container-fluid">
+        <div class="planets-orbit-containrer">
+            <div class="planets-orbit-contol p-1">
+                <form action="" onsubmit="return false;" oninput="chageMultiplier(this)">
+                    <div class="row">
+                        <div class="col-12 col-xl-6">
+                            <div class="input-group mb-1">
+                                <label for="" class="input-group-text">거리/크기 배수</label>
+                                <div class="form-control">
+                                    <input type="range" name="distance_multiplier" class="form-range d-block" min="0.001" max="0.2" step="0.001" value="0.002">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-xl-6">
+                            <div class="input-group mb-1">
+                                <label for="" class="input-group-text">시간 배수</label>
+                                <div class="form-control">
+                                    <input type="range" name="time_multiplier" class="form-range d-block" min="0.001" max="0.05" step="0.001" value="0.01">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="planets-orbit solar-system">
+                <div class="planet-container planet-center planet-orbit-stop" data-name="Sun">
+                    <div class="planet-orbit">
+                        <div class="planet">태양</div>
+                    </div>
+                </div>
+                <div class="planet-container"  data-name="Mercury">
+                    <div class="planet-orbit">
+                        <div class="planet">수성</div>
+                    </div>
+                </div>
+                <div class="planet-container"  data-name="Venus">
+                    <div class="planet-orbit">
+                        <div class="planet">금성</div>
+                    </div>
+                </div>
+                <div class="planet-container"  data-name="Earth">
+                    <div class="planet-orbit">
+                        <div class="planet">지구</div>
+                    </div>
+                </div>
+                <div class="planet-container"  data-name="Mars">
+                    <div class="planet-orbit">
+                        <div class="planet">화성</div>
+                    </div>
+                </div>
+                <div class="planet-container"  data-name="Jupiter">
+                    <div class="planet-orbit">
+                        <div class="planet">목성</div>
+                    </div>
+                </div>
+                <div class="planet-container"  data-name="Saturn">
+                    <div class="planet-orbit">
+                        <div class="planet">토성</div>
+                    </div>
+                </div>
+                <div class="planet-container"  data-name="Uranus">
+                    <div class="planet-orbit">
+                        <div class="planet">천왕성</div>
+                    </div>
+                </div>
+                <div class="planet-container"  data-name="Neptune">
+                    <div class="planet-orbit">
+                        <div class="planet">혜왕성</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
