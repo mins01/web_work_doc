@@ -11,7 +11,7 @@
     /* 거리 배수 */
     --distance-multiplier:0.002;
     /* 시간 배수 */
-    --time-multiplier:0.1;
+    --time-multiplier:1;
     /* 중심과의 거리 */
     --distance-from-center:300px;
     --distance-from-center-multiplier: var(--distance-multiplier) / 10000;
@@ -87,7 +87,7 @@ https://namu.wiki/w/%EA%B3%B5%EC%A0%84%20%EC%A3%BC%EA%B8%B0
 .planet-container[data-name="Mars"]{
     --distance-from-center:calc(228000000px * var(--distance-from-center-multiplier) );
     --planet-diameter:calc( 3390px * 2 * var(--planet-diameter-multiplier) );
-    --planet-rotation-duration:calc( 687s * var(--time-multiplier) );
+    --planet-rotation-duration:calc( 1s * var(--time-multiplier) );
     --planet-orbit-duration:calc( 694s * var(--time-multiplier) );
 }
 .planet-container[data-name="Mars"] .planet{
@@ -98,7 +98,7 @@ https://namu.wiki/w/%EA%B3%B5%EC%A0%84%20%EC%A3%BC%EA%B8%B0
 .planet-container[data-name="Jupiter"]{
     --distance-from-center:calc(780000000px * var(--distance-from-center-multiplier) );
     --planet-diameter:calc( 69911px * 2 * var(--planet-diameter-multiplier) );
-    --planet-rotation-duration:calc( 687s * var(--time-multiplier) );
+    --planet-rotation-duration:calc( 0.375s * var(--time-multiplier) );
     --planet-orbit-duration:calc( 4344s * var(--time-multiplier) );
 }
 .planet-container[data-name="Jupiter"] .planet{
@@ -108,7 +108,7 @@ https://namu.wiki/w/%EA%B3%B5%EC%A0%84%20%EC%A3%BC%EA%B8%B0
 .planet-container[data-name="Saturn"]{
     --distance-from-center:calc(1437000000px * var(--distance-from-center-multiplier) );
     --planet-diameter:calc( 58232px * 2 * var(--planet-diameter-multiplier) );
-    --planet-rotation-duration:calc( 687s * var(--time-multiplier) );
+    --planet-rotation-duration:calc( 0.416s * var(--time-multiplier) );
     --planet-orbit-duration:calc( 10768s * var(--time-multiplier) );
 }
 .planet-container[data-name="Saturn"] .planet{
@@ -118,8 +118,9 @@ https://namu.wiki/w/%EA%B3%B5%EC%A0%84%20%EC%A3%BC%EA%B8%B0
 .planet-container[data-name="Uranus"]{
     --distance-from-center:calc(2871000000px * var(--distance-from-center-multiplier) );
     --planet-diameter:calc( 25362px * 2 * var(--planet-diameter-multiplier) );
-    --planet-rotation-duration:calc( 687s * var(--time-multiplier) );
+    --planet-rotation-duration:calc( 0.708s * var(--time-multiplier) );
     --planet-orbit-duration:calc( 30660s * var(--time-multiplier) );
+    --planet-rotation-direction:reverse;
 }
 .planet-container[data-name="Uranus"] .planet{
     background-color: rgb(150, 112, 69);
@@ -128,7 +129,7 @@ https://namu.wiki/w/%EA%B3%B5%EC%A0%84%20%EC%A3%BC%EA%B8%B0
 .planet-container[data-name="Neptune"]{
     --distance-from-center:calc(4530000000px * var(--distance-from-center-multiplier) );
     --planet-diameter:calc( 24622px * 2 * var(--planet-diameter-multiplier) );
-    --planet-rotation-duration:calc( 687s * var(--time-multiplier) );
+    --planet-rotation-duration:calc( 0.667s * var(--time-multiplier) );
     --planet-orbit-duration:calc( 60225s * var(--time-multiplier) );
 }
 .planet-container[data-name="Neptune"] .planet{
