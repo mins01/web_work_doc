@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+    <title>scrollbars-styling</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="/js/ForGoogle.js"></script>
+    <!-- google analytics -->
+    <script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+    
+
+    <!-- jquery 관련 -->
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script> -->
+
+    <!-- 부트스트랩 5.3.x -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+
+    <!-- vue.js -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    
+    <!-- meta og -->
+    
+    <meta property="og:title" content="scrollbars-styling">
+    <meta property="og:description" content="scrollbars-styling">
+    <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+    <meta property="og:image:width" content="190">
+    <meta property="og:image:height" content="70" />
+    <meta property="og:site_name" content="scrollbars-styling" />
+    <meta property="og:type" content="website">
+    
+    <!-- //meta og -->
+    <style>
+        .t-box{
+            height: 200px;
+            width: 200px;
+            overflow: scroll;
+            font-size: 12px;
+        }
+        .t-box-content{
+            background-color: #abc;
+            width:500%;
+            height: 500%;;
+        }
+        .ani-scrollbar-width{
+            animation: ani-scrollbar-width 2s linear 0s infinite alternate both;
+        }
+        @keyframes ani-scrollbar-width {
+            0%{ scrollbar-width:auto; font-size: 10px; }
+            50%{ scrollbar-width:thin; font-size: 20px; }
+            100%{ scrollbar-width:none; font-size: 30px; }
+        }
+        .ani-scrollbar-color{
+            animation: ani-scrollbar-color 2s linear 0s infinite alternate both;
+        }
+        @keyframes ani-scrollbar-color {
+            0%{ scrollbar-color:red blue; font-size: 10px; }
+            100%{ scrollbar-color:blue red; font-size: 20px; }
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>scrollbars styling</h1>
+        <ul class="list-group">
+            <li class="list-group-item">
+                CSS에서 스크롤바의 모양과 색상을 제어할 수 있다.
+            </li>
+            <li class="list-group-item">
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scrollbars_styling">MDN : CSS scrollbars styling</a><br>
+            </li>
+            <li class="list-group-item">
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-width">MDN : scrollbar-width</a>
+                <ul class="list-group">
+                    <li class="list-group-item">scrollbar-width:auto  // 기본</li>
+                    <li class="list-group-item">scrollbar-width:thin  // 얇게. 보통 너비의 반정도?</li>
+                    <li class="list-group-item">scrollbar-width:none  // 스크롤바 숨김. 스크롤은 됨!!</li>
+                </ul>
+            </li>
+            <li class="list-group-item">
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color">MDN : scrollbar-color</a>
+                <ul class="list-group">
+                    <li class="list-group-item">scrollbar-color:{bar-color} {bar-bg-color}</li>
+                    <li class="list-group-item">scrollbar-color:auto or initial  등으로 초기화 가능</li>
+                    <li class="list-group-item">{bar-color} : transparent 지원 됨!</li>
+                    <li class="list-group-item">{bar-bg-color} : transparent 지원 안됨! (크롬에서 알파를 무시하는지 흰색으로 처리됨)</li>
+                    <li class="list-group-item">지정 안하면 OS 기본 값</li>
+                    
+                </ul>
+            </li>
+            <li class="list-group-item">
+                Chrome 121 부터 지원.<br>
+                ::-webkit-scrollbar 와는 별개
+            </li>
+        </ul>
+        <hr>
+        <div>
+            <div class="t-box d-inline-block border border-3 m-1">
+                <div class="t-box-content">기본모양</div>
+            </div>
+            <div class="t-box d-inline-block border border-3 m-1" style="scrollbar-width:auto">
+                <div class="t-box-content">scrollbar-width:auto</div>
+            </div>
+            <div class="t-box d-inline-block border border-3 m-1" style="scrollbar-width:thin">
+                <div class="t-box-content">scrollbar-width:thin</div>
+            </div>
+            <div class="t-box d-inline-block border border-3 m-1" style="scrollbar-width:none">
+                <div class="t-box-content">scrollbar-width:none (스크롤 됨!)</div>
+            </div>
+            <div class="t-box d-inline-block border border-3 m-1" style="scrollbar-width:thin; overflow: hidden;">
+                <div class="t-box-content">scrollbar-width:thin<br>overflow: hidden<br>스크롤바 없음</div>
+            </div>
+            <div class="t-box d-inline-block border border-3 m-1 ani-scrollbar-width">
+                <div class="t-box-content">ani-scrollbar-width</div>
+            </div>
+            
+        </div>
+        <hr>
+        <div>
+            <div class="t-box d-inline-block border border-3 m-1" style="scrollbar-color:blue red">
+                <div class="t-box-content">scrollbar-color:blue red</div>
+            </div>
+            <div class="t-box d-inline-block border border-3 m-1" style="scrollbar-color:red blue">
+                <div class="t-box-content">scrollbar-color:red blue</div>
+            </div>
+            <div class="t-box d-inline-block border border-3 m-1" style="scrollbar-color:transparent blue">
+                <div class="t-box-content">scrollbar-color:transparent blue</div>
+            </div>
+            <div class="t-box d-inline-block border border-3 m-1" style="scrollbar-color:red transparent">
+                <div class="t-box-content">scrollbar-color:red transparent</div>
+            </div>
+            <div class="t-box d-inline-block border border-3 m-1 ani-scrollbar-color" >
+                <div class="t-box-content">ani-scrollbar-color</div>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>
