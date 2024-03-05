@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+.typing-letters{
+    --animation-duration: 0.5s;
+}
+
+.typing-letters > .letter{
+    display: inline-block;
+    animation: none;
+}
+
+.typing-letters > .letter:last-child{
+    animation: ani-letter var(--animation-duration) linear 0s 1 normal forwards;
+}
+
+@keyframes ani-letter {
+    0%{opacity: 0; transform: scale(2) translate(0.5em, -0.5em);}
+    100%{opacity: 1; transform: scale(1) translate(0, 0);}
+}
