@@ -42,7 +42,26 @@
     <script>
         window.addEventListener('load',(event)=>{
             window.tl = new TypingLetters(document.querySelector('#tl-0'));
-            window.tl.letters =  Array.from("가나다라마사바");
+            tl.onstart = function(){
+                console.log('onstart');
+            }
+            tl.onend = function(){
+                console.log('onend');
+            }
+            tl.onstop = function(){
+                console.log('onstop');
+            }
+            tl.ondraw = function(letter){
+                console.log('ondraw',letter);
+            }
+            tl.onclear = function(){
+                console.log('onclear');
+            }
+            
+            // tl.letters =  Array.from("HELLO WORLD!");
+            // tl.init();
+            // tl.start();
+            document.querySelector('#btn_start').click();
         })
     </script>
     
@@ -50,12 +69,107 @@
 <body>
     <div class="container">
         <h1>typingLetters</h1>
-        <div class="typing-letters" id="tl-0">
+        <div class="typing-letters border border-1 rounded p-1 m-1 mx-auto" id="tl-0" style="width: 400px;">
             <div class="letter">A</div>
             <div class="letter">B</div>
             <div class="letter">C</div>
             <div class="letter">D</div>
         </div>
+        <hr>
+        <form action="" name="form_setting" 
+                onsubmit="
+                    tl.init();
+                    tl.setIntervalMs(this.intervalMs.value);
+                    tl.letters = tl.stringToLetters(this.letters.value);
+                    tl.container.style.setProperty('--animation-name',this.animation_name.value);
+                    // console.log(tl.letters);
+                    
+                    tl.start(); 
+                    return false;
+                "
+            >
+            <h3>Setting</h3>
+            <div class="row mb-3">
+                <label for="" class="col-form-label col-md-2 text-center">animation-name</label>
+                <div class="col mb-1">
+                    <select class="form-select form-select-lg" name="animation_name" id="">
+                        <option selected value="ani-letter-top-down">ani-letter-top-down</option>
+                        <option value="ani-letter-bottom-up">ani-letter-bottom-up</option>
+                        <option value="ani-letter-scale-y">ani-letter-scale-y</option>
+                        
+                    </select>
+                </div>
+
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-form-label col-md-2 text-center">intervalMs</label>
+                <div class="col mb-1">
+                    <div class="form-control">
+                        <input type="range" class="w-100" list="datalist_intervalMs" name="intervalMs" id="" value="100" min="1" max="3000" oninput="this.title = this.value+'ms'" title="100ms">
+                        <datalist id="datalist_intervalMs">
+                            <option value="1">1</option>
+                            <option value="100">100</option>
+                            <option value="200">200</option>
+                            <option value="500">500</option>
+                            <option value="1000">1000</option>
+                            <option value="1500">1500</option>
+                            <option value="2000">2000</option>
+                            <option value="2500">2500</option>
+                            <option value="3000">3000</option>
+                            
+                        </datalist>
+                    </div>
+                    <div class="text-end">
+                        <small class="text-muted">unit : ms</small>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-form-label col-md-2 text-center">Name</label>
+                <div class="col mb-1">
+                    <textarea   name="letters" class="form-control" rows="5" >테스트입니다. 🔑🔐⚙️ ABC 閑
+그 늙다리만 본선에 진출케 투표해.
+The quick brown fox jumps over a(the) lazy dog.
+いろはにほへど / ちりぬるを / わがよたれぞ / つねならむ / うゐのおくやま / けふこえて / あさきゆめみじ / ゑひもせず
+💎짜증🤧을내어서🌈무얼하나🌟</textarea>
+                </div>
+                <hr>
+                <div class="col-12 mb-1">
+
+                    <div class="btn-group w-100" role="group">
+                        <input type="radio" name="setting_onend" class="btn-check" id="setting_onend_1" value="1" checked onclick="tl.onend = function(){ console.log('onend');}">
+                        <label type="button" class="btn btn-outline-primary w-100" for="setting_onend_1" >무한 해제</label>
+
+                        <input type="radio" name="setting_onend" class="btn-check" id="setting_onend_2" value="2" onclick="tl.onend = function(){ this.init(); this.start(); }">
+                        <label type="button" class="btn btn-outline-primary w-100" for="setting_onend_2" >무한 처음부터 시작 설정</label>
+
+                        <input type="radio" name="setting_onend" class="btn-check" id="setting_onend_3" value="3" onclick="tl.onend = function(){ this.lettersIdx = 0;  this.start(); }">
+                        <label type="button" class="btn btn-outline-primary w-100" for="setting_onend_3" >무한 추가하면서 시작 설정</label>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-1">
+                    <button type="submit" class="btn btn-primary w-100" id="btn_start">처음부터 시작</button>
+                </div>
+                <div class="col-12 mb-1">
+                    <button type="button" class="btn btn-danger w-100"
+                        onclick="tl.stop()"
+                    >멈춤</button>
+                </div>
+                <div class="col-12 mb-1">
+                    <button type="button" class="btn btn-success w-100" onclick="
+                        tl.lettersIdx = 0;
+                        tl.setIntervalMs(this.form.intervalMs.value);
+                        tl.letters = tl.stringToLetters(this.form.letters.value);
+                        tl.container.style.setProperty('--animation-name',this.form.animation_name.value);
+                        tl.start(); 
+                        ">추가하면서 시작</button>
+                </div>
+                
+            </div>
+            
+        </form>
     </div>
 </body>
 </html>
