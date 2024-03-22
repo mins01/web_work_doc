@@ -50,9 +50,6 @@
             padding: 0;
             margin: 0;
         }
-        .c-btn-group-toggle>.c-btn-group-toggle-label:focus{
-            box-shadow: 0 0 0 0.2rem rgba(127,127,127,.5);
-        }
         .c-btn-group-toggle>.c-btn-group-toggle-label>.btn-check:checked+.btn{
 
         }
@@ -73,7 +70,9 @@
             clip: rect(0, 0, 0, 0);
             pointer-events: none;
         }
-
+        .c-btn-group-toggle>.c-btn-group-toggle-label>:is(input[type=checkbox],input[type=radio]):focus+.btn{
+            box-shadow: 0 0 0 0.2rem rgba(127,127,127,.5);
+        }
 
 
         .c-btn-group-toggle>.c-btn-group-toggle-label>.btn-check:checked+.btn.btn-primary:not(:disabled):not(.disabled){
