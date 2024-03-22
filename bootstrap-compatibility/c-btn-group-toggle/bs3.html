@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ko" >
 <head>
-    <title>c-btn-group-toggle</title>
+    <title>c-btn-group-toggle for bootstrap3</title>
     <meta charset="utf-8">
     <meta http-equiv="Content-Script-Type" content="text/javascript">
     <meta http-equiv="Content-Style-Type" content="text/css">
@@ -19,20 +19,25 @@
     <!-- <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script> -->
 
     <!-- 부트스트랩 5.3.x -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+
+    <!-- 부트스트랩 3.4.x -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
     <!-- vue.js -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
     
     <!-- meta og -->
     
-    <meta property="og:title" content="c-btn-group-toggle">
-    <meta property="og:description" content="c-btn-group-toggle">
+    <meta property="og:title" content="c-btn-group-toggle for bootstrap3">
+    <meta property="og:description" content="c-btn-group-toggle for bootstrap3">
     <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
     <meta property="og:image:width" content="190">
     <meta property="og:image:height" content="70" />
-    <meta property="og:site_name" content="c-btn-group-toggle" />
+    <meta property="og:site_name" content="c-btn-group-toggle for bootstrap3" />
     <meta property="og:type" content="website">
     
     <!-- //meta og -->
@@ -41,6 +46,17 @@
         .c-btn-group-toggle{
             
         }
+        .c-btn-group-toggle>.c-btn-group-toggle-label{
+            float:left;
+            display: block;
+            margin: 0;
+            padding: 0;
+            margin-left: calc(var(--bs-border-width,1px)* -1);
+        }
+        .c-btn-group-toggle>.c-btn-group-toggle-label>.btn-check:checked+.btn{
+            margin:0;
+        }
+
         .c-btn-group-toggle>.c-btn-group-toggle-label:not(:last-child)>.btn {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
@@ -48,43 +64,155 @@
         .c-btn-group-toggle>.c-btn-group-toggle-label:not(:first-child)>.btn {
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
-            margin-left: calc(var(--bs-border-width)* -1);
+            
         }
+
+        .c-btn-group-toggle>.c-btn-group-toggle-label>:is(input[type=checkbox],input[type=radio]){
+            position: absolute;
+            clip: rect(0, 0, 0, 0);
+            pointer-events: none;
+        }
+
+
+        .c-btn-group-toggle>.c-btn-group-toggle-label>.btn-check:checked+.btn.btn-primary:not(:disabled):not(.disabled){
+            color: #fff;
+            background-color: #0062cc;
+            border-color: #005cbf
+        }
+        .c-btn-group-toggle>.c-btn-group-toggle-label>.btn-check:checked+.btn.btn-secondary:not(:disabled):not(.disabled){
+            color: #fff;
+            background-color: #545b62;
+            border-color: #4e555b;
+        }
+        .c-btn-group-toggle>.c-btn-group-toggle-label>.btn-check:checked+.btn.btn-success:not(:disabled):not(.disabled){
+            color: #fff;
+            background-color: #1e7e34;
+            border-color: #1c7430
+        }
+        .c-btn-group-toggle>.c-btn-group-toggle-label>.btn-check:checked+.btn.btn-info:not(:disabled):not(.disabled){
+            color: #fff;
+            background-color: #117a8b;
+            border-color: #10707f
+        }
+        .c-btn-group-toggle>.c-btn-group-toggle-label>.btn-check:checked+.btn.btn-warning:not(:disabled):not(.disabled){
+            color: #212529;
+            background-color: #d39e00;
+            border-color: #c69500
+        }
+        .c-btn-group-toggle>.c-btn-group-toggle-label>.btn-check:checked+.btn.btn-danger:not(:disabled):not(.disabled){
+            color: #fff;
+            background-color: #bd2130;
+            border-color: #b21f2d
+        }
+        .c-btn-group-toggle>.c-btn-group-toggle-label>.btn-check:checked+.btn.btn-light:not(:disabled):not(.disabled){
+            color: #212529;
+            background-color: #dae0e5;
+            border-color: #d3d9df
+        }
+        .c-btn-group-toggle>.c-btn-group-toggle-label>.btn-check:checked+.btn.btn-dark:not(:disabled):not(.disabled){
+            color: #fff;
+            background-color: #1d2124;
+            border-color: #171a1d
+        }
+
+        .c-btn-group-toggle>.c-btn-group-toggle-label>.btn-check:checked+.btn.btn-outline-primary:not(:disabled):not(.disabled){
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff
+        }
+        .c-btn-group-toggle>.c-btn-group-toggle-label>.btn-check:checked+.btn.btn-outline-secondary:not(:disabled):not(.disabled){
+            color: #fff;
+            background-color: #6c757d;
+            border-color: #6c757d
+        }
+        .c-btn-group-toggle>.c-btn-group-toggle-label>.btn-check:checked+.btn.btn-outline-success:not(:disabled):not(.disabled){
+            color: #fff;
+            background-color: #28a745;
+            border-color: #28a745
+        }
+        .c-btn-group-toggle>.c-btn-group-toggle-label>.btn-check:checked+.btn.btn-outline-info:not(:disabled):not(.disabled){
+            color: #fff;
+            background-color: #17a2b8;
+            border-color: #17a2b8
+        }
+        .c-btn-group-toggle>.c-btn-group-toggle-label>.btn-check:checked+.btn.btn-outline-warning:not(:disabled):not(.disabled){
+            color: #212529;
+            background-color: #ffc107;
+            border-color: #ffc107
+        }
+        .c-btn-group-toggle>.c-btn-group-toggle-label>.btn-check:checked+.btn.btn-outline-danger:not(:disabled):not(.disabled){
+            color: #fff;
+            background-color: #dc3545;
+            border-color: #dc3545
+        }
+        .c-btn-group-toggle>.c-btn-group-toggle-label>.btn-check:checked+.btn.btn-outline-light:not(:disabled):not(.disabled){
+            color: #212529;
+            background-color: #f8f9fa;
+            border-color: #f8f9fa
+        }
+        .c-btn-group-toggle>.c-btn-group-toggle-label>.btn-check:checked+.btn.btn-outline-dark:not(:disabled):not(.disabled){
+            color: #fff;
+            background-color: #343a40;
+            border-color: #343a40
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>부트스트랩 5 기준 btn-group + btn-check 커스텀</h1>
+        <h1>부트스트랩 3 기준 btn-group + btn-check 커스텀</h1>
         <hr>
         <a href="index.html">for bs5</a>
         <a href="bs4.html">for bs4</a>
         <a href="bs3.html">for bs3</a>
         <hr>
         <h2>bootstrap .btn-group</h2>
-        <div>label에 for 가 필요. input에 id가 필요</div>
+        <div>bootstrap.js 가 필요</div>
         <form action="" onsubmit="return false;" class="m-1">
-            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" name="btncheck" checked>
-                <label class="btn btn-outline-primary" for="btncheck1">Checkbox 1</label>
-              
-                <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off" name="btncheck">
-                <label class="btn btn-outline-primary" for="btncheck2">Checkbox 2</label>
-              
-                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" name="btncheck">
-                <label class="btn btn-outline-primary" for="btncheck3">Checkbox 3</label>
-              </div>
+
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary active"><input type="checkbox" checked> Checkbox 1 (pre-checked)</label>
+                <label class="btn btn-success"><input type="checkbox"> Checkbox</label>
+                <label class="btn btn-info"><input type="checkbox"> Checkbox</label>
+                <label class="btn btn-warning"><input type="checkbox"> Checkbox</label>
+                <label class="btn btn-danger"><input type="checkbox"> Checkbox</label>
+            </div>
         </form>
-        <form action="" onsubmit="return false;"class="m-1">
-            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="btnradio1">Radio 1</label>
-              
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btnradio2">Radio 2</label>
-              
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btnradio3">Radio 3</label>
-              </div>
+        <form action="" onsubmit="return false;" class="m-1">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-outline-primary active"><input type="checkbox" name="checkbox"  checked> Checkbox</label>
+                <label class="btn btn-outline-secondary"><input type="checkbox" name="checkbox" > Checkbox</label>
+                <label class="btn btn-outline-success"><input type="checkbox" name="checkbox" > Checkbox</label>
+                <label class="btn btn-outline-info"><input type="checkbox" name="checkbox" > Checkbox</label>
+                <label class="btn btn-outline-warning"><input type="checkbox" name="checkbox" > Checkbox</label>
+                <label class="btn btn-outline-danger"><input type="checkbox" name="checkbox" > Checkbox</label>
+                <label class="btn btn-outline-light"><input type="checkbox" name="checkbox" > Checkbox</label>
+                <label class="btn btn-outline-dark"><input type="checkbox" name="checkbox" > Checkbox</label>
+            </div>
+        </form>
+        <form action="" onsubmit="return false;" class="m-1">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-primary active"><input type="radio" name="radio"  checked> Radio</label>
+                <label class="btn btn-secondary"><input type="radio" name="radio" > Radio</label>
+                <label class="btn btn-success"><input type="radio" name="radio" > Radio</label>
+                <label class="btn btn-info"><input type="radio" name="radio" > Radio</label>
+                <label class="btn btn-warning"><input type="radio" name="radio" > Radio</label>
+                <label class="btn btn-danger"><input type="radio" name="radio" > Radio</label>
+                <label class="btn btn-light"><input type="radio" name="radio" > Radio</label>
+                <label class="btn btn-dark"><input type="radio" name="radio" > Radio</label>
+            </div>
+        </form>
+        <form action="" onsubmit="return false;" class="m-1">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-outline-primary active"><input type="radio" name="radio"  checked> Radio</label>
+                <label class="btn btn-outline-secondary"><input type="radio" name="radio" > Radio</label>
+                <label class="btn btn-outline-success"><input type="radio" name="radio" > Radio</label>
+                <label class="btn btn-outline-info"><input type="radio" name="radio" > Radio</label>
+                <label class="btn btn-outline-warning"><input type="radio" name="radio" > Radio</label>
+                <label class="btn btn-outline-danger"><input type="radio" name="radio" > Radio</label>
+                <label class="btn btn-outline-light"><input type="radio" name="radio" > Radio</label>
+                <label class="btn btn-outline-dark"><input type="radio" name="radio" > Radio</label>
+            </div>
         </form>
         <hr>
         <h2>.c-btn-group-toggle</h2>
