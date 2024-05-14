@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+    <title>animation curve movement</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="/js/ForGoogle.js"></script>
+    <!-- google analytics -->
+    <script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+    
+
+    <!-- jquery 관련 -->
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+
+    <!-- 부트스트랩 5.3.x -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+
+    <!-- vue.js -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    
+    <!-- meta og -->
+    
+    <meta property="og:title" content="animation curve movement">
+    <meta property="og:description" content="animation curve movement">
+    <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+    <meta property="og:image:width" content="190">
+    <meta property="og:image:height" content="70" />
+    <meta property="og:site_name" content="animation curve movement" />
+    <meta property="og:type" content="website">
+    
+    <!-- //meta og -->
+    <style>
+        .dot-wrap{width:1px;height: 1px; display: flex;    
+            flex-wrap: nowrap;
+            align-content: center;
+            justify-content: center;
+            align-items: center;
+        }
+        .dot{width:10px;height: 10px;border-radius: 100px 100px 0 0; background-color: red; flex:0 0 auto;}
+        .pos-wrap{ width: 300px; height: 300px; background-color: #cccccc;}
+
+        .pos-x{
+            animation: ani-x 5s linear 0s infinite forwards normal;
+        }
+        .pos-y{
+            animation: ani-y 2.5s linear 0s infinite forwards normal;
+        }
+
+        @keyframes ani-x {
+            0%{transform: translateX(0px);}
+            50%{transform: translateX(300px);}
+            0%{transform: translateX(0px);}
+        }
+        @keyframes ani-y {
+            0%{transform: translateY(0px); animation-timing-function: cubic-bezier(0,0.75,0.25,1);}
+            25%{transform: translateY(-150px); animation-timing-function: cubic-bezier(0.75,0,1,0.25);}
+            50%{transform: translateY(0px); animation-timing-function: cubic-bezier(0,0.75,0.25,1);}
+            75%{transform: translateY(150px); animation-timing-function: cubic-bezier(0.75,0,1,0.25);}
+            100%{transform: translateY(0px);}
+        }
+        
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <ul class="list-group">
+            <li class="list-group-item">
+                x,y 위치의 timing function 에 차이를 줘서 곡션으로 위치이동 하도록 동작
+            </li>
+        </ul>
+        
+
+        <hr>
+        <div class="card">
+            <div class="card-header">
+                애니메이션 - 곡션 움직임 
+            </div>
+            <div class="card-body">
+                <div class="pos-wrap m-2" >
+                    <div class="pos-dot" style="transform: translate(0,150px);">
+                        <div class="pos-x">
+                            <div class="pos-y">
+                                <div class="dot-wrap">
+                                    <div class="dot"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</body>
+</html>
