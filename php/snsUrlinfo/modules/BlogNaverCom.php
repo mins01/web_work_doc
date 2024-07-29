@@ -4,8 +4,8 @@ namespace mins01\snsUrlinfo\modules;
 require_once(dirname(__FILE__).'/Module.php');
 
 class BlogNaverCom extends \mins01\snsUrlinfo\modules\Module{
-    public static $version = '20230712';
-    public static $service = 'naver blog';
+    public static $version = '20240729';
+    public static $service = 'naver_blog';
     public static $domain = 'blog.naver.com';
     public static $site = 'https://blog.naver.com';
     public static $debug = false;

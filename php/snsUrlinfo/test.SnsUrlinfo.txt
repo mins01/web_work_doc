@@ -4,27 +4,27 @@ userUrl :
 postUrl : 
 
 URL : https://BLOG.NAVER.COM/bsakam/222998421358
-RESULT : {"service":"naver blog","domain":"blog.naver.com","user_id":"bsakam","post_id":"222998421358"}
+RESULT : {"service":"naver_blog","domain":"blog.naver.com","user_id":"bsakam","post_id":"222998421358"}
 userUrl : https://blog.naver.com/bsakam
 postUrl : https://blog.naver.com/bsakam/222998421358
 
 URL : https://blog.naver.com/PostView.naver?blogId=popline&logNo=222953172387
-RESULT : {"service":"naver blog","domain":"blog.naver.com","user_id":"popline","post_id":"222953172387"}
+RESULT : {"service":"naver_blog","domain":"blog.naver.com","user_id":"popline","post_id":"222953172387"}
 userUrl : https://blog.naver.com/popline
 postUrl : https://blog.naver.com/popline/222953172387
 
 URL : https://m.blog.naver.com/bsakam/222998421358
-RESULT : {"service":"naver blog","domain":"m.blog.naver.com","user_id":"bsakam","post_id":"222998421358"}
+RESULT : {"service":"naver_blog","domain":"m.blog.naver.com","user_id":"bsakam","post_id":"222998421358"}
 userUrl : https://m.blog.naver.com/bsakam
 postUrl : https://m.blog.naver.com/bsakam/222998421358
 
 URL : https://m.blog.naver.com/PostView.naver?blogId=bsakam&logNo=222998421358&proxyReferer=
-RESULT : {"service":"naver blog","domain":"m.blog.naver.com","user_id":"bsakam","post_id":"222998421358"}
+RESULT : {"service":"naver_blog","domain":"m.blog.naver.com","user_id":"bsakam","post_id":"222998421358"}
 userUrl : https://m.blog.naver.com/bsakam
 postUrl : https://m.blog.naver.com/bsakam/222998421358
 
 URL : https://blog.naver.com/msjung0630
-RESULT : {"service":"naver blog","domain":"blog.naver.com","user_id":"msjung0630","post_id":null}
+RESULT : {"service":"naver_blog","domain":"blog.naver.com","user_id":"msjung0630","post_id":null}
 userUrl : https://blog.naver.com/msjung0630
 postUrl : 
 
