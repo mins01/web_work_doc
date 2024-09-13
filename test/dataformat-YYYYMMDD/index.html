@@ -96,10 +96,10 @@
             tbody_output('moment(date).format()',moment(date).format());
             tbody_output('moment(date).format("YYYY-MM-DD")',moment(date).format("YYYY-MM-DD"));
             tbody_output('moment("1999-12-30").format("YYYY-MM-DD")',moment("1999-12-30").format("YYYY-MM-DD"));
-            tbody_output('input[type=date] 트릭');
+            tbody_output('input[type=date] 트릭. yyyymmddAsInputDate 사용자함수');
             tbody_output('yyyymmddAsInputDate(date)',yyyymmddAsInputDate(date));
             tbody_output('yyyymmddAsInputDate(new Date("1999-12-30"))',yyyymmddAsInputDate(new Date("1999-12-30")));
-            tbody_output('yyyymmddDate 함수');
+            tbody_output('yyyymmddDate 사용자함수');
             tbody_output('yyyymmddDate(date)',yyyymmddDate(date));
             tbody_output('yyyymmddDate(new Date("1999-12-30"))',yyyymmddDate(new Date("1999-12-30")));
         })
@@ -139,7 +139,7 @@
         <h2 class="my-3">잡담</h2>
 
         <p>
-            1. 사람의 언어로의 표현은 YYYY-MM-DD 를 잘 안 쓰는 것 같다. <br>
+            1. 사람 언어로의 표현은 YYYY-MM-DD 를 잘 안 쓰는 것 같다. <br>
             1.1. 나라별, 언어별로 YYYY. MM. DD , MM/DD/YYYY ,DD/MM/YYYY 등.. 차이가 심하다. <br>
             2. 프로그램애서는 DB가 YYYY-MM-DD 모양으로 기본 설정 되어있다. (이거 바꿀 수 있을 껄) <br>
             2.1. 즉 YYYY-MM-DD 라고 일반 문서에 적으면 당신으 프로그래머? <br>
