@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+    <title>test for day.js</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="/js/ForGoogle.js"></script>
+    <!-- google analytics -->
+    <script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+    
+
+    <!-- jquery 관련 -->
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+
+    <!-- 부트스트랩 5.3.x -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <!-- vue.js -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    
+    <!-- meta og -->
+    
+    <meta property="og:title" content="test for day.js">
+    <meta property="og:description" content="test for day.js">
+    <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+    <meta property="og:image:width" content="190">
+    <meta property="og:image:height" content="70" />
+    <meta property="og:site_name" content="test for day.js" />
+    <meta property="og:type" content="website">
+    
+    <!-- //meta og -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"  referrerpolicy="no-referrer"></script>
+
+    <script>
+        function tbody_output(text,result){
+            const tbody_output = document.querySelector('#tbody_output');
+            const tr = tbody_output.insertRow();
+            const td1 = tr.insertCell()
+            td1.textContent = text
+            if(!result){
+                td1.colSpan=2;
+                td1.classList.add('fw-bold')
+                td1.classList.add('table-info')
+                return;
+            }
+            const td2 = tr.insertCell()
+            td2.textContent = result
+        }
+    </script>
+
+    <script id="test_script">
+        const date = new Date("2020-05-22 10:12:59");
+        function yyyymmddAsInputDate(date){
+            const input = document.createElement('input');
+            input.type='date';
+            input.valueAsDate = date;
+            return input.value;
+        }
+        function yyyymmddDate(date){
+            return [
+                date.getFullYear().toString(),
+                (date.getMonth()+1).toString().padStart(2,'0'),
+                (date.getDate()).toString().padStart(2,'0'),
+            ].join('-')
+        }
+        window.addEventListener('load',(event)=>{
+            
+            tbody_output('date 초기화');
+            tbody_output('const date = new Date("2020-05-22 10:12:59");',date);
+            tbody_output('Date 객체');
+            tbody_output('date.toISOString()',date.toISOString());
+            tbody_output('date.toUTCString()',date.toUTCString());
+            tbody_output('date.toGMTString()',date.toGMTString());
+            tbody_output('date.toJSON()',date.toJSON());
+            tbody_output('date.toLocaleString()',date.toLocaleString());
+            tbody_output('date.toString()',date.toString());
+
+            tbody_output('Intl.DateTimeFormat 객체');
+            tbody_output('new Intl.DateTimeFormat(["ko"]).format(date)',new Intl.DateTimeFormat(["ko"]).format(date));
+            tbody_output('new Intl.DateTimeFormat("en-US").format(date)',new Intl.DateTimeFormat("en-US").format(date));
+    
+            tbody_output('dayjs 라이브러리');
+            tbody_output('dayjs(date).format()',dayjs(date).format());
+            tbody_output('dayjs(date).format("YYYY-MM-DD")',dayjs(date).format("YYYY-MM-DD"));
+            tbody_output('dayjs("1999-12-30").format("YYYY-MM-DD")',dayjs("1999-12-30").format("YYYY-MM-DD"));
+            tbody_output('moment 라이브러리');
+            tbody_output('moment(date).format()',moment(date).format());
+            tbody_output('moment(date).format("YYYY-MM-DD")',moment(date).format("YYYY-MM-DD"));
+            tbody_output('moment("1999-12-30").format("YYYY-MM-DD")',moment("1999-12-30").format("YYYY-MM-DD"));
+            tbody_output('input[type=date] 트릭');
+            tbody_output('yyyymmddAsInputDate(date)',yyyymmddAsInputDate(date));
+            tbody_output('yyyymmddAsInputDate(new Date("1999-12-30"))',yyyymmddAsInputDate(new Date("1999-12-30")));
+            tbody_output('yyyymmddDate 함수');
+            tbody_output('yyyymmddDate(date)',yyyymmddDate(date));
+            tbody_output('yyyymmddDate(new Date("1999-12-30"))',yyyymmddDate(new Date("1999-12-30")));
+        })
+        
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-3">dataformat 테스트</h1>
+        <h2 class="my-3">Infomation</h2>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="https://day.js.org/">day.js 공식사이트</a>
+                <div class="form-text">Fast 2kB alternative to Moment.js with the same modern API</div>
+            </li>
+            <li class="list-group-item"><a href="https://momentjs.com/">moment.js 공식사이트</a>
+                <div class="form-text">Parse, validate, manipulate, and display dates and times in JavaScript.</div>
+            </li>
+            <li class="list-group-item">
+                결론은 귀찮으니 moment.js 나 day.js 를 쓰자.
+            </li>
+        </ul>
+        <h2 class="my-3">Test result</h2>
+        <div class="table-responsive" >
+            <table class="table table-bordered table-sm" >
+                <thead class="text-center">
+                    <tr class="table-success" >
+                        <th scope="col">내용</th>
+                        <th scope="col">결과</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody_output">
+
+                </tbody>
+            </table>
+        </div>
+        
+
+    </div>
+</body>
+</html>
