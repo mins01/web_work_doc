@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+    <title>How to center vertical alignment</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="/js/ForGoogle.js"></script>
+    <!-- google analytics -->
+    <script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+    
+
+    <!-- jquery 관련 -->
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+
+    <!-- 부트스트랩 5.3.x -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+
+    <!-- vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    
+    <!-- meta og -->
+    
+    <meta property="og:title" content="How to center vertical alignment">
+    <meta property="og:description" content="How to center vertical alignment">
+    <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+    <meta property="og:image:width" content="190">
+    <meta property="og:image:height" content="70" />
+    <meta property="og:site_name" content="How to center vertical alignment" />
+    <meta property="og:type" content="website">
+    
+    <!-- //meta og -->
+        <style>
+            .box{
+                width: 200px;
+                height: 100px;
+                display: block;
+            }
+            .box-2{
+                width: 80px;
+                height: 40px;
+                display: block;
+            }
+            .outline{
+                outline:1px dashed #999;
+                outline-offset: -1px;
+            }
+            .bg-1{
+                background-color: #aabbcc99;;
+            }
+            .bg-2{
+                background-image:repeating-linear-gradient(-45deg, transparent 0 10px, #ff000066 10px 20px);
+            }
+        </style>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>How to center vertical alignment</h1>
+        <h2>수직 중앙 정렬하는 방법</h2>
+    </div>
+    <hr>
+    <div class="container">
+        <h3><a href="https://developer.mozilla.org/ko/docs/Learn/CSS/CSS_layout/Flexbox">display:flex</a> <span class="badge bg-primary" >추천</span></h3>
+        <ul class="list-group">
+            <li class="list-group-item">레이아웃 지정 방법 중 하나인 flex 사용시 자식 요소의 정렬을 지정할 수 있다.</li>
+            <li class="list-group-item">
+                최소 style<br>
+                <code>display: flex;align-items: center;</code>
+            </li>
+            <li class="list-group-item">
+                column 방향일 경우 style<br>
+                <code>display: flex; flex-direction: column; justify-content: center;</code>
+            </li>
+            <li class="list-group-item">
+                방향에 상관 없이 정중앙 style<br>
+                <code>display: flex; flex-direction: row; justify-content: center; align-items: center;</code><br>
+                or<br>
+                <code>display: flex; flex-direction: column; justify-content: center; align-items: center;</code>
+            </li>
+        </ul>
+        <div class="card my-3">
+            <div class="card-body">
+                <div class="d-flex gap-1 flex-wrap">
+                    <div class="">
+                        <div class="box outline bg-1" style="display: flex;">
+                            <div class="bg-2">Child-1</div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="box outline bg-1" style="display: flex;">
+                            <div class="bg-2">Child-1</div><div class="bg-2">Child-2</div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="box outline bg-1" style="display: flex; align-items: center;">
+                            <div class="bg-2">Child-1</div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="box outline bg-1" style="display: flex; align-items: center;">
+                            <div class="bg-2">Child-1</div><div class="bg-2">Child-2</div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="box outline bg-1" style="display: flex; flex-direction: column; justify-content: center;">
+                            <div class="bg-2">Child-1</div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="box outline bg-1" style="display: flex; flex-direction: column; justify-content: center;">
+                            <div class="bg-2">Child-1</div><div class="bg-2">Child-2</div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="box outline bg-1" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                            <div class="bg-2">Child-1</div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="box outline bg-1" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                            <div class="bg-2">Child-1</div><div class="bg-2">Child-2</div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="box outline bg-1" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                            <div class="bg-2">Child-1</div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="box outline bg-1" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                            <div class="bg-2">Child-1</div><div class="bg-2">Child-2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <h3><a href="https://developer.mozilla.org/ko/docs/Learn/CSS/CSS_layout/Grids">display:grid</a> <span class="badge bg-primary" >추천</span></h3>
+        <ul class="list-group">
+            <li class="list-group-item">레이아웃 지정 방법 중 하나인 gird 사용시 grid 요소의 정렬을 지정할 수 있다.</li>
+            <li class="list-group-item">
+                주요 스타일: justify-content,align-content <br> 
+                flex와 다르다!
+            </li>
+            <li class="list-group-item">
+                최소 필요 style<br>
+                <code>display: grid;align-content: center;</code>
+            </li>
+            <li class="list-group-item">
+                정중앙 style<br>
+                <code>display: grid; justify-content: center; align-content: center;</code><br>
+                or<br>
+                <code>display: grid; place-content: center;</code><br>
+                <span class="text-success">*축약형 : place-content: center; = place-content: center center = justify-content: center; align-content: center;</span>
+            </li>
+        </ul>
+        <div class="card my-3">
+            <div class="card-body">
+                <div class="d-flex gap-1 flex-wrap">
+                    <div class="">
+                        <div class="box outline bg-1" style="display: grid;">
+                            <div class="bg-2">Child-1</div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="box outline bg-1" style="display: grid;">
+                            <div class="bg-2">Child-1</div><div class="bg-2">Child-2</div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="box outline bg-1" style="display: grid; align-content: center;">
+                            <div class="bg-2">Child-1</div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="box outline bg-1" style="display: grid; align-content: center;">
+                            <div class="bg-2">Child-1</div><div class="bg-2">Child-2</div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="box outline bg-1" style="display: grid; justify-content: center; align-content: center;">
+                            <div class="bg-2">Child-1</div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="box outline bg-1" style="display: grid; justify-content: center; align-content: center;">
+                            <div class="bg-2">Child-1</div><div class="bg-2">Child-2</div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="box outline bg-1" style="display: grid; place-content: center;">
+                            <div class="bg-2">Child-1</div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="box outline bg-1" style="display: grid; place-content: center;">
+                            <div class="bg-2">Child-1</div><div class="bg-2">Child-2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <h3><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/line-height">line-height</a>:부모 요소 height</h3>
+        <ul class="list-group">
+            <li class="list-group-item">line-height: 100px; 처럼 하면 문자열이 높이가 100px이 된다. 100px를 부모 요소의 높이에 맞추면 부모 요소의 수직 중앙에 위치하게 된다.</li>
+            <li class="list-group-item">1줄일 경우만 적용 된다. 2줄 이상 부터는 부모를 벗어난다. </li>
+        </ul>
+        
+        <div class="card my-3">
+            <div class="card-body">
+                <div class="box outline bg-1" style="line-height: 100px;">
+                    <span class="bg-2">1줄 문자열</span>
+                </div>
+            </div>
+        </div>
+        <div class="card my-3">
+            <div class="card-body">
+                <div class="box outline bg-1" style="line-height: 100px;">
+                    <span class="bg-2">첫번째 줄 문자열<br>두번째 줄 문자열</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                * 두번째 줄 문자열을 부모 요소를 벗어난다.
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <h3><a href="https://developer.mozilla.org/ko/docs/Web/CSS/vertical-align">vertical-align</a>:???</h3>
+        <ul class="list-group">
+            <li class="list-group-item">인라인 요소에 대한 수직 정렬</li>
+            <li class="list-group-item">기본은 basline 이며 폰트 크기에 상관없이 baseline 에 글자가 위치한다.</li>
+            <li class="list-group-item">폰트가 그려지는 위치의 처리 때문에 middle로 해도 원하는 중앙에 안오는 경우가 많다. (계산식 baseline + x-height / 2  )</li>
+        </ul>
+        
+        <div class="card my-3">
+            <div class="card-body">
+                <div class="outline bg-1" style="font-size: 30px; width:auto;">
+                    <span class="bg-2">Text문자열</span>
+                    <span class="bg-2" style="font-size: 1.5em;vertical-align: middle;">150%</span>
+                    <span class="bg-2" style="font-size: 1.5em;">150%</span>
+                </div>
+                <div class="outline bg-1" style="font-size: 30px; width:auto;">
+                    <span class="bg-2">Text문자열</span>
+                    <span class="bg-2" style="font-size: 0.5em;vertical-align: middle;">50%</span>
+                    <span class="bg-2" style="font-size: 0.5em;">50%</span>
+                </div>
+                <div class="outline bg-1" style="font-size: 30px; width:auto;">
+                    <span class="bg-2">Text문자열</span>
+                    <span class="bg-2" style="vertical-align: baseline;">baseline</span>
+                </div>
+                <div class="outline bg-1" style="font-size: 30px; width:auto;">
+                    <span class="bg-2">Text문자열</span>
+                    <span class="bg-2" style="vertical-align: sub;">sub</span>
+                </div>
+                <div class="outline bg-1" style="font-size: 30px; width:auto;">
+                    <span class="bg-2">Text문자열</span>
+                    <span class="bg-2" style="vertical-align: super;">super</span>
+                </div>
+                <div class="outline bg-1" style="font-size: 30px; width:auto;">
+                    <span class="bg-2">Text문자열</span>
+                    <span class="bg-2" style="vertical-align: text-top;">text-top</span>
+                </div>
+                <div class="outline bg-1" style="font-size: 30px; width:auto;">
+                    <span class="bg-2">Text문자열</span>
+                    <span class="bg-2" style="vertical-align: text-bottom;">text-bottom</span>
+                </div>
+                <div class="outline bg-1" style="font-size: 30px; width:auto;">
+                    <span class="bg-2">Text문자열</span>
+                    <span class="bg-2" style="vertical-align: middle;">middle</span>
+                </div>
+                <div class="outline bg-1" style="font-size: 30px; width:auto;">
+                    <span class="bg-2">Text문자열</span>
+                    <span class="bg-2" style="vertical-align: 10px;">10px</span>
+                </div>
+                <div class="outline bg-1" style="font-size: 30px; width:auto;">
+                    <span class="bg-2">Text문자열</span>
+                    <span class="bg-2" style="vertical-align: 50%;">50%</span>
+                </div>
+                <div class="outline bg-1" style="font-size: 30px; width:auto;">
+                    <span class="bg-2">Text문자열</span>
+                    <span class="bg-2" style="vertical-align: 0%;">-50%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <h3><a href="https://developer.mozilla.org/ko/docs/Web/CSS/position">postion</a>:???</h3>
+        <ul class="list-group">
+            <li class="list-group-item">
+                높이를 계산해서 위치 시킨다.<br>
+                <code>position: absolute; top:calc( ( 100% - 30px ) / 2 )</code><br>
+                (30px 가 자신의 높이.)
+            </li>
+            <li class="list-group-item">
+                translateY를 사용<br>
+                <code>position:absolute; top:50%; transform: translateY(-50%); </code><br>
+                (자신의 높이를 알 필요가 없음)
+            </li>
+        </ul>
+        
+        <div class="card my-3">
+            <div class="card-body">
+                <div class="box outline bg-1" style="width:auto;position: relative;">
+                    <div class="bg-2 box-2" style="height: 30px; position: absolute; top:calc( ( 100% - 30px ) / 2 ) "></div>
+                </div>
+                <div class="box outline bg-1" style="width:auto;position: relative;">
+                    <div class="bg-2" style="position:absolute; top:50%; transform: translateY(-50%); ">테스트<br>테스트<br>테스트</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</body>
+</html>
