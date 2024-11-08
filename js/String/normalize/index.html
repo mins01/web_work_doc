@@ -62,46 +62,93 @@
         <ul>
             <li>정준 분해(일반 글자) 동작 외 특수 기호도 정규화 한다.</li>
         </ul>
+        <h3>몇몇 특징</h3>
+        <ul>
+            <li>한글을 NFD로 처리하면 중성과 종성은 일반적인 자음/모음 글자가 아니다. ('ㅏ'!='ᅡ' , 'ㄴ' != 'ᆫ') </li>
+            <li>한글의 중성, 종성의 글자가 아닌 자음과 모음을 순서대로 문자열로 배치하면 NFKC 처리 시, 초성과 중성까지만 합쳐진다. 종성은 합쳐지지 않는다. ('ㅎㅏㄴ'=>'하ᄂ')</li>
+            <li>NFKD는 최대한 언어의 글자 및 기호까지도 분리한다.</li>
+            <li>NFKC는 언어의 글자는 최대한 유지하고 기호는 분리한다</li>
+        </ul>
     </div>
     <div class="container">
-        <output id="output">
-
-        </output>
+        <h3>변환 테스트</h3>
+        <div class="table-responsive" >
+            <table class="table table-bordered text-break">
+                <thead class="text-center">
+                    <tr>
+                        <th>구분</th>
+                        <th>입력 문자열</th>
+                        <th>NFD 처리 문자열</th>
+                        <th>NFC 처리 문자열</th>
+                        <th>NFKD 처리 문자열</th>
+                        <th>NFKC 처리 문자열</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>테스트</th>
+                        <th colspan="5">
+                            <form action="#" onsubmit="testNormalize(str.value);return false;">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">문자열입력</span>
+                                    <input type="text" name="str" class="form-control">
+                                    <button class="btn btn-primary">테스트</button>
+                                </div>
+                            </form>
+                        </th>
+                    </tr>
+                </tfoot>
+                <tbody id="output-tbody">
+                    
+                </tbody>
+            </table>
+        </div>
+        
         <script>
             window.addEventListener('load',(event)=>{
-                console.log('# NFC 글자 기준')
                 let strs = [
-                    '한',
-                    'ㄱ',
-                    '㈀',
-                    '㈝㈝',
-                    "l'ecclésiaste",
+                    '가난',  //NFC 한글
+                    '가난', // NFD 한글
+                    'ㄱㅏㄴㅏㄴ', //자음모음
+                    '㈀', //기호
+                    '㈝㈝', //기호
+                    "l'ecclésiaste", //알파벳 철자부호
                 ]
-                strs.forEach((str)=>{
-                    let s = str
-                    console.log('DEFAULT',s,s.length,JSON.stringify(s.split('')))
-                    s = str.normalize('NFC');  console.log('NFC',s,s.length,JSON.stringify(s.split('')))
-                    s = str.normalize('NFD');  console.log('NFD',s,s.length,JSON.stringify(s.split('')))
-                    s = str.normalize('NFKC');  console.log('NFKC',s,s.length,JSON.stringify(s.split('')))
-                    s = str.normalize('NFKD');  console.log('NFKD',s,s.length,JSON.stringify(s.split('')))
-                })
-                console.log('# NFD 글자 기준')
-                strs = [
-                    '한',
-                    'ㄱ',
-                    '㈀',
-                    '㈝㈝',
-                    "l'ecclésiaste",
-                ]
-                strs.forEach((str)=>{
-                    let s = str
-                    console.log('DEFAULT',s,s.length,JSON.stringify(s.split('')))
-                    s = str.normalize('NFC');  console.log('NFC',s,s.length,JSON.stringify(s.split('')))
-                    s = str.normalize('NFD');  console.log('NFD',s,s.length,JSON.stringify(s.split('')))
-                    s = str.normalize('NFKC');  console.log('NFKC',s,s.length,JSON.stringify(s.split('')))
-                    s = str.normalize('NFKD');  console.log('NFKD',s,s.length,JSON.stringify(s.split('')))
+                strs.forEach(str=>{
+                    testNormalize(str);
                 })
             })
+
+            function testNormalize(str){
+                const tbody = document.getElementById('output-tbody');
+                let cols1 = ['문자열'];
+                let cols2 = ['길이'];
+                let cols3 = ['분리'];
+                let s = str; cols1.push(s); cols2.push(s.length); cols3.push(JSON.stringify(s.split('')));
+                s = str.normalize('NFD'); cols1.push(s); cols2.push(s.length); cols3.push(JSON.stringify(s.split('')));
+                s = str.normalize('NFC'); cols1.push(s); cols2.push(s.length); cols3.push(JSON.stringify(s.split('')));
+                s = str.normalize('NFKD'); cols1.push(s); cols2.push(s.length); cols3.push(JSON.stringify(s.split('')));
+                s = str.normalize('NFKC'); cols1.push(s); cols2.push(s.length); cols3.push(JSON.stringify(s.split('')));
+
+                
+                [cols1,cols2,cols3].forEach((cols,idx)=>{
+                    let tr = tbody.insertRow(-1);
+                    if(idx==0) tr.classList.add('table-primary')
+                    if(idx==1) tr.classList.add('table-info')
+                    if(idx==2) tr.classList.add('table-success')
+                    cols.forEach((v,idx) => {
+                        if(idx==0){
+                            let th = document.createElement('th');tr.appendChild(th)
+                            th.classList.add('text-center')
+                            th.textContent = v;
+                        }else{
+                            let td = tr.insertCell(-1)
+                            td.textContent = v;
+                        }
+                    });
+                })
+                
+            }
         </script>
     </div>
 
