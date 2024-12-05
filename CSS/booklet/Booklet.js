@@ -1,5 +1,5 @@
 
-class BookletStyle{
+class Booklet{
 
     constructor(booklet){
         this.booklet = booklet;
@@ -11,6 +11,7 @@ class BookletStyle{
         this.pageNext = null;
         this.pages = [];
         this.reset();
+        this.triggerSync();
     }
 
     reset(){
@@ -42,11 +43,18 @@ class BookletStyle{
 
         if(idx !==null && pages[idx]){
             pages[idx].dataset.state = 'curr';
-            this.pageIdx = idx;
+            this.booklet.dataset.idx = this.pageIdx = idx;
             this.pageCurr = pages[idx];
             this.setPagePrevByIdx(idx-1);
             this.setPageNextByIdx(idx+1);            
         }
+
+        this.triggerSync();
+    }
+
+    triggerSync(){
+        const sync = new CustomEvent("sync", { detail: {"booklet":this}, });
+        this.booklet.dispatchEvent(sync);
     }
 
     setPagePrevByIdx(idx){
@@ -115,6 +123,5 @@ class BookletStyle{
                 this.next();
             }
         }
-
     }
 }

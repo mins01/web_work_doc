@@ -37,12 +37,22 @@
     
     <!-- //meta og -->
 
-    <link rel="stylesheet" href="bookletStyle.css">
-    <script src="BookletStyle.js"></script>
+    <link rel="stylesheet" href="booklet.css">
+    <script src="Booklet.js"></script>
     <script>
         window.addEventListener('load',(event)=>{
-            let booklet0 = globalThis.booklet0 = new BookletStyle(document.querySelector('#booklet0'));
+            document.querySelector('#booklet0').addEventListener('sync',(event)=>{
+                console.log(event.detail.booklet);
+                const booklet = event.detail.booklet
+                document.querySelector('#input_page').value = booklet.pageIdx+1;
+                document.querySelector('#input_page').max = booklet.length;
+                document.querySelector('#input_page').min = 1;
+                
+            }) 
+
+            let booklet0 = globalThis.booklet0 = new Booklet(document.querySelector('#booklet0'));
             booklet0.setPageByIdx(1)
+
         })
     </script>
     
@@ -57,7 +67,8 @@
                 <div class="booklet-pages">
                     <div class="booklet-page">
                         <div class="booklet-page-layout">
-                            <div class="booklet-page-part left"><div class="booklet-page-transform"><div class="booklet-page-content"><img src="imgs/page-rect.png"></div></div></div>
+                            <!-- <div class="booklet-page-part left"><div class="booklet-page-transform"><div class="booklet-page-content"><img src="imgs/page-rect.png"></div></div></div> -->
+                            <div class="booklet-page-part left"><div class="booklet-page-transform"><div class="booklet-page-content"><img src="imgs/page-rect.png" style="visibility: hidden;"></div></div></div>
                             <div class="booklet-page-part right"><div class="booklet-page-transform"><div class="booklet-page-content"><img src="imgs/page-rect.png"></div></div></div>
                         </div>
                     </div>
@@ -88,11 +99,16 @@
                 </div>
             </div>
             <footer class="booklet-footer">
-                <nav>
-                    <button type="button" class="btn btn-sm btn-primary" onclick="booklet0.first()">처음</button>
-                    <button type="button" class="btn btn-sm btn-primary" onclick="booklet0.prev()">이전</button>
-                    <button type="button" class="btn btn-sm btn-primary" onclick="booklet0.next()">다음</button>
-                    <button type="button" class="btn btn-sm btn-primary" onclick="booklet0.last()">마지막</button>
+                <nav class="d-flex justify-content-center gap-2">
+                    <button type="button" class="btn btn-primary" onclick="booklet0.first()">처음</button>
+                    <button type="button" class="btn btn-primary" onclick="booklet0.prev()">이전</button>
+                    <div class="input-group d-inline-flex" style="width: 8em;">
+                        <input type="number" class="form-control" min="0" placeholder="Recipient's username" value="0" id="input_page">
+                        <button type="button" class="btn btn-primary" onclick="booklet0.page( document.querySelector('#input_page').value - 1)">이동</button>    
+                    </div>
+                    
+                    <button type="button" class="btn btn-primary" onclick="booklet0.next()">다음</button>
+                    <button type="button" class="btn btn-primary" onclick="booklet0.last()">마지막</button>
                 </nav>
             </footer>
         </article>
