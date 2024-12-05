@@ -59,12 +59,14 @@ class Booklet{
 
     setPagePrevByIdx(idx){
         if(!this.pages[idx]) return false;
+        if(this.pagePrev) delete this.pagePrev.dataset.state;
         this.pages[idx].dataset.state = 'prev';
         this.pagePrev = this.pages[idx];
         return this.pagePrev;
     }
     setPageNextByIdx(idx){
         if(!this.pages[idx]) return false;
+        if(this.pageNext) delete this.pageNext.dataset.state;
         this.pages[idx].dataset.state = 'next';
         this.pageNext = this.pages[idx];
         return this.pageNext;
@@ -90,6 +92,7 @@ class Booklet{
         if(idx !== null){ if(!this.setPagePrevByIdx(idx)){console.warn('이동할 이전 페이지가 없습니다.'); return false;} }
         if(!this.pagePrev){ console.warn('이전 페이지가 없습니다.'); return false; }
         this.change(this.pagePrev.dataset.idx)
+        
     }
     next(idx=null){
         if(idx !== null){ if(!this.setPageNextByIdx(idx)){console.warn('이동할 다음 페이지가 없습니다.'); return false;} }

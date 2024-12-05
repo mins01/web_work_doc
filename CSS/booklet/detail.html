@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+    <title>BOOKLET STYLE</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="/js/ForGoogle.js"></script>
+    <!-- google analytics -->
+    <script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+    
+
+    <!-- jquery 관련 -->
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script> -->
+
+    <!-- 부트스트랩 5.3.x -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+
+    <!-- vue.js -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    
+    <!-- meta og -->
+    
+    <meta property="og:title" content="booklet style">
+    <meta property="og:description" content="booklet style">
+    <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+    <meta property="og:image:width" content="190">
+    <meta property="og:image:height" content="70" />
+    <meta property="og:site_name" content="booklet style" />
+    <meta property="og:type" content="website">
+    
+    <!-- //meta og -->
+
+    <link rel="stylesheet" href="booklet-detail.css">
+    <script src="BookletDetail.js"></script>
+    <script>
+        window.addEventListener('load',(event)=>{
+            let bd0 = globalThis.bd0 = new BookletDetail(document.querySelector('.booklet-detail-viewer'))
+            bd0.zoom = 0.1
+            setTimeout(()=>{
+                bd0.center();
+            },10)
+            
+        })
+    </script>
+</head>
+<body>
+    <div class="booklet-detail-container">
+        <article id="booklet0" class="booklet-detail">
+            <header class="booklet-detail-header">
+                <nav class="m-2">
+                    <h1 class="m-0 p-0">BOOKLET-DETAIL: E-BOOK</h1>
+                </nav>
+            </header>
+            <div class="booklet-detail-body">
+                <div class="booklet-detail-viewer-wrap">
+                    <div class="booklet-detail-viewer">
+                        <img class="booklet-detail-img" src="imgs/page-rect.png">
+                    </div>
+                </div>
+                
+            </div>
+            <footer class="booklet-detail-footer">
+                <div class="m-2 d-flex justify-content-center gap-2">
+                    <div class="input-group d-inline-flex" style="width: 30em">
+                        <span class="input-group-text">ZOOM</span>
+                        <div class="form-control d-flex align-items-center">
+                            <input type="range" list="datalist_zoom" class="w-100" min="0.1" step="0.2" max="2" value="1" oninput="bd0.zoom=this.value;bd0.center()">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="bd0.center()">중앙으로</button>
+                </div>
+            </footer>
+        </article>
+    </div>
+    <datalist id="datalist_zoom">
+        <option value="0.2"></option>        
+        <option value="0.5"></option>      
+        <option value="1"></option>
+        <option value="1.5"></option>
+        <option value="2"></option>
+    </datalist>
+</body>
+</html>

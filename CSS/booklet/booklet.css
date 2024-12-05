@@ -4,10 +4,11 @@
 /* 변수 선언 */
 .booklet-container{
     --animation-duration: 0.5s;
+    --img-aspect-ratio: 2480 / 3508;
 }
 
 /* 기본 제한 사항 */
-html{
+html,body{
     padding:0;
     margin:0;
     scrollbar-width: none;
@@ -59,9 +60,7 @@ html{
 /* 책자 속 레이아웃 */
 .booklet-header{
     outline: dashed 1px #0f09;
-
-    height: 80px;
-    flex: 0 0 80px;
+    flex: 0 0 auto;
 }
 .booklet-body{
     outline: dashed 1px #00f9;
@@ -82,9 +81,7 @@ html{
 }
 .booklet-footer{
     outline: dashed 1px #0ff9;
-    
-    height: 80px;
-    flex: 0 0 80px;
+    flex: 0 0 auto;
 }
 
 .booklet-pages{
@@ -124,10 +121,10 @@ html{
     z-index: 5;
 }
 .booklet-page[data-state="next"]{
-    z-index: 4;
+    z-index: 2;
 }
 .booklet-page[data-state="prev"]{
-    z-index: 3;
+    z-index: 2;
 }
 
 .booklet-page-part{
@@ -161,7 +158,6 @@ html{
 }
 
 
-
 .booklet-page-part.left .booklet-page-transform{
     transform-origin: right;
     display: flex;
@@ -178,6 +174,15 @@ html{
 .booklet-page[data-state]{
     display: block;
 }
+
+/* 페이지 보이기 부분 */
+/* .booklet-page[data-state="prev"] .booklet-page-part.right .booklet-page-content{
+    opacity: 0;
+}
+.booklet-page[data-state="next"] .booklet-page-part.left .booklet-page-content{
+    opacity: 0;
+} */
+
 
 /* 액션 및 애니메이션 */
 .booklet[data-action="to-next"] .booklet-page[data-state="curr"] .booklet-page-part.right .booklet-page-transform{
@@ -200,9 +205,16 @@ html{
     animation: turn-page-for-prev var(--animation-duration,1s) linear 0s 1 normal both;
 }
 
+.booklet-page[data-state="next"] .booklet-page-part.left .booklet-page-transform{
+    transform: scaleX(0)  skewY(10deg);
+}
+.booklet-page[data-state="prev"] .booklet-page-part.right .booklet-page-transform{
+    transform: scaleX(0)  skewY(10deg);
+}
+
 @keyframes turn-page-for-next {
-    0%{ z-index: 4; }
-    49%{ z-index: 4; }
+    0%{ z-index: 3; }
+    49%{ z-index: 3; }
     50%{ z-index: 9; }
     100%{ z-index: 9; }
 }
@@ -238,6 +250,7 @@ html{
     display: flex;
     pointer-events: all;
     background-color: #fff;
+    aspect-ratio: var(--img-aspect-ratio);
 }
 .clickable .booklet-page-content{
     cursor: pointer;
@@ -248,7 +261,7 @@ html{
 .booklet-page-part.right .booklet-page-content{
     justify-content: flex-start;
 }
-:is(.booklet-page-part.left , .booklet-page-part.right) .booklet-page-content::before{
+:where(.booklet-page-part.left , .booklet-page-part.right) .booklet-page-content::before{
     content: "";
     width: 5%;
     position: absolute;
@@ -264,10 +277,30 @@ html{
     left:0;
     background-image: linear-gradient(to left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 70%, rgba(0,0,0,0.5) 100%);   
 }
+
+
+
+/* 페이시 숫자 */
+.booklet-page-content-page{
+    position: absolute;
+    bottom:1%;
+    font-size: 24px;
+    color: #00000099;
+    font-weight: bold;
+}
+.booklet-page-part.left .booklet-page-content-page{
+    left:5%
+}
+.booklet-page-part.right .booklet-page-content-page{
+    right:5%
+}
+
 /* 이미지 */
 .booklet-page-content > img{
     max-width: 100%;
     max-height: 100%;  
+    
+    object-fit: contain;
 }
 
 
@@ -276,7 +309,32 @@ html{
 
 
 /* 페이지 그림자 */
-:is(.booklet-page[data-state]) .booklet-page-part.left .booklet-page-content{ box-shadow: -5px 2px 5px #0003; }
-:is(.booklet-page[data-state]) .booklet-page-part.right .booklet-page-content{ box-shadow: 5px 2px 5px #0003; }
+:where(.booklet-page[data-state]) .booklet-page-part.left .booklet-page-content{ box-shadow: -5px 2px 5px #0003; }
+:where(.booklet-page[data-state]) .booklet-page-part.right .booklet-page-content{ box-shadow: 5px 2px 5px #0003; }
 
 
+
+
+
+/* 특이 사항 */
+/* 페이지 없음 */
+.booklet-page-content.empty{
+    box-shadow: none !important;
+    visibility: hidden !important;
+}
+.booklet-page-content.empty::before{
+    display: none !important;
+}
+/* 커버 */
+.booklet-page-content.cover{
+    box-shadow: 0px 0px 5px #0003 !important;
+}
+.booklet-page-content.cover::before{
+    display: none !important;
+}
+
+
+
+.booklet-page-content.blank > *{
+    opacity: 0;
+}
