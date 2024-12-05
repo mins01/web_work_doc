@@ -41,8 +41,8 @@
     <script src="BookletDetail.js"></script>
     <script>
         window.addEventListener('load',(event)=>{
-            let bd0 = globalThis.bd0 = new BookletDetail(document.querySelector('.booklet-detail-viewer'))
-            bd0.zoom = 0.1
+            let bd0 = globalThis.bd0 = new BookletDetail(document.querySelector('.booklet-detail-view'),document.querySelector('.booklet-detail-preview'))
+            // bd0.zoom = 0.1
             setTimeout(()=>{
                 bd0.center();
             },10)
@@ -59,12 +59,19 @@
                 </nav>
             </header>
             <div class="booklet-detail-body">
-                <div class="booklet-detail-viewer-wrap">
-                    <div class="booklet-detail-viewer">
-                        <img class="booklet-detail-img" src="imgs/page-rect.png">
+                <div class="booklet-detail-view-wrap">
+                    <div class="booklet-detail-view">
+                        <img class="booklet-detail-view-img" src="imgs/page-rect.png">
                     </div>
                 </div>
-                
+                <div class="booklet-detail-preview-wrap">
+                    <div class="booklet-detail-preview">
+                        <div class="booklet-detail-preview-rect"></div>
+                        <img class="booklet-detail-preview-img" src="imgs/page-rect.png">
+                    </div>
+                    <div class="booklet-detail-preview-rect-mask">
+                    </div>
+                </div>
             </div>
             <footer class="booklet-detail-footer">
                 <div class="m-2 d-flex justify-content-center gap-2">
@@ -82,9 +89,9 @@
     <datalist id="datalist_zoom">
         <option value="0.2"></option>        
         <option value="0.5"></option>      
-        <option value="1"></option>
+        <option value="1.0"></option>
         <option value="1.5"></option>
-        <option value="2"></option>
+        <option value="2.0"></option>
     </datalist>
 </body>
 </html>
