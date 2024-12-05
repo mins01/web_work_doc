@@ -1,0 +1,269 @@
+@charset "utf-8";
+
+
+/*  */
+html{
+    padding:0;
+    margin:0;
+    scrollbar-width: none;
+}
+.booklet-container{
+    box-sizing: border-box !important;
+}
+.booklet-container *{
+    box-sizing: border-box !important;
+}
+
+/* 변수 선언 */
+.booklet-container{
+    --animation-duration: 0.3s;
+}
+
+
+/* 컨테이너 */
+.booklet-container{
+    outline: dashed 1px #9999;
+    width: 100%;
+    height: 100vh;
+    width: 100svw;
+    height: 100svh;
+    margin:0 auto;
+
+    padding:20px;
+}
+
+/* 책자 외각 */
+.booklet{
+    outline: dashed 1px #f009;
+
+    max-width: 1200px;
+    min-width: 300px;
+
+    width: 100%;
+    height: 100%;
+    margin:0 auto;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: stretch;
+}
+/* .booklet{ opacity: 0; }
+.booklet.on{ opacity: 1; } */
+
+
+/* 책자 속 레이아웃 */
+.booklet-header{
+    outline: dashed 1px #0f09;
+
+    height: 80px;
+    flex: 0 0 80px;
+}
+.booklet-body{
+    outline: dashed 1px #00f9;
+
+    padding: 20px;
+
+    flex:1 1 auto;
+    min-height: 300px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+
+    pointer-events: none;
+}
+.booklet-footer{
+    outline: dashed 1px #0ff9;
+    
+    height: 80px;
+    flex: 0 0 80px;
+}
+
+.booklet-pages{
+    outline: dashed 3px #ff09;
+    width: 100%;
+    /* height: 100%; */
+    max-height: 100%;
+    position: relative;
+    aspect-ratio: 4/3;
+}
+.booklet-page{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+.booklet-page-layout{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.booklet-page{
+ 
+}
+.booklet-page[data-state="curr"]{
+    z-index: 5;
+}
+.booklet-page[data-state="next"]{
+    z-index: 4;
+}
+.booklet-page[data-state="prev"]{
+    z-index: 3;
+}
+
+.booklet-page-part{
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    width: 50%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+.booklet-page-part.left{
+    /* transform: translateX(100%); */
+}
+.booklet-page-part.right{
+    transform: translateX(100%);
+}
+.booklet-page-transform{
+    height: 100%;
+    /* width: 100%; */
+    /* background-color: #aabbcc99; */
+    /* background-image: linear-gradient(to right, rgba(109,179,242,1) 0%,rgba(84,163,238,1) 50%,rgba(54,144,240,1) 51%,rgba(30,105,222,1) 100%); */
+}
+.booklet-page-content{
+    max-width: 100%;
+    max-height: 100%;
+    /* background-color: #aabbcc99; */
+    /* background-image: linear-gradient(to right, rgba(109,179,242,1) 0%,rgba(84,163,238,1) 50%,rgba(54,144,240,1) 51%,rgba(30,105,222,1) 100%); */
+}
+
+
+
+.booklet-page-part.left .booklet-page-transform{
+    transform-origin: right;
+    display: flex;
+    justify-content: flex-end;
+}
+.booklet-page-part.right .booklet-page-transform{
+    transform-origin: left;
+    display: flex;
+    justify-content: flex-start;
+}
+.booklet-page{
+    display: none;
+}
+.booklet-page[data-state]{
+    display: block;
+}
+
+/* 액션 및 애니메이션 */
+.booklet[data-action="to-next"] .booklet-page[data-state="curr"] .booklet-page-part.right .booklet-page-transform{
+    animation: turn-page-for-right var(--animation-duration,1s) linear 0s 1 normal both;
+}
+.booklet[data-action="to-next"] .booklet-page[data-state="next"] .booklet-page-part.left .booklet-page-transform{
+    animation: turn-page-for-left var(--animation-duration,1s) linear 0s 1 normal both;
+}
+.booklet[data-action="to-next"] .booklet-page[data-state="next"]{
+    animation: turn-page-for-next var(--animation-duration,1s) linear 0s 1 normal both;
+}
+
+.booklet[data-action="to-prev"] .booklet-page[data-state="curr"] .booklet-page-part.left .booklet-page-transform{
+    animation: turn-page-for-left var(--animation-duration,1s) linear 0s 1 reverse both;
+}
+.booklet[data-action="to-prev"] .booklet-page[data-state="prev"] .booklet-page-part.right .booklet-page-transform{
+    animation: turn-page-for-right var(--animation-duration,1s) linear 0s 1 reverse both;
+}
+.booklet[data-action="to-prev"] .booklet-page[data-state="prev"]{
+    animation: turn-page-for-prev var(--animation-duration,1s) linear 0s 1 normal both;
+}
+
+@keyframes turn-page-for-next {
+    0%{ z-index: 4; }
+    50%{ z-index: 4; }
+    100%{ z-index: 9; }
+}
+@keyframes turn-page-for-prev {
+    0%{ z-index: 4; }
+    50%{ z-index: 4; }
+    100%{ z-index: 9; }
+}
+@keyframes turn-page-for-right {
+    0%{
+        transform: scaleX(1) skewY(0deg);
+    }
+    50%, 100%{
+        transform: scaleX(0) skewY(-15deg);
+    }
+}
+
+@keyframes turn-page-for-left {
+    0%,50%{
+        transform: scaleX(0)  skewY(15deg);
+    }
+    100%{
+        transform: scaleX(1)  skewY(0deg);
+    }
+}
+
+
+
+/* 콘텐츠 */
+.booklet-page-content{
+    position: relative;
+    display: flex;
+    pointer-events: all;
+}
+.clickable .booklet-page-content{
+    cursor: pointer;
+}
+.booklet-page-part.left .booklet-page-content{
+    justify-content: flex-end;
+}
+.booklet-page-part.right .booklet-page-content{
+    justify-content: flex-start;
+}
+:is(.booklet-page-part.left , .booklet-page-part.right) .booklet-page-content::before{
+    content: "";
+    width: 5%;
+    position: absolute;
+    top:0;bottom:0;
+    z-index: 2;
+    display: block;
+}
+.booklet-page-part.left .booklet-page-content::before{
+    right:0;
+    background-image: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 70%, rgba(0,0,0,0.5) 100%);   
+}
+.booklet-page-part.right .booklet-page-content::before{
+    left:0;
+    background-image: linear-gradient(to left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 70%, rgba(0,0,0,0.5) 100%);   
+}
+/* 이미지 */
+.booklet-page-content > img{
+    max-width: 100%;
+    max-height: 100%;  
+}
+
+
+
+
+
+
+/* 페이지 그림자 */
+.booklet-page[data-state="prev"] .booklet-page-part.left .booklet-page-content{ box-shadow: -2px 2px 5px #0003; }
+.booklet-page[data-state="next"] .booklet-page-part.right .booklet-page-content{ box-shadow: 2px 2px 5px #0003; }
+
+
