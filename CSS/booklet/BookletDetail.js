@@ -33,7 +33,7 @@ class BookletDetail{
     set zoom(zoom){
         this._zoom = zoom;
         // this.target.style.zoom = zoom;
-        this.target.querySelector('.booklet-detail-view-img').style.zoom = zoom;
+        this.target.querySelector('.booklet-detail-img').style.zoom = zoom;
     }
     scrollTo(x,y){
         this.target.scrollTo(x,y);

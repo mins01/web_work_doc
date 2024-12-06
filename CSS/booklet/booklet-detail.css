@@ -108,10 +108,12 @@ html,body{
     padding:2%;
 }
 
-.booklet-detail-view-img{
+.booklet-detail-img{
     display: block;
     margin:0 auto;
     object-fit: cover;
+
+    /* margin: 2%; */
 }
 .booklet-detail-view.moveable{
     scrollbar-width: none;

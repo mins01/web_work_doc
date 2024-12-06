@@ -36,7 +36,7 @@ class BookletMinimap{
     onpointermove=(event)=>{
         if(!this.running){ return }
         if(this.target != event.target){return}
-        console.log(event.target);
+        // console.log(event.target);
 
         event.preventDefault();
         event.stopPropagation();

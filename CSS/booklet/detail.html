@@ -68,13 +68,15 @@
             <div class="booklet-detail-body">
                 <div class="booklet-detail-view-wrap">
                     <div class="booklet-detail-view">
-                        <img class="booklet-detail-view-img" src="imgs/page-rect.png">
+                        <img class="booklet-detail-img img-src" src="imgs/page-rect.png">
                     </div>
                 </div>
                 <div class="booklet-minimap-wrap">
                     <div class="booklet-minimap">
                         <div class="booklet-minimap-rect"></div>
-                        <img class="booklet-minimap-img" src="imgs/page-rect.png">
+                        <img class="booklet-minimap-img img-src" src="imgs/page-rect.png" style="margin: 0%; box-sizing: content-box;">
+                        <!-- <div class="booklet-minimap-img-wrap" >
+                        </div> -->
                     </div>
                     <div class="booklet-minimap-rect-mask">
                     </div>
@@ -89,6 +91,12 @@
                         </div>
                     </div>
                     <button type="button" class="btn btn-primary" onclick="bd0.center()">중앙으로</button>
+                </div>
+                <hr>
+                <div class="m-2 d-flex justify-content-center gap-2">
+                    <button type="button" class="btn btn-primary" onclick="document.querySelectorAll('.img-src').forEach((el)=>{el.src = 'imgs/page-rect.png'; el.addEventListener('load',()=>{ bd0.center() },{once:true}) });">일반 이미지</button>
+                    <button type="button" class="btn btn-primary" onclick="document.querySelectorAll('.img-src').forEach((el)=>{el.src = 'imgs/page-v-long.png'; el.addEventListener('load',()=>{ bd0.center() },{once:true}) });">세로 긴 이미지</button>
+                    <button type="button" class="btn btn-primary" onclick="document.querySelectorAll('.img-src').forEach((el)=>{el.src = 'imgs/page-h-long.png'; el.addEventListener('load',()=>{ bd0.center() },{once:true}) });">가로 긴 이미지</button>
                 </div>
             </footer>
         </article>

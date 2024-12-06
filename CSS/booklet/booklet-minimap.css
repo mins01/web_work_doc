@@ -32,7 +32,7 @@
     /* width: 100%;
     height: 100%; */
     position: relative;
-    /* padding:2%; */
+    padding:2%;
 
     /* mask-image: linear-gradient(rgba(0, 0, 0, 1) 50%, transparent); */
     
@@ -46,12 +46,15 @@
 .booklet-minimap > *{
     pointer-events: none;
 }
+.booklet-minimap-img-wrap{
+    /* padding:2%; */
+}
 .booklet-minimap-img{
-    /* width: clamp(200px,10svw,400px); */
-    height: clamp(150px,10svh,300px);
+    max-width: clamp(200px,10svw,400px);
+    max-height: clamp(150px,10svh,300px);
+    width: 100%;
+    height: 100%;
     object-fit: contain;
-    /* margin: 2%; */
-    
 }
 .booklet-minimap-rect{
     position: absolute;
@@ -70,7 +73,7 @@
     position: absolute;
     top:0;left:0;bottom: 0;right: 0;
     background-color: #00000066;
-    padding:2%;
+    /* padding:2%; */
     z-index: 2;
 
 
