@@ -115,77 +115,9 @@ html,body{
 }
 .booklet-detail-view.moveable{
     scrollbar-width: none;
+    pointer-events: all;
+    touch-action: none;
     cursor: move;
 }
 
 
-
-
-/* 프리뷰어 */
-.booklet-detail-preview-wrap{
-    max-width: clamp(120px,20%,200px);
-    /* max-height: 200px; */
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    z-index: 2;
-    box-shadow: 3px 3px 5px #0009;
-    background-image: url(imgs/bg.gif);
-    border:1px solid #999;
-}
-.booklet-detail-preview{
-    max-width: 100%;
-    max-height: 100%;
-    position: relative;
-    padding:2%;
-
-    /* mask-image: linear-gradient(rgba(0, 0, 0, 1) 50%, transparent); */
-
-    
-}
-.booklet-detail-preview-img{
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover;
-}
-.booklet-detail-preview-rect{
-    position: absolute;
-    top:0;left:0;
-    border: 1px dashed #999;;
-
-/* clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); */
-    width:var(--preview-rect-width);
-    height:var(--preview-rect-height);
-    top:var(--preview-rect-top);
-    left:var(--preview-rect-left);
-    z-index: 3;
-}
-.booklet-detail-preview-rect-mask{
-    
-    position: absolute;
-    top:0;left:0;bottom: 0;right: 0;
-    background-color: #00000066;
-    padding:2%;
-    z-index: 2;
-
-
-    /* --bg-var: linear-gradient(0% rgba(0, 0, 0, 1) , 100% rgba(0, 0, 0, 1)); */
-    --bg-var:  linear-gradient(#009900ff 100%, transparent 0),linear-gradient(#ff0000ff 100%, transparent 0);
-    --bg-size: 100% 100%, var(--preview-rect-width) var(--preview-rect-height);
-    --bg-position: center center, calc(var(--preview-rect-left)) var(--preview-rect-top) ;
-
-    -webkit-mask-image: var(--bg-var);
-    -webkit-mask-size: var(--bg-size);
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: var(--bg-position);
-    
-
-    mask-image: var(--bg-var);
-    mask-size: var(--bg-size);
-    mask-repeat: no-repeat;
-    mask-position: var(--bg-position);
-    
-    mask-composite:subtract,add; -webkit-mask-composite:source-out,source-over;
-
-
-}

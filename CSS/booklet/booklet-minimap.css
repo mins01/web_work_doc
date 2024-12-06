@@ -1,0 +1,98 @@
+@charset "utf-8";
+
+
+
+
+
+
+/* 미니맵 */
+
+/* 변수 선언용 */
+.booklet-minimap-container{
+    --minimap-mask-width:0px;
+    --minimap-mask-height:0px;
+    --minimap-mask-top:0px;
+    --minimap-mask-left:0px;
+}
+
+.booklet-minimap-wrap{
+
+    /* max-height: 300px; */
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 2;
+    box-shadow: 3px 3px 5px #0009;
+    background-image: url(imgs/bg.gif);
+    border:1px solid #999;
+
+    
+}
+.booklet-minimap{
+    /* width: 100%;
+    height: 100%; */
+    position: relative;
+    /* padding:2%; */
+
+    /* mask-image: linear-gradient(rgba(0, 0, 0, 1) 50%, transparent); */
+    
+}
+.booklet-minimap.moveable{
+    pointer-events: all;
+    touch-action: none;
+    cursor: pointer;
+}
+
+.booklet-minimap > *{
+    pointer-events: none;
+}
+.booklet-minimap-img{
+    /* width: clamp(200px,10svw,400px); */
+    height: clamp(150px,10svh,300px);
+    object-fit: contain;
+    /* margin: 2%; */
+    
+}
+.booklet-minimap-rect{
+    position: absolute;
+    top:0;left:0;
+    border: 1px dashed #999;;
+
+/* clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); */
+    width:var(--minimap-mask-width);
+    height:var(--minimap-mask-height);
+    top:var(--minimap-mask-top);
+    left:var(--minimap-mask-left);
+    z-index: 3;
+}
+.booklet-minimap-rect-mask{
+    
+    position: absolute;
+    top:0;left:0;bottom: 0;right: 0;
+    background-color: #00000066;
+    padding:2%;
+    z-index: 2;
+
+
+    /* --bg-var: linear-gradient(0% rgba(0, 0, 0, 1) , 100% rgba(0, 0, 0, 1)); */
+    --bg-var:  linear-gradient(#009900ff 100%, transparent 0),linear-gradient(#ff0000ff 100%, transparent 0);
+    --bg-size: 100% 100%, var(--minimap-mask-width) var(--minimap-mask-height);
+    --bg-position: center center, calc(var(--minimap-mask-left)) var(--minimap-mask-top) ;
+
+    -webkit-mask-image: var(--bg-var);
+    -webkit-mask-size: var(--bg-size);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: var(--bg-position);
+    
+
+    mask-image: var(--bg-var);
+    mask-size: var(--bg-size);
+    mask-repeat: no-repeat;
+    mask-position: var(--bg-position);
+    
+    mask-composite:subtract,add; 
+    -webkit-mask-composite:source-out,source-over;
+
+
+    pointer-events: none;
+}

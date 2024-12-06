@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ko" >
 <head>
-    <title>BOOKLET STYLE</title>
+    <title>BOOKLET STYLE - DETAIL</title>
     <meta charset="utf-8">
     <meta http-equiv="Content-Script-Type" content="text/javascript">
     <meta http-equiv="Content-Style-Type" content="text/css">
@@ -27,25 +27,32 @@
     
     <!-- meta og -->
     
-    <meta property="og:title" content="booklet style">
-    <meta property="og:description" content="booklet style">
+    <meta property="og:title" content="booklet style - detail">
+    <meta property="og:description" content="booklet style - detail">
     <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
     <meta property="og:image:width" content="190">
     <meta property="og:image:height" content="70" />
-    <meta property="og:site_name" content="booklet style" />
+    <meta property="og:site_name" content="booklet style - detail" />
     <meta property="og:type" content="website">
     
     <!-- //meta og -->
 
     <link rel="stylesheet" href="booklet-detail.css">
     <script src="BookletDetail.js"></script>
+    <link rel="stylesheet" href="booklet-minimap.css">
+    <script src="BookletMinimap.js"></script>
     <script>
         window.addEventListener('load',(event)=>{
-            let bd0 = globalThis.bd0 = new BookletDetail(document.querySelector('.booklet-detail-view'),document.querySelector('.booklet-detail-preview'))
+            // let bd0 = globalThis.bd0 = new BookletDetail(document.querySelector('.booklet-detail-view'),document.querySelector('.booklet-minimap'))
+            let bd0 = globalThis.bd0 = new BookletDetail(document.querySelector('.booklet-detail-view'))
+            let bm0 = globalThis.bm0 = new BookletMinimap(document.querySelector('.booklet-minimap'),bd0);
+
             // bd0.zoom = 0.1
             setTimeout(()=>{
                 bd0.center();
             },10)
+            
+            
             
         })
     </script>
@@ -64,12 +71,12 @@
                         <img class="booklet-detail-view-img" src="imgs/page-rect.png">
                     </div>
                 </div>
-                <div class="booklet-detail-preview-wrap">
-                    <div class="booklet-detail-preview">
-                        <div class="booklet-detail-preview-rect"></div>
-                        <img class="booklet-detail-preview-img" src="imgs/page-rect.png">
+                <div class="booklet-minimap-wrap">
+                    <div class="booklet-minimap">
+                        <div class="booklet-minimap-rect"></div>
+                        <img class="booklet-minimap-img" src="imgs/page-rect.png">
                     </div>
-                    <div class="booklet-detail-preview-rect-mask">
+                    <div class="booklet-minimap-rect-mask">
                     </div>
                 </div>
             </div>

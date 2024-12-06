@@ -2,10 +2,10 @@
 class BookletDetail{
 
 
-    constructor(target,preview=null){
+    constructor(target,minimap=null){
         this.running=false;
         this.target=target;
-        this.preview=preview;
+        this.minimap=minimap;
         this._zoom = 1;
 
         this.scollLeft0 = 0;
@@ -37,12 +37,17 @@ class BookletDetail{
     }
     scrollTo(x,y){
         this.target.scrollTo(x,y);
-        this.syncPreview();
+        // this.syncPreview();
+        this.triggerSync()
     }
     center(){
         this.scrollTo(this.maxScrollLeft / 2,this.maxScrollTop / 2)
         // this.target.scrollLeft = this.maxScrollLeft / 2
         // this.target.scrollTop = this.maxScrollTop / 2
+    }
+    triggerSync(){
+        const sync = new CustomEvent("booklet-detail-sync", { detail: {"booklet":this}, });
+        this.target.dispatchEvent(sync);
     }
     addEvent(target){
         target.classList.add('moveable');
@@ -65,8 +70,12 @@ class BookletDetail{
     }
     onpointermove=(event)=>{
         // console.log('onpointermove');
-        
         if(!this.running){ return }
+        // if(this.target != event.target){return}
+        // console.log(event.target);
+        
+        event.preventDefault();
+        event.stopPropagation();
         let x = this.x0 - event.x ;
         let y = this.y0 - event.y ;
         // this.target.scrollLeft = this.scollLeft0 + x;
@@ -82,9 +91,9 @@ class BookletDetail{
 
 
 
-    // -- preview
+    // -- minimap
     syncPreview(){
-        if(!this.preview){return;}
+        if(!this.minimap){return;}
 
         const ow = this.target.offsetWidth;
         const oh = this.target.offsetHeight;
@@ -92,10 +101,10 @@ class BookletDetail{
         const st = this.target.scrollTop;
         const sw = this.target.scrollWidth;
         const sh = this.target.scrollHeight;
-        const psw = this.preview.scrollWidth;
-        const psh = this.preview.scrollHeight;
-        const pow = this.preview.offsetWidth;
-        const poh = this.preview.offsetHeight;
+        const psw = this.minimap.scrollWidth;
+        const psh = this.minimap.scrollHeight;
+        const pow = this.minimap.offsetWidth;
+        const poh = this.minimap.offsetHeight;
 
         const ratioScroll = psw/sw;
         const ratioSize = psw/sw;
@@ -106,13 +115,13 @@ class BookletDetail{
         const lpx = l*pow;
         const tpx = t*poh;
 
-        let parentElement = this.preview.parentElement;
-        parentElement.style.setProperty('--preview-rect-width',(w*100)+'%');
-        parentElement.style.setProperty('--preview-rect-height',(h*100)+'%');
-        // parentElement.style.setProperty('--preview-rect-left',(l*100)+'%');
-        // parentElement.style.setProperty('--preview-rect-top',(t*100)+'%');
-        parentElement.style.setProperty('--preview-rect-left',lpx+'px');
-        parentElement.style.setProperty('--preview-rect-top',tpx+'px');
+        let parentElement = this.minimap.parentElement;
+        parentElement.style.setProperty('--minimap-rect-width',(w*100)+'%');
+        parentElement.style.setProperty('--minimap-rect-height',(h*100)+'%');
+        // parentElement.style.setProperty('--minimap-rect-left',(l*100)+'%');
+        // parentElement.style.setProperty('--minimap-rect-top',(t*100)+'%');
+        parentElement.style.setProperty('--minimap-rect-left',lpx+'px');
+        parentElement.style.setProperty('--minimap-rect-top',tpx+'px');
 
         // console.log(ratioScroll,w,h);
         

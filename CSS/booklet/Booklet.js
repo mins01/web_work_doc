@@ -2,9 +2,9 @@
 class Booklet{
 
     constructor(booklet){
-        this.booklet = booklet;
+        this.target = booklet;
 
-        this.booklet.addEventListener('click',(event)=>{this.onclick(event)})
+        this.target.addEventListener('click',(event)=>{this.onclick(event)})
 
         this.pagePrev = null;
         this.pageCurr = null;
@@ -23,11 +23,11 @@ class Booklet{
     }
 
     init(){
-        this.pages = this.booklet.querySelectorAll('.booklet-page')
+        this.pages = this.target.querySelectorAll('.booklet-page')
         this.pages.forEach((page,idx) => {
             page.dataset.idx = idx;
         });
-        this.booklet.classList.add('on')
+        this.target.classList.add('on')
     }
 
     setPageByIdx(idx){
@@ -43,7 +43,7 @@ class Booklet{
 
         if(idx !==null && pages[idx]){
             pages[idx].dataset.state = 'curr';
-            this.booklet.dataset.idx = this.pageIdx = idx;
+            this.target.dataset.idx = this.pageIdx = idx;
             this.pageCurr = pages[idx];
             this.setPagePrevByIdx(idx-1);
             this.setPageNextByIdx(idx+1);            
@@ -53,8 +53,8 @@ class Booklet{
     }
 
     triggerSync(){
-        const sync = new CustomEvent("sync", { detail: {"booklet":this}, });
-        this.booklet.dispatchEvent(sync);
+        const sync = new CustomEvent("booklet-sync", { detail: {"booklet":this}, });
+        this.target.dispatchEvent(sync);
     }
 
     setPagePrevByIdx(idx){
@@ -74,16 +74,16 @@ class Booklet{
     change(idx){
         if(idx == this.pageIdx){return false;}
         else if(idx < this.pageIdx){
-            this.booklet.dataset.action='to-prev';
+            this.target.dataset.action='to-prev';
             this.pageCurr.addEventListener("animationend", (event) => {
-                this.booklet.dataset.action='';
+                this.target.dataset.action='';
                 this.setPageByIdx(idx);
             },{once:true});
         }
         else if(idx > this.pageIdx){
-            this.booklet.dataset.action='to-next';
+            this.target.dataset.action='to-next';
             this.pageCurr.addEventListener("animationend", (event) => {
-                this.booklet.dataset.action='';
+                this.target.dataset.action='';
                 this.setPageByIdx(idx);
             },{once:true});
         }

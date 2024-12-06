@@ -41,8 +41,8 @@
     <script src="Booklet.js"></script>
     <script>
         window.addEventListener('load',(event)=>{
-            document.querySelector('#booklet0').addEventListener('sync',(event)=>{
-                console.log('SYNC',event.detail.booklet);
+            document.querySelector('#booklet0').addEventListener('booklet-sync',(event)=>{
+                console.log('booklet-sync',event.detail.booklet);
                 const booklet = event.detail.booklet
                 document.querySelector('#input_page').value = booklet.pageIdx+1;
                 document.querySelector('#input_page').max = booklet.length;
