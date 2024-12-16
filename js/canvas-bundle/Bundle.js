@@ -48,7 +48,7 @@ class Bundle extends Canvas{
         this.canvases.forEach((canvas,index)=>{
             this.ctx.globalCompositeOperation = canvas.compositeOperation
             this.ctx.globalAlpha = canvas.alpha
-            this.ctxCommand('drawImage',canvas, canvas.x, canvas.y, canvas.imageWidth, canvas.imageHeight);
+            this.ctxCommand('drawImage',canvas, canvas.x, canvas.y, canvas.width, canvas.height);
         })
         this.ctx.restore()
     }

@@ -2,14 +2,14 @@ class Canvas extends HTMLCanvasElement{
     static counter = 0;
     constructor(w=null,h=null,label=null){
         super();
+        this.wrapMethods();
+
         this.id =  'wb-canvas-'+(this.constructor.counter++);
         this.label = label??"created at "+(new Date()).toLocaleString(['ko'],{dateStyle:'medium',timeStyle:'medium',hourCycle:'h24'}).replace(/[^\d]/,'');
         // this.x = 0;
         // this.y = 0;
         this._x = 0;
         this._y = 0;
-        this._imageWidth = 0;
-        this._imageHeight = 0;
         // this._canvasWidth = 0; // this.width의 별칭
         // this._canvasHeight = 0; // this.height 의 별칭
         this._compositeOperation = 'source-over';
@@ -17,10 +17,8 @@ class Canvas extends HTMLCanvasElement{
         this._alpha = 1;
         
 
-        this.canvasWidth = w??400;
-        this.canvasHeight = h??300;
-        this.imageWidth = this.width??0;
-        this.imageHeight = this.height??0;
+        this.width = w??400;
+        this.height = h??300;
         // this.canvasWidth = this.width??0;
         // this.canvasHeight = this.height??0;
         this.compositeOperation = 'source-over';
@@ -32,6 +30,24 @@ class Canvas extends HTMLCanvasElement{
         this.setContext2D();
         this.bundle = null
     }
+
+    wrapMethods(){
+        let descWidth = Object.getOwnPropertyDescriptor(HTMLCanvasElement.prototype,'width')
+        let newDescWidth = { configurable: descWidth.configurable, enumerable: descWidth.enumerable,
+            get:descWidth.get, 
+            set:(v)=>{ descWidth.set.apply(this,[v]); this.flush(); },
+        }
+        Object.defineProperty(this,'width',newDescWidth)
+        let descHeight = Object.getOwnPropertyDescriptor(HTMLCanvasElement.prototype,'height')
+        let newDescHeight = { configurable: descHeight.configurable, enumerable: descHeight.enumerable,
+            get:descHeight.get, 
+            set:(v)=>{ descHeight.set.apply(this,[v]); this.flush(); },
+        }
+        Object.defineProperty(this,'height',newDescHeight)
+        
+    }
+
+
     setContext2D(options={"alpha":true,"antialias":true,"depth":true}){
         this.ctx = this.getContext2D(options)
         return this.ctx;
@@ -76,16 +92,6 @@ class Canvas extends HTMLCanvasElement{
     set x(x){ this._x = x; this.flush(); }
     get y(){ return this._y; }
     set y(y){ this._y = y; this.flush(); }
-
-    get imageWidth(){ return this._imageWidth; }
-    set imageWidth(imageWidth){ this._imageWidth = imageWidth; this.flush(); }
-    get imageHeight(){ return this._imageHeight; }
-    set imageHeight(imageHeight){ this._imageHeight = imageHeight; this.flush(); }
-
-    get canvasWidth(){ return this.width; }
-    set canvasWidth(canvasWidth){ this.width = canvasWidth; this.flush(); }
-    get canvasHeight(){ return this.height; }
-    set canvasHeight(canvasHeight){ this.height = canvasHeight; this.flush(); }
 
     get compositeOperation(){ return this._compositeOperation; }
     set compositeOperation(compositeOperation){ this._compositeOperation = compositeOperation; this.flush(); }
