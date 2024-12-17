@@ -57,20 +57,22 @@
             b1.height = 200;
             document.querySelector('.bundle-box').append(b1)
 
-            const c1 = globalThis.c1 = new Canvas(200,100);b1.add(c1)
+            const c1 = globalThis.c1 = new Canvas(200,100,'#0000ff');
+            b1.add(c1)
             c1.x = 50;
             c1.y = 100;
             c1.alpha = 0.2
-            c1.fill('#0000ff')
             
             
-            const c2 = globalThis.c2 = new Canvas(100,100);b1.add(c2)
+            const c2 = globalThis.c2 = new Canvas(100,100);
+            b1.add(c2)
             c2.fill('#ff000099')
             c2.x = 300;
             c2.y = 20
-            c2.ctxCommand('x',1,2,3,4,5)
+            c2.ctxCommand('에러나야하는 코멘트',1,2,3,4,5)
 
-            const c3 = globalThis.c3 = new Canvas(300,300);b1.add(c3)
+            const c3 = globalThis.c3 = new Canvas(300,300);
+            b1.add(c3)
             // c3.id = 'c3';
             c3.x = 30;
             c3.y = 30

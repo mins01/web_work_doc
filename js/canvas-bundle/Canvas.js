@@ -1,9 +1,7 @@
 class Canvas extends HTMLCanvasElement{
     static counter = 0;
-    constructor(w=null,h=null,label=null){
+    constructor(w=null,h=null,bgColor=null,label=null){
         super();
-        this.wrapMethods();
-
         this.id =  'wb-canvas-'+(this.constructor.counter++);
         this.label = label??"created at "+(new Date()).toLocaleString(['ko'],{dateStyle:'medium',timeStyle:'medium',hourCycle:'h24'}).replace(/[^\d]/,'');
         // this.x = 0;
@@ -17,8 +15,7 @@ class Canvas extends HTMLCanvasElement{
         this._alpha = 1;
         
 
-        this.width = w??400;
-        this.height = h??300;
+        
         // this.canvasWidth = this.width??0;
         // this.canvasHeight = this.height??0;
         this.compositeOperation = 'source-over';
@@ -29,25 +26,11 @@ class Canvas extends HTMLCanvasElement{
         
         this.setContext2D();
         this.bundle = null
+
+        this.width = w??400;
+        this.height = h??300;
+        if(bgColor) this.fill(bgColor)
     }
-
-    wrapMethods(){
-        let descWidth = Object.getOwnPropertyDescriptor(HTMLCanvasElement.prototype,'width')
-        let newDescWidth = { configurable: descWidth.configurable, enumerable: descWidth.enumerable,
-            get:descWidth.get, 
-            set:(v)=>{ descWidth.set.apply(this,[v]); this.flush(); },
-        }
-        Object.defineProperty(this,'width',newDescWidth)
-        let descHeight = Object.getOwnPropertyDescriptor(HTMLCanvasElement.prototype,'height')
-        let newDescHeight = { configurable: descHeight.configurable, enumerable: descHeight.enumerable,
-            get:descHeight.get, 
-            set:(v)=>{ descHeight.set.apply(this,[v]); this.flush(); },
-        }
-        Object.defineProperty(this,'height',newDescHeight)
-        
-    }
-
-
     setContext2D(options={"alpha":true,"antialias":true,"depth":true}){
         this.ctx = this.getContext2D(options)
         return this.ctx;
@@ -84,7 +67,7 @@ class Canvas extends HTMLCanvasElement{
     }
     flush(){
         this.ctxUpdatedAtTime = Date.now();
-        // console.log('ctx.',method,'ctxUpdatedAtTime',this.ctxUpdatedAtTime);
+        // console.log('ctxUpdatedAtTime',this.ctxUpdatedAtTime);
         if(this.bundle) this.bundle.sync();
     }
     
@@ -99,6 +82,32 @@ class Canvas extends HTMLCanvasElement{
     // set opacity(opacity){ this._opacity = opacity; this.flush(); }
     get alpha(){ return this._alpha; }
     set alpha(alpha){ this._alpha = alpha; this.flush(); }
+
+    get width(){       
+        const desc = Object.getOwnPropertyDescriptor(HTMLCanvasElement.prototype,'width');
+        return desc.get.apply(this); 
+    }
+    /**
+     * @param {number} v
+     */
+    set width(v){
+        const desc = Object.getOwnPropertyDescriptor(HTMLCanvasElement.prototype,'width');
+        desc.set.apply(this,[v]); 
+        this.flush(); 
+    }
+
+    get height(){       
+        const desc = Object.getOwnPropertyDescriptor(HTMLCanvasElement.prototype,'height');
+        return desc.get.apply(this); 
+    }
+    /**
+     * @param {number} v
+     */
+    set height(v){
+        const desc = Object.getOwnPropertyDescriptor(HTMLCanvasElement.prototype,'height');
+        desc.set.apply(this,[v]); 
+        this.flush(); 
+    }
 
 }
 
