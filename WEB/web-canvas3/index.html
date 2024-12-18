@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+    <title>web canvas 3</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="/js/ForGoogle.js"></script>
+    <!-- google analytics -->
+    <script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+    
+
+    <!-- jquery 관련 -->
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+
+    <!-- 부트스트랩 5.3.x -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykwcl2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+
+    <!-- vue.js -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    
+    <!-- meta og -->
+    
+    <meta property="og:title" content="web canvas 3">
+
+    <meta property="og:description" content="web canvas 3">
+    <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+    <meta property="og:image:width" content="190">
+    <meta property="og:image:height" content="70" />
+    <meta property="og:site_name" content="web canvas 3" />
+    <meta property="og:type" content="website">
+    
+    <!-- //meta og -->
+    <style>
+        canvas{
+            outline: 1px dashed #aabbcc99;
+        }
+    </style>
+
+    <script type="module">
+        import WcLayer from "./WcLayer.js";
+        import WcCanvas from "./WcCanvas.js";
+        globalThis.WcLayer = WcLayer;
+        window.customElements.define('wc-layer', WcLayer,{ extends: "canvas" });
+        globalThis.WcCanvas = WcCanvas;
+        window.customElements.define('wc-canvas', WcCanvas,{ extends: "canvas" });
+
+        
+
+        window.addEventListener('load',(event)=>{
+            const wcc1 = globalThis.wcc1 = new WcCanvas();
+            wcc1.width = 400;
+            wcc1.height = 200;
+            document.querySelector('.bundle-box').append(wcc1)
+
+            const wcl1 = globalThis.wcl1 = new WcLayer(200,100,'#0000ff');
+            wcc1.add(wcl1)
+            wcl1.x = 50;
+            wcl1.y = 100;
+            wcl1.alpha = 0.2
+            
+            
+            const wcl2 = globalThis.wcl2 = new WcLayer(100,100);
+            wcc1.add(wcl2)
+            wcl2.fill('#ff000099')
+            wcl2.x = 300;
+            wcl2.y = 20
+            wcl2.ctxCommand('에러나야하는 코멘트',1,2,3,4,5)
+
+            const wcl3 = globalThis.wcl3 = new WcLayer(300,300);
+            wcc1.add(wcl3)
+            // wcl3.id = 'wcl3';
+            wcl3.x = 30;
+            wcl3.y = 30
+            wcl3.alpha = 0.5
+            wcl3.imageWidth = 30;
+            wcl3.imageHeight = 30
+            wcl3.fill('#ffff00')
+           
+            wcc1.wcLayers.forEach((wcLayer)=>{
+                document.querySelector('.layers-box').append(wcLayer)
+            })
+
+            let test_l = document.createElement('canvas',{is:'wc-layer'});
+            test_l.width = 100;
+            test_l.height = 100;
+            test_l.fill('#0fc')
+            document.querySelector('.test-box').append(test_l)
+        })
+    </script>
+    
+    <script>
+        function randomFill(event){
+            const target = event.target;
+            if(target.nodeName == 'CANVAS'){
+                let c = '#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');
+
+                target.fill(c)
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>bundle</h2>
+        <div class="bundle-box"></div>
+        <hr>
+        <h2>layers</h2>
+        <div class="layers-box" onclick="randomFill(event)"></div>
+        <hr>
+        <h2>test</h2>
+        <div class="test-box">
+            <canvas width="400" height="400" is="wc-layer"></canvas>
+        </div>
+    </div>
+</body>
+</html>
