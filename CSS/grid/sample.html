@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+    <title>grid sample</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="/js/ForGoogle.js"></script>
+    <!-- google analytics -->
+    <script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+    
+
+    <!-- jquery 관련 -->
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script> -->
+
+    <!-- 부트스트랩 5.3.x -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+
+    <!-- vue.js -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    
+    <!-- meta og -->
+    
+    <meta property="og:title" content="grid sample">
+    <meta property="og:description" content="grid sample">
+    <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+    <meta property="og:image:width" content="190">
+    <meta property="og:image:height" content="70" />
+    <meta property="og:site_name" content="grid sample" />
+    <meta property="og:type" content="website">
+    
+    <!-- //meta og -->
+    
+    <style>
+        .grid-sample{
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 8px;
+            outline: 1px dotted #f999;
+            padding-bottom: 5em;
+        }
+
+        .grid-sample-el{
+            outline: 1px dotted #9999;
+        }
+        .grid-sample .card{
+            width: 100%;
+            min-width: 150px;
+            max-width: 300px;
+            margin:0 auto;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            font-size: clamp(14px,calc(100vw/80),20px);
+        }
+        .grid-sample .card-body{
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .grid-sample .card-body .card-title{
+            flex:0 0 auto;
+        }
+        .grid-sample .card-body .card-text{
+            flex:1 1 auto;
+            overflow: hidden;
+
+        }
+
+        
+        @media (min-width: 0px) {
+            .grid-sample{ grid-template-columns: repeat(2, minmax(150px, 1fr)); }
+        }
+        @media (min-width: 576px) {
+            .grid-sample{ grid-template-columns: repeat(3, minmax(150px, 1fr)); }
+            /* .grid-sample > div:nth-of-type(3n+1){ margin-top:3em; margin-bottom:-3em;} */
+        }
+        @media (min-width: 768px) {
+            .grid-sample{ grid-template-columns: repeat(4, minmax(150px, 1fr)); }
+        }
+        @media (min-width: 992px) {
+            .grid-sample{ grid-template-columns: repeat(5, minmax(150px, 1fr)); }
+        }
+        @media (min-width: 1200px) {
+            .grid-sample{ grid-template-columns: repeat(6, minmax(150px, 1fr)); }
+        }
+        @media (min-width: 1400px) {
+            .grid-sample{ grid-template-columns: repeat(6, minmax(150px, 1fr)); }
+            .grid-sample{--child-condition:2n;}
+        }
+        @media (min-width: 0px ) and (max-width: 575.9px ) { 
+            .grid-sample > div:nth-of-type(2n){ margin-top:5em; margin-bottom:-5em; .card{background-color: #f663;} }
+        }
+        @media (min-width: 576px ) and (max-width: 767.9px ) { 
+            .grid-sample > div:nth-of-type(3n+2){ margin-top:5em; margin-bottom:-5em; .card{background-color: #f663;}}
+        }
+        @media (min-width: 768px ) and (max-width: 991.9px ) { 
+            .grid-sample > div:nth-of-type(2n){ margin-top:5em; margin-bottom:-5em; .card{background-color: #f663;}}
+        }
+        @media (min-width: 992px ) and (max-width: 1199.9px ) { 
+            .grid-sample > :where(div:nth-of-type(5n+2),div:nth-of-type(5n+4)){ margin-top:5em; margin-bottom:-5em; .card{background-color: #f663;}}
+        }
+        @media (min-width: 1200px) {
+            .grid-sample > div:nth-of-type(2n){ margin-top:5em; margin-bottom:-5em; .card{background-color: #f663;}}
+        }
+
+
+
+
+
+        
+        
+    </style>
+    <script>
+        window.addEventListener('load',(event)=>{
+            const el = document.querySelector('.grid-sample-el');
+            const p = el.parentElement
+            for(let i=0,m=20;i<m;i++){
+                p.append(el.cloneNode(true))
+            }
+        })
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="m-3">
+            <div class="grid-sample">
+                <div class="grid-sample-el">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">card</h3>
+                            <div class="card-text">
+                                뚜비디바비디붐 뚜비디바비디붐 뚜비디바비디붐 뚜비디바비디붐 뚜비디바비디붐 붐  뚜비디바비디붐 붐  뚜비디바비디붐 붐  뚜비디바비디붐 붐  뚜비디바비디붐 붐  뚜비디바비디붐 붐 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
