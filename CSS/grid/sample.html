@@ -75,10 +75,11 @@
         
         @media (min-width: 0px) {
             .grid-sample{ grid-template-columns: repeat(2, minmax(150px, 1fr)); }
+            .grid-sample .card{ font-size: 20px; }
         }
         @media (min-width: 576px) {
             .grid-sample{ grid-template-columns: repeat(3, minmax(150px, 1fr)); }
-            /* .grid-sample > div:nth-of-type(3n+1){ margin-top:3em; margin-bottom:-3em;} */
+            .grid-sample .card{ font-size: 18px; }
         }
         @media (min-width: 768px) {
             .grid-sample{ grid-template-columns: repeat(4, minmax(150px, 1fr)); }
