@@ -89,10 +89,10 @@
         }
         @media (min-width: 1200px) {
             .grid-sample{ grid-template-columns: repeat(6, minmax(150px, 1fr)); }
+            .grid-sample .card{ font-size: 20px; }
         }
         @media (min-width: 1400px) {
             .grid-sample{ grid-template-columns: repeat(6, minmax(150px, 1fr)); }
-            .grid-sample{--child-condition:2n;}
         }
         @media (min-width: 0px ) and (max-width: 575.9px ) { 
             .grid-sample > div:nth-of-type(2n){ margin-top:5em; margin-bottom:-5em; .card{background-color: #f663;} }
