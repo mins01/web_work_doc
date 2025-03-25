@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="ko" >
+<html lang="ko">
+
 <head>
     <title>motion - sample</title>
     <meta charset="utf-8">
@@ -7,26 +8,30 @@
     <meta http-equiv="Content-Style-Type" content="text/css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico"> 
+    <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <script src="/js/ForGoogle.js"></script>
     <!-- google analytics -->
-    <script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
-    
+    <!-- <script>if (window.ForGoogle) { ForGoogle.analytics() } else { console.log("failure : ForGoogle.analytics()"); }</script> -->
+
 
     <!-- jquery 관련 -->
-    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+        integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 
     <!-- 부트스트랩 5.3.x -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 
     <!-- vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    
+
     <!-- meta og -->
-    
+
     <meta property="og:title" content="motion - sample">
     <meta property="og:description" content="motion - sample">
     <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
@@ -34,24 +39,36 @@
     <meta property="og:image:height" content="70" />
     <meta property="og:site_name" content="motion - sample" />
     <meta property="og:type" content="website">
-    
+
     <!-- //meta og -->
 
-    
-    
+
+
     <style>
         html {
             scroll-snap-type: y mandatory;
         }
-        section.content{
+
+        section.content {
             height: 100svh;
             scroll-snap-align: start;
-            display: flex;
+            /* display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: center; */
             position: relative;
 
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        section.content.content-2 {
+            height: 300svh;
+
+        }
+
+        section.content.content-2 .slide-box {
+            position: sticky;
+            top: 0;
+            height: 100svh;
         }
 
         .progress {
@@ -64,91 +81,120 @@
             transform: scaleX(0);
         }
     </style>
-    
+
     <script type="module">
-        import { animate, scroll,inView } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm"
+        import { animate, scroll, inView } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm"
         globalThis.animate = animate
-        window.addEventListener('load',(event)=>{
+        window.addEventListener('load', (event) => {
             // Progress bar representing gallery scroll
             // scroll(v=>console.log('scroll',v));
-            
+
+            // let slideWrap = document.querySelector('#slide-wrap');
+            // let items = document.querySelectorAll('#slide-wrap > *');
+            // scroll(
+            //     animate(
+            //         slideWrap,
+            //         { transform: ["none", `translateX(-${items.length - 1}00vw)`], },
+            //     ),
+            //     {
+            //         target: document.querySelector(".slide-box"),
+            //     }
+            // )
+
+
+            const items = document.querySelectorAll(".img-container")
+
+            // Animate gallery horizontally during vertical scroll
+            scroll(
+                animate(".img-group", {
+                    transform: ["none", `translateX(-${items.length - 1}00%)`],
+                }),
+                { target: document.querySelector(".content-2") }
+            )
+
+            scroll(
+                (v)=>{console.log('xxx',v);
+                }
+                ,
+                { target: document.querySelector(".img-group-container") }
+            )
+
             scroll(animate(".progress", { scaleX: [0, 1] }, { ease: "linear" }))
 
-            document.querySelectorAll("section.content").forEach((section)=>{
-                // scroll((v, info) => {
-                //     console.log(v, section, info)
-                //     }
-                //     ,{
-                //         source:section,
-                //         target:section
-                //     }
-                // )
+            // document.querySelectorAll("section.content").forEach((section) => {
+            //     // scroll((v, info) => {
+            //     //     console.log(v, section, info)
+            //     //     }
+            //     //     ,{
+            //     //         source:section,
+            //     //         target:section
+            //     //     }
+            //     // )
 
-                inView(section,(el, info) => {
-                    console.log(el, info)
-                    // return ()=>{console.log('out','el');}
-                    return ()=>{}
-                    }
-                    ,{
-                        amount:1,
-                        // once: false,
-                        // source:section,
-                        // target:section
-                    }
-                )
+            //     inView(section, (el, info) => {
+            //         console.log(el, info)
+            //         // return ()=>{console.log('out','el');}
+            //         return () => { }
+            //     }
+            //         , {
+            //             amount: 1,
+            //             // once: false,
+            //             // source:section,
+            //             // target:section
+            //         }
+            //     )
 
-                // scroll(
-                //     animate(
-                //         section, 
-                //         { opacity: [0.5,0.6,0.7,1] }, 
-                //         { duration:3 }
-                //     )
-                //     , 
-                //     {
-                //     target: section,
-                //     }
-                // )
-            });
-            document.querySelectorAll("section.content h2").forEach((header) => {
-                scroll(
-                    animate(
-                        header, 
-                        { y: [-400, 199] }, 
-                        { ease: "linear" }
-                    ), 
-                    {
-                    target: header,
-                    }
-                )
-            })
+            //     // scroll(
+            //     //     animate(
+            //     //         section, 
+            //     //         { opacity: [0.5,0.6,0.7,1] }, 
+            //     //         { duration:3 }
+            //     //     )
+            //     //     , 
+            //     //     {
+            //     //     target: section,
+            //     //     }
+            //     // )
+            // });
+            // document.querySelectorAll("section.content h2").forEach((header) => {
+            //     scroll(
+            //         animate(
+            //             header,
+            //             { y: [-400, 400] },
+            //             { ease: "linear" }
+            //         ),
+            //         {
+            //             target: header.parentElement,
+            //         }
+            //     )
+            // })
 
         })
     </script>
 
 </head>
+
 <body>
     <main class="container-fluid p-0 m-0">
         <section class="content content-1">
             <div>
                 <h1>motion - sample</h1>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="https://motion.dev/" target="_blank">https://motion.dev/</a></li>
+                    <li class="list-group-item"><a href="https://motion.dev/" target="_blank">https://motion.dev/</a>
+                    </li>
                     <li class="list-group-item">
                         Motion<br>A modern animation library for JavaScript, React and Vue
                     </li>
                 </ul>
             </div>
         </section>
-        <section class="content content-2">
-            <div class="d-flex flex-column w-100 h-100 p-3 overflow-hidden">
-                <h2>Header-2</h2>
-                <div class="flex-fill">
-                    <div style="width: 100%;height: 100%; ">
-                        <div class="d-flex h-100" style="width: 300%;">
-                            <div class="flex-fill bg-success">1</div>
-                            <div class="flex-fill bg-danger">2</div>
-                            <div class="flex-fill bg-wraning">3</div>
-                        </div>
+        <section class="content content-2 img-group-container">
+            <div class="slide-box p-3">
+                <div class=" h-100 overflow-hidden ">
+                    <div class="d-flex h-100 img-group" id="slide-wrap">
+                        <div class="img-container bg-success" style="min-width: 100%;">1</div>
+                        <div class="img-container bg-danger" style="min-width: 100%;">2</div>
+                        <div class="img-container bg-warning" style="min-width: 100%;">3</div>
                     </div>
                 </div>
             </div>
