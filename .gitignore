@@ -3,3 +3,5 @@
 *.bak
 *.sLDH
 !.gitignore
+/node_modules
+/vendor
