@@ -20,7 +20,7 @@ export default function NavWeb({ children }){
                     <Link className="nav-link active" aria-current="page" to="/home2">Home2</Link>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
+                    <Link className="nav-link active" aria-current="page" to="/notice">notice</Link>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
