@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+    <title>포토샵 같은 text-frame</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="/js/ForGoogle.js"></script>
+    <!-- google analytics -->
+
+    <script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+    
+
+    <!-- jquery 관련 -->
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script> -->
+
+    <!-- 부트스트랩 5.3.x -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+
+    <!-- vue.js -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    
+    <!-- meta og -->
+    
+    <meta property="og:title" content="포토샵 같은 text-frame">
+    <meta property="og:description" content="포토샵 같은 text-frame">
+    <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+    <meta property="og:image:width" content="190">
+    <meta property="og:image:height" content="70" />
+    <meta property="og:site_name" content="포토샵 같은 text-frame" />
+    <meta property="og:type" content="website">
+
+    <link rel="stylesheet" href="https://mins01.github.io/ui-transform-tool/asset/ui-transform-tool.css">
+    <script src="https://mins01.github.io/ui-transform-tool/lib/UiTransformToolElement.js"></script>
+    <script>
+        // UiTransformToolElement.cssHtml = `<link rel="stylesheet" href="./asset/ui-transform-tool-shadowdom.css">`; // 올바른 경로로 변경!! 필수
+        UiTransformToolElement.defineCustomElements();
+    </script>
+    <style>
+        .text-frame{
+            outline: 1px dashed #abc;
+            width:100%;height: 100%;
+            contain: strict;
+
+        }
+        .text-frame .content{
+            width: 100%;
+            min-height: 100%;
+            height:auto;
+            white-space: break-spaces;
+        }
+        .text-frame .content:focus{
+            outline: none;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="container py-5">
+        <h1>포토샵 같은 text-frame</h1>
+        <hr>
+        <div>
+            <ui-transform-tool resizable   width="100" height="100" left="100" top="150"  onclick="console.log(this.querySelector('.content')); this.querySelector('.content').focus();return false;">
+                <div class="text-frame">
+                    <div class="content" contenteditable="plaintext-only">asd asdad a asd                              asdad a asd asdad a asd asdad a asd asdad a asd asdad a asd asdad a asd asdad a asd asdad a asd asdad a asd asdad a asd asdad a asd asdad a asd asdad a </div>
+                </div>
+            </ui-transform-tool>
+        </div>
+    </div>
+</body>
+</html>
