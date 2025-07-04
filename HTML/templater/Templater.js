@@ -292,16 +292,31 @@ class Templater {
         return str
         // .replace(/\\$(\{+)/g,(match, p1) => `\\$${p1}`) // { escape  \${+~ => \${+
         .replace(/\$(\{+)/g,(match, p1) => `\\\$${p1}`) // { escape  ${+~ => \${+
-        .replace(/(?<![\\$\{])\{\{\{\s*([^\}]*)\}\}\}/g,'\${ $SYS.htmlRaw( $1 ) }') // html raw 
+        // .replace(/(?<![\\$\{])\{\{\{\s*([^\}]*)\}\}\}/g,'\${ $SYS.htmlRaw( $1 ) }') // html raw 
         // .replace(/(?<![\\$\{])\{\{\s*([^\}]*)\}\}/g,'\${ $SYS.htmlEscape( $1 ) }') // html escape
-        .replace(/(?<![\\$\{])\{\{\{\s*([^\}]*)\}\}\}/g,(match, p1) => {
+
+        .replace(/(?<![@$])\{{3}\s*([^\}]*)\}{3}/g,(match, p1) => {
             if(useHtmlUnescape){ p1 = this.htmlUnescape(p1); }
             return `\${ $SYS.htmlRaw( ${p1} ) }` 
         }) // html raw 
-        .replace(/(?<![\\$\{])\{\{\s*([^\}]*)\}\}/g,(match, p1) => {
+        .replace(/(?<![@$\{])\{{2}\s*([^\}]*)\}{2}/g,(match, p1) => {
             if(useHtmlUnescape){ p1 = this.htmlUnescape(p1); }
             return `\${ $SYS.htmlEscape( ${p1} ) }` 
         }) // html escape
+        .replace(/@(\{{3}\s*[^\}]*\}{3})/g,(match, p1) => {
+            if(useHtmlUnescape){ p1 = this.htmlUnescape(p1); }
+            return `${p1}` 
+        }) // {} escape
+        .replace(/@(\{{2}\s*[^\}]*\}{2})/g,(match, p1) => {
+            if(useHtmlUnescape){ p1 = this.htmlUnescape(p1); }
+            return `${p1}` 
+        }) // {} escape
+        .replace(/@(\{\s*[^\}]*\})/g,(match, p1) => {
+            if(useHtmlUnescape){ p1 = this.htmlUnescape(p1); }
+            return `${p1}` 
+        }) // {} escape
+        
+        
         ;
     }
 }

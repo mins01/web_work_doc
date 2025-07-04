@@ -50,42 +50,45 @@
         <ul class="list-group list-group-numbered">
             <li class="list-group-item">단순한 JS 템플릿 엔진
             </li>
+            <li class="list-group-item">
+                MOVE TO: <a href="https://github.com/mins01/js-templater">https://github.com/mins01/js-templater</a>
+            </li>
         </ul>
 
         <template id="template_1">
             <h3>{{ label }}</h3>
             <ul class="m-3  rounded border border-1 {{ulClassName??'XX'}}">
-                <li title="{{ label }}">\{{ label }} = {{ label }} // html escape</li>
-                <li title="{{ html }}">\{{ html }} = {{ html }} // html escape</li>
-                <li title="{{{ html }}}">\{{{ html }}} = {{{ html }}} // html raw (큰따옴표, 작은따옴표 이스케이프 주의)</li>
-                <li title="{{ esacpe(html) }}">\{{ esacpe(html) }} = {{ esacpe(html) }} // 추가 함수 동작 </li>
-                <li title="{{{ esacpe(html) }}}">\{{{ esacpe(html) }}} = {{{ esacpe(html) }}} // 추가 함수 동작</li>
-                <li title="\{{ html }}">\{{ html }} = \\{{ html }} // escape { }  </li>
-                <li title="{{unkown}}">\{{unkown}} = {{unkown}} // 정의되지 않은 변수명</li>
-                <li >\{{unkown + unkown2 + unkown3?.x }} = {{unkown + unkown2 + unkown3?.x }} // 정의되지 않은 변수명</li>
-                <li >\{{ 1+2+3 }} = {{ 1+2+3 }} // js 표현식</li>
-                <li >\{{ label.length }} = {{ label.length.toString()+' / ' + (label.length >= 15?'15+':'under 15') }} &gt;// js 표현식</li>
+                <li title="{{ label }}">@{{ label }} = {{ label }} // html escape</li>
+                <li title="{{ html }}">@{{ html }} = {{ html }} // html escape</li>
+                <li title="{{{ html }}}">@{{{ html }}} = {{{ html }}} // html raw (큰따옴표, 작은따옴표 이스케이프 주의)</li>
+                <li title="{{ esacpe(html) }}">@{{ esacpe(html) }} = {{ esacpe(html) }} // 추가 함수 동작 </li>
+                <li title="{{{ esacpe(html) }}}">@{{{ esacpe(html) }}} = {{{ esacpe(html) }}} // 추가 함수 동작 2</li>
+                <li title="@{{ html }}">@{{ html }} = @{{ html }} // escape { }  </li>
+                <li title="{{unkown}}">@{{unkown}} = {{unkown}} // 정의되지 않은 변수명</li>
+                <li >@{{unkown + unkown2 + unkown3?.x }} = {{unkown + unkown2 + unkown3?.x }} // 정의되지 않은 변수명</li>
+                <li >@{{ 1+2+3 }} = {{ 1+2+3 }} // js 표현식</li>
+                <li >@{{ label.length }} = {{ label.length.toString()+' / ' + (label.length >= 15?'15+':'under 15') }} &gt;// js 표현식</li>
             </ul>
         </template>
         <script type="text/template" id="template_1_1">
             <h3>{{ label }}</h3>
             <ul class="m-3  rounded border border-1 {{ulClassName??'XX'}}">
-                <li title="{{ label }}">\{{ label }} = {{ label }} // html escape</li>
-                <li title="{{ html }}">\{{ html }} = {{ html }} // html escape</li>
-                <li title="{{{ html }}}">\{{{ html }}} = {{{ html }}} // html raw (큰따옴표, 작은따옴표 이스케이프 주의)</li>
-                <li title="{{ esacpe(html) }}">\{{ esacpe(html) }} = {{ esacpe(html) }} // 추가 함수 동작 </li>
-                <li title="{{{ esacpe(html) }}}">\{{{ esacpe(html) }}} = {{{ esacpe(html) }}} // 추가 함수 동작</li>
-                <li title="\{{ html }}">\{{ html }} = \\{{ html }} // escape { }  </li>
-                <li title="{{unkown}}">\{{unkown}} = {{unkown}} // 정의되지 않은 변수명</li>
-                <li >\{{unkown + unkown2 + unkown3?.x }} = {{unkown + unkown2 + unkown3?.x }} // 정의되지 않은 변수명</li>
-                <li >\{{ 1+2+3 }} = {{ 1+2+3 }} // js 표현식</li>
-                <li >\{{ label.length }} = {{ label.length.toString()+' / ' + (label.length >= 15?'15+':'under 15') }} // js 표현식</li>
+                <li title="{{ label }}">@{{ label }} = {{ label }} // html escape</li>
+                <li title="{{ html }}">@{{ html }} = {{ html }} // html escape</li>
+                <li title="{{{ html }}}">@{{{ html }}} = {{{ html }}} // html raw (큰따옴표, 작은따옴표 이스케이프 주의)</li>
+                <li title="{{ esacpe(html) }}">@{{ esacpe(html) }} = {{ esacpe(html) }} // 추가 함수 동작 </li>
+                <li title="{{{ esacpe(html) }}}">@{{{ esacpe(html) }}} = {{{ esacpe(html) }}} // 추가 함수 동작</li>
+                <li title="@{{ html }}">@{{ html }} = \@{{ html }} // escape { }  </li>
+                <li title="{{unkown}}">@{{unkown}} = {{unkown}} // 정의되지 않은 변수명</li>
+                <li >@{{unkown + unkown2 + unkown3?.x }} = {{unkown + unkown2 + unkown3?.x }} // 정의되지 않은 변수명</li>
+                <li >@{{ 1+2+3 }} = {{ 1+2+3 }} // js 표현식</li>
+                <li >@{{ label.length }} = {{ label.length.toString()+' / ' + (label.length >= 15?'15+':'under 15') }} // js 표현식</li>
             </ul>
         </script>
-        <!-- <li title="{{{raw}}}">\{{{raw}}} = {{{raw}}}</li> -->
+        <!-- <li title="{{{raw}}}">@{{{raw}}} = {{{raw}}}</li> -->
 
-        <!-- <li title="{{uy}}">\{{uy}} = {{   uy}}</li>
-        <li title="{{{uy}}}">\{{{uy}}} = {{{uy}}}</li> -->
+        <!-- <li title="{{uy}}">@{{uy}} = {{   uy}}</li>
+        <li title="{{{uy}}}">@{{{uy}}} = {{{uy}}}</li> -->
         <template id="template_2">
             <div>이러쿵</div>
             <h3>LABEL:{{label}}</h3>
