@@ -51,8 +51,23 @@
             <li class="list-group-item">단순한 JS 템플릿 엔진
             </li>
         </ul>
-        
+
         <template id="template_1">
+            <h3>{{ label }}</h3>
+            <ul class="m-3  rounded border border-1 {{ulClassName??'XX'}}">
+                <li title="{{ label }}">\{{ label }} = {{ label }} // html escape</li>
+                <li title="{{ html }}">\{{ html }} = {{ html }} // html escape</li>
+                <li title="{{{ html }}}">\{{{ html }}} = {{{ html }}} // html raw (큰따옴표, 작은따옴표 이스케이프 주의)</li>
+                <li title="{{ esacpe(html) }}">\{{ esacpe(html) }} = {{ esacpe(html) }} // 추가 함수 동작 </li>
+                <li title="{{{ esacpe(html) }}}">\{{{ esacpe(html) }}} = {{{ esacpe(html) }}} // 추가 함수 동작</li>
+                <li title="\{{ html }}">\{{ html }} = \\{{ html }} // escape { }  </li>
+                <li title="{{unkown}}">\{{unkown}} = {{unkown}} // 정의되지 않은 변수명</li>
+                <li >\{{unkown + unkown2 + unkown3?.x }} = {{unkown + unkown2 + unkown3?.x }} // 정의되지 않은 변수명</li>
+                <li >\{{ 1+2+3 }} = {{ 1+2+3 }} // js 표현식</li>
+                <li >\{{ label.length }} = {{ label.length.toString()+' / ' + (label.length >= 15?'15+':'under 15') }} &gt;// js 표현식</li>
+            </ul>
+        </template>
+        <script type="text/template" id="template_1_1">
             <h3>{{ label }}</h3>
             <ul class="m-3  rounded border border-1 {{ulClassName??'XX'}}">
                 <li title="{{ label }}">\{{ label }} = {{ label }} // html escape</li>
@@ -66,7 +81,7 @@
                 <li >\{{ 1+2+3 }} = {{ 1+2+3 }} // js 표현식</li>
                 <li >\{{ label.length }} = {{ label.length.toString()+' / ' + (label.length >= 15?'15+':'under 15') }} // js 표현식</li>
             </ul>
-        </template>
+        </script>
         <!-- <li title="{{{raw}}}">\{{{raw}}} = {{{raw}}}</li> -->
 
         <!-- <li title="{{uy}}">\{{uy}} = {{   uy}}</li>
@@ -107,6 +122,7 @@
     console.log(changedStr);
     const fragment1 = templater1.toFragment({label:'toFragment',html:'<b>BOLD&"\'</b>', row:{total:100},ulClassName:'text-danger' },fns);
     divOut1.append(fragment1);
+
     const fragment2 = templater1.toFragment({label:'toFragment',html:'<b>BOLD&"\'</b>', row:{total:100},ulClassName:'text-info' },fns);
     divOut1.append(fragment2);
     
@@ -130,6 +146,14 @@
     }).forEach((item)=>{
         divOut2.append(templater2.toFragment(item));
     })
+
+    const templater1_1 = new Templater();
+    templater1_1.debug = true;
+    templater1_1.prepare(document.querySelector('#template_1_1').textContent);
+    console.log(templater1_1);
+
+    const fragment1_1 = templater1_1.toFragment({label:'toFragment <script type="text/template">',html:'<b>BOLD&"\'</b>', row:{total:100},ulClassName:'text-danger' },fns);
+    divOut1.append(fragment1_1);
     
     
     // divOut1.append(Templater.renderTemplate(template_1, { x:'x','y':'y','html':'yy&&>',row:{total:100} }
