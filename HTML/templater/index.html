@@ -105,6 +105,7 @@
     const divOut1 = document.querySelector('#div-out1')
     const divOut2 = document.querySelector('#div-out2')
     const template_1 = document.querySelector('#template_1');
+    const template_1_1 = document.querySelector('#template_1_1');
     const template_2 = document.querySelector('#template_2');
 
     const fns = { //추가 함수 정의
@@ -113,7 +114,7 @@
 
     const templater1 = new Templater();
     templater1.debug = true;
-    const {defVars,preparedStr} = templater1.prepare(Templater.htmlUnescape(template_1.innerHTML));
+    const {defVars,preparedStr} = templater1.prepare(template_1.innerHTML,true);
     console.log({defVars,preparedStr});
     
     console.log('templater1',templater1);
@@ -127,8 +128,9 @@
     divOut1.append(fragment2);
     
 
-    divOut1.append(Templater.createByTemplate(template_1, {label:'Templater.createByTemplate',html:'<b>BOLD&"\'</b>', row:{total:100} },fns));
     divOut1.append(Templater.createByHtml(template_1.innerHTML, {label:'Templater.createByHtml',html:'<b>BOLD&"\'</b>', row:{total:100} },fns));
+    divOut1.append(Templater.createByTemplate(template_1, {label:'Templater.createByTemplate',html:'<b>BOLD&"\'</b>', row:{total:100} },fns));
+    divOut1.append(Templater.createByText(template_1_1.textContent, {label:'toFragment <script type="text/template">',html:'<b>BOLD&"\'</b>', row:{total:100} },fns));
     try {
         
         divOut1.append(Templater.createByHtml(null, {label:'Templater.createByHtml',html:'<b>BOLD&"\'</b>', row:{total:100} },fns));
@@ -146,18 +148,6 @@
     }).forEach((item)=>{
         divOut2.append(templater2.toFragment(item));
     })
-
-    const templater1_1 = new Templater();
-    templater1_1.debug = true;
-    templater1_1.prepare(document.querySelector('#template_1_1').textContent);
-    console.log(templater1_1);
-
-    const fragment1_1 = templater1_1.toFragment({label:'toFragment <script type="text/template">',html:'<b>BOLD&"\'</b>', row:{total:100},ulClassName:'text-danger' },fns);
-    divOut1.append(fragment1_1);
-    
-    
-    // divOut1.append(Templater.renderTemplate(template_1, { x:'x','y':'y','html':'yy&&>',row:{total:100} }
-    // ));
     
 </script>
 </body>
