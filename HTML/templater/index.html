@@ -68,6 +68,8 @@
                 <li >@{{unkown + unkown2 + unkown3?.x }} = {{unkown + unkown2 + unkown3?.x }} // 정의되지 않은 변수명</li>
                 <li >@{{ 1+2+3 }} = {{ 1+2+3 }} // js 표현식</li>
                 <li >@{{ label.length }} = {{ label.length.toString()+' / ' + (label.length >= 15?'15+':'under 15') }} &gt;// js 표현식</li>
+                <li >{{ '{{~~&>}}' }} // 문자열로처리</li>
+                <li >{{{ '{{~~&>}}' }}} // 문자열로처리 // 이거 완벽하지 않다.</li>
             </ul>
         </template>
         <script type="text/template" id="template_1_1">
