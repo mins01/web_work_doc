@@ -48,18 +48,30 @@
     <div class="container">
         <h1>Templater</h1>
         <template id="template_use_data">
-            <ul class="m-3  rounded border border-1 ${data.ulClassName}">
-                <li>data.x = ${data.x}</li>
-                <li>data.y = ${data.y}</li>
-                <li>data.yy = ${data.yy}</li>
+            <ul class="m-3  rounded border border-1 ">
+                <li title="${data.x}">data.x = ${data.x}</li>
+                <li title="${data.y}">data.y = ${data.y}</li>
+                <li title="{{data.html}}">\{{data.html}} = {{   data.html}}</li>
+                <li title="{{{data.raw}}}">\{{{data.raw}}} = {{{data.raw}}}</li>
                 <li>data?.row?.total ?? 'NONE' = ${data?.row?.total}</li>
+                <li title="${data.x}">data.x = ${data.x}</li>
+                <li title="${y}">y = ${y}</li>
+                <li title="{{y}}">y = {{y}}</li>
+                <li title="{{uy}}">\{{uy}} = {{uy}} (정의되지 않은 변수명)</li>
+                <li title="{{uy}}">\{{{uy}}} = {{{uy}}} (정의되지 않은 변수명)</li>
+                <li title="{{html}}">\{{html}} = {{   html}}</li>
+                <li title="{{{html}}}">\{{{   html }}} = {{{   html }}}</li>
             </ul>
         </template>
+        <!-- <li title="{{{raw}}}">\{{{raw}}} = {{{raw}}}</li> -->
+
+        <!-- <li title="{{uy}}">\{{uy}} = {{   uy}}</li>
+        <li title="{{{uy}}}">\{{{uy}}} = {{{uy}}}</li> -->
         <template id="template_use_shot">
             <ul class="m-3  rounded border border-1 ${data.ulClassName}">
                 <li>data.x = ${x}</li>
                 <li>data.y = ${y}</li>
-                <li>data.yy = ${yy}</li>
+                <li>data.html = {{html}}</li>
                 <li>data?.row?.total ?? 'NONE' = ${data?.row?.total}</li>
             </ul>
         </template>
@@ -73,18 +85,13 @@
     </div>
 <hr>
 <script>
+    Templater.debug = true;
     const divOut1 = document.querySelector('#div-out1')
     const divOut2 = document.querySelector('#div-out2')
     const template_use_data = document.querySelector('#template_use_data');
-    divOut1.append(Templater.renderTemplate(template_use_data,{x:'x'}));
-    divOut1.append(Templater.renderTemplate(template_use_data,{x:'x','y':'y'}));
-    divOut1.append(Templater.renderTemplate(template_use_data,{x:'x','yy':'yy'}));
-    divOut1.append(Templater.renderTemplate(template_use_data,{x:'x','yy':'yy',row:{total:100}}));
-    const template_use_shot = document.querySelector('#template_use_shot');
-    divOut2.append(Templater.renderTemplate(template_use_shot,{x:'x'}));
-    divOut2.append(Templater.renderTemplate(template_use_shot,{x:'x','y':'y'}));
-    divOut2.append(Templater.renderTemplate(template_use_shot,{x:'x','yy':'yy'}));
-    divOut2.append(Templater.renderTemplate(template_use_shot,{x:'x','yy':'yy',row:{total:100}}));
+    divOut1.append(Templater.renderTemplate(template_use_data, { x:'x','y':'y','html':'yy&&>',row:{total:100} }
+    ));
+    
 </script>
 </body>
 </html>
