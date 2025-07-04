@@ -47,50 +47,93 @@
 
     <div class="container">
         <h1>Templater</h1>
-        <template id="template_use_data">
-            <ul class="m-3  rounded border border-1 ">
-                <li title="${data.x}">\${data.x} = ${data.x}</li>
-                <li title="${data.y}">\${data.y} = ${data.y}</li>
-                <li title="{{data.html}}">\{{data.html}} = {{   data.html}}</li>
-                <li title="{{{data.raw}}}">\{{{data.raw}}} = {{{data.raw}}}</li>
-                <li>data?.row?.total ?? 'NONE' = ${data?.row?.total}</li>
-                <li title="${data.x}">data.x = ${data.x}</li>
-                <li title="${y}">y = ${y}</li>
-                <li title="{{y}}">y = {{y}}</li>
-                <li title="{{uy}}">\{{uy}} = {{uy}} (정의되지 않은 변수명)</li>
-                <li title="{{uy}}">\{{{uy}}} = {{{uy}}} (정의되지 않은 변수명)</li>
-                <li title="{{html}}">\{{html}} = {{   html}}</li>
-                <li title="{{{html}}}">\{{{   html }}} = {{{   html }}}</li>
+        <ul class="list-group list-group-numbered">
+            <li class="list-group-item">단순한 JS 템플릿 엔진
+            </li>
+        </ul>
+        
+        <template id="template_1">
+            <h3>{{ label }}</h3>
+            <ul class="m-3  rounded border border-1 {{ulClassName??'XX'}}">
+                <li title="{{ label }}">\{{ label }} = {{ label }} // html escape</li>
+                <li title="{{ html }}">\{{ html }} = {{ html }} // html escape</li>
+                <li title="{{{ html }}}">\{{{ html }}} = {{{ html }}} // html raw (큰따옴표, 작은따옴표 이스케이프 주의)</li>
+                <li title="{{ esacpe(html) }}">\{{ esacpe(html) }} = {{ esacpe(html) }} // 추가 함수 동작 </li>
+                <li title="{{{ esacpe(html) }}}">\{{{ esacpe(html) }}} = {{{ esacpe(html) }}} // 추가 함수 동작</li>
+                <li title="\{{ html }}">\{{ html }} = \\{{ html }} // escape { }  </li>
+                <li title="{{unkown}}">\{{unkown}} = {{unkown}} // 정의되지 않은 변수명</li>
+                <li >\{{unkown + unkown2 + unkown3?.x }} = {{unkown + unkown2 + unkown3?.x }} // 정의되지 않은 변수명</li>
+                <li >\{{ 1+2+3 }} = {{ 1+2+3 }} // js 표현식</li>
+                <li >\{{ label.length }} = {{ label.length.toString()+' / ' + (label.length >= 15?'15+':'under 15') }} // js 표현식</li>
             </ul>
         </template>
         <!-- <li title="{{{raw}}}">\{{{raw}}} = {{{raw}}}</li> -->
 
         <!-- <li title="{{uy}}">\{{uy}} = {{   uy}}</li>
         <li title="{{{uy}}}">\{{{uy}}} = {{{uy}}}</li> -->
-        <template id="template_use_shot">
-            <ul class="m-3  rounded border border-1 ${data.ulClassName}">
-                <li>data.x = ${x}</li>
-                <li>data.y = ${y}</li>
-                <li>data.html = {{html}}</li>
-                <li>data?.row?.total ?? 'NONE' = ${data?.row?.total}</li>
-            </ul>
+        <template id="template_2">
+            <div>이러쿵</div>
+            <h3>LABEL:{{label}}</h3>
+            <div>아무글</div>
         </template>
         <div id="div-out1">
     
         </div>
         <hr>
+        <h2>반복작업</h2>
         <div id="div-out2">
     
         </div>
     </div>
 <hr>
 <script>
-    Templater.debug = true;
     const divOut1 = document.querySelector('#div-out1')
     const divOut2 = document.querySelector('#div-out2')
-    const template_use_data = document.querySelector('#template_use_data');
-    divOut1.append(Templater.renderTemplate(template_use_data, { x:'x','y':'y','html':'yy&&>',row:{total:100} }
-    ));
+    const template_1 = document.querySelector('#template_1');
+    const template_2 = document.querySelector('#template_2');
+
+    const fns = { //추가 함수 정의
+        esacpe:Templater.htmlEscape 
+    }
+
+    const templater1 = new Templater();
+    templater1.debug = true;
+    const {defVars,preparedStr} = templater1.prepare(Templater.htmlUnescape(template_1.innerHTML));
+    console.log({defVars,preparedStr});
+    
+    console.log('templater1',templater1);
+    
+    const changedStr = templater1.interpolate({ label:'interpolate',html:'<b>BOLD&"\'</b>',row:{total:100} },fns);
+    console.log(changedStr);
+    const fragment1 = templater1.toFragment({label:'toFragment',html:'<b>BOLD&"\'</b>', row:{total:100},ulClassName:'text-danger' },fns);
+    divOut1.append(fragment1);
+    const fragment2 = templater1.toFragment({label:'toFragment',html:'<b>BOLD&"\'</b>', row:{total:100},ulClassName:'text-info' },fns);
+    divOut1.append(fragment2);
+    
+
+    divOut1.append(Templater.createByTemplate(template_1, {label:'Templater.createByTemplate',html:'<b>BOLD&"\'</b>', row:{total:100} },fns));
+    divOut1.append(Templater.createByHtml(template_1.innerHTML, {label:'Templater.createByHtml',html:'<b>BOLD&"\'</b>', row:{total:100} },fns));
+    try {
+        
+        divOut1.append(Templater.createByHtml(null, {label:'Templater.createByHtml',html:'<b>BOLD&"\'</b>', row:{total:100} },fns));
+    } catch (error) {
+        console.error(error);
+        
+    }
+    
+    const templater2 = new Templater();
+    templater2.debug = true;
+    templater2.prepare(template_2.innerHTML);
+    console.log(templater2);
+    [1,2,3,4,5].map((v)=>{
+        return {label:`라벨${v}`}
+    }).forEach((item)=>{
+        divOut2.append(templater2.toFragment(item));
+    })
+    
+    
+    // divOut1.append(Templater.renderTemplate(template_1, { x:'x','y':'y','html':'yy&&>',row:{total:100} }
+    // ));
     
 </script>
 </body>
