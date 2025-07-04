@@ -49,8 +49,8 @@
         <h1>Templater</h1>
         <template id="template_use_data">
             <ul class="m-3  rounded border border-1 ">
-                <li title="${data.x}">data.x = ${data.x}</li>
-                <li title="${data.y}">data.y = ${data.y}</li>
+                <li title="${data.x}">\${data.x} = ${data.x}</li>
+                <li title="${data.y}">\${data.y} = ${data.y}</li>
                 <li title="{{data.html}}">\{{data.html}} = {{   data.html}}</li>
                 <li title="{{{data.raw}}}">\{{{data.raw}}} = {{{data.raw}}}</li>
                 <li>data?.row?.total ?? 'NONE' = ${data?.row?.total}</li>

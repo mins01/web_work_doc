@@ -73,7 +73,7 @@ class Templater {
     }
     // 변수 분리해내기
     static extractVarNames(str){
-        console.log('in-extractVarNames',str);
+        // console.log('in-extractVarNames',str);
         if (typeof str !== "string") return str;
         const regex = /(?<!\\)\{\{\s*([\w$]+)(?:\.[\w$.]+)?\s*\}\}/g;
         
@@ -83,10 +83,14 @@ class Templater {
     }
     // 템플릿 문자열 준비하기
     static prepareTemplateString(str){
+        // console.log('in-prepareTemplateString',str);
+
         return str
-            .replace(/\\(\{+)/g,'\${ $SYS.htmlRaw( "$1" ) }') // { escape 
-            .replace(/\{\{\{\s*([^\}]*)\}\}\}/g,'\${ $SYS.htmlRaw( $1 ) }') // html raw 
-            .replace(/\{\{\s*([^\}]*)\}\}/g,'\${ $SYS.htmlEscape( $1 ) }') // html escape
+            // .replace(/\\$(\{+)/g,(match, p1) => `\\$${p1}`) // { escape  \${+~ => \${+
+            .replace(/(?<!\\)\$(\{+)/g,(match, p1) => `\\\$${p1}`) // { escape  ${+~ => \${+
+            .replace(/\\(\{+)/g,(match, p1) => `\${ $SYS.htmlRaw( "${p1}" ) }`) // { escape  \{+~ => ${ { $SYS.htmlRaw ( ~~ ) }
+            .replace(/(?<!$)\{\{\{\s*([^\}]*)\}\}\}/g,'\${ $SYS.htmlRaw( $1 ) }') // html raw 
+            .replace(/(?<!$)\{\{\s*([^\}]*)\}\}/g,'\${ $SYS.htmlEscape( $1 ) }') // html escape
             ;
     }
 }
