@@ -1,4 +1,9 @@
 @charset "utf-8";
+
+.timeline-responsive{
+    overflow-x: auto;
+}
+
 .timeline{ 
     position: relative;
     --max-grow:365;
@@ -16,11 +21,34 @@
     --max-grow:24;
 }
 
-
-
-.timeline-responsive{
-    overflow-x: auto;
+.timeline[data-timeline="year"][data-unit="day"]{
+    --max-grow:365;
 }
+.timeline[data-timeline="year"][data-leap="leap"][data-unit="day"]{
+    --max-grow:366;
+}
+.timeline[data-timeline="week"][data-unit="day"]{
+    --max-grow:7;
+}
+.timeline[data-timeline="day"][data-unit="hour"]{
+    --max-grow:24;
+}
+.timeline:where([data-timeline="month1"],[data-timeline="month3"],[data-timeline="month5"],[data-timeline="month7"],[data-timeline="month8"],[data-timeline="month10"],[data-timeline="month12"])[data-unit="day"]{
+    --max-grow:31;
+}
+.timeline:where([data-timeline="month4"],[data-timeline="month6"],[data-timeline="month9"],[data-timeline="month11"])[data-unit="day"]{
+    --max-grow:30;
+}
+.timeline:where([data-timeline="month2"])[data-unit="day"]{
+    --max-grow:28;
+}
+.timeline:where([data-timeline="month2"])[data-leap="leap"][data-unit="day"]{
+    --max-grow:29;
+}
+
+
+
+
 
 /* times */
 .times{
@@ -32,20 +60,24 @@
 }
 
 /* 날짜 타입별 grow */
-.times .time:where([data-range="30"],[data-range="month4"],[data-range="month6"],[data-range="month9"],[data-range="month11"]){ flex-grow: 30; }
-.times .time:where([data-range="31"],[data-range="month1"],[data-range="month3"],[data-range="month5"],[data-range="month7"],[data-range="month8"],[data-range="month10"],[data-range="month12"]){ flex-grow: 31; }
-.times .time:where([data-range="28"],[data-range="month2"]){ flex-grow: 28; }
-.times .time[data-range="29"], .timeline[data-timeline="day-month-year-366"] .times .time[data-range="month2"]{ flex-grow: 29; }
+/* 기본으로 동일 너비를 가진다. */
+.timeline .time{ flex-grow: 1; }
+/* 월/일이면 월별 너비에 차이를 둔다. */
+.timeline[data-column="month"][data-unit="day"] .time:where([data-range="30"],[data-range="month4"],[data-range="month6"],[data-range="month9"],[data-range="month11"]){ flex-grow: 30; }
+.timeline[data-column="month"][data-unit="day"] .time:where([data-range="31"],[data-range="month1"],[data-range="month3"],[data-range="month5"],[data-range="month7"],[data-range="month8"],[data-range="month10"],[data-range="month12"]){ flex-grow: 31; }
+.timeline[data-column="month"][data-unit="day"] .time:where([data-range="28"],[data-range="month2"]){ flex-grow: 28; }
+.timeline[data-leap="leap"][data-column="month"][data-unit="day"] .time[data-range="29"], 
+.timeline[data-leap="leap"][data-column="month"][data-unit="day"] .time[data-range="month2"]{ flex-grow: 29; }
 
-.timeline[data-timeline="day-day-week"] .times .time:where([data-range="day"]){ flex-grow: 1; }
-.timeline[data-timeline="hour-hour-day"] .times .time:where([data-range="hour"]){ flex-grow: 1; }
+
+
 
 
 
 .time-label{
     text-align: center;
     padding:1px;
-    border-bottom: 1px solid #000;
+    border-bottom: 2px solid #0003;
     margin:0 2px;
 }
 .time-areaes .time{
@@ -62,7 +94,8 @@
     display: block;
     height: 100%;
     width:1px;
-    border-right: 1.4px solid #999;
+    margin-left: -1px;
+    border-right: 2px solid #9993;
 }
 .time-areaes .time:first-of-type .time-area::before{
     content: none;
@@ -121,25 +154,26 @@
     display: flex;
     align-items: center;
     /* padding:4px; */
-    gap: 2px;
     min-width: 0px;
+    height: 2em;
 }
 .line-icon{
-    background-color: #eee;
+    background-color: #0002;
     /* margin-left: -15px;; */
     flex: 0 0 auto;
-    width: 30px;
-    height: 30px;
+    width: 2em;
+    height: 2em;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid #abc;
+    border: 3px solid #0006;
     border-radius: 999px;
 }
 .line-label{
+    padding:0 4px;
     flex: 1 1 0;
     overflow: hidden;
     text-overflow: ellipsis;

@@ -44,9 +44,9 @@
         <h1>UI timeline</h1>
 
 
-        <h2>day-month-year</h2>
+        <h2>data-timeline="year" data-column="month" data-unit="day"</h2>
         <div class="timeline-responsive" >
-            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="day-month-year">
+            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="year" data-column="month" data-unit="day" >
                 <div class="timeline-header">
                     <div class="times time-labels">
                         <div class="time" data-range="31"><div class="time-label">1월</div></div>
@@ -81,7 +81,7 @@
                     <div class="lines">
                         <div class="line" data-start="1" data-end="365">
                             <div class="line-content-wrap">
-                                <div class="line-content">
+                                <div class="line-content text-bg-primary">
                                     <div class="line-icon">A</div>
                                     <div class="line-label">메세지메세지 메세지</div>
                                 </div>
@@ -89,7 +89,7 @@
                         </div>
                         <div class="line" data-start="32" data-end="59">
                             <div class="line-content-wrap">
-                                <div class="line-content">
+                                <div class="line-content text-bg-secondary">
                                     <div class="line-icon">B</div>
                                     <div class="line-label">2월</div>
                                 </div>
@@ -97,15 +97,14 @@
                         </div>
                         <div class="line" data-start="60" data-end="310">
                             <div class="line-content-wrap">
-                                <div class="line-content">
-                                    <div class="line-icon">C</div>
+                                <div class="line-content text-bg-success">
                                     <div class="line-label">메세지메세지 메세지</div>
                                 </div>
                             </div>
                         </div>
                         <div class="line">
                             <div class="line-content-wrap">
-                                <div class="line-content">
+                                <div class="line-content text-bg-danger">
                                     <div class="line-icon">D</div>
                                     <div class="line-label">메세지메세지 메세지</div>
                                 </div>
@@ -118,9 +117,9 @@
             </div>
         </div>
         <hr>
-        <h2>day-month-year-366</h2>
+        <h2> data-timeline="year" data-column="month" data-unit="day" data-leap="leap"</h2>
         <div class="timeline-responsive" >
-            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="day-month-year-366">
+            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="year" data-column="month" data-unit="day" data-leap="leap">
                 <div class="timeline-header">
                     <div class="times time-labels">
                         <div class="time" data-range="month1"><div class="time-label">1월</div></div>
@@ -155,7 +154,7 @@
                     <div class="lines">
                         <div class="line" data-start="1" data-end="365">
                             <div class="line-content-wrap">
-                                <div class="line-content">
+                                <div class="line-content text-bg-warning">
                                     <div class="line-icon">A</div>
                                     <div class="line-label">메세지메세지 메세지</div>
                                 </div>
@@ -163,7 +162,7 @@
                         </div>
                         <div class="line" data-start="32" data-end="59">
                             <div class="line-content-wrap">
-                                <div class="line-content">
+                                <div class="line-content text-bg-info">
                                     <div class="line-icon">B</div>
                                     <div class="line-label">2월</div>
                                 </div>
@@ -192,27 +191,391 @@
             </div>
         </div>
         <hr>
-        <h2>day-day-week</h2>
+        <h2>data-timeline="month1" data-column="day" data-unit="day"</h2>
         <div class="timeline-responsive" >
-            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="day-day-week">
+            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="month1" data-column="day" data-unit="day">
                 <div class="timeline-header">
                     <div class="times time-labels">
-                        <div class="time" data-range="day"><div class="time-label">월</div></div>
-                        <div class="time" data-range="day"><div class="time-label">화</div></div>
-                        <div class="time" data-range="day"><div class="time-label">수</div></div>
-                        <div class="time" data-range="day"><div class="time-label">목</div></div>
-                        <div class="time" data-range="day"><div class="time-label">금</div></div>
-                        <div class="time" data-range="day"><div class="time-label">토</div></div>
-                        <div class="time" data-range="day"><div class="time-label">일</div></div>
+                        <div class="time"><div class="time-label">1</div></div>
+                        <div class="time"><div class="time-label">2</div></div>
+                        <div class="time"><div class="time-label">3</div></div>
+                        <div class="time"><div class="time-label">4</div></div>
+                        <div class="time"><div class="time-label">5</div></div>
+                        <div class="time"><div class="time-label">6</div></div>
+                        <div class="time"><div class="time-label">7</div></div>
+                        <div class="time"><div class="time-label">8</div></div>
+                        <div class="time"><div class="time-label">9</div></div>
+                        <div class="time"><div class="time-label">10</div></div>
+                        <div class="time"><div class="time-label">11</div></div>
+                        <div class="time"><div class="time-label">12</div></div>
+                        <div class="time"><div class="time-label">13</div></div>
+                        <div class="time"><div class="time-label">14</div></div>
+                        <div class="time"><div class="time-label">15</div></div>
+                        <div class="time"><div class="time-label">16</div></div>
+                        <div class="time"><div class="time-label">17</div></div>
+                        <div class="time"><div class="time-label">18</div></div>
+                        <div class="time"><div class="time-label">19</div></div>
+                        <div class="time"><div class="time-label">20</div></div>
+                        <div class="time"><div class="time-label">21</div></div>
+                        <div class="time"><div class="time-label">22</div></div>
+                        <div class="time"><div class="time-label">23</div></div>
+                        <div class="time"><div class="time-label">24</div></div>
+                        <div class="time"><div class="time-label">25</div></div>
+                        <div class="time"><div class="time-label">26</div></div>
+                        <div class="time"><div class="time-label">27</div></div>
+                        <div class="time"><div class="time-label">28</div></div>
+                        <div class="time"><div class="time-label">29</div></div>
+                        <div class="time"><div class="time-label">30</div></div>
+                        <div class="time"><div class="time-label">31</div></div>
                     </div>
                     <div class="times time-areaes">
-                        <div class="time" data-range="day"><div class="time-area"></div></div>
-                        <div class="time" data-range="day"><div class="time-area"></div></div>
-                        <div class="time" data-range="day"><div class="time-area"></div></div>
-                        <div class="time" data-range="day"><div class="time-area"></div></div>
-                        <div class="time" data-range="day"><div class="time-area"></div></div>
-                        <div class="time" data-range="day"><div class="time-area"></div></div>
-                        <div class="time" data-range="day"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                    </div>
+                </div>
+                <div class="timeline-body">
+                    <div class="lines">
+                        <div class="line" data-start="1" data-end="30">
+                            <div class="line-content-wrap">
+                                <div class="line-content">
+                                    <div class="line-icon">A</div>
+                                    <div class="line-label">1-30</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line" data-start="8" data-end="15">
+                            <div class="line-content-wrap">
+                                <div class="line-content">
+                                    <div class="line-icon">B</div>
+                                    <div class="line-label">8-15</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h2>data-timeline="month2" data-column="day" data-unit="day"</h2>
+        <div class="timeline-responsive" >
+            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="month2" data-column="day" data-unit="day">
+                <div class="timeline-header">
+                    <div class="times time-labels">
+                        <div class="time"><div class="time-label">1</div></div>
+                        <div class="time"><div class="time-label">2</div></div>
+                        <div class="time"><div class="time-label">3</div></div>
+                        <div class="time"><div class="time-label">4</div></div>
+                        <div class="time"><div class="time-label">5</div></div>
+                        <div class="time"><div class="time-label">6</div></div>
+                        <div class="time"><div class="time-label">7</div></div>
+                        <div class="time"><div class="time-label">8</div></div>
+                        <div class="time"><div class="time-label">9</div></div>
+                        <div class="time"><div class="time-label">10</div></div>
+                        <div class="time"><div class="time-label">11</div></div>
+                        <div class="time"><div class="time-label">12</div></div>
+                        <div class="time"><div class="time-label">13</div></div>
+                        <div class="time"><div class="time-label">14</div></div>
+                        <div class="time"><div class="time-label">15</div></div>
+                        <div class="time"><div class="time-label">16</div></div>
+                        <div class="time"><div class="time-label">17</div></div>
+                        <div class="time"><div class="time-label">18</div></div>
+                        <div class="time"><div class="time-label">19</div></div>
+                        <div class="time"><div class="time-label">20</div></div>
+                        <div class="time"><div class="time-label">21</div></div>
+                        <div class="time"><div class="time-label">22</div></div>
+                        <div class="time"><div class="time-label">23</div></div>
+                        <div class="time"><div class="time-label">24</div></div>
+                        <div class="time"><div class="time-label">25</div></div>
+                        <div class="time"><div class="time-label">26</div></div>
+                        <div class="time"><div class="time-label">27</div></div>
+                        <div class="time"><div class="time-label">28</div></div>
+                    </div>
+                    <div class="times time-areaes">
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                    </div>
+                </div>
+                <div class="timeline-body">
+                    <div class="lines">
+                        <div class="line" data-start="1" data-end="28">
+                            <div class="line-content-wrap">
+                                <div class="line-content">
+                                    <div class="line-icon">A</div>
+                                    <div class="line-label">1-28</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line" data-start="8" data-end="15">
+                            <div class="line-content-wrap">
+                                <div class="line-content">
+                                    <div class="line-icon">B</div>
+                                    <div class="line-label">8-15</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h2>data-timeline="month2" data-column="day" data-unit="day" data-leap="leap"</h2>
+        <div class="timeline-responsive" >
+            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="month2" data-column="day" data-unit="day" data-leap="leap">
+                <div class="timeline-header">
+                    <div class="times time-labels">
+                        <div class="time"><div class="time-label">1</div></div>
+                        <div class="time"><div class="time-label">2</div></div>
+                        <div class="time"><div class="time-label">3</div></div>
+                        <div class="time"><div class="time-label">4</div></div>
+                        <div class="time"><div class="time-label">5</div></div>
+                        <div class="time"><div class="time-label">6</div></div>
+                        <div class="time"><div class="time-label">7</div></div>
+                        <div class="time"><div class="time-label">8</div></div>
+                        <div class="time"><div class="time-label">9</div></div>
+                        <div class="time"><div class="time-label">10</div></div>
+                        <div class="time"><div class="time-label">11</div></div>
+                        <div class="time"><div class="time-label">12</div></div>
+                        <div class="time"><div class="time-label">13</div></div>
+                        <div class="time"><div class="time-label">14</div></div>
+                        <div class="time"><div class="time-label">15</div></div>
+                        <div class="time"><div class="time-label">16</div></div>
+                        <div class="time"><div class="time-label">17</div></div>
+                        <div class="time"><div class="time-label">18</div></div>
+                        <div class="time"><div class="time-label">19</div></div>
+                        <div class="time"><div class="time-label">20</div></div>
+                        <div class="time"><div class="time-label">21</div></div>
+                        <div class="time"><div class="time-label">22</div></div>
+                        <div class="time"><div class="time-label">23</div></div>
+                        <div class="time"><div class="time-label">24</div></div>
+                        <div class="time"><div class="time-label">25</div></div>
+                        <div class="time"><div class="time-label">26</div></div>
+                        <div class="time"><div class="time-label">27</div></div>
+                        <div class="time"><div class="time-label">28</div></div>
+                        <div class="time"><div class="time-label">29</div></div>
+                    </div>
+                    <div class="times time-areaes">
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                    </div>
+                </div>
+                <div class="timeline-body">
+                    <div class="lines">
+                        <div class="line" data-start="1" data-end="28">
+                            <div class="line-content-wrap">
+                                <div class="line-content">
+                                    <div class="line-icon">A</div>
+                                    <div class="line-label">1-28</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line" data-start="8" data-end="15">
+                            <div class="line-content-wrap">
+                                <div class="line-content">
+                                    <div class="line-icon">B</div>
+                                    <div class="line-label">8-15</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h2>data-timeline="month4" data-column="day" data-unit="day"</h2>
+        <div class="timeline-responsive" >
+            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="month1" data-column="day" data-unit="day">
+                <div class="timeline-header">
+                    <div class="times time-labels">
+                        <div class="time"><div class="time-label">1</div></div>
+                        <div class="time"><div class="time-label">2</div></div>
+                        <div class="time"><div class="time-label">3</div></div>
+                        <div class="time"><div class="time-label">4</div></div>
+                        <div class="time"><div class="time-label">5</div></div>
+                        <div class="time"><div class="time-label">6</div></div>
+                        <div class="time"><div class="time-label">7</div></div>
+                        <div class="time"><div class="time-label">8</div></div>
+                        <div class="time"><div class="time-label">9</div></div>
+                        <div class="time"><div class="time-label">10</div></div>
+                        <div class="time"><div class="time-label">11</div></div>
+                        <div class="time"><div class="time-label">12</div></div>
+                        <div class="time"><div class="time-label">13</div></div>
+                        <div class="time"><div class="time-label">14</div></div>
+                        <div class="time"><div class="time-label">15</div></div>
+                        <div class="time"><div class="time-label">16</div></div>
+                        <div class="time"><div class="time-label">17</div></div>
+                        <div class="time"><div class="time-label">18</div></div>
+                        <div class="time"><div class="time-label">19</div></div>
+                        <div class="time"><div class="time-label">20</div></div>
+                        <div class="time"><div class="time-label">21</div></div>
+                        <div class="time"><div class="time-label">22</div></div>
+                        <div class="time"><div class="time-label">23</div></div>
+                        <div class="time"><div class="time-label">24</div></div>
+                        <div class="time"><div class="time-label">25</div></div>
+                        <div class="time"><div class="time-label">26</div></div>
+                        <div class="time"><div class="time-label">27</div></div>
+                        <div class="time"><div class="time-label">28</div></div>
+                        <div class="time"><div class="time-label">29</div></div>
+                        <div class="time"><div class="time-label">30</div></div>
+                    </div>
+                    <div class="times time-areaes">
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                    </div>
+                </div>
+                <div class="timeline-body">
+                    <div class="lines">
+                        <div class="line" data-start="1" data-end="30">
+                            <div class="line-content-wrap">
+                                <div class="line-content">
+                                    <div class="line-icon">A</div>
+                                    <div class="line-label">1-30</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line" data-start="8" data-end="15">
+                            <div class="line-content-wrap">
+                                <div class="line-content">
+                                    <div class="line-icon">B</div>
+                                    <div class="line-label">8-15</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h2>data-timeline="week" data-column="day" data-unit="day"</h2>
+        <div class="timeline-responsive" >
+            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="week" data-column="day" data-unit="day">
+                <div class="timeline-header">
+                    <div class="times time-labels">
+                        <div class="time"><div class="time-label">월</div></div>
+                        <div class="time"><div class="time-label">화</div></div>
+                        <div class="time"><div class="time-label">수</div></div>
+                        <div class="time"><div class="time-label">목</div></div>
+                        <div class="time"><div class="time-label">금</div></div>
+                        <div class="time"><div class="time-label">토</div></div>
+                        <div class="time"><div class="time-label">일</div></div>
+                    </div>
+                    <div class="times time-areaes">
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
                     </div>
                 </div>
                 <div class="timeline-body">
@@ -256,61 +619,61 @@
             </div>
         </div>
         <hr>
-        <h2>hour-hour-day</h2>
+        <h2>data-timeline="day" data-column="hour" data-unit="hour"</h2>
         <div class="timeline-responsive" >
-            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="hour-hour-day">
+            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="day" data-column="hour" data-unit="hour">
                 <div class="timeline-header">
                     <div class="times time-labels">
-                        <div class="time" data-range="hour"><div class="time-label">0</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">1</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">2</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">3</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">4</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">5</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">6</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">7</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">8</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">9</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">10</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">11</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">12</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">13</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">14</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">15</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">16</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">17</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">18</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">19</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">20</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">21</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">22</div></div>
-                        <div class="time" data-range="hour"><div class="time-label">23</div></div>                        
+                        <div class="time"><div class="time-label">0</div></div>
+                        <div class="time"><div class="time-label">1</div></div>
+                        <div class="time"><div class="time-label">2</div></div>
+                        <div class="time"><div class="time-label">3</div></div>
+                        <div class="time"><div class="time-label">4</div></div>
+                        <div class="time"><div class="time-label">5</div></div>
+                        <div class="time"><div class="time-label">6</div></div>
+                        <div class="time"><div class="time-label">7</div></div>
+                        <div class="time"><div class="time-label">8</div></div>
+                        <div class="time"><div class="time-label">9</div></div>
+                        <div class="time"><div class="time-label">10</div></div>
+                        <div class="time"><div class="time-label">11</div></div>
+                        <div class="time"><div class="time-label">12</div></div>
+                        <div class="time"><div class="time-label">13</div></div>
+                        <div class="time"><div class="time-label">14</div></div>
+                        <div class="time"><div class="time-label">15</div></div>
+                        <div class="time"><div class="time-label">16</div></div>
+                        <div class="time"><div class="time-label">17</div></div>
+                        <div class="time"><div class="time-label">18</div></div>
+                        <div class="time"><div class="time-label">19</div></div>
+                        <div class="time"><div class="time-label">20</div></div>
+                        <div class="time"><div class="time-label">21</div></div>
+                        <div class="time"><div class="time-label">22</div></div>
+                        <div class="time"><div class="time-label">23</div></div>                        
                     </div>
                     <div class="times time-areaes">
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
-                        <div class="time" data-range="hour"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
                     </div>
                 </div>
                 <div class="timeline-body">
@@ -351,6 +714,110 @@
                 </div>
 
 
+            </div>
+        </div>
+        <hr>
+        <h2>--max-grow:10</h2>
+        <div class="timeline-responsive" >
+            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px; --max-grow:10" >
+                <div class="timeline-header">
+                    <div class="times time-labels">
+                        <div class="time"><div class="time-label">1</div></div>
+                        <div class="time"><div class="time-label">2</div></div>
+                        <div class="time"><div class="time-label">3</div></div>
+                        <div class="time"><div class="time-label">4</div></div>
+                        <div class="time"><div class="time-label">5</div></div>
+                        <div class="time"><div class="time-label">6</div></div>
+                        <div class="time"><div class="time-label">7</div></div>
+                        <div class="time"><div class="time-label">8</div></div>
+                        <div class="time"><div class="time-label">9</div></div>
+                        <div class="time"><div class="time-label">10</div></div>                  
+                    </div>
+                    <div class="times time-areaes">
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                    </div>
+                </div>
+                <div class="timeline-body">
+                    <div class="lines">
+                        <div class="line" data-start="1" data-end="10">
+                            <div class="line-content-wrap">
+                                <div class="line-content">
+                                    <div class="line-icon">A</div>
+                                    <div class="line-label">1-10</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line" data-start="2" data-end="8">
+                            <div class="line-content-wrap">
+                                <div class="line-content">
+                                    <div class="line-icon">B</div>
+                                    <div class="line-label">2-8</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h2>--max-grow:15</h2>
+        <div class="timeline-responsive" >
+            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px; --max-grow:15" >
+                <div class="timeline-header">
+                    <div class="times time-labels">
+                        <div class="time"><div class="time-label">1</div></div>
+                        <div class="time"><div class="time-label">2</div></div>
+                        <div class="time"><div class="time-label">3</div></div>
+                        <div class="time"><div class="time-label">4</div></div>
+                        <div class="time" style="flex-grow:6"><div class="time-label">flex-grow:6</div></div>
+                        <div class="time"><div class="time-label">6</div></div>
+                        <div class="time"><div class="time-label">7</div></div>
+                        <div class="time"><div class="time-label">8</div></div>
+                        <div class="time"><div class="time-label">9</div></div>
+                        <div class="time"><div class="time-label">10</div></div>                  
+                    </div>
+                    <div class="times time-areaes">
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:6"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                    </div>
+                </div>
+                <div class="timeline-body">
+                    <div class="lines">
+                        <div class="line" data-start="1" data-end="10">
+                            <div class="line-content-wrap">
+                                <div class="line-content">
+                                    <div class="line-icon">A</div>
+                                    <div class="line-label">1-10</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line" data-start="2" data-end="8">
+                            <div class="line-content-wrap">
+                                <div class="line-content">
+                                    <div class="line-icon">B</div>
+                                    <div class="line-label">2-8</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
