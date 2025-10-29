@@ -44,69 +44,104 @@
         <h1>UI timeline</h1>
 
 
-        <h2>data-timeline="year" data-column="month" data-unit="day"</h2>
+        <h2>--max-grow:365 (day of year)</h2>
         <div class="timeline-responsive" >
-            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="year" data-column="month" data-unit="day" >
+            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px; --max-grow:365" >
                 <div class="timeline-header">
                     <div class="times time-labels">
-                        <div class="time" data-range="31"><div class="time-label">1월</div></div>
-                        <div class="time" data-range="28"><div class="time-label">2월</div></div>
-                        <div class="time" data-range="31"><div class="time-label">3월</div></div>
-                        <div class="time" data-range="30"><div class="time-label">4월</div></div>
-                        <div class="time" data-range="31"><div class="time-label">5월</div></div>
-                        <div class="time" data-range="30"><div class="time-label">6월</div></div>
-                        <div class="time" data-range="31"><div class="time-label">7월</div></div>
-                        <div class="time" data-range="31"><div class="time-label">8월</div></div>
-                        <div class="time" data-range="30"><div class="time-label">9월</div></div>
-                        <div class="time" data-range="31"><div class="time-label">10월</div></div>
-                        <div class="time" data-range="30"><div class="time-label">11월</div></div>
-                        <div class="time" data-range="31"><div class="time-label">12월</div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-label">1월</div></div>
+                        <div class="time" style="flex-grow:28;"><div class="time-label">2월</div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-label">3월</div></div>
+                        <div class="time" style="flex-grow:30;"><div class="time-label">4월</div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-label">5월</div></div>
+                        <div class="time" style="flex-grow:30;"><div class="time-label">6월</div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-label">7월</div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-label">8월</div></div>
+                        <div class="time" style="flex-grow:30;"><div class="time-label">9월</div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-label">10월</div></div>
+                        <div class="time" style="flex-grow:30;"><div class="time-label">11월</div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-label">12월</div></div>
                     </div>
                     <div class="times time-areaes">
-                        <div class="time" data-range="31"><div class="time-area"></div></div>
-                        <div class="time" data-range="28"><div class="time-area"></div></div>
-                        <div class="time" data-range="31"><div class="time-area"></div></div>
-                        <div class="time" data-range="30"><div class="time-area"></div></div>
-                        <div class="time" data-range="31"><div class="time-area"></div></div>
-                        <div class="time" data-range="30"><div class="time-area"></div></div>
-                        <div class="time" data-range="31"><div class="time-area"></div></div>
-                        <div class="time" data-range="31"><div class="time-area"></div></div>
-                        <div class="time" data-range="30"><div class="time-area"></div></div>
-                        <div class="time" data-range="31"><div class="time-area"></div></div>
-                        <div class="time" data-range="30"><div class="time-area"></div></div>
-                        <div class="time" data-range="31"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:28;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:30;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:30;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:30;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:30;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-area"></div></div>
                     </div>
                 </div>
                 <div class="timeline-body">
                     <div class="lines">
-                        <div class="line" data-start="1" data-end="365">
-                            <div class="line-content-wrap">
-                                <div class="line-content text-bg-primary">
-                                    <div class="line-icon">A</div>
-                                    <div class="line-label">메세지메세지 메세지</div>
+                        <div class="line-container">
+                            <div class="line" data-start="1" data-end="365">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-primary">
+                                        <div class="line-icon">A</div>
+                                        <div class="line-label">1-12 메세지메세지 메세지</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="line" data-start="32" data-end="59">
-                            <div class="line-content-wrap">
-                                <div class="line-content text-bg-secondary">
-                                    <div class="line-icon">B</div>
-                                    <div class="line-label">2월</div>
+                        <div class="line-container">
+                            <div class="line" data-start="32" data-end="59">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-secondary">
+                                        <div class="line-icon">B</div>
+                                        <div class="line-label">-2/28</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="line" data-start="60" data-end="310">
-                            <div class="line-content-wrap">
-                                <div class="line-content text-bg-success">
-                                    <div class="line-label">메세지메세지 메세지</div>
+
+                        <div class="line-container">
+                            <div class="line" data-start="60" data-end="310">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-success">
+                                        <div class="line-label">메세지메세지 메세지</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="line">
-                            <div class="line-content-wrap">
-                                <div class="line-content text-bg-danger">
-                                    <div class="line-icon">D</div>
-                                    <div class="line-label">메세지메세지 메세지</div>
+                        <div class="line-container">
+                            <div class="line">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-danger">
+                                        <div class="line-icon">D</div>
+                                        <div class="line-label">아무 설정 없음(전체)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-container">
+                            <div class="line" data-start="32" data-end="74">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-warning">
+                                        <div class="line-icon">2-3</div>
+                                        <div class="line-label">한라인에 여러개</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line" data-start="91" data-end="120">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-info">
+                                        <div class="line-icon">4월</div>
+                                        <div class="line-label">4월 전체</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line" data-start="106" data-end="151">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-danger">
+                                        <div class="line-icon">4-5</div>
+                                        <div class="line-label">겹침</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -117,70 +152,104 @@
             </div>
         </div>
         <hr>
-        <h2> data-timeline="year" data-column="month" data-unit="day" data-leap="leap"</h2>
+        <h2>--max-grow:366 (day of leapyear)(2월 이후 하루씩 틀어짐)</h2>
         <div class="timeline-responsive" >
-            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="year" data-column="month" data-unit="day" data-leap="leap">
+            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px; --max-grow:365" >
                 <div class="timeline-header">
                     <div class="times time-labels">
-                        <div class="time" data-range="month1"><div class="time-label">1월</div></div>
-                        <div class="time" data-range="month2"><div class="time-label">2월</div></div>
-                        <div class="time" data-range="month3"><div class="time-label">3월</div></div>
-                        <div class="time" data-range="month4"><div class="time-label">4월</div></div>
-                        <div class="time" data-range="month5"><div class="time-label">5월</div></div>
-                        <div class="time" data-range="month6"><div class="time-label">6월</div></div>
-                        <div class="time" data-range="month7"><div class="time-label">7월</div></div>
-                        <div class="time" data-range="month8"><div class="time-label">8월</div></div>
-                        <div class="time" data-range="month9"><div class="time-label">9월</div></div>
-                        <div class="time" data-range="month10"><div class="time-label">10월</div></div>
-                        <div class="time" data-range="month11"><div class="time-label">11월</div></div>
-                        <div class="time" data-range="month12"><div class="time-label">12월</div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-label">1월</div></div>
+                        <div class="time" style="flex-grow:29;"><div class="time-label">2월</div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-label">3월</div></div>
+                        <div class="time" style="flex-grow:30;"><div class="time-label">4월</div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-label">5월</div></div>
+                        <div class="time" style="flex-grow:30;"><div class="time-label">6월</div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-label">7월</div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-label">8월</div></div>
+                        <div class="time" style="flex-grow:30;"><div class="time-label">9월</div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-label">10월</div></div>
+                        <div class="time" style="flex-grow:30;"><div class="time-label">11월</div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-label">12월</div></div>
                     </div>
                     <div class="times time-areaes">
-                        <div class="time" data-range="month1"><div class="time-area"></div></div>
-                        <div class="time" data-range="month2"><div class="time-area"></div></div>
-                        <div class="time" data-range="month3"><div class="time-area"></div></div>
-                        <div class="time" data-range="month4"><div class="time-area"></div></div>
-                        <div class="time" data-range="month5"><div class="time-area"></div></div>
-                        <div class="time" data-range="month6"><div class="time-area"></div></div>
-                        <div class="time" data-range="month7"><div class="time-area"></div></div>
-                        <div class="time" data-range="month8"><div class="time-area"></div></div>
-                        <div class="time" data-range="month9"><div class="time-area"></div></div>
-                        <div class="time" data-range="month10"><div class="time-area"></div></div>
-                        <div class="time" data-range="month11"><div class="time-area"></div></div>
-                        <div class="time" data-range="month12"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:29;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:30;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:30;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:30;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:30;"><div class="time-area"></div></div>
+                        <div class="time" style="flex-grow:31;"><div class="time-area"></div></div>
                     </div>
                 </div>
                 <div class="timeline-body">
                     <div class="lines">
-                        <div class="line" data-start="1" data-end="365">
-                            <div class="line-content-wrap">
-                                <div class="line-content text-bg-warning">
-                                    <div class="line-icon">A</div>
-                                    <div class="line-label">메세지메세지 메세지</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="line" data-start="32" data-end="59">
-                            <div class="line-content-wrap">
-                                <div class="line-content text-bg-info">
-                                    <div class="line-icon">B</div>
-                                    <div class="line-label">2월</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="line" data-start="60" data-end="310">
-                            <div class="line-content-wrap">
+                        <div class="line-container">
+                            <div class="line" data-start="1" data-end="365">
                                 <div class="line-content">
-                                    <div class="line-icon">C</div>
-                                    <div class="line-label">메세지메세지 메세지</div>
+                                    <div class="line-bar text-bg-primary">
+                                        <div class="line-icon">A</div>
+                                        <div class="line-label">1-12 메세지메세지 메세지</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="line">
-                            <div class="line-content-wrap">
+                        <div class="line-container">
+                            <div class="line" data-start="32" data-end="59">
                                 <div class="line-content">
-                                    <div class="line-icon">D</div>
-                                    <div class="line-label">메세지메세지 메세지</div>
+                                    <div class="line-bar text-bg-secondary">
+                                        <div class="line-icon">B</div>
+                                        <div class="line-label">-2/28</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="line-container">
+                            <div class="line" data-start="60" data-end="310">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-success">
+                                        <div class="line-label">메세지메세지 메세지</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-container">
+                            <div class="line">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-danger">
+                                        <div class="line-icon">D</div>
+                                        <div class="line-label">아무 설정 없음(전체)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-container">
+                            <div class="line" data-start="32" data-end="74">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-warning">
+                                        <div class="line-icon">2-3</div>
+                                        <div class="line-label">한라인에 여러개</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line" data-start="91" data-end="120">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-info">
+                                        <div class="line-icon">4월</div>
+                                        <div class="line-label">4월 전체</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line" data-start="106" data-end="151">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-danger">
+                                        <div class="line-icon">4-5</div>
+                                        <div class="line-label">겹침</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -191,9 +260,304 @@
             </div>
         </div>
         <hr>
-        <h2>data-timeline="month1" data-column="day" data-unit="day"</h2>
+        <h2>--max-grow:12 (month of year)(소수점도 사용)</h2>
         <div class="timeline-responsive" >
-            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="month1" data-column="day" data-unit="day">
+            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px; --max-grow:12"  >
+                <div class="timeline-header">
+                    <div class="times time-labels">
+                        <div class="time"><div class="time-label">1월</div></div>
+                        <div class="time"><div class="time-label">2월</div></div>
+                        <div class="time"><div class="time-label">3월</div></div>
+                        <div class="time"><div class="time-label">4월</div></div>
+                        <div class="time"><div class="time-label">5월</div></div>
+                        <div class="time"><div class="time-label">6월</div></div>
+                        <div class="time"><div class="time-label">7월</div></div>
+                        <div class="time"><div class="time-label">8월</div></div>
+                        <div class="time"><div class="time-label">9월</div></div>
+                        <div class="time"><div class="time-label">10월</div></div>
+                        <div class="time"><div class="time-label">11월</div></div>
+                        <div class="time"><div class="time-label">12월</div></div>
+                    </div>
+                    <div class="times time-areaes">
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                    </div>
+                </div>
+                <div class="timeline-body">
+                    <div class="lines">
+                        <div class="line-container">
+                            <div class="line" data-start="1" data-end="12">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-primary">
+                                        <div class="line-icon">A</div>
+                                        <div class="line-label">1-12 메세지메세지 메세지</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-container">
+                            <div class="line" data-start="2" data-end="2">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-secondary">
+                                        <div class="line-icon">B</div>
+                                        <div class="line-label">-2/28</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="line-container">
+                            <div class="line" data-start="3" data-end="10" style="--end:10.2;">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-success">
+                                        <div class="line-label">메세지메세지 메세지</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-container">
+                            <div class="line">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-danger">
+                                        <div class="line-icon">D</div>
+                                        <div class="line-label">아무 설정 없음(전체)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-container">
+                            <div class="line" data-start="2" data-end="2" style="--end:2.5">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-warning">
+                                        <div class="line-icon">2-3</div>
+                                        <div class="line-label">한라인에 여러개</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line" data-start="4" data-end="4">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-info">
+                                        <div class="line-icon">4월</div>
+                                        <div class="line-label">4월 전체</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line" data-start="4" data-end="5" style="--start:4.5">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-danger">
+                                        <div class="line-icon">4-5</div>
+                                        <div class="line-label">겹침</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <hr>
+        <h2>--max-grow:12 (month of year)(소수점도 사용)(분기)</h2>
+        <div class="timeline-responsive" >
+            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px; --max-grow:12"  >
+                <div class="timeline-header">
+                    <div class="times time-labels">
+                        <div class="time"><div class="time-label">1분기</div></div>
+                        <div class="time"><div class="time-label">2분기</div></div>
+                        <div class="time"><div class="time-label">3분기</div></div>
+                        <div class="time"><div class="time-label">4분기</div></div>
+                        
+                    </div>
+                    <div class="times time-areaes">
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                    </div>
+                </div>
+                <div class="timeline-body">
+                    <div class="lines">
+                        <div class="line-container">
+                            <div class="line" data-start="1" data-end="12">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-primary">
+                                        <div class="line-icon">A</div>
+                                        <div class="line-label">1-12 메세지메세지 메세지</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-container">
+                            <div class="line" data-start="2" data-end="2">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-secondary">
+                                        <div class="line-icon">B</div>
+                                        <div class="line-label">-2/28</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="line-container">
+                            <div class="line" data-start="3" data-end="10" style="--end:10.2;">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-success">
+                                        <div class="line-label">메세지메세지 메세지</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-container">
+                            <div class="line">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-danger">
+                                        <div class="line-icon">D</div>
+                                        <div class="line-label">아무 설정 없음(전체)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-container">
+                            <div class="line" data-start="2" data-end="2" style="--end:2.5">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-warning">
+                                        <div class="line-icon">2-3</div>
+                                        <div class="line-label">한라인에 여러개</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line" data-start="4" data-end="4">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-info">
+                                        <div class="line-icon">4월</div>
+                                        <div class="line-label">4월 전체</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line" data-start="4" data-end="5" style="--start:4.5">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-danger">
+                                        <div class="line-icon">4-5</div>
+                                        <div class="line-label">겹침</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <hr>
+        <h2>--max-grow:4 (quarter of year)(소수점도 사용)(분기)</h2>
+        <div class="timeline-responsive" >
+            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px; --max-grow:4;"  >
+                <div class="timeline-header">
+                    <div class="times time-labels">
+                        <div class="time"><div class="time-label">1분기</div></div>
+                        <div class="time"><div class="time-label">2분기</div></div>
+                        <div class="time"><div class="time-label">3분기</div></div>
+                        <div class="time"><div class="time-label">4분기</div></div>
+                        
+                    </div>
+                    <div class="times time-areaes">
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                        <div class="time"><div class="time-area"></div></div>
+                    </div>
+                </div>
+                <div class="timeline-body">
+                    <div class="lines">
+                        <div class="line-container">
+                            <div class="line" data-start="1" data-end="4">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-primary">
+                                        <div class="line-icon">A</div>
+                                        <div class="line-label text-center">A 프로젝트 일정</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-container">
+                            <div class="line" style="--start:2;--end:2">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-secondary">
+                                        <div class="line-icon">B</div>
+                                        <div class="line-label text-center">B 프로젝트 일정</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="line-container">
+                            <div class="line" style="--start:3;--end:3;">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-success">
+                                        <div class="line-label text-center">예정 없음</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-container">
+                            <div class="line">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-danger">
+                                        <div class="line-icon">D</div>
+                                        <div class="line-label">아무 설정 없음(전체)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-container">
+                            <div class="line" style="--start:1;--end:1">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-warning">
+                                        <div class="line-icon">XX</div>
+                                        <div class="line-label text-center">XX팀 1분기</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line" style="--start:3;--end:3">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-info">
+                                        <div class="line-icon">XX</div>
+                                        <div class="line-label text-center">XX팀 3분기</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line" style="--start:4;--end:4">
+                                <div class="line-content">
+                                    <div class="line-bar text-bg-danger">
+                                        <div class="line-icon">XX</div>
+                                        <div class="line-label text-center">XX팀 4분기</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <hr>
+
+        <h2>--max-grow:31 (day of month)</h2>
+        <div class="timeline-responsive" >
+            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px; --max-grow:31">
                 <div class="timeline-header">
                     <div class="times time-labels">
                         <div class="time"><div class="time-label">1</div></div>
@@ -265,16 +629,16 @@
                 <div class="timeline-body">
                     <div class="lines">
                         <div class="line" data-start="1" data-end="30">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
+                            <div class="line-content">
+                                <div class="line-bar">
                                     <div class="line-icon">A</div>
                                     <div class="line-label">1-30</div>
                                 </div>
                             </div>
                         </div>
                         <div class="line" data-start="8" data-end="15">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
+                            <div class="line-content">
+                                <div class="line-bar">
                                     <div class="line-icon">B</div>
                                     <div class="line-label">8-15</div>
                                 </div>
@@ -285,279 +649,9 @@
             </div>
         </div>
         <hr>
-        <h2>data-timeline="month2" data-column="day" data-unit="day"</h2>
+        <h2>--max-grow:7 (day of week)</h2>
         <div class="timeline-responsive" >
-            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="month2" data-column="day" data-unit="day">
-                <div class="timeline-header">
-                    <div class="times time-labels">
-                        <div class="time"><div class="time-label">1</div></div>
-                        <div class="time"><div class="time-label">2</div></div>
-                        <div class="time"><div class="time-label">3</div></div>
-                        <div class="time"><div class="time-label">4</div></div>
-                        <div class="time"><div class="time-label">5</div></div>
-                        <div class="time"><div class="time-label">6</div></div>
-                        <div class="time"><div class="time-label">7</div></div>
-                        <div class="time"><div class="time-label">8</div></div>
-                        <div class="time"><div class="time-label">9</div></div>
-                        <div class="time"><div class="time-label">10</div></div>
-                        <div class="time"><div class="time-label">11</div></div>
-                        <div class="time"><div class="time-label">12</div></div>
-                        <div class="time"><div class="time-label">13</div></div>
-                        <div class="time"><div class="time-label">14</div></div>
-                        <div class="time"><div class="time-label">15</div></div>
-                        <div class="time"><div class="time-label">16</div></div>
-                        <div class="time"><div class="time-label">17</div></div>
-                        <div class="time"><div class="time-label">18</div></div>
-                        <div class="time"><div class="time-label">19</div></div>
-                        <div class="time"><div class="time-label">20</div></div>
-                        <div class="time"><div class="time-label">21</div></div>
-                        <div class="time"><div class="time-label">22</div></div>
-                        <div class="time"><div class="time-label">23</div></div>
-                        <div class="time"><div class="time-label">24</div></div>
-                        <div class="time"><div class="time-label">25</div></div>
-                        <div class="time"><div class="time-label">26</div></div>
-                        <div class="time"><div class="time-label">27</div></div>
-                        <div class="time"><div class="time-label">28</div></div>
-                    </div>
-                    <div class="times time-areaes">
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                    </div>
-                </div>
-                <div class="timeline-body">
-                    <div class="lines">
-                        <div class="line" data-start="1" data-end="28">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
-                                    <div class="line-icon">A</div>
-                                    <div class="line-label">1-28</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="line" data-start="8" data-end="15">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
-                                    <div class="line-icon">B</div>
-                                    <div class="line-label">8-15</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <h2>data-timeline="month2" data-column="day" data-unit="day" data-leap="leap"</h2>
-        <div class="timeline-responsive" >
-            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="month2" data-column="day" data-unit="day" data-leap="leap">
-                <div class="timeline-header">
-                    <div class="times time-labels">
-                        <div class="time"><div class="time-label">1</div></div>
-                        <div class="time"><div class="time-label">2</div></div>
-                        <div class="time"><div class="time-label">3</div></div>
-                        <div class="time"><div class="time-label">4</div></div>
-                        <div class="time"><div class="time-label">5</div></div>
-                        <div class="time"><div class="time-label">6</div></div>
-                        <div class="time"><div class="time-label">7</div></div>
-                        <div class="time"><div class="time-label">8</div></div>
-                        <div class="time"><div class="time-label">9</div></div>
-                        <div class="time"><div class="time-label">10</div></div>
-                        <div class="time"><div class="time-label">11</div></div>
-                        <div class="time"><div class="time-label">12</div></div>
-                        <div class="time"><div class="time-label">13</div></div>
-                        <div class="time"><div class="time-label">14</div></div>
-                        <div class="time"><div class="time-label">15</div></div>
-                        <div class="time"><div class="time-label">16</div></div>
-                        <div class="time"><div class="time-label">17</div></div>
-                        <div class="time"><div class="time-label">18</div></div>
-                        <div class="time"><div class="time-label">19</div></div>
-                        <div class="time"><div class="time-label">20</div></div>
-                        <div class="time"><div class="time-label">21</div></div>
-                        <div class="time"><div class="time-label">22</div></div>
-                        <div class="time"><div class="time-label">23</div></div>
-                        <div class="time"><div class="time-label">24</div></div>
-                        <div class="time"><div class="time-label">25</div></div>
-                        <div class="time"><div class="time-label">26</div></div>
-                        <div class="time"><div class="time-label">27</div></div>
-                        <div class="time"><div class="time-label">28</div></div>
-                        <div class="time"><div class="time-label">29</div></div>
-                    </div>
-                    <div class="times time-areaes">
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                    </div>
-                </div>
-                <div class="timeline-body">
-                    <div class="lines">
-                        <div class="line" data-start="1" data-end="28">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
-                                    <div class="line-icon">A</div>
-                                    <div class="line-label">1-28</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="line" data-start="8" data-end="15">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
-                                    <div class="line-icon">B</div>
-                                    <div class="line-label">8-15</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <h2>data-timeline="month4" data-column="day" data-unit="day"</h2>
-        <div class="timeline-responsive" >
-            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="month1" data-column="day" data-unit="day">
-                <div class="timeline-header">
-                    <div class="times time-labels">
-                        <div class="time"><div class="time-label">1</div></div>
-                        <div class="time"><div class="time-label">2</div></div>
-                        <div class="time"><div class="time-label">3</div></div>
-                        <div class="time"><div class="time-label">4</div></div>
-                        <div class="time"><div class="time-label">5</div></div>
-                        <div class="time"><div class="time-label">6</div></div>
-                        <div class="time"><div class="time-label">7</div></div>
-                        <div class="time"><div class="time-label">8</div></div>
-                        <div class="time"><div class="time-label">9</div></div>
-                        <div class="time"><div class="time-label">10</div></div>
-                        <div class="time"><div class="time-label">11</div></div>
-                        <div class="time"><div class="time-label">12</div></div>
-                        <div class="time"><div class="time-label">13</div></div>
-                        <div class="time"><div class="time-label">14</div></div>
-                        <div class="time"><div class="time-label">15</div></div>
-                        <div class="time"><div class="time-label">16</div></div>
-                        <div class="time"><div class="time-label">17</div></div>
-                        <div class="time"><div class="time-label">18</div></div>
-                        <div class="time"><div class="time-label">19</div></div>
-                        <div class="time"><div class="time-label">20</div></div>
-                        <div class="time"><div class="time-label">21</div></div>
-                        <div class="time"><div class="time-label">22</div></div>
-                        <div class="time"><div class="time-label">23</div></div>
-                        <div class="time"><div class="time-label">24</div></div>
-                        <div class="time"><div class="time-label">25</div></div>
-                        <div class="time"><div class="time-label">26</div></div>
-                        <div class="time"><div class="time-label">27</div></div>
-                        <div class="time"><div class="time-label">28</div></div>
-                        <div class="time"><div class="time-label">29</div></div>
-                        <div class="time"><div class="time-label">30</div></div>
-                    </div>
-                    <div class="times time-areaes">
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                        <div class="time"><div class="time-area"></div></div>
-                    </div>
-                </div>
-                <div class="timeline-body">
-                    <div class="lines">
-                        <div class="line" data-start="1" data-end="30">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
-                                    <div class="line-icon">A</div>
-                                    <div class="line-label">1-30</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="line" data-start="8" data-end="15">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
-                                    <div class="line-icon">B</div>
-                                    <div class="line-label">8-15</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <h2>data-timeline="week" data-column="day" data-unit="day"</h2>
-        <div class="timeline-responsive" >
-            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="week" data-column="day" data-unit="day">
+            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px; --max-grow:7">
                 <div class="timeline-header">
                     <div class="times time-labels">
                         <div class="time"><div class="time-label">월</div></div>
@@ -581,32 +675,32 @@
                 <div class="timeline-body">
                     <div class="lines">
                         <div class="line" data-start="1" data-end="7">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
+                            <div class="line-content">
+                                <div class="line-bar">
                                     <div class="line-icon">A</div>
                                     <div class="line-label">메세지메세지 메세지</div>
                                 </div>
                             </div>
                         </div>
                         <div class="line" data-start="2" data-end="2">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
+                            <div class="line-content">
+                                <div class="line-bar">
                                     <div class="line-icon">B</div>
                                     <div class="line-label">화요일</div>
                                 </div>
                             </div>
                         </div>
                         <div class="line" data-start="3" data-end="7">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
+                            <div class="line-content">
+                                <div class="line-bar">
                                     <div class="line-icon">C</div>
                                     <div class="line-label">메세지메세지 메세지</div>
                                 </div>
                             </div>
                         </div>
                         <div class="line">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
+                            <div class="line-content">
+                                <div class="line-bar">
                                     <div class="line-icon">D</div>
                                     <div class="line-label">메세지메세지 메세지</div>
                                 </div>
@@ -619,9 +713,9 @@
             </div>
         </div>
         <hr>
-        <h2>data-timeline="day" data-column="hour" data-unit="hour"</h2>
+        <h2>--max-grow:24 (hour of day)</h2>
         <div class="timeline-responsive" >
-            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px" data-timeline="day" data-column="hour" data-unit="hour">
+            <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px; --max-grow:24">
                 <div class="timeline-header">
                     <div class="times time-labels">
                         <div class="time"><div class="time-label">0</div></div>
@@ -679,32 +773,32 @@
                 <div class="timeline-body">
                     <div class="lines">
                         <div class="line" data-start="1" data-end="24">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
+                            <div class="line-content">
+                                <div class="line-bar">
                                     <div class="line-icon">A</div>
                                     <div class="line-label">메세지메세지 메세지</div>
                                 </div>
                             </div>
                         </div>
                         <div class="line" data-start="10" data-end="15">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
+                            <div class="line-content">
+                                <div class="line-bar">
                                     <div class="line-icon">B</div>
                                     <div class="line-label">9시-14시</div>
                                 </div>
                             </div>
                         </div>
                         <div class="line" data-start="3" data-end="24">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
+                            <div class="line-content">
+                                <div class="line-bar">
                                     <div class="line-icon">C</div>
                                     <div class="line-label">메세지메세지 메세지</div>
                                 </div>
                             </div>
                         </div>
                         <div class="line">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
+                            <div class="line-content">
+                                <div class="line-bar">
                                     <div class="line-icon">D</div>
                                     <div class="line-label">메세지메세지 메세지</div>
                                 </div>
@@ -749,16 +843,16 @@
                 <div class="timeline-body">
                     <div class="lines">
                         <div class="line" data-start="1" data-end="10">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
+                            <div class="line-content">
+                                <div class="line-bar">
                                     <div class="line-icon">A</div>
                                     <div class="line-label">1-10</div>
                                 </div>
                             </div>
                         </div>
                         <div class="line" data-start="2" data-end="8">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
+                            <div class="line-content">
+                                <div class="line-bar">
                                     <div class="line-icon">B</div>
                                     <div class="line-label">2-8</div>
                                 </div>
@@ -769,7 +863,7 @@
             </div>
         </div>
         <hr>
-        <h2>--max-grow:15</h2>
+        <h2>--max-grow:15 , flex-grow:6</h2>
         <div class="timeline-responsive" >
             <div class="timeline" style="font-size: 14px;min-width: 600px;  margin:20px; --max-grow:15" >
                 <div class="timeline-header">
@@ -778,12 +872,12 @@
                         <div class="time"><div class="time-label">2</div></div>
                         <div class="time"><div class="time-label">3</div></div>
                         <div class="time"><div class="time-label">4</div></div>
-                        <div class="time" style="flex-grow:6"><div class="time-label">flex-grow:6</div></div>
-                        <div class="time"><div class="time-label">6</div></div>
-                        <div class="time"><div class="time-label">7</div></div>
-                        <div class="time"><div class="time-label">8</div></div>
-                        <div class="time"><div class="time-label">9</div></div>
-                        <div class="time"><div class="time-label">10</div></div>                  
+                        <div class="time" style="flex-grow:6"><div class="time-label">5-10, flex-grow:6</div></div>
+                        <div class="time"><div class="time-label">11</div></div>
+                        <div class="time"><div class="time-label">12</div></div>
+                        <div class="time"><div class="time-label">13</div></div>
+                        <div class="time"><div class="time-label">14</div></div>
+                        <div class="time"><div class="time-label">15</div></div>                  
                     </div>
                     <div class="times time-areaes">
                         <div class="time"><div class="time-area"></div></div>
@@ -801,16 +895,16 @@
                 <div class="timeline-body">
                     <div class="lines">
                         <div class="line" data-start="1" data-end="10">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
+                            <div class="line-content">
+                                <div class="line-bar">
                                     <div class="line-icon">A</div>
                                     <div class="line-label">1-10</div>
                                 </div>
                             </div>
                         </div>
                         <div class="line" data-start="2" data-end="8">
-                            <div class="line-content-wrap">
-                                <div class="line-content">
+                            <div class="line-content">
+                                <div class="line-bar">
                                     <div class="line-icon">B</div>
                                     <div class="line-label">2-8</div>
                                 </div>

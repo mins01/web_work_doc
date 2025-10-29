@@ -5,49 +5,9 @@
 }
 
 .timeline{ 
-    position: relative;
-    --max-grow:365;
+    --max-grow:12;
+    --min-grow:1;
 }
-.timeline[data-timeline="day-month-year"]{
-    --max-grow:365;
-}
-.timeline[data-timeline="day-month-year-366"]{
-    --max-grow:366;
-}
-.timeline[data-timeline="day-day-week"]{
-    --max-grow:7;
-}
-.timeline[data-timeline="hour-hour-day"]{
-    --max-grow:24;
-}
-
-.timeline[data-timeline="year"][data-unit="day"]{
-    --max-grow:365;
-}
-.timeline[data-timeline="year"][data-leap="leap"][data-unit="day"]{
-    --max-grow:366;
-}
-.timeline[data-timeline="week"][data-unit="day"]{
-    --max-grow:7;
-}
-.timeline[data-timeline="day"][data-unit="hour"]{
-    --max-grow:24;
-}
-.timeline:where([data-timeline="month1"],[data-timeline="month3"],[data-timeline="month5"],[data-timeline="month7"],[data-timeline="month8"],[data-timeline="month10"],[data-timeline="month12"])[data-unit="day"]{
-    --max-grow:31;
-}
-.timeline:where([data-timeline="month4"],[data-timeline="month6"],[data-timeline="month9"],[data-timeline="month11"])[data-unit="day"]{
-    --max-grow:30;
-}
-.timeline:where([data-timeline="month2"])[data-unit="day"]{
-    --max-grow:28;
-}
-.timeline:where([data-timeline="month2"])[data-leap="leap"][data-unit="day"]{
-    --max-grow:29;
-}
-
-
-
 
 
 /* times */
@@ -58,20 +18,6 @@
     flex: 1 1 0;
     min-width: 0;
 }
-
-/* 날짜 타입별 grow */
-/* 기본으로 동일 너비를 가진다. */
-.timeline .time{ flex-grow: 1; }
-/* 월/일이면 월별 너비에 차이를 둔다. */
-.timeline[data-column="month"][data-unit="day"] .time:where([data-range="30"],[data-range="month4"],[data-range="month6"],[data-range="month9"],[data-range="month11"]){ flex-grow: 30; }
-.timeline[data-column="month"][data-unit="day"] .time:where([data-range="31"],[data-range="month1"],[data-range="month3"],[data-range="month5"],[data-range="month7"],[data-range="month8"],[data-range="month10"],[data-range="month12"]){ flex-grow: 31; }
-.timeline[data-column="month"][data-unit="day"] .time:where([data-range="28"],[data-range="month2"]){ flex-grow: 28; }
-.timeline[data-leap="leap"][data-column="month"][data-unit="day"] .time[data-range="29"], 
-.timeline[data-leap="leap"][data-column="month"][data-unit="day"] .time[data-range="month2"]{ flex-grow: 29; }
-
-
-
-
 
 
 .time-label{
@@ -104,42 +50,59 @@
 /* lines */
 .lines{ display: flex; flex-direction: column; gap: 8px;}
 .line{
+    pointer-events: none;
     display: flex;
-    --start:0;
-    --end:30;
+    --start:1;
+    --end:var(--max-grow);
 }
-.line .line-content-wrap , 
-.line::before , .line::after{flex: 1 1 0; min-width: 0;}
-.line::before{ content: ''; }
-.line::after{ content: ''; }
+.line .line-content , 
+.line::before , .line::after{flex: 1 1 0; min-width: 0; content: ''; pointer-events: none;}
 .line::before,.line::after{opacity: 0;}
 
-.line .line-content-wrap{
-    flex-grow: calc(var(--end) - var(--start) + 1);
+.line .line-content{
+    pointer-events: all;
+    flex-grow: calc(var(--end) - var(--start) + var(--min-grow));
 }
 .line::before{
-    flex-grow: calc(var(--start) - 1);
+    flex-grow: calc(var(--start) - var(--min-grow));
 }
 .line::after{
     flex-grow: calc(var(--max-grow) - var(--end) );
 }
 
+/* line-container : 옵션 */
+.line-container{
+    position: relative;
+    pointer-events: none;
+}
+.line-container > *{
+    position: absolute;
+    inset: 0;
+}
+.line-container > *:first-child{
+    position: static;
+}
+
 
 /* layout */
+.timeline{
+    position: relative;
+}
+.timeline-header{
+    position: static;
+}
 .timeline-header .time-labels{
     position: relative;   
-    z-index: 2;
+    z-index: 3;
 }
 .timeline-header .time-areaes{
     position: absolute;
     inset: 0;
     z-index: 1;
+    pointer-events: none;
 }
 .timeline-body{
     padding:8px 0;
-}
-.lines{
-    padding-top: var(--header-height);
     position: relative;
     z-index: 2;
 }
@@ -147,8 +110,9 @@
 
 
 
-/* line-content */
-.line-content{
+
+/* line-bar */
+.line-bar{
     background-color: #abc;
     border-radius: 999px;
     display: flex;
