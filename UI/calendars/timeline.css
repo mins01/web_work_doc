@@ -9,7 +9,6 @@
     --min-grow:1;
 }
 
-
 /* times */
 .timeline .times{
     display: flex;
@@ -17,13 +16,6 @@
 .timeline .times .time{
     flex: 1 1 0;
     min-width: 0;
-}
-
-.timeline .time-label{
-    text-align: center;
-    padding:1px;
-    border-bottom: 2px solid #0003;
-    margin:0 2px;
 }
 
 
@@ -118,8 +110,14 @@
 
 
 
-/* line-bar : 커스텀해서 사용하자 */
-.line-bar{
+/* for custom */
+.timeline .time-label{
+    text-align: center;
+    padding:1px;
+    border-bottom: 2px solid #0003;
+    margin:0 2px;
+}
+.timeline .line-bar{
     background-color: #abc;
     border-radius: 999px;
     display: flex;
@@ -128,7 +126,7 @@
     min-width: 0px;
     height: 2em;
 }
-.line-icon{
+.timeline .line-icon{
     background-color: #0002;
     /* margin-left: -15px;; */
     flex: 0 0 auto;
@@ -143,7 +141,7 @@
     border: 3px solid #0006;
     border-radius: 999px;
 }
-.line-label{
+.timeline .line-label{
     padding:0 4px;
     flex: 1 1 0;
     overflow: hidden;
