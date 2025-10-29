@@ -11,31 +11,71 @@
 
 
 /* times */
-.times{
+.timeline .times{
     display: flex;
 }
-.times .time{
+.timeline .times .time{
     flex: 1 1 0;
     min-width: 0;
 }
 
-
-.time-label{
+.timeline .time-label{
     text-align: center;
     padding:1px;
     border-bottom: 2px solid #0003;
     margin:0 2px;
 }
-.time-areaes .time{
+
+
+/* lines */
+.timeline .lines{ display: flex; flex-direction: column; gap: 8px;}
+.timeline .line{
+    pointer-events: none;
     display: flex;
-    flex-direction: column;
+    --start:1;
+    --end:var(--max-grow);
 }
-.time-areaes .time .time-area{
-    flex: 1 0 100%;
+.timeline .line .line-content , 
+.timeline .line::before , 
+.timeline .line::after{flex: 1 1 0; min-width: 0; content: ''; pointer-events: none;}
+.timeline .line::before ,
+.timeline .line::after{opacity: 0;}
+
+.timeline .line .line-content{
+    pointer-events: all;
+    flex-grow: calc(var(--end) - var(--start) + var(--min-grow));
+}
+.timeline .line::before{
+    flex-grow: calc(var(--start) - var(--min-grow));
+}
+.timeline .line::after{
+    flex-grow: calc(var(--max-grow) - var(--end) );
+}
+
+/* line-container : 옵션 */
+.timeline .line-container{
+    position: relative;
+    pointer-events: none;
+}
+.timeline .line-container > *{
+    position: absolute;
+    inset: 0;
+}
+.timeline .line-container > *:first-child{
+    position: static;
+}
+
+
+
+/* timeline-background */
+.timeline .timeline-background{
     background-color: #eeeeee;
+}
+.timeline .timeline-background .times .time{
+    display: block;
     margin:0 0px;
 }
-.time-areaes .time .time-area::before{
+.timeline .timeline-background .time::before{
     content: "";
     display: block;
     height: 100%;
@@ -43,44 +83,8 @@
     margin-left: -1px;
     border-right: 2px solid #9993;
 }
-.time-areaes .time:first-of-type .time-area::before{
+.timeline .timeline-background .time:first-of-type::before{
     content: none;
-}
-
-/* lines */
-.lines{ display: flex; flex-direction: column; gap: 8px;}
-.line{
-    pointer-events: none;
-    display: flex;
-    --start:1;
-    --end:var(--max-grow);
-}
-.line .line-content , 
-.line::before , .line::after{flex: 1 1 0; min-width: 0; content: ''; pointer-events: none;}
-.line::before,.line::after{opacity: 0;}
-
-.line .line-content{
-    pointer-events: all;
-    flex-grow: calc(var(--end) - var(--start) + var(--min-grow));
-}
-.line::before{
-    flex-grow: calc(var(--start) - var(--min-grow));
-}
-.line::after{
-    flex-grow: calc(var(--max-grow) - var(--end) );
-}
-
-/* line-container : 옵션 */
-.line-container{
-    position: relative;
-    pointer-events: none;
-}
-.line-container > *{
-    position: absolute;
-    inset: 0;
-}
-.line-container > *:first-child{
-    position: static;
 }
 
 
@@ -88,20 +92,23 @@
 .timeline{
     position: relative;
 }
-.timeline-header{
+.timeline .timeline-header{
     position: static;
 }
-.timeline-header .time-labels{
+.timeline .timeline-header{
     position: relative;   
     z-index: 3;
 }
-.timeline-header .time-areaes{
+.timeline .timeline-background{
     position: absolute;
     inset: 0;
     z-index: 1;
     pointer-events: none;
 }
-.timeline-body{
+.timeline .timeline-background .times{
+    height: 100%;
+}
+.timeline .timeline-body{
     padding:8px 0;
     position: relative;
     z-index: 2;
@@ -111,7 +118,7 @@
 
 
 
-/* line-bar */
+/* line-bar : 커스텀해서 사용하자 */
 .line-bar{
     background-color: #abc;
     border-radius: 999px;
