@@ -37,7 +37,7 @@
     
     <!-- //meta og -->
     <style>
-        .gradient-box{
+        .box{
             display: flex;
             justify-content: center;
             align-items: center;
@@ -46,10 +46,23 @@
             height: 3em;
             outline: 1px solid #999;
             color: #000;
+            text-align: center;
             text-shadow: 1px 1px 0px #fff, -1px -1px 0px #fff , -1px 1px 0px #fff , 1px -1px 0px #fff;
+        }
+        .background-color-box{
+            background-color: var(--bgc);
+        }
+        .gradient-box{
+            
             --color-space: srgb;
             background: linear-gradient(to right in var(--color-space),  #f00 0%,#0ff 100%);
         }
+        .color-mix-box{
+            
+            --color-space: srgb;
+            background-color: color-mix(in var(--color-space), #f00 100%, #0ff 100%)
+        }
+        
     </style>
     
 </head>
@@ -57,27 +70,91 @@
     <div class="container my-3">
         <h1>Color space</h1>
         <hr>
-        <h2>Style background : linear-gradient(to right in var(--color-space),  #f00 0%,#0ff 100%);</h2>
-        <hr>
-        <div class="d-flex flex-column gap-1">
-            <h4 class="mt-3 mb-1">RGB 계열</h4>
-            <div class="rounded gradient-box" style="--color-space: srgb">--color-space: srgb(기본값)</div>
-            <div class="rounded gradient-box" style="--color-space: srgb-linear">--color-space:  srgb-linear</div>
-            <div class="rounded gradient-box" style="--color-space: display-p3">--color-space:  display-p3</div>
-            <div class="rounded gradient-box" style="--color-space: a98-rgb">--color-space:  a98-rgb</div>
-            <div class="rounded gradient-box" style="--color-space: prophoto-rgb">--color-space:  prophoto-rgb</div>
-            <div class="rounded gradient-box" style="--color-space: rec2020">--color-space:  rec2020</div>
-            <h4 class="mt-3 mb-1">HSL 계열</h4>
-            <div class="rounded gradient-box" style="--color-space: hsl">--color-space:  hsl</div>
-            <div class="rounded gradient-box" style="--color-space: hwb">--color-space:  hwb</div>
-            <h4 class="mt-3 mb-1">CIE 계열</h4>
-            <div class="rounded gradient-box" style="--color-space: lab">--color-space:  lab</div>
-            <div class="rounded gradient-box" style="--color-space: lch">--color-space:  lch</div>
-            <div class="rounded gradient-box" style="--color-space: xyz">--color-space:  xyz</div>
-            <div class="rounded gradient-box" style="--color-space: xyz-d50">--color-space:  xyz-d50</div>
-            <h4 class="mt-3 mb-1">OK 계열</h4>
-            <div class="rounded gradient-box" style="--color-space: oklab">--color-space:  oklab</div>
-            <div class="rounded gradient-box" style="--color-space: oklch">--color-space:  oklch</div>
+        <div class="card my-3">
+            <div class="card-header">color(): 색 지정</div>
+            <div class="card-body">
+                <h2>Style background-color : color(colorspace c1 c2 c3[ / A])</h2>
+                <h3>c1 c2 c3 A 는 0~1 사이의 값</h3>
+                <hr>
+                <div class="d-flex flex-column gap-1">
+                    <h4 class="mt-3 mb-1">RGB 계열</h4>
+                    <div class="rounded background-color-box box" style="--bgc:color(srgb 1 0.5 0.25 )">--bgc:color(srgb 1 0.5 0.25 )</div>
+                    <div class="rounded background-color-box box" style="--bgc:color(srgb-linear 1 0.5 0.25 )">--bgc:color(srgb-linear 1 0.5 0.25 )</div>
+                    <div class="rounded background-color-box box" style="--bgc:color(display-p3 1 0.5 0.25 )">--bgc:color(display-p3 1 0.5 0.25 )</div>
+                    <div class="rounded background-color-box box" style="--bgc:color(a98-rgb 1 0.5 0.25 )">--bgc:color(a98-rgb 1 0.5 0.25 )</div>
+                    <div class="rounded background-color-box box" style="--bgc:color(prophoto-rgb 1 0.5 0.25 )">--bgc:color(prophoto-rgb 1 0.5 0.25 )</div>
+                    <div class="rounded background-color-box box" style="--bgc:color(rec2020 1 0.5 0.25 )">--color-space:(rec2020 1 0.5 0.25 )</div>
+                    <h4 class="mt-3 mb-1">HSL 계열</h4>
+                    <div class="rounded background-color-box box" style="--bgc:color(hsl 20deg 100% 63% )">--bgc:color(hsl 20deg 100% 63% )<br>(not support in chrome)</div>
+                    <div class="rounded background-color-box box" style="--bgc:color(hwb 20deg 25% 0% )">--bgc:color(hwb 20deg 25% 0% )<br>(not support in chrome)</div>
+                    <h4 class="mt-3 mb-1">CIE 계열</h4>
+                    <div class="rounded background-color-box box" style="--bgc:color(lab 267.95 46.65 56.43)">--bgc:color(lab 267.95 46.65 56.43)<br>(not support in chrome)</div>
+                    <div class="rounded background-color-box box" style="--bgc:color(lch 67.95 73.21 50.42)">--bgc:color(lch 67.95 73.21 50.42)<br>(not support in chrome)</div>
+                    <div class="rounded background-color-box box" style="--bgc:color(xyz 0.5 0.37 0.09)">--bgc:color(xyz 0.5 0.37 0.09)</div>
+                    <div class="rounded background-color-box box" style="--bgc:color(xyz-d50 0.53 0.38 0.07)">--bgc:color(xyz-d50 0.53 0.38 0.07)</div>
+                    <h4 class="mt-3 mb-1">OK 계열</h4>
+                    <div class="rounded background-color-box box" style="--bgc:color(oklab 0.73 0.12 0.12)">--bgc:color(oklab 0.73 0.12 0.12)<br>(not support in chrome)</div>
+                    <div class="rounded background-color-box box" style="--bgc:color(oklch 0.73 0.17 44.92)">--bgc:color(oklch 0.73 0.17 44.92)<br>(not support in chrome)</div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="card my-3">
+            <div class="card-header">color-mix(): 색 혼합</div>
+            <div class="card-body">
+                <h2>Style background-color: color-mix(in var(--color-space), #f00 100%, #0ff 100%)</h2>
+                <h3>아래 gradient 의 중간 색이 된다.</h3>
+                <hr>
+                <div class="d-flex flex-column gap-1">
+                    <h4 class="mt-3 mb-1">RGB 계열</h4>
+                    <div class="rounded color-mix-box box" style="--color-space: srgb">--color-space: srgb(기본값)</div>
+                    <div class="rounded color-mix-box box" style="--color-space: srgb-linear">--color-space:  srgb-linear</div>
+                    <div class="rounded color-mix-box box" style="--color-space: display-p3">--color-space:  display-p3</div>
+                    <div class="rounded color-mix-box box" style="--color-space: a98-rgb">--color-space:  a98-rgb</div>
+                    <div class="rounded color-mix-box box" style="--color-space: prophoto-rgb">--color-space:  prophoto-rgb</div>
+                    <div class="rounded color-mix-box box" style="--color-space: rec2020">--color-space:  rec2020</div>
+                    <h4 class="mt-3 mb-1">HSL 계열</h4>
+                    <div class="rounded color-mix-box box" style="--color-space: hsl">--color-space:  hsl</div>
+                    <div class="rounded color-mix-box box" style="--color-space: hwb">--color-space:  hwb</div>
+                    <h4 class="mt-3 mb-1">CIE 계열</h4>
+                    <div class="rounded color-mix-box box" style="--color-space: lab">--color-space:  lab</div>
+                    <div class="rounded color-mix-box box" style="--color-space: lch">--color-space:  lch</div>
+                    <div class="rounded color-mix-box box" style="--color-space: xyz">--color-space:  xyz</div>
+                    <div class="rounded color-mix-box box" style="--color-space: xyz-d50">--color-space:  xyz-d50</div>
+                    <h4 class="mt-3 mb-1">OK 계열</h4>
+                    <div class="rounded color-mix-box box" style="--color-space: oklab">--color-space:  oklab</div>
+                    <div class="rounded color-mix-box box" style="--color-space: oklch">--color-space:  oklch</div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="card my-3">
+            <div class="card-header">gradient</div>
+            <div class="card-body">
+                <h2>Style background : linear-gradient(to right in var(--color-space),  #f00 0%,#0ff 100%);</h2>
+                <hr>
+                <div class="d-flex flex-column gap-1">
+                    <h4 class="mt-3 mb-1">RGB 계열</h4>
+                    <div class="rounded gradient-box box" style="--color-space: srgb">--color-space: srgb(기본값)</div>
+                    <div class="rounded gradient-box box" style="--color-space: srgb-linear">--color-space:  srgb-linear</div>
+                    <div class="rounded gradient-box box" style="--color-space: display-p3">--color-space:  display-p3</div>
+                    <div class="rounded gradient-box box" style="--color-space: a98-rgb">--color-space:  a98-rgb</div>
+                    <div class="rounded gradient-box box" style="--color-space: prophoto-rgb">--color-space:  prophoto-rgb</div>
+                    <div class="rounded gradient-box box" style="--color-space: rec2020">--color-space:  rec2020</div>
+                    <h4 class="mt-3 mb-1">HSL 계열</h4>
+                    <div class="rounded gradient-box box" style="--color-space: hsl">--color-space:  hsl</div>
+                    <div class="rounded gradient-box box" style="--color-space: hwb">--color-space:  hwb</div>
+                    <h4 class="mt-3 mb-1">CIE 계열</h4>
+                    <div class="rounded gradient-box box" style="--color-space: lab">--color-space:  lab</div>
+                    <div class="rounded gradient-box box" style="--color-space: lch">--color-space:  lch</div>
+                    <div class="rounded gradient-box box" style="--color-space: xyz">--color-space:  xyz</div>
+                    <div class="rounded gradient-box box" style="--color-space: xyz-d50">--color-space:  xyz-d50</div>
+                    <h4 class="mt-3 mb-1">OK 계열</h4>
+                    <div class="rounded gradient-box box" style="--color-space: oklab">--color-space:  oklab</div>
+                    <div class="rounded gradient-box box" style="--color-space: oklch">--color-space:  oklch</div>
+                </div>
+                
+            </div>
         </div>
         <hr>
         <div>
@@ -86,7 +163,6 @@
             OKLab 은 L(밝기) a(녹색-적색) b(청색-황색) vs OKLCH 는 L(밝기) C(채도) H(색상각) 으로 계산 시 보간축에 다르기 때문<br>
             색공간이나 보간축이 다르면 다른 그라이언트가 표시될 수 있다.
         </div> 
-        
         
         
     </div>
