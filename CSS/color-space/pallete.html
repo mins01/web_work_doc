@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+    <title>color space - pallete</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="/js/ForGoogle.js"></script>
+    <!-- google analytics -->
+    <script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+    
+
+    <!-- jquery 관련 -->
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script> -->
+
+    <!-- 부트스트랩 5.3.x -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <!-- vue.js -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    
+    <!-- meta og -->
+    
+    <meta property="og:title" content="color space - pallete">
+    <meta property="og:description" content="color space - pallete">
+    <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+    <meta property="og:image:width" content="190">
+    <meta property="og:image:height" content="70" />
+    <meta property="og:site_name" content="color space - pallete" />
+    <meta property="og:type" content="website">
+    
+    <!-- //meta og -->
+    <style>
+        .circle-box{
+            width: 300px;
+            height: 300px;
+            margin:0 auto;
+            background-size: contain;
+            background-position: center center;
+            border-radius: 999em;
+        }
+        .circle-box.hsl{
+            --s : 85%;
+            --l : 55%;
+            background-image: radial-gradient( circle farthest-side at center, #fff 0%, transparent 100% ), 
+                            conic-gradient( in hsl, 
+                                                    hsl(0deg var(--s) var(--l)) 0deg,
+                                                    hsl(60deg var(--s) var(--l)) 60deg,
+                                                    hsl(120deg var(--s) var(--l)) 120deg,
+                                                    hsl(180deg var(--s) var(--l)) 180deg,
+                                                    hsl(240deg var(--s) var(--l)) 240deg,
+                                                    hsl(300deg var(--s) var(--l)) 300deg,
+                                                    hsl(360deg var(--s) var(--l)) 360deg
+                                            );
+        }
+        .circle-box.oklch{
+            --l : 0.7;
+            --c : 0.21;
+            background-image: radial-gradient( circle farthest-side at center, #fff 0%, transparent 100% ), 
+                            conic-gradient( in oklch, 
+                                                    oklch(var(--l) var(--c) 0deg),
+                                                    oklch(var(--l) var(--c) 60deg),
+                                                    oklch(var(--l) var(--c) 120deg),
+                                                    oklch(var(--l) var(--c) 180deg),
+                                                    oklch(var(--l) var(--c) 240deg),
+                                                    oklch(var(--l) var(--c) 300deg),
+                                                    oklch(var(--l) var(--c) 360deg));
+        }
+
+        .linear-box{
+            height: 40px;
+            margin:0 auto;
+            background-size: contain;
+            background-position: center center;
+        }
+        .linear-box.hsl{
+            --s : 85%;
+            --l : 55%;
+            background-image: linear-gradient( to left in hsl, 
+                                                    hsl(0deg var(--s) var(--l)) ,
+                                                    hsl(60deg var(--s) var(--l)) ,
+                                                    hsl(120deg var(--s) var(--l)) ,
+                                                    hsl(180deg var(--s) var(--l)) ,
+                                                    hsl(240deg var(--s) var(--l)) ,
+                                                    hsl(300deg var(--s) var(--l)) ,
+                                                    hsl(360deg var(--s) var(--l)) 
+                                            );
+        }
+        .linear-box.oklch{
+            --l : 0.7;
+            --c : 0.21;
+            background-image: linear-gradient( to left in oklch, 
+                                                    oklch(var(--l) var(--c) 0deg),
+                                                    oklch(var(--l) var(--c) 60deg),
+                                                    oklch(var(--l) var(--c) 120deg),
+                                                    oklch(var(--l) var(--c) 180deg),
+                                                    oklch(var(--l) var(--c) 240deg),
+                                                    oklch(var(--l) var(--c) 300deg),
+                                                    oklch(var(--l) var(--c) 360deg)
+                                            );
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container my-3">
+        <h1>Color space - pallete</h1>
+        <hr>
+        <div class="card my-3">
+            <div class="card-header">색상 표 - hsl</div>
+            <div class="card-body">
+                <div class="circle-box hsl"></div>
+                <div class="linear-box hsl"></div>
+            </div>
+        </div>
+        <div class="card my-3">
+            <div class="card-header">색상 표 - oklch</div>
+            <div class="card-body">
+                <div class="circle-box oklch"></div>
+                <div class="linear-box oklch"></div>
+            </div>
+        </div>
+        
+        
+        
+        
+    </div>
+</body>
+</html>
