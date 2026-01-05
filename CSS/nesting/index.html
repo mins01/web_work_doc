@@ -42,7 +42,7 @@
             outline: 1px solid #f66;
             background-color: #f663;
         }
-        .test-target *::after{
+        .test-target *::before{
                 border-radius: 5px;
                 outline: 1px solid #999;
                 text-decoration: underline;
@@ -56,18 +56,25 @@
             & {
                 border-color: #900;
             }
-            &::after{
+            &::before{
                 content:'& = :scope root';
             }
-            /* 자식요소 표시 without amp*/
-            .target-child-without-amp::after{
+            /* 후손 요소 표시 without amp*/
+            .target-child-without-amp::before{
                 content:'.target-child-without-amp';
             }
-            /* 자식요소 표시 */
-            & .target-child::after{
+            /* 후손 요소 표시 */
+            & .target-child::before{
                 content:'& .target-child';
             }
-            /* 부모요소 조건 */
+            /* 자식 요소 */
+            & > .target-only-child{
+                background-color: #09f3;
+            }
+            & > .target-only-child::before{
+                content:'& > .target-only-child';
+            }
+            /* 부모 요소 조건 */
             .target-parent &{
                 font-weight: bold;
             }
@@ -75,14 +82,14 @@
             & ~ .list-group-item{
                 color:#09f;
             }
-            & ~ .list-group-item::after{
+            & ~ .list-group-item::before{
                 content:'& ~ .list-group-item';
             }
             /* 인접 형제 연산자 */
             & + .list-group-item{
                 color:#696;
             }
-            & + .list-group-item::after{
+            & + .list-group-item::before{
                 content:'& + .list-group-item';
             }
 
@@ -115,6 +122,7 @@
                     <div class="target-child">target<div class="target-child">target</div></div>
                     <div class="target-child-without-amp target-next-sibling">target</div>
                     <div class="target-child target-next-sibling">target</div>
+                    <div class="target-only-child">target<div class="target-only-child">target</div></div>
                 </li>
                 <li class="list-group-item">
                     target : ~ 연산자, + 연산자
@@ -132,6 +140,8 @@
                     <div class="target-child">target<div class="target-child">target</div></div>
                     <div class="target-child-without-amp target-next-sibling">target</div>
                     <div class="target-child target-next-sibling">target</div>
+                    <div class="target-only-child">target<div class="target-only-child">target</div></div>
+
                 </li>
                 <li class="list-group-item">
                     target : ~ 연산자, + 연산자
