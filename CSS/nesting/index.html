@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+    <title>CSS nesting</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="/js/ForGoogle.js"></script>
+    <!-- google analytics -->
+    <script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+    
+
+    <!-- jquery 관련 -->
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script> -->
+
+    <!-- 부트스트랩 5.3.x -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script> -->
+
+    <!-- vue.js -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    
+    <!-- meta og -->
+    
+    <meta property="og:title" content="CSS nesting">
+    <meta property="og:description" content="CSS nesting">
+    <meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+    <meta property="og:image:width" content="190">
+    <meta property="og:image:height" content="70" />
+    <meta property="og:site_name" content="CSS nesting" />
+    <meta property="og:type" content="website">
+    
+    <!-- //meta og -->
+    <style>
+        .test-target div{
+            padding:4px; margin:4px;
+            outline: 1px solid #f66;
+            background-color: #f663;
+        }
+        .test-target *::after{
+                border-radius: 5px;
+                outline: 1px solid #999;
+                text-decoration: underline;
+                margin:5px;
+                display: block;
+        }
+        .target-selection{
+            /* :scope root  */
+            & {
+                border: 3px dotted #900;
+            }
+            /* 자식요소 표시 without amp*/
+            .target-child-without-amp::after{
+                content:'.target-child-without-amp';
+            }
+            /* 자식요소 표시 */
+            & .target-child::after{
+                content:'& .target-child';
+            }
+            /* 부모요소 조건 */
+            .target-parent &{
+                font-weight: bold;
+            }
+            /* 형제 연산자 */
+            & ~ .list-group-item{
+                color:#09f;
+            }
+            & ~ .list-group-item::after{
+                content:'& ~ .list-group-item';
+            }
+            /* 인접 형제 연산자 */
+            & + .list-group-item{
+                color:#696;
+            }
+            & + .list-group-item::after{
+                content:'& + .list-group-item';
+            }
+
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>CSS nesting</h1>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="https://developer.mozilla.org/ko/docs/Web/CSS/Guides/Nesting">MDN: CSS nesting</a></li>
+            <li class="list-group-item">
+                <ul class="list-group my-1">
+                    <li class="list-group-item">Chrome 112 – 119 (Release date: 2023-04-04) :  Partial support</li>
+                    <li class="list-group-item">Chrome 120 (Release date: 2023-12-05) : Full support</li>
+                </ul>
+                <ul class="list-group my-1">
+                    <li class="list-group-item">Safari 16.5 – 17.1 (Release date: 2023-05-18) :  Partial support</li>
+                    <li class="list-group-item">Safari 17.2 (Release date: 2023-12-11) : Full support</li>
+                </ul>
+            </li>
+        </ul>
+        <hr>
+        <h2>test</h2>
+        <div class="test-target">
+            <ul class="my-3 list-group target-parent">
+                <li class="list-group-item target-selection">
+                    <div class="target-child-without-amp">target<div class="target-child-without-amp">target</div></div>
+                    <div class="target-child">target<div class="target-child">target</div></div>
+                    <div class="target-child-without-amp target-next-sibling">target</div>
+                    <div class="target-child target-next-sibling">target</div>
+                </li>
+                <li class="list-group-item">
+                    target : ~ 연산자, + 연산자
+                </li>
+                <li class="list-group-item">
+                    target: ~ 연산자
+                </li>
+                <li class="list-group-item">
+                    target: ~ 연산자
+                </li>
+            </ul>
+            <ul class="my-3 list-group without-target-parent">
+                <li class="list-group-item target-selection">
+                    <div class="target-child-without-amp">target<div class="target-child-without-amp">target</div></div>
+                    <div class="target-child">target<div class="target-child">target</div></div>
+                    <div class="target-child-without-amp target-next-sibling">target</div>
+                    <div class="target-child target-next-sibling">target</div>
+                </li>
+                <li class="list-group-item">
+                    target : ~ 연산자, + 연산자
+                </li>
+                <li class="list-group-item">
+                    target: ~ 연산자
+                </li>
+                <li class="list-group-item">
+                    target: ~ 연산자
+                </li>
+            </ul>
+        </div>
+        
+    </div>
+</body>
+</html>
