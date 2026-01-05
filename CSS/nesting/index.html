@@ -50,9 +50,14 @@
                 display: block;
         }
         .target-selection{
+            border-width:3px;
+            border-style:dotted;
             /* :scope root  */
             & {
-                border: 3px dotted #900;
+                border-color: #900;
+            }
+            &::after{
+                content:'& = :scope root';
             }
             /* 자식요소 표시 without amp*/
             .target-child-without-amp::after{
