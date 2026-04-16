@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+    <title>DOMMatrix</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="http://www.mins01.com/favicon.ico"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="/js/ForGoogle.js"></script>
+    <!-- google analytics -->
+    <script>if(window.ForGoogle){ ForGoogle.analytics() }else{ console.log("failure : ForGoogle.analytics()");}</script>
+    
+
+    <!-- jquery 관련 -->
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script> -->
+
+    <!-- 부트스트랩 5.3.x -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <!-- vue.js -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    
+    <!-- meta og -->
+    
+    <meta property="og:title" content="DOMMatrix">
+    <meta property="og:description" content="DOMMatrix">
+    <meta property="og:image" content="http://www.mins01.com/img/logo.gif">
+    <meta property="og:image:width" content="190">
+    <meta property="og:image:height" content="70" />
+    <meta property="og:site_name" content="DOMMatrix" />
+    <meta property="og:type" content="website">
+    
+    <!-- //meta og -->
+    
+    <style>
+        .box{
+            position: relative;
+            background-color: #abc;
+            width:300px;height:300px;
+        }
+        .dot{
+            width:0px;height: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: visible;
+            position: absolute;
+            left:0;top:0;
+            &::before{
+                position: absolute;
+                left:50%;top: 50%;
+                transform: translate(-50%,-50%);
+                content:'';
+                width:10px;height: 10px;
+                border-radius: 10px;
+                background-color: #f339;
+            }
+        }
+        .dot-10-20{
+            transform: translate(10px,20px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DOMMatrix</h1>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/DOMMatrix" target="_blank">https://developer.mozilla.org/en-US/docs/Web/API/DOMMatrix</a>
+            </li>
+            <li class="list-group-item">
+                translate(), rotate(), scale() 로 좌표 행렬 조작 (CANVAS 이나 css transform 같이)
+            </li>
+            <li class="list-group-item">
+                대부분의 모던 브라우저에서 지원함.<br>
+                크롬 61, 사파리 11
+            </li>
+        </ul>
+        <hr>
+        
+        <script>
+            {
+                const matrix = new DOMMatrix();
+                console.log('기본 매트릭스',matrix.toString());
+                
+            }
+            {
+                const matrix = new DOMMatrix()
+                    .translate(100, 50)
+                    .rotate(45)
+                    .scale(2);
+
+                console.log('이동 후 회전 후 확대 매트릭스',matrix.toString());
+            }
+        </script>
+        <div class="box">
+            <div class="dot dot-10-20" id="dot-1">1</div>
+            <div class="dot dot-10-20" id="dot-2">2</div>
+        </div>
+        <script>
+            {
+                const point = new DOMPoint(10, 20);
+                console.log('시작 좌표',point);
+                {
+                    const matrix = new DOMMatrix()
+                    .translate(100, 50)
+                    .rotate(45)
+                    .scale(2);
+                    const result = point.matrixTransform(matrix);
+                    console.log('확대 후 회전 후 이동 좌표',result);
+                    const matrixIn = matrix.inverse(); // 오차가 발생한다.
+                    const resultIn = result.matrixTransform(matrixIn);
+                    console.log('inverse 좌표',resultIn);
+
+                    const matrixIn2 = new DOMMatrix()
+                    .scale(0.5)
+                    .rotate(-45)
+                    .translate(-100, -50)
+                    const resultIn2 = result.matrixTransform(matrixIn2);
+                    console.log('확대 후 회전 후 이동 좌표(수동 inverse)',resultIn2);
+                }
+                {
+                    const m1 = new DOMMatrix().translate(100, 50);
+                    const m2 = new DOMMatrix().rotate(45);
+                    const m3 = new DOMMatrix().scale(2);;
+                    const result = point.matrixTransform(m1.multiply(m2).multiply(m3));
+                    console.log('확대 후 회전 후 이동 좌표(multiply)',result);
+                }
+                {
+                    const matrix = new DOMMatrix()
+                    .translate(100, 50)
+                    .rotate(45)
+                    .scale(2);
+                    // element 적용
+                    const el = document.querySelector('#dot-2');
+                    const parent = el.parentElement;
+                    const style = getComputedStyle(el);
+                    const prevMatrix = new DOMMatrix(style.transform);
+                    const newMatrix = matrix.multiply(prevMatrix);
+
+                    const elRect0 = el.getBoundingClientRect();
+                    const parentRect = parent.getBoundingClientRect();
+                    const dx0 = elRect0.x - elRect0.width/2 - parentRect.x
+                    const dy0 = elRect0.y - elRect0.height/2 - parentRect.y
+                    console.log('element 시작 좌표',{x:dx0,y:dy0});
+
+                    el.style.transform = newMatrix.toString();
+                    const elRect = el.getBoundingClientRect();
+                    const dx = elRect.x - elRect.width/2 - parentRect.x
+                    const dy = elRect.y - elRect.height/2 - parentRect.y
+                    console.log('확대 후 회전 후 이동 좌표 element 좌표',{x:dx,y:dy});
+                }
+                {
+                    const matrix = new DOMMatrix()
+                    .scale(2)
+                    .rotate(45)
+                    .translate(100, 50)
+                    const result = point.matrixTransform(matrix);
+                    console.log('이동 후 회전 후 확대 좌표',point,result);
+                }
+                {
+                    const m1 = new DOMMatrix().translate(100, 50);
+                    const m2 = new DOMMatrix().rotate(45);
+                    const m3 = new DOMMatrix().scale(2);;
+                    const result = point.matrixTransform(m3.multiply(m2).multiply(m1));
+                    console.log('이동 후 회전 후 확대 좌표(multiply)',point,result);
+                }
+            }
+        </script>
+        
+    </div>
+</body>
+</html>
